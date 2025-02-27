@@ -139,7 +139,8 @@ sudo apt-get install build-essential
 
 - [mitex](https://typst.app/universe/package/mitex/)
     - 支持渲染 latex 语法
-    - [tex2typst Web App](https://qwinsi.github.io/tex2typst-webapp/) 可以将 latex 数学公式转为 typst 数学公式（有一点 bug）
+- [cmaker](https://typst.app/universe/package/cmarker)
+	- 支持渲染 markdown 语法
 - [touyin](https://typst.app/universe/package/touying/)
 	- 使用 tpyst 制作简单的 ppt
 - [cetz](https://typst.app/universe/package/cetz) [docs](https://cetz-package.github.io/)

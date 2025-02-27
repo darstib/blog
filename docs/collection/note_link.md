@@ -9,15 +9,16 @@ tags:
 
 复习老是在找笔记的路上……所以想把自己用过的笔记链接集成在这，所有努力均由各位大佬付出，我基本只是一个搬运工 😀（基于 ZJU 2023 级信息安全培养方案）。
 
-> 来源繁多，如认为有不当之处还请评论区留言或者[联系我](https://darstib.github.io/blog/connect_me/)删除。
-
 <!-- more -->
 
 > [!attention]
 >
-> 一些打算上的课的笔记也可能在这里，但是不能够保证比较好，最后会留下对我帮助最大的一些笔记；采用倒叙，毕竟对于我自己来说“时间上”越后面的翻得越多。
+> - 来源繁多，如认为有不当之处还请评论区留言或者[联系我](https://darstib.github.io/blog/connect_me/)删除;
+> - 采用倒叙，毕竟对于我自己来说“时间上”越后面的翻得越多；
+> - 一些打算上的课的笔记也在这里，但是不能够保证比较好，最后会留下帮助最大的一些笔记；
+> - 同时链接名前的 `-` 表示我只是粗略地查看过相关资料并将其收集于此而并没用上，仅供参考。
 >
-> [这里](https://isshikihugh.github.io/zju-cs-asio/)是修佬统筹的各路神仙~
+> [zju-cs-asio](https://isshikihugh.github.io/zju-cs-asio/) 是 IsshikiHugh 统筹的各路神仙~
 
 ## 大三
 
@@ -29,12 +30,12 @@ tags:
 
 ### 编译原理
 
-- [Transcription-Malfunctioned - CP.pdf](https://github.com/Tian42chen/Transcription-Malfunctioned/blob/main/_Finalized_Notes/CP.pdf)
+- [-Transcription-Malfunctioned - CP.pdf](https://github.com/Tian42chen/Transcription-Malfunctioned/blob/main/_Finalized_Notes/CP.pdf)
 
 ### 密码学进阶
 
-- [「密码学基础」学习笔记](https://penghao.site/post/mi-ma-xue-ji-chu-xue-xi-bi-ji/)
-- [鹤翔万里的笔记本](https://note.tonycrane.cc/sec/crypto/)
+- [-「密码学基础」学习笔记](https://penghao.site/post/mi-ma-xue-ji-chu-xue-xi-bi-ji/)
+- [-鹤翔万里的笔记本](https://note.tonycrane.cc/sec/crypto/)
 
 ### 软件安全
 
@@ -50,21 +51,33 @@ tags:
 
 ### 人工智能安全
 
+#### 笔记
+
 - [金鱼马的人工智能安全笔记](https://www.zhihu.com/column/c_1633936906831552512)
 
 #### 书籍
 
 - [人工智能：数据与模型安全](https://ai-data-model-safety.github.io/index.html)
-- [Introduction to AI Safety, Ethics, and Society](https://www.aisafetybook.com/)
 - [Interpretable Machine Learning](https://christophm.github.io/interpretable-ml-book/)
 	- [中文翻译](https://github.com/MingchaoZhu/InterpretableMLBook)
 
+### 人工智能伦理安全
+
+#### 笔记
+
+- [YEY blog - COMP90087](https://yey.world/archive/?tag=COMP90087)
+
+#### 书籍
+
+- [Introduction to AI Safety, Ethics, and Society](https://www.aisafetybook.com/)
+
 ### 数据建模与分析
 
-- [slx's notebook](https://collapsar11.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1%E4%B8%8E%E5%88%86%E6%9E%90/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E5%8F%8A%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%AE%BA/)
-- [HengZhao's Knowledge Base](https://note.enlzhao.com/AI/aialgorithm/)
+- [-HengZhao's Knowledge Base](https://note.enlzhao.com/AI/aialgorithm/)
+- [-slx's notebook](https://collapsar11.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1%E4%B8%8E%E5%88%86%E6%9E%90/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E5%8F%8A%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%AE%BA/)
+- [-YEY blog - COMP90051](https://yey.world/archive/?tag=COMP90051)
 
-- [HobbitQia's repo](https://github.com/HobbitQia/ZJU-Courses-Resources/tree/master/%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1%E4%B8%8E%E5%88%86%E6%9E%90)
+- [-HobbitQia's repo](https://github.com/HobbitQia/ZJU-Courses-Resources/tree/master/%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1%E4%B8%8E%E5%88%86%E6%9E%90)
 
 ### 数据库系统
 
@@ -72,7 +85,7 @@ tags:
 
 ### 毛概
 
-- [from RyanFcr](https://k5ms77k0o1.feishu.cn/wiki/wikcnT64Bm4TGqWzg9009wdFS4d)
+- [-from RyanFcr](https://k5ms77k0o1.feishu.cn/wiki/wikcnT64Bm4TGqWzg9009wdFS4d)
 
 ## 大二上
 
@@ -89,7 +102,7 @@ tags:
 
 - [2024春夏ADS讲义](https://github.com/Darstib/blog/tree/main/docs/collection/attachments/2024%E6%98%A5%E5%A4%8FADS%E8%AE%B2%E4%B9%89.pdf)
     - [yhwu-is](https://github.com/yhwu-is) 任 ADS 助教期间写的补充讲义，已获得本人许可。
-    - 【免责】作者及我不对内容正确性做保证；
+    - 【免责】作者及我不对内容完全正确性做保证；
     - 【推销】作者希望更多人看到：[LALU #线性代数：未竟之美](https://github.com/yhwu-is/Linear-Algebra-Left-Undone)。
 
 ##### 复习
@@ -100,22 +113,21 @@ tags:
 #### 习题 & 真题
 
 - [ADS_problems](../note/other/ADS_problems.md)
-    - 同时可参考 [Jianjun Zhou's Notebook-ADS_HW](https://zhoutimemachine.github.io/note/courses/ads-hw-review/)
-    - [mem.ac 错题](https://mem.ac/course/ads/correction/)
+    - 参考 [Jianjun Zhou's Notebook-ADS_HW](https://zhoutimemachine.github.io/note/courses/ads-hw-review/)
+    - [-mem.ac 错题](https://mem.ac/course/ads/correction/)
 - [程序填空题](https://www.hyluz.cn/search.php?q=%E7%A8%8B%E5%BA%8F%E5%A1%AB%E7%A9%BA%E9%A2%98)
-- [一些 ADS 期末复习题](https://k5ms77k0o1.feishu.cn/docx/doxcnom9S5lSs27pxlQ3niuskOb)
-- [面向 ADS 的考试技巧](https://www.yuque.com/xianyuxuan/coding/ads_exam_1)
+- [-面向 ADS 的考试技巧](https://www.yuque.com/xianyuxuan/coding/ads_exam_1)
 
 - [HowJul的学习笔记](https://note.howjul.com/ADS/ads/)
 - [JLY191's github](https://github.com/JLY191/ZJU_SE_Course/tree/main/%E5%A4%A7%E4%BA%8C%E6%98%A5%E5%A4%8F/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90) 
 
 #### 工具
 
-- [Data Structure Visualizations](https://www.cs.usfca.edu/~galles/visualization/Algorithms.html) or [中文版？](https://www.rmboot.com/)
+- [Data Structure Visualizations](https://www.cs.usfca.edu/~galles/visualization/Algorithms.html) or [-中文版？](https://www.rmboot.com/)
     - 数据结构可视化
-- [Algorithm Visualizer](https://algorithm-visualizer.org/)
+- [-Algorithm Visualizer](https://algorithm-visualizer.org/)
     - 算法可视化
-- [Algorithms-DataStructures-BigONotation](https://cooervo.github.io/Algorithms-DataStructures-BigONotation/index.html)
+- [-Algorithms-DataStructures-BigONotation](https://cooervo.github.io/Algorithms-DataStructures-BigONotation/index.html)
 
 ### 面向对象程序设计 (OOP)
 
@@ -137,11 +149,10 @@ tags:
 > 由于课改，这部分作业很少，考试补天也找不到很贴合的笔记……
 
 - [数据安全与密码学基础 Cheatsheet & Homework - zzw4257](https://zzw4257.cn/posts/is-pro/%E5%AF%86%E7%A0%81%E5%AD%A6/#contest)
-- [HowJul的学习笔记](https://note.howjul.com/%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8/6.%20Modern%20Crypto/)
 
-### 计算机系统 II
+### 计算机系统 II (sys-II)
 
-- [Darstib's DB](https://darstib.github.io/blog/note/CSys-II)
+- [Darstib's Database - CSys-II](https://darstib.github.io/blog/note/CSys-II)
 - [鹤翔万里的笔记本](https://note.tonycrane.cc/cs/system/cs2/)
 - [-RyanFcr-计算机系统II](https://github.com/RyanFcr/ZJU_Course/tree/main/%E5%A4%A7%E4%BA%8C%E7%A7%8B%E5%86%AC/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E2%85%A1)
 
@@ -162,19 +173,19 @@ tags:
 
 #### 期末
 
-- [期末复习笔记](https://github.com/QSCTech/zju-icicles/blob/master/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86%E5%AE%9E%E9%AA%8C/%E5%A4%A7%E7%89%A9%E5%AE%9E%E9%AA%8C%E6%9C%9F%E6%9C%AB%E8%80%83%E8%AF%95%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0-2021-22%E5%AD%A6%E5%B9%B4%E7%A7%8B%E5%86%AC-%E9%BB%84%E6%8C%AF.pdf)
 - [绪论课课件](https://courses.zju.edu.cn/course/75245/learning-activity/full-screen#/892277)
+- [-期末复习笔记](https://github.com/QSCTech/zju-icicles/blob/master/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86%E5%AE%9E%E9%AA%8C/%E5%A4%A7%E7%89%A9%E5%AE%9E%E9%AA%8C%E6%9C%9F%E6%9C%AB%E8%80%83%E8%AF%95%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0-2021-22%E5%AD%A6%E5%B9%B4%E7%A7%8B%E5%86%AC-%E9%BB%84%E6%8C%AF.pdf)
 
 ### 大学物理乙 II
 
 - [physics2-problems](../note/physics/physics2-problems.md)
-    - 参考 [SAVIA的外装代脑](https://savia7582.github.io/Exterior/Physics/2/) 做的题型/技巧整理，正在完善中 ……
+    - 参考 [SAVIA的外装代脑](https://savia7582.github.io/Exterior/Physics/2/) 做的题型/技巧整理
 - [memset0](https://mem.ac/course/physics/)
 - [NoughtQ](https://note.noughtq.top/misc/physics/)
 
 ## 大一下
 
-### IV.1
+### 大学物理乙 I
 
 - [SAVIA的外装代脑](https://savia7582.github.io/Exterior/Physics/1/)
     - 虽然是大物甲的复习资料，但是质量比较高，挺可以的。
@@ -201,7 +212,8 @@ tags:
 #### 离散数学部分
 
 - [咸鱼肆](https://www.yuque.com/xianyuxuan/coding/crs-csmath)
-    - 这个（4 年前）的笔记和老师 ppt 也是基本一致。
+    - 这个（4 年前的）笔记和老师 ppt 也是基本一致。
+
 #### 概率论部分（概率论与数理论统计）
 
 > 似乎没谁笔记详细讲这门课的概率论部分，咸鱼肆部分又略显浓缩，所以借其他课程笔记一用；事实上，期末考察的内容并没有那么多。
@@ -211,12 +223,21 @@ tags:
 ### 马克思主义原理
 
 -  [Bowling's TechStack](https://note.bowling233.top/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E5%8E%9F%E7%90%86/)
+
 ## 大一上
 
 ### 线性代数
 
 - [Linear-Algebra-Left-Undone](https://github.com/yhwu-is/Linear-Algebra-Left-Undone)
     - 进去看看就知道了😏
+
+## 其他
+
+> [!Extra] 
+>
+> 不知道/不方便具体放哪。
+
+- [思修模写器](https://study.zjueva.net/)
 
 ## 参考资料
 
