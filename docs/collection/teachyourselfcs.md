@@ -38,6 +38,9 @@ comments: true
     - [Rust 官方文档](https://doc.rust-lang.org/stable/book/title-page.html)
     - [Rust 中文教程](https://course.rs/about-book.html)
         - 应该会比官方文档友善一点？
+- SQL
+	- [CS-Note 面试宝典](https://cyc2018.xyz/%E6%95%B0%E6%8D%AE%E5%BA%93/)
+	- [programiz online sql editor](https://www.programiz.com/sql/online-compiler)
 - C 语言刷题（除非刚学 C 几个月，不然没太大必要）
     - [PAT Solution](https://github.com/liuchuo/PAT)
     - [PAT Solution in C](https://xlucn.github.io/PAT/)
