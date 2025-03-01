@@ -33,7 +33,7 @@
 	        - CTF/NOTE/MISC/*.md
 	    - [WEB](CTF/NOTE/WEB/README.md)
 		    - CTF/NOTE/WEB/*.md
-        - Crypto
+        - [CRYPTO](CTF/NOTE/CRYPTO/README.md)
             - CTF/NOTE/CRYPTO/*.md
         - other
             - CTF/NOTE/other/*.md
