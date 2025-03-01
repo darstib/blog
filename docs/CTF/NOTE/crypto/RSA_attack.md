@@ -5,8 +5,6 @@ tags:
 comments: true
 ---
 
-**test** test
-
 ## 基本原理
 
 ### 加密原理
@@ -16,21 +14,20 @@ comments: true
 3. 寻找一个 e，使得：$1<e<phi$ 且 gcd(e, phi) = 1
 4. m 为明文映射为的大数，则密文 $c\equiv m^e\pmod{n}$
 5. (e, n) 作为公钥公开。
-
 ### 解密原理
 
 1. 私钥为 $d=e^-1\pmod{\phi(n)}$
 2. $c^d = m^{ed}\pmod{n} = m^{ed\pmod{\phi(n)}} =m$
 
-### 安全性保证
+### I.3 安全性保证
 
 **正常**的 RSA 的安全性完全来自 n 的质数分解难度；不正常的是什么？看下面就知道了。
 
-## 指数攻击
+## II 指数攻击
 
-### Low public exponent attack（低加密指数攻击）
+### II.1 Low public exponent attack（低加密指数攻击）
 
-#### e = 1
+#### II.1.1 e = 1
 
 > [!QUESTION]
 >
@@ -56,7 +53,7 @@ for i in range(123456789):
 >
 > crypto{saltstack_fell_for_this!}
 
-#### e = 2 (Rabin)
+#### II.1.2 e = 2 (Rabin)
 
 $\phi=(p-1)(q-1)$ 且由于 p/q 为素数，所以 $gcd(e, \phi)\neq 1$ ，那么怎么做？
 
@@ -157,7 +154,7 @@ for i in sqrt_c_p:
         print(long_to_bytes(m))
 ```
 
-#### e = 3
+#### II.1.3 e = 3
 
 如果 $m^e < n$ ，仍然可以直接开根；不然，可以由 $m^e = kn+c$ ，尝试爆破 k 并尝试开 3 次根，能分解多半是可行解；但是一般来说花费时间有点久。
 
@@ -180,9 +177,9 @@ m = Mod(c, n).nth_root(e)
 print(long_to_bytes(m)) # b'darctf{r@bln_a77@ck_e_2}'
 ```
 
-### gcd(e, phi) != 1
+### II.2 gcd(e, phi) != 1
 
-#### 一组 e, phi
+#### II.2.1 一组 e, phi
 
 一般来说 $gcd(e, \phi)=1$ 的，但要是 $gcd(e, \phi)\neq 1$ ，那么怎么做？e=2/3/4 …… 等十分小的数时后面另讲，这里考虑比较一般的情况。
 
@@ -212,7 +209,7 @@ print(bytes.fromhex(hex(m)[2:]))
 # b'flag{0e2f9add-31fd-4733-8f25-39297516f4e2}'
 ```
 
-#### 多组 e phi
+#### II.2.2 多组 e phi
 
 攻击条件：gcd(e, phi) != 1，gcd(n1, n2) != 1
 
@@ -230,7 +227,7 @@ $$
 [^1]: 可能是由于两次使用的 n 不同，m 所在的有限域不同导致的（猜测）。
 [^2]: `<=` 表示的是赋值，并非 `≤` 。
 
-##### 新的 gcd(e,phi)=1
+##### II.2.2.1 新的 gcd(e,phi)=1
 
 如果在经过上面转变后，新的 gcd(e, phi)=1 ，那么我们就是正常的 rsa 了，且 n 已经分解好：
 
@@ -298,7 +295,7 @@ print(bytes.fromhex(hex(m)[2:])) # b'moectf{Th1s_iS_Chinese_rEm41nDeR_The0rEm_CR
 >
 > 当使用的 e 相同时，其实不难得到：$\begin{cases}m^e =c_{1}\pmod{n_{1}}\\ m^e=c_{2}\pmod{n_{2}}\end{cases}$，使用 sagemath 中的 CRT_list() 方法可以很快的求解到 $m^e \pmod{p*q*r}$ ，可以验证这样获得值等于 $pow(m,e,p*q*r)$；但是模数太大了，难以分解；即使是很小的 e (e = 2) 我也没能分解出来。
 
-##### 新的 gcd(e, phi)!=1
+##### II.2.2.2 新的 gcd(e, phi)!=1
 
 要是新产生的 gcd(e,phi)!=1 ，就转变为了 [一组 e, phi](#一组%20e,%20phi) 的情况了：
 
@@ -337,9 +334,9 @@ m = Integer(m_b2).nth_root(b2)
 print(bytes.fromhex(hex(m)[2:])) # b"flag{gcd_e&\xcf\x86_isn't_1}"
 ```
 
-## 模数攻击
+## III 模数攻击
 
-### N 太小/被公开
+### III.1 N 太小/被公开
 
 > [!QUESTION]
 >
@@ -361,7 +358,7 @@ m = pow(c, d, N)
 print(bytes.fromhex(hex(m)[2:]).decode()) # crypto{s0m3th1ng5_c4n_b3_t00_b1g}
 ```
 
-### Roll 按行加密
+### III.2 Roll 按行加密
 
 类似于分组加密，分别解密之后恢复即可。
 
@@ -382,11 +379,11 @@ for i in c:
 print(flag)
 ```
 
-### 模不互素
+### III.3 模不互素
 
 模不互素是指：多次给出的 n 不互素，那么使用欧几里得算法求解公因数后两个都可以分解，从而被破解。
 
-### 多素数 RSA
+### III.4 多素数 RSA
 
 n 能够分解为多个素数，那么分解难度相对较低，分解后求解欧拉函数即可。
 
@@ -415,7 +412,7 @@ def manyPrime(n):
 >
 > 例如，当前已经分解 $n = a*....*b * A$ 且 $is\_prime(A)==False$，那么我们记 $a*\dots*b = k, \phi(k)$ 是不难计算的。如果 m < k，则有 $m=c^{d_n}\pmod{n} = c^{d_{k}}\pmod{k}$ 其中 $d_x$ 表示在模 x 的情况下 e 的逆元。
 
-### 共模攻击
+### III.5 共模攻击
 
 攻击条件：使用相同的 n，不同的 e 对同一段密文进行了两次加密且 gcd(e1, e2)=1。
 
@@ -451,9 +448,9 @@ m = mod(power_mod(c1,s1,n)*power_mod(c2,s2,n), n)
 print(long_to_bytes(int(m))) # b"darctf{D0n't_uS@_s4me_m_wlth_s@m3_n}"
 ```
 
-### p & q 选取不当
+### III.6 p & q 选取不当
 
-#### |p-q| 较小
+#### III.6.1 |p-q| 较小
 
 > [CTF Wiki (ctf-wiki.org)](https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_module_attack/#p-q_1)
 
@@ -488,7 +485,7 @@ from Crypto.Util.number import *
 print(long_to_bytes(m)) # b'crypto{f3rm47_w45_4_g3n1u5}'
 ```
 
-#### n & npnq
+#### III.6.2 n & npnq
 
 偶然间做到这么一个题，给我 e, n, c 之外，还给我 npnq，其中 `n == p*q and npnq = next_prime(p)*next_prime(q)`
 
@@ -541,13 +538,13 @@ for p1, q1 in factors_list:
         print("Error:", error)
 ```
 
-#### RSA backdoor (4p-1 method)
+#### III.6.3 RSA backdoor (4p-1 method)
 
 攻击条件：$4p-1 = Ds^2$ 其中 Ds 参见 [cm_factorization](https://github.com/crocs-muni/cm_factorization) 。
 
-## 私钥攻击
+## IV 私钥攻击
 
-### d 泄露攻击
+### IV.1 d 泄露攻击
 
 当对应的 (e,d) 泄露后，我们就能够分解对应的 N 。具体原理可见 [ctf-wiki](https://ctf-wiki.org/crypto/asymmetric/rsa/d_attacks/rsa_d_attack/#d_1) 。
 
@@ -576,7 +573,7 @@ for key in friends_key[::-1]:
 long_to_bytes(c) # b'crypto{3ncrypt_y0ur_s3cr3t_w1th_y0ur_fr1end5_publ1c_k3y}'
 ```
 
-### dp || dq leak attack
+### IV.2 dp || dq leak attack
 
 > [!DEFINITION]
 >
@@ -612,7 +609,7 @@ m = pow(c,d,n)
 print(bytes.fromhex(hex(m)[2:]))
 ```
 
-### dp && dq leak attack
+### IV.3 dp && dq leak attack
 
 攻击条件：知道 dp, dp, p, q, c。
 攻击原理：crt 求解 d。
@@ -634,7 +631,7 @@ m=pow(c,d,n)
 bytes.fromhex(hex(m)[2:])
 ```
 
-### dp && dq && dr leak attack
+### IV.4 dp && dq && dr leak attack
 
 攻击条件：
 
@@ -716,11 +713,21 @@ m = pow(c,d,p*q*r)
 bytes.fromhex(hex(m)[2:]) # b'DASCTF{8ec820e5251db6e7a1758543a1123824}'
 ```
 
-### Wiener's Attack （维纳攻击）
+### IV.5 Wiener's Attack （维纳攻击）
 
 攻击使用于：e 较大，$d< \frac{1}{3}N^{1/4}, q<p<2q$ 。
 
 原理简述：由于 $ed \equiv 1\pmod{\phi(n)} \implies ed = k*\phi + 1$ ，当 n 较大时，$ed \approx k*\phi \approx k*n\implies \frac{e}{n} \approx \frac{k}{d}$  ；利用连分数从两侧逼近于极限值的特点，找到真正的 d & k ；甚至我们求解 $\phi$ 后能够分解出 p/q 。 
+
+> [!extra]-
+>
+>> [!theorem] Legendre's theorem
+>> 
+>> 如果存在 $\alpha \in Q$, $c,d \in Z$: $|a- \frac{c}{d}|< \frac{1}{2d^2}$，那么 $\frac{c}{d}$ 就是 $\alpha$ 的一个有理近似。
+>  
+> $ed = k*\phi + 1 \implies | \frac{e}{\phi}- \frac{k}{d}|= \frac{1}{d*\phi}$
+> 
+> 大部分情况下，构成 $n=p*q$ 公式中，p 与 q 的二进制长度相同，即有 $p < q < 2*p$ （p q 可互换位置）；由适当推导可以得到 $d< \frac{1}{3}N^{1/4} \implies (3d)^4 < n$
 
 > 攻击代码可以使用 [crypto-attacks/attacks/rsa/wiener_attack.py](https://github.com/jvdsn/crypto-attacks/blob/master/attacks/rsa/wiener_attack.py) ，下面是一个使用示例：
 
@@ -770,7 +777,7 @@ print(bytes.fromhex(hex(m)[2:])) # b"SKSEC{Do_y0u_Kn0w_Wi3n3r's_4ttack}"
 >
 > - [[CISCN 2022 东北赛区]math](https://www.nssctf.cn/problem/2387)
 
-### Boneh and Durfee attack
+### IV.6 Boneh and Durfee attack
 
 攻击条件：$d<N^{0.292}$
 
@@ -823,13 +830,13 @@ m = pow(c, d, N)
 print(bytes.fromhex(hex(m)[2:])) # b'crypto{bon3h5_4tt4ck_i5_sr0ng3r_th4n_w13n3r5}'
 ```
 
-## Coppersmith's relative attack
+## V Coppersmith's relative attack
 
-### Håstad's broadcast attack
+### V.1 Håstad's broadcast attack
 
 发送方将一份明文进行多份（份数 k > e）加密，每份使用不同的 n（如 $n_{1}, n_{2}, \dots$），显然可以使用中国剩余定理解出 $c = m^e\pmod{n_{1}*n_{2}*\dots}$；而显然 m < n1 & m < n2 & ... ，所以当 e 的值小于等于我们获得的密文数量，就会有 $m^e \leq \Pi_{i=0}^{k}n_{i}$ ，此时直接开根就好了。一般来说，这个 e 等于 3。
 
-```python
+```python title="broadcast attack"
 from sage.all import *
 msg = [{'c':xxx, 'e':xxx, n:xxx}, ...] # 字典列表
 # 提取所有的n和c
@@ -839,7 +846,7 @@ cs = [msg[i]["c"] for i in range(length)]
 
 # 使用CRT求解m^length
 m_power = crt(cs, ns)
-m = int(m_power.nth_root(lengt))
+m = int(m_power.nth_root(length))
 
 flag = bytes.fromhex(hex(m)[2:]).decode()
 print(flag)
@@ -866,7 +873,7 @@ for l in range(e, max_length+1):
             continue
 ```
 
-### Franklin–Reiter related-message attack
+### V.2 Franklin–Reiter related-message attack
 
 攻击条件：使用同一公钥 (n, e) 线性填充加密同一密文 m 两次，获得两个密文 c1 c2:
 
@@ -903,9 +910,9 @@ $$
 >
 > [cryptohack - Bespoke Padding](https://cryptohack.org/challenges/rsa/)
 
-### Coppersmith’s short-pad attack
+### V.3 Coppersmith’s short-pad attack
 
-### Known High Bits Attack
+### V.4 Known High Bits Attack
 
 利用 sagemath 调用的 coppersmith 算法求解小根。
 
@@ -965,7 +972,7 @@ else:
     print("No root found")
 ```
 
-### Known Low Bits Attack
+### V.5 Known Low Bits Attack
 
 ```python title="known low bits"
 from sage.all import *
@@ -1029,7 +1036,7 @@ else:
     print('root2 not found')
 ```
 
-### Return of Coppersmith's attack (ROCA)
+### V.6 Return of Coppersmith's attack (ROCA)
 
 攻击条件：fast primes
 
@@ -1038,12 +1045,11 @@ else:
 > [!NOTE]
 >
 > - [Analysis of the ROCA vulnerability](https://bitsdeep.com/posts/analysis-of-the-roca-vulnerability)
-> 
 > - https://github.com/RsaCtfTool/RsaCtfTool/blob/master/sage/roca_attack.py
 
-## 其他
+## VI 其他
 
-### m 的解个数
+### VI.1 m 的解个数
 
 > [!THEOREM]
 >
@@ -1059,17 +1065,15 @@ else:
 
 证明略，其中最后一两步如果看不懂可以参考 [group theory - Solution to $x^n=a \pmod p$ where $p$ is a prime](https://math.stackexchange.com/questions/1491103/solution-to-xn-a-pmod-p-where-p-is-a-prime) .
 
-### Optimal asymmetric encryption padding (OAEP)
+### VI.2 Optimal asymmetric encryption padding (OAEP)
 
 > https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding
 
-### Get p q if we know phi
+### VI.3 Get p q if we know phi
 
-$$
-\begin{cases}p+q=n-\varphi(n)+1\\p-q=\sqrt{\left(n-\varphi(n)+1\right)^2-4n}\end{cases}
-$$
+$$\begin{cases}p+q=n-\varphi(n)+1\\p-q=\sqrt{\left(n-\varphi(n)+1\right)^2-4n}\end{cases}$$
 
-## 参考资料
+## VII 参考资料
 
 - [crypto-attack/attack/rsa](https://github.com/jvdsn/crypto-attacks/tree/master/attacks/rsa)
 - [RSA学习笔记 | Chemtrails (ch3mtr4ils.cn)](https://ch3mtr4ils.cn/2022/12/29/RSA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/)

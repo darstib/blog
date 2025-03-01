@@ -5,13 +5,11 @@ tags:
 - note
 ---
 
----
-
 复习老是在找笔记的路上……所以想把自己用过的笔记链接集成在这，所有努力均由各位大佬付出，我基本只是一个搬运工 😀（基于 ZJU 2023 级信息安全培养方案）。
 
 <!-- more -->
 
-> [!attention]
+> [!info] 
 >
 > - 来源繁多，如认为有不当之处还请评论区留言或者[联系我](https://darstib.github.io/blog/connect_me/)删除;
 > - 采用倒叙，毕竟对于我自己来说“时间上”越后面的翻得越多；
@@ -39,7 +37,7 @@ tags:
 
 ### 软件安全
 
-- [RyanFrc - ZJU](https://github.com/RyanFcr/ZJU_Course/tree/main/%E5%A4%A7%E4%BA%8C%E6%98%A5%E5%A4%8F/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8)
+- [-RyanFrc - ZJU](https://github.com/RyanFcr/ZJU_Course/tree/main/%E5%A4%A7%E4%BA%8C%E6%98%A5%E5%A4%8F/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8)
 
 ## 大二下
 
@@ -59,29 +57,47 @@ tags:
 
 - [人工智能：数据与模型安全](https://ai-data-model-safety.github.io/index.html)
 - [Interpretable Machine Learning](https://christophm.github.io/interpretable-ml-book/)
-	- [中文翻译](https://github.com/MingchaoZhu/InterpretableMLBook)
+	- [-中文翻译](https://github.com/MingchaoZhu/InterpretableMLBook)
 
 ### 人工智能伦理安全
+
+#### 书籍
+
+- [-Introduction to AI Safety, Ethics, and Society](https://www.aisafetybook.com/)
 
 #### 笔记
 
 - [YEY blog - COMP90087](https://yey.world/archive/?tag=COMP90087)
 
-#### 书籍
-
-- [Introduction to AI Safety, Ethics, and Society](https://www.aisafetybook.com/)
-
 ### 数据建模与分析
 
-- [-HengZhao's Knowledge Base](https://note.enlzhao.com/AI/aialgorithm/)
+#### 书籍
+
+- [统计学习方法v2](../static/统计学习方法v2.pdf) （仅供学习参考使用）
+	- 主要参考教材
+	- [参考习题解答](https://datawhalechina.github.io/statistical-learning-method-solutions-manual/#/)
+
+#### 笔记
+
 - [-slx's notebook](https://collapsar11.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1%E4%B8%8E%E5%88%86%E6%9E%90/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E5%8F%8A%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%AE%BA/)
 - [-YEY blog - COMP90051](https://yey.world/archive/?tag=COMP90051)
 
+#### 一些资料
+
 - [-HobbitQia's repo](https://github.com/HobbitQia/ZJU-Courses-Resources/tree/master/%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1%E4%B8%8E%E5%88%86%E6%9E%90)
+- [-cc98 21-22春夏回忆卷](https://www.cc98.org/topic/5356728)
+	- [-统计学习方法参考解答](../static/统计学习方法参考解答.pdf)
 
 ### 数据库系统
 
+> [!warning] 我没有真正修读这门课程，所以在应对课程上不具有什么参考性。
+
 - [CS-Notes 面试笔记-数据库](https://cyc2018.xyz/%E6%95%B0%E6%8D%AE%E5%BA%93/)
+
+### 会计学
+
+- [xiu的笔记本](https://note.xiu-zju.me/courses/accounting/)
+- [98回忆资料](https://www.cc98.org/topic/6084064)
 
 ### 毛概
 
@@ -120,14 +136,6 @@ tags:
 
 - [HowJul的学习笔记](https://note.howjul.com/ADS/ads/)
 - [JLY191's github](https://github.com/JLY191/ZJU_SE_Course/tree/main/%E5%A4%A7%E4%BA%8C%E6%98%A5%E5%A4%8F/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90) 
-
-#### 工具
-
-- [Data Structure Visualizations](https://www.cs.usfca.edu/~galles/visualization/Algorithms.html) or [-中文版？](https://www.rmboot.com/)
-    - 数据结构可视化
-- [-Algorithm Visualizer](https://algorithm-visualizer.org/)
-    - 算法可视化
-- [-Algorithms-DataStructures-BigONotation](https://cooervo.github.io/Algorithms-DataStructures-BigONotation/index.html)
 
 ### 面向对象程序设计 (OOP)
 
@@ -233,11 +241,15 @@ tags:
 
 ## 其他
 
-> [!Extra] 
->
-> 不知道/不方便具体放哪。
+> [!Extra] 不知道/不方便具体放哪。
 
-- [思修模写器](https://study.zjueva.net/)
+- [思政刷题器](https://study.zjueva.net/)
+- [Data Structure Visualizations](https://www.cs.usfca.edu/~galles/visualization/Algorithms.html) or [-中文版？](https://www.rmboot.com/)
+    - 数据结构可视化
+- [-Algorithm Visualizer](https://algorithm-visualizer.org/)
+    - 算法可视化
+- [-Algorithms-DataStructures-BigONotation](https://cooervo.github.io/Algorithms-DataStructures-BigONotation/index.html)
+
 
 ## 参考资料
 

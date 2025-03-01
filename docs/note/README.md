@@ -6,7 +6,7 @@ comments: true
 
 ## 介绍
 
-这里是课内/外课程的学习笔记（对于相对更加齐全的课内笔记，参见 [note_link](../collection/note_link.md)）。~~由于原本在 obsidian 上记录，部分效果无法在网站上展示出来[^1]，故除了在本站阅读外，这里提供了三个方案获取更好的阅读体验：~~ (已完善 Mkdocs 笔记)。
+这里是课内/外课程的我自己记录的学习笔记（对于相对更加齐全的课内笔记，参见 [note_link](../collection/note_link.md)）。(已完善 Mkdocs 笔记，本节剩余内容忽略，可以直接跳转[目录](README.md#目录) 。) ~~由于原本在 obsidian 上记录，部分效果无法在网站上展示出来[^1]，故除了在本站阅读外，这里提供了三个方案获取更好的阅读体验：~~ 
 
 [^1]: obsidian 倒是支持 [publish](https://obsidian.md/publish)，8$/month，用不起……
 
