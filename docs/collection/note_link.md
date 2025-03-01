@@ -83,6 +83,11 @@ tags:
 
 - [CS-Notes 面试笔记-数据库](https://cyc2018.xyz/%E6%95%B0%E6%8D%AE%E5%BA%93/)
 
+### 会计学
+
+- [xiu的笔记本](https://note.xiu-zju.me/courses/accounting/)
+- [98回忆资料](https://www.cc98.org/topic/6084064)
+
 ### 毛概
 
 - [-from RyanFcr](https://k5ms77k0o1.feishu.cn/wiki/wikcnT64Bm4TGqWzg9009wdFS4d)
