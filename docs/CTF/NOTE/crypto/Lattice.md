@@ -13,7 +13,7 @@ comments: true
 
 在上面的文章中，得到一个公式：我们知道，密钥的安全性其实基于 $fh \equiv g \pmod r$，也即是(取 fh=g+pr) 。
 
-构造格基矩阵 M，我们倾向于：$v\cdot M=\vec{w}$ 其中 M 为已知，w 为需求量，v 中可以未知。
+构造格基矩阵 M，我们倾向于：$\vec{v}\cdot M=\vec{w}$ 其中 M 为已知，w 为需求量，v 中可以未知。
 
 $$
 \begin{pmatrix}
@@ -124,9 +124,11 @@ ciphertext = 'd23eac665cdb57a8ae7764bb4497eb2f79729537e596600ded7a068c407e67ea75
 """
 ```
 
-如果令 f%q = k，那么 S = kq，M = root\^i for i in range(16)，v = key。
+如果令 $f = m*q$，那么 $S = mq，M = root^i (i \in range(16))，\vec{v} = key$ 。
 
-$L=\begin{bmatrix}I_n&K\cdot\vec{v}^T\\O_{1\times n}&K\cdot q\end{bmatrix}$
+$$L=\begin{bmatrix}
+I_n & k\cdot\vec{M}^T\\
+O_{1\times n} & k\cdot q\end{bmatrix}$$
 
 这样我们解出来的 t = (x0, x1... x15) ，不需要再变换了。
 
@@ -225,7 +227,7 @@ print(f"Public key: {public_key}")
 print(f"Encrypted Flag: {encrypted}")
 ```
 
-不难发现问题本身是和前面相似的，但是使用和之前一样的脚本解出来的格基没有能够恢复铭文的量；如下改进[^1]后可行：
+不难发现问题本身是和前面相似的，但是使用和之前一样的脚本解出来的格基没有能够恢复明文的量；如下改进[^1]（针对二进制编码）后可行：
 
 [^1]: 改进原理可能要看[这篇论文](https://eprint.iacr.org/2009/537.pdf) 。
 
@@ -238,8 +240,9 @@ dense = 1/2
 pk = [k*p for p in pk]
 c = 45690752833299626276860565848930183308016946786375859806294346622745082512511847698896914843023558560509878243217521
 E = identity_matrix(ZZ, n)
-M = block_matrix(QQ, 2, 2, [E, matrix(QQ, n, 1, pk), 
-                matrix([dense for _ in range(n)]), matrix(QQ, [k*c])])
+M = block_matrix(QQ, 2, 2,
+    [E, matrix(QQ, n, 1, pk), 
+    matrix([dense for _ in range(n)]), matrix(QQ, [k*c])])
 L = M.LLL()
 # print(L)
 for j, e in enumerate(L):
