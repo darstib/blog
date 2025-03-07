@@ -38,6 +38,7 @@ comments: true
     - [Rust 官方文档](https://doc.rust-lang.org/stable/book/title-page.html)
     - [Rust 中文教程](https://course.rs/about-book.html)
         - 应该会比官方文档友善一点？
+        - [配套练习](https://practice-zh.course.rs/)
 - SQL
 	- [CS-Note 面试宝典](https://cyc2018.xyz/%E6%95%B0%E6%8D%AE%E5%BA%93/)
 	- [programiz online sql editor](https://www.programiz.com/sql/online-compiler)
