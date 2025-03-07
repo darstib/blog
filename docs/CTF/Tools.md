@@ -28,9 +28,9 @@ comments: true
     - 需要 ZJU 校网
 - [NSSCTF](https://www.nssctf.cn/problem)
 - [BUUCTF](https://buuoj.cn/challenges)
+- [-bugku](https://ctf.bugku.com/)
 - [-攻防世界](https://adworld.xctf.org.cn/challenges/list)
 - [cryptohack](https://cryptohack.org/challenges/) or [-cryptopals](https://cryptopals.com/)
-- [-bugku](https://ctf.bugku.com/)
 - [Ethernaut 题库闯关题解](https://learnblockchain.cn/column/19)
 - [ctftime](https://ctftime.org/ctfs)
     - 国内外知名赛事
@@ -209,8 +209,7 @@ comments: true
 
 > 也许分类没那么正确，主要是否需要一些数学知识来区分古典密码和现代密码。
 
-
--  [practicalcryptography](http://www.practicalcryptography.com/)
+-  [-practicalcryptography](http://www.practicalcryptography.com/)
 
 ### 古典密码学
 

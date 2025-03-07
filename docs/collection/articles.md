@@ -8,6 +8,7 @@ tags:
 
 - [huffman-tree](https://oi-wiki.org/ds/huffman-tree/) & [Visual Information Theory](https://colah.github.io/posts/2015-09-Visual-Information/)
     - 哈夫曼树/编码 & 信息论/交叉熵
+- [Understanding Reasoning LLMs](https://magazine.sebastianraschka.com/p/understanding-reasoning-llms)
 
 ## 素养类
 

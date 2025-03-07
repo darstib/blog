@@ -5,9 +5,12 @@ tags:
 comments: true
 ---
 
-> misc 中的流量分析 writeup 。
+> misc/web 中的流量分析 writeup 。
 
-- [常见网站认证形式](https://devv.ai/search?threadId=dy1c8qcr5gxs)
+> [!extra]
+>
+> - [常见网站认证形式](https://devv.ai/search?threadId=dy1c8qcr5gxs)
+> - [流量分析经典题型](https://jwt1399.top/posts/29176.html#toc-heading-13)
 
 ## LitCTF 2024
 
