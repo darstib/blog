@@ -3,3 +3,5 @@ docs/course_note/
 plugins/
 docs/sandbox/
 docs/snippet/
+.stignore
+.stfolder
