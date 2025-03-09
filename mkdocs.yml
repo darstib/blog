@@ -200,8 +200,8 @@ extra:
     homepage: https://darstib.github.io/blog/
     social:
         - icon: fontawesome/brands/github
-          link: https://github.com/Darstib
-          name: "github/Darstib"
+          link: https://github.com/darstib
+          name: "github/darstib"
         - icon: fontawesome/solid/envelope
           link: mailto:darstibreed@gmail.com
           name: "Gmail"
@@ -225,11 +225,11 @@ extra:
                   name: This page could be improved
                   data: 0
                   note: >-
-                      感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/blog/connect_me/">联系我噢</a>哦！
+                      感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/blog/connect_me/">联系我</a>噢！
     tags:
         HTML5: html
         JavaScript: js
         CSS: css
 copyright: >-
-    Copyright &copy; 2024 - 2025 Darstib –
+    Copyright &copy; 2024 - 2025 Darstib Reed –
     <a href="#__consent">Change cookie settings</a>

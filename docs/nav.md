@@ -29,11 +29,11 @@
     - [ZJS-DASCTF2024](CTF/ZJS-DASCTF2024/README.md)
         - [crypto](CTF/ZJS-DASCTF2024/crypto.md)
     - NOTE
-        - [MISC](CTF/NOTE/MISC/README.md)
+        - [Misc](CTF/Note/Misc/README.md)
 	        - CTF/NOTE/MISC/*.md
-	    - [WEB](CTF/NOTE/WEB/README.md)
+	    - [Web](CTF/Note/Web/README.md)
 		    - CTF/NOTE/WEB/*.md
-        - [CRYPTO](CTF/NOTE/CRYPTO/README.md)
+        - [Crypto](CTF/Note/Crypto/README.md)
             - CTF/NOTE/CRYPTO/*.md
         - other
             - CTF/NOTE/other/*.md
@@ -55,4 +55,7 @@
         - [some material in MCM](tutorial/MCM（数模）/some material in MCM.md)
 - [Summary](summary/README.md)
     - [大一小记](summary/大一小记.md)
+- AIsecurity
+	- [PaperRead](AIsecurity/PaperRead/README.md)
+		- [The Hidden Risks of Large Reasoning Models](AIsecurity/PaperRead/The%20Hidden%20Risks%20of%20Large%20Reasoning%20Models.md)
 - [Links](https://darstib.github.io/myworld/)

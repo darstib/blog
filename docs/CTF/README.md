@@ -23,9 +23,9 @@ comments: true
 - [ZJS-DASCTF2024](ZJS-DASCTF2024/README.md)
     - [crypto](ZJS-DASCTF2024/crypto.md)
 - NOTE
-    - [CRYPTO](NOTE/CRYPTO/README.md)
-    - [MISC](NOTE/MISC/README.md)
-    - [WEB](NOTE/WEB/README.md)
+    - [CRYPTO](Note/Crypto/README.md)
+    - [MISC](Note/Misc/README.md)
+    - [WEB](Note/Web/README.md)
     - other
 
 {{ end_toc }}
