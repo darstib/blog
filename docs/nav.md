@@ -28,15 +28,15 @@
 	    - CTF/MOECTF2024/*.md
     - [ZJS-DASCTF2024](CTF/ZJS-DASCTF2024/README.md)
         - [crypto](CTF/ZJS-DASCTF2024/crypto.md)
-    - NOTE
-        - [MISC](CTF/NOTE/MISC/README.md)
-	        - CTF/NOTE/MISC/*.md
-	    - [WEB](CTF/NOTE/WEB/README.md)
-		    - CTF/NOTE/WEB/*.md
-        - [CRYPTO](CTF/NOTE/CRYPTO/README.md)
-            - CTF/NOTE/CRYPTO/*.md
+    - Note
+        - [Misc](CTF/Note/Misc/README.md)
+	        - CTF/Note/Misc/*.md
+	    - [Web](CTF/Note/Web/README.md)
+		    - CTF/Note/Web/*.md
+        - [Crypto](CTF/Note/Crypto/README.md)
+            - CTF/Note/Crypto/*.md
         - other
-            - CTF/NOTE/other/*.md
+            - CTF/Note/other/*.md
 - [Tutorial](tutorial/README.md)
     - python_learn
         - [crypto](tutorial/python_learn/crypto/README.md)
@@ -57,5 +57,6 @@
     - [大一小记](summary/大一小记.md)
 - AIsecurity
 	- [PaperRead](AIsecurity/PaperRead/README.md)
-		- [The Hidden Risks of Large Reasoning Models](AIsecurity/PaperRead/The%20Hidden%20Risks%20of%20Large%20Reasoning%20Models.md)
+		- [DeepSeek-R1](AIsecurity/PaperRead/DeepSeek-R1.md)
+		- [The_Hidden_Risks_of_Large_Reasoning_Models](AIsecurity/PaperRead/The_Hidden_Risks_of_Large_Reasoning_Models.md)
 - [Links](https://darstib.github.io/myworld/)

@@ -10,7 +10,8 @@ comments: true
 {{ begin_toc }}
 
 - 2025
-	- [The Hidden Risks of Large Reasoning Models](The%20Hidden%20Risks%20of%20Large%20Reasoning%20Models.md)
+	- [DeepSeek-R1](DeepSeek-R1.md)
+	- [The_Hidden_Risks_of_Large_Reasoning_Models](The_Hidden_Risks_of_Large_Reasoning_Models.md)
 
 {{ end_toc }}
 

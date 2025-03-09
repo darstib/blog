@@ -10,6 +10,8 @@ tags:
     - 哈夫曼树/编码 & 信息论/交叉熵
 - [Understanding Reasoning LLMs](https://magazine.sebastianraschka.com/p/understanding-reasoning-llms)
 - [PPO & GPRO](https://mp.weixin.qq.com/s/OIiNOMcuXERGVOghwNZ5Uw)
+- [混合专家模型 (MoE) 详解](https://huggingface.co/blog/zh/moe)
+- [RLHF 技术详解](https://huggingface.co/blog/zh/rlhf)
 
 ## 素养类
 

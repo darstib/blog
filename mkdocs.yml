@@ -6,230 +6,231 @@ edit_uri: edit/main/docs
 site_description: Darstib's blog!
 
 theme:
-    name: "material"
-    custom_dir: "overrides"
-    language: "zh"
-    logo: assets/DB.png
-    favicon: assets/DB.png
-    icon:
-        wiki: fontawesome/wikipedia-w
-        previous: fontawesome/solid/angle-left
-        next: fontawesome/solid/angle-right
-        repo: fontawesome/brands/github
-        view: material/eye
-    features:
-        - content.code.copy
-        - content.code.annotate
-        - content.tabs.link
-        - navigation.instant
-        - navigation.instant.progress
-        # - navigation.instant.preview
-        - navigation.tracking
-        - navigation.tabs
-        - navigation.tabs.sticky
-        # - navigation.sections
-        # - navigation.expand
-        - navigation.path
-        - navigation.prune
-        - navigation.indexes
-        - navigation.top
-        - navigation.footer
-        - toc.follow
-        # - toc.integrate
-        - search.suggest
-        - search.highlight
-        - search.share
-        - header.autohide
-        - content.action.edit
+  name: "material"
+  custom_dir: "overrides"
+  language: "zh"
+  logo: assets/DB.png
+  favicon: assets/DB.png
+  icon:
+    wiki: fontawesome/wikipedia-w
+    previous: fontawesome/solid/angle-left
+    next: fontawesome/solid/angle-right
+    repo: fontawesome/brands/github
+    view: material/eye
+  features:
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - navigation.instant
+    - navigation.instant.progress
+    # - navigation.instant.preview
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    # - navigation.sections
+    # - navigation.expand
+    - navigation.path
+    - navigation.prune
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - toc.follow
+    # - toc.integrate
+    - search.suggest
+    - search.highlight
+    - search.share
+    - header.autohide
+    - content.action.edit
 
-    font: false
-    palette:
-        # Palette toggle for light mode
-        # - scheme: default
-        - media: "(prefers-color-scheme: light)"
-          primary: grey # 主颜色
-          accent: indigo
-          toggle:
-              icon: material/brightness-7
-              name: Switch to dark mode
+  font: false
+  palette:
+    # Palette toggle for light mode
+    # - scheme: default
+    - media: "(prefers-color-scheme: light)"
+      primary: grey # 主颜色
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
 
-        # Palette toggle for dark mode
-        - scheme: slate
-          # - media: "(prefers-color-scheme: dark)"
-          primary: grey # 主颜色
-          accent: cyan
-          toggle:
-              icon: material/brightness-4
-              name: Switch to light mode
+    # Palette toggle for dark mode
+    - scheme: slate
+      # - media: "(prefers-color-scheme: dark)"
+      primary: grey # 主颜色
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
 
 markdown_extensions:
-    # - meta # Sponsors only
-    - toc:
-          permalink: true
-          toc_depth: 5
-    - def_list
-    - attr_list
-    - md_in_html
-    - sane_lists
-    - admonition
-    - pymdownx.keys
-    - pymdownx.mark
-    - pymdownx.tilde
-    - pymdownx.critic
-    - pymdownx.details
-    - pymdownx.snippets
-    # - pymdownx.magiclink
-    - pymdownx.superfences
-    - pymdownx.inlinehilite
-    - pymdownx.tabbed:
-          alternate_style: true
-    - pymdownx.tasklist:
-          custom_checkbox: true
-    - pymdownx.highlight:
-          anchor_linenums: true
-    - pymdownx.arithmatex:
-          generic: true
-    - footnotes
+  # - meta # Sponsors only
+  - toc:
+      permalink: true
+      toc_depth: 5
+  - def_list
+  - attr_list
+  - md_in_html
+  - sane_lists
+  - admonition
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.snippets
+  # - pymdownx.magiclink
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.arithmatex:
+      generic: true
+  - footnotes
 
-    - pymdownx.superfences:
-          custom_fences:
-              - name: mermaid
-                class: mermaid
-                format: !!python/name:pymdownx.superfences.fence_code_format
-                    # validation:
-                    #   nav:
-                    #     omitted_files: info
-                    #     not_found: warn
-                    #     absolute_links: info
-                    #   links:
-                    #     not_found: ignore
-                    #     absolute_links: ignore
-                    #     unrecognized_links: ignore
-                    # extra begin
-    
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+            # validation:
+            #   nav:
+            #     omitted_files: info
+            #     not_found: warn
+            #     absolute_links: info
+            #   links:
+            #     not_found: ignore
+            #     absolute_links: ignore
+            #     unrecognized_links: ignore
+            # extra begin
+
+
 extra_css:
-    # https://github.com/IsshikiHugh/notebook/tree/main/docs/_css
-    - css/flink.css
-    - css/apperance.css
+  # https://github.com/IsshikiHugh/notebook/tree/main/docs/_css
+  - css/flink.css
+  - css/apperance.css
 
-    # - css/font.css
-    - css/jetbrainsmono.css
-    - https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css
-    - https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css
-    - https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css
+  # - css/font.css
+  - css/jetbrainsmono.css
+  - https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css
+  - https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css
+  - https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css
 
-    - https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css
-    - https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css
+  - https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css
+  - https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css
 
 extra_javascript:
-    # - js/background.js # 飘雪背景
-    - js/tablesort.js # 表格排序
-    - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
+  # - js/background.js # 飘雪背景
+  - js/tablesort.js # 表格排序
+  - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
 
-    - js/katex.js
-    - js/katex.min.js
-    - https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js
-    - https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js
-    - https://unpkg.com/katex@0/dist/katex.min.js
-    - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
+  - js/katex.js
+  - js/katex.min.js
+  - https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js
+  - https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js
+  - https://unpkg.com/katex@0/dist/katex.min.js
+  - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
 
-    - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
-    - https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js
 
 plugins:
-    - tags
-    - build-cache
-    - search:
-          pipeline:
-              - stemmer
-              - stopWordFilter
-              - trimmer
-          separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
-    - statistics:
-        page_check_metadata: comment
-        enabled: !ENV [CI, false]
-    - blog:
-        blog_dir: .
-        blog_toc: true
-        post_date_format: full
-        archive_toc: true
-        categories_toc: true
-        pagination_format: "$link_first $link_previous ~2~ $link_next $link_last"
-        pagination_keep_content: true
-        draft_if_future_date: true
-    - mkdocs-jupyter: # https://github.com/danielfrg/mkdocs-jupyter
-        allow_errors: false
-        kernel_name: data
-        include: ["*.ipynb"]
-        include_source: True
-    - git-revision-date-localized:
-        enable_creation_date: true
-        type: date
-        fallback_to_build_date: true
-        timezone: Asia/Shanghai
-        locale: zh
-        exclude:
-            - index.md
-    - glightbox:
-        width: 80%
-    - toc #https://github.com/TonyCrane/mkdocs-toolchain/tree/master/mkdocs-toc-plugin
-    - heti # https://github.com/TonyCrane/mkdocs-heti-plugin
-    - changelog # https://github.com/TonyCrane/mkdocs-changelog-plugin
-    - obsidian-support # https://github.com/ndy2/mkdocs-obsidian-support-plugin
-    - literate-nav: # https://github.com/oprypin/mkdocs-literate-nav
-        nav_file: nav.md
+  - tags
+  - build-cache
+  - search:
+      pipeline:
+        - stemmer
+        - stopWordFilter
+        - trimmer
+      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+  - statistics:
+      page_check_metadata: comment
+      enabled: !ENV [CI, false]
+  - blog:
+      blog_dir: .
+      blog_toc: true
+      post_date_format: full
+      archive_toc: true
+      categories_toc: true
+      pagination_format: "$link_first $link_previous ~2~ $link_next $link_last"
+      pagination_keep_content: true
+      draft_if_future_date: true
+  # - mkdocs-jupyter: # https://github.com/danielfrg/mkdocs-jupyter
+  #     allow_errors: false
+  #     kernel_name: data
+  #     include: ["*.ipynb"]
+  #     include_source: True
+  # - git-revision-date-localized:
+  #     enable_creation_date: true
+  #     type: date
+  #     fallback_to_build_date: true
+  #     timezone: Asia/Shanghai
+  #     locale: zh
+  #     exclude:
+  #       - index.md
+  - glightbox:
+      width: 80%
+  - toc #https://github.com/TonyCrane/mkdocs-toolchain/tree/master/mkdocs-toc-plugin
+  - heti # https://github.com/TonyCrane/mkdocs-heti-plugin
+  - changelog # https://github.com/TonyCrane/mkdocs-changelog-plugin
+  - obsidian-support # https://github.com/ndy2/mkdocs-obsidian-support-plugin
+  - literate-nav: # https://github.com/oprypin/mkdocs-literate-nav
+      nav_file: nav.md
 
-    #######################################################################
-    # - mkdocs-video # https://github.com/soulless-viewer/mkdocs-video
-    # - autolinks # https://github.com/zachhannum/mkdocs-autolinks-plugin
-    # - encryptcontent: # https://github.com/unverbuggt/mkdocs-encryptcontent-plugin
-    #     title_prefix: "🔐 "
-    #     remember_password: True
-    #     summary: "This content is protected for some reason."
-    #     encryption_info_message: '真的想看？<a href="https://darstib.github.io/blog/connect_me/">联系我</a>'
-    #     decryption_failure_message: '错了哦 ~ 还是来找我要密码吧'
-    #     encrypted_something:
-    #         mkdocs-encrypted-toc: [nav, class]
-    #     password_file: "passwords.yml"
+  #######################################################################
+  # - mkdocs-video # https://github.com/soulless-viewer/mkdocs-video
+  # - autolinks # https://github.com/zachhannum/mkdocs-autolinks-plugin
+  # - encryptcontent: # https://github.com/unverbuggt/mkdocs-encryptcontent-plugin
+  #     title_prefix: "🔐 "
+  #     remember_password: True
+  #     summary: "This content is protected for some reason."
+  #     encryption_info_message: '真的想看？<a href="https://darstib.github.io/blog/connect_me/">联系我</a>'
+  #     decryption_failure_message: '错了哦 ~ 还是来找我要密码吧'
+  #     encrypted_something:
+  #         mkdocs-encrypted-toc: [nav, class]
+  #     password_file: "passwords.yml"
 
 extra:
-    cache: true
-    comments:
-        enabled: true # 启用评论
-        mode: giscus # 使用 Giscus 作为评论系统
-    homepage: https://darstib.github.io/blog/
-    social:
-        - icon: fontawesome/brands/github
-          link: https://github.com/Darstib
-          name: "github/Darstib"
-        - icon: fontawesome/solid/envelope
-          link: mailto:darstibreed@gmail.com
-          name: "Gmail"
+  cache: true
+  comments:
+    enabled: true # 启用评论
+    mode: giscus # 使用 Giscus 作为评论系统
+  homepage: https://darstib.github.io/blog/
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Darstib
+      name: "github/Darstib"
+    - icon: fontawesome/solid/envelope
+      link: mailto:darstibreed@gmail.com
+      name: "Gmail"
 
-    alternate:
-        - name: Google refuses to translate
-          link: //
-          lang: en
-    analytics:
-        provider: google
-        property: G-XXXXXXXXXX
-        feedback:
-            title: 如果这对你有用的话，请给我点个star吧 ===> <a href="https://github.com/Darstib/blog"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Darstib/blog.svg?style=plastic&amp;label=Stars"></a>
-            ratings:
-                - icon: material/heart
-                  name: This page was helpful
-                  data: 1
-                  note: >-
-                      感谢支持！如果能点个Star就更好啦！ <a href="https://github.com/Darstib/blog"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Darstib/blog.svg?style=plastic&amp;label=Stars"></a>.
-                - icon: material/heart-broken
-                  name: This page could be improved
-                  data: 0
-                  note: >-
-                      感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/blog/connect_me/">联系我噢</a>哦！
-    tags:
-        HTML5: html
-        JavaScript: js
-        CSS: css
+  alternate:
+    - name: Google refuses to translate
+      link: //
+      lang: en
+  analytics:
+    provider: google
+    property: G-XXXXXXXXXX
+    feedback:
+      title: 如果这对你有用的话，请给我点个star吧 ===> <a href="https://github.com/Darstib/blog"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Darstib/blog.svg?style=plastic&amp;label=Stars"></a>
+      ratings:
+        - icon: material/heart
+          name: This page was helpful
+          data: 1
+          note: >-
+            感谢支持！如果能点个Star就更好啦！ <a href="https://github.com/Darstib/blog"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Darstib/blog.svg?style=plastic&amp;label=Stars"></a>.
+        - icon: material/heart-broken
+          name: This page could be improved
+          data: 0
+          note: >-
+            感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/blog/connect_me/">联系我噢</a>哦！
+  tags:
+    HTML5: html
+    JavaScript: js
+    CSS: css
 copyright: >-
-    Copyright &copy; 2024 - 2025 Darstib –
-    <a href="#__consent">Change cookie settings</a>
+  Copyright &copy; 2024 - 2025 Darstib –
+  <a href="#__consent">Change cookie settings</a>

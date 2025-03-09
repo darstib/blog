@@ -22,10 +22,10 @@ comments: true
     - [AI](MOECTF2024/AI.md)
 - [ZJS-DASCTF2024](ZJS-DASCTF2024/README.md)
     - [crypto](ZJS-DASCTF2024/crypto.md)
-- NOTE
-    - [CRYPTO](NOTE/CRYPTO/README.md)
-    - [MISC](NOTE/MISC/README.md)
-    - [WEB](NOTE/WEB/README.md)
+- Note
+    - [Crypto](Note/Crypto/README.md)
+    - [Misc](Note/Misc/README.md)
+    - [Web](Note/Web/README.md)
     - other
 
 {{ end_toc }}

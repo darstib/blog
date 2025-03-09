@@ -5,11 +5,9 @@ tags:
 comments: true
 ---
 
-> [!SUMMARY]
+> [!attention]+
 >
 > CTF 学习过程中用到的工具；后来也把一些比较好的文章放在里面了；如果前有一个 `-` 表示我还没具体看/用过，但是粗看还不错。
-
-表示
 
 ## 综合性网站
 
@@ -48,10 +46,8 @@ comments: true
 
 ### 图片类
 
-- [Aperi'Solve](https://aperisolve.com)
+- [Aperi'Solve](https://aperisolve.com) or [项目仓库](https://github.com/Zeecka/AperiSolve)
     - 图片一把梭
-    - [Aperisolver](https://github.com/Zeecka/AperiSolve)
-        - 项目仓库，支持本地 dockers 运行
 - [steghide](https://steghide.sourceforge.net/download.php)
     - [medium——Steghide Tool](https://medium.com/@ece11106.sbit/steghide-tool-ec74edd69de4)
 - [Barcode 阅读器](https://demo.dynamsoft.com/barcode-reader/)

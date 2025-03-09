@@ -1076,6 +1076,7 @@ $$\begin{cases}p+q=n-\varphi(n)+1\\p-q=\sqrt{\left(n-\varphi(n)+1\right)^2-4n}\e
 
 ## VII 参考资料
 
+- [cryptohack - rsa](https://cryptohack.org/challenges/rsa/)
 - [crypto-attack/attack/rsa](https://github.com/jvdsn/crypto-attacks/tree/master/attacks/rsa)
 - [RSA学习笔记 | Chemtrails (ch3mtr4ils.cn)](https://ch3mtr4ils.cn/2022/12/29/RSA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/)
 - [CTF RSA题解集](https://www.ruanx.net/rsa-solutions/)
