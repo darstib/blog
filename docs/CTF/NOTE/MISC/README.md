@@ -6,7 +6,7 @@ comments: true
 
 {{ begin_toc }}
 
-- [misc]
+- misc
 	- [audio](audio.md)
 	- [img](img.md)
 	- [info_leak](info_leak.md)
