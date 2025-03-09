@@ -1,7 +1,5 @@
-docs/.obsidian/
+docs/.*
 docs/course_note/
-plugins/
 docs/sandbox/
 docs/snippet/
-.stfolder/
-.stignore
+plugins/
