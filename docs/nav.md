@@ -28,7 +28,7 @@
 	    - CTF/MOECTF2024/*.md
     - [ZJS-DASCTF2024](CTF/ZJS-DASCTF2024/README.md)
         - [crypto](CTF/ZJS-DASCTF2024/crypto.md)
-    - Note
+    - [Note](CTF/Note/README.md)
         - [Misc](CTF/Note/Misc/README.md)
 	        - CTF/Note/Misc/*.md
 	    - [Web](CTF/Note/Web/README.md)
