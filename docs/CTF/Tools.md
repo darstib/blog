@@ -250,10 +250,14 @@ comments: true
 
 - [Githack](https://github.com/lijiejie/GitHack)
 - [nmap](https://github.com/nmap/nmap) 服务端口扫描
+- [gobuster](https://github.com/OJ/gobuster) 服务器目录扫描
+	- [gobuster基础用法](https://lca.xlog.app/gobuster-ji-chu-yong-fa)
 - [hydra](https://www.kali.org/tools/hydra/) 服务器账号暴力破解
 - [enum4linux](https://github.com/CiscoCXSecurity/enum4linux) SMB 服务扫描
 - [nfs-common](https://packages.debian.org/sid/nfs-common) NFS
 - [smtp-user-enum](https://pentestmonkey.net/tools/user-enumeration/smtp-user-enum) SMTP
+- [sqlmap](https://github.com/sqlmapproject/sqlmap/) SQL
+	- [用户手册中文版](https://sqlmap.highlight.ink/usage)
 
 ### 软件工具
 
@@ -264,14 +268,16 @@ comments: true
 
 - [JWT](https://jwt.io/)
 - [DNS lookup](https://www.nslookup.io/)
+- [whois](https://www.whois.com/whois/)
 - [regex101](https://regex101.com/)
     - 可以 debug 看到详细的正则匹配过程，然后利用匹配步数限制来绕过检测
 
+
 ### 其他文章
 
+- [CTF Web信息搜集](https://rickliu.com/posts/24259a52c7ee/index.html)
 - [TryHackMe 中文版](https://cybersecurity-self-learning.gitbook.io/learning-tryhackme-cn)
 - [csdn-webshell 工具流量特征分析](https://blog.csdn.net/qq_53577336/article/details/125048353)
-- [CTF Web信息搜集](https://rickliu.com/posts/24259a52c7ee/index.html)
 - JS 总结
     - [-CTF比赛中关于javascript的总结](https://introspelliam.github.io/2017/11/12/misc/CTF%E6%AF%94%E8%B5%9B%E4%B8%AD%E5%85%B3%E4%BA%8Ejavascript%E7%9A%84%E6%80%BB%E7%BB%93/)
     - [-2022 年 CTF Web 前端與 JS 題總結](https://blog.huli.tw/2022/12/26/ctf-2022-web-js-summary/)
