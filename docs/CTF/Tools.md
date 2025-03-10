@@ -7,7 +7,7 @@ comments: true
 
 > [!attention]+
 >
-> CTF 学习过程中用到的工具；后来也把一些比较好的文章放在里面了；如果前有一个 `-` 表示我还没具体看/用过，但是粗看还不错。
+> CTF 学习过程中用到的工具（后来加了一些觉得比较好的文章）；后来也把一些比较好的文章放在里面了；如果前有一个 `-` 表示我还没具体看/用过，但是粗看还不错。
 
 ## 综合性网站
 
@@ -19,9 +19,6 @@ comments: true
 - [CTF-wiki](https://ctf-wiki.org/)
 - [Hello-ctf](https://hello-ctf.com/)
 - [-Practical CTF](https://book.jorianwoltjer.com/)
-
-## 练习&赛事平台
-
 - [ZJUBUS](https://zjusec.com/)
     - 需要 ZJU 校网
 - [NSSCTF](https://www.nssctf.cn/problem)
@@ -133,7 +130,7 @@ comments: true
 - [wireshark](https://www.wireshark.org/#downloadLink)
 - [PcapNG File Format](https://pcapng.com/)
 
-![](attachments/Tools.png)
+![Tools.png](https://raw.gitmirror.com/darstib/public_imgs/utool/2503/09_Tools.png)
 
 - [CSDN —— pcapng 文件格式](https://blog.csdn.net/m0_53887937/article/details/133978428)
     - [文件提取](https://zgao.top/%E4%BB%8Ewireshark%E6%B5%81%E9%87%8F%E4%B8%AD%E6%8F%90%E5%8F%96%E6%96%87%E4%BB%B6/)
@@ -249,21 +246,37 @@ comments: true
 
 ## Web
 
+### 命令行工具
+
 - [Githack](https://github.com/lijiejie/GitHack)
-- [DNS lookup](https://www.nslookup.io/)
-- [JWT](https://jwt.io/)
+- [nmap](https://github.com/nmap/nmap) 服务端口扫描
+- [hydra](https://www.kali.org/tools/hydra/) 服务器账号暴力破解
+- [enum4linux](https://github.com/CiscoCXSecurity/enum4linux) SMB 服务扫描
+- [nfs-common](https://packages.debian.org/sid/nfs-common) NFS
+- [smtp-user-enum](https://pentestmonkey.net/tools/user-enumeration/smtp-user-enum) SMTP
+
+### 软件工具
+
 - [BurpSuite](https://portswigger.net/burp/releases)
     - [BurpSuite 配置](http://testingpai.com/article/1715763803515)
+
+### 在线工具
+
+- [JWT](https://jwt.io/)
+- [DNS lookup](https://www.nslookup.io/)
 - [regex101](https://regex101.com/)
     - 可以 debug 看到详细的正则匹配过程，然后利用匹配步数限制来绕过检测
 
+### 其他文章
+
+- [TryHackMe 中文版](https://cybersecurity-self-learning.gitbook.io/learning-tryhackme-cn)
 - [csdn-webshell 工具流量特征分析](https://blog.csdn.net/qq_53577336/article/details/125048353)
 - [CTF Web信息搜集](https://rickliu.com/posts/24259a52c7ee/index.html)
 - JS 总结
     - [-CTF比赛中关于javascript的总结](https://introspelliam.github.io/2017/11/12/misc/CTF%E6%AF%94%E8%B5%9B%E4%B8%AD%E5%85%B3%E4%BA%8Ejavascript%E7%9A%84%E6%80%BB%E7%BB%93/)
     - [-2022 年 CTF Web 前端與 JS 題總結](https://blog.huli.tw/2022/12/26/ctf-2022-web-js-summary/)
 
-## 泛工具箱
+## 其他工具箱
 
 - [CTFtools-wiki](https://github.com/ProbiusOfficial/CTFtools-wiki)
 - [Hello-ctf toolkit](https://hello-ctf.com/ToolKit/)
@@ -280,8 +293,8 @@ comments: true
 ## CTF101
 
 - [Flag提交网站](https://ctf.zjusec.com/games/3/challenges)
-- [实验网站](https://courses.zjusec.com/slides/)
+- [实验指导网站](https://courses.zjusec.com/slides/)
 - [智云链接](https://classroom.zju.edu.cn/coursedetail?course_id=63047)
 - [一个小总结](https://juruo123.github.io/2024/07/02/CTF/)
 
-![](attachments/Tools-1.png)
+![Tools-1.png](https://raw.gitmirror.com/darstib/public_imgs/utool/2503/09_Tools-1.png)

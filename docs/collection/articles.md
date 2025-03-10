@@ -6,16 +6,13 @@ tags:
 
 ## 知识类
 
+- [Why you should use `python -m pip`](https://snarky.ca/why-you-should-use-python-m-pip/)
 - [huffman-tree](https://oi-wiki.org/ds/huffman-tree/) & [Visual Information Theory](https://colah.github.io/posts/2015-09-Visual-Information/)
     - 哈夫曼树/编码 & 信息论/交叉熵
 - [Understanding Reasoning LLMs](https://magazine.sebastianraschka.com/p/understanding-reasoning-llms)
 - [PPO & GPRO](https://mp.weixin.qq.com/s/OIiNOMcuXERGVOghwNZ5Uw)
 - [混合专家模型 (MoE) 详解](https://huggingface.co/blog/zh/moe)
 - [RLHF 技术详解](https://huggingface.co/blog/zh/rlhf)
-
-## 素养类
-
-- [Why you should use `python -m pip`](https://snarky.ca/why-you-should-use-python-m-pip/)
 
 ## 工具类
 
@@ -31,3 +28,7 @@ tags:
 	- 紫色：好奇内容，没看懂/希望能够较为深入进行了解，了解后转蓝；
 	- 灰色：其他有效信息；
 	- 一般采用下划线，高亮进行特别突出。
+
+## 杂文
+
+- [the website of Gwern Branwen](https://gwern.net/)

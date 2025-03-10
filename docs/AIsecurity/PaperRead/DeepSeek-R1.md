@@ -1,7 +1,5 @@
 ---
-zotero-key: XTUHDHX4
-zt-attachments:
-  - "46"
+comments: true
 url: http://arxiv.org/abs/2501.12948
 title: "DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning"
 tags:
