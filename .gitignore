@@ -4,3 +4,5 @@ docs/sandbox/
 docs/snippet/
 myPlugins/
 build_cache.json
+.gitignore
+

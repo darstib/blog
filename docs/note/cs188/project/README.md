@@ -29,6 +29,6 @@ project5/6 讲解起来十分复杂，可能直接看代码会有更深的感受
 > - project 0-3
 > 	- WSL ubuntu 22.04；
 > 	- miniconda => python=3.9.19
-> - project 4-
-> 	- MacOS
+> - project 4-6
+> 	- MacOS 
 > 	- miniforge3 => Python=3.10.16

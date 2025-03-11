@@ -19,8 +19,6 @@ tags:
 
 ---
 
-
-
 ### 判断题
 
 > [!QUESTION]
@@ -120,11 +118,7 @@ tags:
 > 
 > C. 6 and 10 are siblings ; D. 3 is the parent of 4
 
-这个图真太难画了，不过熟练的话还是能在几分钟内画出来的（我的建议是在某一次变换中没有用到的子树用特殊形状表示节约时间），这里借 [Jianjun Zhou's Notebook](https://zhoutimemachine.github.io/note/courses/ads-hw-review/#hw1) 的图：
-
-<div style="text-align: center;">
-    <img src="https://zhoutimemachine.github.io/note/courses/imgs/ads/ads_hw_1.4.png" alt="图片" width="300">
-</div>
+这个图真太难画了，不过熟练的话还是能在几分钟内画出来的（我的做法是在某一次变换中没有用到的子树用特殊形状表示节约时间）。
 
 **D**
 

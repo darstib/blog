@@ -6,7 +6,7 @@ comments: true
 dg-publish: true
 ---
 
-> [!PREREQUISITE]
+> [!quote]+
 >
 > 大物乙 II 笔记查看：[memset0](https://mem.ac/course/physics/note/6/) 
 > 
@@ -600,15 +600,15 @@ $p_\text{m}=IS=e\frac{\upsilon}{2\pi r}\pi r^2=\boxed{\frac{evr}{2}} = \frac{e^2
 
 ## IV 第 17 章：电磁感应
 
-### 密绕螺线管
+### IV.1 密绕螺线管
 
 $B = \frac{\mu_{0}NI}{l}, \Phi = BS = \frac{\mu_{0}NI\pi R^2}{l}, \Psi=N\Phi=\frac{\mu_{0}N^2I\pi R^2}{l}$ 
 
 $\varepsilon_{L} = -\frac{\mu_{0}\pi N^2R^2}{l} \frac{dI}{dt}, L = - \frac{d\Psi}{dt} = -L \frac{dI}{dt}$
 
-### 求电动势
+### IV.2 求电动势
 
-#### 定义法
+#### IV.2.1 定义法
 
 > [!QUESTION]
 >
@@ -624,7 +624,7 @@ $$
 
 ---
 
-#### 磁通量法
+#### IV.2.2 磁通量法
 
 ![](attachments/physics2-problems-68.png)
 
@@ -649,7 +649,7 @@ $$
 
 ---
 
-### 求自感系数
+### IV.3 求自感系数
 
 ![](attachments/physics2-problems-70.png)
 
@@ -673,7 +673,7 @@ $$
 
 ---
 
-### 求互感系数
+### IV.4 求互感系数
 
 ![](attachments/physics2-problems-72.png)
 
@@ -687,7 +687,7 @@ $$
 
 ---
 
-### 求位移电流
+### IV.5 求位移电流
 
 > [!QUESTION]
 >
@@ -701,7 +701,7 @@ $$
 
 ---
 
-## 光的衍射
+## V 光的衍射
 
 > [!QUESTION]
 >

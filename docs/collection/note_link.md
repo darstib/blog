@@ -102,6 +102,7 @@ tags:
 ### 毛概
 
 - [-from RyanFcr](https://k5ms77k0o1.feishu.cn/wiki/wikcnT64Bm4TGqWzg9009wdFS4d)
+- [2022-2023秋冬学期毛概期末考试回忆卷](https://www.cc98.org/topic/5506740)
 
 ## 大二上
 

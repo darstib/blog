@@ -1,6 +1,6 @@
 site_name: Darstib's Database!
 site_url: https://darstib.github.io/blog/
-repo_url: https://github.com/Darstib/blog/
+repo_url: https://github.com/darstib/blog/
 repo_name: blog
 edit_uri: edit/main/docs
 site_description: Darstib's blog!
@@ -201,8 +201,8 @@ extra:
   homepage: https://darstib.github.io/blog/
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/Darstib
-      name: "github/Darstib"
+      link: https://github.com/darstib
+      name: "github/darstib"
     - icon: fontawesome/solid/envelope
       link: mailto:darstibreed@gmail.com
       name: "Gmail"
@@ -215,13 +215,13 @@ extra:
     provider: google
     property: G-XXXXXXXXXX
     feedback:
-      title: 如果这对你有用的话，请给我点个star吧 ===> <a href="https://github.com/Darstib/blog"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Darstib/blog.svg?style=plastic&amp;label=Stars"></a>
+      title: 如果这对你有用的话，请给我点个star吧 ===> <a href="https://github.com/darstib/blog"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/blog.svg?style=plastic&amp;label=Stars"></a>
       ratings:
         - icon: material/heart
           name: This page was helpful
           data: 1
           note: >-
-            感谢支持！如果能点个Star就更好啦！ <a href="https://github.com/Darstib/blog"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Darstib/blog.svg?style=plastic&amp;label=Stars"></a>.
+            感谢支持！如果能点个Star就更好啦！ <a href="https://github.com/darstib/blog"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/blog.svg?style=plastic&amp;label=Stars"></a>.
         - icon: material/heart-broken
           name: This page could be improved
           data: 0

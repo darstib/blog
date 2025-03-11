@@ -7,11 +7,11 @@ dg-publish: true
 ---
 ## 期末复习 
 
-> [!quote] 
+> [!quote]+ 
 >
 >  [SAVIA的外装代脑](https://savia7582.github.io/Exterior/Physics/)
 >  
-> 注意，本身应该是大物甲的复习笔记，部分考点大物乙  <u>大概率</u> 不涉及，谨慎选择。
+> 注意，这本身应该是大物甲的复习笔记，部分考点大物乙  <u>大概率</u> 不涉及，谨慎选择。
 
 ![](attachments/link.png)
 

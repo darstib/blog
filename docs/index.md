@@ -45,7 +45,13 @@
 
 ### 致谢 (Acknowledgments)
 
-在搭建本网站的过程中，我遇到了许多友善热情地学长学姐以及同级同学，他们在工具学习、知识学习、解决ERROR等方面给予了我莫多的支持，你可以在 [myworld](https://darstib.github.io/myworld) 中 **Darstib の friends/dalaos** 了解他们更多。同时 [鹤翔万里的笔记本](https://note.tonycrane.cc/) 样式简洁美观，这里多有参考。
+在搭建本站点的过程中，我遇到了许多友善热情地学长学姐以及同级同学，他们在工具学习、知识学习、解决ERROR等方面给予了我莫多的支持，你可以在 [myworld](https://darstib.github.io/myworld) 中 **Darstib の friends** 了解他们更多。
+
+样式主要参考：
+
+- [鹤翔万里的笔记本](https://note.tonycrane.cc/)
+- [Isshiki修's Notebook](https://note.isshikih.top/)
+- [咸鱼暄的代码空间！](https://xuan-insr.github.io/)
 
 *** 
 
