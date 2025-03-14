@@ -21,7 +21,7 @@
     - [other](note/other/README.md)
         - note/other/*.md
 - [CTF](CTF/README.md)
-    - [Tools](CTF/Tools.md)
+    - [CTF_Tools](CTF/CTF_Tools.md)
     - [ZJUCTF2024](CTF/ZJUCTF2024/README.md)
 	    - CTF/ZJUCTF2024/*.md
     - [MOECTF2024](CTF/MOECTF2024/README.md)

@@ -25,7 +25,6 @@ comments: true
 - [BUUCTF](https://buuoj.cn/challenges)
 - [-bugku](https://ctf.bugku.com/)
 - [-攻防世界](https://adworld.xctf.org.cn/challenges/list)
-- [cryptohack](https://cryptohack.org/challenges/) or [-cryptopals](https://cryptopals.com/)
 - [Ethernaut 题库闯关题解](https://learnblockchain.cn/column/19)
 - [ctftime](https://ctftime.org/ctfs)
     - 国内外知名赛事
@@ -206,6 +205,8 @@ comments: true
 
 ### 古典密码学
 
+- [cryptohack](https://cryptohack.org/challenges/) or [-cryptopals](https://cryptopals.com/)
+	- 密码学刷题平台
 - [quipqiup](https://quipqiup.com/) or  [SubstitutionBreaker](https://gitlab.com/guballa/SubstitutionBreaker)
     - 换位密码
 - [Boxentriq](https://www.boxentriq.com/)
@@ -225,7 +226,8 @@ comments: true
 
 - [factordb](http://factordb.com/)
     - 大数因式分解，支持的数据大小是我所见过最大的；
-    - [factordb-python](https://pypi.org/project/factordb-pycli/) 本地运行。
+    - [factordb-python](https://pypi.org/project/factordb-pycli/) 在命令行中调用查询；
+    - [factordb-rust](https://lib.rs/crates/factordb) rust 版本；
 - [OEIS](https://oeis.org/)
     - **在线整数序列百科全书**（On-Line Encyclopedia of Integer Sequences）
 - [proofWiki](https://proofwiki.org/wiki/Main_Page)
@@ -271,7 +273,6 @@ comments: true
 - [whois](https://www.whois.com/whois/)
 - [regex101](https://regex101.com/)
     - 可以 debug 看到详细的正则匹配过程，然后利用匹配步数限制来绕过检测
-
 
 ### 其他文章
 

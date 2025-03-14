@@ -455,7 +455,7 @@ print(long_to_bytes(int(m))) # b"darctf{D0n't_uS@_s4me_m_wlth_s@m3_n}"
 
 > [CTF Wiki (ctf-wiki.org)](https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_module_attack/#p-q_1)
 
-常见的情况有 `q = next_prime(p)` 导致二者非常接近。
+常见的情况有 `q = next_prime(p)` 或者 `p, q = util.GeneratePrimePairByBitLength(bsize, gap)` 导致二者非常接近。
 
 > [!QUESTION]
 >
@@ -467,23 +467,31 @@ n = ...
 e = 65537
 c = ...
 
-def small_p_min_q(n):
-    a = ceil(nth_root(n, 2))
+def fermat_factor(n):
+    # from sage.all import ceil, is_square
+    # def nth_root(n, e):
+    #     return pow(n, 1 / e)
+
+    from libnum import nroot
+    from math import ceil
+    from gmpy2 import is_square
+
+    a = ceil(nroot(n, 2))
     b = a**2 - n
     while not is_square(b):
         a += 1
         b = a**2 - n
-    
-    c = nth_root(b, 2)
-    return a-c, a+c
 
-p, q = small_p_min_q(n)
+    c = nroot(b, 2)
+    return a - c, a + c
+
+p, q = fermat_factor(n)
 # print(p, q)
 phi = (p-1)*(q-1)
 d = inverse_mod(e, phi)
 m = power_mod(c, d, n)
-from Crypto.Util.number import *
-print(long_to_bytes(m)) # b'crypto{f3rm47_w45_4_g3n1u5}'
+from libnum import n2s
+print(n2s(m)) # b'crypto{f3rm47_w45_4_g3n1u5}'
 ```
 
 #### III.6.2 n & npnq

@@ -16,6 +16,7 @@ tags:
 - [sqlmap](https://github.com/sqlmapproject/sqlmap/)
 	- [用户手册中文版](https://sqlmap.highlight.ink/usage)
 	- [sqlmap --tamper 绕过WAF脚本分类整理](https://www.cnblogs.com/hack404/p/16027581.html "发布于 2022-03-19 19:23")
+	- [Sqlmap基础用法、CTF实战及请求参数设置](https://blog.csdn.net/weixin_42529890/article/details/107238671)
 - [sql 注入技巧](https://bbs.kanxue.com/thread-262093.htm#msg_header_h1_1)
 
 ## 实战

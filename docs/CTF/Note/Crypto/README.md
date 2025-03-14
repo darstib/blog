@@ -7,13 +7,20 @@ dg-publish: true
 
 # Crypto
 
+> [!attention]-
+>
+> 在刷 cryptohack 上的题时，出于方便我自己写了一个[简单的交互 python 库](https://github.com/darstib/pyPack/tree/main/CryptoInteract)，如果代码中出现 `from cryptohack import xxx` 即是。
+
 {{ begin_toc }}
 
-- [crypto]
-	- [RSA_attack](RSA_attack.md)
-	- [padding_oracle_attack](padding_oracle_attack.md)
+- Crypto
 	- [国家商用密码](国家商用密码.md)
+	- [Homomorphic_encryption](Homomorphic_encryption.md)
+	- [padding_oracle_attack](padding_oracle_attack.md)
+	- [RSA_attack](RSA_attack.md)
+	- [Symmetric_Ciphers](Symmetric_Ciphers.md)
 	- [stream_cipher](stream_cipher.md)
+	- [WilsonAttack](WilsonAttack.md)
 
 {{ end_toc }}
 

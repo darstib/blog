@@ -8,7 +8,7 @@ comments: true
 
 {{ begin_toc }}
 
-- [Tools](Tools.md)
+- [CTF_Tools](CTF_Tools.md)
 - [ZJUCTF2024](ZJUCTF2024/README.md)
     - [CRYPTO](ZJUCTF2024/CRYPTO.md)
     - [MISC](ZJUCTF2024/MISC.md)

@@ -94,7 +94,7 @@
     {trigger: "> demo", replacement: "> [!demo]\n>\n> $0", options: "tA"},
     {trigger: "> math", replacement: "> [!math]\n>\n> $0", options: "tA"},
     {trigger: "> extra", replacement: "> [!extra]-\n>\n> $0", options: "tA"},
-    {trigger: "> flag", replacement: "> [!flag]\n>\n> $0", options: "tA"},
+    {trigger: "> flag", replacement: "> [!flag]-\n>\n> $0", options: "tA"},
     {trigger: "> !", replacement: "> [!$0]\n>\n> $1", options: "tA"},
     
 	{trigger: "<ques", replacement: "---\n**Q $0** _$1_\n\n$2", options: "tA"}, 
@@ -122,6 +122,7 @@
 	{trigger: "cb", replacement: "^{3}", options: "mA"},
 	{trigger: "rd", replacement: "^{$0}$1", options: "mA"},
 	{trigger: "_", replacement: "_{$0}$1", options: "mA"},
+	{trigger: "^", replacement: "^{$0}$1", options: "mA"},
 	{trigger: "sts", replacement: "_\\text{$0}", options: "mA"},
 	{trigger: "sq", replacement: "\\sqrt{ $0 }$1", options: "mA"},
 	{trigger: "//", replacement: "\\frac{$0}{$1}$2", options: "mA"},
