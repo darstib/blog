@@ -19,14 +19,14 @@ tags:
 
 [本文](https://darstib.github.io/blog/tutorial/MIT/3_Git/)中，非 wsl 命令行演示截图均来自 [「实用技能拾遗」](https://slides.tonycrane.cc/PracticalSkillsTutorial/2023-fall-ckc/lec2/#/)。
 
-> [!HELP]
+> [!HELP]-
 >
-> 如果出现了下面这种界面（在 `git commit` 时）不要慌，看看 [nano](https://www.labno3.com/2021/04/15/guide-to-the-nano-text-editor/)。
-> ![|325](attachments/1-3-Git.png)
+> 如果出现了下面这种界面（在 `git commit` 时）不要慌，看看 [nano](https://help.aliyun.com/zh/cloud-shell/nano-editor-tutorial-1)。
+> ![|500](attachments/1-3-Git.png)
 
-## I 什么是 Git？
+## 什么是 Git？
 
-> [!INFO]
+> [!INFO]+
 >
 > 官网地址：[https://git-scm.com/](https://git-scm.com/)
 > 
@@ -36,15 +36,15 @@ tags:
 >
 >- 版本控制：记录、管理、回溯文件的修改历史 
 
-### I.1 git 模型
+### git 模型
 
 ![](attachments/Git-1.png)
 
 上图中，我们平时进行修改的部分正是工作区 **working directory** ，在我们完成修改后，我们一般使用 `git add --all` 来将我们的修改移入暂存区 **stage** ，之后 `git commit` 提交为 **commit history** （这代表着一次又一次的版本，也就是 VCS 的含义了），最后 `git push` 更新仓库。
 
-## II 基础操作
+## 基础操作
 
-### II.1 git init
+### git init
 
 - git init：让当前文件夹变成 git 仓库（创建 .git 文件夹）
 - git init _folder_：创建一个新的文件夹并初始化为 git 仓库
@@ -53,15 +53,15 @@ tags:
 
 ![|550](attachments/Git-2.png)
 
-### II.2 git staus
+### git staus
 
 查看工作区&暂存区状态，我们在下面会大量使用到。文件三个类别：**未跟踪（Untracked，新建）、已追踪（Tracked，版本库中已经存在）、被忽略（Ignored）**；对于 Ignored 部分可以看 [这里](https://slides.tonycrane.cc/PracticalSkillsTutorial/2023-spring-cs/lec2/#/2/2)。
 
-### II.3 git add
+### git add
 
 首先创建一个新文件用于测试：
 
-> [!HELP]
+> [!HELP]-
 >
 > 如果不理解如何创建可以转看 [mkdir](https://darstib.github.io/blog/tutorial/MIT/0_linux-shell/#ii4-touchmkdirmvcprm)；或者 `man mkdir` 查看。
 
@@ -69,21 +69,21 @@ tags:
 
 可以看见 **1.txt** 已经放入了 stage 中。
 
-> [!TIP]
+> [!TIP]+
 >
 > 一个个加自然是十分麻烦的，所以我们可以用 `git add .` 将当前路径下文件全部加入， `git add -a 或者是 --all` 就将所有修改都存入 stage 中。熟悉一些通配符能够为我们省去很多重复的工作。
 
-### II.4 git rm
+### git rm
 
 我们都知道 `rm` 用于删除一个本地文件，而 `git rm` 则可以删除本地和版本库中的文件，`git rm --cached` 则用于删除暂存区中的文件
 
 ![|500](attachments/Git-4.png)
 
-### II.5 git commit
+### git commit
 
 直接 `git commit` 我们会发现进入了一个编辑器，比较麻烦，我们可以选择 `git commit -m "message"` 来进行提交，其中 message 中可以任意填写，但是为了以后看见能知道干了什么还是留有一定信息比较好。
 
-> [!TIP]
+> [!TIP]+
 >
 > 关于 `git commit -m "message"` 中的 message，为了提高其记录修改的能力，我们最好是遵循一些规范(Angular)；当然，在 `""` 放入很多信息太不雅观了，我们一般选择 `git commit` 后在其中添加
 >
@@ -98,7 +98,7 @@ tags:
 > - body：详细描述，可选
 > - footer：解决 issue 了可以写 `Fixes #_id_` 或 `Closes #_id_`
 
-### II.6 git log
+### git log
 
 输入 `git log` 可以看到修改历史
 
@@ -106,7 +106,7 @@ tags:
 
 > [!HELP]
 >
-> 这里我们进入了 vim 编辑模式，不熟悉没关系，我们以看为主，想要退出需要输入 `[:]q`[^1] 即可。
+> 这里我们进入了类似 vim 的视图，不熟悉没关系，我们以看为主，想要退出需要输入 `[:]q`[^1] 即可。
 
 [^1]: `[]` 在此表示可选，有时直接输入 `q` 就能够退出。
 
@@ -119,11 +119,11 @@ tags:
 
 ![](attachments/Git-6.png)
 
-### II.7 git checkout && git branch
+### git checkout && git branch
 
 准备工作：我们先分两次提交修改 2.txt 文件：
 
- ![|500](attachments/Git-7.png)![|500](attachments/Git-8.png)
+![|500](attachments/Git-7.png)![|500](attachments/Git-8.png)
 
 可以看见包括最开始的一次共有三次提交，我们只关注 line 1 line 2 即可。
 
@@ -137,7 +137,7 @@ tags:
 
 我们回到了 master，可以说丢失了 503cf8b  这一提交历史的修改。
 
-> [!KNOWLEDGE]
+> [!info]+
 >
 > 什么是 HEAD：当前工作区在提交历史中的 **指针**。
 
@@ -153,7 +153,7 @@ tags:
 
 ![](attachments/Git-15.png)
 
-> [!NOTE]
+> [!NOTE]+
 >
 > **分支**
 > 
@@ -184,11 +184,11 @@ tags:
 > ![](attachments/Git-17.png)
 > 
 
-### II.8 git merge
+### git merge
 
 我们在想要保留的分支上键入 `git merge branch` 后可以将 branch 这一分支的修改内容合并到当前分支。
 
-> [!EXAMPLE]
+> [!example]-
 >
 > 键入 `git branch -a` 我们可以看到当前处于 change1 分支上（这一点我们以后不在赘述）接下来将 change 1 合并至 master 上
 > 
@@ -205,7 +205,7 @@ tags:
 
 ![](attachments/Git-21.png)
 
-### II.9 git tag
+### git tag
 
 git 使用 tag 来控制版本号，例如我们键入 `git tag v0.0.1` 后回车，啥都没有，但是再次 `git tag` 可以发现：
 
@@ -217,15 +217,15 @@ git 使用 tag 来控制版本号，例如我们键入 `git tag v0.0.1` 后回�
 
 详尽的规则可查看 [语义化版本 2.0.0](https://semver.org/lang/zh-CN/)
 
-## III 进阶操作
+## 进阶操作
 
-### III.1 远程版本库
+### 远程版本库
 
 > [!INFO]
 >
 > git 这类的 DVCS 通过使用一个“权威”的远程版本库 (remote repository) 来实现协作，但是远程版本库也是一个普通的 git 版本库。
 
-#### III.1.1 git push
+#### git push
 
 git push 会将本地的提交推送到远程版本库，但是无法直接 push 到远程版本库检出的分支中
 
@@ -241,7 +241,7 @@ git push 会将本地的提交推送到远程版本库，但是无法直接 pu
 
 可以看到主要是将 .git 文件夹中部分内容放过来了
 
-#### III.1.2 git pull
+#### git pull
 
 git pull 会将远程版本库的提交拉取到本地，包含 git fetch 和 git merge 两个步骤
 
@@ -249,13 +249,13 @@ git pull 会将远程版本库的提交拉取到本地，包含 git fetch 和
 
 ![](attachments/Git-25.png)
 
-#### III.1.3 git remote set-url
+#### git remote set-url
 
 需要时可以用下面的命令来更改远程仓库的 URL：
 
 `git remote set-url origin https://github.com/username/repo.git`
 
-### III.2 submodule
+### submodule
 
 > [!QUESTION]
 >
@@ -281,7 +281,7 @@ git 会不允许正常 add/commit，警告这样 clone 时不会包含子版
 >
 > 如果仓库托管在 GitHub 上，url 是对应链接，这样才能在克隆仓库时带上 submodule。
 
-### III.3 Git 结构
+### Git 结构
 
 ![|450](attachments/Git-29.png)
 
@@ -295,16 +295,17 @@ git 会不允许正常 add/commit，警告这样 clone 时不会包含子版
     - 三种对象类型：commit、 tree、 blob（Binary Large Object），图解如下
     -  ![](attachments/Git-30.png)
 
-### III.4 项目合作
-#### III.4.1 pull request(PR)
+### 项目合作
+
+#### pull request(PR)
 
 对于他人的 repo，你是没有办法直接 push 的，向其中添加代码更改都是通过 pull request 进行的，一般流程如下，还有一些[其他规范](https://slides.tonycrane.cc/PracticalSkillsTutorial/2023-spring-cs/lec2/#/4/4)。
 
 ![](attachments/Git-31.png)
 
-## IV 实际案例
+## 实际案例
 
-### IV.1 Push cannot contain secrets
+### Push cannot contain secrets
 
 一次提交 CTF 的 writeup 时出现错误：
 
@@ -320,11 +321,11 @@ git 会不允许正常 add/commit，警告这样 clone 时不会包含子版
 
 要移除包含敏感信息的文件在 Git 提交中的记录，您可以使用 `git rebase` 或 `git filter-branch`。以下是使用 `git rebase` 的步骤：
 
-#### IV.1.1 步骤 1：查找需要修改的提交
+#### 步骤 1：查找需要修改的提交
 
 首先，您需要找到该提交之前的提交。在您的情况中，您要修改的提交 ID 是 `xxxxxxxxxxxxxxxxxx`。
 
-#### IV.1.2 步骤 2：开始交互式变基
+#### 步骤 2：开始交互式变基
 
 运行以下命令以开始交互式变基：
 
@@ -332,11 +333,11 @@ git 会不允许正常 add/commit，警告这样 clone 时不会包含子版
 
 其中 `n` 是您想要回溯的提交数（包括有问题的提交）。如果您不确定，可以尝试较大的数字，例如 `10`。
 
-#### IV.1.3 步骤 3：编辑提交
+#### 步骤 3：编辑提交
 
 在打开的文本编辑器中，找到包含敏感信息的那一行（即 `xxxxxxxxxxxxxxxxxxx`），将其前面的 ` pick ` 更改为 ` edit `。保存并关闭编辑器。
 
-#### IV.1.4 步骤 4：移除敏感信息
+#### 步骤 4：移除敏感信息
 
 当 Git 停止在该提交时，您可以通过以下命令来移除敏感信息：
 
@@ -344,7 +345,7 @@ git 会不允许正常 add/commit，警告这样 clone 时不会包含子版
 
 在编辑器中删除相关行，然后保存并退出。
 
-#### IV.1.5 步骤 5：更新提交
+#### 步骤 5：更新提交
 
 完成文件编辑后，运行以下命令更新该提交：
 
@@ -352,17 +353,17 @@ git 会不允许正常 add/commit，警告这样 clone 时不会包含子版
 git add docs/CTF/ZJUCTF2024/WEB.md
 git commit --amend --no-edit 
 ```
-#### IV.1.6 步骤 6：继续变基
+#### 步骤 6：继续变基
 
 接下来，继续变基过程：
 
 `git rebase --continue` ，直到达到最新；或者也可以直接下一步。
-#### IV.1.7 步骤 7：推送更改
+#### 步骤 7：推送更改
 
 最后，将修改后的历史推送到远程仓库。由于已经重写了历史，因此需要强制推送：
 
 `git push origin main`
 
-## V 参考文档
+## 参考资料
 
- [鹤翔万里——Git & GitHub 基础介绍](https://www.bilibili.com/video/BV1og4y1u7XU) 
+-  [鹤翔万里——Git & GitHub 基础介绍](https://www.bilibili.com/video/BV1og4y1u7XU) 

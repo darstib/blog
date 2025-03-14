@@ -6,7 +6,6 @@ tags:
 - note
 date: 2024-03-16
 ---
-***
 
 > [!SUMMARY]-
 >
@@ -284,17 +283,15 @@ for arg in reversed(sys.argv[1:]):
 
 ## VI Shell 工具
 
+> [!tip]-
+>
+> 搜索 "xxx cheatsheet"
+
 ### VI.1 man
 
-`man` 命令是 manual（手册）的缩写，属于是网页版 linux 手册
-
-### VI.2 TLDR pages
-
-`man` 命令有时过于详细了，不利于我们学习常用的命令及选项
-
- [TLDR pages](https://tldr.sh/) 是一个很不错的替代品，它提供了一些案例，可以帮助您快速找到正确的选项（当然，也可以找找其他比较靠谱的 Linux 手册）。
+`man` 命令是 manual（手册）的缩写，属于是网页版 linux 手册。
  
-### VI.3 文件查找
+### VI.2 文件查找
 
 程序员们面对的最常见的重复任务就是查找文件或目录。所有的类UNIX系统都包含一个名为 [`find`](https://man7.org/linux/man-pages/man1/find.1.html) 的工具，它是 shell 上用于查找文件的绝佳工具。`find`命令会递归地搜索符合条件的文件，例如：
 
@@ -328,7 +325,7 @@ find . -name '*.png' -exec convert {} {}.jpg \;
 
 这就要靠 [`locate`](https://man7.org/linux/man-pages/man1/locate.1.html) 了。 `locate` 使用一个由 [`updatedb`](https://man7.org/linux/man-pages/man1/updatedb.1.html) 负责更新的数据库（在大多数系统中 `updatedb` 都会通过 [`cron`](https://man7.org/linux/man-pages/man8/cron.8.html) 每日更新）而在数据库中进行搜索可比在硬盘搜索快多了。这便需要我们在速度和时效性之间作出权衡。而且，`find` 和类似的工具可以通过别的属性比如文件大小、修改时间或是权限来查找文件，`locate` 则只能通过文件名。[更详细的对比](https://unix.stackexchange.com/questions/60205/locate-vs-find-usage-pros-and-cons-of-each-other)
 
-### VI.4 代码查找
+### VI.3 代码查找
 
 很多时候我们需要找到写过的一段代码。为了实现这一点，很多类 UNIX 的系统都提供了 [`grep`](https://man7.org/linux/man-pages/man1/grep.1.html) 命令，它是用于对输入文本进行匹配的通用工具。
 
@@ -351,7 +348,7 @@ rg --stats PATTERN
 
 与 `find`/`fd` 一样，重要的是你要知道有些问题使用合适的工具就会迎刃而解，而具体选择哪个工具则不是那么重要
 
-### VI.5 查找 shell 命令
+### VI.4 查找 shell 命令
 
 `history` 命令允许您以程序员的方式来访问shell中输入的历史命令。这个命令会在标准输出中打印shell中的里面命令。如果我们要搜索历史记录，则可以利用管道将输出结果传递给 `grep` 进行模式搜索。 `history | grep find` 会打印包含find子串的命令。
 
@@ -365,9 +362,7 @@ rg --stats PATTERN
 
 你可以修改 shell history 的行为，例如，如果在命令的开头加上一个空格，它就不会被加进shell记录中。当你输入包含密码或是其他敏感信息的命令时会用到这一特性。 为此你需要在`.bashrc`中添加`HISTCONTROL=ignorespace`或者向`.zshrc` 添加 `setopt HIST_IGNORE_SPACE`。 如果你不小心忘了在前面加空格，可以通过编辑。`bash_history`或 `.zhistory` 来手动地从历史记录中移除那一项
 
-### VI.6 查找文件夹
-
-（比较深一些，慢慢学）
+### VI.5 查找文件夹
 
 之前对所有操作我们都默认一个前提，即您已经位于想要执行命令的目录下，但是如何才能高效地在目录 间随意切换呢？有很多简便的方法可以做到，比如设置alias，使用 [ln -s](https://man7.org/linux/man-pages/man1/ln.1.html) 创建符号连接等。而开发者们已经想到了很多更为精妙的解决方案。
 
@@ -375,7 +370,49 @@ rg --stats PATTERN
 
 Fasd 基于 [_frecency_](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/Places/Frecency_algorithm) 对文件和文件排序，也就是说它会同时针对频率（_frequency_）和时效（_recency_）进行排序。默认情况下，`fasd`使用命令 `z` 帮助我们快速切换到最常访问的目录。例如， 如果您经常访问`/home/user/files/cool_project` 目录，那么可以直接使用 `z cool` 跳转到该目录。对于 autojump，则使用`j cool`代替即可。
 
-还有一些更复杂的工具可以用来概览目录结构，例如 [`tree`](https://linux.die.net/man/1/tree), [`broot`](https://github.com/Canop/broot) 或更加完整的文件管理器，例如 [`nnn`](https://github.com/jarun/nnn) 或 [`ranger`](https://github.com/ranger/ranger)
+### VI.6 比较
+
+> [!tip]-
+>
+> - 常用的工具找**最顺手**的
+> - 不常用工具找**最泛用**的
+
+#### VI.6.1 查找类
+
+|                                  工具                                  |             优点             |             缺点             |                    使用示例                     |                       适用场景                       |
+| :------------------------------------------------------------------: | :------------------------: | :------------------------: | :-----------------------------------------: | :----------------------------------------------: |
+|                                 find                                 |     功能强大，灵活，可执行操作，精确搜索     |          速度慢，语法复杂          | `find "." -n ".DS_Store" -exec rm -i {} \;` | 需要根据多种属性条件查找文件，需要在找到文件后**立即执行某些操作**，需要进行精确的文件名匹配 |
+| [the silver searcher](https://github.com/ggreer/the_silver_searcher) |       速度快，智能忽略，易于使用        | 主要用于代码/文件内容搜索，不如 `find` 灵活 |               `ag rust_learn`               |    需要在大型代码库中快速查找字符串或正则表达式，需要忽略版本控制系统忽略的文件和目录     |
+|               [fzf](https://github.com/junegunn/fzf/)                | 实时展示结果（交互式查找），模糊搜索，可结合其他命令 |     初始化需要实践，可能大型仓库可能较慢     |   `find path/to/directory -type f \| fzf`   |                 文件名模糊，实时查找、过滤、选择                 |
+|                                locate                                |            速度快             |         实时性差，不够精确          |               `ag rust_learn`               |         需要快速查找文件，对实时性要求不高，只需要按文件名进行简单查找          |
+|                                which                                 |          简单易用，速度快          |        功能有限，搜索范围有限         |               `which python3`               |                需要查找命令或可执行文件的完整路径                 |
+|                               whereis                                |        查找范围较广，简单易用         |       依赖数据库，结果可能不准确        |              `whereis python3`              |            需要查找命令的二进制文件、源代码和 man 手册页             |
+
+#### VI.6.2 文件结构类
+
+| 工具                                         | 优点                          | 缺点                | 适用场景                                            |
+|:------------------------------------------:|:---------------------------:|:-----------------:|:-----------------------------------------------:|
+| [ranger](https://github.com/ranger/ranger) | Vim-like 界面，多列显示，可定制性强，预览功能 | 学习成本，依赖 Python    | 是 Vim 用户，需要多列显示目录结构，需要预览文件内容，需要对文件管理器进行定制       |
+| [broot](https://github.com/Canop/broot)    | 交互式浏览，模糊搜索，可执行操作，速度快        | 需要安装，学习成本         | 需要交互式地浏览目录结构，需要在大型目录中快速定位文件和目录，需要在浏览目录的同时执行文件操作 |
+| [tree](https://linux.die.net/man/1/tree)   | 简单易用，输出清晰，广泛可用              | 功能有限，不适合大型目录，交互性差 | 需要快速查看目录结构，目录结构不太复杂，不需要进行文件操作                   |
+
+> `nnn` 也是一个类似的工具，但是使用个人感觉体验较差，就没放在这里了。
+
+#### VI.6.3 手册类
+
+|            工具            | 优点               | 缺点               | 适用场景                                       |
+| :----------------------: | :--------------: | :--------------: | :----------------------------------------:|
+| [tldr](https://tldr.sh/) | 简洁明了，易于理解，社区维护   | 不够全面，仅有常用方式介绍    | 需要快速了解命令的基本用法，是初学者，只需要了解命令的常用功能            |
+|       -h / --help        | 简单直接，快速查看，一般程序自带 | 信息有限，格式不统一，缺乏示例  | 需要快速查看命令的基本用法和选项，对命令有一定了解                  |
+|           man            | 内容详尽，官方文档，系统自带   | 信息过载，阅读困难，查找信息耗时 | 需要深入了解命令的所有细节和选项，需要查看官方的、权威的文档，对命令的使用有一定经验 |
+
+#### VI.6.4 编辑器类
+
+|                            编辑器                             |                                        优点                                         |         缺点          |                            适用场景                             |
+| :--------------------------------------------------------: | :-------------------------------------------------------------------------------: | :-----------------: | :---------------------------------------------------------: |
+|            [nano](https://www.nano-editor.org/)            |  [简单易学](https://help.aliyun.com/zh/cloud-shell/nano-editor-tutorial-1)，资源占用少，预装   |     功能有限，可定制性差      |               需要快速编辑文本文件，是初学者，在资源有限的机器上进行文本编辑               |
+| [vim](https://www.vim.org/) / [neovim](https://neovim.io/) | 高效编辑，功能强大，可定制性强，[广泛支持](https://help.aliyun.com/zh/cloud-shell/use-the-vim-editor) |   学习曲线相对陡峭，配置比较复杂   |             需要高效地进行文本编辑，需要使用高级编辑功能，需要对编辑器进行深度定制             |
+|        [emacs](https://www.gnu.org/software/emacs/)        |     [高度可定制，功能丰富](https://www.wenhui.space/docs/02-emacs/emacs_useguide/)，社区强大     | 学习曲线非常陡峭，资源占用高，配置复杂 | 需要对编辑器进行高度定制，愿意 <u>花费大量时间学习和配置编辑器</u> ，需要使用 `emacs` 的各种扩展功能 |
 
 ## VII 小结
 
@@ -383,4 +420,4 @@ Fasd 基于 [_frecency_](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/
 
 此外，missing-semester 本身留了[几个作业](https://missing-semester-cn.github.io/2020/shell-tools/#:~:text=nnn%20%E6%88%96%20ranger%E3%80%82-,%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0,-%E4%B9%A0%E9%A2%98%E8%A7%A3%E7%AD%94)，现在来看难度不小，不妨下次复习来做？
 
-## 参考文档
+## VIII 参考文档
