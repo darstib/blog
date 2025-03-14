@@ -370,7 +370,7 @@ rg --stats PATTERN
 
 Fasd 基于 [_frecency_](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/Places/Frecency_algorithm) 对文件和文件排序，也就是说它会同时针对频率（_frequency_）和时效（_recency_）进行排序。默认情况下，`fasd`使用命令 `z` 帮助我们快速切换到最常访问的目录。例如， 如果您经常访问`/home/user/files/cool_project` 目录，那么可以直接使用 `z cool` 跳转到该目录。对于 autojump，则使用`j cool`代替即可。
 
-### VI.6 比较
+### VI.6 工具选择
 
 > [!tip]-
 >
@@ -420,4 +420,6 @@ Fasd 基于 [_frecency_](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/
 
 此外，missing-semester 本身留了[几个作业](https://missing-semester-cn.github.io/2020/shell-tools/#:~:text=nnn%20%E6%88%96%20ranger%E3%80%82-,%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0,-%E4%B9%A0%E9%A2%98%E8%A7%A3%E7%AD%94)，现在来看难度不小，不妨下次复习来做？
 
-## VIII 参考文档
+## VIII 参考资料
+
+- [shell 工具和脚本](https://missing-semester-cn.github.io/2020/shell-tools/)

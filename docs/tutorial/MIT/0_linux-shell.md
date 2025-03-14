@@ -15,23 +15,35 @@ date: 2024-03-15
 > - **文件管理：** touch 创建/更新文件，mkdir 创建目录，mv 移动/重命名，cp 复制，rm 删除。
 > - **命令连接：** `<`、`>`、`>>`、`|`、`&&`、`||`、`;` 可连接命令。
 > - **权限管理：** chmod 可调整文件权限，字符串语法和数字语法均可使用。
+> - **APT 命令**：apt 是 linux 常见的包管理器。
+> - **根目录结构**：对类 unix 系统常见系统结构进行了拆解。
 
-<!-- more -->
-## I 前言
+## 前言
 
-### I.1 什么是 shell?
+> [!quote]+
+>
+> 本文前半部分更多是对[一看就懂的Linux Shell的基础使用](https://blog.codecyrus.com/posts/linux-shell-basic-usage/)的转载，因为我觉得此文讲得非常详细了，但是又少了一些东西，而且无目录导致翻阅有些麻烦；后半部分是对多处资料的整理，总体来说本文原创性近 0。
 
-shell是操作系统为用户提供交互界面的命令行解释器的统称，例如Windows中的cmd就是一种shell。bash 是其中最流行的一种。bash 是 Bourne Again shell 的简称。
+### 什么是 shell?
 
-> 本文多学习借鉴自 [Cyrus' Blog](https://cyrus28214.top/post/bb59eff0fad1/?highlight=linux)，再加入自己的部分理解。
+shell是操作系统为用户提供交互界面的命令行解释器的统称，例如Windows中的cmd就是一种shell。bash 是其中最流行的一种，也是多数 linux 自带的 shell 。
+
+Linux 包含多种 Shell ，常见的有：
+
+- Bourne Shell（ATT的Bourne开发，名为sh）
+- Bourne Again Shell（/bin/bash）
+- C Shell（Bill Joy开发，名为csh）
+- K Shell（ATT的David G.koun开发，名为ksh）
+- Z Shell（Paul Falstad开发，名为zsh）
 
 你需要使用一个类Unix shell来完成文中所提到的操作。你可以：
 
-- 使用安装了Linux的电脑
-- 使用Linux虚拟机
-- 使用 [WSL(Windows Subsystem for Linux)](https://docs.microsoft.com/zh-cn/windows/wsl/) （本人操作环境为 Ubuntu 22.04）
+- 使用安装了Linux的电脑，或者是 macOS 等类 Unix 系统；
+- 对于 Windows 用户，你可以：
+	- 使用 Linux 虚拟机；
+	- 使用 [WSL(Windows Subsystem for Linux)](https://docs.microsoft.com/zh-cn/windows/wsl/) （本人操作环境为 Ubuntu 22.04）。
 
-### I.2 使用shell
+### 使用shell
 
 进入shell，可以看到这样的一行提示：
 
@@ -74,9 +86,9 @@ shell怎么知道这些程序在哪里呢？其实shell会在`$PATH`里面的路
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ```
 
-## II 命令
+## 命令
 
-### II.1 路径: pwd/cd 
+### 路径: pwd/cd 
 
 在 Linux 和 MacOS 中，路径使用 `/` 分隔，而在 Windows 中是 `\`。在 Linux 和 MacOS 中，路径从 `/` 开始，代表根目录（包含了所有目录）；在 Windows 中，路径从盘符开始，如 `C:\`。
 
@@ -114,7 +126,7 @@ shell怎么知道这些程序在哪里呢？其实shell会在`$PATH`里面的路
 /
 ```
 
-### II.2 ls
+### ls
 
 `ls`（list的缩写）可以列出当前目录下有什么：
 
@@ -185,11 +197,11 @@ drwxr-xr-x 9 yourusername yourusername 4096 Mar 13 19:13 work
 
 最后一列就是文件名
 
-### II.3 man
+### man
 
 `man`可以显示一个命令的详细帮助文档，输入`man ls`，会显示比`ls --help`更加详细的命令使用帮助。
 
-### II.4 touch、mkdir、mv、cp、rm
+### touch、mkdir、mv、cp、rm
 
 `touch 文件名`有两个作用：
 
@@ -217,9 +229,9 @@ drwxr-xr-x 2 qssg qssg 4096 Mar 15 19:53 case
 
 `rm 目标`（remove）可以删除文件或目录，如果要删除的是一个目录，也需要附加`-r`参数，来执行递归地删除。默认情况下，`rm`命令需要你逐个确认你是否确定删除这个文件，附加`-f`参数可以无需再次确认， **使用`-f`时请保证你真的要删除，没有再次确定的机会了**
 
-## III 符号
+## 符号
 
-### III.1 `<`、`>`、`>>`、`|`、`&&`、`||`、`;`
+### `<`、`>`、`>>`、`|`、`&&`、`||`、`;`
 
 "< 文件"可以使用文件作为程序的输入，"> 文件"可以将程序的输出保存到文件中（不存在就会被创建）
 
@@ -255,7 +267,7 @@ drwxr-xr-x  13 root root    4096 May  2  2023 var
 
 `;` 就是单纯的先后执行两条命令，无论成功与否，两条命令都会执行。
 
-### III.2 `#`
+### `#`
 
 `#`表示注释，`#`后的文本会被忽略。
 
@@ -269,7 +281,7 @@ touch: missing file operand
 Try 'touch --help' for more information.
 ```
 
-### III.3 `\`、`'`、`"`
+### `\`、`'`、`"`
 
 在shell中，有一些字符不能直接作为参数的一部分传递，例如`!`、`$`、` `、`#`、`\`。
 
@@ -308,7 +320,7 @@ $SHELL
 hello world
 ```
 
-## IV sudo
+## sudo
 
 Linux系统中有一个用户的身份是特殊的，那就是 root 用户，root用户拥有最高的权限，可以做几乎任何事情，直接登录到root用户是很危险的，因为你可能一不小心就利用root权限做出了一些破环性的操作（例如：误删除数据、全局修改了关键系统设置），因此，常常使用`sudo 命令`（意思是 do as superuser），来使用超级用户权限执行命令，这样可以让你能再次确认你的操作无误。
 
@@ -324,53 +336,48 @@ Administrator. It usually boils down to these three things:
     #3) With great power comes great responsibility.
 ```
 
-翻译如下：
-
-```shell
-我们确信您已经收到了本地系统管理员的例行讲解。
-通常可以归结为以下三点：
-    #1) 尊重他人隐私。
-    #2) 打字前先思考。
-    #3) 权力越大，责任越大。
-```
-
-“With great power comes great responsibility.”
-
 使用root权限时要时刻提醒自己，谨慎对待每一个命令
 
-下面有一个来自 MIT Missing Semester 的例子，指出了使用`sudo`的一个常见误区：
-
->例如，您笔记本电脑的屏幕亮度写在 `brightness` 文件中，它位于
->```txt
->/sys/class/backlight
->```
->通过将数值写入该文件，我们可以改变屏幕的亮度。现在，蹦到您脑袋里的第一个想法可能是：
->```txt
->$ sudo find -L /sys/class/backlight -maxdepth 2 -name '*brightness*'
->/sys/class/backlight/thinkpad_screen/brightness
->$ cd /sys/class/backlight/thinkpad_screen
->$ sudo echo 3 > brightness
->An error occurred while redirecting file 'brightness'
->open: Permission denied
->```
->出乎意料的是，我们还是得到了一个错误信息。毕竟，我们已经使用了 `sudo` 命令！关于 shell，有件事我们必须要知道。`|`、`>`、和 `<` 是通过 shell 执行的，而不是被各个程序单独执行。 `echo` 等程序并不知道 `|` 的存在，它们只知道从自己的输入输出流中进行读写。 对于上面这种情况， shell (权限为您的当前用户) 在设置 `sudo echo` 前尝试打开 brightness 文件并写入，但是系统拒绝了 shell 的操作因为此时 shell 不是根用户。
+> [!quote]- 下面有一个来自 MIT Missing Semester 的例子，指出了使用`sudo`的一个常见误区
 >
->明白这一点后，我们可以这样操作：
->```txt
->$ echo 3 | sudo tee brightness
->```
->因为打开 /sys 文件的是 tee 这个程序，并且该程序以 root 权限在运行，因此操作可以进行。 这样您就可以在 /sys 中愉快地玩耍了，例如修改系统中各种LED的状态（路径可能会有所不同）：
->```txt
->$ echo 1 | sudo tee /sys/class/leds/input6::scrolllock/brightness
->```
+> 例如，您笔记本电脑的屏幕亮度写在 `brightness` 文件中，它位于
+> 
+> ```shell
+> /sys/class/backlight
+> ```
+> 
+> 通过将数值写入该文件，我们可以改变屏幕的亮度。现在，蹦到您脑袋里的第一个想法可能是：
+> 
+> ```shell
+> $ sudo find -L /sys/class/backlight -maxdepth 2 -name '*brightness*'
+> /sys/class/backlight/thinkpad_screen/brightness
+> $ cd /sys/class/backlight/thinkpad_screen
+> $ sudo echo 3 > brightness
+> An error occurred while redirecting file 'brightness'
+> open: Permission denied
+> ```
+> 
+> 出乎意料的是，我们还是得到了一个错误信息。毕竟，我们已经使用了 `sudo` 命令！关于 shell，有件事我们必须要知道。`|`、`>`、和 `<` 是通过 shell 执行的，而不是被各个程序单独执行。 `echo` 等程序并不知道 `|` 的存在，它们只知道从自己的输入输出流中进行读写。对于上面这种情况， shell (权限为您的当前用户) 在设置 `sudo echo` 前尝试打开 brightness 文件并写入，但是系统拒绝了 shell 的操作因为此时 shell 不是根用户。
+> 
+> 明白这一点后，我们可以这样操作：
+> 
+> ```shell
+> $ echo 3 | sudo tee brightness
+> ```
+>
+> 因为打开 /sys 文件的是 tee 这个程序，并且该程序以 root 权限在运行，因此操作可以进行。这样您就可以在 /sys 中愉快地玩耍了，例如修改系统中各种LED的状态（路径可能会有所不同）：
+> 
+> ```shell
+> $ echo 1 | sudo tee /sys/class/leds/input6::scrolllock/brightness
+> ```
 
-## V chmod
+## chmod
 
 前面我们提到了文件的三种权限`rwx`，使用`chmod`可以调整这些权限。
 
 chmod 可以使用两种语法，字符串语法和数字语法。
 
-### V.1 字符串语法
+### 字符串语法
 
 - 用`ugoa`四个字母表示设置哪些人的权限
 - 用`+-=`三个字母表示如何改变权限
@@ -397,7 +404,7 @@ chmod 可以使用两种语法，字符串语法和数字语法。
 
 `chmod ug=rwx,o=x file`表示文件拥有者所在的组的所有人都可以读、写、运行file，其他人只能运行file
 
-### V.2 八进制数字语法
+### 八进制数字语法
 
 一共有三种权限`rwx`，$2^3=8$，可以使用8个数字来表示某种人的权限，权限又分为针对三种人`ugo`，于是，一个文件的权限可以用三个0-7的数字表示。
 
@@ -427,23 +434,60 @@ chmod 可以使用两种语法，字符串语法和数字语法。
 
 使用数字来设置权限，可以仅仅用三个字符就设置好每一个权限，非常方便快捷。
 
-## VI 其他常用
+## APT 命令
 
-| apt              | 命令取代的命令              | 命令的功能           |
-| ---------------- | -------------------- | --------------- |
-| apt install      | **apt-get install**      | 安装软件包           |
-| apt remove       | **apt-get remove**       | 移除软件包           |
-| apt purge        | apt-get purge        | 移除软件包及配置文件      |
-| apt update       | apt-get update       | 刷新存储库索引         |
-| apt upgrade      | apt-get upgrade      | 升级所有可升级的软件包     |
-| apt autoremove   | apt-get autoremove   | 自动删除不需要的包       |
-| apt full-upgrade | apt-get dist-upgrade | 在升级软件包时自动处理依赖关系 |
-| apt search       | apt-cache search     | 搜索应用程序          |
-| apt show         | apt-cache show       | 显示安装细节          |
+| **apt 命令**         | 命令取代的命令 (旧版)   | 命令的功能                                  | 备注                                                                                          |
+|-------------------|----------------------|-------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| **apt install**    | apt-get install      | 安装软件包                                    | `apt install <package_name>` 安装单个,  `apt install <package_1> <package_2>` 安装多个 |
+| **apt remove**     | apt-get remove       | 移除软件包                                    |                                                                                               |
+| **apt purge**      | apt-get purge        | 移除软件包及配置文件                              |                                                                                               |
+| apt update         | apt-get update       | 刷新存储库索引 (更新可安装的软件列表)                 | `apt update <package_name>` 可用于更新指定软件                                                        |
+| **apt upgrade**    | apt-get upgrade      | 升级所有可升级的软件包                              |                                                                                               |
+| apt full-upgrade   | apt-get dist-upgrade | 升级软件包，自动处理依赖关系 (可能删除旧包)        | 升级前先删除需要更新的软件包                                                                                |
+| **apt autoremove** | apt-get autoremove   | 自动删除不需要的依赖和库文件                        |                                                                                               |
+| apt search         | apt-cache search     | 搜索软件包                                    |                                                                                               |
+| apt show           | apt-cache show       | 显示软件包详细信息 (版本、依赖等)                   |                                                                                               |
+| apt list --upgradeable |                      | 列出可更新的软件包及版本信息                       |                                                                                               |
+| apt list --installed   |                      | 列出所有已安装的软件包                            |                                                                                               |
+| apt list --all-versions|                      | 列出所有已安装的软件包的版本信息                    |                                                       |
 
-## VII 参考资料
+## 根目录结构
 
--  [Cyrus' Blog](https://cyrus28214.top/post/bb59eff0fad1/?highlight=linux)
+![](https://raw.gitmirror.com/darstib/public_imgs/utool/2503/14_250314-204022.png)
+
+在一个[学长的笔记](https://www.yuque.com/dogge2333/study/talqwu#525eb713)中将根目录结构讲得比较详细了，其要点整理成表格如下：
+
+|        目录        |                    描述                    |                备注                 |
+| :--------------: | :--------------------------------------: | :-------------------------------: |
+|      `/bin`      |             核心二进制文件，包含基本命令。              |          链接到 `/usr/bin`           |
+|     `/sbin`      |             系统管理员使用的系统管理程序。              | Superuser Binaries，链接到 `/usr/bin` |
+|     `/boot`      |         操作系统启动所需文件，包括内核和引导加载程序。          |                                   |
+|      `/dev`      |            设备文件，提供访问硬件设备的端口。             |           不是驱动程序，而是访问接口           |
+|      `/etc`      |               系统配置文件和子目录。                |                                   |
+|   `/etc/rc.d`    |              系统启动和关闭时使用的脚本。              |                                   |
+|     `/home`      |            用户主目录，每个用户有自己的目录。             |                                   |
+| `/lib`, `/lib64` |             系统及软件所需的动态链接共享库。             | 类似于 Windows 的 DLL，链接到 `/usr/lib`  |
+|      `/mnt`      |             临时挂载其他文件系统的挂载点。              |                                   |
+|     `/proc`      |          虚拟文件系统，映射系统内存，提供系统信息。           |           进程信息，可直接访问和修改           |
+|     `/root`      |           系统管理员（root 用户）的主目录。            |                                   |
+|      `/srv`      |             存放服务启动后需要提取的数据。              |                                   |
+|      `/sys`      |           内核设备树的反映,sysfs 文件系统。           |        内核对象创建时，对应文件和目录也会创建        |
+|      `/tmp`      |                临时文件存放目录。                 |                公共的                |
+|      `/usr`      | 用户应用程序和文件，类似于 Windows 的 `Program Files`。 |   包含 `/usr/src`, `/usr/sbin` 等    |
+|    `/usr/src`    |                  内核源代码。                  |                                   |
+|   `/usr/sbin`    |         超级用户使用的比较高级的管理程序和系统守护程序。         |                                   |
+|      `/var`      |             存放经常变化的文件，如日志文件。             |             variable              |
+|  `/lost+found`   |              系统非法关机后，存放的文件。              |               通常为空                |
+|      `/opt`      |              可选的附加软件包的安装目录。              |               默认为空                |
+|     `/media`     |        自动挂载的可移动介质（如 U 盘、光驱）的挂载点。         |                                   |
+
+> [!tip]-
+>
+> 对于软链接可以通过 `ls -l /` 命令查看。
+
+## 参考资料
+
+-  [Cyrus' Blog](https://blog.codecyrus.com/posts/linux-shell-basic-usage/)
 -  [MIT The Missing Semester of Your CS Education](https://missing.csail.mit.edu/)
 -  [GNU manual documents](https://www.gnu.org/software/coreutils/manual/html_node/General-output-formatting.html)
 

@@ -20,7 +20,7 @@ dg-publish: true
 	- [RSA_attack](RSA_attack.md)
 	- [Symmetric_Ciphers](Symmetric_Ciphers.md)
 	- [stream_cipher](stream_cipher.md)
-	- [WilsonAttack](WilsonAttack.md)
+	- [basic_math_in_crypto](basic_math_in_crypto.md)
 
 {{ end_toc }}
 
