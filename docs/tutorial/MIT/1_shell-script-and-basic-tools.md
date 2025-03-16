@@ -374,7 +374,7 @@ Fasd 基于 [_frecency_](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/
 
 > [!tip]-
 >
-> - 常用的工具找**最顺手**的
+> - 常用的工具找**最喜欢**的
 > - 不常用工具找**最泛用**的
 
 #### VI.6.1 查找类
@@ -390,11 +390,11 @@ Fasd 基于 [_frecency_](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/
 
 #### VI.6.2 文件结构类
 
-| 工具                                         | 优点                          | 缺点                | 适用场景                                            |
+|                     工具                     | 优点                          | 缺点                | 适用场景                                            |
 |:------------------------------------------:|:---------------------------:|:-----------------:|:-----------------------------------------------:|
 | [ranger](https://github.com/ranger/ranger) | Vim-like 界面，多列显示，可定制性强，预览功能 | 学习成本，依赖 Python    | 是 Vim 用户，需要多列显示目录结构，需要预览文件内容，需要对文件管理器进行定制       |
-| [broot](https://github.com/Canop/broot)    | 交互式浏览，模糊搜索，可执行操作，速度快        | 需要安装，学习成本         | 需要交互式地浏览目录结构，需要在大型目录中快速定位文件和目录，需要在浏览目录的同时执行文件操作 |
-| [tree](https://linux.die.net/man/1/tree)   | 简单易用，输出清晰，广泛可用              | 功能有限，不适合大型目录，交互性差 | 需要快速查看目录结构，目录结构不太复杂，不需要进行文件操作                   |
+|  [broot](https://github.com/Canop/broot)   | 交互式浏览，模糊搜索，可执行操作，速度快        | 需要安装，学习成本         | 需要交互式地浏览目录结构，需要在大型目录中快速定位文件和目录，需要在浏览目录的同时执行文件操作 |
+|                    tree                    | 简单易用，输出清晰，广泛可用              | 功能有限，不适合大型目录，交互性差 | 需要快速查看目录结构，目录结构不太复杂，不需要进行文件操作                   |
 
 > `nnn` 也是一个类似的工具，但是使用个人感觉体验较差，就没放在这里了。
 
@@ -414,6 +414,21 @@ Fasd 基于 [_frecency_](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/
 | [vim](https://www.vim.org/) / [neovim](https://neovim.io/) | 高效编辑，功能强大，可定制性强，[广泛支持](https://help.aliyun.com/zh/cloud-shell/use-the-vim-editor) |   学习曲线相对陡峭，配置比较复杂   |             需要高效地进行文本编辑，需要使用高级编辑功能，需要对编辑器进行深度定制             |
 |        [emacs](https://www.gnu.org/software/emacs/)        |     [高度可定制，功能丰富](https://www.wenhui.space/docs/02-emacs/emacs_useguide/)，社区强大     | 学习曲线非常陡峭，资源占用高，配置复杂 | 需要对编辑器进行高度定制，愿意 <u>花费大量时间学习和配置编辑器</u> ，需要使用 `emacs` 的各种扩展功能 |
 
+#### bat(cat)  
+
+`cat` 工具的升级版吧，为输入增加更多高亮内容；在 Ubuntu 上使用 apt 安装可能有个[小 bug](https://github.com/sharkdp/bat?tab=readme-ov-file#on-ubuntu-using-apt)，具体就是实际上使用的是 `batcat` ，如果为了习惯可以使用软链接：
+
+```sh
+$ mkdir -p ~/.local/bin
+$ ln -s /usr/bin/batcat ~/.local/bin/bat
+```
+
+一个配合 fzf 的好用组合：
+
+```sh
+$ fzf --preview 'batcat --color=always --style=numbers --line-range=:50 {}'
+```
+
 ## VII 小结
 
 两篇笔记只是让我们初步窥见 bash 的功能以及可以怎么使用，但真正熟练地使用必然是伴随着大量的使用，以及在实际学习和工作中如何去发挥作用，这才应当是我们要关注的。
@@ -423,3 +438,4 @@ Fasd 基于 [_frecency_](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/
 ## VIII 参考资料
 
 - [shell 工具和脚本](https://missing-semester-cn.github.io/2020/shell-tools/)
+- [一些推荐的命令行工具](https://slides.tonycrane.cc/PracticalSkillsTutorial/2023-spring-cs/lec1/#/5/1)

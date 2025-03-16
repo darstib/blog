@@ -20,7 +20,7 @@ dg-publish: true
 	- [logisim_begin](begin/logisim_begin.md)
 	- [Python_begin](begin/Python_begin.md)
 - [MIT](MIT/README.md)
-	- [0_linux-shell](MIT/0_linux-shell.md)
+	- [0_linux-cheatsheet](MIT/0_linux-cheatsheet.md)
 	- [1_shell-script-and-basic-tools](MIT/1_shell-script-and-basic-tools.md)
 	- [2_learn-to-use-Vim-editor](MIT/2_learn-to-use-Vim-editor.md)
 	- [3_Git](MIT/3_Git.md)

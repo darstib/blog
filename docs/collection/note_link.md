@@ -16,7 +16,6 @@ tags:
 > - 一些打算上的课的笔记也在这里，但是不能够保证比较好，最后会留下帮助最大的一些笔记；
 > - 同时链接名前的 `-` 表示我只是粗略地查看过相关资料并将其收集于此而并没用上，仅供参考。
 >
-> [zju-cs-asio](https://isshikihugh.github.io/zju-cs-asio/) 是 IsshikiHugh 统筹的各路神仙~
 
 ## 大三
 
@@ -250,22 +249,23 @@ tags:
 - [-Algorithm Visualizer](https://algorithm-visualizer.org/)
     - 算法可视化
 - [-Algorithms-DataStructures-BigONotation](https://cooervo.github.io/Algorithms-DataStructures-BigONotation/index.html)
-
+- [计算机体系结构基础](https://foxsen.github.io/archbase/)
 
 ## 参考资料
 
 ### General Notebooks links
 
-- [Isshiki修's Notebook](https://note.isshikih.top/)
-- [HowJul的学习笔记](https://note.howjul.com/course/)
-- [HengZhao's Knowledge Base](https://note.enlzhao.com/)
-- [Jiepeng's notes](https://note.jiepeng.tech/)
-- [Jianjun Zhou's Notebook](https://zhoutimemachine.github.io/note/)
-- [MinJoker's Notebook](https://note.minjoker.top/)
-- [Yaoyaoling's notebook](https://yaoyaolingbro.github.io/notebook/)
-- [时清川的笔记本](https://sh17c.top/LessonsNotes/)
-- [GoPoux 的笔记本](https://note.gopoux.cc/)
-- [UCB student's note with CS 61A/61B/70/162/168/186/](https://notes.bencuan.me/)
+- [zju-cs-asio](https://isshikihugh.github.io/zju-cs-asio/) 是 IsshikiHugh 统筹的各路神仙~
+	- [Isshiki修's Notebook](https://note.isshikih.top/)
+	- [HowJul的学习笔记](https://note.howjul.com/course/)
+	- [HengZhao's Knowledge Base](https://note.enlzhao.com/)
+	- [Jiepeng's notes](https://note.jiepeng.tech/)
+	- [Jianjun Zhou's Notebook](https://zhoutimemachine.github.io/note/)
+	- [MinJoker's Notebook](https://note.minjoker.top/)
+	- [Yaoyaoling's notebook](https://yaoyaolingbro.github.io/notebook/)
+	- [时清川的笔记本](https://sh17c.top/LessonsNotes/)
+	- [GoPoux 的笔记本](https://note.gopoux.cc/)
+	- [UCB student's note with CS 61A/61B/70/162/168/186/](https://notes.bencuan.me/)
 
 ### Repositories links
 

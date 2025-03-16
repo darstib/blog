@@ -10,7 +10,7 @@ MIT 只是取自 MIT 的一门课程 [The Missing Semester of Your CS Education]
 
 ## 目录
 
-- [0_linux-shell](0_linux-shell.md)
+- [0_linux-cheatsheet](0_linux-cheatsheet.md)
 - [1_shell-script-and-basic-tools](1_shell-script-and-basic-tools.md)
 - [2_learn-to-use-Vim-editor](2_learn-to-use-Vim-editor.md)
 - [3_Git](3_Git.md)

