@@ -12,7 +12,7 @@ mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协�
 
 <!-- more -->
 
-## I 串流
+## 串流
 
 |  比较   | sun+moon | parsec |     uu remote      |
 | :---: | :------: | :----: | :----------------: |
@@ -32,7 +32,7 @@ mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协�
 
 综合上述考虑，我在局域网内（如校园网、企业网）远程控制时主要使用 sun+moon，公网使用 parsec；uu remote 传输文件以及以备不时之需。
 
-### I.1 Parsec & UU remote
+### Parsec & UU remote
 
 二者原理、功能类似，配置简单，分别可以在 [parsec](https://parsec.app/) 和[网页 UU 远程](https://uuyc.163.com/) 中下载，创建账户后，多设备登入同一账户即可，借助其服务器实现公网串流，具体使用不多介绍了，自行探索成本很低，可以参考下面的文章：
 
@@ -41,7 +41,7 @@ mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协�
 
 串流最重要的是希望沉浸式体验，但是 uu remote 的快捷键映射并不太好，很多时候会优先使用本机（例如我这里是 mac 控制 windows，mac 如果有全局快捷键和 windows 快捷键冲突，使用的是 mac 自己的，我觉得这是不合理的），parsec 这一点做的比较好。
 
-### I.2 Sunshine+Moonlight
+### Sunshine+Moonlight
 
 > [!quote]-
 >
@@ -56,7 +56,7 @@ mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协�
 [^1]: 当然，具体效果如何很大程度取决于局域网质量、设备硬件。
 [^2]: 其实我自己也不记得为什么了……
 
-#### I.2.1 安装
+#### 安装
 
 分别下载[^3] [sunshine](https://github.com/LizardByte/Sunshine/releases) + [moonlight](https://github.com/moonlight-stream/moonlight-qt/releases)，各自安装打开（sunshine 的打开需要在开始菜单栏，不过有时使用管理员身份打开也是可以的）。
 
@@ -68,7 +68,7 @@ mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协�
 
 设置用户密码，一般就本地回环链接，简单点就好，之后改起来也麻烦。
 
-#### I.2.2 配对
+#### 配对
 
 在 moonlight 中按照介绍是自动寻找局域网内的设备，但至少我是没有成功找到过，所以点击“手动添加计算机”，输入主机 ip 即可发起配对（注意需要在**局域网**内），且获得一个 PIN 码；此时 windows 端应该有弹窗，或者自己点进 sunshine web UI 中的 "Pin" 部分的 "PIN Pairing" 部分进行配对 (这里是已经配对成功的视图)。
 
@@ -78,7 +78,7 @@ mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协�
 >
 > 如果自己有域名的话用个三级域名给自己的 windows 地址其实也是不错的，方便记忆；就是不知道有没有安全隐患……
 
-## II 副屏
+## 副屏
 
 我的副屏实现原理与串流相似，只不过将针对性串流屏幕从 windows 实际屏幕转变为创建的虚拟屏；对于虚拟屏，我使用了一款开源软件 [parsec-vdd](https://github.com/nomi-san/parsec-vdd)（其驱动由 parsec 提供）：免费、质量高、稳定（最大的遗憾可能是仅 windows）。
 
@@ -97,7 +97,7 @@ mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协�
 
 抉择串流方式：基于副屏大多在局域网内使用，且使用频率更高，已经为了前面提到的稳定安全，我最终使用 **sun+moon** （也完全可以自己选择，parse/uu remote 的操作方式非常简单，就是上面各个设备修改多屏幕控制相关设置即可，操作简单）。
 
-### II.1 单副屏
+### 单副屏
 
 ![sunshine UI > Configuration](https://raw.gitmirror.com/darstib/public_imgs/utool/2503/10_250311-125219.png)
 
@@ -113,7 +113,7 @@ mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协�
 
 [^4]: 搜索/尝试过一些命令行获取方式，与这里需要的 ID 并不相同。
 
-### II.2 多副屏
+### 多副屏
 
 后来发现一个神奇的 [issue](https://github.com/loki-47-6F-64/sunshine/issues/59#issuecomment-1709018824) 回复，也就是把软件文件拷贝一份（重命名，例如 sunshine2），就相当于两个 sunshine 了；通过这个方式，我们当然也可以实现任意多副屏的创建，我的平板也就能派上用武之地了。
 
@@ -129,17 +129,24 @@ mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协�
 
 串流时需注意，moonlight 添加设备时需要 `ip:port` ，即需要指定端口了，其余操作相同。
 
-## III 同步
+## 同步
 
 我的笔记有时在 windows 编辑，有时在 macOS 编辑，咋办呢？使用 **语雀、飞书** 等在线笔记自然是一个不错的解决方法，但是我对 obsidian 这类本地笔记依赖性比较强，所以还是找到了 [syncthing](https://syncthing.net/) 这一同步工具，具体使用同样无需多言，可参考：
 
 - [多平台文件同步/传输神器——Syncthing使用教程](https://blog.jimmyho.net/archives/1229/)
 
-## IV ssh 连接
+## 共享键鼠
+
+其实不少工具都已经能够做到这一点了，我使用的是 [deskflow](https://github.com/deskflow/deskflow/)，使用方法也很简单，[网上教程](https://zhuanlan.zhihu.com/p/1823127149) 也很多；这里提一点键盘映射：我使用 windows 作为 server，
+
+
+
+## ssh 连接
 
 > ssh 连接主要是为了写代码；这一点感觉需求很小，虽然捣鼓了不少时间，但是涉及到的东西对没基础读者属实不太友好，工作量略大，先不写了，有需要的话可以留评论催更。
 
-## V 其他参考资料
+## 其他参考资料
 
+- [deskflow - wiki](https://github.com/deskflow/deskflow/wiki)
 - https://blog.csdn.net/weixin_46065314/article/details/136428076
 - https://github.com/moonlight-stream/moonlight-docs/wiki/Setup-Guide

@@ -57,6 +57,5 @@
     - [大一小记](summary/大一小记.md)
 - AIsecurity
 	- [PaperRead](AIsecurity/PaperRead/README.md)
-		- [DeepSeek-R1](AIsecurity/PaperRead/DeepSeek-R1.md)
-		- [The_Hidden_Risks_of_Large_Reasoning_Models](AIsecurity/PaperRead/The_Hidden_Risks_of_Large_Reasoning_Models.md)
+		- AIsecurity/PaperRead/*.md
 - [Links](https://darstib.github.io/myworld/)
