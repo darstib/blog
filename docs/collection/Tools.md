@@ -217,6 +217,7 @@ tags:
     - APA Citation Generator
 - [DownGit](https://downgit.github.io/#/home) or [download-directory](https://download-directory.github.io/)
     - 下载开源 github 仓库内容，指哪打哪。
+- [GitHub 文件加速](https://github.moeyy.xyz/)
 - [聚合翻译](https://openl.club/)
 - [Scrcpy](https://github.com/Genymobile/scrcpy)
     - 手机投屏电脑

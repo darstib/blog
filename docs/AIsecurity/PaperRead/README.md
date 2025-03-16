@@ -12,6 +12,7 @@ comments: true
 - 2025
 	- [DeepSeek-R1](DeepSeek-R1.md)
 	- [The_Hidden_Risks_of_Large_Reasoning_Models](The_Hidden_Risks_of_Large_Reasoning_Models.md)
+	- [GuardReasoner](GuardReasoner.md)
 
 {{ end_toc }}
 
