@@ -50,7 +50,7 @@ comments: true
 
 ### I.3 实用技能
 
-见 [MIT](../tutorial/MIT/README.md) 系列。
+见 [MIT](../tutorial/skill_learn/README.md) 系列。
 
 ## II 自学指南
 
@@ -63,12 +63,11 @@ comments: true
     - “是一份献给北大信科学弟学妹们的礼物。”
     - [cs-video-courses](https://github.com/Developer-Y/cs-video-courses)
 - [zju-cs-asio](https://isshikihugh.github.io/zju-cs-asio/)
-    - ZJU “老一辈”的课程笔记
-    - [实用技能拾遗](https://slides.tonycrane.cc/PracticalSkillsTutorial/)
+    - ZJU 的课程笔记
+
     - [图灵班课程学习指南](https://zju-turing.github.io/TuringCourses/)
     - 推荐阅读
-        - [实用工具推荐](https://turing2024.tonycrane.cc/tools/)
-        - [成为一个合格的 CS 人](https://turing2024.tonycrane.cc/cser/)
+
 - [career-plan](https://github.com/nwuzmedoutlook/career-plan)
 
 ## III 大学课程

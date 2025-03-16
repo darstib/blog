@@ -7,9 +7,7 @@ tags:
   - RLM
 ---
 
-# GuardReasoner: Towards Reasoning-based LLM Safeguards
-
-> [!abstract]- [Abstract](http://arxiv.org/abs/2501.18492)
+> [!abstract]- [GuardReasoner: Towards Reasoning-based LLM Safeguards](http://arxiv.org/abs/2501.18492)
 >
 > As LLMs increasingly impact safety-critical applications, ensuring their safety using guardrails remains a key challenge. This paper proposes GuardReasoner, a new safeguard for LLMs, by guiding the guard model to learn to reason. Concretely, we first create the GuardReasonerTrain dataset, which consists of 127K samples with 460K detailed reasoning steps. Then, we introduce reasoning SFT to unlock the reasoning capability of guard models. In addition, we present hard sample DPO to further strengthen their reasoning ability. In this manner, GuardReasoner achieves better performance, explainability, and generalizability. Extensive experiments and analyses on 13 benchmarks of 3 guardrail tasks demonstrate its superiority. Remarkably, GuardReasoner 8B surpasses GPT-4o+CoT by 5.74% and LLaMA Guard 3 8B by 20.84% F1 score on average. We release the training data, code, and models with different scales (1B, 3B, 8B) of GuardReasoner : https://github.com/yueliu1999/GuardReasoner/.
 
