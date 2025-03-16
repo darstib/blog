@@ -50,24 +50,22 @@ comments: true
 
 ### I.3 实用技能
 
-见 [MIT](../tutorial/skill_learn/README.md) 系列。
+见 [skill_learn](../tutorial/skill_learn/README.md) 系列。
 
 ## II 自学指南
 
+- [CS 自学指南](https://csdiy.wiki/)
+    - “是一份献给北大信科学弟学妹们的礼物。”
+    - [cs-video-courses](https://github.com/Developer-Y/cs-video-courses)
 - 大学生存指南
     - [HDU 版](https://hdu-cs.wiki/)
         - 适合（相比于北京大学学子）水平更低的同学
         - 如果是刚接触 CS 的同学，非常推荐，有很多确实是我个人摸索了一年才逐渐发现的东西，有点后悔没能早点发现
     - [上海交通大学生存手册](https://survivesjtu.gitbook.io/survivesjtumanual)
-- [CS 自学指南](https://csdiy.wiki/)
-    - “是一份献给北大信科学弟学妹们的礼物。”
-    - [cs-video-courses](https://github.com/Developer-Y/cs-video-courses)
 - [zju-cs-asio](https://isshikihugh.github.io/zju-cs-asio/)
     - ZJU 的课程笔记
-
-    - [图灵班课程学习指南](https://zju-turing.github.io/TuringCourses/)
-    - 推荐阅读
-
+- [图灵班课程学习指南](https://zju-turing.github.io/TuringCourses/)
+	- ZJU 校内课程的指点
 - [career-plan](https://github.com/nwuzmedoutlook/career-plan)
 
 ## III 大学课程
@@ -105,7 +103,6 @@ comments: true
     - [动手学深度学习](https://zh-v2.d2l.ai/index.html#)
     - [习题解答](https://datawhalechina.github.io/d2l-ai-solutions-manual/#/)
 - [Awesome-CS-Course-Learning-Notes](https://github.com/Zhang-Each/Awesome-CS-Course-Learning-Notes)
-- [learn x in y minutes](https://learnxinyminutes.com/)
 - [codethechange.stanford.edu](https://codethechange.stanford.edu/guides/)
     - 也许有些奇怪的东西你不知道，但是可能感兴趣。
 - [数理百科](https://wuli.wiki/index.html)
