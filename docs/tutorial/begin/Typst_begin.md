@@ -95,10 +95,10 @@ tags:
 ```bash
 # 如果没有安装过curl和cargo这两个工具，请自行搜索
 # 安装 Rust 环境并激活，之前安装过则不需要执行下面这两行
-curl --proto '=https' --tlsv1.2 -sSf [https://sh.rustup.rs](https://sh.rustup.rs/) | sh -s -- -y
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs/ | sh -s -- -y
 source $HOME/.cargo/env
 # 安装 Typst CLI
-cargo install --git [https://github.com/typst/typst.git](https://github.com/typst/typst.git) typst-cli
+cargo install --git https://github.com/typst/typst.git typst-cli
 # 键入检查是否安装成功
 typst
 # or
