@@ -65,23 +65,14 @@ tags:
 > 
 
 - 第一部分 LEN 是立即数的线路长度，LEN=3 表示立即数大小为 3 位线路
-
-> 
-
 - 第二部分 BASE 表示立即数的进制，b、d、h 分别表示二进制、十进制、十六进制
-
-> 
-
 - 第三部分 NUM 是对应立即数的值，必须和 BASE 指示的进制相对应，例如 4'b98 就是非法的
 
-> 
 > 将立即数转化为电路的方法如下：
-> 1. 将立即数转换为二进制的 01 串，如果 01 串位数少于 LEN 则在前面补 0，如果大于 LEN 则高位截断
 > 
+> 将立即数转换为二进制的 01 串，如果 01 串位数少于 LEN 则在前面补 0，如果大于 LEN 则高位截断
 
 2. 立即数的 0 表示该线路的输入是 GND，立即数是 1 表示该线路输入是 VCC
-
-> 
 
 3. 立即数的 01 串从低位到高位依次是 IMM[0], IMM[1], ..., IMM[LEN-1]
 
@@ -93,16 +84,19 @@ tags:
 
 改变输入引脚的输入后，可以发现线路颜色变了，那么就可以尝试遍历不同的输入观察输出了！
 
-**tips:**
-
-- 想改变引脚朝向？选中引脚后上下左右方向键即可！
-- 双击引脚可以命名哦，这对于导出电路非常重要（注意字母大小写！）
+> [!tip]+
+>
+> - 想改变引脚朝向？选中引脚后上下左右方向键即可！
+> - 双击引脚可以命名哦，这对于导出电路非常重要（注意字母大小写！）
 
 ## Wiring 工具
 
-页面上直接能看见的工具我们不再讲解，来看看 **Wiring** 中的工具
+页面上直接能看见的工具我们不再讲解，来看看 **Wiring** 中的工具：
 
-![|275](attachments/logisim%20基本使用-2.png)
+<div style="text-align: center;">
+    <img src="https://raw.gitmirror.com/darstib/public_imgs/utool/2503/18_logisim_begin-2.png" alt="" style="width: 30%;">
+    <p></p>
+</div>
 
 ### probe（探针）
 
@@ -148,15 +142,11 @@ tags:
 
 ## MUX（多路选择器）
 
-多路选择器[¶](https://zju-sys.pages.zjusct.io/sys1/sys1-sp24/lab1-1/#multiplexer "Permanent link")（Multiplexer）在复用器 Plexers 中
+多路选择器（Multiplexer）在复用器 Plexers 中
 
 ![|425](attachments/logisim%20基本使用-10.png)
 
-如图，`select bits` (记为 n) 代表选择端信号的位数，输入端口数即为 $2^{n}$ ；
-
-`data bits` 即数据位宽，要求输入端（每一个）、多路选择器、输出端一致
-
-在图中，由上至下依次为 $0,1,2\dots 2^{n}-1$ 接口，选择端的输入即表示选择几号接口的输入
+如图，`select bits` (记为 n) 代表选择端信号的位数，输入端口数即为 $2^{n}$ ；`data bits` 即数据位宽，要求输入端（每一个）、多路选择器、输出端一致；在图中，由上至下依次为 $0,1,2\dots 2^{n}-1$ 接口，选择端的输入即表示选择几号接口的输入
 
 ## Register（寄存器）
 
@@ -168,6 +158,5 @@ tags:
 
 ## 参考文章
 
-https://blog.csdn.net/RuanFun/article/details/130795720
-
-https://blog.csdn.net/qq_44838412/article/details/107074857
+- https://blog.csdn.net/RuanFun/article/details/130795720
+- https://blog.csdn.net/qq_44838412/article/details/107074857
