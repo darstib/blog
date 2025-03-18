@@ -26,7 +26,7 @@ tags:
 >
 > Typst 是为科学写作而诞生的基于标记的排版系统。它被设计之初就是作为一种替代品，用于替代像 LaTeX 这样的高级工具，又或者是像 Word 和 Google Docs 这样的简单工具。我们对 Typst 的目标是构建一个功能强大的排版工具，并且让用户可以愉快地使用它。
 
-相比于 LaTeX，typst 最大的特点就是轻量，这也导致了 typst 支持较为频繁地实时渲染。
+相比于 LaTeX，typst 最大的特点就是轻量和[增量编译](https://en.wikipedia.org/wiki/Incremental_compiler)，这也导致了 typst 支持较为频繁地实时渲染。
 
 ### 在线环境
 
@@ -92,8 +92,9 @@ tags:
 
 安装 typst-cli 是为了让我们能够像 `git clone` 一样能够拉取编辑材料至本地使用。注意我们上方 `模板使用`  部分的截图中有这么一行 `typst init @preview/bloated-neurips:0.2.1` ，这就是在 typst-cli 中使用的。
 
-```bash
+```sh
 # 如果没有安装过curl和cargo这两个工具，请自行搜索
+# 由于 typst 由 rust 编写，需要安装 rust 编译器
 # 安装 Rust 环境并激活，之前安装过则不需要执行下面这两行
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs/ | sh -s -- -y
 source $HOME/.cargo/env

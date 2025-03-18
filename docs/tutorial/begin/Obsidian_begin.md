@@ -145,7 +145,7 @@ obsidian 高度可定制化（css/js 大佬可以把这个软件外观变得花�
 
 > [!ATTENTION]
 >
-> 我认为在 obsidian 中，更好的方法还是直接放超链接，并且按住 `Ctrl` 将鼠标放在链接上就能预览。
+> 当然我认为在 obsidian 中，更好的方法还是直接放超链接，并且按住 `Ctrl` 将鼠标放在链接上就能预览。
 
 <iframe
 	Border=0
