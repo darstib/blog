@@ -50,7 +50,7 @@
         - tutorial/begin/*.md
     - [Skill_learn](tutorial/skill_learn/README.md)
 	    - tutorial/skill_learn/*.md
-    - MCM（数模）
+    - MCM
         - [2024 年浙江大学大学生数学建模竞赛](tutorial/MCM（数模）/2024 年浙江大学大学生数学建模竞赛.md)
         - [some material in MCM](tutorial/MCM（数模）/some material in MCM.md)
 - [Summary](summary/README.md)
