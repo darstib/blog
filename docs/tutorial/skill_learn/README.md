@@ -23,7 +23,6 @@ comments: true
 |     5.16      |  远程连接与传输  |                     **ssh** + scp + sftp + rsync                     |
 |     5.30      |  奇怪知识串讲   |                          妙妙小工具 / 小网站 / 其他？                           |
 
-
 [^1]: 作为动态调整部分。
 
 显然 <u>每一周的内容都很多</u> ，但是其中注意到我们的 4 月命途多舛（前有清明节，中有期中周，后有劳动节），我们在前面如果没能够讲完/讲清的部分，会在 4 月进行动态调整。
@@ -38,6 +37,7 @@ comments: true
 > - [23-秋冬技能拾遗课程](https://slides.tonycrane.cc/PracticalSkillsTutorial/2023-fall-ckc/#/)
 > 	- [lec6：网络 / 网站基础知识概述](https://slides.tonycrane.cc/PracticalSkillsTutorial/2023-fall-ckc/lec6/) by [@45gfg9](https://github.com/45gfg9)
 > - [23-春夏技能拾遗课程](https://slides.tonycrane.cc/PracticalSkillsTutorial/2023-spring-cs/#/)
+> 	- [lec2：Git/GitHub 基础介绍](https://slides.tonycrane.cc/PracticalSkillsTutorial/2023-spring-cs/lec2/) | [BV1og4y1u7XU](https://www.bilibili.com/video/BV1og4y1u7XU/)
 > 	- [lec4：LaTeX 排版简要介绍](https://slides.tonycrane.cc/PracticalSkillsTutorial/2023-spring-cs/lec4/) | [BV12k4y1s7Y3](https://www.bilibili.com/video/BV12k4y1s7Y3/)
 > - [《Linux101》](https://101.lug.ustc.edu.cn/)
 > 	- （乱入）中国科学技术大学 Linux 用户协会出品
