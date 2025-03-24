@@ -2,9 +2,7 @@
 comments: true
 url: http://arxiv.org/abs/2501.12948
 tags:
-  - AI
-  - llm
-  - reasoning
+  - LRM
 ---
 
 # DeepSeek-R1

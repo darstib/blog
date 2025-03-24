@@ -13,6 +13,8 @@ comments: true
 	- [The_Hidden_Risks_of_Large_Reasoning_Models](The_Hidden_Risks_of_Large_Reasoning_Models.md)
 	- [GuardReasoner](GuardReasoner.md)
 	- [SafeChain](SafeChain.md)
+	- [ThinkGuard](ThinkGuard.md)
+	- [Reasoning-to-Defend](Reasoning-to-Defend.md)
 
 {{ end_toc }}
 

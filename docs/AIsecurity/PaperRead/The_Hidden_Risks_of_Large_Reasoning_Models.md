@@ -1,8 +1,7 @@
 ---
 url: http://arxiv.org/abs/2502.12659
 tags:
-  - llm
-  - reasoning
+  - LRM
 comments: true
 ---
 
