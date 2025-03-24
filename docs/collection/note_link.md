@@ -177,7 +177,7 @@ tags:
     - [抛射体运动的照相法研究](https://mp.weixin.qq.com/s/UzxCtjPO33aU1FHn2A-zMg)
 - [大物实验处理脚本（部分）](https://darstib.github.io/blog/note/other/%E5%A4%A7%E7%89%A9%E5%AE%9E%E9%AA%8C%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC)
     - [TonyCrane-普通物理学实验I 绘图](https://github.com/TonyCrane/ZJU-General-Physics-Experiment-I)
-- 组装整流器 [zzzlq2021-1](attachments/zzzlq2021-1.heic) [zzzlq2021-2](attachments/zzzlq2021-2.heic)
+- 组装整流器 [zzzlq2021-1](../static/zzzlq2021-1.heic) [zzzlq2021-2](../static/zzzlq2021-2.heic)
 
 #### 期末
 

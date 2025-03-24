@@ -13,6 +13,7 @@ tags:
 - [PPO & GPRO](https://mp.weixin.qq.com/s/OIiNOMcuXERGVOghwNZ5Uw)
 - [混合专家模型 (MoE) 详解](https://huggingface.co/blog/zh/moe)
 - [RLHF 技术详解](https://huggingface.co/blog/zh/rlhf)
+- [提示工程指南](https://www.promptingguide.ai/zh)
 
 ## 工具类
 

@@ -1,6 +1,5 @@
 ---
 url: http://arxiv.org/abs/2502.12659
-title: "The Hidden Risks of Large Reasoning Models: A Safety Assessment of R1"
 tags:
   - llm
   - reasoning

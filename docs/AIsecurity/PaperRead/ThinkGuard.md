@@ -1,10 +1,11 @@
 ---
 url: http://arxiv.org/abs/2502.13458
-title: "ThinkGuard: Deliberative Slow Thinking Leads to Cautious Guardrails"
 tags:
   - guardrail
   - LRM
 ---
+
+# ThinkGuard
 
 > [!abstract]- [ThinkGuard: Deliberative Slow Thinking Leads to Cautious Guardrails](http://arxiv.org/abs/2502.13458)
 >

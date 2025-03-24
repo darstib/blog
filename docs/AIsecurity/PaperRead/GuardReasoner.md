@@ -1,7 +1,6 @@
 ---
 comments: true
 url: http://arxiv.org/abs/2501.18492
-title: "GuardReasoner: Towards Reasoning-based LLM Safeguards"
 tags:
   - guardrail
   - RLM

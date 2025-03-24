@@ -1,6 +1,5 @@
 ---
 url: http://arxiv.org/abs/2502.12025
-title: "SafeChain: Safety of Language Models with Long Chain-of-Thought Reasoning Capabilities"
 tags:
   - LRM
 ---
