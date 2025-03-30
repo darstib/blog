@@ -609,6 +609,13 @@ origin  https://github.com/darstib/demo-repo.git (fetch)
 origin  https://github.com/darstib/demo-repo.git (push)
 ```
 
+> [!tip]-
+>
+> ```sh
+> $ # 如果我们希望添加一组新的 remote name
+> $ git remote add stu "remote_url"
+> ```
+
 remote_url / remote_name 的相关操作在上面也提及，这里不再展示。
 
 ### 更新远程仓库
