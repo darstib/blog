@@ -10,10 +10,9 @@ dg-publish: true
 
 > [!ATTENTION]
 >
-> 本人有些许机器学习基础，此处笔记对于从未接触过的人来说可能些许简略，建议查看原笔记；粗略但完整的讲解推荐 [Hung-yi Lee (李宏毅)](https://speech.ee.ntu.edu.tw/~hylee/index.html) 在國立臺灣大學开设的 [Introduction to Generative AI 2024 Spring](https://speech.ee.ntu.edu.tw/~hylee/genai/2024-spring.php)。
+> 基于些许机器学习基础学习，此处笔记对于从未接触过的人来说可能些许简略，建议查看原笔记；粗略但完整的讲解推荐 [Hung-yi Lee (李宏毅)](https://speech.ee.ntu.edu.tw/~hylee/index.html) 在國立臺灣大學开设的 [Introduction to Generative AI 2024 Spring](https://speech.ee.ntu.edu.tw/~hylee/genai/2024-spring.php)。
 
-Until now, we’ve assumed that the probabilistic models we’ve worked with can be taken
-for granted, and the methods by which the underlying probability tables we worked with were generated have been abstracted away[^1]. We’ll begin to break down this abstraction barrier as we delve into our discussion of **machine learning**.
+Until now, we’ve assumed that the probabilistic models we’ve worked with can be taken for granted, and the methods by which the underlying probability tables we worked with were generated have been abstracted away[^1]. We’ll begin to break down this abstraction barrier as we delve into our discussion of **machine learning**.
 
 [^1]: 这个长难句也是难绷的；参考翻译：直到现在，我们一直假设我们所使用的概率模型是理所当然的，而生成我们所用的概率表的那些方法也已经被抽象掉了。
 
@@ -29,7 +28,7 @@ Once you have a dataset that you’re ready to learn with, the machine learning 
 
 ### Naive Bayes (classification problem)
 
-Let’s consider the common problem of building an email spam filter which sorts messages into spam (unwanted email) or ham (wanted email). Such a problem is called a classification problem
+Let’s consider the common problem of building an email spam filter which sorts messages into spam (unwanted email) or ham (wanted email). Such a problem is called a classification problem
 
 To train a model to classify emails as spam or ham, we need some training data consisting of preclassified emails that we can learn from. However, emails are simply strings of text, and in order to learn anything useful, we need to extract certain attributes from each of them known as **features**. Features can be anything ranging from specific word counts to text patterns (e.g. whether words are in all caps or not) to pretty much any other attribute of the data that you can imagine. <u>In this note, f(x) refers to a feature function applied to all inputs x before putting them in the model.</u> 
 
@@ -97,7 +96,8 @@ Overfitting with Naive Bayes’ classifiers can be mitigated by Laplace smoothin
 
 In N mails with |X| kinds of mails, $\forall x \in X$, if using MLE, we get $P_{MLE}(x)=\frac{count(x)}N$. And then let's assume that there are k more of each of these messages in the sample. So we get:
 
-$$P_{LAP,k}(x)=\frac{count(x)+k}{N+k|X|} \implies P_{LAP,k}(x|y)=\frac{count(x,y)+k}{count(y)+k|X|}$$ 
+$$P_{LAP,k}(x)=\frac{count(x)+k}{N+k|X|} \implies P_{LAP,k}(x|y)=\frac{count(x,y)+k}{count(y)+k|X|}$$
+
 The specific value of k that’s appropriate to use in our model is typically determined by trial-and-error. k is a hyperparameter in our model, which means that we can set it to whatever we want and see which value yields the best prediction accuracy/performance on our validation data.
 
 - $P_{LAP,k}(x)=\frac{count(x)+k}{N+k|X|}$ 

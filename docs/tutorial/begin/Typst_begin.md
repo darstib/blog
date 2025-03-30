@@ -70,27 +70,26 @@ tags:
 
 ## 本地环境配置
 
-相比于在线，我更加喜欢在本地环境编辑。下面是在 VScode + 类 unix 环境上编辑 typst 的配置说明。
-
-> [!env]-
-> 
-> 注：我使用了 wsl:ubuntu 22.04；关于 vscode 安装不多说明，网上一大堆。
-> 
-> 对于 macOS，使用 `brew install typst` 应该就能够安装好。
+如果你在意文件之间代码/图片的复用性，希望自己设计/调节模板/在本地编译运行，下面是在 VScode + 类 unix 环境上编辑 typst 的配置说明。
 
 ### vscode 配置
 
-安装下面的插件（后续可能有变动，按需）：
+安装下面的插件（第一个比较重要，其余按需；使用可以自行搜索）：
 
-- Typst LSP
+- Tinymist Typst
+- ~~Typst LSP~~
 - ~~Typst Preview~~
-- Typst Companion
-
-> 这些插件我自己自定义过快捷键，就不讲解如何使用了，一搜一大堆。
+- Typst Sync
 
 ### typst-cli 安装
 
-安装 typst-cli 是为了让我们能够像 `git clone` 一样能够拉取编辑材料至本地使用。注意我们上方 `模板使用`  部分的截图中有这么一行 `typst init @preview/bloated-neurips:0.2.1` ，这就是在 typst-cli 中使用的。
+> [!attention]+
+>
+> 安装 typst-cli 是为了让我们能够像 `git clone` 一样能够拉取编辑材料至本地使用。注意我们上方 `模板使用`  部分的截图中有这么一行 `typst init @preview/bloated-neurips:0.2.1` ，这就是在 typst-cli 中使用的；当然，上面给出的那些插件本身会帮助我们将文件获取到 `~/.cache` 中，所以可以自己决定，并非必要内容。
+
+> [!env]-
+> 
+> 注：我使用了 wsl:ubuntu 22.04；对于 macOS，使用 `brew install typst` 应该就能够安装好。
 
 ```sh
 # 如果没有安装过curl和cargo这两个工具，请自行搜索
@@ -113,7 +112,6 @@ sudo apt install pkg-config
 sudo apt-get install libudev-dev
 sudo apt install libssl-dev
 sudo apt install librust-openssl-sys-dev
-sudo apt install pkg-config
 sudo dnf install perl
 sudo apt-get install build-essential
 ```
@@ -122,7 +120,7 @@ sudo apt-get install build-essential
 
 ### 模板导入
 
-在命令行(CLI)中进入到合适位置，键入
+在命令行(CLI)中进入到合适位置，例如：
 
 ```bash
 [~/work/typst/template]$ typst init @preview/bloated-neurips:0.2.1
@@ -130,11 +128,13 @@ sudo apt-get install build-essential
 
 ![](attachments/Make%20pdf%20with%20typst-8.png)
 
-可以看到左侧已经可以出现了文件夹了，可以直接使用了，先预览看看（插件使用自查）
+可以看到左侧已经可以出现了文件夹了，可以直接使用了，先预览看看：
 
 ![](attachments/Make%20pdf%20with%20typst-9.png)
 
-如果出现红色报错等情况，对于模板而言很可能就是 **路径** 问题，时而需要自己修改；对于我们自己写路径，相对路径是最好的，因为不知道什么时候我们可能就将文件夹修改了位置。
+如果出现红色报错等情况，对于模板而言很可能就是 **路径** 问题，时而需要自己修改，当然有可能是模板是在某一个大版本之前的内容，其中一些用法被抛弃了[^1]；对于我们自己写路径，相对路径是最好的，因为不知道什么时候我们可能就将文件夹修改了位置。
+
+[^1]: 其实这种做法非常难绷，导致之前的模板很可能无法直接使用，此时还是选择 [typst app](https://typst.app/) 吧，可以修改编译器版本。
 
 ## 推荐宏包
 

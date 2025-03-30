@@ -84,8 +84,8 @@ tags:
 #### 一些资料
 
 - [-HobbitQia's repo](https://github.com/HobbitQia/ZJU-Courses-Resources/tree/master/%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1%E4%B8%8E%E5%88%86%E6%9E%90)
-- [-cc98 21-22春夏回忆卷](https://www.cc98.org/topic/5356728)
-	- [-统计学习方法参考解答](../static/统计学习方法参考解答.pdf)
+- [-cc98 21-22春夏回忆卷](https://www.cc98.org/topic/5356728/)
+	- [统计学习方法参考解答](../static/统计学习方法参考解答.pdf)
 
 ### 数据库系统
 

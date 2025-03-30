@@ -22,6 +22,15 @@ tags:
 - **安全感知推理蒸馏（SwaRD）：** 首先，通过 SwaRD 训练 LLM，使其具备分阶段思考的能力。这种分阶段的推理过程由 LLM 自身逐步评估，形成关于每个步骤是安全、不安全还是需要进一步改进的“pivot tokens”；
 - **对比枢轴优化（CPO）：** 在推理过程中，LLMs 逐步预测安全状态标记（pivot tokens），通过对比学习优化模型对这些标记的感知能力，从而提高模型对对话安全状态的感知能力。
 
+$$
+L_{\mathrm{CPO}}=-\mathbb{E}_{X,Y\sim D_R}\left[\log\sigma\left(\log P_M(t_+|Y,X)-\log P_M(t_-|Y,X)\right)\right]
+$$
+
+> [!question]+
+>
+> 奇怪的是对比学习一般用于二分类，论文中对于如何得到 `[Safe] [UnSafe] [Rethink]` 三种标签没有详细说明，感觉欠考虑……
+
+
 使用 $DeepSeek-R1_{70B}$ 和 $QwQ_{p-32B}$ 作为推理模型（M_R），并从 Alpaca 和 AdvBench 中收集推理轨迹数据，对非推理模型（如 Llama v3-8B、Qwen v2.5-14B 等）进行训练。
 
 > [!todo]-
