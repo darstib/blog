@@ -5,7 +5,7 @@ comments: true
 dg-publish: true
 ---
 
-## Process concept
+## I Process concept
 
 - How to use computer resources, such as CPU, memory
 - A process is **a program[^1] in execution**
@@ -14,13 +14,14 @@ dg-publish: true
 
 ![](attachments/2_OS-18.png)
 
-## Memory Layout of a C Program
+## II Memory Layout of a C Program
 
 ![](attachments/2_OS-19.png)
 
-## Process Control Block (PCB)
+## III Process Control Block (PCB)
 
 Information associated with each process (also called **task control block**):
+
 - Allocate a PCB on new process creation; 
 - Free the PCB on process termination. 
 - Each process has and only has a PCB.
@@ -42,11 +43,11 @@ struct PCB {
 }
 ```
 
-> [!KNOWLEDGE]
+> [!knowledge]+
 >
 > In Linux, PCB represented by the C structure `task_struct`.
 
-## Process State
+## IV Process State
 
 - New: The process is being created
 - Running: Instructions are being executed
@@ -58,11 +59,11 @@ struct PCB {
 
 ![](attachments/2_OS-20.png)
 
-### new (Process Creation)
+### IV.1 new (Process Creation)
 
 A process may create new processes, in which case it becomes a parent, we obtain a tree of processes.
 
-#### fork()
+#### IV.1.1 fork()
 
 - fork() creates a new process
     - The child is is a copy of the parent, but: It has a different pid (and thus ppid); Its resource utilization (so far) is set to 0
@@ -78,32 +79,35 @@ A process may create new processes, in which case it becomes a parent, we obtain
     - Poor performance
     - Security issues
 
-#### fork() return values
+#### IV.1.2 fork() return values
 
 > [!QUESTION]
 >
 > How does fork() return two values (Return new_pid to parent and zero to child) ?
 
 For parent process, fork is just a `syscall`, similar to write; user mode context (registers) saved:
+
 - When: kernel_entry; 
 - Where: per-process kernel stack, more specifically pt_regs
 - copy the user space code; new_pid is returned to parent via syscall return value (**saved in pt_regs**)
 
 For child process,also via pt_regs, pt_regs[0] = 0; set the return value to 0
+
 - When will child process start to run and from where?
     - When: scheduled (switch to) 
     - where: from ret_to_fork
-- ret_from_fork -> ret_to_user -> `kernel_exit` who restores the pt_regs
+- ret_from_fork -> ret_to_user -> `kernel_exit` (who restores the pt_regs)
  
 ![](attachments/3_Process-8.png)
 
 > [!HELP]
 >
 > 我们需要谨记两点：
+> 
 > - `fork()` 后的子进程是接在产生其的指令之后进行的；
 > - `fork()` 在父进程的值为子进程的 pid，而在子进程中值为 0
 
-> [!EXAMPLE]- 下面 fprintf 将输出什么内容？
+> [!example]- 下面 fprintf 将输出什么内容？
 >  
 > ```c
 > #include <stdio.h>
@@ -130,7 +134,7 @@ For child process,also via pt_regs, pt_regs[0] = 0; set the return value to 0
 >
 > ![](attachments/2_OS-23.png)
 
-> [!EXAMPLE]- 下面将输出多少个 `hello` ?
+> [!example]- 下面将输出多少个 `hello` ?
 > 
 > ```c
 > #include <stdio.h>
@@ -173,7 +177,7 @@ For child process,also via pt_regs, pt_regs[0] = 0; set the return value to 0
 >
 > Ready.
 
-#### The exec*() Family of Syscalls
+#### IV.1.3 The exec*() Family of Syscalls
 
 The “exec” system call **replaces the process image** by that of a specific program
 
@@ -201,9 +205,10 @@ The “exec” system call **replaces the process image** by that of a specific 
 > 
 > ![](attachments/2_OS-22.png)
 
-### Ready & Wait (to learn)
+### IV.2 Ready & Wait (to learn)
 
-Process scheduler selects among ready processes for next execution on CPU core.Maintains scheduling queues of processes
+Process scheduler selects among ready processes for next execution on CPU core. Maintains scheduling queues of processes
+
 - **Ready queue** – set of all processes residing in main memory, 
 ready and waiting to execute
 - **Wait queues** – set of processes waiting for an event (i.e., I/O)
@@ -221,7 +226,7 @@ ready and waiting to execute
     </div>
 </div>
 
-### Waiting wait()
+### IV.3 Waiting wait()
 
 A parent can wait for a child to complete (`man 2 wait`)
 - The `wait()` call
@@ -231,7 +236,7 @@ A parent can wait for a child to complete (`man 2 wait`)
     - blocks until a specific child completes
     - can be made non-blocking with WNOHANG options
 
-### Terminated (Process Terminations)
+### IV.4 Terminated (Process Terminations)
 
 - A process terminates itself with the **exit()** system call
     - This call takes as argument an integer that is called the process’ exit/return/error code
@@ -240,13 +245,13 @@ A parent can wait for a child to complete (`man 2 wait`)
 - A process can cause the termination of another process
     - Using something called “signals” and the **kill()** system call
 
-#### Zombie Process
+#### IV.4.1 Zombie Process
 
 - When a child process terminates, it remains as a **zombie** in an “undead” state, Until it is “reaped” (garbage collected) by the OS, because **PCB** cannot be deallocated by the child process.
     - They’re not really processes, they do not consume ~~resources~~ CPU
     - They only consume a slot in memory (PCB), which may eventually fill up and cause fork() to fail
 
-#### Getting rid of zombies
+#### IV.4.2 Getting rid of zombies
 
 A zombie lingers on until:
 - its <u>parent has called wait()</u>  for the child, or
@@ -257,27 +262,27 @@ A zombie lingers on until:
 3. The handler calls wait()
 4. This way all children deaths are “acknowledged”
 
-#### Orphans
+#### IV.4.3 Orphans
 
 - An **orphan** process is one whose parent has died
 - In this case, the orphan is “adopted” by the process with **pid 1**
 - The process with pid 1 does handle child termination with a handler for SIGCHLD that calls wait, so an orphan never becomes a zombie
 
-## Signal
+## V Signal
 
-### Processes and Signals
+### V.1 Processes and Signals
 
 - A process can receive signals, i.e., software interrupts
 - Signals have many usages, including process synchronization
 - The OS defines a number of signals, each with a name and a number, and some meaning (using `man 7 signal`)
 
-### Manipulating Signals
+### V.2 Manipulating Signals
 
 - Each signal causes a default behavior in the process (e.g., a SIGINT signal causes the process to terminate)
 - But most signals can be either ignored or provided with a user-written handler to perform some action
 - Signals like <u>SIGKILL and SIGSTOP</u>  cannot be ignored or handled by the user, for security reasons
 
-## context switch
+## VI context switch
 
 When CPU switches to another process, the system must <u>save the state of the old process and load the saved state for the new process</u>  via a **context switch.**
 
@@ -304,6 +309,12 @@ Context of a process represented in the **PCB (task_struct in Linux)**.
 
 ![](attachments/3_Process-4.png)
 
+> [!help]- 上图共发生了 3 次 context switch：
+> 
+> - process 0: user mode -> kernel mode
+> - in kernel mode: process 0 -> process 1
+> - process 1: kernel mode -> user mode
+
 What's about calling System call?
 
 ![](attachments/3_Process-6.png)
@@ -314,7 +325,7 @@ What's about calling System call?
 
 > 而在我们实现的 linux 内核中，充当这一功能的是 mepc/sepc/ra(x1) .
 
-### pt_regs (process trace)
+### VI.1 pt_regs (process trace)
 
 ![](attachments/3_Process-7.png)
 
@@ -333,9 +344,10 @@ What's about calling System call?
 > https://www.cs.cornell.edu/courses/cs414/2007sp/homework/hw1_soln.pdf
 > ![](attachments/3_Process-9.png)
 
-## Thread
+## VII Thread
 
 Why threads?
+
 - Multiple tasks of an application can be implemented by threads
     - E.g., update display, fetch data, spell checking
 - Process creation is heavy-weight while thread creation is **light-weight**
@@ -343,6 +355,7 @@ Why threads?
 - Kernels are generally multithreaded
 
 Thread may be provided either at the user level, or by the kernel
+
 - **User threads** are supported above the kernel and managed without kernel support
     - Three thread libraries: POSIX Pthreads, Win32 threads, and Java threads
 - **Kernel threads** are supported and managed directly by the kernel
@@ -350,6 +363,7 @@ Thread may be provided either at the user level, or by the kernel
 - A relationship must exist between user threads and kernel threads
 
 models:
+
 - many to one
 - one to one (used most)
 - many to many

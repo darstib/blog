@@ -5,26 +5,26 @@ comments: true
 dg-publish: true
 ---
 
-## Introduction
+## I Introduction
 
-### Compiler basics - Behind gcc main.c
+### I.1 Compiler basics - Behind gcc main.c
 
 ![](attachments/2_OS.png)
 
 **CRT**: C runtime (Startup routines before main function)
 
-### ELF binary basics
+### I.2 ELF binary basics
 
 ![](attachments/2_OS-1.png)
 
 > 内存中不会存储数据的“类型”，只存储 bytes。
 
-### Running a binary - Behind ./a.out
+### I.3 Running a binary - Behind ./a.out
 
 ![](attachments/2_OS-3.png)
 
-## Overview
-### What is an OS?
+## II Overview
+### II.1 What is an OS?
 
 > [!QUESTION]
 >
@@ -38,11 +38,11 @@ dg-publish: true
         - e.g., logical resources: processes, files, arrays
     - The OS decides who (which running program) gets what resource (share)
 
-### OS is complex
+### II.2 OS is complex
 
 ![](attachments/2_OS-2.png)
 
-### start an OS
+### II.3 start an OS
 
 - When a computer boots, it needs to run a first program: **the bootstrap program**
     - Stored in Read Only Memory (ROM)
@@ -59,7 +59,7 @@ dg-publish: true
     - event: system call, interrupt(timer), hardware instruction ...
     - more on events in a few slides
 
-### Multi-Programming
+### II.4 Multi-Programming
 
 **Multi-Programming**: Modern OSes allow multiple “jobs” (running programs) to reside in memory simultaneously
 
@@ -67,18 +67,18 @@ dg-publish: true
 - When the job has to wait for “something”, then the OS picks another job to run
 - This is called a <u>context-switch,</u>  and improves productivity
 
-### Time-Sharing
+### II.5 Time-Sharing
 
 **Time-Sharing**: Multi-programming with rapid context-switching.
 
 In modern OSes, jobs are called **processes**
 - A process is a **running program**
 
-### The Running OS
+### II.6 The Running OS
 
 ![|500](attachments/2_OS-4.png)
 
-### A Note on Kernel Size
+### II.7 A Note on Kernel Size
 
 As a kernel designer you want to be careful to **not use too much** 
 **memory!**
@@ -91,13 +91,14 @@ Furthermore, there is **no memory protection within the kernel**
 - <u>Nobody’s watching over the kernel</u> 
 - So one must be extremely careful when developing kernels
 
-### Protected Instructions
+### II.8 Protected Instructions
 
 A subset of instructions of every CPU is restricted in usage: only the OS can execute them, known as **protected (or privileged)** instructions
 
-### User vs. Kernel Mode
+### II.9 User vs. Kernel Mode
 
 All modern processors support (at least) two modes of execution:
+
 - **User mode**: In this mode **protected instructions cannot be executed**
 - **Kernel mode**: In this mode all instructions can be executed  
 
@@ -110,7 +111,7 @@ All modern processors support (at least) two modes of execution:
 
 ![](attachments/2_OS-5.png)
 
-> [!KNOWLEDGE]-
+> [!KNOWLEDGE]- Mode
 >
 > There can be multiple modes, e.g., multiple levels in ARM64
 >
@@ -120,7 +121,7 @@ All modern processors support (at least) two modes of execution:
 > 
 > ![](attachments/2_OS-7.png)
 
-### OS Events
+### II.10 OS Events
 
 - **An event is an “unusual” change in control flow**
     - A usual change is some “branch” instruction within a user program for instance
@@ -131,6 +132,7 @@ All modern processors support (at least) two modes of execution:
 
 There are two kinds of events: **interrupts** and **exceptions** (or traps or 
 faults)
+
 - The two terms are often confused (even in the textbook)
 - The term **fault** often refers to unexpected events
 - Interrupts are caused by external events
@@ -156,20 +158,21 @@ void processEvent(event) {
 }
 ```
 
-### Timers
+### II.11 Timers
 
 The OS must keep control of the CPU
+
 - OS must have a **concept of “time”**
 - Programs cannot gain an unfair share of the computer
 - One way in which the OS (or kernel) retrieves control is when an interrupt occurs
 
-To make sure that an interrupt will occur reasonably soon, we can 
-use a **timer**.
+To make sure that an interrupt will occur reasonably soon, we can use a **timer**.
+
 - The timer interrupts the computer regularly
 - The OS always makes sure the timer is set before turning over control to user code
 - Modifying the timer is done via privileged instructions, of course.
 
-### Main OS Services
+### II.12 Main OS Services
 
 - Process Management
 - Memory Management
@@ -177,7 +180,7 @@ use a **timer**.
 - I/O Management
 - Protection and Security
 
-### Privileged Instructions
+### II.13 Privileged Instructions
 
 Only privileged instructions can:
 
@@ -194,17 +197,17 @@ Only privileged instructions can:
 > https://www.cs.cornell.edu/courses/cs414/2007sp/homework/hw1_soln.pdf
 > ![](attachments/2_OS-24.png)
 
-## Structures
+## III Structures
 
-### User Operating System Interface
+### III.1 User Operating System Interface
 
 - **Command line interface (CLI)** or command interpreter allows direct command entry
 - **Graphical User Interface (GUI)** User-friendly desktop metaphor interface
 - **Touchscreen Interfaces**
 
-### system call
+### III.2 system call
 
-#### concept
+#### III.2.1 concept
 
 When a user program needs to **do something privileged**, it calls a system call (e.g., to create a process, write to disk, read from the network card)
 
@@ -214,11 +217,11 @@ When a user program needs to **do something privileged**, it calls a system call
 
 ![](attachments/2_OS-8.png)
 
-#### Implementation
+#### III.2.2 Implementation
 
 System-call interface maintains a table indexed according to numbers associated with each system call. The system call table is different in different architecture.
 
-> [!KNOWLEDGE]-
+> [!KNOWLEDGE]- System call table
 >
 > ![](attachments/2_OS-9.png)
 
@@ -228,7 +231,7 @@ When we use "printf" (a wrapper of the write system call), actually `mov $0x1, %
 
 Finishing "printf" the content, it will return to user mode, and continue.
 
-#### example (cp in.txt out.txt)
+#### III.2.3 example (cp in.txt out.txt)
 
 ![](attachments/2_OS-11.png)
 
@@ -238,7 +241,7 @@ Finishing "printf" the content, it will return to user mode, and continue.
 
 调用的 system call 数量增加，但是种类不变。主要在于 read 等 system call 一次能够操作的内存大小有限，需要反复执行。
 
-#### Time Spent in System Calls
+#### III.2.4 Time Spent in System Calls
 
 The time command is a simple way to time the execution of a program (used like strace).
 
@@ -247,13 +250,13 @@ It reports three times:
 - “user” time: time spent in user code (user mode)
 - “system” time”: time spent in system calls (kernel mode)
 
-#### System Call Parameter Passing
+#### III.2.5 System Call Parameter Passing
 
 - direcly from register
 - from a table
 
 ![](attachments/2_OS-12.png)
-#### Types of System Calls
+#### III.2.6 Types of System Calls
 
 - Process control
 - File management
@@ -262,13 +265,13 @@ It reports three times:
 - Communications
 - Protection
 
-### ELF binary basics
+### III.3 ELF binary basics
 
-#### Linkers and Loaders
+#### III.3.1 Linkers and Loaders
 
 <div style="text-align: center;"><img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/17396353938902_OS-13.png" alt="img" style="width: 50%;"><p></p></div>
 
-#### Static link vs dynamic link
+#### III.3.2 Static link vs dynamic link
 
 - Statically-linked ELF has no .interp section
 - Dynamically-linked ELF has .interp section
@@ -276,25 +279,25 @@ It reports three times:
 
 ![](attachments/2_OS-14.png)
 
-## Operating System Design and Implementation
+## IV Operating System Design and Implementation
 
-### User goals and System goals:
+### IV.1 User goals and System goals:
 
 - User goals – operating system should be convenient to use, easy to learn, reliable, safe, and fast
 - System goals – operating system should be easy to design, implement, and maintain, as well as flexible, reliable, error-free, and efficient
 
-### Important principle to separate: 
+### IV.2 Important principle to separate: 
 
 (Allows policy changes without changed implemented mechanism)
 
 - Policy: What will be done?
 - Mechanism: How to do it?
 
-### Implementation
+### IV.3 Implementation
 
 <div style="text-align: center;"><img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/17396354278912_OS-15.png" alt="img" style="width: 60%;"><p></p></div>
 
-### Microkernels
+### IV.4 Microkernels
 
 Moves as much from the kernel into user space.
 
@@ -306,7 +309,7 @@ Benefits:
 
 ![](attachments/2_OS-16.png)
 
-### module
+### IV.5 module
 
 Many modern operating systems implement **loadable kernel modules** (LKMs):
 
@@ -315,11 +318,11 @@ Many modern operating systems implement **loadable kernel modules** (LKMs):
 - Each talks to the others over known interfaces
 - Each is loadable as needed within the kernel
 
-### Hybrid Systems
+### IV.6 Hybrid Systems
 
 macOS and iOS Structure & Android
 
-### other
+### IV.7 other
 
 > [!QUOTE] Kernighan's Law
 >

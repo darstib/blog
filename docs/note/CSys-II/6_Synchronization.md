@@ -5,7 +5,7 @@ comments: true
 dg-publish: true
 ---
 
-## Intro
+## I Intro
 
 ```c title="example.c"
 #include <stdio.h>
@@ -55,15 +55,15 @@ main: done with both (counter = 1034720)
 
 `counter++;` 是一条 C 语言语句，但是需要多条汇编指令（取决于 ISA）；如果 p1 执行某条指令时，被 interrupt 或者 p2 读取了 counter 的值（此时 p1 还没有将计算的结果写回）；那么不知不觉中，数的次数就偏少了，这称为 Race Condition。
 
-> [!DEFINITION] Race Condition
+> [!definition]- Race Condition
 >
 > Several processes (or threads) access and manipulate the same data concurrently and the outcome of the execution depends on the particular order in which the access takes place, is called a **race-condition**.
 
 为此，引入 critical section。
 
-## Critical section
+## II Critical section
 
-### Problem
+### II.1 Problem
 
 Each process has a critical section segment of code (E.g., to change common variables, update table, write file, etc.)
 
@@ -82,13 +82,13 @@ while (true) {
  - The permission should be released in **exit section**
  - The remaining code is the **remainder section**
 
-### solution
+### II.2 solution
 
 What about Preventing interrupts?
 - Single-core system: works well
 - Multiple-processor system: not feasible
 
-#### Three Requirements for Solutions
+#### II.2.1 Three Requirements for Solutions
 
 1. **Mutual Exclusion**
     - Only one process can execute in the critical section.
@@ -97,13 +97,14 @@ What about Preventing interrupts?
 3. **Bounded waiting**
     - No starvation (every progress has chance to  enter its critical section).
 
-#### Peterson's solution
+#### II.2.2 Peterson's solution
 
 Peterson’s solution solves **two-processes** synchronization, and **only works for two processes case**.
 
 It assumes that LOAD and STORE are **atomic** (execution can't be interrupted, but it usually can't be guaranteed by hardware automatically).
 
 So the two processes share two variables:
+
 - boolean **flag[2]**: whether a process is ready to enter the critical section
 - int **turn**: whose turn it is to enter the critical section
 
@@ -111,18 +112,16 @@ So the two processes share two variables:
 
 We can prove that Peterson's solution satisfies the three requirements of the solution.
 
-> [!Extra]
->
-> Although useful for demonstrating an algorithm, Peterson’s solution is not guaranteed to work on modern architectures. (Since it requires too much, sometimes be wrong and works only for two.)
-
+> [!Extra]- Although useful for demonstrating an algorithm, Peterson’s solution is not guaranteed to work on modern architectures. (Since it requires too much, sometimes be wrong and works only for two.)
+> 
 > https://www.cs.cornell.edu/courses/cs414/2007sp/homework/hw2_soln.pdf
 > ![](attachments/6_Synchronization-10.png)
 
-### Hardware Support for synchronization
+### II.3 Hardware Support for synchronization
 
 Uniprocessors: disable interrupts
 
-#### Memory barriers (memory fences)
+#### II.3.1 Memory barriers (memory fences)
 
 Memory models are the memory guarantees a computer architecture makes to application programs. They are either Strongly ordered or Weakly ordered.
 
@@ -139,11 +138,11 @@ Memory models are the memory guarantees a computer architecture makes to applica
 
 **Explicit/Implicit Memory Barriers in Linux:** TODO, may be not important.
 
-#### Hardware Instructions
+#### II.3.2 Hardware Instructions
 
 Special hardware instructions that allow us to either test-and modify the contentof a word, or to swap the contents of two words atomically (uninterruptable)
 
-##### test_and_set (TAS)
+##### II.3.2.1 test_and_set (TAS)
 
 ```c title="tas.c"
 // The function is atomically; it is just one instruction
@@ -164,7 +163,7 @@ void use_lock() {
 }
 ```
 
-##### compare_and_swap (CAS)
+##### II.3.2.2 compare_and_swap (CAS)
 
 ```c title="cas.c"
 // The function is atomically
@@ -193,12 +192,12 @@ void use_lock() {
     - `LDREX` and `STREX` instructions used together
     - to implement atomic operations the programmer must retry the operation (both LDREX and STREX) until the exclusive monitor signals a success.
 
-#### Atomic Variables
+#### II.3.3 Atomic Variables
 
 One tool is an **atomic variable** that provides atomic (uninterruptible) updates on basic data types such as integers and booleans.
 - For example, the increment() operation on the atomic variable sequence ensures sequence is incremented without interruption: `increment(&sequence);`;
 
-### Mutex Lock (spinlock)
+### II.4 Mutex Lock (spinlock)
 
 Mutex locks protect a critical section by first `acquire()` a lock then `release()` the lock; calls to `acquire()` and `release()` must be atomic. These two functions can be implement using test_and_set or compare_and_swap.
  
@@ -243,7 +242,7 @@ void unlock() {
 }
 ```
 
-### Semaphore
+### II.5 Semaphore
 
 ```c title="semaphore_simple.c"
 void wait(S) {
@@ -260,7 +259,7 @@ void signal(S) {
 - **Binary semaphore** – integer value can range only between 0 and 1
     - Same as a mutex lock
 
-#### Semaphore w/ waiting queue:
+#### II.5.1 Semaphore w/ waiting queue:
 
 > `w/` 是 `with` 的意思
 
@@ -331,7 +330,7 @@ void unlock(lock_t* m) {
 - 14-15 行的实现了：spinLock
 - 为什么不能够互换 21/22 行：执行到 21/22 行时，说明 guard = 1；互换后执行到 `park()` 时，该线程将 “拿着 lock 去 sleep”；m->guard 永远为 1，其他线程一旦进入 `lock()` 就无法跳出 14 行循环。（课上记的，好像有点问题？）
 
-#### mutex vs. semaphore
+#### II.5.2 mutex vs. semaphore
 
 - mutex(spinLock)
     - pros: no blocking
@@ -345,33 +344,33 @@ void unlock(lock_t* m) {
 
 > 长和短是相对 context switch 的长度而言的。
 
-#### deadlock and starvation
+#### II.5.3 deadlock and starvation
 
 - **Deadlock**: two or more processes are waiting indefinitely for an event that can be caused by only one of the waiting processes
 - **Starvation**: indefinite blocking; a process may never be removed from the semaphore’s waiting queue
 
-#### Priority Inversion
+#### II.5.4 Priority Inversion
 
 a higher priority process is **indirectly** preempted by a lower priority task.
 
-##### example
+##### II.5.4.1 example
 
 - three processes, PL, PM, and PH with priority PL < PM < PH
 - PL holds a lock that was requested by PH ➱ PH is blocked
 - PM becomes ready and preempted the PL
 - It effectively "inverts" the relative priorities of PM and PH
 
-##### solution
+##### II.5.4.2 solution
 
 **priority inheritance**: temporary assign the highest priority of waiting process (PH) to the process holding the lock (PL)
 
-### reader-writer block (todo)
+### II.6 reader-writer block (todo)
 
-## Examples
+## III Examples
 
-### Bounded-Buffer Problem
+### III.1 Bounded-Buffer Problem
 
-#### description
+#### III.1.1 description
 
 - Two processes, the producer and the consumer share n buffers
     - the producer generates data, puts it into the buffer
@@ -381,7 +380,7 @@ a higher priority process is **indirectly** preempted by a lower priority task.
     - the consumer won’t try to remove data from an empty buffer
 - aka producer-consumer problem
 
-#### solution
+#### III.1.2 solution
 
 - n buffers, each can hold one item
 - semaphore mutex initialized to the value 1
@@ -414,9 +413,9 @@ do {
 } while (TRUE);
 ```
 
-### Readers-Writers Problem
+### III.2 Readers-Writers Problem
 
-#### description
+#### III.2.1 description
 
 • A data set is shared among a number of concurrent processes
     • readers: only read the data set; they do not perform any updates
@@ -425,7 +424,7 @@ do {
     • allow multiple readers to read at the same time (shared access)
     • only one single writer can access the shared data (exclusive access)
 
-#### solution
+#### III.2.2 solution
 
 • semaphore mutex initialized to 1
 • semaphore write initialized to 1
@@ -457,9 +456,9 @@ do {
 } while (TRUE);
 ```
 
-### Dining-Philosophers Problem (to learn)
+### III.3 Dining-Philosophers Problem (to learn)
 
-#### description
+#### III.3.1 description
 
 - Philosophers spend their lives thinking and eating
     - They sit in a round table, but don’t interact with each other
@@ -468,23 +467,23 @@ do {
     - Need both chopsticks to eat, then release both when done
 - Dining-philosopher problem represents multi-resource synchronization  
 
-#### solution
+#### III.3.2 solution
 
 Semaphore chopstick[5] initialized to 1.
 
 > For more exercise: https://www.cs.cornell.edu/courses/cs414/2007sp/homework/hw2_soln.pdf
 
-## Linux Synchronization (Todo)
+## IV Linux Synchronization (Todo)
 
-## Deadlock
+## V Deadlock
 
-### Deadlock problem
+### V.1 Deadlock problem
 
-> [!DEFINITION] Deadlock
+> [!definition]- Deadlock
 >
 > a set of blocked processes each holding a resource and waiting to acquire a resource held by another process in the set
 
-> [!WIKI] [deadlock_cs](https://en.wikipedia.org/wiki/Deadlock_(computer_science))
+> [!wiki]- [deadlock_cs](https://en.wikipedia.org/wiki/Deadlock_(computer_science))
 >
 > In concurrent computing, deadlock is any situation in which **no member of some group of entities can proceed** because each waits for another member, including itself, to take action, such as sending a message or, more commonly, releasing a lock.
 
@@ -518,9 +517,9 @@ void* do_work_two() {
 
 ![](attachments/6_Synchronization-2.png)
 
-### System model
+### V.2 System model
 
-#### Resource-Allocation Graph
+#### V.2.1 Resource-Allocation Graph
 
 - Two types of nodes:
     - P = {P1, P2, …, Pn}, the set of all the **processes** in the system
@@ -532,7 +531,7 @@ void* do_work_two() {
         - An instance of resource type Rj has been allocated to thread Pi
 - legend ![](attachments/6_Synchronization-3.png)
 
-> [!EXAMPLE]
+> [!help]- judge dead lock or not
 >
 > - dead Lock ![](attachments/6_Synchronization-4.png)
 >
@@ -550,7 +549,7 @@ void* do_work_two() {
 >>     - If only one instance per resource type ➠ deadlock
 >>     - If several instances per resource type ➠ possibility of deadlock
 
-#### Four Conditions of Deadlock
+#### V.2.2 Four Conditions of Deadlock
 
 - **Mutual exclusion**: only one process at a time can use a resource
 - **Hold and wait**: a process holding at least one resource is waiting to acquire additional resources held by other processes
@@ -561,8 +560,8 @@ void* do_work_two() {
     - Pn–1 is waiting for a resource that is held by Pn
     - Pn is waiting for a resource that is held by P0
 
-### Handling deadlocks
-#### Deadlock prevention
+### V.3 Handling deadlocks
+#### V.3.1 Deadlock prevention
 
 - How to **prevent mutual exclusion**
     - Not required for sharable resources
@@ -582,7 +581,7 @@ void* do_work_two() {
     - Many operating systems adopt this strategy for some locks.
     - But fail to handle dynamic acquired lock.
 
-#### Deadlock avoidance
+#### V.3.2 Deadlock avoidance
 
 **Deadlock avoidance**: require extra information about how resources are to be requested. (not practical)
 
@@ -590,13 +589,13 @@ Resource-allocation state:
 - The number of available and allocated resources
 - The maximum demands of the processes
 
-##### safe state
+##### V.3.2.1 safe state
 
 - There exists a sequence <P1, P2, …, Pn> of all processes in the system
 - For each Pi, resources that Pi can still request can be satisfied by **currently available resources + resources held by all the Pj** (j < i)
 - Safe state can guarantee no deadlock ![](attachments/6_Synchronization-6.png)
 
-> [!EXAMPLE]
+> [!help]- judge safe or not
 >
 > - 下图的上半部分的情况是 safe 的，因为 Available 资源足够执行 P1，P1 释放后可以执行 P0 -> P2
 > 
@@ -604,7 +603,7 @@ Resource-allocation state:
 >
 > - 上图下半部分的情况是 unsafe 的，因为执行 P1 后不足以执行 P0。
 
-##### Banker's algorithm
+##### V.3.2.2 Banker's algorithm
 
 - Single instance of each resource type ➠ use **resource-allocation graph** (if cycle)
 - Multiple instances of a resource type ➠ use the **banker’s algorithm**
@@ -625,7 +624,7 @@ Resource-allocation state:
         - need[i,j] = k: Pi may need k more instances of Rj to complete its task
         - need [i,j] = max[i,j] – allocation [i,j]
 
-> [!EXAMPLE]
+> [!example]-
 >
 > 题目本身只会给我们 system state 和 allocation, max 向量/矩阵。 
 > 
@@ -636,23 +635,23 @@ Resource-allocation state:
 > 1. 计算 need 矩阵和 available 向量。
 > 2. 观察 available 向量能否满足某一个进程 Pi 对应的 need 向量（在上面的例子中，P3 可以都满足），执行下一步；如果都不能，则处于 unsafe state，结束。
 > 3. 将 Pi 的 allocation 向量加到 available 上，并将其排除出矩阵；再次执行步骤 2，直到 need 为空。
-
+> 
 > https://www.cs.cornell.edu/courses/cs414/2007sp/homework/hw2_soln.pdf
 > ![](attachments/6_Synchronization-11.png)
 
-#### Deadlock detection 
+#### V.3.3 Deadlock detection 
 
-##### Single Instance Resources (Wait-for Graph)
+##### V.3.3.1 Single Instance Resources (Wait-for Graph)
 
 find a cycle:
 
 ![](attachments/6_Synchronization-9.png)
 
-##### Multi-instance Resources
+##### V.3.3.2 Multi-instance Resources
 
 Just like Banker's algorithm.
 
-#### Deadlock recovery
+#### V.3.4 Deadlock recovery
 
 - Terminate deadlocked processes. options:
     - Abort all deadlocked processes

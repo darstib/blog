@@ -4,7 +4,7 @@ tags:
 comments: true
 dg-publish: true
 ---
-## Some definitions
+## I Some definitions
 
 > [!DEFINITION] CPU Scheduling
 >
@@ -13,7 +13,7 @@ dg-publish: true
 > - Necessary in multi-programming environments
 > - Maximizes CPU utilization so that it’s never idle
 
-### CPU-I/O Burst Cycle
+### I.1 CPU-I/O Burst Cycle
 
 ![](attachments/4_Scheduling.png)
 
@@ -24,26 +24,26 @@ Rationale: non-CPU-intensive jobs should really get the CPU quickly on the rare 
 > https://www.cs.cornell.edu/courses/cs414/2007sp/homework/hw1_soln.pdf
 > ![](attachments/4_Scheduling-11.png)
 
-### CPU Scheduler
+### I.2 CPU Scheduler
 
 - **Non-preemptive** scheduling: a process holds the CPU until it is willing to give it up
     - Also called “cooperative” scheduling
 - **Preemptive** scheduling: a process can be preempted even though it could have happily continued executing
     - e.g., after some “you’ve had enough” timer expires
 
-### Scheduling Decision Points
+### I.3 Scheduling Decision Points
 
 <div style="text-align: center;"><img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/17396358038914_Scheduling-1.png" alt="img" style="width: 60%;"><p></p></div>
 
-### Scheduling Criteria
+### I.4 Scheduling Criteria
 
 ![](attachments/4_Scheduling-2.png)
 
-### Dispatcher
+### I.5 Dispatcher
 
 ![](attachments/4_Scheduling-3.png)
 
-## Scheduling Algorithms
+## II Scheduling Algorithms
 
 - First-Come, First-Served Scheduling
 - Shortest-Job-First Scheduling
@@ -57,7 +57,7 @@ In the following, we will use examples to demonstrate the algorithms
 - Use the average waiting time as the measure of comparison
 - In the context of a single CPU that has a single processing core
 
-### First-Come, First-Served (FCFS) Scheduling
+### II.1 First-Come, First-Served (FCFS) Scheduling
 
 | progress | burst time |
 | :------: | :--------: |
@@ -74,7 +74,7 @@ In the following, we will use examples to demonstrate the algorithms
 - **Convoy effect** - short process behind long process; Long jobs slow down the whole system
 - FCFS is non-preemptive
 
-### Shortest-Job-First (SJF) Scheduling
+### II.2 Shortest-Job-First (SJF) Scheduling
 
 **SJF is optimal** – gives minimum average waiting time for a given set of processes. A known result is: SJF is provably optimal for average wait time. In the theoretical literature, called: **SRPT** (Shortest Remaining Processing Time)
 
@@ -93,7 +93,7 @@ But the difficulty is knowing the length of the next CPU request; so it is just 
 - **Response time**: one  progress (first begin time - arrival time)
 - **Throughput**: # of processes that complete execution per time unit.
 
-#### “Shortest-next-CPU-burst” algorithm
+#### II.2.1 “Shortest-next-CPU-burst” algorithm
 
 **Non-preemptive**, which measn that only after the progress before some progress finishes can the latter begins to run. So the Gantt Chart is :
 
@@ -102,7 +102,7 @@ But the difficulty is knowing the length of the next CPU request; so it is just 
 - Average turnaround time: (10 + 16 + 21 + 7) / 4 = 13.5
 - Average waiting time: (0 + 10 + 14 + 5) / 4 = 7.25
 
-#### shortest-remaining-time-first (SRTF)
+#### II.2.2 shortest-remaining-time-first (SRTF)
 
 **Preemptive**, which means we always find the shortest job to switch to. Now the Gantt Chart is (compare remaining time when: a new progress comes in or a old progress finishes):
 
@@ -111,7 +111,7 @@ But the difficulty is knowing the length of the next CPU request; so it is just 
 - Average turnaround time: (25 + 8 + 13 + 2) / 4 = 12
 - Average waiting time: (15 + 2 + 6 + 0) / 4 = 5.75
 
-### Round-Robin Scheduling
+### II.3 Round-Robin Scheduling
 
 RR Scheduling is preemptive and designed for time-sharing
 - It defines a **time quantum** (A fixed interval of time (10-100ms))
@@ -121,15 +121,15 @@ RR Scheduling is preemptive and designed for time-sharing
     - Set a timer to interrupt the process after 1 quantum
     - Dispatch the process
 
-#### example
+#### II.3.1 example
 
 ![](attachments/4_Scheduling-8.png)
 
-#### Pick right quantum:
+#### II.3.2 Pick right quantum:
 
 ![](attachments/4_Scheduling-9.png)
 
-### Priority Scheduling
+### II.4 Priority Scheduling
 
 Simply implement the Ready Queue as a Priority Queue.
 - Priorities can be internal:
@@ -137,7 +137,7 @@ Simply implement the Ready Queue as a Priority Queue.
 - Priorities can be external:
     - e.g., set by users to specify relative importance of jobs
 
-#### Priority Scheduling w/ Round-Robin
+#### II.4.1 Priority Scheduling w/ Round-Robin
 
 <div style="text-align: center;"><img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/17396362088914_Scheduling-10.png" alt="img" style="width: 80%;"><p></p></div>
 

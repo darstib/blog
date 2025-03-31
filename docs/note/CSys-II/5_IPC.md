@@ -5,7 +5,7 @@ comments: true
 dg-publish: true
 ---
 
-## Inter-Process Communications (IPCs)
+## I Inter-Process Communications (IPCs)
 
 - Processes within a system may be independent or cooperating
 - Independent process: process that cannot affect or be affected by the execution of another process
@@ -13,7 +13,7 @@ dg-publish: true
 - **4 Reasons for cooperating processes**: information sharing, computation 
 speedup, modularity, convenience, Security
 
-### Two models of IPC
+### I.1 Two models of IPC
 
 - **Shared memory**
     - Low-overhead: a few syscalls initially, and then none 
@@ -31,20 +31,20 @@ speedup, modularity, convenience, Security
 
 
 
-### Synchronization
+### I.2 Synchronization
 
 ![](attachments/5_IPC-1.png)
 
-### Pipes
+### I.3 Pipes
 
 - Ordinary pipes – cannot be accessed from outside the process that created it. Typically, a parent process creates a pipe and uses it to communicate with a child process that it created. 
 - Named pipes – can be accessed without a parent-child relationship.
 
-#### ordinary pipes
+#### I.3.1 ordinary pipes
 
 ![](attachments/5_IPC-2.png)
 
-#### Named pips
+#### I.3.2 Named pips
 
 - Named Pipes are more powerful than ordinary pipes
 - Communication is bidirectional
@@ -52,14 +52,14 @@ speedup, modularity, convenience, Security
 - Several processes can use the named pipe for communication
 - Provided on both UNIX and Windows systems
 
-#### Unix pipes
+#### I.3.3 Unix pipes
 
 - In UNIX, a pipe is mono-directional
     - Two pipes must be used for bi-directional communication
 - One talks of the write-end and the read-end of a pipe
 - The “pipe” command-line feature, ‘|’, corresponds to a pipe
 
-## Threads
+## II Threads
 
 - A thread is a basic unit of execution within a process
 - Each thread has its own
@@ -85,7 +85,7 @@ speedup, modularity, convenience, Security
 > 
 > 一般不会，但是不阻止。
 
-### Advantages
+### II.1 Advantages
 
 - **Economy:** 
     - Creating a thread is cheap
@@ -101,7 +101,7 @@ speedup, modularity, convenience, Security
 - **Scalability:**
     - Running multiple “threads” at once uses the machine more effectively
 
-### Drawbacks
+### II.2 Drawbacks
 
 - Weak isolation between threads: 
     - If one thread fails (e.g., a segfault), then the process fails.
@@ -110,7 +110,7 @@ speedup, modularity, convenience, Security
 - Threads do not benefit from memory protection
     - Concurrent programming with Threads is hard
 
-### Multi-Threading Challenges
+### II.3 Multi-Threading Challenges
 
 - Deal with data dependency and synchronization
 - Dividing activities among threads
@@ -118,9 +118,9 @@ speedup, modularity, convenience, Security
 - Split data among threads
 - Testing and debugging
 
-### User Threads vs. Kernel Threads
+### II.4 User Threads vs. Kernel Threads
 
-#### Many-to-One Model
+#### II.4.1 Many-to-One Model
 
 - **Advantage**: multi-threading is efficient and low-overhead
     - No syscalls to the kernel
@@ -128,24 +128,24 @@ speedup, modularity, convenience, Security
     - cannot take advantage of a multi-core architecture!
     - if one threads blocks, then all the others do!
 
-#### One-to-One Model (used on linux, windows and so on)
+#### II.4.2 One-to-One Model (used on linux, windows and so on)
 
 - **Advantage:** Removes both drawbacks of the Many-to-One Model
     - Creating a new threads requires work by the kernel
 - **Drawback:** Not as fast as in the Many-to-One Model; expensive
 
 
-#### Many-to-Many Model & Two-Level Model
+#### II.4.3 Many-to-Many Model & Two-Level Model
 
 > difficult to shedule
 
-### Thread Libraries
+### II.5 Thread Libraries
 
 Thread libraries provide users with ways to create threads in their own programs.
 
 ![](attachments/5_IPC-7.png)
 
-#### Pthreads:
+#### II.5.1 Pthreads:
 
 - May be provided **either as user-level or kernel-level**
 - A **POSIX standard (IEEE 1003.1c) API** for thread creation and synchronization
@@ -153,58 +153,59 @@ Thread libraries provide users with ways to create threads in their own programs
 - API specifies behavior of the thread library, implementation is up to development of the library
 - Common in UNIX operating systems (Linux & Mac OS X)
 
-#### OpenMP
+#### II.5.2 OpenMP
 
 - Set of compiler directives and an API for C, C++, FORTRAN 
 - Provides support for parallel programming in shared-memory environments
 - Identifies parallel regions – blocks of code that can run in parallel
 
-## Threading Issues
+## III Threading Issues
 
-### Semantics of fork() and exec()
+### III.1 Semantics of fork() and exec()
 
+[todo]
 
-
-### Signals
+### III.2 Signals
 
 - We’ve talked about signals for processes
     - Signal handlers are either default or user-specified
     - signal() and kill() are the system calls
 - In a multi-threaded program, what happens? Multiple options
-    - [ ] Deliver the signal to the thread to which the signal applies
+    - [x] Deliver the signal to the thread to which the signal applies
     - [ ] Deliver the signal to every thread in the process
-    - [ ] Deliver the signal to certain threads in the process
+    - [x] Deliver the signal to certain threads in the process
     - [ ] Assign a specific thread to receive all signals
 - Most UNIX versions: a thread can say which signals it accepts, and which signals it doesn’t accept
 
-### Safe Thread Cancellation
+### III.3 Safe Thread Cancellation
 
-One potentially useful feature would be for a thread to simply 
-terminate another thread. Two possible approaches:
+One potentially useful feature would be for a thread to simply terminate another thread. Two possible approaches:
+
 - **Asynchronous cancellation**
     - One thread terminates another immediately
 - **Deferred cancellation**
     - A thread periodically checks whether it should terminate
 
-### Linux threads
+### III.4 Linux threads
 
 Linux does not distinguish between PCB and TCB (Kernel data structure: task_struct).
 
-In Linux, a thread is also called a **light-weight process (LWP)**
+In Linux, a thread is also called a **light-weight process (LWP)**.
 
 The **clone()** syscall is used to create a thread or a process
+
 - Shares execution context with its parent
 - pthread library uses clone() to implement threads
 
-> [!NOTE] Single-threaded process vs. multi-threaded process
+> [!note]+ Single-threaded process vs. multi-threaded process
 >
 > ![](attachments/5_IPC-5.png)
 
-> [!NOTE] What's shared for Threads within Process ?
+> [!note]+ What's shared for Threads within Process ?
 >
 > ![](attachments/5_IPC-6.png)
 
-### User thread to kernel thread mapping
+### III.5 User thread to kernel thread mapping
 
 ![](attachments/5_IPC-8.png)
 

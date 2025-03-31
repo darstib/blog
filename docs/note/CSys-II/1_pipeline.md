@@ -5,9 +5,9 @@ comments: true
 dg-publish: true
 ---
 
-## ISA review
+## I ISA review
 
-### Instruction Set Principles
+### I.1 Instruction Set Principles
 
 - type of internal storage:
     - stack
@@ -41,7 +41,7 @@ dg-publish: true
     - Alignment of memory operands
         - Memory access takes only one cycle
 
-### Format of instructions
+### I.2 Format of instructions
 
 - Six Basic Instruction formats (similar to MIPS, but optimized)
     - Reduce combinational logic delay
@@ -52,7 +52,7 @@ dg-publish: true
 No subtract immediate instruction,Just use a negative constant 
 - addi x8, x9, -1
 
-### Address mode
+### I.3 Address mode
 
 - immediate addressing
 - register addressing
@@ -61,7 +61,7 @@ No subtract immediate instruction,Just use a negative constant
 
 ![](attachments/1_pipeline-8.png)
 
-## Classes of pipelining
+## II Classes of pipelining
 
 ![](attachments/1_pipeline-9.png)
 
@@ -69,7 +69,7 @@ No subtract immediate instruction,Just use a negative constant
     - **Pass time**: the time for the first task from beginning (entering the pipelining) to ending.
     - **Empty time**: the time for the last task from entering the pipelining to have the result.
 
-### single & multi
+### II.1 single & multi
 
 - Single function pipelining
     - only one fixed function pipelining (just like five-stages pipeline we will learn)
@@ -80,7 +80,7 @@ No subtract immediate instruction,Just use a negative constant
 >
 > ![](attachments/1_pipeline-10.png)
 
-### static & dynamic
+### II.2 static & dynamic
 
 - Static pipelining
     - In the same time, each segment of the **multi- functional pipelining** can only work according to the connection mode of the same function
@@ -90,7 +90,7 @@ No subtract immediate instruction,Just use a negative constant
 
 ![](attachments/1_pipeline-11.png)
 
-### linear & nonlinear
+### II.3 linear & nonlinear
 
 - Linear pipelining
     - Each stage of the pipelining is connected serially without feedback loop. When data passes through each segment in the pipelining, **each segment can only flow once at most**.
@@ -100,20 +100,20 @@ No subtract immediate instruction,Just use a negative constant
 
 > 关于做题，放在 [PBFX - Linear and nonlinear pipeline](PBFX.md#Linear%20and%20nonlinear%20pipeline)
 
-### order & disorder
+### II.4 order & disorder
 
 - Ordered pipelining
     - In the pipelining, the outflow order of tasks is exactly the same as the inflow order. Each task flows by sequence in each segment of the pipelining
 - Disordered pipelining
     - In the pipelining, the outflow order of tasks is not the same as the inflow order. The later tasks are allowed completed first
 
-## An Implementation of Pipelining
+## III An Implementation of Pipelining
 
 单纯从理解流水线来看，我们的流水线 CPU 应该是：
 
 ![](attachments/2_Design-of-Pipelining-4.png)
 
-### Single-Cycle Datapath to the Pipelined Version
+### III.1 Single-Cycle Datapath to the Pipelined Version
 
 从单周期 CPU 的架构，试图将多条指令分阶段进行“并行”：
 
@@ -145,7 +145,7 @@ No subtract immediate instruction,Just use a negative constant
 
 ![|500](attachments/2_Design-of-Pipelining-7.png)
 
-### Understand Pipelined Control Signals
+### III.2 Understand Pipelined Control Signals
 
 以下面的指令为例：
 
@@ -171,7 +171,7 @@ add x14, x5, x6
 >
 > ![](attachments/2_Design-of-Pipelining-10.png)
 
-#### Review of control lines
+#### III.2.1 Review of control lines
 
 ![](attachments/1_pipeline-13.png)
 
@@ -185,9 +185,9 @@ add x14, x5, x6
 
 ![](attachments/2_Design-of-Pipelining-3.png)
 
-## Performance evaluation of Pipelining
+## IV Performance evaluation of Pipelining
 
-### Throughput (TP)
+### IV.1 Throughput (TP)
 
 ![](attachments/1_pipeline.png)
 
@@ -200,13 +200,13 @@ add x14, x5, x6
 > - 将瓶颈阶段进一步细分为可以流水线操作的更小阶段 (Subdivision)；
 > - 重叠执行不同指令的瓶颈阶段 (Repetition)
 
-### Speedup (Sp)
+### IV.2 Speedup (Sp)
 
 ![](attachments/1_pipeline-1.png)
 
 注意没有单位。
 
-### Efficiency (η)
+### IV.3 Efficiency (η)
 
 ![](attachments/1_pipeline-2.png)
 
@@ -217,9 +217,9 @@ add x14, x5, x6
 > - [ ] Decreasing the execution time of an individual instruction ×
 > - [x] Increasing instruction throughput
 
-## Hazard
+## V Hazard
 
-### Structal Hazards
+### V.1 Structal Hazards
 
 > A required resource is busy -> Use Instruction and data memory simultaneously.
 
@@ -230,7 +230,7 @@ add x14, x5, x6
     - Instructions take it in turns to use resource, some instructions have to stall
     - Add more hardware to machine (Can always solve a structural hazard by adding more hardware)
 
-### Data Hazards (important in sysII)
+### V.2 Data Hazards (important in sysII)
 
 > [!DEFINITION] Data Hazards
 >
@@ -241,7 +241,7 @@ add x14, x5, x6
 
 - Problem: Instruction depends on result from previous.
 
-#### Solution 1: "Stall"
+#### V.2.1 Solution 1: "Stall"
 
 Wait for several cycles.
 
@@ -251,29 +251,29 @@ Wait for several cycles.
 >
 > ![](attachments/1_pipeline-3.png)or <div style="text-align: center;"><img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/17396348888911_pipeline-5.png" alt="img" style="width: 60%;"><p></p></div>
 
-#### Solution 2: “forwarding”
+#### V.2.2 Solution 2: “forwarding”
 
 Adding extra hardware to retrieve the missing item early from the internal resources.
 
-##### EX hazard
+##### V.2.2.1 EX hazard
 
 - if (EX/MEM.RegWrite and (EX/MEM.RegisterRd ≠ 0) and (EX/MEM.RegisterRd = ID/EX.RegisterRs1)) 
     - ForwardA = 10
 - if (EX/MEM.RegWrite and (EX/MEM.RegisterRd ≠ 0) and (EX/MEM.RegisterRd = ID/EX.RegisterRs2)) 
     - ForwardB = 10
 
-##### MEM hazard
+##### V.2.2.2 MEM hazard
 
 - if (MEM/WB.RegWrite and (MEM/WB.RegisterRd ≠ 0) and (MEM/WB.RegisterRd = ID/EX.RegisterRs1)) 
     - ForwardA = 01
 - if (MEM/WB.RegWrite and (MEM/WB.RegisterRd ≠ 0) and (MEM/WB.RegisterRd = ID/EX.RegisterRs2)) 
     - ForwardB = 01
 
-##### Double Data Hazard
+##### V.2.2.3 Double Data Hazard
 
 > 作为特殊的 MEM hazards 处理。
 
-##### Forwarding Conditions
+##### V.2.2.4 Forwarding Conditions
 
 Detecting the Need to Forward:
 
@@ -293,32 +293,32 @@ Detecting the Need to Forward:
 >
 > ![](attachments/1_pipeline-14.png)
 
-#### Solution 3: "Double bubble"
+#### V.2.3 Solution 3: "Double bubble"
 
 ![](attachments/3_Hazard%20of%20Pipelining-2.png)
 
-### Control Hazards (期末不用太管)
+### V.3 Control Hazards (期末不用太管)
 
 Flow of execution depends on previous instruction.
 
-#### Solution 1: "Stall"
+#### V.3.1 Solution 1: "Stall"
 
 等待，直到控制指令计算完成。
 
-#### Solution 2: "Prediction"
+#### V.3.2 Solution 2: "Prediction"
 
 预测分支的跳转情况：
 - 简单：总是认为（不）发生跳转；
 - 复杂：分析，如果是往低地址，大概率需要跳转；
 - 动态：记录历史跳转情况。
 
-#### Solution 3: "Delayed Decision"
+#### V.3.3 Solution 3: "Delayed Decision"
 
 将 branch 前的无关指令移动到 branch 之后的 bubble 处（分支延迟槽）执行，减少为了等待而插入的无意义 bubble 代码
 
 > [pbfx - control hazards](PBFX.md#control%20hazards)
 
-### Multiple Issue
+### V.4 Multiple Issue
 
 **ILP:** Instruction-Level Parallelism.
 
@@ -338,7 +338,7 @@ Comparison of the spatiotemporal diagrams (时空图) of instructions executed b
 
 ![](attachments/1_pipeline-15.png)
 
-#### Two types of multiple-issue
+#### V.4.1 Two types of multiple-issue
 
 - Static multiple issue
     - **Compiler** groups instructions to be issued together
@@ -370,7 +370,7 @@ Comparison of the spatiotemporal diagrams (时空图) of instructions executed b
 
 ![](attachments/1_pipeline-18.png)
 
-#### Two types of multiple-issue processor
+#### V.4.2 Two types of multiple-issue processor
 
 - Superscalar
     - The number of instructions which are issued in each clock cycle is **not fixed**. It depends on the specific circumstances of the code. (1-8, with upper limit)
@@ -383,7 +383,7 @@ Comparison of the spatiotemporal diagrams (时空图) of instructions executed b
     - Instruction scheduling is **done statically by the compiler**
     - It has been successfully applied to digital signal processing and multimedia applications
 
-#### Super-Pipeline
+#### V.4.3 Super-Pipeline
 
 - Each pipeline stage is further subdivided (like deeper pipeline)
 - Multiple instructions can be time-shared in one clock cycle

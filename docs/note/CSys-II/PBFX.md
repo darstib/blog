@@ -20,9 +20,7 @@ dg-publish: true
 
 只有掩码位为 1 时，我们才读/写内存，否则不修改。
 
-> [!QUESTION]
->
-> 为什么我们使用小端格式，即低位放在低地址？
+> [!question]+ 为什么我们使用小端格式，即低位放在低地址？
 >
 > ![](attachments/pbfx1-1.png)
 
@@ -60,8 +58,8 @@ No，bring overhead for registers
 
 No, overhead may be huge.
 
-### Example
-
+> [!example]+
+>
 > ![](attachments/pbfx1-3.png)
 
 显然我们需要计算 $a_{1}b_{1}+a_{2}b_{2}+a_{3}b_{3}+a_{4}b_{4}$ ，共四次乘法三次加法，作出时空图：
@@ -83,7 +81,7 @@ No, overhead may be huge.
 
 ![](attachments/PBFX-1.png)
 
-在上图中，我们前递的内容为 MEM 和 WB 阶段的 alu_res 或者是访存结果，前递到 EXE 阶段；同时注意我们
+在上图中，我们前递的内容为 MEM 和 WB 阶段的 alu_res 或者是访存结果，前递到 EXE 阶段。
 
 #### stall
 
@@ -112,9 +110,7 @@ No, overhead may be huge.
     - 用一张表 (Branch history table, BHT) 记录是否跳转；如果表中存在相同的地址，则大概率会和上一次执行该地址指令一样的跳转与否。
     - 在表中，我们用一个比特来记录某一地址指令上一次执行是否跳转
 
-> [!QUESTION]
->
-> **一比特**动态预测器缺点：
+> [!question]+ **一比特**动态预测器缺点：
 > 
 > ```c
 > for (int i = 0; i < 10; i++) {
@@ -129,10 +125,9 @@ No, overhead may be huge.
 
 但是需要注意，在 `j=10` 预测失败时，将 BHT 中该地址设置为 0（假设 1 表示跳转）；而下一次由于外层循环再次到达此处时，`j=0` 而预测不跳转，又一次失败；这样的操作又有 9 次；所以一共发生 20 次分支预测错误。
 
-> [!QUESTION]
+> [!question]+ 那如果我们用一个两比特的分支预测器呢？
 >
-> 那如果我们用一个两比特的分支预测器呢？
->![](attachments/PBFX-3.png)
+> ![](attachments/PBFX-3.png)
 > 
 > 此时执行下面的代码，一共会发生多少次分支预测错误？
 > 
