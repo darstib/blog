@@ -276,7 +276,7 @@ $ fzf --preview 'batcat --color=always --style=numbers --line-range=:50 {}'
 
 > `nnn` 也是一个类似的工具，但是使用个人感觉体验较差，就没放在这里了；[yazi](https://yazi-rs.github.io/) 也是，但是 ubuntu 上配置比较麻烦，自行了解。
 
-### 符号与连接
+### 符号
 
 > 作用描述从简，不够严谨。
 
@@ -466,8 +466,10 @@ drwxr-xr-x  3 darstib darstib 4096 Mar 19 16:18 demo
 |      `/opt`      |              可选的附加软件包的安装目录。              |               默认为空                |
 |     `/media`     |        自动挂载的可移动介质（如 U 盘、光驱）的挂载点。         |                                   |
 
-> [!tip]- 软链接
->
+> [!wiki]- [软链接](https://zh.wikipedia.org/wiki/%E7%AC%A6%E5%8F%B7%E9%93%BE%E6%8E%A5)
+> 
+> **符号链接**（英语：Symbolic link），又称**软链接**，是一类特殊的[文件](https://zh.wikipedia.org/wiki/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%96%87%E4%BB%B6 "计算机文件")， 其包含有一条以绝对[路径](https://zh.wikipedia.org/wiki/%E8%B7%AF%E5%BE%84_\(%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6\) "路径 (计算机科学)")或者相对路径的形式指向其它文件或者目录的引用。
+> 
 > 对于软链接可以通过 `ls -l /` 命令查看。
 
 ## Windows Terminal

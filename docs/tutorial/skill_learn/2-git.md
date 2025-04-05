@@ -663,6 +663,50 @@ $ git push [origin master] # 指定 remote_name 和 branch_name
 
 ~~到此为止，你已经能够用 git 以及 github 等服务器实现一个类似于“个人网盘”的作用了。~~
 
+## Pull Request
+
+> [!wiki]+ [about pull reqeust](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests#about-pull-requests)
+>
+> A pull request is a proposal to merge a set of changes from one branch into another. In a pull request, collaborators can review and discuss the proposed set of changes before they integrate the changes into the main codebase. Pull requests display the differences, or diffs, between the content in the source branch and the content in the target branch.
+
+> [!quote]+ pull request 提交贡献，来自 [angular](https://github.com/angular/angular/blob/main/CONTRIBUTING.md#submit-pr)
+>
+> 1.  在 GitHub 上搜索与您的提交相关的已打开或已关闭的 PR，（您不应重复现有的工作）。
+>
+> 2.  确保有一个 issue 描述了您正在修复的问题，或记录了您想添加的功能的设计。预先讨论设计有助于确保我们准备好接受您的工作。
+>
+> 3.  在发送 PR 之前，请签署我们的贡献者许可协议 (CLA)。我们不能接受没有签署 CLA 的代码。请确保您所有贡献的 Git 提交都使用与您的 CLA 签名相关联的电子邮件地址来创建。
+>
+> 4.  Fork angular/angular 仓库。
+>
+> 5.  在您 Fork 的仓库中，在一个新的 git 分支中进行更改：
+>
+>     ```bash
+>     git checkout -b my-fix-branch main
+>     ```
+>
+> 6.  创建您的补丁，包括适当的测试用例。
+>
+> 7.  遵循我们的编码规范。
+>
+> 8.  按照开发者文档中的说明，运行完整的 Angular 测试套件，并确保所有测试都通过。
+>
+> 9.  使用遵循我们提交消息约定的描述性提交消息来提交您的更改。遵守这些约定是必要的，因为发布说明是根据这些消息自动生成的。
+>
+>     ```bash
+>     git commit --all
+>     ```
+>
+>     注意：可选的 `commit --all` 命令行选项会自动 “add” 和 “rm” 编辑过的文件。
+>
+> 10. 将您的分支推送到 GitHub：
+>
+>     ```bash
+>     git push origin my-fix-branch
+>     ```
+>
+> 11. 在 GitHub 中，向 `angular:main` 发送一个拉取请求。
+
 ## 参考资料
 
 - [lec2：Git  /  GitHub 基础介绍](https://slides.tonycrane.cc/PracticalSkillsTutorial/2023-spring-cs/lec2/#/)
