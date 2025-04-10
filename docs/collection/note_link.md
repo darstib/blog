@@ -251,6 +251,12 @@ tags:
 - [-Algorithms-DataStructures-BigONotation](https://cooervo.github.io/Algorithms-DataStructures-BigONotation/index.html)
 - [计算机体系结构基础](https://foxsen.github.io/archbase/)
 
+- 大语言模型(LLM)基础知识
+	- [AI 算法工程师手册](https://www.huaxiaozhuan.com/)
+	- [LLMBook-zh](https://llmbook-zh.github.io/)
+	- [深入浅出 PyTorch](https://datawhalechina.github.io/thorough-pytorch/index.html)
+	- [Transformers快速入门](https://transformers.run/)
+
 ## 参考资料
 
 ### General Notebooks links
