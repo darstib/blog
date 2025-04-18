@@ -13,7 +13,7 @@ tags:
 - [Understanding Reasoning LLMs](https://magazine.sebastianraschka.com/p/understanding-reasoning-llms)
 - [DeepSeek-R1技术剖析：没有强化学习基础也能看懂的PPO & GRPO](https://mp.weixin.qq.com/s/OIiNOMcuXERGVOghwNZ5Uw) and [A vision researcher’s guide to some RL stuff: PPO & GRPO](https://yugeten.github.io/posts/2025/01/ppogrpo/)
 - [RLHF 技术详解](https://huggingface.co/blog/zh/rlhf)
-- [提示工程指南](https://www.promptingguide.ai/zh)
+- [凸优化 - 拉格朗日对偶](https://www.lesswrong.com/)
 
 ## 工具类
 

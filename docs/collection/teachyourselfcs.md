@@ -94,7 +94,7 @@ comments: true
     - 同时老师讲课诙谐有趣，会引用一些热门动漫中的剧情（这里引用比较多的是[葬送的芙莉莲](https://zh.wikipedia.org/wiki/%E8%91%AC%E9%80%81%E7%9A%84%E8%8A%99%E8%8E%89%E8%93%AE "葬送的芙莉莲")）；
     - 视频放在了 youtube 上，bilibili 上也有搬运。
 
-## IV 其他
+## IV 机器学习/人工智能
 
 - [CIML(Course in Machine Learning)](http://ciml.info/)
     - "CIML is a set of introductory materials that covers most major aspects of modern machine learning (supervised learning, unsupervised learning, large margin methods, probabilistic modeling, learning theory, etc.). It's focus is on broad applications with a rigorous backbone. A subset can be used for an undergraduate course; a graduate course could probably cover the entire material and then some."
@@ -102,6 +102,10 @@ comments: true
 - [Dive into Deep Learning](https://d2l.ai/)
     - [动手学深度学习](https://zh-v2.d2l.ai/index.html#)
     - [习题解答](https://datawhalechina.github.io/d2l-ai-solutions-manual/#/)
+- [提示工程指南](https://www.promptingguide.ai/zh)
+
+## V 其他
+
 - [Awesome-CS-Course-Learning-Notes](https://github.com/Zhang-Each/Awesome-CS-Course-Learning-Notes)
 - [codethechange.stanford.edu](https://codethechange.stanford.edu/guides/)
     - 也许有些奇怪的东西你不知道，但是可能感兴趣。

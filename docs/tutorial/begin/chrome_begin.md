@@ -48,3 +48,5 @@ tags:
 
 - chrome://flags/#enable-tab-audio-muting
     - 单独控制不同标签页声音；
+- [popups](chrome://settings/content/popups)
+	- 拒绝部分网站自动重定向

@@ -14,14 +14,14 @@ comments: true
 
 [^4]: 根据往期数据，期末复习的观看量是前瞻的 3-4 倍🤔。
 
-|     上课时间      |    主题     |                                  内容                                  |
-| :-----------: | :-------: | :------------------------------------------------------------------: |
-|     3.21      |   终端指南    |                  **Linux shell** + Windows Terminal                  |
-|     3.28      | 版本控制与简单开发 |                Git + **Github** + Action[ + License]                 |
-| 4.4/11/18[^1] |  文本排版工具   |  **Markdown** + [LaTeX](https://cn.overleaf.com/project/)[  + Word]  |
-| 4.25/5.2[^1]  | + 集成开发环境  | [**Typst**](https://typst.app/project/)[ + Visual Studio Code (vsc)] |
-|     5.16      |  远程连接与传输  |                     **ssh** + scp + sftp + rsync                     |
-|     5.30      |  奇怪知识串讲   |                          妙妙小工具 / 小网站 / 其他？                           |
+|         上课时间          |    主题     |                                                     内容                                                     |
+| :-------------------: | :-------: | :--------------------------------------------------------------------------------------------------------: |
+| [3.21](1-terminal.md) |   终端指南    |                                     **Linux shell** + Windows Terminal                                     |
+|   [3.28](2-git.md)    | 版本控制与简单开发 |                                   Git + **Github** + Action[ + License]                                    |
+|       4.18[^1]        |  文本排版工具   |                                         **Markdown** + [  + Word]                                          |
+|     4.25/5.2[^1]      | + 集成开发环境  | [LaTeX](https://cn.overleaf.com/project/)+[Typst](https://typst.app/project/)[ + Visual Studio Code (vsc)] |
+|         5.16          |  远程连接与传输  |                                        **ssh** + scp + sftp + rsync                                        |
+|         5.30          |  奇怪知识串讲   |                                             妙妙小工具 / 小网站 / 其他？                                              |
 
 [^1]: 作为动态调整部分。
 
@@ -110,6 +110,6 @@ comments: true
 | linux  | [/ˈlɪnəks/](https://en.wiktionary.org/wiki/Linux)   | 一种开源的类 Unix 操作系统                                                      |
 | ubuntu | [/ʊˈbʊntuː/](https://zh.wikipedia.org/zh-cn/Ubuntu) | 一个 [Linux 发行版](https://101.lug.ustc.edu.cn/Ch01/#linux-distributions) |
 | github | /ˈɡɪthʌb/                                           | 一个用于托管和管理Git代码的在线平台                                                   |
-| latex  | /ˈleɪtɛx/                                           | 一种排版系统，常用于学术文档                                                        |
+| latex  | /ˈleɪtɛk/                                           | 一种排版系统，常用于学术文档                                                        |
 | typst  | [/taɪpst/](https://typst.app/legal/brand/)          | 一种基于文本的排版工具                                                           |
 | rsync  | /ˈɑːr.sɪŋk/                                         | 文件同步和备份工具                                                             |

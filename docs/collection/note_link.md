@@ -37,6 +37,7 @@ tags:
 ### 软件安全
 
 - [-RyanFrc - ZJU](https://github.com/RyanFcr/ZJU_Course/tree/main/%E5%A4%A7%E4%BA%8C%E6%98%A5%E5%A4%8F/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8)
+- [二进制安全](https://www.yuque.com/hxfqg9/bin/ug9gx5#5dvaL)
 
 ## 大二下
 
@@ -52,7 +53,7 @@ tags:
 
 - [金鱼马的人工智能安全笔记](https://www.zhihu.com/column/c_1633936906831552512)
 
-#### 书籍
+#### 参考书
 
 - [人工智能：数据与模型安全](https://ai-data-model-safety.github.io/index.html)
 - [Interpretable Machine Learning](https://christophm.github.io/interpretable-ml-book/)
@@ -60,7 +61,7 @@ tags:
 
 ### 人工智能伦理安全
 
-#### 书籍
+#### 参考书
 
 - [-Introduction to AI Safety, Ethics, and Society](https://www.aisafetybook.com/)
 
@@ -70,7 +71,7 @@ tags:
 
 ### 数据建模与分析
 
-#### 书籍
+#### 参考书
 
 - [统计学习方法v2](../static/统计学习方法v2.pdf) （仅供学习参考使用）
 	- 主要参考教材
@@ -87,11 +88,9 @@ tags:
 - [-cc98 21-22春夏回忆卷](https://www.cc98.org/topic/5356728/)
 	- [统计学习方法参考解答](../static/统计学习方法参考解答.pdf)
 
-### 数据库系统
+### 隐私计算与数据合规
 
-> [!warning] 我没有真正修读这门课程，所以在应对课程上不具有什么参考性。
-
-- [CS-Notes 面试笔记-数据库](https://cyc2018.xyz/%E6%95%B0%E6%8D%AE%E5%BA%93/)
+- [语雀资料](https://www.yuque.com/secret-flow/admin)
 
 ### 会计学
 
@@ -271,7 +270,7 @@ tags:
 	- [Yaoyaoling's notebook](https://yaoyaolingbro.github.io/notebook/)
 	- [时清川的笔记本](https://sh17c.top/LessonsNotes/)
 	- [GoPoux 的笔记本](https://note.gopoux.cc/)
-	- [UCB student's note with CS 61A/61B/70/162/168/186/](https://notes.bencuan.me/)
+- [UCB student's note with CS 61A/61B/70/162/168/186/](https://notes.bencuan.me/)
 
 ### Repositories links
 
