@@ -17,7 +17,6 @@
 	- [CSys-II](note/CSys-II/README.md)
 		- note/CSys-II/*.md
 	- [CSys-III](note/CSys-III/README.md)
-		- note/CSys-III/*.md
     - [cs70](note/cs70/README.md)
 	    - note/cs70/*.md
     - [other](note/other/README.md)
