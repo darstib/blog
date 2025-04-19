@@ -22,7 +22,7 @@ tags:
 
 ## 安装/初使用
 
-[utools](https://u.tools/?c=5idqadr0ht) 
+[utools](https://u.tools/?c=5idqadr0ht)
 
 [官方入门](https://www.u.tools/docs/guide/about-uTools.html)
 

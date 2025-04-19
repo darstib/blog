@@ -53,17 +53,18 @@ tags:
 
 - [金鱼马的人工智能安全笔记](https://www.zhihu.com/column/c_1633936906831552512)
 
-#### 参考书
+#### 参考资料
 
 - [人工智能：数据与模型安全](https://ai-data-model-safety.github.io/index.html)
 - [Interpretable Machine Learning](https://christophm.github.io/interpretable-ml-book/)
 	- [-中文翻译](https://github.com/MingchaoZhu/InterpretableMLBook)
 
-### 人工智能伦理安全
+### 人工智能伦理与安全
 
-#### 参考书
+#### 参考资料
 
 - [-Introduction to AI Safety, Ethics, and Society](https://www.aisafetybook.com/)
+- [人工智能治理公共服务平台](https://www.ai-governance.online/cn)
 
 #### 笔记
 
