@@ -1,6 +1,5 @@
 ---
-tags:
-- comments: true
+comments: true
 ---
 
 # Computer system III
