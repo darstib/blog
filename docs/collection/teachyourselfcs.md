@@ -45,15 +45,22 @@ comments: true
 - C 语言刷题（除非刚学 C 几个月，不然没太大必要）
     - [PAT Solution](https://github.com/liuchuo/PAT)
     - [PAT Solution in C](https://xlucn.github.io/PAT/)
+- [Sagemath](https://www.sagemath.org/)
+    - [sagemath 官方在线编译器](https://sagecell.sagemath.org/)
+    - [sagemath in crypto](../tutorial/python_learn/crypto/sage_math/README.md)
 - [鱼皮的编程宝典](https://www.codefather.cn/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/)
-    - 有不少种语言，可能会更加面向工作?
+    - 有不少种语言，可能会更加面向工作
 
-### I.3 实用技能
 
-见 [skill_learn](../tutorial/skill_learn/README.md) 系列。
+### I.3 实用技能/工具
+
+- [skill_learn](../tutorial/skill_learn/README.md) 系列；
+- [知识学习](https://db.darstib.cn/collection/Tools/#i31) 套件；
 
 ## II 自学指南
 
+- [V2EX](https://www.v2ex.com/) or [segmentfault](https://segmentfault.com/)
+    - 国内程序员交流网站（比较活跃）
 - [CS 自学指南](https://csdiy.wiki/)
     - “是一份献给北大信科学弟学妹们的礼物。”
     - [cs-video-courses](https://github.com/Developer-Y/cs-video-courses)

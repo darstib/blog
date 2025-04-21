@@ -14,14 +14,14 @@ comments: true
 
 [^4]: 根据往期数据，期末复习的观看量是前瞻的 3-4 倍🤔。
 
-|         上课时间          |    主题     |                                                     内容                                                     |
-| :-------------------: | :-------: | :--------------------------------------------------------------------------------------------------------: |
-| [3.21](1-terminal.md) |   终端指南    |                                     **Linux shell** + Windows Terminal                                     |
-|   [3.28](2-git.md)    | 版本控制与简单开发 |                                   Git + **Github** + Action[ + License]                                    |
-|       4.18[^1]        |  文本排版工具   |                                         **Markdown** + [  + Word]                                          |
-|     4.25/5.2[^1]      | + 集成开发环境  | [LaTeX](https://cn.overleaf.com/project/)+[Typst](https://typst.app/project/)[ + Visual Studio Code (vsc)] |
-|         5.16          |  远程连接与传输  |                                        **ssh** + scp + sftp + rsync                                        |
-|         5.30          |  奇怪知识串讲   |                                             妙妙小工具 / 小网站 / 其他？                                              |
+|         上课时间          |    主题     |                                  内容                                   |
+| :-------------------: | :-------: | :-------------------------------------------------------------------: |
+| [3.21](1-terminal.md) |   终端指南    |                  **Linux shell** + Windows Terminal                   |
+|   [3.28](2-git.md)    | 版本控制与简单开发 |                 Git + **Github** + Action[ + License]                 |
+|       4.18[^1]        |  文本排版工具   | **Markdown** + [  + Word] + [LaTeX](https://cn.overleaf.com/project/) |
+|     4.25/5.2[^1]      | + 集成开发环境  |   [Typst](https://typst.app/project/)[ + Visual Studio Code (vsc)]    |
+|         5.16          |  远程连接与传输  |                     **ssh** + scp + sftp + rsync                      |
+|         5.30          |  奇怪知识串讲   |                           妙妙小工具 / 小网站 / 其他？                           |
 
 [^1]: 作为动态调整部分。
 
@@ -31,6 +31,8 @@ comments: true
 >
 > - [24-春夏技能拾遗课程](https://raw.gitmirror.com/darstib/public_imgs/utool/2503/18_jnsy-sp24.png) （均在内部钉钉群）
 > 	- [Docker基础入门](https://n.dingtalk.com/dingding/live-room/index.html?roomId=CUL5K7UaWcKkWNLv&liveUuid=f2742c60-9a9e-4468-b151-d0523d90da73) by [@Foggy-whale](https://github.com/Foggy-whale)
+> 		- [Docker 快速通关](https://blog.shiguang666.eu.org/2024/09/18/847c1ec4d4cd/)
+> 		- [docker 镜像源配置](https://www.kelen.cc/dry/docker-hub-mirror)
 > 	- [makefile](https://n.dingtalk.com/dingding/live-room/index.html?roomId=Ssm0CtL4q7lW1y5U&liveUuid=1465a654-47ba-48af-91ba-d1b3d32e14ba) by [@Foggy-whale](https://github.com/Foggy-whale) or [Makefile 光速入门](https://siyuanblog.cn/archives/makefile)
 > 	- [正则表达式](https://n.dingtalk.com/dingding/live-room/index.html?roomId=iJaprRX0kVlR8bi6&liveUuid=00fc196f-b10f-402d-a5a4-7c96549effb8) by [@Foggy-whale](https://github.com/Foggy-whale)
 > 	- [shell script](https://n.dingtalk.com/dingding/live-room/index.html?roomId=DNzTTQFbGdVos1LD&liveUuid=3b20f813-eb26-4f2f-9699-207d8bd17257) by [@Foggy-whale](https://github.com/Foggy-whale)

@@ -1,7 +1,7 @@
 ---
-comments: true
 tags:
 - collection
+comments: true
 ---
 
 经常性的会用了某些东西，之后再找太困难了，做笔记写文章没有必要，放书签里又太多了，所以打算集中放在这里，不定期更新。
@@ -16,48 +16,27 @@ tags:
 
 #### I.1.1 GPT
 
-> 官网本身就过多不介绍了，想用就很好搜，[这里](https://ai-bot.cn/favorites/ai-chatbots/)为我们收集好了，这里只会加几个个人认为比较好用的；只考虑了白嫖情况。~~能够白嫖的而不限额度的模型，是不是真实标注的那个就不好说了。~~
->
-> 下面列举这么多不是说都要用，而是看能打开哪个用哪个，能力主要取决于模型，而不是网站；不妨都体验一下，下面信息截止于 2024/09/01。
+> 20250421 更新：随着 DeepSeek-r1 等等模型的开源，越来越多的可符合生产需求的模型都可以直接在官网（一定限制地）使用了，所以之前这里列举的第三方网站属实没有其必要性，在此仅推荐几个我认为当前 SOTA（State-Of-The-Art，即行业领先） 的模型官网：(顺序仅代表本人的使用频率)
 
-##### I.1.1.1 NO fire wall
-
-- [Chandler](https://mychandler.bet/chat)
-    - 随意使用 Standard 中的模型，包括 GPT-4o-Mini；
-    - 一定额度的 Advanced 模型，包括 GPT-4o，Claude3.5-sonnet。
-- [AIGC+](https://hiai.me/chat)
-    - 可以免费用 GPT-4o 和 GPT-4o-Mini 的 Free 版本；
-    - 感觉质量还可以，至于什么是 Free 版本就不好说了。
-- [智谱清言](https://chatglm.cn/main/alltoolsdetail?lang=zh)
-    - 处理文件能力还行；
-- [Deepseek](https://chat.deepseek.com/)
-    - 国产模型，其 coder 还不错，chat 模型使用不多。
-- [Zchat](https://zchat.tech/login)
-    - ZJU 账号登入。
-
-##### I.1.1.2 Fire wall
-
-- [theb](https://beta.theb.ai/home)
-    - 左侧可选免费模型，截至 2024/08/03，包括：Gemma 2 9B/Claude 3 Haiku/Llama 3.1 8B/GPT-4o Mini 等可任意使用。
-- [POE](https://poe.com/)
-    - 可以使用前沿大模型，每天 3000 积分：
-        - **GPT-4o-Mini 15/次**
-        - GPT-4o 300/次
-        - Claude-3.5-Sonnet 200/次
-    - 当然还有其他模型，自查。
-- [Coze](https://www.coze.com/home)
-    - 国内叫[扣子](https://coze.cn)，本来是白嫖神器，后来限额太严重了，个人放弃
+- Gemini: https://aistudio.google.com/ or https://gemini.google.com/
+- Qwen(千问): https://chat.qwen.ai/
+- DeepSeek(深度求索): https://chat.deepseek.com/
+- Chatgpt: https://chatgpt.com/
+- Claude: https://claude.ai/
+- kimi: https://kimi.moonshot.cn/
+- Chatglm(智谱清言): https://chatglm.cn/main/alltoolsdetail?lang=zh
+- 豆包: https://www.doubao.com/
 
 #### I.1.2 搜索
 
 - [Devv](https://devv.ai/zh)
     - “最懂程序员的新一代 AI 搜索引擎”；
     - 基于国外搜索引擎，适合问答，墙外。
-- [metaso](https://metaso.cn/)
-    - 基于国内搜索引擎，适合梳理。
 - [iAsk](https://iask.ai/)
     - 也是一个不错的 AI 搜索网站，大陆可用；
     - [一个示例](https://iask.ai/?mode=question&q=%E5%B7%B4%E9%BB%8E%E5%A5%A5%E8%BF%90%E4%BC%9A) 。
+- [metaso](https://metaso.cn/)
+    - 基于国内搜索引擎，适合梳理。
 
 #### I.1.3 其他
 
@@ -74,7 +53,7 @@ tags:
 ### I.2 文件类
 
 - [123Apps](https://123apps.com/cn/)
-    - 包括视频/音频/PDF/转换器 工具
+    - 包括视频/音频/PDF/转换器，属于是集大成者
 
 #### I.2.1 文档（PDF 为主）
 
@@ -82,27 +61,30 @@ tags:
     - [ILovePdf](https://www.ilovepdf.com/)
     - [XPdf](https://xpdf.cn)
     - [pdnob](https://pdf.pdnob.com/convert)
-    - [png2pdf](https://png2pdf.com/)
+    - [smallpdf](https://smallpdf.com/)
 - [离线转换器](https://offlineconverter.com/cn/)
+	- “离线转换器与在线转换器相反，它是为了最大限度地保护您的隐私，因为所有文件都是在本地转换而不是云服务器。离线转换器的另一个优点是每个文件大小可以达到 2GB，而很少有在线转换器支持大于 100MB 的文件。”
 - [pandoc](https://pandoc.org/)
     - a universal document converter
 
 #### I.2.2 图片
 
+- [搜图神器工具](https://www.soutushenqi.com/tools)
+	- AI 处理图片，有时效果还行
+- [稿顶 - 在线 PS](https://ps.gaoding.com/#/)
 - [Canva](https://www.canva.com/) or [fotor](https://www.fotor.com/)
     - 适合做些简单的图。
 - [imgbb](https://imgbb.com/) or [smms](https://sm.ms/)
     - 免费图床，敏感图片就最好自己搭建图床了。
 - [remove bg](https://www.remove.bg/)
     - 背景移除/抠图。
-- [artStation](https://www.artstation.com/)
-- [稿定](https://ps.gaoding.com/#/)
-    - 在线 PS
+- [artStation](https://www.artstation.com/) （过于专业了可能）
 
 #### I.2.3 视频
 
 - [Online Video Cutter](https://online-video-cutter.com/cn/)
     - 免费支持最大 4 G 的视频裁剪
+
 > 下面主要是视频在线下载网站，总有这个网站无效另一个有效的情况，所以留下几个比较好用的，功能上具有重复性。
 
 - [SaveTheVideo](https://www.savethevideo.com/home)
@@ -122,10 +104,6 @@ tags:
 
 #### I.3.1 一些平台
 
-- https://sagecell.sagemath.org./
-    - sagemath 官方在线编译器；
-- [V2EX](https://www.v2ex.com/) or [segmentfault](https://segmentfault.com/)
-    - 国内程序员交流网站（比较活跃）
 - [godbolt](https://godbolt.org/)
     - 免费“代码床”，因为右上角 **share** 可以获得 <u>保留代码</u> 的链接；
     - 在线编辑器，可以同时切换不同版本编译器运行代码；
@@ -138,9 +116,9 @@ tags:
 - [编程词典](https://dict.code-nav.cn/)
     - 帮你系统了解某一门语言需要了解哪些专业术语
     - 以工作为目的，不具备搜索功能 ~~但是不会还有人不会用你的搜索引擎搜索特定网站吧~~
-- [英语真题在线](https://zhenti.burningvocabulary.cn/)
 - [清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/)
 - [浙江大学开源软件镜像站](https://mirror.zju.edu.cn/)
+- [英语真题在线](https://zhenti.burningvocabulary.cn/)
 - [安全导航](https://index.tesla-space.com/)
 
 #### I.3.2 效率提高
@@ -167,7 +145,7 @@ tags:
 
 #### I.4.1 读
 
-> 初期如果直接看纯英文论文暂时吃不住，下面是一些缓兵之计：
+> 初期如果直接看纯英文论文暂时吃不住，下面是一些缓兵之计（当然迟早要看的，慢慢习惯吧）：
 
 - [GPT 学术优化 (GPT Academic)](https://github.com/binary-husky/gpt_academic)
     - 比较厉害的一个功能是，根据 arxiv 论文**摘要链接**，获取 tex 源码，对其翻译后再编译，所以翻译后看起来比直接翻译 pdf 好很多!！
@@ -184,9 +162,6 @@ tags:
     - 浏览器插件，阅读 html 版本的可以直接翻译。
 - [有道翻译arXiv论文翻译](https://fanyi.youdao.com/trans/#/home)
     - 新发现的，也挺不错；arXiv 也可以翻译后重新排版；
-- [txyz](https://app.txyz.ai/)
-    - 可以利用其内置 ai 帮助阅读（虽然我从来没用过就是了）；
-    - 可以向阅读网页文章一样使用浏览器插件（方便搭配使用[浏览器插件](../tutorial/begin/chrome_begin.md)）。
 - Tips:（以 [https://arxiv.org/abs/1502.03808](https://arxiv.org/abs/1502.03808) 为例）​
     - 替换「x」为「5」跳转到 HTML 版本阅读​，搭配沉浸式翻译使用；
         -  [https://ar5iv.org/abs/1502.03808](https://ar5iv.org/abs/1502.03808) ​
@@ -199,7 +174,7 @@ tags:
     - 如果只是想写一个好看的 pdf 课程报告，个人认为 typst 的学习成本远低于 latex；
     - [Typst_begin](../tutorial/begin/Typst_begin.md)
     - [ZJU-Project-Report-Template](https://github.com/memset0/ZJU-Project-Report-Template)
-    - 缺点也很明显，使用不广泛，所以觉得自己写写 pdf 报告还是够用的。
+    - 缺点也很明显，使用不广泛，但觉得自己写写 pdf 报告还是够用的。
 - [latex](https://www.latex-project.org/) 
     - 这里是一个很好的[教程文件](https://www.cnblogs.com/eslzzyl/p/17358405.html)；
     - 不得不吐槽一下 latex 的 **庞大**；但是基于 latex 延续已久而模板颇多，暂不能抛弃；
@@ -226,14 +201,14 @@ tags:
     - 免费在线问卷
 - [whatismyipaddress](https://whatismyipaddress.com/)
     - 获取ip 地址
-- [weixin filehelper](https://filehelper.weixin.qq.com/)
 - [namebeta](https://namebeta.com/)
     - 域名价格查询
 - [solant](https://www.slant.co/)
     - 什么是最好的？
-- [ebook](https://chen-huaneng.github.io/2024/11/14/2024-11-14-2024-11-14-website/#%E7%94%B5%E5%AD%90%E4%B9%A6)
+- [寻找电子书](https://chen-huaneng.github.io/2024/11/14/2024-11-14-2024-11-14-website/#%E7%94%B5%E5%AD%90%E4%B9%A6)
+- [weixin filehelper](https://filehelper.weixin.qq.com/)
 
-> 下面的纯娱乐
+> [!extra]- 下面的链接纯娱乐效益，仅作消遣
 
 - [信任的进化](https://dccxi.com/trust/)
 - [chatcrypt](https://client.chatcrypt.com/)
@@ -261,12 +236,11 @@ tags:
     - [chrome_begin](../tutorial/begin/chrome_begin.md)
         - 主要是扩展程序推荐；
     - 有一个谷歌账号体验更佳。
-- visual studio code
+- [visual studio code](https://code.visualstudio.com/)
 - [everything](https://www.voidtools.com/zh-cn/downloads/)
     - 快速搜寻各种文件样例，支持正则表达式匹配；
     - 使用较少安装便携版即可。
 - [utools](https://u.tools/)
-    - 极力推荐，配置好后个人使用体验极佳；
     - [Utools_begin](../tutorial/begin/Utools_begin.md)
 - [obsidian](https://obsidian.md/)
     - 轻量化 markdown 笔记软件，本地部署，支持多种插件，类似于 vscode，可以极具个性化；
@@ -274,9 +248,7 @@ tags:
     - [Obsidian 插件集市](https://pkmer.cn/products/plugin/pluginMarket/)
 - [sunshine+moonlight](https://github.com/LizardByte/Sunshine/releases)
     - 可以实现平板对电脑的远程操控/屏幕扩展；
-    - [屏幕扩展教程](https://blog.csdn.net/weixin_46065314/article/details/136428076)
-        - [parsecVDisplay](https://github.com/nomi-san/parsec-vdd)
-            - 开源好用的虚拟屏创建软件。
+    - [windows+macOS-workflow](../posts/windows+macOS-workflow.md)
 
 ## III 配置
 
@@ -297,7 +269,7 @@ tags:
 
 ### III.2 Linux
 
-> 准确来说我使用的是 WSL 。
+> 准确来说我使用的是 WSL / macOS
 
 #### III.2.1 zsh
 
@@ -310,6 +282,7 @@ tags:
 
 - [conda介绍](https://dev.to/bowmanjd/python-tools-for-managing-virtual-environments-3bko#conda)
 - [miniconda 安装](https://docs.anaconda.com/miniconda/#quick-command-line-install)
+- [miniforge](https://github.com/conda-forge/miniforge)
 
 ```shell title="set auto_activate"
 conda config --set auto_activate_base false # true
@@ -321,7 +294,7 @@ conda config --add channels conda-forge # add channel
 - [advcpmv](https://github.com/jarun/advcpmv)
 - [volatility 配置](https://www.cnblogs.com/Jinx8823/p/16642215.html)
 
-## IV Others
+## IV Others[todo]
 
 - [WayToAGI > 工具](https://waytoagi.feishu.cn/wiki/FVGfwjMtriTDUvkwqvwcYisongh?table=tblp81WDObH3I20H&view=vewM2PB3Iu)
     - [AI工具箱](https://www.amz123.com/ai)

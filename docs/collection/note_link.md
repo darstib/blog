@@ -1,8 +1,8 @@
 ---
-comments: true
 tags:
 - collection
 - note
+comments: true
 ---
 
 复习老是在找笔记的路上……所以想把自己用过的笔记链接集成在这，所有努力均由各位大佬付出，我基本只是一个搬运工 😀（基于 ZJU 2023 级信息安全培养方案）。
@@ -217,20 +217,14 @@ tags:
 > 学后感：前期和计逻差不多（大致到时序逻辑电路），后面 sys I 为了和之后的内容接轨而开始有所不同
 
 ### 信息安全原理与数学基础（离散数学与概率论）
-#### 离散数学部分
 
 - [咸鱼肆](https://www.yuque.com/xianyuxuan/coding/crs-csmath)
-    - 这个（4 年前的）笔记和老师 ppt 也是基本一致。
-
-#### 概率论部分（概率论与数理论统计）
-
-> 似乎没谁笔记详细讲这门课的概率论部分，咸鱼肆部分又略显浓缩，所以借其他课程笔记一用；事实上，期末考察的内容并没有那么多。
-
-- [-Isshiki修's Notebook](https://note.isshikih.top/cour_note/D1CX_ProbabilityAndStatistics/)
+    - 这个**4 年前的笔记**和老师 ppt 也是基本一致😑
 
 ### 马克思主义原理
 
 -  [Bowling's TechStack](https://note.bowling233.top/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E5%8E%9F%E7%90%86/)
+	- 仅做一个大纲吧，还是非常简略的
 
 ## 大一上
 
@@ -249,7 +243,6 @@ tags:
 - [-Algorithm Visualizer](https://algorithm-visualizer.org/)
     - 算法可视化
 - [-Algorithms-DataStructures-BigONotation](https://cooervo.github.io/Algorithms-DataStructures-BigONotation/index.html)
-- [计算机体系结构基础](https://foxsen.github.io/archbase/)
 
 - 大语言模型(LLM)基础知识
 	- [AI 算法工程师手册](https://www.huaxiaozhuan.com/)
