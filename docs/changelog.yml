@@ -1,4 +1,10 @@
 - "2025":
+    - "04-22":
+        - refactor: 网站基准从知识库 (database, db) 转变为知识图谱 (knowledge graph, kg)，意为不将内容进行整合重构而是链接整合。
+    - "03-12":
+        - newpage:
+            text: Tutorial > skill_learn
+            href: /tutorial/skill_learn/
     - "02-16":
         - function: 引入 https://github.com/TonyCrane/mkdocs-toolchain/tree/master/mkdocs-toc-plugin 并进行修改，美化了目录样式。
     - "02-13":
@@ -6,44 +12,44 @@
         
 - "2024":
     - "11-27":
-        - nwepage:
-            text: tutorial/python_learn
-            href: /blog/tutorial/python_learn
+        - newpage:
+            text: tutorial > python_learn
+            href: /tutorial/python_learn
     - "10-27":
         - newpage:
             text: CTF/ZJUCTF2024
-            href: /blog/CTF/ZJUCTF2024
+            href: /CTF/ZJUCTF2024
     - "10-09":
         - newpage:
             text: CTF
-            href: /blog/CTF/
+            href: /CTF/
             
     - "09-09":
         - newpage:
             text: Tutorial
-            href: /blog/turorial/
+            href: /turorial/
     - "09-02":
         - newpage:
             text: Note > cs188  (updating)
-            href: /blog/note/cs188/
+            href: /note/cs188/
     - "08-26":
         - newpage:
             text: Collection > Teachyourselfcs
-            href: /blog/collection/teachyourselfcs/
+            href: /collection/teachyourselfcs/
         - function: 增添了 gitcus 功能，欢迎留言交流/指正！！！
         - newpage:
             text: Just connect me if necessary.
-            href: /blog/connect_me/
+            href: /connect_me/
     - "08-13":
         - refactor: 将原 Obsidian 的笔记迁移到了 https://note-darstibs-projects.vercel.app/ ，以便更好地在网页上阅读。
     - "08-03":
         - pageupdate:
             text: 对文章的 tags 进行了整理，更加方便找系列内容。
-            href: /blog/tags/
+            href: /tags/
     - "08-01":
         - pageupdate:
             text: Collection > Tools 进行了分类、增添。
-            href: /blog/collection/Tools/
+            href: /collection/Tools/
     - "07-22":
         - refactor: 将网站内容结构进行调整，文件夹均增添初始界面介绍文件内容，便于寻找。
     - "06-29":

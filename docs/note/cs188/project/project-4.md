@@ -184,7 +184,7 @@ def eliminate(factor: Factor, eliminationVariable: str):
 
 ![](attachments/project-4-2.png)
 
-可以看到，IBE 的行为是先都 join 再都 eliminate，而 IBVE 是一边 join 一边 eliminate，这和我们 note 中 [IBE vs. VE](../note/12-Variable_Elimination.md#IBE%20vs.%20VE) 是一致的；此外，注意一下反复被提及的只有一个 unconditionedVariable 的情况。
+可以看到，IBE 的行为是先都 join 再都 eliminate，而 IBVE 是一边 join 一边 eliminate，这和我们 note 中 [IBE vs. VE](../note/12-Variable_Elimination.md#ibe-vs-ve) 是一致的；此外，注意一下反复被提及的只有一个 unconditionedVariable 的情况。
 
 #### right
 

@@ -58,7 +58,7 @@ gantt
 	- [阅读版](https://elixir.bootlin.com/linux/v5.2.21/source)
 - [riscv ISA](https://note.tonycrane.cc/cs/pl/riscv/)
 	- [非特权级 ISA](https://note.tonycrane.cc/cs/pl/riscv/unprivileged/)
-	- [特权级 ISA](privileged)
+	- [特权级 ISA](https://note.tonycrane.cc/cs/pl/riscv/privileged/)
 	- [页表相关](https://note.tonycrane.cc/cs/pl/riscv/paging/)
 - some tutorial in sys II
 	- [内联汇编](https://zju-sys.pages.zjusct.io/sys2/sys2-fa24/lab4/#_4)

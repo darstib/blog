@@ -1,6 +1,4 @@
-# Darstib' Database!
-
-<div style="font-size: 1.5em; font-weight: bold; text-align: center;">Welcome to Darstib's database~</div>
+# Welcome to Darstib' Knowledge Graph!
 
 <iframe
 	Border=0

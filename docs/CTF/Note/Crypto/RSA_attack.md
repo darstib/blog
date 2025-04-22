@@ -298,7 +298,7 @@ print(bytes.fromhex(hex(m)[2:])) # b'moectf{Th1s_iS_Chinese_rEm41nDeR_The0rEm_CR
 
 ##### II.2.2.2 新的 gcd(e, phi)!=1
 
-要是新产生的 gcd(e,phi)!=1 ，就转变为了 [一组 e, phi](#一组%20e,%20phi) 的情况了：
+要是新产生的 gcd(e,phi)!=1 ，就转变为了 **一组 e, phi** 的情况了：
 
 ```python title="many_e_phi_2.py"
 from sage.all import *

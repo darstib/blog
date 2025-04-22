@@ -79,6 +79,7 @@ comments: true
 - [remove bg](https://www.remove.bg/)
     - 背景移除/抠图。
 - [artStation](https://www.artstation.com/) （过于专业了可能）
+- [excalidraw]()
 
 #### I.2.3 视频
 
@@ -130,15 +131,12 @@ comments: true
 - [graph_editor](https://csacademy.com/app/graph_editor)
     - 图论中的作图工具
 - [excalidraw](https://excalidraw.com/)
-    - 感觉比较适合画结构图；
-    - 自己还没用过，但是见过有人使用过，感觉不错
+    - 比较适合画结构图/流程图；
 - [processon](https://www.processon.com/)
     - 免费在线流程图思维导图
 - [vim_learning](https://vimawesome.com/)
     - 属于是分享但是自己还没用过(bushi)
-- [tonycrane's 工具收集](https://note.tonycrane.cc/cs/tools/toolbox/)
-    - 在线手写风格作图白板 [Excalidraw](https://excalidraw.com/)
-    - GLSL 流体场可视化 [Field Play](https://anvaka.github.io/fieldplay/)
+- [chartcube](https://chartcube.alipay.com/)
 - [Ginsmooc](https://github.com/ginnnnnncc/GinsMooc)
 
 ### I.4 读/写文章

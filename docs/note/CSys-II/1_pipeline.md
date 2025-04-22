@@ -98,7 +98,7 @@ No subtract immediate instruction,Just use a negative constant
     - In addition to the serial connection, there is also a feedback loop in the pipelining
     - Initial conflit vector -> conflict vector -> state transition graph -> circular queue -> shortest average interval
 
-> 关于做题，放在 [PBFX - Linear and nonlinear pipeline](PBFX.md#Linear%20and%20nonlinear%20pipeline)
+> 关于做题，放在 PBFX - Linear and nonlinear pipeline 。
 
 ### II.4 order & disorder
 

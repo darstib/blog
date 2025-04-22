@@ -115,8 +115,6 @@ print(sqrt_mod(x, p))
 
 #### 勒让德符号
 
-![](attachments/Math%20in%20crypto.png)
-
 一些性质：
 
 - (a/p)(b/p) = (ab/p)
