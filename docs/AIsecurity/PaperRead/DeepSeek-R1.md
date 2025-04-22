@@ -1,11 +1,9 @@
 ---
-comments: true
 url: http://arxiv.org/abs/2501.12948
 tags:
   - LRM
+comments: true
 ---
-
-# DeepSeek-R1
 
 > [!abstract]- [DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning](http://arxiv.org/abs/2501.12948)
 >

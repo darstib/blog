@@ -12,6 +12,7 @@ comments: true
 	- [audio](audio.md)
 	- [img](img.md)
 	- [info_leak](info_leak.md)
+	- [llm_prompt](llm_prompt.md)
 	- [osint](osint.md)
 	- [pyjail](pyjail.md)
 	- [qrcode](qrcode.md)

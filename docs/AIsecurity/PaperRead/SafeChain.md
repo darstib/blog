@@ -2,9 +2,9 @@
 url: http://arxiv.org/abs/2502.12025
 tags:
   - LRM
+  - datatset
+comments: true
 ---
-
-# SafeChain
 
 > [!abstract]- [SafeChain: Safety of Language Models with Long Chain-of-Thought Reasoning Capabilities](https://arxiv.org/abs/2502.12025)
 >
