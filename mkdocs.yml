@@ -1,9 +1,9 @@
-site_name: Darstib's Database!
+site_name: Darstib's KG!
 site_url: https://darstib.github.io/blog/
 repo_url: https://github.com/darstib/blog/
 repo_name: blog
 edit_uri: edit/main/docs
-site_description: Darstib's blog!
+site_description: Darstib's Knowledge Graph!
 
 theme:
   name: "material"
