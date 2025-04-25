@@ -53,7 +53,8 @@
 	- 作为 ~~宇宙最强~~ [IDE](https://en.wikipedia.org/wiki/Integrated_development_environment)，vscode 基本可以实现任何编辑工作，我们在之后讲解 vscode 时再来演示；
 - [obsidian](https://obsidian.md/) or [-typora](https://typora.io/) or [-Marktext](https://www.marktext.cc/)
 	- 本地 markdown 笔记软件代表；
-	- 我主要使用 obsidian，简要介绍可见 [Obsidian_begin]()；
+	- 【私货】我主要使用 obsidian，简要介绍可见 [Obsidian_begin]()；
+	- 【私货】cc98 帖：[markdown笔记软件推荐——obsidian](https://www.cc98.org/topic/5332436); [obsidian终极使用经验贴](https://www.cc98.org/topic/6171491)
 - [飞书](https://www.feishu.cn/) or [语雀](https://www.yuque.com/dashboard) or [-notion](https://www.notion.so/)
 	- 在线 markdown 笔记软件代表。
 
@@ -89,9 +90,6 @@
 >>
 >> 可以自己试试将文件扩展名改为 `.zip` 解压，可以发现结果是几个无扩展名文件，使用文本编辑器打开也是“乱码”形式。
 
-## Typst
-
-> [!todo] typst 将在下一次课上进行详细讲解
 
 ## LaTeX
 
@@ -365,6 +363,10 @@ Title \ref{3-level title} is what 3-level title looks like.
 当然，也许你觉得现在展现出来很难看；更多时候（或者说对绝大多数人的每次使用）都是从一个模板开始，那里的样式往往会整齐美观；我们不关注那些，也不在此讲解；我们只需要看懂需要修改的部分即可。
 
 自己稍加尝试后，相信你应该能够看懂 [latex sheet](https://wch.github.io/latexsheet/latexsheet-a4.pdf) 了；再之后，你应该具备了依据模板（借助搜索引擎和人工智能）完成一篇报告/论文的排版工作的能力，试试在撰写课程报告时使用、（各类文件掌握几个模板）练习即可。
+
+## Typst
+
+- [Typst_begin](../begin/Typst_begin.md)
 
 ## 概览总结
 

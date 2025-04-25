@@ -138,7 +138,6 @@ obsidian 高度可定制化（css/js 大佬可以把这个软件外观变得花�
 
 `[打开某篇笔记](obsidian://open?path=D:%2Fpath%2Fto%2Ffile.md)`
 
-[tes](https:/darstib.github.io/)
 ##### III.1.4.5 iframe
 
 由于 Markdown 兼容 HTML，因此你可以使用“iframe”将网页嵌入到笔记中，效果如下
@@ -150,8 +149,8 @@ obsidian 高度可定制化（css/js 大佬可以把这个软件外观变得花�
 <iframe
 	Border=0
 	Frameborder=0
-	Height=480
-	Width= 720  
+	Height=420
+	Width=720  
 	src="https:/darstib.github.io/">
 </iframe>
 
@@ -207,7 +206,7 @@ obsidian 高度可定制化（css/js 大佬可以把这个软件外观变得花�
 - [x] 支持 [#tag](https://publish.obsidian.md/#%E6%A0%87%E7%AD%BE) ，[链接](https://obsidian.md/)，**样式**
 - [x] 要求包含列表标志（有序表无序表均可，比如 `1.[x]` 同样可以）
 - [x] 这是一个已经完成的项目
-- [x] 这也是一个已完成的项目（实际上你可以在其中使用任何字符）
+- [a] 这也是一个已完成的项目（实际上你可以在其中使用任何字符）
 - [ ] 这是一个未完成的项目
 - [ ] 在预览/阅读模式下单击选框可以切换项目完成状态
 
@@ -634,36 +633,35 @@ time: {{time:HH:mm}}
 
 个人使用的 [Latex_Suite.js](attachments/Latex_Suite.js){:download}（点击下载，如果失败了可以看 [GitHub 仓库 ](https://github.com/Darstib/blog)，在 docs/posts/begin/attachments 中）。
 
-### IV.5 Minimal theme settings
 
-如果你使用的主题是 Minimal ，这个插件能够让你更加定制化。
-
-### IV.6 Mousewheel Image zoom
+### IV.5 Mousewheel Image zoom
 
 使用鼠标滚轮放缩图片。
 
-### IV.7 Number Headings
+### IV.6 Number Headings
 
 标题自动加序号，比较建议写完了再加，而不是让它自动加；自动加有点不太聪明的样子……
 
-### IV.8 Paste image rename
+### IV.7 Paste image rename
 
 粘贴图片自动重命名；注意，如果是拖进来的图片不会，应当是你从剪贴板中粘贴下来的图片。
 
-### IV.9 Paste URL into selection
+### IV.8 Paste URL into selection
 
 选取一段文字，粘贴的如果是一段链接就变为超链接的格式，比较方便。
 
-### IV.10 PDF++
+### IV.9 PDF++
 
-按照它的文档去看吧，比较适合看 pdf 时做笔记。
+按照它的[文档](https://ryotaushio.github.io/obsidian-pdf-plus/)去看吧，比较适合看 pdf 时做笔记。
 
-### IV.11 Style Settings
+### IV.10 Style Settings
 
-便捷设置样式，用过就知道了，直接讲也难说清楚。
+便捷设置样式，用过就知道了，直接讲也难说清楚；许多设计到呈现样式（如 [blue topaz](https://github.com/PKM-er/Blue-topaz-example) 主体）的插件安装后会在 style settings 中出现相关选项。
 
-### IV.12 Typewriter Mode
+### IV.11 Typewriter Mode
 
 让你的编辑的那一行始终在屏幕的固定位置，不用跟着抬头低头了。
 
+> [!bug]
+>
 > 这个插件在编辑表格时有一些故障，体现在会自动贴到顶端去。

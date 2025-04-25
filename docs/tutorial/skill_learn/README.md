@@ -14,14 +14,14 @@ comments: true
 
 [^4]: 根据往期数据，期末复习的观看量是前瞻的 3-4 倍🤔。
 
-|         上课时间          |    主题     |                                  内容                                   |
-| :-------------------: | :-------: | :-------------------------------------------------------------------: |
-| [3.21](1-terminal.md) |   终端指南    |                  **Linux shell** + Windows Terminal                   |
-|   [3.28](2-git.md)    | 版本控制与简单开发 |                 Git + **Github** + Action[ + License]                 |
-|       4.18[^1]        |  文本排版工具   | **Markdown** + [  + Word] + [LaTeX](https://cn.overleaf.com/project/) |
-|     4.25/5.2[^1]      | + 集成开发环境  |   [Typst](https://typst.app/project/)[ + Visual Studio Code (vsc)]    |
-|         5.16          |  远程连接与传输  |                     **ssh** + scp + sftp + rsync                      |
-|         5.30          |  奇怪知识串讲   |                           妙妙小工具 / 小网站 / 其他？                           |
+|         上课时间          |                  主题                  |                                 内容                                 |
+| :-------------------: | :----------------------------------: | :----------------------------------------------------------------: |
+| [3.21](1-terminal.md) |        [终端使用](1-terminal.md)         |                 **Linux shell** + Windows Terminal                 |
+|   [3.28](2-git.md)    |        [版本控制与简单开发](2-git.md)         |               Git + **Github** + Action[ + License]                |
+|       4.18[^1]        |     [文档排版工具 1](3-typesetools.md)     | **Markdown** + [  + Word] + [LaTeX](https://overleaf.com/project/) |
+|     4.25/5.2[^1]      | [文档排版工具2 + vsc 简介](3-typesetools.md) |  [Typst](https://typst.app/project/)[ + Visual Studio Code (vsc)]  |
+|         5.16          |               远程连接与传输                |                    **ssh** + scp + sftp + rsync                    |
+|         5.30          |                奇怪知识串讲                |                         妙妙小工具 / 小网站 / 其他？                          |
 
 [^1]: 作为动态调整部分。
 

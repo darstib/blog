@@ -9,6 +9,7 @@ tags:
 - [Why you should use `python -m pip`](https://snarky.ca/why-you-should-use-python-m-pip/)
 - [huffman-tree](https://oi-wiki.org/ds/huffman-tree/) & [Visual Information Theory](https://colah.github.io/posts/2015-09-Visual-Information/)
     - 哈夫曼树/编码 & 信息论/交叉熵
+- [编程范式](https://devv.ai/search?threadId=edi2mlfxs740)
 - [混合专家模型 (MoE) 详解](https://huggingface.co/blog/zh/moe)
 - [Understanding Reasoning LLMs](https://magazine.sebastianraschka.com/p/understanding-reasoning-llms)
 - [DeepSeek-R1技术剖析：没有强化学习基础也能看懂的PPO & GRPO](https://mp.weixin.qq.com/s/OIiNOMcuXERGVOghwNZ5Uw) and [A vision researcher’s guide to some RL stuff: PPO & GRPO](https://yugeten.github.io/posts/2025/01/ppogrpo/)

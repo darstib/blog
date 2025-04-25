@@ -32,8 +32,11 @@ comments: true
 
 ### I.2 编程语言
 
-- python
+- python（python 的应用性已经是无需多提了）
     - [Python-100-Days](https://github.com/jackfrued/Python-100-Days)
+    - [pytorch](https://pytorch.org/) 机器学习框架
+		- [深入浅出 pytorch](https://datawhalechina.github.io/thorough-pytorch/index.html#)
+		- [PyTorch官方教程中文版](https://pytorch.panchuang.net/)
 - Rust
     - [Rust 官方文档](https://doc.rust-lang.org/stable/book/title-page.html)
     - [Rust 中文教程](https://course.rs/about-book.html)
