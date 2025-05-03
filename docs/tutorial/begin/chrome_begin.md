@@ -48,6 +48,7 @@ tags:
 - [Diigo Web Collector - Capture and Annotate](https://chromewebstore.google.com/detail/diigo-web-collector-captu/pnhplgjpclknigjpccbcnmicgcieojbh)
 	- 很好的网页和 pdf 的标记/旁注工具
 	- 似乎是若干年前几个学生的产物，ui 设计一直没更新，所以有种~~复古美~~。
+- [Ginsmooc](https://github.com/ginnnnnncc/GinsMooc)
 
 ## II setting
 

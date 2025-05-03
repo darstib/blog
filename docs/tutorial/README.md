@@ -12,15 +12,10 @@ dg-publish: true
 {{ begin_toc }}
 
 - [Begin](begin/README.md)
-	- [Obsidian_begin](begin/Obsidian_begin.md)
-	- [Mkdocs_begin](begin/Mkdocs_begin.md)
-	- [Typst_begin](begin/Typst_begin.md)
-	- [Utools_begin](begin/Utools_begin.md)
-	- [chrome_begin](begin/chrome_begin.md)
-	- [logisim_begin](begin/logisim_begin.md)
-	- [Python_begin](begin/Python_begin.md)
+- [skill learn](skill_learn/README.md)
 - python_learn
 	- [crypto](python_learn/crypto/README.md)
 	- [data](python_learn/data/README.md)
+
 
 {{ end_toc }}

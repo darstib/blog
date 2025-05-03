@@ -1,0 +1,8 @@
+/* Credit to https://github.com/TonyCrane/mkdocs-changelog-plugin?tab=readme-ov-file#changelogyml-%E6%A0%BC%E5%BC%8F */
+
+.changelog-type-refactor {
+    background-color: #db4628b0;
+}
+.changelog-type-refactor::before {
+    content: "内容重构";
+}

@@ -6,8 +6,6 @@ tags:
 comments: true
 ---
 
-***
-
 mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协同工作和开发利用成了难题，搞了很久，留个备忘录方便读者，包括 **串流** **副屏** **文件同步** 等操作实现；看完全文，不必完全按照我的设计，你应该很容易发现自己也能够设计各式各样的方案出来。
 
 <!-- more -->
@@ -39,7 +37,7 @@ mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协�
 - [Parsec介绍及快速配置](https://makise.xlog.app/parsec) or [人人走向云游戏——Parsec详解](https://foxi.buduanwang.vip/virtualization/1736.html/)
 - [网易 UU 远程 - 使用帮助](https://uuyc.163.com/help/)
 
-串流最重要的是希望沉浸式体验，但是 uu remote 的快捷键映射并不太好，很多时候会优先使用本机（例如我这里是 mac 控制 windows，mac 如果有全局快捷键和 windows 快捷键冲突，使用的是 mac 自己的，我觉得这是不合理的），parsec 这一点做的比较好。
+串流最重要的是希望沉浸式体验，但是 uu remote 的快捷键映射并不太好，很多时候会优先使用本机（例如我这里是 mac 控制 windows，mac 如果有全局快捷键和 windows 快捷键冲突，使用的是 mac 自己的，我觉得这是不合理的），parsec 这一点做的比较好；但是 parsec 在安卓端（ios 端未尝试）支持有很大问题，所以
 
 ### Sunshine+Moonlight
 

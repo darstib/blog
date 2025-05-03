@@ -7,17 +7,20 @@ tags:
 
 ***
 
-了解 URL，可以帮助我们包括但不限于：随时随地访问某一资源；更好地获取资源；不容易被链接欺骗……尤其是对于[语义URL](https://developer.mozilla.org/zh-CN/docs/Learn/Common_questions/Web_mechanics/What_is_a_URL#%E8%AF%AD%E4%B9%89_url) 。
+了解 URL，可以帮助我们包括但不限于：便于访问资源；更好地获取资源；不容易被链接欺骗……尤其是对于[语义URL](https://developer.mozilla.org/zh-CN/docs/Learn/Common_questions/Web_mechanics/What_is_a_URL#%E8%AF%AD%E4%B9%89_url) 。
 
 <!-- more -->
 
-> 文章提到的演示链接均可访问，所有者如认为不当，请联系删除。
+> [!attention]+
+>
+> - 文章提到的演示界面/链接均可访问，如有不当，请[联系我](../../connect_me.md)删除；
+> - 本文面向完全不懂计算机知识的人群，专业严谨的介绍可见 [MDN web docs](https://developer.mozilla.org/zh-CN/docs/Learn_web_development/Howto/Web_mechanics/What_is_a_URL)；同时很推荐在其中了解更多的网络的基础知识。
 
 ## 基本介绍
 
-什么是 URL？我觉得这种概念性东西自己搜，问 GPT，GLM 什么的再合适不过。
-
-> 下面是 GLM4 的回答，详细细节请如法炮制。
+> [!tip]- 什么是 URL？
+>
+> 我认为这种概念性内容通过搜索、询问 LLM 比询问任何一个人都更加直接且效果好。
 
 URL（Uniform Resource Locator，统一资源定位符）是一个用于定位互联网上资源的地址。它是Web浏览器需要访问网站或文件时使用的地址。URL可以指向网页、图片、视频、文档等各种类型的资源。
 
@@ -31,11 +34,9 @@ URL（Uniform Resource Locator，统一资源定位符）是一个用于定位�
 
 例如，一个完整的URL可能看起来像这样：
 
-```
+```url
 https://www.example.com/pages/home.html?user=name&pass=password#section2
 ```
-
-在这个例子中：
 
 - `https` 是协议，表示这是一个安全的超文本传输协议。
 - `www.example.com` 是域名，指向特定服务器。
@@ -43,29 +44,25 @@ https://www.example.com/pages/home.html?user=name&pass=password#section2
 - `?user=name&pass=password` 是查询参数，可能用于身份验证。
 - `#section2` 是片段标识符，用于直接跳转到网页内的特定部分。
 
-## 有什么用？
+## 了解它有什么用？
 
-下面举几个基本例子
+### 访问资源减少限制
 
-### 随时随地访问资源
+在别人的电脑上，我想要看我自己[博客](https://darstib.github.io/blog/)上的一些资源（或者一些小众但常用的网页，~~比如你的之后可能经常需要看的实验指导等等~~；又或者是想要切换一个搜索引擎）怎么办？别人电脑上肯定不会存访问我博客的链接，使用搜索引擎也不见得搜得到[^1]；但是其实短链接是很好记住的：
 
-在别人的电脑上，我想要看我自己[博客](https://darstib.github.io/blog/)上的一些资源怎么办？
-
-别人电脑上肯定不会存访问我博客的链接，使用搜索引擎也不见得搜得到。
-
-但是其实短链接是很好记住的：
+[^1]: 基于 github page 部署的网页并没有备案，百度等搜索引擎是不会收录的；流量低、访问数少也会导致不会被搜索引擎爬取。
 
 ```url
 https://darstib.github.io/blog/
 ```
 
-浏览器会自动补充个开头的协议，一个域名 darstib.github.io，访问其中的 blog，也很快的。
+浏览器会一般自动补充个开头的协议（默认使用 `https`），一个域名 darstib.github.io，访问其中的 blog，也很快的。
 
 ### 更好地获取资源
 
 #### 域名
 
-假设我们发现了一个网页，他展示的功能很强大（下面是一个计算行列式特征值和特征向量的一个演示）：
+假设我们（通过搜索/别人推荐）发现了一个网页，他展示的功能很强大（下面是一个计算行列式特征值和特征向量的一个演示）：
 
 ```url
 https://www.wolframalpha.com/input?i=eigenvalues+%7B%7B0%2C2%2C1%7D%2C%7B-2%2C0%2C3%7D%2C%7B-1%2C-3%2C0%7D%7D
@@ -73,15 +70,13 @@ https://www.wolframalpha.com/input?i=eigenvalues+%7B%7B0%2C2%2C1%7D%2C%7B-2%2C0%
 
 ![](attachments/What%20Url%20can%20do.png)
 
-我想看看这个网站有没有更好的功能：比如计算行列式的值、幂；甚至能不能计算微积分来**检验我平时作业的正确性**。（无不良引导，请正确使用）
+我想看看这个网站有没有更好的功能：比如计算行列式的值、幂；甚至能不能计算微积分来**检验我平时作业的正确性**（无不良引导，请正确使用）。
 
 那我们直接把后面的直接删掉（其实看看删除部分和黄色框内的是一样的，对应了 url 编码罢了）只留必要部分：
 
 ```url
 https://www.wolframalpha.com/
 ```
-
-然后你就发现了新世界🤪。（无不良引导，请正确使用）
 
 #### 子域名
 

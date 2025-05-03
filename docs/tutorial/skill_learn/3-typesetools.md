@@ -1,6 +1,12 @@
+---
+comments: true
+tags:
+- notes
+---
+
 ## Markdown
 
-> [!wiki]+ Markdown
+> [!wiki]- Markdown
 >
 > **Markdown**是一种[轻量级标记语言](https://zh.wikipedia.org/wiki/%E8%BD%BB%E9%87%8F%E7%BA%A7%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80 "轻量级标记语言")，创始人为[约翰·格鲁伯](https://zh.wikipedia.org/wiki/%E7%B4%84%E7%BF%B0%C2%B7%E6%A0%BC%E9%AD%AF%E4%BC%AF "约翰·格鲁伯")。它允许人们使用易读易写的纯文本格式编写文档；它易于阅读和编写，使得作者能够专注于内容创作。
 > 
@@ -90,7 +96,6 @@
 >>
 >> 可以自己试试将文件扩展名改为 `.zip` 解压，可以发现结果是几个无扩展名文件，使用文本编辑器打开也是“乱码”形式。
 
-
 ## LaTeX
 
 > [!wiki]- $\LaTeX$
@@ -144,6 +149,8 @@ LaTeX 中，主要使用 `\newcommand` 和 `\renewcommand` 命令来定义�
 % use package; set info; new command; set style; ...
 % use package
 \usepackage{graphicx} % Required for inserting images
+\usepackage{lipsum} % generate lore ipsum
+\usepackage{subfiles} % import sub files
 % set info
 \title{demo}
 \author{Darstib Reed}

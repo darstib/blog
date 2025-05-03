@@ -13,8 +13,7 @@ tags:
 > 
 >> [!extra]-
 >> 
->> 对于命令行、终端、壳等概念我们不做明确区分，有兴趣的同学可以看[命令行界面 (CLI)、终端 (Terminal)、Shell、TTY，傻傻分不清楚？](https://zhuanlan.zhihu.com/p/516408816)中的讲解。
-
+>> 对于命令行、终端、壳等概念我们不做明确区分，有兴趣的同学可以看[命令行界面 (CLI)、终端 (Terminal)、Shell、TTY，傻傻分不清楚？](https://zhuanlan.zhihu.com/p/516408816) 或者 [What is the exact difference between a 'terminal', a 'shell', a 'tty' and a 'console'?](https://unix.stackexchange.com/questions/4126/what-is-the-exact-difference-between-a-terminal-a-shell-a-tty-and-a-con) 中的讲解。
 
 ## Linux
 
@@ -484,20 +483,24 @@ drwxr-xr-x  3 darstib darstib 4096 Mar 19 16:18 demo
 
 ### 讲解
 
-![250321-153058.png](https://raw.gitmirror.com/darstib/public_imgs/utool/2503/21_250321-153058.png)
+![windows terminal 设置](https://raw.gitmirror.com/darstib/public_imgs/utool/2503/21_250321-153058.png)
 
 ## 美化参考
 
 - [zsh + oh-my-zsh 配置](https://www.haoyep.com/posts/zsh-config-oh-my-zsh/)
 - windows
 	- [Windows Terminal 内核优化，主题配置](https://www.codestar.top/2024/09/11/Windows/Windows-Terminal%E5%86%85%E6%A0%B8%E3%80%81%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96%E5%85%A8%E6%B5%81%E7%A8%8B/)
+	- [windows中使用Oh My Posh美化你的终端PowerShell或CMD](https://www.iyouhun.com/post-266.html)
 	- [oh my posh setup on windows](https://ohmyposh.dev/docs/installation/windows)
+		- [change your prompt](https://ohmyposh.dev/docs/installation/prompt)
+	- [告别 Windows 终端的难看难用，从改造 PowerShell 的外观开始](https://zhuanlan.zhihu.com/p/56808199)
 - mac
 	- [iTerm2 安装配置](https://guoxudong.io/post/iterm2/#iterm2)
 
-## 主要参考资料
+## 参考资料
 
+-  [Cyrus' Blog](https://blog.codecyrus.com/posts/linux-shell-basic-usage/)
 - [《linux 101》](https://101.lug.ustc.edu.cn/)
 -  [MIT The Missing Semester of Your CS Education](https://missing.csail.mit.edu/)
 - [一些推荐的命令行工具](https://slides.tonycrane.cc/PracticalSkillsTutorial/2023-spring-cs/lec1/#/5/1)
--  [Cyrus' Blog](https://blog.codecyrus.com/posts/linux-shell-basic-usage/)
+- [20 款优秀的终端工具推荐](https://www.peterjxl.com/Terminal/Recommend/)

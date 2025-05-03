@@ -14,8 +14,6 @@ tags:
 > - **环境配置：** 在 VScode + Ubuntu 环境下，完成安装 Typst 插件和 typst-cli 工具，并进行模板导入。
 > - **参考文档：** 文章提供了 Typst 官方文档、教程和相关资源的链接。
 
-本文将分为 **使用学习** 与 **本地环境配置** 两个部分。 
-
 <!-- more -->
 
 ## 使用学习
@@ -47,11 +45,11 @@ tags:
 
 ## 在线环境
 
-在最开始，我们可以在 typst 的[官方网站](https://typst.app/)直接使用它，和 [overleaf](https://overleaf.com) 是类似的。注册登入，看到下面的界面：
+在最开始，我们可以在 typst 的[官方网站](https://typst.app/)直接使用它，和 [overleaf](https://overleaf.com) 是类似的；注册登入，看到下面的界面：
 
 ![](attachments/Make%20pdf%20with%20typst.png)
 
-点击 `Empty document` ，设置一个名字（这里使用 **test** 作为测试名），创建后到达下面的界面：
+点击 `Empty document` ，设置一个名字，创建后到达下面的界面：
 
 ![](attachments/Make%20pdf%20with%20typst-1.png)
 
@@ -59,7 +57,7 @@ tags:
 
 ![](attachments/Make%20pdf%20with%20typst-2.png)
 
-当然，这只是写文本，我们需要在样式上优化，这需要读者自行阅读[教程](https://typst-doc-cn.github.io/docs/tutorial/)，不是我三言两语讲的完的。完成后，点击右上角的下载图标即可下载 pdf。
+当然，这只是写文本，我们需要在样式上优化，这需要读者自行阅读[教程](https://typst-doc-cn.github.io/docs/tutorial/)，不是我三言两语讲的完的。完成后，点击右上角的下载图标即可导出 pdf 或者是其他格式。
 
 ### 引入模板
 
@@ -204,7 +202,7 @@ Typst 有三种语法模式：标记、数学和代码。标记模式是 Typst �
 	- mdbook-like callouts
 - [colorful-boxes](https://typst.app/universe/package/colorful-boxes)
 	- 包裹式注释块
-- [tablex](https://typst.app/universe/package/tablex/)
+- [tablex](https://typst.app/universe/package/tablex/) or [tablem](https://typst.app/universe/package/tablem)
 	- 花式表格
 
 - 部分参考：[Typst Examples Book - package](https://sitandr.github.io/typst-examples-book/book/packages/index.html)

@@ -14,6 +14,11 @@ comments: true
 
 ### Visualization
 
+#### AntV
+
+- [AntV](https://antv.antgroup.com/)
+	- “蚂蚁企业级数据可视化解决方案，让人们在数据世界里获得视觉化思考能力”
+
 #### seaborn
 
 - [Python可视化 | Seaborn5分钟入门](https://www.zhihu.com/people/weng-hai-yi-90/search?keyword=Python%E5%8F%AF%E8%A7%86%E5%8C%96+%7C+Seaborn5%E5%88%86%E9%92%9F%E5%85%A5%E9%97%A8&pathBefore=%2Fpeople%2Fweng-hai-yi-90)
@@ -35,12 +40,3 @@ comments: true
 - https://seaborn.pydata.org/examples/index.html
 - https://matplotlib.org/stable/gallery/
 - [Matplotlib可视化最有价值的50个图表](https://www.jiqizhixin.com/articles/2019-01-15-11)
-
-## Tools
-
-- [工具收集](https://note.tonycrane.cc/cs/tools/toolbox/)
-    - 在线手写风格作图白板 [Excalidraw](https://excalidraw.com/)
-    - GLSL 流体场可视化 [Field Play](https://anvaka.github.io/fieldplay/)
-- [算法汇总](https://geminiplanet.cn/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E7%AE%97%E6%B3%95%E6%B1%87%E6%80%BB/)
-- [mycolor](https://mycolor.space/)
-    - 配色

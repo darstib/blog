@@ -4,7 +4,7 @@ tags:
 comments: true
 ---
 
-> 这个名字来源于 [Teach Yourself Computer Science](https://teachyourselfcs.com/)。
+> [!extra] 这个名字来源于 [Teach Yourself Computer Science](https://teachyourselfcs.com/)。
 
 - [Self-taught developer success stories](https://www.nocsdegree.com/)
 
@@ -58,12 +58,9 @@ comments: true
 ### I.3 实用技能/工具
 
 - [skill_learn](../tutorial/skill_learn/README.md) 系列；
-- [知识学习](https://db.darstib.cn/collection/Tools/#i31) 套件；
 
 ## II 自学指南
 
-- [V2EX](https://www.v2ex.com/) or [segmentfault](https://segmentfault.com/)
-    - 国内程序员交流网站（比较活跃）
 - [CS 自学指南](https://csdiy.wiki/)
     - “是一份献给北大信科学弟学妹们的礼物。”
     - [cs-video-courses](https://github.com/Developer-Y/cs-video-courses)
