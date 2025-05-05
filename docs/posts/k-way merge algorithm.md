@@ -19,6 +19,8 @@ tags:
 
 如果我们想要对超过内存最大容量的数据进行排序，就需要用到外部排序(External sort)，一个比较有效的方法就是 k-way merge algorithm.
 
+> [!env]-
+>
 > 实现语言：C
 > 
 > 知识条件：掌握了合并排序（Merge sort）

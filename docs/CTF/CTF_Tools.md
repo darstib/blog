@@ -260,6 +260,10 @@ comments: true
 - [smtp-user-enum](https://pentestmonkey.net/tools/user-enumeration/smtp-user-enum) SMTP
 - [sqlmap](https://github.com/sqlmapproject/sqlmap/) SQL
 	- [用户手册中文版](https://sqlmap.highlight.ink/usage)
+- [dvcs-ripper](https://github.com/kost/dvcs-ripper)
+	- 拆解可访问的（分布式）版本控制系统：SVN、GIT、Mercurial/hg、bzr 等
+- [dirsearch](https://github.com/maurosoria/dirsearch)
+	- 一个高级的网络路径暴力破解器
 
 ### 软件工具
 

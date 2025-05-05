@@ -115,7 +115,8 @@ Wed Mar 19 09:09:08 PM CST 2025
 ```sh
 $ sudo apt install tldr
 ...
-$ # tldr --update # 更新
+$ mkdir -p ~/.local/share/tldr # 这是在 ubuntu 上的操作，不同系统可能不一致
+$ tldr --update # 更新
 $ tldr <cmd>
 ```
 

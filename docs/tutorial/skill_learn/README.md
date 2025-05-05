@@ -27,13 +27,13 @@ comments: true
 
 显然 <u>每一周的内容都很多</u> ，但是其中注意到我们的 4 月命途多舛（前有清明节，中有期中周，后有劳动节），我们在前面如果没能够讲完/讲清的部分，会在 4 月进行动态调整。
 
-> [!quote]+ 下面是往期技能拾遗课程中推荐学习但本期未提及/细讲的内容
+> [!quote]+ 下面是往期技能拾遗课程中推荐学习但本期未提及/细讲的相关内容
 >
 > - [24-春夏技能拾遗课程](https://raw.gitmirror.com/darstib/public_imgs/utool/2503/18_jnsy-sp24.png) （均在内部钉钉群）
 > 	- [Docker基础入门](https://n.dingtalk.com/dingding/live-room/index.html?roomId=CUL5K7UaWcKkWNLv&liveUuid=f2742c60-9a9e-4468-b151-d0523d90da73) by [@Foggy-whale](https://github.com/Foggy-whale)
 > 		- [Docker 快速通关](https://blog.shiguang666.eu.org/2024/09/18/847c1ec4d4cd/)
 > 		- [docker 镜像源配置](https://www.kelen.cc/dry/docker-hub-mirror)
-> 	- [makefile](https://n.dingtalk.com/dingding/live-room/index.html?roomId=Ssm0CtL4q7lW1y5U&liveUuid=1465a654-47ba-48af-91ba-d1b3d32e14ba) by [@Foggy-whale](https://github.com/Foggy-whale) or [Makefile 光速入门](https://siyuanblog.cn/archives/makefile)
+> 	- [makefile](https://n.dingtalk.com/dingding/live-room/index.html?roomId=Ssm0CtL4q7lW1y5U&liveUuid=1465a654-47ba-48af-91ba-d1b3d32e14ba) by [@Foggy-whale](https://github.com/Foggy-whale) or [Makefile 光速入门](https://siyuanblog.cn/archives/makefile) or [跟我一起写 Makefile](https://seisman.github.io/how-to-write-makefile/)
 > 	- [正则表达式](https://n.dingtalk.com/dingding/live-room/index.html?roomId=iJaprRX0kVlR8bi6&liveUuid=00fc196f-b10f-402d-a5a4-7c96549effb8) by [@Foggy-whale](https://github.com/Foggy-whale)
 > 	- [shell script](https://n.dingtalk.com/dingding/live-room/index.html?roomId=DNzTTQFbGdVos1LD&liveUuid=3b20f813-eb26-4f2f-9699-207d8bd17257) by [@Foggy-whale](https://github.com/Foggy-whale)
 > - [23-秋冬技能拾遗课程](https://slides.tonycrane.cc/PracticalSkillsTutorial/2023-fall-ckc/#/)
@@ -43,6 +43,14 @@ comments: true
 > 	- [lec4：LaTeX 排版简要介绍](https://slides.tonycrane.cc/PracticalSkillsTutorial/2023-spring-cs/lec4/) | [BV12k4y1s7Y3](https://www.bilibili.com/video/BV12k4y1s7Y3/)
 > - [《Linux101》](https://101.lug.ustc.edu.cn/)
 > 	- （乱入）中国科学技术大学 Linux 用户协会出品
+
+~~较为系统~~ 学习后，我们大概率还是会在使用的时候忘记一些操作/命令等，所以推荐大家可以寻找一些 cheatsheet[^5] 例如在 [cheatsheet.zip](https://cheatsheets.zip/) or [中文翻译版](https://wangchujiang.com/reference/) 或者是 [learn x in y minutes](https://learnxinyminutes.com/) 中就有不错的内容。
+
+[^5]: 感觉暂时没有特别好的中文能够翻译这个词，我姑且叫做备忘单吧。
+
+> [!extra]- reveal-md 2 slide
+> 
+> 如果你对上述 23 年拾遗课程使用的在线 slide 感兴趣，可以在 [reveal-md to sildes](https://note.isshikih.top/others/reveal-md2Slides/) 进行了解，在 [slide-template](https://github.com/TonyCrane/slide-template) 获得模板。
 
 ### 课程声明
 

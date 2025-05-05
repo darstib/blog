@@ -4,7 +4,7 @@ tags:
 comments: true
 ---
 
-> [!help] Bugs & Solutions
+> [!help] 即自己遇到的问题以及相应的解决方法。
 
 ## Unix
 
@@ -41,6 +41,8 @@ wsl --unregister <Distro> # 将原来的卸载
 wsl --import-in-place <Distro> <InstallLocation> <FileName>
 ```
 
+> [!tip]- 显然迁移是需要打包、迁移、解包的，那么当然是发行版越小的时候迁移越方便。
+
 ### 忘记了 wsl root 权限密码
 
 - https://learn.microsoft.com/zh-cn/windows/wsl/setup/environment#set-up-your-linux-username-and-password
@@ -59,8 +61,6 @@ wsl --import-in-place <Distro> <InstallLocation> <FileName>
 - https://lindevs.com/install-gcc-on-ubuntu/
 
 ### Kali linux install
-
-> [!extra] 现在改用 [wsl2 的 kali linux](https://www.kali.org/docs/wsl/)
 
 -  [2023 Kali安装教程](https://blog.csdn.net/fingue/article/details/127559353)
 - [Kali Linux(VMware)中解决界面太小等问题](https://blog.csdn.net/qq_34668863/article/details/134009574)

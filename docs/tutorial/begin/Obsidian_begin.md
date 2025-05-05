@@ -30,6 +30,8 @@ tags:
 
 基本的下载、创建、导入笔记在 [入门指南](https://publish.obsidian.md/help-zh/%E7%94%B1%E6%AD%A4%E5%BC%80%E5%A7%8B#%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97) 十分清晰，不加赘述。
 
+> [!help]- [obsidian文档咖啡豆版](https://obsidian.vip/zh/)
+>
 > [obsidian文档咖啡豆版](https://obsidian.vip/zh/) 真的是一个很好地探索 obsidian 的文档，这里更多收纳的是我个人的包括但不限于从其中取得的实现；美中不足的是该网站搜索出来后跳转愚笨（不知道是不是我这里的问题），可以用[搜索引擎解决](attachments/Obsidian_begin-12.png)。
 
 ## II 阅读设置

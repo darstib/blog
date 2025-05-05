@@ -4,3 +4,5 @@ docs/.stignore
 docs/.stversions/
 docs/sandbox/
 myPlugins/
+.vscode/
+.DS_Store

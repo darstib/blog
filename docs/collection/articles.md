@@ -25,6 +25,9 @@ tags:
 
 ### 终端
 
+#### 美化部分
+
+- [zsh_begin](../tutorial/begin/zsh_begin.md) 记录了我的配置使用；
 - [oh my zsh](https://ohmyz.sh/)
 	- [zsh + oh-my-zsh 配置](https://www.haoyep.com/posts/zsh-config-oh-my-zsh/)
 	- [iTerm2 安装配置](https://guoxudong.io/post/iterm2/#iterm2)
@@ -37,18 +40,24 @@ tags:
 		- [change your prompt](https://ohmyposh.dev/docs/installation/prompt)
 - [NerdFont 在WSL2 上安装](https://blog.csdn.net/qq_36835255/article/details/125020375#:~:text=1-,nerd%20fonts%20%E5%AE%89%E8%A3%85,-powerlevel10k%20%E4%BD%BF%E7%94%A8%E7%9A%84)
 
+#### 工具部分
+
+- [实验室服务器使用指南](https://zhuanlan.zhihu.com/p/668805702)
+- [tldr 命令](https://lanlan2017.github.io/blog/42d91331/)
+	- [tldr 设置中文](https://www.bilibili.com/video/BV1rm4y137Z9/)
 - [advcpmv](https://github.com/jarun/advcpmv)
 - [volatility 配置](https://www.cnblogs.com/Jinx8823/p/16642215.html)
 - [conda介绍](https://dev.to/bowmanjd/python-tools-for-managing-virtual-environments-3bko#conda)
 	- [miniconda 安装](https://docs.anaconda.com/miniconda/#quick-command-line-install)
 	- [miniforge](https://github.com/conda-forge/miniforge)
 		- [miniforge 安装 sagemath](https://doc.sagemath.org/html/en/installation/conda.html)
-
-```shell title="set auto_activate"
-# 设置默认不启动 base 环境
-conda config --set auto_activate_base false # true
-conda config --add channels conda-forge # add channel
-```
+	- [conda rename](https://docs.conda.io/projects/conda/en/stable/commands/rename.html)
+		```shell title="set auto_activate"
+		# 设置默认不启动 base 环境
+		conda config --set auto_activate_base false # true
+		conda config --add channels conda-forge # add channel
+		```
+- 其他 python 虚拟环境管理工具可见[虚拟环境](https://pyloong.github.io/pythonic-project-guidelines/introduction/virtualenv/)
 
 
 ### 论文
