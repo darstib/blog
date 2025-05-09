@@ -51,9 +51,6 @@
         - tutorial/begin/*.md
     - [Skill_learn](tutorial/skill_learn/README.md)
 	    - tutorial/skill_learn/*.md
-    - MCM
-        - [2024 年浙江大学大学生数学建模竞赛](tutorial/MCM/2024 年浙江大学大学生数学建模竞赛.md)
-        - [some material in MCM](tutorial/MCM/some material in MCM.md)
 - [Summary](summary/README.md)
     - [大一小记](summary/大一小记.md)
 - AIsecurity

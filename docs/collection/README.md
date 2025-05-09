@@ -19,6 +19,5 @@ comments: true
 	- [data_visualization](data_visualization.md)
 	- [note_link](note_link.md)
 	- [teachyourselfcs](teachyourselfcs.md)
-	- [Tools](Tools.md)
 	- [web_sites](web_sites.md)
 {{ end_toc }}
