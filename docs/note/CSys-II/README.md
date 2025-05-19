@@ -23,4 +23,4 @@ dg-publish: true
 
 {{ end_toc }}
 
-- [sysII cheatpapaer1](https://raw.gitmirror.com/darstib/public_imgs/PicGo/PicGo_exe/sysII-cheat1.jpg) & [sysII cheatpaper2](https://raw.gitmirror.com/darstib/public_imgs/PicGo/PicGo_exe/sysII-cheat2.jpg)
+- [sysII cheatpapaer1](https://raw.githubusercontent.com/darstib/public_imgs/PicGo/PicGo_exe/sysII-cheat1.jpg) & [sysII cheatpaper2](https://raw.githubusercontent.com/darstib/public_imgs/PicGo/PicGo_exe/sysII-cheat2.jpg)

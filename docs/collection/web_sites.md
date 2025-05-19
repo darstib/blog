@@ -44,19 +44,6 @@ comments: true
 
 [^2]: 截至日期 2024-08-20
 
-```mermaid
-sequenceDiagram
-    participant Client
-    participant Microkernel
-    participant Service
-
-    Client->>Microkernel: Send request message
-    Microkernel->>Service: Forward message
-    Service-->>Microkernel: Reply message
-    Microkernel-->>Client: Return response
-
-```
-
 ## 开发者谈
 
 ### 开源交流

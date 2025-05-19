@@ -210,7 +210,7 @@ $ ln -s /usr/bin/batcat ~/.local/bin/bat
     </div>
     <div style="width: 5%;"></div>
     <div style="width: 20%;">
-        <img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/17425275420641742527541177.png" alt="vim mode" style="width: 100%; height: auto;">
+        <img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/17425275420641742527541177.png" alt="vim mode" style="width: 100%; height: auto;">
         <p>(from wikipedia)</p>
     </div>
     <div style="width: 5%;"></div>
@@ -438,7 +438,7 @@ drwxr-xr-x  3 darstib darstib 4096 Mar 19 16:18 demo
 
 #### 根目录结构
 
-![](https://raw.gitmirror.com/darstib/public_imgs/utool/2503/14_250314-204022.png)
+![](https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/14_250314-204022.png)
 
 在一个[学长的笔记](https://www.yuque.com/dogge2333/study/talqwu#525eb713)中将根目录结构讲得比较详细了，其要点整理成表格如下：
 
@@ -484,7 +484,7 @@ drwxr-xr-x  3 darstib darstib 4096 Mar 19 16:18 demo
 
 ### 讲解
 
-![windows terminal 设置](https://raw.gitmirror.com/darstib/public_imgs/utool/2503/21_250321-153058.png)
+![windows terminal 设置](https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/21_250321-153058.png)
 
 ## 美化参考
 

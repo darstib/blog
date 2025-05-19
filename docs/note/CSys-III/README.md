@@ -19,7 +19,7 @@ comments: true
         - [ ] (10%)lab6 - Hard ware support page fault and MMU
         - [ ] (8%) project - X part (8%)
  
-[实验安排](https://raw.gitmirror.com/darstib/public_imgs/utool/2503/14_250314-220727.png)：
+[实验安排](https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/14_250314-220727.png)：
 
 ```mermaid
 gantt

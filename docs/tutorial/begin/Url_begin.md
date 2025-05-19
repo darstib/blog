@@ -113,6 +113,6 @@ https://zhidao.baidu.com/question/150256286.html
 
 再举一个例子：
 
-<div style="text-align: center;"><img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/1739758366531What Url can do-2.png" alt="img" style="width: 30%;"><p></p></div>
+<div style="text-align: center;"><img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/1739758366531What Url can do-2.png" alt="img" style="width: 30%;"><p></p></div>
 
 `.edu.cn` 是中国教育相关网站的通用顶级域名。这个域名通常用于中国的教育机构、大学、以及其他与教育相关的组织。你说官方查成绩，可能可信吧；但是 **whu** ，大家自己搜搜是哪个吧😁；“虚假成绩查询网站” 是 **hust** 🤣。

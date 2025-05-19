@@ -129,7 +129,7 @@ comments: true
 - [wireshark](https://www.wireshark.org/#downloadLink)
 - [PcapNG File Format](https://pcapng.com/)
 
-![Tools.png](https://raw.gitmirror.com/darstib/public_imgs/utool/2503/09_Tools.png)
+![Tools.png](https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/09_Tools.png)
 
 - [CSDN —— pcapng 文件格式](https://blog.csdn.net/m0_53887937/article/details/133978428)
     - [文件提取](https://zgao.top/%E4%BB%8Ewireshark%E6%B5%81%E9%87%8F%E4%B8%AD%E6%8F%90%E5%8F%96%E6%96%87%E4%BB%B6/)
@@ -309,4 +309,4 @@ comments: true
 - [智云链接](https://classroom.zju.edu.cn/coursedetail?course_id=63047)
 - [一个小总结](https://juruo123.github.io/2024/07/02/CTF/)
 
-![Tools-1.png](https://raw.gitmirror.com/darstib/public_imgs/utool/2503/09_Tools-1.png)
+![Tools-1.png](https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/09_Tools-1.png)

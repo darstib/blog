@@ -62,7 +62,7 @@ mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协�
 
 接下来我们主要需要操作 sunshine 即服务端（打开文档的那个不用管，相信你也没心思看），在 windows 右下角菜单栏或者托盘中右键图标，`open sunshine` ，看到下面的界面：
 
-![](https://raw.gitmirror.com/darstib/public_imgs/utool/2503/10_250311-120000.png)
+![](https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/10_250311-120000.png)
 
 设置用户密码，一般就本地回环链接，简单点就好，之后改起来也麻烦。
 
@@ -70,7 +70,7 @@ mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协�
 
 在 moonlight 中按照介绍是自动寻找局域网内的设备，但至少我是没有成功找到过，所以点击“手动添加计算机”，输入主机 ip 即可发起配对（注意需要在**局域网**内），且获得一个 PIN 码；此时 windows 端应该有弹窗，或者自己点进 sunshine web UI 中的 "Pin" 部分的 "PIN Pairing" 部分进行配对 (这里是已经配对成功的视图)。
 
-![右上角红色框内手动添加计算机](https://raw.gitmirror.com/darstib/public_imgs/utool/2503/10_250311-141713.png)
+![右上角红色框内手动添加计算机](https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/10_250311-141713.png)
 
 > [!extra]-
 >
@@ -84,11 +84,11 @@ mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协�
 
 <div style="display:flex; text-align: center; justify-content: space-between;">
     <div style="display: inline-block; width: 46%; margin: 0.5%;">
-        <img src="https://raw.gitmirror.com/darstib/public_imgs/utool/2503/10_250311-111241.png" alt="img1" style="width: 100%;">
+        <img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/10_250311-111241.png" alt="img1" style="width: 100%;">
         <p>parsec-vdd</p>
     </div>
     <div style="display: inline-block; width: 50%; margin: 0.5%;">
-        <img src="https://raw.gitmirror.com/darstib/public_imgs/utool/2503/10_250311-105155.png" alt="img2" style="width: 100%;">
+        <img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/10_250311-105155.png" alt="img2" style="width: 100%;">
         <p>系统多屏幕管理</p>
     </div>
 </div>
@@ -97,17 +97,17 @@ mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协�
 
 ### 单副屏
 
-![sunshine UI > Configuration](https://raw.gitmirror.com/darstib/public_imgs/utool/2503/10_250311-125219.png)
+![sunshine UI > Configuration](https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/10_250311-125219.png)
 
 回到 sunshine 的 "configuration > Audio/Video" 部分，找到 Display Device ID，部分，这里展示的是当前 sunshine 对应的 display device id：
 
-![Configuration > Audio/Vedio](https://raw.gitmirror.com/darstib/public_imgs/utool/2503/10_1741582946105.png)
+![Configuration > Audio/Vedio](https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/10_1741582946105.png)
 
 > [!extra]-
 >
 > 在我刚开始用 sunshine 时标识（虚拟）显示屏还是使用 `display_name` 部分，这在 parsec-vdd 上是非常好获取的，这也是起初我使用 parsec-vdd 的原因之一。
 
-如果为空则默认使用主屏幕，也就是我们前面的串流形式；这里也就是需要修改这里的 ID；但是这个 ID 获取确实是一个头痛的方法[^4]，因为实际上打开 sunshine.exe 后终端很快就没了（如果还有的话就能看到开头有类似[这样的输出](https://raw.gitmirror.com/darstib/public_imgs/utool/2503/10_250311-132043.png)，前提是已经创建了虚拟屏）；比较丑陋的方法是直接点击，让他输出错误信息，然后快速通过截图保留 ID ~~比较考验手速~~ ，配对方式同串流。
+如果为空则默认使用主屏幕，也就是我们前面的串流形式；这里也就是需要修改这里的 ID；但是这个 ID 获取确实是一个头痛的方法[^4]，因为实际上打开 sunshine.exe 后终端很快就没了（如果还有的话就能看到开头有类似[这样的输出](https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/10_250311-132043.png)，前提是已经创建了虚拟屏）；比较丑陋的方法是直接点击，让他输出错误信息，然后快速通过截图保留 ID ~~比较考验手速~~ ，配对方式同串流。
 
 [^4]: 搜索/尝试过一些命令行获取方式，与这里需要的 ID 并不相同。
 
@@ -117,7 +117,7 @@ mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协�
 
 需要注意的是需要修改 "Configuration" 中的 "Network" 的端口部分，否则不方便修改 device id （从源文件修改当然也行）；Port 尽量与原 Port 不要太近，因为 sunshine 需要的不是一个端口，而是一个“邻域”，我使用的是间隔 100。
 
-![Configuration > Network](https://raw.gitmirror.com/darstib/public_imgs/utool/2503/10_250311-133208.png)
+![Configuration > Network](https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/10_250311-133208.png)
 
 喜忧参半的是，打开 sunshine2 中的 sunshine.exe 时，终端不会消失，而是一直运行在后台：好处是能够完整看到 Device ID 了；坏处是终端关闭了进程也被关闭了，有点碍事。
 

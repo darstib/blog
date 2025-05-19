@@ -269,7 +269,7 @@ It reports three times:
 
 #### III.3.1 Linkers and Loaders
 
-<div style="text-align: center;"><img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/17396353938902_OS-13.png" alt="img" style="width: 50%;"><p></p></div>
+<div style="text-align: center;"><img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/17396353938902_OS-13.png" alt="img" style="width: 50%;"><p></p></div>
 
 #### III.3.2 Static link vs dynamic link
 
@@ -295,7 +295,7 @@ It reports three times:
 
 ### IV.3 Implementation
 
-<div style="text-align: center;"><img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/17396354278912_OS-15.png" alt="img" style="width: 60%;"><p></p></div>
+<div style="text-align: center;"><img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/17396354278912_OS-15.png" alt="img" style="width: 60%;"><p></p></div>
 
 ### IV.4 Microkernels
 

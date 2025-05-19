@@ -88,7 +88,7 @@ tags:
 >
 >在 demo.docx 文件中添加一级标题、二级标题、一张图片后，使用解压缩软件及进行解压，可以得到一个文件夹，内容如下：
 >
-> ![docx demo](https://raw.gitmirror.com/darstib/public_imgs/utool/2503/17_250317-221550.png)
+> ![docx demo](https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/17_250317-221550.png)
 >
 >我们无需看懂这些奇怪的标签内容，只需要了解编辑的文本不过是在内部使用这样那样的语法进行了修饰，便于我们稍后总结。
 >

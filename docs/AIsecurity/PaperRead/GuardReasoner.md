@@ -33,14 +33,14 @@ DeepSeek-R1 等推理模型促使模型解决问题的能力大幅提高，而�
 		- 回答正确，连带推理过程视作 positive item，否则视为 negative item；
 		- 引导模型更关注 hard sample，降低 positive item 的权重。
 - Comparison experiment of 25 models on 5 benchmarks of the response harmfulness detection task.
-	![1741845507038.png](https://raw.gitmirror.com/darstib/public_imgs/utool/2503/13_1741845507038.png)
+	![1741845507038.png](https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/13_1741845507038.png)
 	- 在上面的效率测试的结果可以看到，无论是训练时还是推理时，GPU 内存消耗基本不变，但是用时和 token 消耗大幅度提高，实际应用成本过高。
 
 ## 贡献 (Contribution)
 
 - 生成了一个用于训练护栏推理能力的数据集；
 - 相比于传统的大模型护栏，GuardReasoner 通过引入推理能力实现了 performance, explainability, and generalizability 的综合提高，具体数据如下：
-	![250313-153110.png](https://raw.gitmirror.com/darstib/public_imgs/utool/2503/13_250313-153110.png)
+	![250313-153110.png](https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/13_250313-153110.png)
 
 ## 总结 (Summary)
 

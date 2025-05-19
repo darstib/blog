@@ -607,7 +607,7 @@ ssh-add -l
 	- [MobaXterm](https://mobaxterm.mobatek.net/) (Windows)
 		- 一款适用于 Windows 的增强型远程连接工具，集 **SSH 客户端、SFTP 文件传输、X11 图形转发、Unix 命令工具** 于一体，支持多协议（RDP/VNC/FTP/串口等）
 		- 点击左上角 session，随后选择协议填写连接即可
-			<div style="text-align: center;"><img src="https://raw.gitmirror.com/darstib/public_imgs/utool/2505/05_250505-115401.png" alt="" style="width: 60%;"><p></p></div>
+			<div style="text-align: center;"><img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2505/05_250505-115401.png" alt="" style="width: 60%;"><p></p></div>
 		- [详细使用教程](https://zhuanlan.zhihu.com/p/61013117)
 
 #### 替代方案 (特定场景)

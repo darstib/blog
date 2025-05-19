@@ -119,13 +119,13 @@ dg-publish: true
 
 > [!QUESTION]
 > 
-> <div style="text-align: center;"><img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/1739620105233Misc-2.png" alt="img" style="width: 80%;"><p></p></div>
+> <div style="text-align: center;"><img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/1739620105233Misc-2.png" alt="img" style="width: 80%;"><p></p></div>
 
 **A**
 
 > [!QUESTION]
 >
-> <div style="text-align: center;"><img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/1739620418764Misc-3.png" alt="img" style="width: 80%;"><p></p></div>
+> <div style="text-align: center;"><img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/1739620418764Misc-3.png" alt="img" style="width: 80%;"><p></p></div>
 
 最大形变量 => 势能最大 => 动能最大
 
@@ -137,7 +137,7 @@ dg-publish: true
 
 > [!QUESTION]
 >
-> <div style="text-align: center;"><img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/1739629800376Misc-1.png" alt="img" style="width: 80%;"><p></p></div>
+> <div style="text-align: center;"><img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/1739629800376Misc-1.png" alt="img" style="width: 80%;"><p></p></div>
 
 波密到波疏：相位差 $\pi$ ，排除 CD；反向，选 A
 
@@ -151,11 +151,11 @@ dg-publish: true
 
 > [!QUESTION]
 >
-> <div style="text-align: center;"><img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/1739620561863problems.png" alt="img" style="width: 80%;"><p></p></div>
+> <div style="text-align: center;"><img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/1739620561863problems.png" alt="img" style="width: 80%;"><p></p></div>
 
 注意粒子还受到了浮力即可
 
-![400](https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/1739620689865problems-1.png)
+![400](https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/1739620689865problems-1.png)
 
 得 $N_{A} = 8.19*10^{23}$ 
 
@@ -166,15 +166,15 @@ dg-publish: true
 > 恒压下，加热理想气体，则气体分子的平均自由程和平均碰撞频率将如何随温度的变化而变化？怎样理解？
 
 <div style="display: flex; justify-content: space-between;">
-    <img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/1739621163866problems-3.png" style="width: 49%;">
-    <img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/1739621191866problems-4.png" style="width: 49%;">
+    <img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/1739621163866problems-3.png" style="width: 49%;">
+    <img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/1739621191866problems-4.png" style="width: 49%;">
 </div>
 
 ### 热力学基础
 
 > [!QUESTION]
 >
-> <div style="text-align: center;"><img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/1739621259865problems-5.png" alt="img" style="width: 50%;"><p></p></div>
+> <div style="text-align: center;"><img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/1739621259865problems-5.png" alt="img" style="width: 50%;"><p></p></div>
 
 热力学第一定律适用性很广。
 
@@ -194,7 +194,7 @@ $\begin{aligned}&Q=\Delta E+W\\&\text{等温:}W=Q\\&\text{等压:}W=Q-\Delta E<Q
 
 > [!QUESTION]
 >
-> <div style="text-align: center;"><img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/1739621415866problems-7.png" alt="img" style="width: 60%;"><p></p></div>
+> <div style="text-align: center;"><img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/1739621415866problems-7.png" alt="img" style="width: 60%;"><p></p></div>
 
 解：(1) 设小球向上运动位移为正，则当产生微小的正位移 y 时，瓶内气体的体积有一微小的增量 dV, dV=yA ……
 

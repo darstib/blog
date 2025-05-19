@@ -249,7 +249,7 @@ Wait for several cycles.
 >
 > NOP instruction: `addi x0, x0, 0`
 >
-> ![](attachments/1_pipeline-3.png)or <div style="text-align: center;"><img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/17396348888911_pipeline-5.png" alt="img" style="width: 60%;"><p></p></div>
+> ![](attachments/1_pipeline-3.png)or <div style="text-align: center;"><img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/17396348888911_pipeline-5.png" alt="img" style="width: 60%;"><p></p></div>
 
 #### V.2.2 Solution 2: “forwarding”
 
@@ -392,4 +392,4 @@ Comparison of the spatiotemporal diagrams (时空图) of instructions executed b
 
 For a super-pipelined computer that can flow out n instructions per clock cycle, these n instructions are not flowed out at the same time, but one instruction is flowed out every 1/n clock cycle.
 
-<div style="text-align: center;"><img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/17396352188901_pipeline-17.png" alt="img" style="width: 60%;"><p></p></div>
+<div style="text-align: center;"><img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/17396352188901_pipeline-17.png" alt="img" style="width: 60%;"><p></p></div>

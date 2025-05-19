@@ -33,7 +33,7 @@ Rationale: non-CPU-intensive jobs should really get the CPU quickly on the rare 
 
 ### I.3 Scheduling Decision Points
 
-<div style="text-align: center;"><img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/17396358038914_Scheduling-1.png" alt="img" style="width: 60%;"><p></p></div>
+<div style="text-align: center;"><img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/17396358038914_Scheduling-1.png" alt="img" style="width: 60%;"><p></p></div>
 
 ### I.4 Scheduling Criteria
 
@@ -66,10 +66,10 @@ In the following, we will use examples to demonstrate the algorithms
 |    P3    |     3      |
 
 - if in the order of (P1 P2 P3)
-    - The **Gantt chart** for the schedule is: <img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/17396358488904_Scheduling-4.png" alt="img" style="width: 30%;">
+    - The **Gantt chart** for the schedule is: <img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/17396358488904_Scheduling-4.png" alt="img" style="width: 30%;">
     - Average waiting time: (0 + 24 + 27) / 3 = 17
 - if in the order of (P2 P3 P1)
-    - The Gantt chart for the schedule is:<img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/17396358518914_Scheduling-5.png" alt="img" style="width: 30%;">
+    - The Gantt chart for the schedule is:<img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/17396358518914_Scheduling-5.png" alt="img" style="width: 30%;">
     - Average waiting time: (6 + 0 + 3) / 3 = 3
 - **Convoy effect** - short process behind long process; Long jobs slow down the whole system
 - FCFS is non-preemptive
@@ -97,7 +97,7 @@ But the difficulty is knowing the length of the next CPU request; so it is just 
 
 **Non-preemptive**, which measn that only after the progress before some progress finishes can the latter begins to run. So the Gantt Chart is :
 
-<div style="text-align: center;"><img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/17396359688914_Scheduling-6.png" alt="img" style="width: 60%;"><p></p></div>
+<div style="text-align: center;"><img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/17396359688914_Scheduling-6.png" alt="img" style="width: 60%;"><p></p></div>
 
 - Average turnaround time: (10 + 16 + 21 + 7) / 4 = 13.5
 - Average waiting time: (0 + 10 + 14 + 5) / 4 = 7.25
@@ -106,7 +106,7 @@ But the difficulty is knowing the length of the next CPU request; so it is just 
 
 **Preemptive**, which means we always find the shortest job to switch to. Now the Gantt Chart is (compare remaining time when: a new progress comes in or a old progress finishes):
 
-<div style="text-align: center;"><img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/17396359728904_Scheduling-7.png" alt="img" style="width: 60%;"><p></p></div>
+<div style="text-align: center;"><img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/17396359728904_Scheduling-7.png" alt="img" style="width: 60%;"><p></p></div>
 
 - Average turnaround time: (25 + 8 + 13 + 2) / 4 = 12
 - Average waiting time: (15 + 2 + 6 + 0) / 4 = 5.75
@@ -139,7 +139,7 @@ Simply implement the Ready Queue as a Priority Queue.
 
 #### II.4.1 Priority Scheduling w/ Round-Robin
 
-<div style="text-align: center;"><img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/17396362088914_Scheduling-10.png" alt="img" style="width: 80%;"><p></p></div>
+<div style="text-align: center;"><img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/17396362088914_Scheduling-10.png" alt="img" style="width: 80%;"><p></p></div>
 
 - The problem: will a low-priority process ever run??
     - A solution: Priority aging (Increase the priority of a process as it ages)

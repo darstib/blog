@@ -94,7 +94,7 @@ tags:
 页面上直接能看见的工具我们不再讲解，来看看 **Wiring** 中的工具：
 
 <div style="text-align: center;">
-    <img src="https://raw.gitmirror.com/darstib/public_imgs/utool/2503/18_logisim_begin-2.png" alt="" style="width: 30%;">
+    <img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/18_logisim_begin-2.png" alt="" style="width: 30%;">
     <p></p>
 </div>
 

@@ -7,7 +7,7 @@ comments: true
 
 ## 同态加密 (HE)
 
-![](https://raw.gitmirror.com/darstib/public_imgs/utool/2503/11_1741698768330.png)
+![](https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/11_1741698768330.png)
 
 ## 半同态加密 (PHE)
 
@@ -133,7 +133,7 @@ print(bytes.fromhex(hex(decrypted_message)[2:]).decode())
 
 ## 全同态 (FHE)
 
-![1741700485340.webp](https://raw.gitmirror.com/darstib/public_imgs/utool/2503/11_1741700485340.webp)
+![1741700485340.webp](https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/11_1741700485340.webp)
 
 ## 参考资料
 

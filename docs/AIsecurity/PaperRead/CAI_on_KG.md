@@ -26,7 +26,7 @@ comments: true
 
 核心方法是**提出并应用一个新的分类法 (taxonomy)** 来组织和分析这些文献，包含四个维度： 
 
-![table2](https://raw.gitmirror.com/darstib/public_imgs/utool/2504/22_1745334166982.png)
+![table2](https://raw.githubusercontent.com/darstib/public_imgs/utool/2504/22_1745334166982.png)
 
 1. **表示 (Representation):** KG 的表示方式（符号 SB、子符号 SSB、神经符号 NSB）；
 2. **基础 (Foundation):** 底层的机器学习方法（如平移学习 TL、基于规则的学习 RBL、神经网络 ANN、强化学习 RL 等）；
@@ -40,7 +40,7 @@ comments: true
 1. 论证研究**焦点：** 提供了将研究重点放在“KG 作为输入”而非“KG 作为输出”的理由，认为前者更有利于实现模型的可解释性和说明性。
 2. **概念澄清与构建：** 引入了**可理解人工智能(CAI)** 作为顶层概念，并对其两个主要分支——**可解释机器学习(IML)** 和**可说明人工智能(XAI)**——给出了清晰的定义和区分，解决了现有文献中 XAI 概念过载和与 IML 混淆的问题。强调了 IML 是构建内在可解释的模型，而 XAI 是为现有模型提供事后解释。 
 3. 提出**新分类法：** 专门针对**知识图谱上的 CAI**，提出了一个包含表示、基础、任务和可理解性类型四个维度的新颖分类法。这个分类法为组织、理解和比较该领域的各种方法提供了一个系统的框架。 
-4. 全面的**文献回顾：** 基于提出的分类法和IML/XAI的划分，对KG上的CAI研究现状进行了全面而结构化的综述，系统地梳理了 [IML（规则挖掘、路径发现、嵌入方法）](https://raw.gitmirror.com/darstib/public_imgs/utool/2504/22_250422-230624.png)和[XAI（基于规则、分解、代理模型、图生成）](https://raw.gitmirror.com/darstib/public_imgs/utool/2504/22_250422-230559.png)的主要研究路线和代表性工作。 
+4. 全面的**文献回顾：** 基于提出的分类法和IML/XAI的划分，对KG上的CAI研究现状进行了全面而结构化的综述，系统地梳理了 [IML（规则挖掘、路径发现、嵌入方法）](https://raw.githubusercontent.com/darstib/public_imgs/utool/2504/22_250422-230624.png)和[XAI（基于规则、分解、代理模型、图生成）](https://raw.githubusercontent.com/darstib/public_imgs/utool/2504/22_250422-230559.png)的主要研究路线和代表性工作。 
 5. 指出**研究空白：** 明确指出了当前研究中存在的**空白和未来潜在的研究方向**，例如缺乏针对链接预测的 XAI 方法、IML 在聚类任务上应用较少、现有方法未能充分利用 KG 的丰富语义信息、缺乏标准化的 XAI 评估指标、以及需要改进 IML 模型解释的沟通方式等。
 
 ## 总结 (Summary)

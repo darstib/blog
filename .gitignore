@@ -1,8 +1,12 @@
+.DS_Store
+.vscode/
+site/
 docs/.obsidian/
 docs/.stfolder/
 docs/.stignore
 docs/.stversions/
 docs/sandbox/
 myPlugins/
-.vscode/
-.DS_Store
+docs/templates/
+docs/note/privacy-computing/
+.bak/

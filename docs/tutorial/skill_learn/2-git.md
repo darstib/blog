@@ -209,7 +209,7 @@ git commit {{[-m|--message]}} "{{message}}"
 
 > [!extra]-
 >
-> 我自己之前的很多 commit message 都确实不是规范的，[web-github 给出的样例](https://raw.gitmirror.com/darstib/public_imgs/utool/2503/19_1742373735499.png)似乎也不是那么严谨。
+> 我自己之前的很多 commit message 都确实不是规范的，[web-github 给出的样例](https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/19_1742373735499.png)似乎也不是那么严谨。
 
 OK，那么现在我们可以填写 commit message 了："feat: initial the repo." 。
 

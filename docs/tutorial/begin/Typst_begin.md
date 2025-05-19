@@ -113,15 +113,15 @@ typst
 typst --version
 ```
 
-过程中出现问题 `failed to run custom build command for openssl-sys v0.9.60` 可以尝试以下几个命令，来自 [StackOverflow](https://stackoverflow.com/questions/65553557/why-rust-is-failing-to-build-command-for-openssl-sys-v0-9-60-even-after-local-in)；您可以逐一尝试，我也不记得我是在尝试哪一个过后成功的了。🥲
+过程中出现问题 `failed to run custom build command for openssl-sys v0.9.60` 可以尝试以下几个命令，来自 [StackOverflow](https://stackoverflow.com/questions/65553557/why-rust-is-failing-to-build-command-for-openssl-sys-v0-9-60-even-after-local-in)；您可以逐一尝试，我也不记得我是在尝试哪一个过后成功的了🥲。
 
 ```bash
 sudo apt install pkg-config
-sudo apt-get install libudev-dev
+sudo apt install libudev-dev
 sudo apt install libssl-dev
 sudo apt install librust-openssl-sys-dev
 sudo dnf install perl
-sudo apt-get install build-essential
+sudo apt install build-essential
 ```
 
 ![](attachments/Make%20pdf%20with%20typst-7.png)
@@ -186,8 +186,13 @@ Typst 有三种语法模式：标记、数学和代码。标记模式是 Typst �
 > 
 > 唯一的例外是内置方法，如 `array.push(value)` 。这些方法可以修改它们被调用的值。
 
-## 推荐包
 
+
+
+## 推荐资料
+
+- [Typst 中文社区导航](https://typst-doc-cn.github.io/guide/)
+- [图片识别](https://typress-web.vercel.app/)
 - [mitex](https://typst.app/universe/package/mitex/)
     - 支持渲染 latex 语法
 - [cmaker](https://typst.app/universe/package/cmarker)
@@ -213,7 +218,7 @@ Typst 有三种语法模式：标记、数学和代码。标记模式是 Typst �
 	- https://forum.typst.app/
 	- https://typst.app/docs/tutorial/
 	- https://typst.app/universe/package/bloated-neurips
-- https://typst-doc-cn.github.io/docs/tutorial/
+- https://typst-doc-cn.github.io/guide/
 - https://github.com/howardlau1999/sysu-thesis-typst
 - https://stackoverflow.com/questions/65553557/why-rust-is-failing-to-build-command-for-openssl-sys-v0-9-60-even-after-local-in
 - https://sitandr.github.io/typst-examples-book/book/

@@ -65,21 +65,21 @@ Of course, these two formulas should be remembered since they tell us how to neg
 
 <div style="display:flex; text-align: center; justify-content: space-between;">
     <div style="display: inline-block; width: 50%; margin: 0.5%;">
-        <img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/173969057903801-Propositional-Logic-1.png" alt="img1" style="width: 100%;">
+        <img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/173969057903801-Propositional-Logic-1.png" alt="img1" style="width: 100%;">
         <p></p>
     </div>
     <div style="display: inline-block; width: 50%; margin: 0.5%;">
-        <img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/173969058103901-Propositional-Logic-2.png" alt="img2" style="width: 100%;">
+        <img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/173969058103901-Propositional-Logic-2.png" alt="img2" style="width: 100%;">
         <p></p>
     </div>
 </div>
 <div style="display:flex; text-align: center; justify-content: space-between;">
     <div style="display: inline-block; width: 50%; margin: 0.5%;">
-        <img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/173969070803901-Propositional-Logic-3.png" alt="img1" style="width: 100%;">
+        <img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/173969070803901-Propositional-Logic-3.png" alt="img1" style="width: 100%;">
         <p></p>
     </div>
     <div style="display: inline-block; width: 50%; margin: 0.5%;">
-        <img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/173969058603901-Propositional-Logic-4.png" alt="img2" style="width: 100%;">
+        <img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/173969058603901-Propositional-Logic-4.png" alt="img2" style="width: 100%;">
         <p></p>
     </div>
 </div>
@@ -101,11 +101,11 @@ $$\begin{aligned}&\bullet\text{ 排中律 }A\lor\neg A\equiv T\\&\bullet\text{ �
 
 <div style="display:flex; text-align: center; justify-content: space-between;">
     <div style="display: inline-block; width: 50%; margin: 0.5%;">
-        <img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/173969048504101-Propositional-Logic-5.png" alt="img1" style="width: 100%;">
+        <img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/173969048504101-Propositional-Logic-5.png" alt="img1" style="width: 100%;">
         <p></p>
     </div>
     <div style="display: inline-block; width: 50%; margin: 0.5%;">
-        <img src="https://raw.gitmirror.com/darstib/public_imgs/utool/tuchuang/173969048804001-Propositional-Logic-6.png" alt="img2" style="width: 100%;">
+        <img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/173969048804001-Propositional-Logic-6.png" alt="img2" style="width: 100%;">
         <p></p>
     </div>
 </div>

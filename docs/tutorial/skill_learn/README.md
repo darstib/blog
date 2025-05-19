@@ -29,7 +29,7 @@ comments: true
 
 > [!quote]+ 下面是往期技能拾遗课程中推荐学习但本期未提及/细讲的相关内容
 >
-> - [24-春夏技能拾遗课程](https://raw.gitmirror.com/darstib/public_imgs/utool/2503/18_jnsy-sp24.png) （均在内部钉钉群）
+> - [24-春夏技能拾遗课程](https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/18_jnsy-sp24.png) （均在内部钉钉群）
 > 	- [Docker基础入门](https://n.dingtalk.com/dingding/live-room/index.html?roomId=CUL5K7UaWcKkWNLv&liveUuid=f2742c60-9a9e-4468-b151-d0523d90da73) by [@Foggy-whale](https://github.com/Foggy-whale)
 > 		- [Docker 快速通关](https://blog.shiguang666.eu.org/2024/09/18/847c1ec4d4cd/)
 > 		- [docker 镜像源配置](https://www.kelen.cc/dry/docker-hub-mirror)
