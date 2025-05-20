@@ -43,6 +43,10 @@ wsl --import-in-place <Distro> <InstallLocation> <FileName>
 
 > [!tip]- 显然迁移是需要打包、迁移、解包的，那么当然是发行版越小的时候迁移越方便。
 
+### wsl 磁盘压缩
+
+wsl 不主动释放使用过的空间，可以使用 [WSL2 虚拟磁盘文件(.vhdx)占用过大处理办法](https://www.cnblogs.com/T6uE13s/p/18704140) 解决。
+
 ### 忘记了 wsl root 权限密码
 
 - https://learn.microsoft.com/zh-cn/windows/wsl/setup/environment#set-up-your-linux-username-and-password
