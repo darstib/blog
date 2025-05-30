@@ -128,38 +128,38 @@ plugins:
       page_check_metadata: comment
       enabled: !ENV [CI, false]
 
-  # - blog:
-  #     blog_dir: .
-  #     blog_toc: true
-  #     post_date_format: full
-  #     archive_toc: true
-  #     categories_toc: true
-  #     pagination_format: "$link_first $link_previous ~2~ $link_next $link_last"
-  #     pagination_keep_content: true
-  #     draft_if_future_date: true
-  # - literate-nav: # https://github.com/oprypin/mkdocs-literate-nav
-  #     nav_file: nav.md
-  # - mkdocs-jupyter: # https://github.com/danielfrg/mkdocs-jupyter
-  #     allow_errors: false
-  #     kernel_name: data
-  #     include: ["*.ipynb"]
-  #     include_source: True
-  # - git-revision-date-localized:
-  #     enable_creation_date: true
-  #     type: date
-  #     fallback_to_build_date: true
-  #     timezone: Asia/Shanghai
-  #     locale: zh
-  #     exclude:
-  #       - index.md
-  # - glightbox:
-  #     width: 80%
-  # - tags
-  # - build-cache
-  # - toc #https://github.com/TonyCrane/mkdocs-toolchain/tree/master/mkdocs-toc-plugin
-  # - heti # https://github.com/TonyCrane/mkdocs-heti-plugin
-  # - changelog # https://github.com/TonyCrane/mkdocs-changelog-plugin
-  # - obsidian-support # https://github.com/ndy2/mkdocs-obsidian-support-plugin
+  - blog:
+      blog_dir: .
+      blog_toc: true
+      post_date_format: full
+      archive_toc: true
+      categories_toc: true
+      pagination_format: "$link_first $link_previous ~2~ $link_next $link_last"
+      pagination_keep_content: true
+      draft_if_future_date: true
+  - literate-nav: # https://github.com/oprypin/mkdocs-literate-nav
+      nav_file: nav.md
+  - mkdocs-jupyter: # https://github.com/danielfrg/mkdocs-jupyter
+      allow_errors: false
+      kernel_name: data
+      include: ["*.ipynb"]
+      include_source: True
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: date
+      fallback_to_build_date: true
+      timezone: Asia/Shanghai
+      locale: zh
+      exclude:
+        - index.md
+  - glightbox:
+      width: 80%
+  - tags
+  - build-cache
+  - toc #https://github.com/TonyCrane/mkdocs-toolchain/tree/master/mkdocs-toc-plugin
+  - heti # https://github.com/TonyCrane/mkdocs-heti-plugin
+  - changelog # https://github.com/TonyCrane/mkdocs-changelog-plugin
+  - obsidian-support # https://github.com/ndy2/mkdocs-obsidian-support-plugin
 
   #######################################################################
   # - mkdocs-video # https://github.com/soulless-viewer/mkdocs-video
