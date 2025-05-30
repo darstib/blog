@@ -40,3 +40,5 @@ comments: true
 - https://seaborn.pydata.org/examples/index.html
 - https://matplotlib.org/stable/gallery/
 - [Matplotlib可视化最有价值的50个图表](https://www.jiqizhixin.com/articles/2019-01-15-11)
+
+- [数据可视化小贴士](https://leovan.me/cn/2024/01/data-visualization-tips/)

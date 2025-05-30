@@ -72,7 +72,7 @@ comments: true
 	- [统计学习方法v2](../static/统计学习方法v2.pdf) （主要参考教材，仅供学习参考使用）
 		- [参考习题解答](https://datawhalechina.github.io/statistical-learning-method-solutions-manual/#/)
 - 笔记
-	- [-slx's notebook](https://collapsar11.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1%E4%B8%8E%E5%88%86%E6%9E%90/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E5%8F%8A%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%AE%BA/)
+	- [cc98](https://www.cc98.org/topic/5926719)
 	- [-YEY blog - COMP90051](https://yey.world/archive/?tag=COMP90051)
 - 试卷
 	- [-HobbitQia's repo](https://github.com/HobbitQia/ZJU-Courses-Resources/tree/master/%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1%E4%B8%8E%E5%88%86%E6%9E%90)
