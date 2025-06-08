@@ -201,8 +201,9 @@ comments: true
 
 ### 马克思主义原理
 
--  [Bowling's TechStack](https://note.bowling233.top/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E5%8E%9F%E7%90%86/)
+-  [Bowling's TechStack](https://note.bowling233.top/%E5%85%B6%E4%BB%96/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%F0%9F%8F%AB%20%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E5%8E%9F%E7%90%86%EF%BC%88H%EF%BC%89/)
 	- 仅做一个大纲吧，还是非常简略的
+	- [【马原期末考试攻略】知识点+做题方法](https://www.bilibili.com/video/BV1x14y1K7UX/)
 
 ## 大一上
 

@@ -189,6 +189,10 @@ WSL `ping <domain>/<ip>` 时出现无法找到的问题，但是宿主机是可�
 
 - [Fail to save files](https://forum.obsidian.md/t/failed-to-save-a-file-eperm-operation-not-permitted/33760/4)
 
+#### Obsidian 调整 mermaid 宽度
+
+- [let-the-user-decide-the-size-and-alignment-of-mermaid-diagrams](https://forum.obsidian.md/t/let-the-user-decide-the-size-and-alignment-of-mermaid-diagrams/7019/1)
+
 #### Syncthing 跨设备同步工具
 
 - [Syncthing - P2P文件同步工具](https://zhuanlan.zhihu.com/p/69267020)

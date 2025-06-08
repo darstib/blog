@@ -192,6 +192,7 @@ Typst 有三种语法模式：标记、数学和代码。标记模式是 Typst �
 
 - [Typst 中文社区导航](https://typst-doc-cn.github.io/guide/)
 - [图片识别](https://typress-web.vercel.app/)
+
 - [mitex](https://typst.app/universe/package/mitex/)
     - 支持渲染 latex 语法
 - [cmaker](https://typst.app/universe/package/cmarker)
@@ -208,6 +209,8 @@ Typst 有三种语法模式：标记、数学和代码。标记模式是 Typst �
 	- 包裹式注释块
 - [tablex](https://typst.app/universe/package/tablex/) or [tablem](https://typst.app/universe/package/tablem)
 	- 花式表格
+- [alog](https://typst.app/universe/package/algo)
+	- 带行号代码块、伪代码块
 
 - 部分参考：[Typst Examples Book - package](https://sitandr.github.io/typst-examples-book/book/packages/index.html)
 
