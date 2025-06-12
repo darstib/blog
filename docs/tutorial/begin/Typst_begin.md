@@ -62,13 +62,13 @@ tags:
 
 很多时候我们并不想要所有的样式都自己写，这个时候 **模板** 就很重要了，我们可以在 [主页面](https://typst.app/)左下角的星球图标 [typst universe](https://typst.app/universe) 的 [templates](https://typst.app/universe/search/?kind=templates) 看到许多模板。点进一个作为示例：
 
-![](attachments/Make%20pdf%20with%20typst-3.png)
+![|600](attachments/Make%20pdf%20with%20typst-3.png)
 
 点击图片我们可以预览样式，右侧的 `create project in app` 可以将模板导入到我们的主页面中：（下面在右侧自命名后创建即可）
 
-![](attachments/Make%20pdf%20with%20typst-4.png)
+![|600](attachments/Make%20pdf%20with%20typst-4.png)
 
-![](attachments/Make%20pdf%20with%20typst-6.png)
+![|600](attachments/Make%20pdf%20with%20typst-6.png)
 
 点击右侧需要修改的部分就会自动定位到左侧对应的编辑部分，然后修改即可；左侧图标第一个是文件夹。注意，对于图片等考虑 **路径** 的编辑还请仔细阅读文档相关部分，了解 **路径** 这一概念。
 
@@ -93,7 +93,7 @@ tags:
 
 > [!env]+ 安装环境
 > 
-> 演示使用了 wsl:ubuntu 22.04/kali-linux；对于 macOS，使用 `brew install typst` 应该就能够安装好。
+> 演示使用了 wsl:ubuntu 22.04/Debian；对于 macOS，使用 `brew install typst` 应该就能够安装好。
 
 ```sh
 # 如果没有安装过curl和cargo这两个工具，请自行搜索
@@ -127,17 +127,17 @@ sudo apt install build-essential
 
 ### 模板导入
 
-在命令行(CLI)中进入到合适位置，例如：
+在命令行(CLI)中进入到合适位置，执行：
 
 ```sh
 $ typst init @preview/bloated-neurips:0.2.1
 ```
 
-![](attachments/Make%20pdf%20with%20typst-8.png)
+![|600](attachments/Make%20pdf%20with%20typst-8.png)
 
 可以看到左侧已经可以出现了文件夹了，可以直接使用了，先预览看看：
 
-![](attachments/Make%20pdf%20with%20typst-9.png)
+![|600](attachments/Make%20pdf%20with%20typst-9.png)
 
 如果出现红色报错等情况，对于模板而言很可能就是 **路径** 问题，时而需要自己修改，当然有可能是模板是在某一个大版本之前的内容，其中一些用法被抛弃了[^1]；对于我们自己写路径，相对路径是最好的，因为不知道什么时候我们可能就将文件夹修改了位置；随后我们移动时最好是整个移动，类似于在线环境
 
@@ -164,7 +164,7 @@ Typst 有三种语法模式：标记、数学和代码。标记模式是 Typst �
 |   Code   |   Prefix the code with `#`    |       `Number: #(1 + 2)       |
 |   Math   | Surround equation with `$..$` | `$-x$ is the opposite of $x$` |
 
-- 在默认情况下，我们出于 Markup 模式，这也是我们主要填充内容的部分。
+- 在默认情况下，我们处于 Markup 模式，这也是我们主要填充内容的部分。
 - 由于 Typst 的脚本语言与许多现代变成语言非常像（尤其 python），所以只要你学习过一两门编程语言，应该都能大概看懂每一行是在干什么（结合编译结果）；
 	- 一旦使用 `#` 进入代码模式，除非在中间切换回标记或数学模式，否则不需要使用更多的井号；
 	- 值得注意的是，代码模式下的 “函数” 往往有一个参数的类型为 content，大多数情况下这个参数都可以放在函数调用后，形如 `#func()[content]`；而其他参数可设置默认值，如果不需要修改，那么 `()` 也可以省略，即 `#func[content]` 即可使用，这也是大多数 Markup 的调用形式；反过来想，strong 等也是可以自己调整的，[查看介绍](https://typst.app/docs/reference/model/strong/)；
@@ -184,9 +184,6 @@ Typst 有三种语法模式：标记、数学和代码。标记模式是 Typst �
 > The only exception are built-in methods like [`array.push(value)`](https://typst.app/docs/reference/foundations/array/#definitions-push). These can modify the values they are called on.  
 > 
 > 唯一的例外是内置方法，如 `array.push(value)` 。这些方法可以修改它们被调用的值。
-
-
-
 
 ## 推荐资料
 

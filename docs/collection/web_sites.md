@@ -104,6 +104,7 @@ comments: true
 	- [中国国家数字图书馆](https://www.nlc.cn/web/index.shtml)
 	- [pdf drive](https://www.pdfdrive.com/)
 	- [magazine lib](https://magazinelib.com/)
+	- [公开真题库](https://www.gkzenti.cn/)
 - [BT磁力种子搜索引擎网站](https://www.wangdu.site/software/av-read/540.html)
 - [英语真题在线](https://zhenti.burningvocabulary.cn/)
 
@@ -247,6 +248,7 @@ comments: true
 - [360查字体](https://fonts.safe.360.cn/) - 字体版权查询
 - [TypeRoom](https://www.typeroom.eu/) - 字体排版资讯
 - [Fonts In Use](https://fontsinuse.com/) - 商用字体案例
+- [Free Font](https://font.icu/) - 免费字体可商用
 
 ### 配色工具
 

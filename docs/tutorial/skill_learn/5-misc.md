@@ -1,3 +1,9 @@
+---
+comments: true
+tags:
+- notes
+---
+
 ## 信息论概论
 
 信息论是应用数学的一个重要分支，由美国数学家克劳德·香农在 20 世纪中期创立。它主要研究信息的量化、存储、传输和处理的普遍规律。信息论为数字通信、数据压缩、密码学等众多计算机科学领域奠定了坚实的理论基础，是理解信息本质的科学。它不仅关注信息的传输，更关注信息本身的性质和度量。
@@ -421,7 +427,7 @@ jobs: # 定义一个或多个作业（Job）
 或者我们简单一点，大概就是：
 
 <div style="text-align: center;">
-    <img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2505/30_250530-120715.png" alt="" style="width: 80%;">
+    <img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2505/30_250530-120715.png" alt="" style="width: 60%;">
     <p>https://antv.antgroup.com/specification/principles/basic</p>
 </div>
 

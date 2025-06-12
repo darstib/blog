@@ -44,7 +44,6 @@ comments: true
 ### 计算机系统三
 
 - [RyanFcr 的仓库](https://github.com/RyanFcr/ZJU_Course/tree/main/%E5%A4%A7%E4%BA%8C%E6%98%A5%E5%A4%8F/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E2%85%A2)
-- [HowJul的学习笔记](https://note.howjul.com/%E7%B3%BB%E7%BB%9F%E4%B8%89/%E7%AC%AC%E4%B8%89%E8%AF%BE%203.6/)
 - [HengZhao's Knowledge Base](https://note.enlzhao.com/Course/System3/)
 
 ### 人工智能安全
@@ -85,10 +84,17 @@ comments: true
 ### 会计学
 
 - [xiu的笔记本](https://note.xiu-zju.me/courses/accounting/)
-- [-98回忆资料](https://www.cc98.org/topic/6084064)
+- 历年卷 - cc98
+	- [2024-2025秋冬 经济学院会计学 回忆卷](https://www.cc98.org/topic/6084064)
+	- [2023—2024秋冬会计学回忆卷](https://www.cc98.org/topic/5805943)
+	- [2022-2023秋冬学期会计学回忆+个人笔记](https://www.cc98.org/topic/5508119)
+	- [2022-2023管院《会计学》春夏回忆卷](https://www.cc98.org/topic/5639876)
+	- [2021-2022春夏经院会计学回忆卷](https://www.cc98.org/topic/5355335)
+	- [会计学（经院）这门课的期末考试该怎么复习啊](https://www.cc98.org/topic/6204522)
 
 ### 毛概
 
+- [cc98 - 毛概资源汇总](https://www.cc98.org/topic/6181236)
 - [-from RyanFcr](https://k5ms77k0o1.feishu.cn/wiki/wikcnT64Bm4TGqWzg9009wdFS4d)
 - [-2022-2023秋冬学期毛概期末考试回忆卷](https://www.cc98.org/topic/5506740)
 

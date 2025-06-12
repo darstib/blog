@@ -20,8 +20,8 @@ comments: true
 |   3.28   |    [版本控制与简单开发](2-git.md)     |              Git + **Github** + Action[ + License]               |
 | 4.18[^1] | [文档排版工具 1](3-typesetools.md) | **Markdown** [  + Word] + [LaTeX](https://overleaf.com/project/) |
 | 4.25[^1] | [文档排版工具 2](3-typesetools.md) | [Typst](https://typst.app/project/)[ + Visual Studio Code (vsc)] |
-|   5.16   |           远程连接与传输            |                   **ssh** + scp + sftp + rsync                   |
-|   5.30   |            奇怪知识串讲            |                        妙妙小工具 / 小网站 / 其他？                         |
+|   5.16   |    [远程连接与传输](4-remote.md)    |                   **ssh** + scp + sftp + rsync                   |
+|   5.30   |     [奇怪知识串讲](5-misc.md)      |                        妙妙小工具 / 其他推荐了解知识？                         |
 
 [^1]: 作为动态调整部分。
 
@@ -43,14 +43,14 @@ comments: true
 > 	- [lec4：LaTeX 排版简要介绍](https://slides.tonycrane.cc/PracticalSkillsTutorial/2023-spring-cs/lec4/) | [BV12k4y1s7Y3](https://www.bilibili.com/video/BV12k4y1s7Y3/)
 > - [《Linux101》](https://101.lug.ustc.edu.cn/)
 > 	- （乱入）中国科学技术大学 Linux 用户协会出品
-
-~~较为系统~~ 学习后，我们大概率还是会在使用的时候忘记一些操作/命令等，所以推荐大家可以寻找一些 cheatsheet[^5] 例如在 [cheatsheet.zip](https://cheatsheets.zip/) or [中文翻译版](https://wangchujiang.com/reference/) 或者是 [learn x in y minutes](https://learnxinyminutes.com/) 中就有不错的内容。
-
-[^5]: 感觉暂时没有特别好的中文能够翻译这个词，我姑且叫做备忘单吧。
-
-> [!extra]- reveal-md 2 slide
 > 
-> 如果你对上述 23 年拾遗课程使用的在线 slide 感兴趣，可以在 [reveal-md to sildes](https://note.isshikih.top/others/reveal-md2Slides/) 进行了解，在 [slide-template](https://github.com/TonyCrane/slide-template) 获得模板。
+>> [!extra]- reveal-md 2 slide
+>>  
+>> 如果你对上述 23 年拾遗课程使用的在线 slide 感兴趣，可以在 [reveal-md to sildes](https://note.isshikih.top/others/reveal-md2Slides/) 进行了解，在 [slide-template](https://github.com/TonyCrane/slide-template) 获得模板。
+
+~~较为系统~~ 学习后，我们大概率还是会在使用的时候忘记一些操作/命令等，所以推荐大家可以寻找一些备忘单 (cheatsheet)[^5] 例如在 [cheatsheet.zip](https://cheatsheets.zip/) or [中文翻译版](https://wangchujiang.com/reference/) 或者是 [learn x in y minutes](https://learnxinyminutes.com/) 中就有不错的内容。
+
+[^5]: 感觉暂时没有特别好的中文能够翻译这个词，我姑且叫做吧。
 
 ### 课程声明
 
@@ -85,7 +85,7 @@ comments: true
 >>  
 >>> [!prerequisite]
 
-总之，我不希望重复造轮子；或者说我希望能够覆盖到更浅但更多的内容供同学们学习，希望对此不能接受的同学能够尽早降低预期以免浪费您宝贵的时间；同时能力有限，可能有误，希望不会被骂挂 98 😭。
+总之，我不希望重复造轮子；或者说我希望能够覆盖到更浅但更多的内容供同学们学习，希望对此不能接受的同学能够尽早降低预期以免浪费您宝贵的时间；同时能力有限，可能有误或者不如意，希望不会被挂 98 😭。
 
 ## 关于课程展开
 
@@ -110,16 +110,4 @@ comments: true
 
 ### 关于一些读法
 
-> [!tip]-
->
-> 在搜索引擎中搜索 "pronunciation of xxx" 或者在 [forvo](https://forvo.com/)、[wiktionary](https://en.wiktionary.org/wiki/Wiktionary:Main_Page) 等网站搜索。
-
-| 单词     | 音标                                                  | 简单解释                                                                  |
-| ------ | --------------------------------------------------- | --------------------------------------------------------------------- |
-| unix   | [/ˈjuːnɪks/](https://forvo.com/word/unix/)          | 一种多用户、多进程的计算机操作系统                                                     |
-| linux  | [/ˈlɪnəks/](https://en.wiktionary.org/wiki/Linux)   | 一种开源的类 Unix 操作系统                                                      |
-| ubuntu | [/ʊˈbʊntuː/](https://zh.wikipedia.org/zh-cn/Ubuntu) | 一个 [Linux 发行版](https://101.lug.ustc.edu.cn/Ch01/#linux-distributions) |
-| github | /ˈɡɪthʌb/                                           | 一个用于托管和管理Git代码的在线平台                                                   |
-| latex  | /ˈleɪtɛk/                                           | 一种排版系统，常用于学术文档                                                        |
-| typst  | [/taɪpst/](https://typst.app/legal/brand/)          | 一种基于文本的排版工具                                                           |
-| rsync  | /ˈɑːr.sɪŋk/                                         | 文件同步和备份工具                                                             |
+在搜索引擎中搜索 "pronunciation of xxx" 或者在 [forvo](https://forvo.com/)、[wiktionary](https://en.wiktionary.org/wiki/Wiktionary:Main_Page) 等网站搜索。
