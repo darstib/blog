@@ -1,8 +1,16 @@
 ---
 comments: true
+tags:
+  - notes
 ---
 
 # Computer system III
+
+## note
+
+> [!attention]
+>
+> 复习笔记为将 slids 上传给 gemini-2.5 处理后，我自己边学边调整的结果，补充知识的正确性不能保证。
 
 ## scoring
 
@@ -66,3 +74,5 @@ gantt
 	- [软硬件实验 clock_set_next_event 调整](https://zju-sys.pages.zjusct.io/sys2/sys2-fa24/lab7/#_6)
 	- [bootloader 介绍](https://zju-sys.pages.zjusct.io/sys2/sys2-fa24/lab7/#bootloader)
 	- [硬件调试](https://zju-sys.pages.zjusct.io/sys2/sys2-fa24/lab7/#_22)
+
+

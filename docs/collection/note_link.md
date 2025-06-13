@@ -84,6 +84,7 @@ comments: true
 ### 会计学
 
 - [xiu的笔记本](https://note.xiu-zju.me/courses/accounting/)
+- [会计学期末速成](https://space.bilibili.com/492140935/lists/2018319)
 - 历年卷 - cc98
 	- [2024-2025秋冬 经济学院会计学 回忆卷](https://www.cc98.org/topic/6084064)
 	- [2023—2024秋冬会计学回忆卷](https://www.cc98.org/topic/5805943)
@@ -95,8 +96,14 @@ comments: true
 ### 毛概
 
 - [cc98 - 毛概资源汇总](https://www.cc98.org/topic/6181236)
-- [-from RyanFcr](https://k5ms77k0o1.feishu.cn/wiki/wikcnT64Bm4TGqWzg9009wdFS4d)
-- [-2022-2023秋冬学期毛概期末考试回忆卷](https://www.cc98.org/topic/5506740)
+	- 下面的内容基本出于此/发源于此
+- 回忆卷
+	- [飞书 - 回忆卷整理](https://gi7cake7hk2.feishu.cn/docx/NoTPdE0qZoKazcxKfwtcuLegnKg#UTl0dAYuAo3S5lxAk5bcgMS5nrh)
+	- [毛概资源汇总 - 回忆卷汇总](https://www.cc98.org/topic/6181236#:~:text=%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%9F%A5%E7%9C%8B~-,%E5%9B%9E%E5%BF%86%E5%8D%B7%E6%B1%87%E6%80%BB,-%E3%80%90%E5%AD%A6%E4%B9%A0%E5%A4%A9%E5%9C%B0%E3%80%912024)
+- 其他
+	- [【毛概】重要会议和文献梳理](https://www.cc98.org/topic/5921889)
+	- [细碎小点 -【2023版毛概笔记】精读教材后的补天笔记](https://www.cc98.org/topic/5925126)
+- [Bilibili - 毛概带背](https://space.bilibili.com/477713299/lists/1428220)
 
 ## 大二上
 

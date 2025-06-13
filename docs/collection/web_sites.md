@@ -106,7 +106,7 @@ comments: true
 	- [magazine lib](https://magazinelib.com/)
 	- [公开真题库](https://www.gkzenti.cn/)
 - [BT磁力种子搜索引擎网站](https://www.wangdu.site/software/av-read/540.html)
-- [英语真题在线](https://zhenti.burningvocabulary.cn/)
+- [真题在线](https://www.wehuster.com/)
 
 ### 工具箱
 
