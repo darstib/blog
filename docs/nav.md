@@ -18,6 +18,8 @@
 		- note/CSys-II/*.md
 	- [CSys-III](note/CSys-III/README.md)
 		- note/CSys-III/*.md
+	- [DMA](note/DMA/README.md)
+		- note/DMA/*.md
     - [cs70](note/cs70/README.md)
 	    - note/cs70/*.md
     - [other](note/other/README.md)
