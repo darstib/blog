@@ -117,7 +117,7 @@ mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协�
 
 需要注意的是需要修改 "Configuration" 中的 "Network" 的端口部分，否则不方便修改 device id （从源文件修改当然也行）；Port 尽量与原 Port 不要太近，因为 sunshine 需要的不是一个端口，而是一个“邻域”，我使用的是间隔 100。
 
-![Configuration > Network](https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/10_250311-133208.png)
+![Configuration > Network|600](https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/10_250311-133208.png)
 
 喜忧参半的是，打开 sunshine2 中的 sunshine.exe 时，终端不会消失，而是一直运行在后台：好处是能够完整看到 Device ID 了；坏处是终端关闭了进程也被关闭了，有点碍事。
 
@@ -135,9 +135,14 @@ mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协�
 
 ## 共享键鼠
 
-其实不少工具都已经能够做到这一点了，我使用的是 [deskflow](https://github.com/deskflow/deskflow/)，使用方法也很简单，[网上教程](https://zhuanlan.zhihu.com/p/1823127149) 也很多；这里提一点键盘映射：我使用 windows 作为 server，
+其实不少工具都已经能够做到这一点了，我使用的是 [deskflow](https://github.com/deskflow/deskflow/)，使用方法也很简单，网上教程也很多；这里提一点键盘映射：我使用 windows 作为 server，Mac 上对应修饰键映射如下：（在 configure Sever 中，双击**信号接收方**即可打开对应的设置页面）
 
+![250615-110728.png](https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/15_250615-110728.png)
 
+> 大概来说，super 对应了 mac 上的 `command` 和 windows 上的 `win` 键。
+
+- [一套键鼠无缝切换多台电脑](https://zhuanlan.zhihu.com/p/1823127149)
+- [MacOS 与 Win11 ……](https://blog.kl.do/posts/630993824.html)
 
 ## ssh 连接
 

@@ -1,8 +1,8 @@
-# 第一章计算机系统基础
+# 计算机系统基础
 
-## § 1.1 引言 (page 40-54)
+## I 引言 (page 40-54)
 
-### 冯·诺依曼结构 (Von Neumann Structure) (page 40-41)
+### I.1 冯·诺依曼结构 (Von Neumann Structure) (page 40-41)
 
 > [!definition]+ 冯·诺依曼结构
 >
@@ -13,11 +13,11 @@
 >
 > 附件的图示清晰地展示了**数据通路 (Data Path)**（蓝色箭头，表示数据流动）和**控制通路 (Control Path)**（红色箭头，表示控制信号流动）。
 
-### 计算机革命 (The Computer Revolution) (page 42)
+### I.2 计算机革命 (The Computer Revolution) (page 42)
 
 计算机技术的飞速发展，其背后深刻的驱动力是**摩尔定律 (Moore's Law)**。这使得许多创新的应用成为可能，例如汽车电子、智能手机、人类基因组计划、万维网、搜索引擎以及当前的大语言模型 (Large Language Model)，计算机已经渗透到我们生活的方方面面。
 
-### 计算机领域的巨匠们 (Big Men) (page 44-54)
+### I.3 计算机领域的巨匠们 (Big Men) (page 44-54)
 
 本课程的学习是“站在巨人的肩膀上”。附件列举了多位对计算机体系结构做出奠基性贡献的科学家，他们的思想和成果是本课程的重要理论基础。
 
@@ -30,9 +30,9 @@
 > - **Gene Amdahl**: 提出了著名的**阿姆达尔定律 (Amdahl's Law)**，对计算机体系结构中的流水线、指令预取和 Cache 存储器等有杰出贡献。
 > - **Mateo Valero, Yale Patt, Michael J. Flynn**: 他们在指令级并行、超标量处理器设计、处理器组织与分类（弗林分类法）、计算机算术和性能评估等方面做出了重要贡献。
 
-## § 1.2 计算机的分类 (page 55-58)
+## II 计算机的分类 (page 55-58)
 
-### 弗林分类法 (Flynn's Taxonomy) (page 55)
+### II.1 弗林分类法 (Flynn's Taxonomy) (page 55)
 
 > [!definition]+ 弗林分类法
 >
@@ -43,7 +43,7 @@
 > - **MISD (Multiple Instruction, Single Data)**: 多指令流，单数据流。多个处理器对同一个数据流执行不同的指令。这种结构比较少见，有时用于容错系统。
 > - **MIMD (Multiple Instruction, Multiple Data)**: 多指令流，多数据流。多个处理器可以独立地执行不同的指令处理不同的数据。现代的多核处理器、分布式系统都属于 MIMD 结构。
 
-### 按用途和规模分类 (page 56-57)
+### II.2 按用途和规模分类 (page 56-57)
 
 - **桌面计算机 (Desktop Computers / PC)**: 通用，软件丰富，强调单个用户的良好性能和相对较低的成本。
 - **服务器 (Server Computers)**: 强调处理少量复杂应用的高性能，或同时为大量用户提供服务的可靠性。计算、存储和网络能力通常强于个人电脑。
@@ -51,9 +51,9 @@
 - **个人移动设备 (Personal Mobile Devices)**: 如智能手机、平板电脑，其设计需求与 PC 类似，但对功耗和尺寸有更苛刻的要求。
 - **超级计算机 (Supercomputer)**: 通常是计算机集群，拥有极高的计算能力、性能和可靠性，规模可达整个建筑大小。
 
-## § 1.3 性能 (Performance) (page 59-64)
+## III 性能 (Performance) (page 59-64)
 
-### 定义与衡量性能 (page 59, 61-62)
+### III.1 定义与衡量性能 (page 59, 61-62)
 
 性能的定义取决于衡量指标。附件中的飞机例子说明：如果看重载客量，波音 747 最好；如果看重巡航速度，协和式飞机最好。
 
@@ -66,7 +66,7 @@
 > - **用户 CPU 时间 (User CPU time)**: 执行程序本身代码所花费的时间。
 > - **系统 CPU 时间 (System CPU time)**: 操作系统为该程序执行任务（如系统调用）所花费的时间。
 
-### 性能比较 (page 63-64)
+### III.2 性能比较 (page 63-64)
 
 性能与执行时间成反比。
 
@@ -81,9 +81,9 @@ $$
 \frac{\text{Performance}_X}{\text{Performance}_Y} = \frac{\text{Execution Time}_Y}{\text{Execution Time}_X} = n
 $$
 
-## § 1.4 定量方法 (Quantitative approaches) (page 65-85)
+## IV 定量方法 (Quantitative approaches) (page 65-85)
 
-### CPU 性能与时钟 (page 67-70)
+### IV.1 CPU 性能与时钟 (page 67-70)
 
 数字硬件的操作由一个恒定频率的时钟驱动。
 - **时钟周期 (Clock Period)**: 一个时钟周期的时长，如 250ps。
@@ -99,7 +99,7 @@ $$
 
 这意味着，要提升性能（减少执行时间），可以**减少所需的时钟周期数**，或者**提高时钟频率**（缩短时钟周期）。但两者往往是相互制约的，例如更复杂的流水线设计可以减少周期数，但可能会限制时钟频率的提高。
 
-### 指令数与 CPI (page 71-76)
+### IV.2 指令数与 CPI (page 71-76)
 
 为了更深入地分析，我们将时钟周期数分解：
 
@@ -131,7 +131,7 @@ $$
 
 其中，`Instruction Count_i / Total Instruction Count` 是第 i 类指令的执行频率。
 
-### 阿姆达尔定律 (Amdahl's Law) (page 78-85)
+### IV.3 阿姆达尔定律 (Amdahl's Law) (page 78-85)
 
 > [!theorem]+ 阿姆达尔定律
 >
@@ -171,7 +171,7 @@ $$
 \text{Speedup}_{\text{overall}} < \frac{1}{1 - \text{Fraction}_{\text{enhanced}}}
 $$
 
-## § 1.5 伟大的体系结构思想 (Great Architecture Ideas) (page 86-91)
+## V 伟大的体系结构思想 (Great Architecture Ideas) (page 86-91)
 
 这部分总结了半个多世纪以来计算机设计中反复出现的八个伟大思想。
 
@@ -184,7 +184,7 @@ $$
 7. **使用存储器层次结构 (Use a hierarchy of memories)**: 结合不同速度、容量和成本的存储设备（如 Cache-内存-磁盘），使得程序能以接近最高速存储器的速度，访问到大容量存储器中的数据。
 8. **通过冗余提高可靠性 (Improve dependability via redundancy)**: 添加额外的组件来检测甚至纠正错误，如 RAID 磁盘阵列、ECC 内存。
 
-### 总结 (page 91)
+### V.1 总结 (page 91)
 
 - 计算机的**性价比**在底层技术驱动下不断提升。
 - **分层抽象**是贯穿软硬件设计的核心思想。

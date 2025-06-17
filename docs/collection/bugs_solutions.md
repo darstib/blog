@@ -201,3 +201,6 @@ WSL `ping <domain>/<ip>` 时出现无法找到的问题，但是宿主机是可�
 
 - **Q**: `NOTE: cursor is locked to screen, check scroll lock key` 
 - (windows) 键盘上的 `ScrLk` 按键。
+
+- **Q:** MacOS 上 Deskflow 反复索要 accessibility，哪怕已经给到
+- (MacOS) 参考 [#8028](https://github.com/deskflow/deskflow/issues/8028#issuecomment-2741208978)，之前卸载过 deskflow，导致重新安装后 accessibility 出了问题，只要将选项移除后重新启动 deskflow 并赋权即可。

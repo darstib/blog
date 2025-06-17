@@ -68,7 +68,7 @@ CPU 通过 Load 和 Store 指令与存储系统交互：
     - L2 Cache: ~256KB, ~5-10ns
     - 主存 (Memory): 1-2GB, 50-100ns
     - 存储 (Storage, e.g., Flash): 4-64GB, 25-50µs
-    - *1000 皮秒 (picoseconds) = 1 纳秒 (nanosecond) = 10<sup>-6</sup> 毫秒 (millisecond)*
+    - 1000 皮秒 (picoseconds) = 1 纳秒 (nanosecond) = 10<sup>-6</sup> 毫秒 (millisecond)
 
 - **笔记本或台式机 (Laptop or a desktop)** (page 12):
     - 寄存器: ~1000 bytes (Laptop) / ~2000 bytes (Desktop), ~300ps
@@ -117,6 +117,7 @@ CPU 通过 Load 和 Store 指令与存储系统交互：
 ## §3.2 技术趋势与存储层次 (Technology Trend and Memory Hierarchy) (page 25-40)
 
 ### 处理器与存储器的性能差距 (page 25, 28)
+
 自 1980 年以来，处理器的性能以远超存储器（特别是 DRAM）的性能增长速度发展，导致了两者之间日益扩大的性能差距，通常被称为“内存墙 (Memory Wall)”。下图直观展示了这一趋势：处理器性能曲线的斜率远大于内存性能曲线。
 
 (图示参考 page 25，显示 Processor Performance 和 Memory Performance 随年份增长的对数坐标图)
@@ -145,7 +146,9 @@ Page 27 展示了一个存储金字塔模型，从底部的 HDD/Tape 到 SSD，�
 Page 26 展示了 DRAM 的内部组织结构图，包括 Bank (存储体)、Row (行)、Column (列) 以及 Precharge (预充电)、Activate (激活) 等操作。现代 DRAM 通常组织成多个 Bank，每个 Bank 包含一系列的行。发送 PRE 命令打开或关闭一个 Bank。行地址与 ACT 命令一起发送，将该行数据传输到行缓冲区 (row buffer)。当数据在行缓冲区后，可以通过连续的列地址来传输，其宽度与 DRAM 的接口宽度 (如 DDR3 中的 4, 8, 16 bits) 一致，或者通过指定块起始地址进行块传输。每个命令都与时钟同步。
 
 ### 现代计算机系统的存储层次目标 (page 29)
+
 利用局部性原理，现代计算机系统的存储层次旨在实现两个主要目标：
+
 1. 以最廉价的技术提供用户所需的尽可能大的存储容量。
 2. 以最快速的技术提供接近其速度的平均访问性能。
 
@@ -154,11 +157,14 @@ Page 29 的图示展示了一个典型的存储层次结构，从 CPU 核心的�
 - Size (bytes): 100s (寄存器) -> Ks (L2 Cache) -> Ms (主存) -> Gs (磁盘)
 
 ### 缓存局部性再探 (page 30)
+
 缓存的有效性高度依赖于局部性原理：
+
 - **时间局部性 (Temporal locality)**: 如果一个字被请求，它很可能很快再次被请求。
 - **空间局部性 (Spatial locality)**: 如果一个字被请求，它所在块内的其他数据也可能很快被请求。
 
 ### 缓存未命中的原因 (The "3C" Model) (page 31)
+
 缓存未命中是影响性能的关键因素，其主要原因可以归为三类：
 
 1. **强制性未命中 (Compulsory miss) / 冷启动未命中 (Cold start miss)**: 第一次访问一个块时发生的未命中。即使有无限大的缓存，这种未命中也是不可避免的，因为数据最初必须从较低层级加载。
@@ -171,7 +177,9 @@ Page 29 的图示展示了一个典型的存储层次结构，从 CPU 核心的�
 > - **带宽 (Bandwidth)**: 检索块中剩余部分数据所需的时间。
 
 ### 利用局部性增强性能 (page 32)
+
 存储层次结构正是通过以下方式利用局部性来提升性能：
+
 - 大多数程序并非均匀访问所有代码或数据。
 - **时间局部性**: 如果一个项目被引用，它很可能很快再次被引用。
     - 策略：将最近访问的数据项保持在更靠近处理器的地方（即更高层级的缓存）。
@@ -193,8 +201,11 @@ Page 29 的图示展示了一个典型的存储层次结构，从 CPU 核心的�
     - 主存非常小，且通常没有磁盘存储。
 
 ### 缓存相关术语列表 (page 35)
+
 Page 35 列出了 36 个与缓存相关的重要术语，例如：
+
 Cache, full associative, write allocate, Virtual memory, dirty bit, unified cache, Memory stall cycles, block, block offset, misses per instruction, direct mapped, write back, Valid bit, data cache, locality, Block address, hit time, address trace, Write through, cache miss, set, Instruction cache, page fault, miss rate, random replacement, index field, cache hit, Average memory access time, page, tag field, n-way set associative, no-write allocate, miss penalty, Least-recently used, write buffer, write stall.
+
 这些术语将在后续章节中详细解释。
 
 ### 广义的“缓存”概念 (page 36, 60)
@@ -211,6 +222,7 @@ Cache, full associative, write allocate, Virtual memory, dirty bit, unified cach
 Page 36 和 60 的图示是一个金字塔模型，从上到下依次是：寄存器、L1 缓存（片上）、L2 缓存（SRAM）、主存（DRAM）、磁盘/磁带等。箭头指示：越往上，越小 (Smaller)、越快 (fast)；越往下，越大 (Bigger)、越慢 (slow)。
 
 ### 多级缓存组织 (page 37-38)
+
 Page 37 重复了 page 11-13 的个人设备、桌面/笔记本、服务器的存储层次图。
 Page 38 展示了一个典型的多级缓存组织：
 CPU (包含寄存器 Regs) -> L1 d-cache (数据缓存) & L1 i-cache (指令缓存) -> L2 Unified Cache (统一缓存) -> Main Memory -> Disk。
@@ -230,6 +242,7 @@ CPU (包含寄存器 Regs) -> L1 d-cache (数据缓存) & L1 i-cache (指令缓�
     - 缺点：需要额外的硬件。
 
 图示显示了两种配置：
+
 1. `Proc -> Unified Cache-1 -> Unified Cache-2` (两级统一缓存)
 2. `Proc -> I-Cache-1` 和 `Proc -> D-Cache-1`，两者共同汇聚到 `Unified Cache-2` (L1 分离，L2 统一)
 
@@ -574,7 +587,6 @@ Page 70 展示了一个直接映射缓存（8 个块，初始为空）在给定�
 > **结论 (page 78):** 命中率与替换算法相关。
 > **结论 (page 79):** 命中率与访问序列和缓存块大小 (容量) 相关。
 
-
 #### 栈替换算法 (Stack Replacement Algorithm) (page 80-86)
 
 - **栈替换算法 (page 80)**: 一个替换算法如果具有这样的特性：在任何时刻 $t$，容量为 $n$ 的缓存 $B_t(n)$ 中包含的块集合总是容量为 $n+1$ 的缓存 $B_t(n+1)$ 中块集合的子集，即 $B_t(n) \subseteq B_t(n+1)$，则称该算法为栈替换算法。
@@ -869,8 +881,6 @@ $CPUtime = IC \times (CPI_{Execution} + \frac{\text{MemMisses}}{\text{Inst}} \ti
 
 有超过 20 种缓存优化技术，可归为以下几类：
 
-宇宙字数
-
 1. **减少未命中惩罚 (Reduce the miss penalty)**:
     - **多级缓存 (Multilevel caches)**: L1 miss 后访问 L2，L2 miss 后访问 L3 或主存。L2 比主存快得多。
     - **关键字优先 (Critical word first / Early restart)**: 块中被请求的字优先传给 CPU，CPU 可以继续执行，同时块的剩余部分继续加载。
@@ -894,6 +904,7 @@ $CPUtime = IC \times (CPI_{Execution} + \frac{\text{MemMisses}}{\text{Inst}} \ti
     - **编译器控制的预取 (Compiler prefetching)**: 编译器插入预取指令，显式地将数据提前调入缓存。
 
 Page 21-22 的表格总结了各种缓存优化技术对命中时间 (Hit time)、带宽 (Bandwidth)、未命中惩罚 (Miss penalty)、未命中率 (Miss rate)、功耗 (Power consumption)、硬件复杂度 (Hardware complexity) 的影响以及一些评论。例如：
+
 - **更大的块大小**: (+) 未命中率, (0) 硬件复杂度。Pentium 4 L2 用 128 字节。
 - **更高的相联度**: (+) 未命中率, (1) 硬件复杂度。广泛使用。
 - **多级缓存**: (+) 未命中惩罚, (2) 硬件复杂度。如果 L1 块大小不等于 L2 块大小，则更复杂。
@@ -976,11 +987,13 @@ Page 5 强调 CPU 缓存对于用户是不可直接访问的，数据只有到�
 ### Meltdown 漏洞原理与攻击过程 (page 7-11)
 
 #### 原理 (page 8)
+
 Meltdown 利用现代 CPU 的乱序执行特性，攻破硬件保证的内存隔离。
 乱序执行时，CPU 在等待某些资源（如内存读取）时，会利用空闲计算能力继续执行后续指令。指令的提交 (retirement) 必须按顺序，CPU 的安全检查（如权限检查）在 retirement 时才进行。
 结果是，在 CPU 对某条指令进行安全检查前，部分后续指令可能因乱序执行而被提前执行，即使原始指令是非法访问。
 
 #### 攻击过程 (page 9)
+
 典型的处理器流水线分为顺序部分 (In-order: Fetch, Decode, Dispatch, Commit) 和乱序部分 (Out-of-order: Execute)。
 1. **获取指令、解码、分发**到保留站 (Reservation Stations)。
 2. **乱序执行指令**，结果保存在重排序缓冲 (Reorder Buffer, ROB)。
@@ -988,15 +1001,17 @@ Meltdown 利用现代 CPU 的乱序执行特性，攻破硬件保证的内存隔
 
 #### 攻击示例 (page 10)
 ```assembly
-1. ;rcx = kernel address (待窃取数据的内核地址)
-2. ;rbx = probe array (用户空间的一个探测数组)
-3. mov al, byte [rcx]     ; 非法读取内核地址 rcx 处 1 字节到 al (会导致异常)
-4. shl rax, 0xc           ; rax = al * 4096 (4KB，页大小，用于索引 probe_array 的不同页)
-                         ; //一个内存页大小为 4KB，将 rax 值乘 4096，便于下一条指令实现对探测数组 probe_array 的不同页进行访问
-5. mov rbx, qword [rbx+rax] ; 访问 probe_array[al*4096]
+;rcx = kernel address (待窃取数据的内核地址)
+;rbx = probe array (用户空间的一个探测数组)
+mov al, byte [rcx]     ; 非法读取内核地址 rcx 处 1 字节到 al (会导致异常)
+shl rax, 0xc           ; rax = al * 4096 (4KB，页大小，用于索引 probe_array 的不同页                      
+                        ; //一个内存页大小为 4KB，将 rax 值乘 4096，便于下一条指令实现对探测数组 probe_array 的不同页进行访问
+mov rbx, qword [rbx+rax] ; 访问 probe_array[al*4096]
                          ; //对于不同的 al 值，将导致不同的内存页被访问并存放到 CPU 缓存中
 ```
+
 **利用步骤**:
+
 1. 指令获取解码。
 2. **乱序执行**:
     - 指令 3 (`mov al, byte [rcx]`) 尝试读取内核地址。这通常会非常慢（如果不在缓存中）并且最终会因权限不足而失败。
@@ -1007,27 +1022,29 @@ Meltdown 利用现代 CPU 的乱序执行特性，攻破硬件保证的内存隔
     - 例如，如果发现访问 `probe_array[N*4096]` 特别快，那么攻击者推断出从内核地址 `rcx` 读出的字节值 `al` 就是 `N`。
     - 重复此过程可以逐字节泄露内核内存数据。
 
-#### 漏洞验证 (page 11)
-展示了实际攻击效果，如从内存中 dump 出的数据，或从 Firefox 中恢复的已存密码。
-
 #### 缓解措施 (page 12)
+
 - **KAISER (Kernel Address Isolation to have Side-channels Efficiently Removed)** / KPTI (Kernel Page Table Isolation): 一种内核修改，当用户态程序运行时，不将内核内存映射到用户空间页表中（或只映射极小部分必要入口点）。这样用户态程序在乱序执行时也无法直接引用大部分内核地址。
 - **问题**: 由于 x86 架构设计，仍需在用户空间映射少量特权内存位置，留下残留攻击面。
 
 ### Spectre 漏洞原理与攻击过程 (page 13-16)
 
 #### 原理 (page 14)
+
 Spectre 利用 CPU 的**预测执行 (Speculative Execution)** 进行攻击。
 分支指令执行时，CPU 会预测分支走向并提前执行。分支预测单元 (BPU) 存储分支历史，用于辅助预测。预测错误时，结果丢弃，状态重置。
 然而，与乱序执行类似，预测执行对 CPU 缓存的影响会被保留。
 
 #### 攻击过程 (page 15)
+
 主要分三个阶段：
+
 1. **训练 CPU 的分支预测单元 (BPU)**: 使其在运行漏洞利用代码中的特定分支时，倾向于做出攻击者希望的错误预测。
 2. **预测执行**: 错误的预测执行使得 CPU 访问目标地址（可能是受害者进程空间内的数据），并将该地址的内容（或其衍生的地址）加载到 CPU 缓存中。
 3. **缓存侧信道攻击**: 通过探测缓存状态，推测出哪个地址（通常是攻击者控制的一个探测数组的某个元素）被加载过，从而泄露信息。
 
 #### 攻击示例 (page 15)
+
 ```c
 1. if (x < array1_size) {             // 条件分支
 2.   y = array2[array1[x] * 256];  // array1[x] 是秘密数据
@@ -1035,7 +1052,9 @@ Spectre 利用 CPU 的**预测执行 (Speculative Execution)** 进行攻击。
 4.   //observable when speculatively executed // (e.g. load Y into cache)
 5. }
 ```
+
 **攻击步骤**:
+
 1. **训练 BPU**: 反复用合法的 `x` (使得 `x < array1_size` 为真) 调用此代码片段，让 BPU 学习到这个分支通常是会进入的。
 2. **触发预测执行**: 然后，用一个恶意的、精心构造的 `x` (使得 `x >= array1_size`，即 `x` 是越界的) 调用代码。
     - 由于 BPU 被训练过，它很可能会**错误地预测** `x < array1_size` 为真。
@@ -1045,9 +1064,11 @@ Spectre 利用 CPU 的**预测执行 (Speculative Execution)** 进行攻击。
 4. **侧信道探测**: 攻击者测量访问 `array2` 各个元素 ( `array2[0*256]`, `array2[1*256]`, ... ) 的时间。如果 `array2[V * 256]` 访问很快，则说明秘密值 `S` 就是 `V`。
 
 #### 漏洞验证 (page 16)
+
 展示了攻击成功读取私密密码的截图。
 
 #### 缓解措施 (page 17)
+
 1. **序列化指令 (e.g., LFENCE)**: 限制预测执行。在分支指令后插入 LFENCE 等指令，可以阻止其后的指令被预测执行，直到分支结果确定。
     - 问题: 并非所有 CPU 或系统配置都有效，且性能影响大。
 2. **插入推测执行阻止指令 (Speculative execution barriers)**: 如 Intel 的 Indirect Branch Restricted Speculation (IBRS), Indirect Branch Predictor Barrier (IBPB), Single Thread Indirect Branch Predictors (STIBP)。或者在每个条件分支后插入 LFENCE。
@@ -1067,12 +1088,14 @@ Spectre 利用 CPU 的**预测执行 (Speculative Execution)** 进行攻击。
 ### 漏洞复现与检测 (page 19-23)
 
 #### 实验环境与工具 (page 20-21)
+
 - 虚拟机: VMware Workstation
 - 系统镜像: Ubuntu, CentOS
 - 物理处理器: Intel Core i5-7300HQ
 - 漏洞检测脚本。
 
 列出了不同 CVE 编号对应的漏洞变种及其影响和缓解措施，例如：
+
 - CVE-2017-5753 (Spectre-V1, Bounds Check Bypass): 编译器插入 LFENCE。
 - CVE-2017-5715 (Spectre-V2, Branch Target Injection): 微码更新 (IBRS/IBPB/STIBP) 或 retpoline。
 - CVE-2017-5754 (Meltdown, Rogue Data Cache Load): 内核更新 (KPTI)。
@@ -1082,22 +1105,27 @@ Spectre 利用 CPU 的**预测执行 (Speculative Execution)** 进行攻击。
 Page 21-22 展示了在 Ubuntu 和 CentOS 系统上运行漏洞检测脚本的结果，显示哪些漏洞存在，哪些已缓解。操作系统内核的差异会直接影响漏洞对系统的威胁程度。
 
 #### POC 代码复现 (page 23)
+
 - **Meltdown**: POC 代码成功读取到内核中 `linux_proc_banner` 地址上的数据。
 - **Spectre**: `proc` 攻击利用 CPU 预测执行，提前将私有数据加载到 CPU 缓存，成功读取到内存中的字符数据 "The Magic Words are Squeamish Ossifrage."
 
 ### 攻击结果与场景 (page 24-25)
+
 在实际攻击场景中，这些漏洞可以做到：
+
 - 泄露本地操作系统底层运作信息、密钥等。
 - 绕过内核、虚拟机监控器 (HyperVisor) 的隔离防护。
 - 在云服务中，泄露其他租户的隐私信息。
 - 通过浏览器泄露受害者的账号、密码、内容、邮箱、cookie 等用户隐私信息。
 
 **其他新场景下的攻击 (page 25)**:
+
 - **基于硬件特性的攻击**: 利用查找逻辑、替换策略、预取技术、瞬态执行 (Transient Execution) 等处理器微架构特性。需要对硬件深入了解，发现难度大，通常对软件透明，难检测。
 - **安全机制场景下的攻击**: 即使在可信执行环境 (TEE, Trusted Execution Environment) 下，若不同安全域间存在缓存共享且隔离不彻底，TEE 也可能被缓存侧信道攻击。
 - **性能驱动下的攻击**: 某些场景对攻击性能（速度、精度、泄露信息量）要求苛刻，如被攻击程序运行窗口过短、系统并发噪声大、缓存预取干扰等。
 
 ### 攻击分布情况 (page 26)
+
 表格展示了各类攻击（访问驱动、建模分析、针对 LLC 的、新场景的）在 Intel, AMD, ARM 处理器上的分布情况。
 结论：目前主流商用处理器均未能完全抵御缓存侧信道攻击。Intel 处理器因性能优化忽略了许多安全考虑，导致几乎任何 Cache 攻击均能实现。
 
@@ -1116,6 +1144,7 @@ Page 21-22 展示了在 Ubuntu 和 CentOS 系统上运行漏洞检测脚本的�
 目前防御主要针对已披露的 Meltdown 和 Spectre。
 
 #### 基于软件的防御机制分析 (page 30)
+
 - **漏洞检测方法**: 通过静态或动态程序分析，找出程序中可能存在缓存侧信道漏洞的部分。
 - **用户级防御措施**: 在漏洞检测基础上增强用户程序，如保持特定运算时间恒定 (抵抗计时攻击)、清除缓存状态等。
 - **系统级防御措施**: 从操作系统/虚拟机管理器角度防御，如完善内存管理、锁定缓存行等，避免攻击者恶意探查。
@@ -1123,6 +1152,7 @@ Page 21-22 展示了在 Ubuntu 和 CentOS 系统上运行漏洞检测脚本的�
 - **缺点**: 依赖下层微架构实现，或需硬件额外支持以降低开销。长期看需从硬件层面防范。
 
 #### 基于硬件的防御机制分析 (page 31-32)
+
 - **缓存分组方法 (Cache Partitioning)** (page 31):
     - 将缓存划分为不同区域 (e.g., 基于路 Way-based Partitioning)，分配给不同进程使用，实现隔离。
     - **优点**: 原理上完全避免侧信道攻击。
@@ -1137,6 +1167,7 @@ Page 21-22 展示了在 Ubuntu 和 CentOS 系统上运行漏洞检测脚本的�
     - 图示: 传统缓存直接用地址某部分做索引；随机化缓存通过映射函数 (Mapping Function) 将物理地址映射到 Set Index。
 
 #### 其他防御策略 (page 33)
+
 - **针对目录结构的防御方法**:
     - **源头出发**: 增加目录项数量，减少目录项使用冲突 (针对 LLC 中的目录)。
     - **最终目标出发**: 检测跨核心缓存行替换，重载被替换的缓存行至 L2 (防止数据从 LLC 被逐出后信息泄露)。
@@ -1146,6 +1177,7 @@ Page 21-22 展示了在 Ubuntu 和 CentOS 系统上运行漏洞检测脚本的�
     - 通过优化基本块执行减少指令执行时的分支预测依赖。
 
 ### 总结 (全章) (page 34)
+
 1. **技术趋势与存储层次 (Trend and Memory Hierarchy)**
     - 处理器-内存性能差距 (Processor-Memory Performance Gap)
     - 缓存局部性 (Cache Locality): 时间局部性 (Temporal locality), 空间局部性 (Spatial locality)

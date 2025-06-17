@@ -1,10 +1,10 @@
-## 计算机体系结构课程回顾
+# 计算机体系结构课程回顾
 
-### 贯穿设计的八个伟大思想 (page 2-5, 不直接考)
+## 贯穿设计的八个伟大思想 (page 2-5, 不直接考)
 
 在计算机设计领域，有八个伟大的体系结构思想，它们在过去半个多世纪中一直被应用和发展。在学习计算机体系结构时，我们需要时常思考这些思想是如何在具体技术中发挥作用的。
 
-#### 1. 为摩尔定律而设计 (Design for Moore's law)
+### 1. 为摩尔定律而设计 (Design for Moore's law)
 
 > [!wiki]+ 摩尔定律 (Moore's Law)
 >
@@ -12,7 +12,7 @@
 >
 > 这意味着计算机硬件的性能会以指数级的速度增长。因此，体系结构设计师在项目启动时就必须预测几年后技术发展的水平，确保设计完成时不会过时。例如，一个为期三年的项目，其设计目标应基于三年后预期的芯片能力，而非项目开始时的技术水平。
 
-#### 2. 使用抽象简化设计 (Use abstraction to simplify design)
+### 2. 使用抽象简化设计 (Use abstraction to simplify design)
 
 > [!definition]+ 抽象 (Abstraction)
 >
@@ -22,7 +22,7 @@
 > - **硬件层面**：指令集体系结构（Instruction Set Architecture, ISA）是对处理器硬件的抽象，它定义了软件如何与硬件交互，而无需关心具体的微体系结构（microarchitecture）实现。
 > - **软件层面**：操作系统为应用程序提供了诸如文件系统、虚拟内存等抽象，使得程序无需直接和磁盘、物理内存等硬件打交道。
 
-#### 3. 加速常用事件 (Make the common case fast)
+### 3. 加速常用事件 (Make the common case fast)
 
 这个原则强调应优先优化最常执行的操作或路径。因为优化常用部分带来的性能提升远大于优化不常用部分。
 
@@ -32,7 +32,7 @@
 >
 > 这也是 **Amdahl 定律** 的一个核心思想。
 
-#### 4. 通过并行提升性能 (Improve performance via parallelism)
+### 4. 通过并行提升性能 (Improve performance via parallelism)
 
 > [!definition]+ 并行 (Parallelism)
 >
@@ -41,11 +41,11 @@
 > - **数据级并行 (Data-Level Parallelism, DLP)**：通过 SIMD (Single Instruction, Multiple Data) 指令，用一条指令同时处理多个数据。例如，向量处理器（Vector Processor）。
 > - **任务级并行 (Task-Level Parallelism, TLP)**：在多核处理器上，将不同的线程或进程分配到不同的核心上并行执行。
 
-#### 5. 通过流水线提升性能 (Improve performance via pipelining)
+### 5. 通过流水线提升性能 (Improve performance via pipelining)
 
 流水线是一种特殊的指令级并行技术。它将一个任务（例如一条指令的执行）分解为多个独立的阶段（stage），然后让不同的任务在不同的阶段上重叠执行，就像工厂的装配线一样。这大大提高了任务的吞吐率（throughput），但通常不会缩短单个任务的延迟（latency）。
 
-#### 6. 通过预测提升性能 (Improve performance via prediction)
+### 6. 通过预测提升性能 (Improve performance via prediction)
 
 在很多情况下，等待一个操作的结果会造成处理器停顿（stall）。预测（Prediction），也称为推测执行（Speculation），指的是在结果未知时先猜测一个可能的结果，并基于这个猜测继续执行。
 
@@ -53,7 +53,7 @@
 >
 > 当遇到条件分支指令时，处理器不必等待条件判断完成，而是预测分支是否会跳转。如果预测正确，就获得了性能提升；如果预测错误，则需要撤销（squash）错误路径上的指令，并从正确路径重新执行，这会带来一定的性能损失。但只要预测准确率足够高，总体性能就能得到提升。
 
-#### 7. 使用存储器层次结构 (Use a hierarchy of memories)
+### 7. 使用存储器层次结构 (Use a hierarchy of memories)
 
 > [!definition]+ 存储器层次结构 (Memory Hierarchy)
 >
@@ -64,7 +64,7 @@
 >
 > 这个结构利用了程序的**局部性原理（Principle of Locality）**，使得处理器大部分时间访问的都是顶层的高速存储器，从而获得接近顶层存储器的访问速度和接近底层存储器的容量。
 
-#### 8. 通过冗余提高可靠性 (Improve dependability via redundancy)
+### 8. 通过冗余提高可靠性 (Improve dependability via redundancy)
 
 > [!note]+ 可靠性 (Dependability)
 >
@@ -72,11 +72,11 @@
 >
 > 例如，服务器通常会使用纠错码存储器（Error-Correcting Code, ECC Memory）来检测和纠正内存中的单位元错误。磁盘阵列（RAID）技术通过冗余磁盘来防止因单个磁盘损坏而导致的数据丢失。
 
-### CPU 性能 (page 6-7)
+## CPU 性能 (page 6-7)
 
 为了衡量 CPU 性能，我们通常关注程序在 CPU 上的执行时间。
 
-#### CPU 性能公式 (page 6, 量化分析方法)
+### CPU 性能公式 (page 6, 量化分析方法)
 
 CPU 执行时间可以通过以下公式计算：
 
@@ -99,7 +99,7 @@ $$
 1. **减少程序所需的时钟周期数**。
 2. **缩短每个时钟周期的长度**（即提高时钟频率）。
 
-#### 指令数和 CPI (page 7)
+### 指令数和 CPI (page 7)
 
 程序的时钟周期总数又可以进一步分解：
 
@@ -126,7 +126,7 @@ $$
 >
 > 这个公式揭示了评估 CPU 性能的三个关键因素：指令数、CPI 和时钟频率。在进行性能优化时，必须综合考虑这三者。例如，某个编译器优化可能会减少指令数，但导致生成的指令需要更多的周期（CPI 增加），最终性能不一定提升。同样，单纯追求高频率也可能导致 CPI 增加，从而无法带来实际的性能提升。
 
-### Amdahl 定律 (page 8, 量化分析方法)
+## Amdahl 定律 (page 8, 量化分析方法)
 
 > [!theorem]+ Amdahl's Law (阿姆达尔定律)
 >
@@ -143,7 +143,7 @@ $$
 
 这个定律告诉我们，要想获得显著的整体性能提升，必须优化那些占据大部分执行时间的部分。这正是“加速常用事件”思想的数学体现。
 
-### RISC 处理器经典五级流水线 (page 9)
+## RISC 处理器经典五级流水线 (page 9)
 
 流水线技术是实现指令级并行的核心。一个经典的 RISC 处理器流水线通常分为五个阶段：
 1. **IF (Instruction Fetch)**：取指令
@@ -159,7 +159,7 @@ $$
 > - **相关 (Dependence)**: 指令之间在数据、名字或控制流上的依赖关系。这是**程序本身的属性**。
 > - **冒险 (Hazard)**: 在流水线中，如果下一条指令无法在预定的时钟周期开始执行，就发生了冒险。这是**流水线组织的属性**。冒险的根源是相关。
 
-#### 流水线冒险的分类 (page 9-10)
+### 流水线冒险的分类 (page 9-10)
 
 流水线冒险主要分为三类：
 
@@ -184,11 +184,11 @@ $$
         ```
 3. **控制冒险 (Control Hazards)**：由分支指令引起。处理器需要确定下一条要执行的指令地址，但在分支结果出来前，这个地址是不确定的。
 
-### 动态调度：Scoreboard 算法和 Tomasulo 算法 (page 11-14)
+## 动态调度：Scoreboard 算法和 Tomasulo 算法 (page 11-14)
 
 为了解决由数据冒险（特别是 RAW）导致的流水线停顿，并更好地发掘指令级并行，现代处理器普遍采用**动态调度（Dynamic Scheduling）** 技术，其中最著名的是 **Tomasulo 算法**。
 
-#### 核心思想 (page 11)
+### 核心思想 (page 11)
 
 动态调度的核心思想是**乱序执行 (Out-of-Order Execution, OoOE)**。它允许指令在满足其数据相关性后立即执行，而不必严格按照程序原本的顺序。
 
@@ -198,7 +198,7 @@ $$
 > 2. **公共数据总线 (Common Data Bus, CDB)**: 当一个功能单元计算出结果后，它会通过 CDB 将结果广播给所有等待该结果的保留站和寄存器堆。这使得结果可以被立即转发，避免了经过寄存器堆的延迟。
 > 3. **寄存器重命名 (Register Renaming)**: Tomasulo 算法通过保留站隐式地实现了寄存器重命名，从而消除了 WAR 和 WAW 这两种伪相关（name dependences）。
 
-#### 支持精确异常 (page 13-14)
+### 支持精确异常 (page 13-14)
 
 原始的 Tomasulo 算法不支持精确异常[^1]。为了解决这个问题，现代处理器引入了**重排序缓冲区 (Reorder Buffer, ROB)**。
 
@@ -218,7 +218,7 @@ $$
 >
 > **硬件推测 (Hardware-Based Speculation)** (page 14) 正是基于这种带有 ROB 的 Tomasulo 结构实现的。当进行分支预测时，后续指令可以推测性地执行，其结果保存在 ROB 中。如果预测正确，结果被提交；如果预测错误，只需清空 ROB 中推测路径上的所有条目即可。
 
-### 存储器层次结构 (page 15-21)
+## 存储器层次结构 (page 15-21)
 
 如前所述，存储器层次结构是为了解决速度、容量和成本之间的矛盾而设计的。它利用了程序的**局部性原理**。
 
@@ -228,7 +228,7 @@ $$
 > - **时间局部性 (Temporal Locality)**: 如果一个数据项被访问，那么它在不久的将来很可能再次被访问。
 > - **空间局部性 (Spatial Locality)**: 如果一个数据项被访问，那么与它地址相邻的数据项也很可能在不久的将来被访问。
 
-#### 什么是 Cache (page 16)
+### 什么是 Cache (page 16)
 
 **高速缓存 (Cache)** 是存储器层次结构中的核心概念。它是一个小而快的存储器，用于存放主存中部分数据的副本。当 CPU 需要数据时，它首先检查 Cache：
 - **命中 (Hit)**：如果在 Cache 中找到了数据，CPU 可以直接快速获取。
@@ -241,14 +241,14 @@ $$
 > * **主存 (DRAM)** 可以看作是磁盘上**虚拟内存 (Virtual Memory)** 的 Cache。
 > * **TLB (Translation Lookaside Buffer)** 是页表（Page Table）的 Cache。
 
-#### 现代计算机的存储层次 (page 15, 17)
+### 现代计算机的存储层次 (page 15, 17)
 
 现代计算机通常有多级 Cache（L1, L2, L3），它们的容量和速度逐级变化。
 - **个人移动设备 (Personal Mobile Device)**: 通常有两级 Cache。
 - **笔记本/台式机 (Laptop/Desktop)**: 通常有三级 Cache。
 - **服务器 (Server)**: 通常也有三级 Cache，但容量更大，速度更快。
 
-#### Cache 设计的四个基本问题 (page 18)
+### Cache 设计的四个基本问题 (page 18)
 
 设计一个 Cache 时，必须回答以下四个关键问题：
 
@@ -273,7 +273,7 @@ $$
         - **写分配 (Write Allocate)**: 先将块读入 Cache，再进行写操作（类似于写命中）。
         - **非写分配 (No-Write Allocate)**: 直接写入主存，不将块调入 Cache。
 
-#### Cache 性能优化 (page 19-20)
+### Cache 性能优化 (page 19-20)
 
 Cache 的性能由**平均访存时间 (Average Memory Access Time, AMAT)** 来衡量：
 
@@ -301,7 +301,7 @@ $$
 $$
 这表明，内存访问的性能直接影响了总的 CPI。
 
-### 指令级并行（ILP）的开发 (page 22)
+## 指令级并行（ILP）的开发 (page 22)
 
 除了前面提到的流水线，还有其他技术可以进一步发掘指令级并行。
 
@@ -309,18 +309,18 @@ $$
 - **超流水线 (Super-pipelining)**: 将流水线阶段划分得更细，从而可以提高时钟频率。
 - **超长指令字 (Very Long Instruction Word, VLIW)**: 由编译器在编译时将多条可以并行执行的独立操作捆绑成一条很长的指令。硬件设计相对简单，但非常依赖编译器的能力。
 
-### 并行体系结构分类 (page 23-35)
+## 并行体系结构分类 (page 23-35)
 
 根据指令流（Instruction Stream）和数据流（Data Stream）的数量，Flynn 提出了经典的计算机体系结构分类法，即**Flynn 分类法 (Flynn's Taxonomy)**。
 
-#### Flynn 分类法 (page 23-24)
+### Flynn 分类法 (page 23-24)
 
 1. **SISD (Single Instruction, Single Data)**: 单指令流，单数据流。传统的串行冯·诺依曼体系结构计算机。
 2. **SIMD (Single Instruction, Multiple Data)**: 单指令流，多数据流。一条指令可以同时对多个数据执行相同操作。
 3. **MISD (Multiple Instruction, Single Data)**: 多指令流，单数据流。多个处理器对同一个数据流执行不同操作，较为罕见。
 4. **MIMD (Multiple Instruction, Multiple Data)**: 多指令流，多数据流。包含多个独立处理器，每个处理器执行自己的指令序列，处理自己的数据。这是当前并行计算机最主流的形式。
 
-#### SIMD 体系结构 (page 25-27)
+### SIMD 体系结构 (page 25-27)
 
 SIMD 利用了**数据级并行 (Data-Level Parallelism)**。
 
@@ -328,7 +328,7 @@ SIMD 利用了**数据级并行 (Data-Level Parallelism)**。
 - [x] **阵列处理器 (Array Processor)**: 包含大量处理单元，在控制器统一指挥下对数据的不同部分执行相同操作。
 - **单级互连网络 (Single-stage interconnection network, 可能有小题)**: 用于 SIMD 架构中各处理单元之间或处理单元与存储体之间的数据交换。
 
-#### MIMD 体系结构 (page 28-30)
+### MIMD 体系结构 (page 28-30)
 
 MIMD 利用了**任务级并行 (Task-Level Parallelism)**。根据处理器共享内存的方式，MIMD 可以分为两大类：
 
@@ -336,7 +336,7 @@ MIMD 利用了**任务级并行 (Task-Level Parallelism)**。根据处理器共�
 
 2. **NUMA (Non-Uniform Memory Access)**: 非统一内存访问模型，也称为**分布式共享内存 (Distributed Shared-Memory, DSM)**。物理内存分布在各个处理器节点上，处理器访问本地内存速度快，访问远程内存速度慢。
 
-#### 内存一致性与缓存一致性 (page 31-35)
+### 内存一致性与缓存一致性 (page 31-35)
 
 在 MIMD 系统中，由于多个处理器拥有各自的 Cache，必须解决数据一致性的问题。
 
@@ -345,14 +345,14 @@ MIMD 利用了**任务级并行 (Task-Level Parallelism)**。根据处理器共�
 > - **缓存一致性 (Cache Coherence)**: 定义了对**同一个内存地址**的读写行为。它确保任何处理器读取一个地址时，都能得到**最新**的写入值，无论这个值是由哪个处理器写入的。
 > - **内存一致性 (Memory Consistency)**: 定义了对**不同内存地址**的读写操作的顺序。它规定了当一个处理器观察到其他处理器对不同地址的写操作时，这些写操作发生的顺序。
 
-##### 缓存一致性协议 (Cache Coherence Protocols) (page 32)
+#### 缓存一致性协议 (Cache Coherence Protocols) (page 32)
 
 主要有两种实现方法：
 
 1. （考试重点）**监听协议 (Snooping Protocol)**: 用于基于总线的 SMP (UMA) 系统。每个 Cache 控制器都会“监听”总线上的所有事务。当一个 Cache 需要修改其数据时，它会通过总线广播一个消息，其他 Cache 接收到消息后会更新或无效化自己的副本。
 2. **目录协议 (Directory-based Protocol)**: 用于大规模的 DSM (NUMA) 系统。系统中有一个集中的“目录”，记录了每个内存块的状态以及哪些处理器缓存了该块。当需要进行读写时，不再通过广播，而是向目录发送请求，由目录来协调各个 Cache 的更新。
 
-##### 监听协议示例：MSI 与 MESI (page 33-35)
+#### 监听协议示例：MSI 与 MESI (page 33-35)
 
 监听协议通常使用一个有限状态机来维护每个 Cache 块的状态。
 

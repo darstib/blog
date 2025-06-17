@@ -15,17 +15,27 @@ tags:
 ## scoring
 
 - Final examination (30%)
+	- 题型
+		- 15 choices (30 pt)
+		- 4 answer questions (2 hard / 2 soft)
+	- 重点
+		- 量化分析方法（Amdahl 定律，CPU 性能公式，Cache 性能优化）
+		- Cache 设计的四个基本问题
+		- 动态调度（tomasulo 为主）
+		- MSI 状态机
+		- 内存（页表，和 lab3 有关）
+		- 文件系统（I-node，Unix 的组合方案，磁盘块分配）
 - Process assessment (70%)
     - homework (4%)
     - class attendance (6%)
     - Labs
-        - [ ] (8%) lab1 - BHT BTB
-        - [ ] (8%) lab2 - Cache design
-        - [ ] (8%) lab3 - Virtual Memory
-        - [ ] (8%) lab4 - User mode
-        - [ ] (10%)lab5 - Page fault and fork system call
-        - [ ] (10%)lab6 - Hard ware support page fault and MMU
-        - [ ] (8%) project - X part (8%)
+        - [x] (8%) lab1 - BHT BTB
+        - [x] (8%) lab2 - Cache design
+        - [x] (8%) lab3 - Virtual Memory
+        - [x] (8%) lab4 - User mode
+        - [x] (10%)lab5 - Page fault and fork system call
+        - [x] (10%)lab6 - Hard ware support page fault and MMU
+        - [x] (8%) project - X part (8%)
  
 [实验安排](https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/14_250314-220727.png)：
 

@@ -135,7 +135,7 @@ MMU 通过页表中的**有效-无效（或存在）位** (valid-invalid/present
 #### VM_Area
 
 在 mm_struct 中储存一个 vma 链表头指针，链表存储着“承诺”分发给程序的地址范围。
-
+ 
 ![vma|600](https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/11_250611-181251.png)
 
 #### 页错误处理流程 (Page Fault Handling) (page 18-19, 23-25)
