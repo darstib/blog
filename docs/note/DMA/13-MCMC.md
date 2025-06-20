@@ -1,5 +1,3 @@
-# 第十九章：马尔可夫链蒙特卡罗法
-
 马尔可夫链蒙特卡罗（Markov Chain Monte Carlo, MCMC）法是一种强大的统计模拟方法，它结合了蒙特卡罗方法和马尔可夫链理论，主要用于从复杂概率分布中进行抽样，并进行近似数值计算。该方法在统计学习中，特别是概率模型的学习与推理中扮演着重要角色。
 
 > [!tip]- 结合阅读：[蒙特卡洛方法与 MCMC 采样](https://www.huaxiaozhuan.com/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/chapters/4_monte_carlo.html)

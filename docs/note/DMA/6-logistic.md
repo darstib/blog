@@ -1,5 +1,3 @@
-# 第六章逻辑斯蒂回归与最大熵模型
-
 > [!help]-  推荐阅读 [Visual Information Theory](https://colah.github.io/posts/2015-09-Visual-Information/)
 
 ## 回归问题回顾 (page 4-5)
@@ -146,7 +144,7 @@
 1. 对输入 $x$ 进行线性变换：$z = w \cdot x$
 2. 通过激活函数（Sigmoid）将 $z$ 转换为概率：$p = \text{sigmoid}(z)$
 
-d### 模型参数估计：极大似然法 (page 10-11)
+### 模型参数估计：极大似然法 (page 10-11)
 
 模型的参数 $w$ 如何确定呢？答案是使用**极大似然估计（Maximum Likelihood Estimation, MLE）**。
 
@@ -296,6 +294,8 @@ $$
 >
 > - **无先验知识**: 唯一的约束是 $\sum P(y_i) = 1$。根据最大熵原理，我们会得到一个均匀分布：$P(A)=P(B)=...=P(E)=1/5$。
 > - **加入先验**: 如果我们知道一个事实，比如 $P(A)+P(B)=3/10$。那么在满足 $\sum P(y_i)=1$ 和 $P(A)+P(B)=3/10$ 这两个约束下，最大熵的解是：$P(A)=P(B)=3/20$，$P(C)=P(D)=P(E)=7/30$。在这个解中，A和B是等可能的，C、D、E也是等可能的，体现了在各自小团体内的“最大熵”。
+> 
+> 我们可以使用最大熵模型来求解，见 slide page 28 。
 
 ### 最大熵模型的定义 (page 20-22)
 
@@ -336,7 +336,7 @@ $$
 \implies 
 \begin{aligned}
 \min_{P\in C}&-H(P)=\sum_{x,y}\widetilde{P}(x)P(y|x)\log P(y|x) \\
-&s.t.E_{\tilde{P}}(f_i)-E_P(f_i),=0i=1,2,\cdots,n\\
+&s.t.E_{\tilde{P}}(f_i)-E_P(f_i),=0, i=1,2,\cdots,n\\
 &1 - \sum_yP(y|x)=0
 \end{aligned}
 $$
@@ -427,3 +427,86 @@ IIS是专门为最大熵模型设计的一种优化算法。
 > - **求解**: 求解 $\delta_i$ 的方程可能是非线性的，需要用牛顿法等数值方法求解。
 
 在实际应用中，由于BFGS等拟牛顿法具有更好的收敛性和普适性，它们通常是训练逻辑斯蒂回归和最大熵模型的首选。
+
+## 习题
+
+### 习题 6.2
+
+> [!question]
+>
+> 写出逻辑斯谛回归模型学习的梯度下降算法。
+
+在 logistic 回归模型中，似然函数为 $\prod_{i=1}^N[\pi(x_i)]^{y_i}[1-\pi(x_i)]^{1-y_i}$，
+
+对数似然函数为：
+
+$$
+\begin{aligned}
+L(w)&=\sum_{i=1}^N[y_i\log\pi(x_i)+(1-y_i)\log(1-\pi(x_i))]\\
+&=\sum_{i=1}^N[y_i\log\frac{\pi(x_i)}{1-\pi(x_i)}+\log(1-\pi(x_i))]\\
+&=\sum_{i=1}^N[y_i(w\cdot x_i)-\log(1+\exp(w\cdot x_i))]
+\end{aligned}
+$$
+
+由于梯度下降算法解决的是最小优化问题，所以：
+
+- **逻辑斯谛回归模型学习的梯度下降算法**
+	- **输入**：目标函数 $f(w) = -L(w)$，梯度函数 $g(w)= \nabla f(w)$，计算精度 $\varepsilon$
+	- **输出**：最优参数 $\hat{w} \Rightarrow$ 最优模型 $P(Y=1|x)=\frac{\exp(\hat{w}\cdot x)}{1+\exp(\hat{w}\cdot x)}$, $P(Y=0|x)=\frac{1}{1+\exp(\hat{w}\cdot x)}$
+
+**算法步骤**：
+
+1. 取初值 $w^{(0)}\in\mathbb{R}^{n+1}$，$k=0$；
+2. 计算 $f(w^{(k)})$；
+3. 计算梯度 $g_k=g(w^{(k)})$，当 $||g_k||<\varepsilon$ 时，停止迭代，令 $\hat{w}=w^{(k)}$；否则令 $p_k=-g_k$，
+   一维搜索：求解 $\lambda_k$ 使 $f(w^{(k)}+\lambda_kp_k)=\min_{\lambda\geq0}f(w^{(k)}+\lambda p_k)$
+4. 令 $w^{(k+1)}=w^{(k)}+\lambda_kp_k$，计算 $f(w^{(k+1)})$，
+   当 $||f(w^{(k+1)})-f(w^{(k)})||<\varepsilon$ 或 $||w^{(k+1)}-w^{(k)}||<\varepsilon$ 时，
+   停止迭代，$\hat{w}=w^{(k+1)}$；
+5. 否则，令 $k=k+1$，回到步骤 3。
+
+### 习题 6.3
+
+> [!question]+
+>
+> 写出最大熵模型的 DFP 算法。
+
+对于最大熵模型：
+
+**目标函数**:
+
+$$
+\begin{aligned}
+\min_{w\in\mathbb{R}^n}f(w)=\sum_x\tilde{P}(x)\log\sum_y\exp\left(\sum_{i=1}^nw_if_i(x,y)\right)-\sum_{x,y}\tilde{P}(x,y)\sum_{i=1}^nw_if_i(x,y)
+\end{aligned}
+$$
+
+**梯度**:
+
+$$
+\begin{aligned}
+g(w)=\left(\frac{\partial f(w)}{\partial w_1},\frac{\partial f(w)}{\partial w_2},\ldots,\frac{\partial f(w)}{\partial w_n}\right)^T
+\end{aligned}
+$$
+
+**最大熵模型的 DFP 算法**：
+
+- **输入**：特征函数 $f_1,f_2,\cdots,f_n$，目标函数 $f(w)$，梯度 $g(w)=\nabla f(w)$，精度要求 $\varepsilon$
+- **输出**：最优参数 $\hat{w}$
+
+**算法步骤**：
+
+1. 选取初始点 $w^{(0)}$，取 $G_0$ 为正定矩阵，一般取单位矩阵，令 $k=0$；
+2. 计算 $g_k=g(w^{(k)})$，若 $\|g_k\|<\varepsilon$，则停止计算，得近似解 $\hat{w}=w^{(k)}$；否则进行第 3 步；
+3. 计算 $p_k=-G_k g_k$；
+4. 一维搜索：求 $\lambda_k$ 使得 $f(w^{(k)}+\lambda_k p_k) = \min_{\lambda \geq 0} f(w^{(k)}+\lambda p_k)$；
+5. 计算 $w^{(k+1)}=w^{(k)}+\lambda_k p_k$；
+6. 计算 $g_{k+1}=g(w^{(k+1)})$，若 $\|g_{k+1}\|<\varepsilon$，则停止计算，得近似解 $\hat{w}=w^{(k+1)}$；否则按下式求出 $G_{k+1}$：（其中，$y_k=g_{k+1}-g_k, \delta_k=w^{(k+1)}-w^{(k)}$）
+
+$$
+\begin{aligned}
+G_{k+1}=G_k+\frac{\delta_k\delta_k^T}{\delta_k^T y_k}-\frac{G_k y_k y_k^T G_k}{y_k^T G_k y_k}
+\end{aligned}
+$$
+
+7. 令 $k=k+1$，回到步骤 3

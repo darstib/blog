@@ -1,8 +1,7 @@
-# 第七章 支持向量机
-
 支持向量机（Support Vector Machine, SVM）是一种功能强大且用途广泛的监督学习模型，能够执行线性和非线性分类、回归，甚至异常值检测任务。它在 20 世纪 90 年代由 Vapnik 等人提出，因其在理论上的完备性和在实践中优异的性能，迅速成为机器学习领域的明星算法之一。
 
-> [!help]- 推荐阅读 [SVM系列-从基础到掌握](https://zhuanlan.zhihu.com/p/61123737)
+
+> [!help] 推荐阅读 [SVM系列-从基础到掌握](https://zhuanlan.zhihu.com/p/61123737)
 
 ## 感知机 (page 6-7)
 
@@ -299,21 +298,22 @@ $$
 
 1. **构造拉格朗日函数**：
     原始问题为 $\min \frac{1}{2}\|w\|^2$ s.t. $1 - y_i(w \cdot x_i + b) \le 0$。引入拉格朗日乘子 $\alpha = (\alpha_1, \dots, \alpha_N)^T$，其中 $\alpha_i \ge 0$。
-
+	
     $$
     L(w, b, \alpha) = \frac{1}{2}\|w\|^2 - \sum_{i=1}^N \alpha_i (y_i(w \cdot x_i + b) - 1)
     $$
-
+    那么对偶问题为 $max_{\alpha}min_{w,b}L(w, b, \alpha)$ 。
+	
 2. **求 $\min_{w,b} L(w, b, \alpha)$**：
     为了求 $L$ 对 $w, b$ 的极小值，我们分别对 $w$ 和 $b$ 求偏导并令其为 0。
     $$
     \nabla_w L(w, b, \alpha) = w - \sum_{i=1}^N \alpha_i y_i x_i = 0 \quad \implies \quad w = \sum_{i=1}^N \alpha_i y_i x_i
     $$
-
+	
     $$
     \nabla_b L(w, b, \alpha) = -\sum_{i=1}^N \alpha_i y_i = 0 \quad \implies \quad \sum_{i=1}^N \alpha_i y_i = 0
     $$
-
+	
     将这两个结果代回到拉格朗日函数 $L$ 中，以消去 $w$ 和 $b$：
 
     $$
@@ -324,7 +324,7 @@ $$
     \end{align}
     $$
     这里我们用到了 $\sum_i \alpha_i y_i = 0$。
-
+	
 3. **对偶问题**：
     现在我们要求解 $\max_{\alpha} \left( -\frac{1}{2} \sum_i \sum_j \alpha_i \alpha_j y_i y_j (x_i \cdot x_j) + \sum_i \alpha_i \right)$，这通常写成一个等价的 `min` 问题。
 
@@ -411,7 +411,7 @@ $$
 \end{align}
 $$
 
-### 软间隔的对偶问题 (page 51-54)
+### 软间隔的对偶问题 (page 51-57)
 
 通过与硬间隔情况类似的推导（引入两组拉格朗日乘子 $\alpha_i$ 和 $\beta_i$），我们可以得到软间隔 SVM 的对偶问题。
 
@@ -427,12 +427,12 @@ $$
 
 对比硬间隔的对偶问题，唯一的变化是 $\alpha_i$ 多了一个上界 $C$，即所谓的**盒约束 (box constraint)**。
 
-在软间隔情况下，支持向量的含义更丰富，根据KKT条件和 $\alpha_i^*$ 的取值：
+在软间隔情况下，支持向量的含义更丰富，根据KKT条件和 $\alpha_i^*$ 的取值（page 57）：
 
 - 若 $\alpha_i^* = 0$，则 $y_i(w^* \cdot x_i + b^*) \ge 1$，样本在间隔边界外被正确分类。
 - 若 $0 < \alpha_i^* < C$，则 $y_i(w^* \cdot x_i + b^*) = 1$（即 $\xi _{i} = 0$），样本在间隔边界上，是标准的**支持向量**。
 - 若 $\alpha_i^* = C$，则 $y_i(w^* \cdot x_i + b^*) \le 1$。
-    - 若 $y_i(w^* \cdot x_i + b^*) < 1$ (即 $\xi_i > 0$)，样本在间隔边界内，可能是正确分类也可能是错误分类。这些点也是**支持向量**。
+    - 若 $y_i(w^* \cdot x_i + b^*) < 1$ (即 $\xi_i > 0$)，样本在间隔边界内，可能是正确分类（$\xi _{i}<1$）也可能是错误分类（$\xi_{i}>1$）。这些点也是**支持向量**。
 
 ### 合页损失函数 (page 58-62)
 
@@ -561,3 +561,233 @@ SMO 算法的详细推导过程比较复杂（如幻灯片 page 87-99 所示）�
 - **贝叶斯最优分类器 (Bayes Rule)** $f_c$：理论上能达到的最低错分误差的分类器，它的决策是 $f_c(x) = \text{arg min}_y P(y|x)$。
 - **Excess Misclassification Error**：指我们通过算法学到的分类器 $f_{z, \lambda}^\phi$ 的错分误差，与理论最优的贝叶斯误差 $\mathcal{R}(f_c)$ 之间的差距。
 - **泛化界**：幻灯片第 102 页展示了一个 SVM 泛化误差界的例子。这类理论结果告诉我们，在一定条件下，SVM 的泛化误差会随着训练样本数量的增加而减小，这为 SVM 的良好性能提供了理论保障。
+
+## 习题
+
+> [!question]+ 习题 7.1
+> 
+> 比较感知机的对偶形式与线性可分支持向量机的对偶形式。
+
+在感知机的对偶形式中，对偶函数为：
+
+$$\min_{w,b}L(w,b)=\min_\alpha L(\alpha)=-\sum_{x_i\in M}(y_i(\sum_{j=1}^N\alpha_jy_jx_j\cdot x_i+\sum_{j=1}^N\alpha_jy_j))$$
+
+线性可分支持向量机的对偶函数最后可化作：
+
+$$\min_{w,b}L(w,b)=\min_\alpha L(\alpha)=\frac12\sum_{i=1}^N\sum_{j=1}^N\alpha_i\alpha_jy_iy_j(x_i\cdot x_j)-\sum_{i=1}^N\alpha_i$$
+
+结合上课内容可以发现：
+
+1. 在两者的对偶形式中，w,b 都可以表示为⟨xi,yi⟩的线性组合形式；
+2. 在两者的对偶形式中，都可以通过求解 $\alpha=(\alpha_1,\alpha_2,\cdots,\alpha_N)^T$，最后代入由 $x_i,y_i,α_i$ 表示的L(w, b)中，从而求解最优化问题的解 $w^{*}$ 和 $b^{*}$；
+3. 感知机学习得到一个分隔超平面，而线性可分支持向量机学习得到所有分隔超平面中的间隔最大分隔超平面。
+
+> [!question]+ 习题 7.2
+>
+> 已知正例点 $x_{1}=(1,2)^{T},x_{2}=(2,3)^{T},x_{3}=(3,3)^{T}$ 负例点 $x_{4}=(2,1)^{T},x_{5}=(3,2)^{T}$ 试求最大间隔分离平面和分类决策函数,并在图中画出分离超平面、间隔边界及支持向量。
+
+> 也可以参考 slide 46-47 页方法计算，这里 5 个点数据计算比较多。
+
+利用 sklearn 以及 matplotlab 进行求解绘图（代码附在末尾）输出结果如下：
+
+```output
+Weight vector (w): [-1.  2.]
+Bias (b): -2.0000000000000004
+Support vector indices: [4 0 2]
+Support vectors:
+ [[3 2]
+ [1 2]
+ [3 3]]
+Margin width: 0.44721359549995765
+Decision function: f(x) = -1.0000*x1 + 2.0000*x2 + -2.0000
+```
+
+可以得到：
+
+1. 最大间隔分离超平面： $-x^{(1)}+2x^{(2)}-2=0$
+2. 分类决策函数：$f(x)=\sin(-x^{(1)}+2x^{(2)}-2)$
+3. 支持向量： $x_1=(3,2)^T,x_2=(1,2)^T,x_3=(3,3)^T$
+
+<div style="text-align: center;">
+    <img src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2504/11_svm_plot.png" alt="" style="width: 50%;">
+    <p></p>
+</div>
+
+```python title="svm_train.py"
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.svm import SVC
+
+##### train the svm #####
+positive_samples = np.array([[1, 2], [2, 3], [3, 3]])
+negative_samples = np.array([[2, 1], [3, 2]])
+X = np.vstack((positive_samples, negative_samples))
+y = np.array([1, 1, 1, -1, -1])  # 1 for positive class, -1 for negative class
+svm = SVC(kernel="linear", C=1e6)
+svm.fit(X, y)
+w = svm.coef_[0]  # Normal vector to the hyperplane
+b = svm.intercept_[0]  # Intercept
+sv_indices = svm.support_  # Indices of support vectors
+
+##### Draw the pic #####
+
+def get_hyperplane_points(w, b, x_min, x_max):
+    # w[0]*x + w[1]*y + b = 0
+    # y = (-w[0]*x - b) / w[1]
+    x = np.linspace(x_min, x_max, 100)
+    y = (-w[0] * x - b) / w[1]
+    return x, y
+
+fig, ax = plt.subplots(figsize=(10, 8))
+ax.scatter(
+    positive_samples[:, 0],
+    positive_samples[:, 1],
+    c="b",
+    marker="o",
+    label="Positive class",
+)
+ax.scatter(
+    negative_samples[:, 0],
+    negative_samples[:, 1],
+    c="r",
+    marker="x",
+    label="Negative class",
+)
+
+support_vectors = X[sv_indices]
+ax.scatter(
+    support_vectors[:, 0],
+    support_vectors[:, 1],
+    s=100,
+    facecolors="none",
+    edgecolors="g",
+    linewidths=2,
+    label="Support vectors",
+)
+
+x_min, x_max = 0, 4
+
+x_hyperplane, y_hyperplane = get_hyperplane_points(w, b, x_min, x_max)
+ax.plot(x_hyperplane, y_hyperplane, "k-", label="Separating hyperplane")
+
+x_pos_margin, y_pos_margin = get_hyperplane_points(w, b - 1, x_min, x_max)
+x_neg_margin, y_neg_margin = get_hyperplane_points(w, b + 1, x_min, x_max)
+ax.plot(x_pos_margin, y_pos_margin, "k--", label="Margin boundaries")
+ax.plot(x_neg_margin, y_neg_margin, "k--")
+
+ax.set_xlim(x_min, x_max)
+ax.set_ylim(0, 4)
+ax.set_xlabel("x1")
+ax.set_ylabel("x2")
+ax.set_title("SVM Maximum Margin Classifier")
+
+margin = 1 / np.sqrt(np.sum(w**2))
+w_norm = np.linalg.norm(w)
+normalized_w = w / w_norm
+normalized_b = b / w_norm
+formula = f"Decision Function: f(x) = {w[0]:.2f}*x1 + {w[1]:.2f}*x2 + {b:.2f}"
+normalized_formula = f"Normalized: f(x) = {normalized_w[0]:.2f}*x1 + {normalized_w[1]:.2f}*x2 + {normalized_b:.2f}"
+margin_text = f"Margin width: {margin:.4f}"
+ax.text(
+    0.5,
+    0.05,
+    formula,
+    transform=ax.transAxes,
+    fontsize=12,
+    bbox=dict(facecolor="white", alpha=0.8),
+)
+ax.text(
+    0.5,
+    0.1,
+    normalized_formula,
+    transform=ax.transAxes,
+    fontsize=12,
+    bbox=dict(facecolor="white", alpha=0.8),
+)
+ax.text(
+    0.5,
+    0.15,
+    margin_text,
+    transform=ax.transAxes,
+    fontsize=12,
+    bbox=dict(facecolor="white", alpha=0.8),
+)
+
+ax.legend(loc="upper right")
+ax.grid(True, linestyle="--", alpha=0.7)
+
+print("Weight vector (w):", w)
+print("Bias (b):", b)
+print("Support vector indices:", sv_indices)
+print("Support vectors:\n", support_vectors)
+print("Margin width:", margin)
+print(f"Decision function: f(x) = {w[0]:.4f}*x1 + {w[1]:.4f}*x2 + {b:.4f}")
+plt.tight_layout()
+plt.savefig("imgs/svm_plot.png", dpi=300, bbox_inches="tight")
+# plt.show()
+```
+
+> [!question]+ 习题 7.3
+>
+> 线性支持向量机还可以定义为以下形式：
+> 
+> $$
+> \begin{aligned}&\min_{w,b,\xi}\quad\frac{1}{2}\|w\|^{2}+C\sum_{i=1}^{N}\xi_{i}^{2}\\&\mathrm{s.t.}\quad y_{i}(w\bullet x_{i}+b)\geqslant1-\xi_{i},\quad i=1,2,\cdots,N\\&\xi_{i}\geqslant0,\quad i=1,2,\cdots,N\end{aligned}
+> $$
+> 
+> 试求其对偶形式。
+
+构建拉格朗日函数：
+
+$$
+L(w,b,\xi,\alpha,\mu)=\frac{1}{2}||w||^{2}+C\sum_{i=1}^{N}\xi_{i}^{2}-\sum_{i=1}^{N}\alpha_{i}y_{i}(w\cdot x_{i}+b)+\sum_{i=1}^{N}(1-\xi_{i})\alpha_{i}-\sum_{i=1}^{N}\mu_{i}\xi_{i}
+$$
+
+首先求 $L(w,b,\xi,\alpha,\mu)$ 对 $w,b,\xi$ 的极小，由
+
+$$\begin{cases}
+\nabla_{w}L(w,b,\xi,\alpha,\mu)=w-\sum_{i=1}^{N}\alpha_{i}y_{i}x_{i}=0\\\nabla_{b}L(w,b,\xi,\alpha,\mu)=-\sum_{i=1}^{N}\alpha_{i}y_{i}=0\\\nabla_{\xi_{i}}L(w,b,\xi,\alpha,\mu)=2C\xi_{i}-\alpha_{i}-\mu_{i}=0
+\end{cases} \implies 
+\begin{cases}
+w=\sum_{i=1}^{N}\alpha_{i}y_{i}x_{i} \\ \sum_{i=1}^{N}\alpha_{i}y_{i}=0\\2C\xi_{i}-\alpha_{i}-\mu_{i}=0
+\end{cases}
+$$
+
+代入拉格朗日函数得：
+
+$$
+\min_{w,b,\xi}L(w,b,\xi,\alpha,\mu)=-\frac{1}{2}\sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_{i}\alpha_{j}y_{j}(x_{i}\cdot x_{j})+\sum_{i=1}^{N}\alpha_{i}-\sum_{j=1}^{N}\frac{(\alpha_{i}+\mu_{i})^{2}}{4C}
+$$
+
+对上述拉格朗日函数求 $\alpha, \mu$ 的极大，再将对目标函数求极大转换为求极小,于是得到对偶问题：
+
+$$
+\begin{aligned}\min_{\alpha,\mu}&\frac{1}{2}\sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_{i}\alpha_{j}y_{i}y_{j}(x_{i}\cdot x_{j})-\sum_{i=1}^{N}\alpha_{i}+\sum_{j=1}^{N}\frac{(\alpha_{i}+\mu_{i})^{2}}{4C}\\\mathrm{s.t.}&\sum_{i=1}^{N}\alpha_{i}y_{i}=0\\&\alpha_{i}\geq0\\&\mu_{i}\geq0,\quad i=1,2,\cdots,N\end{aligned}
+$$
+
+> [!question]+ 习题 7.4
+>
+> 证明内积的正整数幕函数：$K(x,z)=(x\bullet z)^p$ 是正定核函数，这里 p 是正整数，$x,z \in \mathbf{R}^{n}$ 。
+
+根据书中第7章的定理7.5（正定核的充要条件），要证 K(x, z) 是正定核函数，只要证 K(x, z) 对应的 Gram 矩阵 $K = [K(x_i , x_j )]_{n×n}$ 是半正定的。下面使用数学归纳法证明，对于任意 $\mathbf{c}=(c_{1},c_{2},\cdots,c_{n})^{T},c_{1},c_{2},\cdots,c_{n}\in\mathbb{R}$，记 K 的 Gram 矩阵为 $K_{G}$：
+
+1. 当 p=1 时，则应该有：
+
+$$
+\begin{aligned}\mathbf{c}^{T}K_{G}\mathbf{c}&=\sum_{i,j=1}^{n}c_{i}c_{j}K(x_{i},x_{j})\\&=\sum_{i,j=1}^{n}c_{i}c_{j}(x_{i}\cdot x_{j})\\&=\left(\sum_{i}^{n}c_{i}x_{i}\right)\cdot\left(\sum_{j}^{n}c_{j}x_{j}\right)\\&=\left|\left|\sum_{i}^{n}c_{i}x_{i}\right|\right|^{2}\geq0\end{aligned}
+$$
+
+表明 p = 1 时，K(x, z) 对应的 Gram 矩阵 $K_{G}$ 是半正定的。
+
+2. 假设当 p=t (t>1) 时 $K_{G}$ 是半正定的。
+3. 考虑 p = t+1 的情况，记 $\mathbf{d}=(d_{1},d_{2},\cdots,d_{n})^{T},d_{i}=\sum_{i}^{n}c_{i}x_{i}$，有
+
+$$
+\begin{aligned}\mathbf{c}^{T}K_{t+1}\mathbf{c}&=\sum_{i,j=1}^{n}c_{i}c_{j}K(x_{i},x_{j})\\&=\sum_{i,j=1}^{n}c_{i}c_{j}(x_{i}\cdot x_{j})^{t+1}\\&=\sum_{i,j=1}^{n}c_{i}c_{j}(x_{i}\cdot x_{j})(x_{i}\cdot x_{j})^{t}\\&=\sum_{i}^{n}c_{i}\sum_{j}^{n}c_{j}x_{j}(x_{i}\cdot x_{j})^{t}\\&=\mathbf{d}^{T}K_{t}\mathbf{d}\geq0\end{aligned}
+$$
+
+所以 p = t+1 时 $K_{G}$ 也是半正定的。
+
+4. 由数学归纳法知， K(x, z) 对应的 Gram 矩阵 $K = [K(x_i , x_j )]_{n×n}$ 是半正定的。
+
+根据书中第 7 章的定理 7.5（正定核的充要条件），K(x, z) 是正定核函数。

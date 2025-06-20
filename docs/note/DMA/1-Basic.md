@@ -1,4 +1,4 @@
-> [!help]- 补补基础，主要参考 [AI 算法工程师手册](https://www.huaxiaozhuan.com/) 。
+> [!help] 补补基础，主要参考 [AI 算法工程师手册](https://www.huaxiaozhuan.com/) 。
 
 ## 线性代数
 
@@ -39,22 +39,13 @@ $$
 - 贝叶斯学习（Bayesian learning）
 - 核方法（Kernel method）
 
-
 ### 策略
 
-> [!extra]- 参考[决策](https://www.huaxiaozhuan.com/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0/chapters/0_introduction.html#:~:text=3.2-,%E7%AD%96%E7%95%A5,-%E7%AD%96%E7%95%A5%E8%80%83%E8%99%91%E7%9A%84%E6%98%AF)
-
-好的，我们来系统性地辨析统计机器学习中风险最小化与参数估计这两大框架下的核心概念及其对应关系。
-
-#### 核心概念定义
-
-首先，我们定义模型、数据和损失函数，这是后续讨论的基础。
+> [!extra] 参考[决策](https://www.huaxiaozhuan.com/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0/chapters/0_introduction.html#:~:text=3.2-,%E7%AD%96%E7%95%A5,-%E7%AD%96%E7%95%A5%E8%80%83%E8%99%91%E7%9A%84%E6%98%AF)
 
 - **数据 (Data):** 假设我们有一个训练数据集 $D = \{(x_1, y_1), (x_2, y_2), \dots, (x_N, y_N)\}$，其中每个样本 $(x_i, y_i)$ 都是从一个未知的真实数据联合分布 $P(x, y)$ 中独立同分布 (i.i.d.) 采样得到的。
 - **模型 (Model):** 我们的目标是学习一个假设函数 $f(x; \theta)$，它由参数 $\theta$ 决定，用来预测输入 $x$ 对应的输出 $y$。
 - **损失函数 (Loss Function):** $L(y, f(x; \theta))$ 是一个非负实值函数，用于量化预测值 $f(x; \theta)$ 与真实值 $y$ 之间的差异。损失越小，代表模型预测得越好。
-
----
 
 #### 第一部分：风险最小化框架 (Risk Minimization)
 
@@ -98,8 +89,6 @@ $$
     $$
 - $J(\theta)$ 是一个关于模型参数 $\theta$ 的函数，$\theta$ 越复杂，$J(\theta)$ 的值越大。例如，$L_2$ 正则化项 $J(\theta) = ||\theta||_2^2$。
 - $\lambda$ 是一个超参数，用于权衡经验风险和模型复杂度。
-
----
 
 #### 第二部分：概率估计框架 (Probabilistic Estimation)
 
@@ -152,10 +141,12 @@ MAP 不仅考虑数据的似然性，还引入了关于参数 $\theta$ 的 **先
 **证明:**
 
 将 MLE 的目标转换为一个最小化问题：
+
 $$
 \hat{\theta}_{MLE} = \arg\max_{\theta} \sum_{i=1}^{N} \log P(y_i|x_i; \theta) = \arg\min_{\theta} \left( -\sum_{i=1}^{N} \log P(y_i|x_i; \theta) \right)
 $$
 现在，我们来看 ERM 的目标：
+
 $$
 \hat{\theta}_{ERM} = \arg\min_{\theta} \frac{1}{N} \sum_{i=1}^{N} L(y_i, f(x_i; \theta))
 $$

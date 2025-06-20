@@ -1,5 +1,3 @@
-# 第九章 EM 算法
-
 EM（Expectation-Maximization，期望最大化）算法是一种在机器学习中应用广泛的迭代算法。它主要用于解决**含有隐变量（latent variable）的概率模型**的参数估计问题。当模型中存在无法直接观测到的变量时，我们无法像往常一样直接使用极大似然估计法（MLE）或极大后验概率估计法（MAP）。EM 算法通过一个巧妙的迭代过程，逐步优化模型参数，最终得到一个（局部）最优解。
 
 ## EM 算法的引入 (page 2)
@@ -279,8 +277,6 @@ EM 算法具有良好的收敛性质，但理解其收敛的含义至关重要�
 
 ## EM 算法-例子 (page 27-30)
 
-这是一个非常经典的抛硬币例子，可以帮助我们直观地理解 EM 算法的工作原理。
-
 > [!example]+ 抛硬币问题
 >
 > **场景**：我们有两枚硬币A和B，它们各自出现正面的概率 $\theta_A$ 和 $\theta_B$ 是未知的。实验过程是：随机选一枚硬币（A 或 B），然后连续抛 10 次，记录下正反面的结果。这个过程重复 5 次。
@@ -347,3 +343,110 @@ EM 算法具有良好的收敛性质，但理解其收敛的含义至关重要�
 [^1]: **极大似然估计 (Maximum Likelihood Estimation, MLE)**：一种参数估计方法，其思想是找到一组参数，使得在这组参数下，我们观测到的样本数据出现的概率（似然）最大。
 [^2]: **贝叶斯估计 (Bayesian Estimation)**：一种参数估计方法，它将参数也看作是随机变量，并结合了参数的先验分布和数据似然，来计算参数的后验分布。通常取后验分布的期望或众数作为参数的估计值。
 [^3]: **Jensen不等式 (Jensen's Inequality)**：对于一个凸函数 $f(x)$，有 $f(E[X]) \le E[f(X)]$。对于一个凹函数（如 $\log(x)$），则不等号方向相反，即 $f(E[X]) \ge E[f(X)]$。EM算法的推导利用了 $\log$ 函数的凹性。
+
+## 习题
+
+> [!question]+ 习题 9.1
+>
+> 如例9.1的三硬币模型，假设观测数据不变，试选择不同的初值，例如，$π^{(0)}=0.46,p^{(0)}=0.55,q^{(0)}=0.67$，求模型参数为 $θ=(π,p,q)$ 的极大似然估计。
+
+- **(1) 初始值:** $\theta^{(0)}=(\pi^{(0)},p^{(0)},q^{(0)})$；
+- **(2) E 步:** 第二次抛出 B 硬币概率：
+
+$$\mu_j^{(i+1)}=\frac{\pi^{(i)}(p^{(i)})^{y_j}(1-p^{(i)})^{1-y_j}}{\pi^{(i)}(p^{(i)})^{y_j}(1-p^{(i)})^{1-y_j}+(1-\pi^{(i)})(q^{(i)})^{y_j}(1-q^{(i)})^{1-y_j}}$$
+
+- **(3) M 步:** 计算模型参数的新估计值
+
+$$
+\pi^{(i+1)}=\frac1n\sum_{j=1}^N\mu_j^{(i+1)};\quad p^{(i+1)}=\frac{\sum_{j=1}^n\mu_j^{(i+1)}y_j}{\sum_{j=1}^n\mu_j^{(i+1)}};\quad q^{(i+1)}=\frac{\sum_{j=1}^n(1-\mu_j^{(i+1)})}{\sum_{j=1}^n(1-\mu_j^{(i+1)})}
+$$
+
+- **(4) 停止条件:** 需要设定迭代停止的条件。常用的条件是：
+    - 参数变化足够小: $|| θ^{(i+1)} - θ^{(i)} || < ε_{1}$
+    - Q函数（或对数似然函数L(θ)）增量足够小: $|| L(θ^{(i+1)}) - L(θ^{(i)}) || < ε_{2}$ (或使用 Q 函数的变化)  其中 ε1, ε2 是预设的很小的正数。
+
+使用 python 进行迭代有：
+
+```python title="EM algorithm"
+import numpy as np
+import matplotlib.pyplot as plt
+
+observations = np.array([1, 1, 0, 1, 0, 0, 1, 0, 1, 1])
+n = len(observations)
+
+# Initial parameters
+pi_0 = 0.46
+p_0 = 0.55
+q_0 = 0.67
+
+
+# EM algorithm implementation
+def em_algorithm(observations, pi_0, p_0, q_0, max_iterations=100, tol=1e-6):
+    pi = pi_0
+    p = p_0
+    q = q_0
+    n = len(observations)
+    history = []
+
+    for iteration in range(max_iterations):
+        history.append((pi, p, q))
+
+        # E-step: Calculate posterior probability that each observation comes from coin A
+        mu = np.zeros(n)
+        for j in range(n):
+            y_j = observations[j]
+            numerator = pi * (p**y_j) * ((1 - p) ** (1 - y_j))
+            denominator = pi * (p**y_j) * ((1 - p) ** (1 - y_j)) + (1 - pi) * (
+                q**y_j
+            ) * ((1 - q) ** (1 - y_j))
+            mu[j] = numerator / denominator
+
+        # M-step: Update parameter estimates
+        pi_new = np.mean(mu)
+        p_new = np.sum(mu * observations) / np.sum(mu)
+        q_new = np.sum((1 - mu) * observations) / np.sum(1 - mu)
+
+        # Check convergence
+        if max(abs(pi_new - pi), abs(p_new - p), abs(q_new - q)) < tol:
+            pi, p, q = pi_new, p_new, q_new
+            history.append((pi, p, q))
+            print(f"EM algorithm converged after {iteration+1} iterations")
+            break
+
+        pi, p, q = pi_new, p_new, q_new
+
+    if iteration == max_iterations - 1:
+        print(f"EM algorithm reached maximum iterations {max_iterations}")
+
+    return pi, p, q, history
+
+
+pi_final, p_final, q_final, history = em_algorithm(observations, pi_0, p_0, q_0)
+print(f"Initial parameters: π = {pi_0}, p = {p_0}, q = {q_0}")
+print(f"Final estimates: π = {pi_final:.6f}, p = {p_final:.6f}, q = {q_final:.6f}")
+```
+
+```output
+EM algorithm converged after 2 iterations
+Initial parameters: π = 0.46, p = 0.55, q = 0.67
+Final estimates: π = 0.461863, p = 0.534595, q = 0.656135
+```
+
+可以看到当前的情况收敛很快，最终 $\theta = (0.461863, 0.534595, 0.656135)$ 。
+
+> [!question]+ 习题 9.2 证明引理 9.2
+> 
+> $若\tilde{P}_\theta(Z)=P(Z|Y,\theta)$ 则 $\\\\F(\tilde{P},\theta)=\log P(Y|\theta)$ 。
+
+由定义 9.3： $F(\tilde P,\theta)=E_{\tilde P}[\log P(Y,Z|\theta)]+H(\tilde P)$，其中 $H(\tilde{P}) = - E_{\tilde P} \log \tilde P(Z)$；由引理 9.1 得知： $\tilde{P}_{\theta}(Z)=P(Z|Y, \theta)$ ；故而：
+
+$$\begin{aligned}
+F(\tilde{P},\theta) & =E_{\tilde{P}}[\log P(Y,Z|\theta)]+H(\tilde{P}) \\
+ & =E_{\tilde{P}}[\log P(Y,Z|\theta)]-E_{\tilde{P}}\log\tilde{P}(Z)\\
+ & =\sum_Z\log P(Y,Z|\theta)\tilde{P}_\theta(Z)-\sum_Z\log\tilde{P}(Z)\cdot\tilde{P}(Z) \\
+ & =\sum_Z\log P(Y,Z|\theta)P(Z|Y,\theta)-\sum_Z\log P(Z|Y,\theta)\cdot P(Z|Y,\theta) \\
+ & =\sum_ZP(Z|Y,\theta)\left[\log P(Y,Z|\theta)-\log P(Z|Y,\theta)\right] \\
+ & =\sum_ZP(Z|Y,\theta)\log\frac{P(Y,Z|\theta)}{P(Z|Y,\theta)} \\
+ & =\sum_ZP(Z|Y,\theta)\log P(Y|\theta) \\
+ & =\log P(Y|\theta)\sum_ZP(Z|Y,\theta)
+\end{aligned}$$

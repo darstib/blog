@@ -194,20 +194,25 @@ Typst 有三种语法模式：标记、数学和代码。标记模式是 Typst �
     - 支持渲染 latex 语法
 - [cmaker](https://typst.app/universe/package/cmarker)
 	- 支持渲染 markdown 语法
+
 - [touyin](https://typst.app/universe/package/touying/)
 	- 使用 tpyst 制作简单的 ppt
 - [cetz](https://typst.app/universe/package/cetz) [docs](https://cetz-package.github.io/)
 	- a library for drawing
+
 - [badgery](https://typst.app/universe/package/badgery)
 	- 行内小色块
 - [gentle-clues](https://typst.app/universe/package/gentle-clues)
 	- mdbook-like callouts
 - [colorful-boxes](https://typst.app/universe/package/colorful-boxes)
 	- 包裹式注释块
+
 - [tablex](https://typst.app/universe/package/tablex/) or [tablem](https://typst.app/universe/package/tablem)
 	- 花式表格
 - [alog](https://typst.app/universe/package/algo)
 	- 带行号代码块、伪代码块
+- [subpar](https://typst.app/universe/package/subpar/)
+	- 可引用的子图
 
 - 部分参考：[Typst Examples Book - package](https://sitandr.github.io/typst-examples-book/book/packages/index.html)
 

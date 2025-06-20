@@ -24,7 +24,7 @@ Once you have a dataset that you’re ready to learn with, the machine learning 
 	- If your model doesn’t perform as well as you’d like it to, it’s always okay to go back and train again, either by adjusting special model-specific values called hyperparameters or by using a different learning algorithm altogether until you’re satisfied with your results. 
 - Finally, use your model to make predictions on the third and final subset of your data, the **test set**. The test set is the portion of your data that’s never seen by your agent until the very end of development, and is the equivalent of a "final exam" to gauge performance on real-world data.
 
-![](attachments/19-Machine_Learning.png)
+![|600](attachments/19-Machine_Learning.png)
 
 ### Naive Bayes (classification problem)
 
@@ -36,7 +36,7 @@ Now let’s say you have a dictionary of n words, and from each email you extrac
 
 $$P(Y=spam|F_1=f_1,\ldots,F_n=f_n) \quad and\quad P(Y=ham|F_1=f_1,\ldots,F_n=f_n)$$
 
-> 即，我们用布尔列表代表某个词是否出现在邮件中，以此作为特征向量；但是记住这一计算是 $O(2^n)$ 的，我们使用 bayes' net 来进行简化，时间复杂度降低至 $O(n)$.
+> [!help] 即，我们用布尔列表代表某个词是否出现在邮件中，以此作为特征向量；但是记住这一计算是 $O(2^n)$ 的，我们使用 bayes' net 来进行简化，时间复杂度降低至 $O(n)$.
 
 This is solved by modeling the joint probability table with a Bayes’ net, making the critical simplifying <u>assumption that each feature Fi is independent of all other features given the class label.</u> This is a very strong modeling assumption (and the reason that **Naive Bayes** is called naive), but it simplifies inference and usually works well in practice. Then we get:
 
@@ -106,4 +106,5 @@ The specific value of k that’s appropriate to use in our model is typically de
 
 ## link
 
-- [cs188-sp24-note19](https://inst.eecs.berkeley.edu/~cs188/sp24/assets/notes/cs188-sp24-note19.pdf) 
+- [cs188-sp24-note19](https://inst.eecs.berkeley.edu/~cs188/sp24/assets/notes/cs188-sp24-note19.pdf)
+- [4-Naive_Bayes](../../DMA/4-Naive_Bayes.md)

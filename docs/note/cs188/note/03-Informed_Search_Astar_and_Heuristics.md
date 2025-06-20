@@ -8,10 +8,11 @@ dg-publish: true
 
 > [!PREREQUISITE]
 >
-> -  [范数](https://www.wikiwand.com/zh/articles/%E8%8C%83%E6%95%B0)
-> - [序关系](https://darstib.github.io/blog/note/cs70/note/18-Misc/#_5)
+> - [范数](https://www.wikiwand.com/zh/articles/%E8%8C%83%E6%95%B0)
+> - [序关系](https://kg.darstib.cn/note/cs70/18-Misc/#%E5%BA%8F%E5%85%B3%E7%B3%BB)
 
 ## note
+
 ### Informed Search
 
 _Uniform cost search_ is good because it’s both complete and optimal, but it can be **fairly slow** because it expands in every direction from the start state while searching for a goal. If we <u>have some notion of the direction in which we should focus our search</u> , we can significantly improve performance and "hone in" on a goal **much more quickly**. This is exactly the focus of _informed search_.
@@ -20,6 +21,8 @@ _Uniform cost search_ is good because it’s both complete and optimal, but it c
 
 Heuristics are the driving force that allow estimation of distance to goal states - they’re functions that <u>take in a state as input and output a corresponding estimate</u>.
 
+> [!note]+ 
+> 
 > The computation performed by such a function is **specific to the search problem** being solved. For reasons that we’ll see in A* search, below.
 
 we usually want heuristic functions to <u>be a lower bound on this remaining distance to the goal</u> , and so heuristics are typically solutions to **relaxed problems** (where some of the constraints of the original problem have been removed).
@@ -52,9 +55,7 @@ This concept of preference is very powerful, and is utilized by the following tw
 
 Now, let’s spend some time discussing what constitutes a good heuristic. 
 
-> [!QUESTION]
->
-> Why?
+> [!question]+ Why?
 > 
 > Let’s first reformulate the methods used for determining priority queue ordering in UCS, greedy search, and A* with the following definitions:
 >
@@ -64,9 +65,9 @@ Now, let’s spend some time discussing what constitutes a good heuristic.
 >
 > Indeed, it’s very easy to find heuristics that break these two coveted properties. As an example, consider the heuristic function **h(n) = 1−g(n).** Such a heuristic reduces A* search to BFS.
 
-> [!definition]
+> [!definition]+ **admissibility**
 >
-> The condition required for optimality when using A* tree search is known as **admissibility**. The admissibility constraint states that the value estimated by an admissible heuristic is neither negative nor an overestimate, that is: $∀n, 0 ≤ h(n) ≤ h^∗ (n)$, ($h^∗(n)$ is the true optimal forward cost to reach a goal state from a given node n).
+> The condition required for optimality when using A\* tree search is known as **admissibility**. The admissibility constraint states that the value estimated by an admissible heuristic is neither negative nor an overestimate, that is: $∀n, 0 ≤ h(n) ≤ h^∗ (n)$, ($h^∗(n)$ is the true optimal forward cost to reach a goal state from a given node n).
 
 > [!THEOREM]+
 >
@@ -140,7 +141,7 @@ The standard metric for this(creating "good" heuristics, and how to tell if one 
 > Below is an example of a semi-lattice that incorporates various heuristics ha,hb, and hc ranging from the trivial heuristic at the bottom to the exact goal distance at the top:
 >
 > ![](attachments/03_State-Spaces-Uninformed-Search-6.png)
-
+> 
 > 很显然，在 dominance 的度量标准下，所有满足我们先前要求的 heuristics 都“不大于” exact  即正确的情况，那么“越大”的 heuristics 越接近于 exact，自然是我们越想要的。
 
 ### Search: Summary
