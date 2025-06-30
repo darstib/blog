@@ -131,6 +131,6 @@ git clone https://github.com/Darstib/cs188.git
 2. [导入 markdown](https://publish.obsidian.md/help-zh/import/markdown)；
 3. 点击右上角进入阅读视图即可。
 
-![](attachments/README-1.png)
+![|600](attachments/README-1.png)
 
 

@@ -56,6 +56,7 @@
 	    - tutorial/skill_learn/*.md
 - [Summary](summary/README.md)
     - [大一小记](summary/大一小记.md)
+    - [大二小结](summary/大二小结.md)
 - AIsecurity
 	- [PaperRead](AIsecurity/PaperRead/README.md)
 		- AIsecurity/PaperRead/*.md

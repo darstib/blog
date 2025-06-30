@@ -63,12 +63,13 @@ comments: true
 	- [开源许可证](https://docs.github.com/zh/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository)
 	- [Github 工作流](https://docs.github.com/zh/actions/writing-workflows/about-workflows)
 - 交流
+	- [V2EX](https://www.v2ex.com/) or [segmentfault](https://segmentfault.com/)
+	    - 国内程序员交流网站（还算比较活跃）
+	- [Linux Do —— 写给即将成为佬友的佬友们](https://linux.do/t/topic/545650)
+	- [吾爱破解](https://www.52pojie.cn/) （误入）
 	- [StackExchange](https://stackexchange.com/)
 		- [cs.stackexchange](https://stackexchange.com/)
 		- [stackoverflow](https://stackoverflow.com/questions)
-	- [V2EX](https://www.v2ex.com/) or [segmentfault](https://segmentfault.com/)
-	    - 国内程序员交流网站（还算比较活跃）
-	- [吾爱破解](https://www.52pojie.cn/) （误入）
 - 镜像站
 	- [清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/)
 	- [中国科学技术大学镜像站](https://mirrors.ustc.edu.cn/)
@@ -107,6 +108,7 @@ comments: true
 	- [公开真题库](https://www.gkzenti.cn/)
 - [BT磁力种子搜索引擎网站](https://www.wangdu.site/software/av-read/540.html)
 - [真题在线](https://www.wehuster.com/)
+- [Ayouth的影视站点推荐](https://ayouth.top/ayouth/video.html)
 
 ### 工具箱
 

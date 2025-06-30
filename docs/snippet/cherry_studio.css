@@ -1,0 +1,102 @@
+/* Cherry Studio 汉白玉主题 - 完整版本 */
+/* https://linux.do/t/topic/325119 汉白玉主题 */
+
+/* ========== 全局配置 ========== */
+:root {
+    --color-black-soft: #2b2926;
+}
+
+/* 全局字体设置 */
+* {
+    font-family: 'LXGW WenKai GB Screen', sans-serif;
+}
+
+/* ========== LIGHT MODE 浅色模式 ========== */
+body[theme-mode="light"] {
+  --color-background: #f7f6f2;
+  --color-background-soft: #f2f0eb;
+  --color-background-mute: #eae8e3;
+  --navbar-background: #f5f3ef;
+  --chat-background: #ffffff;
+  --chat-background-user: #f7f6f2;
+  --chat-background-assistant: #f2f0eb;
+  --color-white: #ffffff;
+}
+
+body[theme-mode="light"] #content-container {
+  background-color: #fdfcfa !important;
+}
+
+body[theme-mode="light"] .ant-collapse {
+  background-color: #dedad5;
+}
+
+body[theme-mode="light"] .ant-collapse-content {
+  background-color: #e8e6e1;
+}
+
+/* Light mode user content styling */
+body[theme-mode="light"] .user-content,
+body[theme-mode="light"] .message-content,
+body[theme-mode="light"] .chat-message-user {
+  color: #2b2926 !important;
+}
+
+/* Light mode assistant content styling */
+body[theme-mode="light"] .assistant-content,
+body[theme-mode="light"] .chat-message-assistant {
+  color: #2b2926 !important;
+}
+
+/* ========== DARK MODE 深色模式 ========== */
+body[theme-mode="dark"] {
+  --color-background: #2b2926ee;
+  --color-background-soft: #4A4845;
+  --color-background-mute: #2b2926;
+  --navbar-background: #2b2926;
+  --chat-background: #2b2926;
+  --chat-background-user: #3d3a36;
+  --chat-background-assistant: #353331;
+}
+
+body[theme-mode="dark"] #content-container {
+  background-color: #302d29 !important;
+}
+
+body[theme-mode="dark"] .ant-collapse {
+  background-color: #5F5D5A;
+}
+
+body[theme-mode="dark"] .ant-collapse-content {
+  background-color: #4A4845;
+}
+
+/* Dark mode user content styling - 修复字体颜色为白色 */
+body[theme-mode="dark"] .user-content,
+body[theme-mode="dark"] .message-content,
+body[theme-mode="dark"] .chat-message-user,
+body[theme-mode="dark"] .user-message,
+body[theme-mode="dark"] .message-user {
+  color: #ffffff !important;
+}
+
+/* Dark mode assistant content styling - 确保助手消息也是白色 */
+body[theme-mode="dark"] .assistant-content,
+body[theme-mode="dark"] .chat-message-assistant,
+body[theme-mode="dark"] .assistant-message,
+body[theme-mode="dark"] .message-assistant {
+  color: #ffffff !important;
+}
+
+/* Dark mode general text content */
+body[theme-mode="dark"] .chat-content,
+body[theme-mode="dark"] .message-text,
+body[theme-mode="dark"] .chat-text {
+  color: #ffffff !important;
+}
+
+/* Dark mode markdown content */
+body[theme-mode="dark"] .markdown-content,
+body[theme-mode="dark"] .markdown-body {
+  color: #ffffff !important;
+}

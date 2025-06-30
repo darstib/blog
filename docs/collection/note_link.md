@@ -43,8 +43,8 @@ comments: true
 
 ### 计算机系统三
 
+- [CSys-III](../note/CSys-III/README.md)
 - [RyanFcr 的仓库](https://github.com/RyanFcr/ZJU_Course/tree/main/%E5%A4%A7%E4%BA%8C%E6%98%A5%E5%A4%8F/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E2%85%A2)
-- [HengZhao's Knowledge Base](https://note.enlzhao.com/Course/System3/)
 
 ### 人工智能安全
 
@@ -57,13 +57,13 @@ comments: true
 
 ### 人工智能伦理与安全
 
-> ~~从完成上课任务来看这些都没有必要~~
+> [!extra] 从完成上课任务来看这些都没有必要
 
 - 参考资料
 	- [-Introduction to AI Safety, Ethics, and Society](https://www.aisafetybook.com/)
 	- [人工智能治理公共服务平台](https://www.ai-governance.online/cn)
--  笔记
-	- [YEY blog - COMP90087](https://yey.world/archive/?tag=COMP90087)
+- 笔记
+	- [-YEY blog - COMP90087](https://yey.world/archive/?tag=COMP90087)
 
 ### 数据建模与分析
 
@@ -72,14 +72,14 @@ comments: true
 		- [参考习题解答](https://datawhalechina.github.io/statistical-learning-method-solutions-manual/#/)
 - 笔记
 	- [cc98](https://www.cc98.org/topic/5926719)
-	- [-YEY blog - COMP90051](https://yey.world/archive/?tag=COMP90051)
-- 试卷
-	- [-HobbitQia's repo](https://github.com/HobbitQia/ZJU-Courses-Resources/tree/master/%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1%E4%B8%8E%E5%88%86%E6%9E%90)
-	- [-cc98 21-22春夏回忆卷](https://www.cc98.org/topic/5356728/)
+	- [DMA](../note/DMA/README.md)
+
+> [!extra] 课程内容和老师都很好，可能是外界评价太高的原因，期末被恶心到了😑，老师出难就是让大家都别选。
 
 ### 隐私计算与数据合规
 
 - [语雀资料](https://www.yuque.com/secret-flow/admin)
+- [2024-2025 PrivacyComputing_Final](../static/PrivacyComputing_Final.pdf)
 
 ### 会计学
 
@@ -98,7 +98,7 @@ comments: true
 - [cc98 - 毛概资源汇总](https://www.cc98.org/topic/6181236)
 	- 下面的内容基本出于此/发源于此
 - 回忆卷
-	- [飞书 - 回忆卷整理](https://gi7cake7hk2.feishu.cn/docx/NoTPdE0qZoKazcxKfwtcuLegnKg#UTl0dAYuAo3S5lxAk5bcgMS5nrh)
+	- [-飞书 - 回忆卷整理](https://gi7cake7hk2.feishu.cn/docx/NoTPdE0qZoKazcxKfwtcuLegnKg#UTl0dAYuAo3S5lxAk5bcgMS5nrh)
 	- [毛概资源汇总 - 回忆卷汇总](https://www.cc98.org/topic/6181236#:~:text=%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%9F%A5%E7%9C%8B~-,%E5%9B%9E%E5%BF%86%E5%8D%B7%E6%B1%87%E6%80%BB,-%E3%80%90%E5%AD%A6%E4%B9%A0%E5%A4%A9%E5%9C%B0%E3%80%912024)
 - 其他
 	- [【毛概】重要会议和文献梳理](https://www.cc98.org/topic/5921889)

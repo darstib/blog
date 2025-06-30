@@ -37,7 +37,7 @@ tags:
 >
 > 参考：[SSH 访问 Windows 的 WSL2 Ubuntu](https://zhi.moe/post/access-into-wsl2-ubuntu-from-macos/)
 
-#### 基本连接 (Basic Connection)
+#### 基本连接
 
 这是最常用的命令，用于登录到远程服务器。
 
@@ -48,7 +48,7 @@ ssh [username@]remote_host # [表示可以省略]
 - `username` 是在远程主机上的用户名。**如果省略** `username@`，SSH 会默认使用**当前登录客户端**的用户名尝试接。
 - `remote_host` 是远程主机的 IP 地址或域名。
 
-#### 指定端口 (Specify Port)
+#### 指定端口
 
 默认 SSH 协议使用 22 端口。如果远程服务器的 SSH 服务运行在其他端口（例如 2222），需要使用 `-p` 选项指定。
 
@@ -56,7 +56,7 @@ ssh [username@]remote_host # [表示可以省略]
 ssh username@remote_host -p 2222
 ```
 
-#### 远程执行命令 (Execute Remote Command)
+#### 远程执行命令
 
 可以在不登录交互式 Shell 的情况下，直接在远程主机上执行单个命令。
 
@@ -193,6 +193,12 @@ Hi darstib! You've successfully authenticated, but GitHub does not provide shell
 >  - SSH [J]umping: Connect through a jumphost to a remote server (Multiple jump hops may be specified separated by comma characters):
 >    ssh -J username@jump_host username@remote_host
 > ```
+
+一个可能用到但是上面没有展示出来的情况是：如果我们在使用公共的服务器，而需要访问诸如 Github 等网络不稳定的服务时，我们希望能够连接使用流量使用我们本地主机的代理服务，此时可以使用 `-R` 选项，具体而言：
+
+```sh
+$ ssh username@remote_host e-R <remote_port>:localhost:<local_port>
+```
 
 ### SCP：安全的文件复制
 

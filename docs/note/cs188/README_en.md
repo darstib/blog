@@ -112,7 +112,7 @@ comments: true
 #### Using Git
 
 ```shell
-git clone https://github.com/Darstib/cs188.git
+git clone https://github.com/darstib/cs188.git
 ```
 
 #### Direct Download All
