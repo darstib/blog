@@ -32,6 +32,16 @@ default=darstib
 
 ### Wsl change disk
 
+> [!attention] 20250714 更：（来自 https://linux.do/t/topic/785798 ）
+> 
+> ```sh
+> wsl --list -v # 获取发行版名称，此处以Ubuntu-24.04为例
+> $targetPath = "D:\Ubuntu-24"
+> if (!(Test-Path $targetPath)) { New-Item -Path $targetPath -ItemType Directory | Out-Null }
+> wsl --shutdown
+> wsl --manage Ubuntu-24.04 --move "$targetPath"
+> ```
+
 Wsl 越用越大，默认在 C 盘，如何移动到 D 盘自己指定的位置呢？
 
 ```shell title="in cmd or powershell"

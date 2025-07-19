@@ -21,8 +21,13 @@ comments: true
 - [Chatglm](https://chatglm.cn/main/alltoolsdetail?lang=zh)(智谱清言)
 - [豆包](https://www.doubao.com/) 
 
+- [Lmarena](https://lmarena.ai/?mode=direct)
+	- 免费使用顶尖模型
+	- 纯文字/生图，没有多模态
+
 ### agent/multi-mode
 
+- [Gemini](https://gemini.google.com) 的 Deep Research
 - [AutoGLM](https://chatglm.cn/main/autoglm)
 	- 对标 [operator](https://openai.com/index/introducing-operator/) 的产品？
 - [flowith](https://flowith.net/invitation?code=FY5QKY) or [无邀请码版](https://flowith.net)
@@ -35,12 +40,14 @@ comments: true
 
 - [Anakin](https://app.anakin.ai/artist)
     - 本身是一个集成平台，我看中的是其 artist 部分的文生图模型；
-    - 部分模型可免费使用[^2]，例如 Stable Diffusion XL Base 1.0。
-- [AI short](https://www.aishort.top/) or [prompts.chat](https://prompts.chat/)
+    - ~~部分模型可免费使用[^2]，例如 Stable Diffusion XL Base 1.0。~~
+- [AI short](https://www.aishort.top/) or [prompts.chat](https://prompts.chat/) or [提示词优化器](https://prompt.always200.com/)
     - AI 提示词
 - [openai - tokenizer](https://platform.openai.com/tokenizer)
 - [ZeroGPT](https://www.zerogpt.com/)
 	- [如何使用 ZeroGPT：AI 内容检测终极指南](https://aipure.ai/cn/articles/how-to-use-zerogpt-ultimate-guide-to-ai-content-detection)
+- 论文阅读
+	- [alphaxiv](https://www.alphaxiv.org/) or [chatpaper](https://www.chatpaper.ai/)
 
 [^2]: 截至日期 2024-08-20
 
@@ -65,11 +72,8 @@ comments: true
 - 交流
 	- [V2EX](https://www.v2ex.com/) or [segmentfault](https://segmentfault.com/)
 	    - 国内程序员交流网站（还算比较活跃）
-	- [Linux Do —— 写给即将成为佬友的佬友们](https://linux.do/t/topic/545650)
+	- [Linux Do](https://linux.do/faq)（还算比较活跃）
 	- [吾爱破解](https://www.52pojie.cn/) （误入）
-	- [StackExchange](https://stackexchange.com/)
-		- [cs.stackexchange](https://stackexchange.com/)
-		- [stackoverflow](https://stackoverflow.com/questions)
 - 镜像站
 	- [清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/)
 	- [中国科学技术大学镜像站](https://mirrors.ustc.edu.cn/)
@@ -109,6 +113,7 @@ comments: true
 - [BT磁力种子搜索引擎网站](https://www.wangdu.site/software/av-read/540.html)
 - [真题在线](https://www.wehuster.com/)
 - [Ayouth的影视站点推荐](https://ayouth.top/ayouth/video.html)
+- [vidhub](https://vidhub.link/)
 
 ### 工具箱
 
@@ -135,6 +140,8 @@ comments: true
 - [pandoc](https://pandoc.org/)
     - a universal document converter
 - 英文论文翻译
+	- [幻觉翻译](https://hjfy.top/)
+		- 来自[消耗 3 亿 token，我用大模型翻译了 1 万篇 arXiv 论文](https://zhuanlan.zhihu.com/p/1905569596599169419)
 	- [ChatPaper](https://github.com/kaixindelele/ChatPaper)
 		- 可以免费使用[学术版GPT 网页非盈利版](https://academic.chatwithpaper.org/)
 			- 针对 arXiv 比较厉害的一个功能是，根据论文**摘要链接**，获取 tex 源码，对其翻译后再编译，所以翻译后看起来比直接翻译 pdf 好很多
@@ -146,8 +153,9 @@ comments: true
 		- 在阅读 Html 版本时可以搭配使用
 		- Tips:（以 [https://arxiv.org/abs/1502.03808](https://arxiv.org/abs/1502.03808) 为例）​
 		      - 替换「x」为「5」跳转到 HTML 版本阅读​，搭配沉浸式翻译使用：[https://ar5iv.org/abs/1502.03808](https://ar5iv.org/abs/1502.03808)
+		      - 替换「ar」为「alpha」跳转到 alphxiv 处理 [https://alphaxiv.org/abs/1502.03808](https://alphaxiv.org/abs/1502.03808)
 		      - 替换「v」为「w」跳转到 txyz 处理​：[https://arxiw.org/abs/1502.03808](https://arxiw.org/abs/1502.03808)
-	- [paf2zh](https://pdf2zh.com/)
+	- [paf2zh](https://pdf2zh.com/) from [PDFMathTranslate](https://github.com/Byaidu/PDFMathTranslate)
 
 ### 图片相关
 

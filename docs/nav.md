@@ -57,7 +57,9 @@
 - [Summary](summary/README.md)
     - [大一小记](summary/大一小记.md)
     - [大二小结](summary/大二小结.md)
-- AIsecurity
-	- [PaperRead](AIsecurity/PaperRead/README.md)
-		- AIsecurity/PaperRead/*.md
+- AI
+	- [PaperRead](AI/PaperRead/README.md)
+		- AI/PaperRead/*.md
+	- JustDo
+		- AI/JustDo/*.md
 - [Links](https://darstib.github.io/myworld/)
