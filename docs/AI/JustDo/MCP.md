@@ -229,6 +229,9 @@ def get_forecast_weather(city: str, days: int = 3) -> str:
 
 ## 相关资源
 
+- [MCP (Model Context Protocol)，一篇就够了](https://zhuanlan.zhihu.com/p/29001189476)
+- [MCP 编程入门](https://github.com/liaokongVFX/MCP-Chinese-Getting-Started-Guide)
+- [awesome-mcp-servers](https://github.com/punkpeye/awesome-mcp-servers)
 - [MCP资源站点全面指南](https://cloudstudio.net/a/28366734581395456/learn)
 	- [model context protocol](https://modelcontextprotocol.io/)
 		- MCP 官方文档 

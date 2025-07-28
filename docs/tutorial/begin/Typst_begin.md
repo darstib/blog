@@ -211,6 +211,8 @@ Typst 有三种语法模式：标记、数学和代码。标记模式是 Typst �
 	- 花式表格
 - [alog](https://typst.app/universe/package/algo)
 	- 带行号代码块、伪代码块
+- [cheq](https://typst.app/universe/package/cheq/)
+	- Markdown-like checklist
 - [subpar](https://typst.app/universe/package/subpar/)
 	- 可引用的子图
 

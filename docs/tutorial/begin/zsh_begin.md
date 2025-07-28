@@ -33,7 +33,7 @@ zsh 安装美化极速版（使用我的配置）；对于 macOS，前两步以�
 	- `git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k` 获取 powerlevel10k 主题
 	- `git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions` 获取推荐补全插件
 	- `git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting` 获取高亮插件
-5. 使用我的[配置文件](https://github.com/darstib/config/tree/main/zsh)
+5. 使用我的[配置文件](https://github.com/darstib/public_configuration/tree/main/zsh)
 	- 重新打开终端后，应该会进入 p10k 的配置界面让我们判断此时符号显示是否正常以检测当前终端对特殊符号的兼容性；
 	- 但是我现在使用的这个配置基本没有符号要求，所以随便选即可，最终应该会出现一个 `~/.p10k.zsh` 文件
 	- 将 [zsh 配置文件](https://github.com/darstib/config/tree/main/zsh) 中的 `.zshrc .p10k.zsh` 文件覆盖当前文件内容

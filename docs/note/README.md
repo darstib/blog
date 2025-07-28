@@ -21,30 +21,29 @@ comments: true
 
 [^2]: 有时没来得及及或者忘记了……
 
+> [!attention]
+>
+> 需要声明的是，部分复习笔记（已在对应主页面声明）为：将 slids 上传给 LLM 处理后，我自己边学边修改的结果。
+>
+> 主要是有时候自己想加点东西，而全自己做笔记发现更多的时候还是在复制粘贴截图，故借助 LLM 整理，望悉知。
+
 ## 目录
 
 {{ begin_toc }}
 
 - [cs188](cs188/README.md)
-    - [note](cs188/note/README.md)
-    - [project](cs188/project/README.md)
+- [CSys-II](CSys-II/README.md)
+- [CSys-III](CSys-III/README.md)
+- [DEM](DEM/README.md)
+- [DMA](DMA/README.md)
+- [cs70](cs70/README.md)
 - [physics](physics/README.md)
 	- [physics1-problems](physics/physics1-problems.md)
 	- [physics2-problems](physics/physics2-problems.md)
 	- [大物实验绪论课作业](physics/大物实验绪论课作业.md)
 	- [大物实验数据处理脚本](physics/大物实验数据处理脚本.md)
-- [CSys-II](CSys-II/README.md)
-	- [1_pipeline](CSys-II/1_pipeline.md)
-	- [2_OS](CSys-II/2_OS.md)
-	- [3_Process](CSys-II/3_Process.md)
-	- [4_Scheduling](CSys-II/4_Scheduling.md)
-	- [5_IPC](CSys-II/5_IPC.md)
-	- [6_Synchronization](CSys-II/6_Synchronization.md)
-- [cs70](cs70/README.md)
-	- [01-Propositional_Logic](cs70/01-Propositional_Logic.md)
-	- [02-Proof](cs70/02-Proof.md)
-	- [03-Mathematical_Induction](cs70/03-Mathematical_Induction.md)
-	- [04-The_Stable_Matching_Problem](cs70/04-The_Stable_Matching_Problem.md)
-	- [05-Graph_Theory](cs70/05-Graph_Theory.md)
+- [other](other/README.md)
+	- [FDS-questions](other/FDS-questions.md)
+	- [ADS_problems](other/ADS_problems.md)
 
 {{ end_toc }}

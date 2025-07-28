@@ -23,18 +23,26 @@ comments: true
 
 - [Lmarena](https://lmarena.ai/?mode=direct)
 	- 免费使用顶尖模型
-	- 纯文字/生图，没有多模态
+	- 纯文字/生图
 
-### agent/multi-mode
+### search/agent
 
-- [Gemini](https://gemini.google.com) 的 Deep Research
+- [x] [Gemini](https://gemini.google.com) 的 Deep Research
 - [AutoGLM](https://chatglm.cn/main/autoglm)
 	- 对标 [operator](https://openai.com/index/introducing-operator/) 的产品？
 - [flowith](https://flowith.net/invitation?code=FY5QKY) or [无邀请码版](https://flowith.net)
 	- 以画布的形式构建的 agent
 - AI 搜索：[seek all](https://seekall.ai/) 
-	- 墙外：[Devv](https://devv.ai/zh) or [perplexity](https://www.perplexity.ai/) or [thinkany](https://thinkany.ai/zh)
-	- 墙内：[知乎直答](https://zhida.zhihu.com/) or [跃迁](https://www.stepfun.com/) or [iAsk](https://iask.ai/) or [komo](https://komo.ai/) or [秘塔](https://metaso.cn/)
+	- 墙外：
+		- [x] [Devv](https://devv.ai/zh)
+		- [perplexity](https://www.perplexity.ai/)
+		- [thinkany](https://thinkany.ai/zh)
+	- 墙内：
+		- [x] [知乎直答](https://zhida.zhihu.com/)
+		- [跃迁](https://www.stepfun.com/)
+		- [iAsk](https://iask.ai/)
+		- [komo](https://komo.ai/)
+		- [秘塔](https://metaso.cn/)
 
 ### other
 
@@ -59,6 +67,8 @@ comments: true
 	- 分享 GitHub 上有趣、入门级的开源项目
 	- [hello github 月刊](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzA5MzYyNzQ0MQ==&action=getalbum&album_id=1331197538447310849)
 	- [github trending](https://github.com/trending)
+- 开源项目分析
+	- [Zread](https://zread.ai)
 	- [DeepWiki](https://deepwiki.com/)
 		- [探索DeepWiki：代码世界的智能百科全书](https://www.wangdu.site/software/ai/2224.html)
 - 文件相关
