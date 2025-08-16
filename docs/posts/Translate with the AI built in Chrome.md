@@ -1,5 +1,5 @@
----
-date: "2025-08-16"
+~~~~---
+date: 2025-08-16
 tags:
 - blog
 comments: true
