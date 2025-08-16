@@ -51,6 +51,8 @@ comments: true
     - [PAT Solution in C](https://xlucn.github.io/PAT/)
     - [地址、指针、数组](https://tree.45gfg9.net/c/pointers/)
 	    - 来自 [45gfg9](https://45gfg9.net/) 的讲解
+- C++
+	- [Sunrisepeak/mcpp-standard](https://github.com/Sunrisepeak/mcpp-standard)
 - [Verilog](https://www.chipverify.com/)
 - [Sagemath](https://www.sagemath.org/)
     - [sagemath 官方在线编译器](https://sagecell.sagemath.org/)

@@ -510,7 +510,15 @@ $ rsync [options] username@remote_host:/path/to/remote_source/ /path/to/local_de
 - **扩展兼容**: 大多数 VSCode 扩展 (GitLens, Docker, linters, debuggers 等) 都可以在远程环境无缝工作。
 - **端口转发**: 可以通过命令面板 ("Remote-SSH: Forward Port from Active Host...") 轻松设置端口转发，方便访问远程服务。
 
-> [!extra]- 关于端口转发详见 [SSH Tunneling: Examples, Command, Server Config](https://www.ssh.com/academy/ssh/tunneling-example) 和[端口转发](https://wangdoc.com/ssh/port-forwarding)。
+> [!extra]- 端口转发
+> 
+> 关于端口转发详见
+> 
+> - [SSH服务原理和使用技巧](https://www.escapelife.site/posts/e2e78d82.html)
+> - [SSH Tunneling: Examples, Command, Server Config](https://www.ssh.com/academy/ssh/tunneling-example)
+> - [端口转发](https://wangdoc.com/ssh/port-forwarding)
+> 
+> 一个可能遇到的需求是在组内共用服务器上需要访问 github 等资源时需要代理，具体可以参考[再探 ssh 和 VScode（（双重）远程转发和本地转发）](https://www.cnblogs.com/coldchair/p/18526990)。
 
 ### SFTP 扩展
 

@@ -53,6 +53,12 @@ wsl --import-in-place <Distro> <InstallLocation> <FileName>
 
 > [!tip]- 显然迁移是需要打包、迁移、解包的，那么当然是发行版越小的时候迁移越方便。
 
+> [!extra]- windows 上 docker 的迁移
+> 
+> 可以参考 [Windows 11 Docker Desktop 更换默认C盘存储路径，释放C盘空间](https://hellodk.cn/post/1177)；
+> 
+> 原文为（但是迁移上面文件夹的同时迁移了 docker 的 `*.vhdx` ，所以看上面的文章即可）：[How can I change the location of docker images when using Docker Desktop on WSL2 with Windows 10 Home?](https://stackoverflow.com/questions/62441307/how-can-i-change-the-location-of-docker-images-when-using-docker-desktop-on-wsl2)
+
 ### wsl 磁盘压缩
 
 wsl 不主动释放使用过的空间，可以使用 [WSL2 虚拟磁盘文件(.vhdx)占用过大处理办法](https://www.cnblogs.com/T6uE13s/p/18704140) 解决。

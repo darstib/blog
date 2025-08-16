@@ -12,6 +12,7 @@ tags:
 - [编程范式](https://devv.ai/search?threadId=edi2mlfxs740)
 - [huffman-tree](https://oi-wiki.org/ds/huffman-tree/) & [Visual Information Theory](https://colah.github.io/posts/2015-09-Visual-Information/)
     - 哈夫曼树/编码 & 信息论/交叉熵
+- [一文读懂Python async/await异步编程](https://zhuanlan.zhihu.com/p/698683843)
 
 ### 机器/深度学习
 
@@ -39,6 +40,8 @@ tags:
 	- [oh my posh setup on windows](https://ohmyposh.dev/docs/installation/windows)
 		- [change your prompt](https://ohmyposh.dev/docs/installation/prompt)
 - [NerdFont 在WSL2 上安装](https://blog.csdn.net/qq_36835255/article/details/125020375#:~:text=1-,nerd%20fonts%20%E5%AE%89%E8%A3%85,-powerlevel10k%20%E4%BD%BF%E7%94%A8%E7%9A%84)
+
+- [Claude Code完全指南](https://blog.axiaoxin.com/post/claude-code-full-guide/)
 
 #### 工具部分
 
@@ -70,3 +73,16 @@ tags:
 	- 灰色：其他有效信息；
 	- 一般采用下划线，高亮进行特别突出。
 - [devv - 如何获得一篇论文的 bib 信息](https://devv.ai/search?threadId=eh3zbw3osoow)
+
+## AI work
+
+> [!help]
+> 
+> 即下面的内容对应于 AI 生成的教程页面/问答过程中我觉得较为实用的内容；
+> 
+> 部分可能因为权限打不开（希望我没有忘记打开权限）。
+
+- fellou
+	- [Python 代码规范](https://0rkd5buozm.fellou.io/python-code-specification-guide-modern-version-vDsqj1Gl)
+		- [在Python类型标注中放飞自我](https://zhuanlan.zhihu.com/p/636582050)
+		- [谷歌 python 风格规范](https://google.github.io/styleguide/pyguide.html)

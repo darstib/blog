@@ -49,6 +49,7 @@ comments: true
 - [Anakin](https://app.anakin.ai/artist)
     - 本身是一个集成平台，我看中的是其 artist 部分的文生图模型；
     - ~~部分模型可免费使用[^2]，例如 Stable Diffusion XL Base 1.0。~~
+- [raphael](https://raphael.app/)
 - [AI short](https://www.aishort.top/) or [prompts.chat](https://prompts.chat/) or [提示词优化器](https://prompt.always200.com/)
     - AI 提示词
 - [openai - tokenizer](https://platform.openai.com/tokenizer)
@@ -92,6 +93,36 @@ comments: true
 - [ETA](https://eta.js.org) <- [docs](https://eta.js.org/docs)
     - JS 模版引擎
 
+### 白嫖服务
+
+#### 容器服务
+
+> [!quote] 
+> 
+> - [盘点那些免费的Docker容器（1）](https://linux.do/t/topic/174075)
+> - [盘点那些免费的Docker容器（2）](https://linux.do/t/topic/826133)
+> 
+> 基本来自上面的帖子，下面是我自己体验过的评价：
+
+- [Claw cloud](https://run.claw.cloud/)
+	- 注册需要 180 天以上的 github 账号最佳，其余情况似乎有其他限制？无需绑卡
+	- 每个月送 5 $ 额度，部署一两个小服务相当于免费了；存储一体化
+	- 相对不是那么稳定，使用 cf 绑定自定义域名非常非常非常慢……
+- [Koyeb](https://app.koyeb.com/)
+	- 注册较随意，不用绑卡
+	- 免费部署一个低配服务；部署较快，界面清爽
+	- 会重启容器，如果有存储需求需要额外的数据库服务（见下）；免费版不能自定义域名
+- [Render](https://dashboard.render.com/)
+	- 注册较随意，（疑似）需要绑卡
+	- 按照免费配置可部署任意多容器，所有容器共享 750 h；部署较快
+	- 会重启容器，如果有存储需求需要额外的数据库服务（见下）
+
+#### 数据库服务
+
+> [!quote] 
+> 
+> - [免费云端数据库个人总结](https://linux.do/t/topic/707744)
+
 ### 查查办
 
 - [namebeta](https://namebeta.com/)
@@ -123,6 +154,7 @@ comments: true
 - [BT磁力种子搜索引擎网站](https://www.wangdu.site/software/av-read/540.html)
 - [真题在线](https://www.wehuster.com/)
 - [Ayouth的影视站点推荐](https://ayouth.top/ayouth/video.html)
+- [dytt](https://dydytt.net/index.htm)
 - [vidhub](https://vidhub.link/)
 
 ### 工具箱
@@ -218,6 +250,14 @@ comments: true
 
 ## 设计者谈
 
+### AI 工具
+
+- [tushuo](https://github.com/shixixiyue/tushuo)
+	- 百度图说开源代替
+- [基于Mermaid画流程图的工具](http://github.com/shixixiyue/MermaidHelp)
+- [SVG 绘图 prompt](https://linux.do/t/topic/812293)
+
+
 ### PPT 模板
 
 - [【PPT随记】私藏的PPT制作常用网站及技巧分享 (ZJU CC98)](https://www.cc98.org/topic/5015451)
@@ -253,6 +293,7 @@ comments: true
 - [Lucide Icons](https://lucide.dev/)
 
 - [GIPHY](https://giphy.com/)
+- [edit svg](https://editsvg.pages.dev/)
 
 ### 字体资源
 
@@ -368,6 +409,7 @@ comments: true
 
 ### 杂文趣事
 
+- [best blog](https://www.bestblogs.dev/)
 - [the website of Gwern Branwen](https://gwern.net/)
 - [LessWrong](https://www.lesswrong.com/)
 
@@ -379,7 +421,7 @@ comments: true
 	- 信任小游戏
 - [chatcrypt](https://client.chatcrypt.com/)
     - 速开匿名聊天室
-- [sms-activate](https://sms-activate.world/)
+- [sms-activate](https://sms-activate.world/) or [zusms](https://www.zusms.com)
 	- 在线虚拟号码服务
 - [thisissand](https://thisissand.com/)
     - 来画赛博沙画
