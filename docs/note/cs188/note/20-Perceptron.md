@@ -54,4 +54,4 @@ Instead of doing as many dot products as there are classes, we can instead do a 
 ## link
 
 - [cs188-sp24-note0](https://inst.eecs.berkeley.edu/~cs188/sp24/assets/notes/cs188-sp24-note0.pdf)
-- [2-Perceptron](../../DMA/2-Perceptron.md)
+- [02-Perceptron](../../DMA/02-Perceptron.md)

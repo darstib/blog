@@ -75,4 +75,4 @@ Computation graphs are a great way to visualize repeated application of the chai
 ## link
 
 - [cs188-sp24-note22](https://inst.eecs.berkeley.edu/~cs188/sp24/assets/notes/cs188-sp24-note22.pdf)
-- [7-SVM](../../DMA/7-SVM.md)
+- [07-SVM](../../DMA/07-SVM.md)

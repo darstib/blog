@@ -47,7 +47,7 @@ PCA 的执行过程和核心理念可以概括为以下几点：
 >
 > 假设我们有二维数据，由两个线性相关的变量 $x_1$ 和 $x_2$ 表示，如图 (a) 所示，数据点呈现椭圆状分布。
 >
-> ![PCA 示例图|500](https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/06_250606-115724.png)
+> ![|500](https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/06_250606-115724.png)
 >
 > **特性**：
 >
@@ -156,10 +156,10 @@ $$
 > 我们需要求解以下约束最优化问题：
 >
 > $$
-> \begin{align}
+> \begin{aligned}
 > &\max_{\boldsymbol{\alpha}_1} \quad \boldsymbol{\alpha}_1^T \mathbf{\Sigma} \boldsymbol{\alpha}_1 \\
 > \text{s.t.}\quad & \boldsymbol{\alpha}_1^T \boldsymbol{\alpha}_1 = 1
-> \end{align}
+> \end{aligned}
 > $$
 >
 > 定义拉格朗日函数：
@@ -241,6 +241,7 @@ $$
 - **推论 16.1**:
     $m$ 维随机变量 $\mathbf{y} = (y_1, y_2, \dots, y_m)^T$ 的分量依次是 $\mathbf{x}$ 的第一主成分到第 $m$ 主成分的充要条件是：
     1. $\mathbf{y} = \mathbf{A}^T \mathbf{x}$，其中 $\mathbf{A} = [\boldsymbol{\alpha}_1, \boldsymbol{\alpha}_2, \dots, \boldsymbol{\alpha}_m]$ 是一个正交矩阵，列向量为 $\mathbf{\Sigma}$ 的单位特征向量。
+        
         $$
         \mathbf{A} =
         \begin{bmatrix}
@@ -250,8 +251,9 @@ $$
         \alpha_{m1} & \alpha_{m2} & \dots & \alpha_{mm}
         \end{bmatrix}
         $$
+        
         (注意：这里 $\boldsymbol{\alpha}_k = (\alpha_{1k}, \dots, \alpha_{mk})^T$ 是第 $k$ 个特征向量。)
-    2. $\mathbf{y}$ 的协方差矩阵为对角矩阵：
+    1. $\mathbf{y}$ 的协方差矩阵为对角矩阵：
         $$
         \text{cov}(\mathbf{y}) = \mathbf{\Lambda} = \text{diag}(\lambda_1, \lambda_2, \dots, \lambda_m)
         $$
@@ -416,20 +418,23 @@ $E(\mathbf{x}^*) = \mathbf{0}$；$\text{cov}(\mathbf{x}^*)$ 就是原始变量 $
     $$
     \sum_{k=1}^m \lambda_k^* = \text{tr}(\mathbf{R}) = \sum_{i=1}^m \rho_{ii} = m
     $$
+
 3. 规范化随机变量 $x_i^*$ 与主成分 $y_k^*$ 的相关系数 (因子负荷量)：
     由于 $\text{var}(x_i^*) = 1$，根据式 (16.20)：
     $$
     \rho(y_k^*, x_i^*) = \sqrt{\lambda_k^*} e_{ik}^*
     $$
-    其中 $e_{ik}^*$ 是特征向量 $\mathbf{e}_k^*$ 的第 $i$ 个分量。
-4. 所有规范化随机变量 $x_i^*$ 与主成分 $y_k^*$ 的相关系数的平方和等于 $\lambda_k^*$：
+
+	其中 $e_{ik}^*$ 是特征向量 $\mathbf{e}_k^*$ 的第 $i$ 个分量。
+3. 所有规范化随机变量 $x_i^*$ 与主成分 $y_k^*$ 的相关系数的平方和等于 $\lambda_k^*$：
     $$
     \sum_{i=1}^m \rho^2(y_k^*, x_i^*) = \sum_{i=1}^m (\sqrt{\lambda_k^*} e_{ik}^*)^2 = \lambda_k^* \sum_{i=1}^m (e_{ik}^*)^2 = \lambda_k^* ((\mathbf{e}_k^*)^T \mathbf{e}_k^*) = \lambda_k^*
     $$
-5. 规范化随机变量 $x_i^*$ 与所有主成分 $y_k^*$ 的相关系数的平方和等于 1：
+4. 规范化随机变量 $x_i^*$ 与所有主成分 $y_k^*$ 的相关系数的平方和等于 1：
     $$
     \sum_{k=1}^m \rho^2(y_k^*, x_i^*) = \sum_{k=1}^m \lambda_k^* (e_{ik}^*)^2 = 1
     $$
+    
     (这是因为 $(\mathbf{e}_i^*)^T \mathbf{R} \mathbf{e}_i^* = 1$, 且 $\mathbf{R} = \sum_k \lambda_k^* \mathbf{e}_k^* (\mathbf{e}_k^*)^T$ )
 
 > [!help]+ 何时使用协方差矩阵 vs 相关矩阵?
@@ -495,9 +500,11 @@ $$
 - 总体主成分的定理 16.2（保留方差最大化）及定理 16.3（信息损失最小化）对样本主成分依然成立。
 
 **数据规范化**: 在使用样本主成分时，通常也需要对样本数据进行规范化。对样本矩阵的每个元素 $x_{ij}$（第 $i$ 个变量的第 $j$ 个观测值）进行如下变换：
+
 $$
 x_{ij}^* = \frac{x_{ij} - \bar{x}_i}{\sqrt{s_{ii}}} \quad (16.48)
 $$
+
 其中 $\bar{x}_i = \frac{1}{n}\sum_{j=1}^n x_{ij}$ 是第 $i$ 个变量的样本均值，$s_{ii} = \frac{1}{n-1}\sum_{j=1}^n (x_{ij}-\bar{x}_i)^2$ 是第 $i$ 个变量的样本方差。
 规范化后，每个变量的样本均值为 0，样本方差为 1。此时，样本协方差矩阵 $\mathbf{S}^*$ 就等于样本相关矩阵 $\mathbf{R}$。
 
@@ -516,22 +523,20 @@ $$
 当基于样本相关矩阵 $\mathbf{R}$ 进行主成分分析时（即数据已规范化），步骤如下：
 
 1. **数据规范化**: 对观测数据按式 (16.48) 进行规范化处理，得到规范化数据矩阵 $\mathbf{X}^*$ (仍记为 $\mathbf{X}$)。
-    $$
-    x_{ij}^* = \frac{x_{ij} - \bar{x}_i}{\sqrt{s_{ii}}}
-    $$
+    $$x_{ij}^* = \frac{x_{ij} - \bar{x}_i}{\sqrt{s_{ii}}}$$
+
 2. **计算样本相关矩阵 $\mathbf{R}$**:
-    $$
-    \mathbf{R} = [r_{ij}]_{m \times m} \quad \text{其中 } r_{ij} = \frac{1}{n-1} \sum_{l=1}^n x_{il}^* x_{jl}^*
-    $$
-    (如果 $\mathbf{X}^*$ 是 $m \times n$ 矩阵，则 $\mathbf{R} = \frac{1}{n-1} \mathbf{X}^* (\mathbf{X}^*)^T$)。
-3. **求解 $\mathbf{R}$ 的特征值和特征向量**:
+    $$\mathbf{R} = [r_{ij}]_{m \times m} \quad \text{其中 } r_{ij} = \frac{1}{n-1} \sum_{l=1}^n x_{il}^* x_{jl}^*$$
+
+	(如果 $\mathbf{X}^*$ 是 $m \times n$ 矩阵，则 $\mathbf{R} = \frac{1}{n-1} \mathbf{X}^* (\mathbf{X}^*)^T$)。
+2. **求解 $\mathbf{R}$ 的特征值和特征向量**:
     - 求解特征方程 $|\mathbf{R} - \lambda \mathbf{I}| = 0$，得到 $m$ 个特征值 $\hat{\lambda}_1 \ge \hat{\lambda}_2 \ge \dots \ge \hat{\lambda}_m \ge 0$。
     - 对每个特征值 $\hat{\lambda}_i$，求解 $(\mathbf{R} - \hat{\lambda}_i \mathbf{I})\mathbf{a}_i = \mathbf{0}$ 得到对应的单位特征向量 $\mathbf{a}_i = (a_{1i}, a_{2i}, \dots, a_{mi})^T$。
-4. **选择主成分个数 $k$**: 计算方差贡献率 $\eta_i = \hat{\lambda}_i / \sum \hat{\lambda}_j$ 和累计方差贡献率 $\sum_{j=1}^k \eta_j$，选择使得累计贡献率达到预定值（如80%-95%）的最小 $k$ 值。
-5. **计算 $k$ 个样本主成分的表达式**:
+3. **选择主成分个数 $k$**: 计算方差贡献率 $\eta_i = \hat{\lambda}_i / \sum \hat{\lambda}_j$ 和累计方差贡献率 $\sum_{j=1}^k \eta_j$，选择使得累计贡献率达到预定值（如80%-95%）的最小 $k$ 值。
+4. **计算 $k$ 个样本主成分的表达式**:
     第 $i$ 个主成分 $y_i = \mathbf{a}_i^T \mathbf{x}^* = a_{1i}x_1^* + \dots + a_{mi}x_m^*$, for $i=1,\dots,k$。
-6. **(可选) 解释主成分**: 计算 $k$ 个主成分 $y_j$ 与原（规范化）变量 $x_i^*$ 的相关系数 (因子负荷量) $\rho(x_i^*, y_j) = \sqrt{\hat{\lambda}_j} a_{ij}$，以及 $k$ 个主成分对原变量 $x_i^*$ 的贡献率 $v_i = \sum_{j=1}^k \rho^2(x_i^*, y_j)$。
-7. **计算 $n$ 个样本的 $k$ 个主成分值 (PC scores)**:
+5. **(可选) 解释主成分**: 计算 $k$ 个主成分 $y_j$ 与原（规范化）变量 $x_i^*$ 的相关系数 (因子负荷量) $\rho(x_i^*, y_j) = \sqrt{\hat{\lambda}_j} a_{ij}$，以及 $k$ 个主成分对原变量 $x_i^*$ 的贡献率 $v_i = \sum_{j=1}^k \rho^2(x_i^*, y_j)$。
+6. **计算 $n$ 个样本的 $k$ 个主成分值 (PC scores)**:
     将规范化样本数据 $\mathbf{x}_j^* = (x_{1j}^*, \dots, x_{mj}^*)^T$ 代入 $k$ 个主成分的表达式中：
     第 $j$ 个样本的第 $i$ 个主成分值为 $y_{ij} = \mathbf{a}_i^T \mathbf{x}_j^* = \sum_{l=1}^m a_{li} x_{lj}^*$。
     这样得到一个 $k \times n$ 的主成分得分矩阵 $\mathbf{Y}$。
@@ -555,6 +560,7 @@ $$
     $$
     (\mathbf{X}')^T \mathbf{X}' = \left(\frac{1}{\sqrt{n-1}} \mathbf{X}\right) \left(\frac{1}{\sqrt{n-1}} \mathbf{X}^T\right) = \frac{1}{n-1} \mathbf{X} \mathbf{X}^T = \mathbf{S}_X
     $$
+    
     这里 $\mathbf{S}_X$ 就是原始变量的样本协方差矩阵（如果 $\mathbf{X}$ 的行是变量，已中心化）。
     PCA的目标是求 $\mathbf{S}_X$ 的特征向量（主成分方向 $\mathbf{a}_k$）和特征值（主成分方差 $\lambda_k$）。
 
@@ -642,11 +648,13 @@ $$
 > 
 > 将原变量在以 $y_1, y_2$ 为轴的平面上表示（坐标为因子负荷量）。
 >
-> ![因子负荷量图|500](https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/06_250606-160117.png)
+> ![|500](https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/06_250606-160117.png)
 >
 > 从图中可以看出：
+> 
 > - 语文 ($x_1$) 和外语 ($x_2$) 聚为一类，代表文科。
 > - 数学 ($x_3$) 和物理 ($x_4$) 聚为另一类，代表理科。
+> 
 > 这与主成分的解释一致。
  
 ## 总结 (page 71-77)
@@ -665,6 +673,7 @@ $$
 	
     $\mathbf{\Sigma}$ 的特征值为 $\lambda_1 \ge \dots \ge \lambda_m \ge 0$，对应单位特征向量为 $\boldsymbol{\alpha}_1, \dots, \boldsymbol{\alpha}_m$。
     第 $i$ 主成分 $y_i = \boldsymbol{\alpha}_i^T \mathbf{x}$，其方差 $\text{var}(y_i) = \lambda_i$。
+
 3. **主成分性质**:
     - $\text{cov}(\mathbf{y}) = \mathbf{\Lambda} = \text{diag}(\lambda_1, \dots, \lambda_m)$。
     - $\sum \text{var}(y_i) = \sum \lambda_i = \sum \text{var}(x_i) = \text{tr}(\mathbf{\Sigma})$。
@@ -674,6 +683,7 @@ $$
     给定样本矩阵 $\mathbf{X} = [\mathbf{x}_1, \dots, \mathbf{x}_n]$。
     样本协方差 $s_{ij} = \frac{1}{n-1}\sum_{k=1}^n (x_{ik}-\bar{x}_i)(x_{jk}-\bar{x}_j)$。
     定义和性质与总体 PCA 类似，用样本量替换总体参数。
+
 5. **主成分分析方法** (下面的 $\mathbf{X}$ 均为标准化/中心化后的结果):
     - **相关/协方差矩阵的特征值分解**:
         1. （规范化）计算 $\mathbf{R}$ (或 $\mathbf{S}$)。

@@ -1,4 +1,4 @@
-> [!help]-  推荐阅读 [Visual Information Theory](https://colah.github.io/posts/2015-09-Visual-Information/)
+> [!tip]  推荐阅读 [Visual Information Theory](https://colah.github.io/posts/2015-09-Visual-Information/)
 
 ## 回归问题回顾 (page 4-5)
 
@@ -342,8 +342,13 @@ $$
 $$
 
 1. **构建拉格朗日函数**: 将约束最优化问题转化为无约束的对偶问题。
+	
 	$$
-	\begin{aligned}\mathcal{L}(P,w)&\equiv-H(P)+w_0\left(1-\sum_yP(y|x)\right)+\sum_{i=1}^nw_i(E_{\tilde{P}}(f_i)-E_P(f_i))\\&=\sum_{x,y}\widetilde{P}(x)P(y|x)\log P(y|x)+w_0\left(1-\sum_yP(y|x)\right)\\&+\sum_{i=1}^{n}w_i\left(\sum_{x,y}\widetilde{P}(x,y)f_i(x,y)-\sum_{x,y}\widetilde{P}(x)P(y|x)f_i(x,y)\right)\end{aligned}
+	\begin{aligned}
+	\mathcal{L}(P,w)&=-H(P)+w_0\left(1-\sum_yP(y|x)\right)+\sum_{i=1}^nw_i(E_{\tilde{P}}(f_i)-E_P(f_i))\\
+	&=\sum_{x,y}\widetilde{P}(x)P(y|x)\log P(y|x)+w_0\left(1-\sum_yP(y|x)\right)\\
+	&+\sum_{i=1}^{n}w_i\left(\sum_{x,y}\widetilde{P}(x,y)f_i(x,y)-\sum_{x,y}\widetilde{P}(x)P(y|x)f_i(x,y)\right)
+	\end{aligned}
 	$$
 
 2. **求解对偶问题**:
@@ -366,7 +371,7 @@ $$
 &=\sum_{x,y}\tilde{P}(x,y)\sum_{i=1}^nw_if_i(x,y)-\sum_{x,y}\tilde{P}(x,y)\log Z_w(x\\
 &=\sum_{x,y}\tilde{P}(x,y)\sum_{i=1}^nw_if_i(x,y)-\sum_x\tilde{P}(x)\log Z_w(x)\end{aligned}
 \iff 
-\begin{aligned}\Psi(w)&=\sum_{x,y}\tilde{P}(x)P_w(y|x)\log P_w(y|x)+\\&\sum_{i=1}^nw_i\left(\sum_{x,y}\tilde{P}(x,y)f_i(x,y)-\sum_{x,y}\tilde{P}(x)P_w(y|x)f_i(x,y)\right)\\&=\sum_{x,y}\tilde{P}(x,y)\sum_{i=1}^nw_if_i(x,y)+\sum_{x,y}\tilde{P}(x)P_w(y|x)\left(\log P_w(y|x)-\sum_{i=1}^nw_if_i(x,y)\right)\\&=\sum_{x,y}\tilde{P}(x,y)\sum_{i=1}^nw_if_i(x,y)-\sum_{x,y}\tilde{P}(x)P_w(y|x)\log Z_w(x)\\&=\sum_{x,y}\tilde{P}(x,y)\sum_{i=1}^nw_if_i(x,y)-\sum_x\tilde{P}(x)\log Z_w(x)\end{aligned}
+\begin{aligned}\Psi(w)&=\sum_{x,y}\tilde{P}(x)P_w(y|x)\log P_w(y|x)+\sum_{i=1}^nw_i\left(\sum_{x,y}\tilde{P}(x,y)f_i(x,y)-\sum_{x,y}\tilde{P}(x)P_w(y|x)f_i(x,y)\right)\\&=\sum_{x,y}\tilde{P}(x,y)\sum_{i=1}^nw_if_i(x,y)+\sum_{x,y}\tilde{P}(x)P_w(y|x)\left(\log P_w(y|x)-\sum_{i=1}^nw_if_i(x,y)\right)\\&=\sum_{x,y}\tilde{P}(x,y)\sum_{i=1}^nw_if_i(x,y)-\sum_{x,y}\tilde{P}(x)P_w(y|x)\log Z_w(x)\\&=\sum_{x,y}\tilde{P}(x,y)\sum_{i=1}^nw_if_i(x,y)-\sum_x\tilde{P}(x)\log Z_w(x)\end{aligned}
 $$
 
 ## 模型学习的最优化算法 (page 34-59，考试不涉及)

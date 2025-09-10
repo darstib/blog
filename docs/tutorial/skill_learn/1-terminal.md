@@ -254,13 +254,15 @@ $ ln -s /usr/bin/batcat ~/.local/bin/bat
 | :------------------------------------------------------------------: | :------------------------: | :------------------------: | :-----------------------------------------: | :----------------------------------------------: |
 |              find / [fd](https://github.com/sharkdp/fd)              |     功能强大，灵活，可执行操作，精确搜索     |          速度慢，语法复杂          | `find "." -n ".DS_Store" -exec rm -i {} \;` | 需要根据多种属性条件查找文件，需要在找到文件后**立即执行某些操作**，需要进行精确的文件名匹配 |
 |          grep / [rg](https://github.com/BurntSushi/ripgrep)          |                            |                            |                                             |                                                  |
-| [the silver searcher](https://github.com/ggreer/the_silver_searcher) |       速度快，智能忽略，易于使用        | 主要用于代码/文件内容搜索，不如 `find` 灵活 |               `ag rust_learn`               |    需要在大型代码库中快速查找字符串或正则表达式，需要忽略版本控制系统忽略的文件和目录     |
-|               [fzf](https://github.com/junegunn/fzf/)                | 实时展示结果（交互式查找），模糊搜索，可结合其他命令 |     初始化需要实践，可能大型仓库可能较慢     |   `find path/to/directory -type f \| fzf`   |                 文件名模糊，实时查找、过滤、选择                 |
+| [the silver searcher](https://github.com/ggreer/the_silver_searcher) |       速度快，智能忽略，易于使用        | 主要用于代码/文件内容搜索，不如 `find` 灵活 |               `ag rust_learn`               |   需要在大型代码库中快速查找字符串或正则表达式，需要忽略“版本控制系统”忽略的文件和目录    |
+|               [fzf](https://github.com/junegunn/fzf/)                | 实时展示结果（交互式查找），模糊搜索，可结合其他命令 |     初始化需要时间，可能大型仓库可能较慢     |   `find path/to/directory -type f \| fzf`   |                 文件名模糊，实时查找、过滤、选择                 |
 |                                locate                                |            速度快             |         实时性差，不够精确          |               `ag rust_learn`               |         需要快速查找文件，对实时性要求不高，只需要按文件名进行简单查找          |
 |                                which                                 |          简单易用，速度快          |        功能有限，搜索范围有限         |               `which python3`               |                需要查找命令或可执行文件的完整路径                 |
 |                               whereis                                |        查找范围较广，简单易用         |       依赖数据库，结果可能不准确        |              `whereis python3`              |            需要查找命令的二进制文件、源代码和 man 手册页             |
 
-一个配合 fzf 的好用组合：
+`find` 查找
+
+一个配合 `fzf` 的好用组合：
 
 ```sh
 $ fzf --preview 'batcat --color=always --style=numbers --line-range=:50 {}'

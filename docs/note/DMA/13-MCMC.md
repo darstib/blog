@@ -83,18 +83,18 @@ $$
 因此，我们可以利用样本均值来近似计算积分。给定一个概率密度函数 $p(x)$，我们只需取 $f(x) = \frac{h(x)}{p(x)}$。
 
 > [!example]- **例 1 (page 17-18):** 用蒙特卡罗积分法求 $\int_0^1 e^{-x^2/2} dx$
-
-令 $f(x) = e^{-x^2/2}$，并假设随机变量 $X$ 在 $(0,1)$ 区间遵循均匀分布，其概率密度函数为 $p(x)=1$ (当 $0 < x < 1$)。
-
-抽取 $10$ 个随机样本 $x_1, x_2, \dots, x_{10}$，计算函数均值 $\hat{f}_{10} = \frac{1}{10} \sum_{i=1}^{10} e^{-x_i^2/2} = 0.832$。
-
-随机样本数越大，计算结果越精确。
+> 
+> 令 $f(x) = e^{-x^2/2}$，并假设随机变量 $X$ 在 $(0,1)$ 区间遵循均匀分布，其概率密度函数为 $p(x)=1$ (当 $0 < x < 1$)。
+> 
+> 抽取 $10$ 个随机样本 $x_1, x_2, \dots, x_{10}$，计算函数均值 $\hat{f}_{10} = \frac{1}{10} \sum_{i=1}^{10} e^{-x_i^2/2} = 0.832$。
+> 
+> 随机样本数越大，计算结果越精确。
 
 > [!example]- **例 2 (page 19):** 用蒙特卡罗积分法求 $\int_{-\infty}^\infty x \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{x^2}{2}\right) dx$。
-
-令 $f(x) = x$，且 $p(x) = \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{x^2}{2}\right)$，其中 $p(x)$ 是标准正态分布的密度函数。
-
-按照标准正态分布在 $(-\infty, \infty)$ 区间抽样 $x_1, x_2, \dots, x_n$，取其平均值，就得到要求的积分值。当样本增大时，积分值趋于 0。
+> 
+> 令 $f(x) = x$，且 $p(x) = \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{x^2}{2}\right)$，其中 $p(x)$ 是标准正态分布的密度函数。
+> 
+> 按照标准正态分布在 $(-\infty, \infty)$ 区间抽样 $x_1, x_2, \dots, x_n$，取其平均值，就得到要求的积分值。当样本增大时，积分值趋于 0。
 
 ## 马尔可夫链 (Markov Chain) (page 20-59)
 
@@ -212,11 +212,11 @@ $$
 > 给定一个马尔可夫链 $X = \{X_0, X_1, \dots, X_t, \dots\}$，状态空间为 $\mathcal{S}$，转移概率矩阵为 $P = (p_{ij})$，则分布 $\pi = (\pi_1, \pi_2, \dots)^T$ 为 $X$ 的平稳分布的**充分必要条件**是 $\pi = (\pi_1, \pi_2, \dots)^T$ 是下列方程组的解：
 >
 > $$
-> \begin{align}
+> \begin{aligned}
 > \pi_i &= \sum_j p_{ji}\pi_j, \quad i = 1,2, \dots \quad (19.16) \\
 > \pi_i &\ge 0, \quad i = 1,2, \dots \quad (19.17) \\
 > \sum_i \pi_i &= 1 \quad (19.18)
-> \end{align}
+> \end{aligned}
 > $$
 
 马尔可夫链可能存在唯一平稳分布，无穷多个平稳分布，或者不存在平稳分布。
@@ -280,7 +280,7 @@ $$
 
 > [!example]- 说明下图所示无限状态马尔可夫链，当p>q时是正常返的，当p≤q不是正常返的 (page 52)
 > 
-> ![250606-214203.png](https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/06_250606-214203.png)
+> ![](https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/06_250606-214203.png)
 
 > [!theorem]+ 定理 19.3 (page 53)
 >
@@ -364,8 +364,7 @@ $$
 
 > [!example]+ 说明下图所示马尔可夫链是不可逆的 (page 59)
 > 
-> ![例 9](https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/06_250606-220410.png)
-
+> ![](https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/06_250606-220410.png)
 
 ## 马尔可夫链蒙特卡罗法 (Markov Chain Monte Carlo, MCMC) (page 60-69)
 
@@ -459,9 +458,8 @@ Metropolis-Hastings (M-H) 算法是最基本的马尔可夫链蒙特卡罗法，
 
 - **接受分布 $\alpha(x, x')$:**
 	- 接受分布为：
-   $$
-    \alpha(x, x') = \min\left\{1, \frac{p(x')q(x',x)}{p(x)q(x,x')}\right\}
-    $$
+		
+		$$\alpha(x, x') = \min\left\{1, \frac{p(x')q(x',x)}{p(x)q(x,x')}\right\}$$
 
 这时，转移核 $p(x, x')$ 可以写成：
 
@@ -480,6 +478,7 @@ $$
     - 以概率 $1 - \alpha(x, x')$ 拒绝 $x'$，决定时刻 $t$ 仍停留在状态 $x$。
 
 **具体地:** 从区间 $(0,1)$ 上的均匀分布中抽取一个随机数 $u$，决定时刻 $t$ 的状态 $X_t$：
+
 $$
 X_t = \begin{cases}
 x', & \text{if } u \le \alpha(x, x') \\
@@ -507,9 +506,9 @@ $$
     
     假设建议分布是对称的，即对任意的 $x$ 和 $x'$ 有 $q(x, x') = q(x', x)$。
     这时，接受分布 $\alpha(x, x')$ 简化为：
-    $$
-    \alpha(x, x') = \min\left\{1, \frac{p(x')}{p(x)}\right\}
-    $$
+    
+    $$\alpha(x, x') = \min\left\{1, \frac{p(x')}{p(x)}\right\}$$
+    
     Metropolis 选择的一个特例是令 $q(x, x') = q(|x-x'|)$，这时算法称为**随机游走 Metropolis 算法 (Random Walk Metropolis algorithm)**。例如，$q(x, x') \propto \exp\left(-\frac{(x'-x)^2}{2}\right)$。
     Metropolis 选择的特点是当 $x'$ 与 $x$ 接近时，$q(x, x')$ 的概率值高，否则概率值低。状态转移在附近点的可能性更大。
 
@@ -517,10 +516,11 @@ $$
     
     假设 $q(x, x')$ 与当前状态 $x$ 无关，即 $q(x, x') = q(x')$。
     建议分布的计算按照 $q(x')$ 独立抽样进行。此时，接受分布 $\alpha(x, x')$ 可以写成：
-    $$
-    \alpha(x, x') = \min\left\{1, \frac{w(x')}{w(x)}\right\}
-    $$
+    
+    $$\alpha(x, x') = \min\left\{1, \frac{w(x')}{w(x)}\right\}$$
+    
     其中 $w(x') = p(x')/q(x')$，$w(x) = p(x)/q(x)$。
+    
     独立抽样实现简单，但可能收敛速度慢，通常选择接近目标分布 $p(x)$ 的分布作为建议分布 $q(x)$。
 
 ### 满条件分布 (Full Conditional Distribution) (page 81-85)
@@ -536,9 +536,11 @@ $$
 p(x_I | x_{-I}) = \frac{p(x)}{\int_I p(x)dx_I} \propto p(x)
 $$
 而且，对任意的 $x, x' \in \mathcal{X}$ 和任意的 $I \subset K$，有：
+
 $$
 \frac{p(x'_I | x'_{-I})}{p(x_I | x_{-I})} = \frac{p(x')}{p(x)}
 $$
+
 Metropolis-Hastings 算法中，可以利用上述性质，简化计算，提高计算效率。具体地，通过满条件分布概率的比值 $p(x'_I | x'_{-I})/p(x_I | x_{-I})$，计算联合概率的比值 $p(x')/p(x)$，而前者更容易计算。
 
 ### 算法 19.2 (Metropolis-Hastings 算法) (page 86-87)
@@ -583,6 +585,7 @@ $x^{(i)}$ 表示马尔可夫链在时刻 $i$ 的状态：$x^{(i)} = (x_1^{(i)}, 
     $$
     \alpha(x_j^{(i-1)}, x_j' | x_{-j}^{(i)}) = \min\left\{1, \frac{p(x_j' | x_{-j}^{(i)}) q(x_j', x_j^{(i-1)} | x_{-j}^{(i)})}{p(x_j^{(i-1)} | x_{-j}^{(i)}) q(x_j^{(i-1)}, x_j' | x_{-j}^{(i)})}\right\}
     $$
+
 3. 抽样决定是否接受候选值 $x_j'$。如果 $x_j'$ 被接受，则令 $x_j^{(i)} = x_j'$；否则令 $x_j^{(i)} = x_j^{(i-1)}$，其余分量在第 $j$ 步不改变。
 
 由于建议分布可能不被接受，Metropolis-Hastings 算法可能在一些相邻的时刻不产生移动。这意味着样本点之间可能存在停滞。
@@ -618,6 +621,7 @@ $p(x) = p(x_1, x_2, \dots, x_k)$。
 
 定义建议分布是当前变量 $x_j, j = 1,2, \dots, k$ 的满条件概率分布 $q(x, x') = p(x_j' | x_{-j})$。
 这时，接受概率 $\alpha = 1$:
+
 $$
 \begin{align}
 \alpha(x, x') &= \min\left\{1, \frac{p(x')q(x',x)}{p(x)q(x,x')}\right\} \\
@@ -626,6 +630,7 @@ $$
 &= \min\{1, 1\} = 1
 \end{align}
 $$
+
 这里用到 $p(x) = p(x_j|x_{-j})p(x_{-j})$ 和 $p(x') = p(x_j'|x_{-j})p(x_{-j})$。因此，转移核就是满条件概率分布 $p(x, x') = p(x_j' | x_{-j})$。
 
 > [!attention]+ 吉布斯抽样特点 (page 100)
@@ -644,10 +649,7 @@ $$
 
 **步骤**:
 1. **初始化**: 给出初始样本 $x^{(0)} = (x_1^{(0)}, x_2^{(0)}, \dots, x_k^{(0)})^T$。
-2. **对 $i$ 执行循环**:
-    
-    设第 $(i-1)$ 次迭代结束时的样本为 $x^{(i-1)} = (x_1^{(i-1)}, x_2^{(i-1)}, \dots, x_k^{(i-1)})^T$，则第 $i$ 次迭代进行如下几步操作：
-    
+2. **对 $i$ 执行循环**:设第 $(i-1)$ 次迭代结束时的样本为 $x^{(i-1)} = (x_1^{(i-1)}, x_2^{(i-1)}, \dots, x_k^{(i-1)})^T$，则第 $i$ 次迭代进行如下几步操作：
 	- 由满条件分布 $p(x_1 | x_2^{(i-1)}, \dots, x_k^{(i-1)})$ 抽取 $x_1^{(i)}$。
     - 由满条件分布 $p(x_j | x_1^{(i)}, \dots, x_{j-1}^{(i)}, x_{j+1}^{(i-1)}, \dots, x_k^{(i-1)})$ 抽取 $x_j^{(i)}$。
     - 由满条件分布 $p(x_k | x_1^{(i)}, \dots, x_{k-1}^{(i)})$ 抽取 $x_k^{(i)}$。
@@ -659,15 +661,16 @@ $$
     f_{mn} = \frac{1}{n-m} \sum_{i=m+1}^n f(x^{(i)})
     $$
 
-> [!example]+ (例 11) 用吉布斯抽样从二元正态分布中抽取随机样本。 (page 103-105)
+> [!example]- (例 11) 用吉布斯抽样从二元正态分布中抽取随机样本。 (page 103-105)
 >   
 > $x = (x_1, x_2)^T \sim p(x_1, x_2)$
 > $p(x_1, x_2) = \mathcal{N}(0, \Sigma)$, $\Sigma = \begin{pmatrix} 1 & \rho \\ \rho & 1 \end{pmatrix}$。
 
-
 条件概率分布为一元正态分布：
-$p(x_1 | x_2) = \mathcal{N}(\rho x_2, 1 - \rho^2)$
-$p(x_2 | x_1) = \mathcal{N}(\rho x_1, 1 - \rho^2)$
+
+-  $p(x_1 | x_2) = \mathcal{N}(\rho x_2, 1 - \rho^2)$
+-  $p(x_2 | x_1) = \mathcal{N}(\rho x_1, 1 - \rho^2)$
+
 假设初始样本为 $x^{(0)} = (x_1^{(0)}, x_2^{(0)})$，通过吉布斯抽样，可以得到样本序列。最终得到的样本集合 $\{x^{(m+1)}, x^{(m+2)}, \dots, x^{(n)}\}$, $m < n$ 就是二元正态分布的随机抽样。
 
 ### 抽样计算 (page 106-109)

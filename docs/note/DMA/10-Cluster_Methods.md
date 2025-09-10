@@ -633,19 +633,16 @@ $$
 考虑将图分成 $k$ 个子图：$A_1, A_2, \dots, A_k$。一种直观的方法是将图切割问题理解为多个二分切割问题的综合。
 
 - **未归一化切割目标函数：**
-    $$
-    \text{cut}(A_1, A_2, \dots, A_k) := \frac{1}{2} \sum_{i=1}^k W(A_i, \bar{A}_i) = \frac{1}{2} \sum_{i=1}^k \text{cut}(A_i, \bar{A}_i)
-    $$
+    
+    $$\text{cut}(A_1, A_2, \dots, A_k) := \frac{1}{2} \sum_{i=1}^k W(A_i, \bar{A}_i) = \frac{1}{2} \sum_{i=1}^k \text{cut}(A_i, \bar{A}_i)$$
 
 - **比例切割目标函数 (RatioCut)：**
-    $$
-    \text{RatioCut}(A_1, A_2, \dots, A_k) := \frac{1}{2} \sum_{i=1}^k \frac{W(A_i, \bar{A}_i)}{|A_i|} = \sum_{i=1}^k \frac{\text{cut}(A_i, \bar{A}_i)}{|A_i|}
-    $$
+    
+    $$\text{RatioCut}(A_1, A_2, \dots, A_k) := \frac{1}{2} \sum_{i=1}^k \frac{W(A_i, \bar{A}_i)}{|A_i|} = \sum_{i=1}^k \frac{\text{cut}(A_i, \bar{A}_i)}{|A_i|}$$
 
 - **归一化切割目标函数 (Ncut)：**
-    $$
-    \text{Ncut}(A_1, A_2, \dots, A_k) := \frac{1}{2} \sum_{i=1}^k \frac{W(A_i, \bar{A}_i)}{\text{vol}(A_i)} = \sum_{i=1}^k \frac{\text{cut}(A_i, \bar{A}_i)}{\text{vol}(A_i)}
-    $$
+    
+    $$\text{Ncut}(A_1, A_2, \dots, A_k) := \frac{1}{2} \sum_{i=1}^k \frac{W(A_i, \bar{A}_i)}{\text{vol}(A_i)} = \sum_{i=1}^k \frac{\text{cut}(A_i, \bar{A}_i)}{\text{vol}(A_i)}$$
 
 ### 拉普拉斯矩阵的性质 (page 75-80)
 
@@ -658,14 +655,14 @@ $$
 
 - **L 是半正定矩阵 (Positive Semi-definite Matrix)：**
     对于任意向量 $f = [f_1, f_2, \dots, f_n]^T \in \mathbb{R}^n$，有：
+    
     $$
-    \begin{align}
+    \begin{aligned}
     f^T Lf &= f^T Df - f^T Wf \\
     &= \sum_{i=1}^n d_i f_i^2 - \sum_{i,j=1}^n f_i f_j W_{ij} \\
     &= \frac{1}{2} \left( \sum_{i=1}^n d_i f_i^2 - 2 \sum_{i,j=1}^n f_i f_j W_{ij} + \sum_{j=1}^n d_j f_j^2 \right) \\
-    &= \frac{1}{2} \sum_{i,j=1}^n W_{ij} (f_i - f_j)^2 \\
-    &\ge 0
-    \end{align}
+    &= \frac{1}{2} \sum_{i,j=1}^n W_{ij} (f_i - f_j)^2 \ge 0
+    \end{aligned}
     $$
     因为 $W_{ij} \ge 0$ 且 $(f_i - f_j)^2 \ge 0$，所以 $f^T Lf \ge 0$，这证明了拉普拉斯矩阵是半正定矩阵。半正定矩阵的所有特征值都是非负的。
 
@@ -690,6 +687,7 @@ $$
 
 - **若图 $G$ 不连通（即 $k > 1$）：**
     - 不失一般性，假定样本点均按连通子图逐个排序。这样，由于连通子图之间不存在边相连，所以图 $G$ 的拉普拉斯矩阵具有分块对角结构：
+        
         $$
         L = \begin{pmatrix}
         L_1 & & \\
@@ -698,6 +696,7 @@ $$
         & & & L_k
         \end{pmatrix}
         $$
+
         其中 $L_i$ 是第 $i$ 个连通子图的拉普拉斯矩阵。
     - 每一个 $L_i$ 均为一个连通子图的拉普拉斯矩阵，因此每个 $L_i$ 都有一个特征值为 $0$，且对应的特征向量是分量全为 $1$ 的向量。
     - 我们可以构造 $k$ 个线性无关的特征向量，它们对应于特征值 $0$。例如，对于第 $s$ 个连通分量 $A_s$，我们可以构造一个指示向量 $e_{A_s}$，其在 $A_s$ 对应的位置为 $1$，在其他位置为 $0$。那么 $L e_{A_s} = \mathbf{0}$。
@@ -813,6 +812,7 @@ $$
 > [!example]+ 谱聚类示例 (page 94-96)
 >
 > 谱聚类在图像分割等任务中表现出色。例如，可以采用谱聚类将图像的前景目标分割出来。其基本思想是：
+> 
 > - 将图像中的每个像素视为一个顶点。
 > - 以 $3 \times 3$ 等为一个基本邻域，连接相邻像素，构建一个图。边的权重可以是像素之间的颜色相似度、空间距离等。
 > - 然后应用谱聚类算法，将相似的像素点聚为一类，从而实现图像分割。

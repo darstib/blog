@@ -317,11 +317,11 @@ $$
     将这两个结果代回到拉格朗日函数 $L$ 中，以消去 $w$ 和 $b$：
 
     $$
-    \begin{align}
+    \begin{aligned}
     \min_{w,b} L(w,b,\alpha) &= \frac{1}{2} \left( \sum_i \alpha_i y_i x_i \right)^T \left( \sum_j \alpha_j y_j x_j \right) - \sum_i \alpha_i y_i \left( \left( \sum_j \alpha_j y_j x_j \right)^T x_i + b \right) + \sum_i \alpha_i \\
     &= \frac{1}{2} \sum_i \sum_j \alpha_i \alpha_j y_i y_j (x_i \cdot x_j) - \sum_i \sum_j \alpha_i \alpha_j y_i y_j (x_i \cdot x_j) - b \sum_i \alpha_i y_i + \sum_i \alpha_i \\
     &= -\frac{1}{2} \sum_i \sum_j \alpha_i \alpha_j y_i y_j (x_i \cdot x_j) + \sum_i \alpha_i
-    \end{align}
+    \end{aligned}
     $$
     这里我们用到了 $\sum_i \alpha_i y_i = 0$。
 	
@@ -331,11 +331,11 @@ $$
 > [!theorem]+ 线性可分 SVM 的对偶最优化问题 (page 39)
 >
 > $$
-> \begin{align}
+> \begin{aligned}
 > \min_{\alpha}& \frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j (x_i \cdot x_j) - \sum_{i=1}^N \alpha_i \\
 > &\text{s.t.}\quad \sum_{i=1}^N \alpha_i y_i = 0 \\
 > &\alpha_i \ge 0, \quad i = 1,2, \dots, N
-> \end{align}
+> \end{aligned}
 > $$
 
 #### 求解原始变量 (page 40-42)
@@ -418,11 +418,11 @@ $$
 > [!theorem]+ 线性 SVM 的对偶最优化问题 (page 54)
 >
 > $$
-> \begin{align}
+> \begin{aligned}
 > \min_{\alpha} \quad &\frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j (x_i \cdot x_j) - \sum_{i=1}^N \alpha_i \\
 > \text{s.t.} \quad & \sum_{i=1}^N \alpha_i y_i = 0 \\
 > & 0 \le \alpha_i \le C, \quad i = 1,2, \dots, N
-> \end{align}
+> \end{aligned}
 > $$
 
 对比硬间隔的对偶问题，唯一的变化是 $\alpha_i$ 多了一个上界 $C$，即所谓的**盒约束 (box constraint)**。
@@ -468,7 +468,7 @@ $$
 ### 特征映射与核技巧 (page 66-72)
 
 解决非线性问题的基本思路是：
-
+ 
 1. **非线性变换（特征映射）**：使用一个映射函数 $\phi(x)$，将原始输入空间 $\mathcal{X}$ 中的数据点 $x$ 映射到一个更高维度的**特征空间 $\mathcal{H}$**。
 2. **线性分类**：我们希望在这个新的特征空间中，数据变得线性可分（或近似线性可分），然后我们就可以在 $\mathcal{H}$ 中使用前面介绍的线性 SVM 来学习分类模型。
 
@@ -518,18 +518,19 @@ $$
 > 2. **选取**：选择合适的核函数 $K(x_{i},x_{j})$ 和惩罚参数 $C$。
 > 3. **求解对偶问题**：
 >     $$
->     \begin{align}
+>     \begin{aligned}
 >     \min_{\alpha} \quad &\frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j K(x_i, x_j) - \sum_{i=1}^N \alpha_i \\
 >     \text{s.t.} \quad & \sum_{i=1}^N \alpha_i y_i = 0 \\
 >     & 0 \le \alpha_i \le C, \quad i = 1,2, \dots, N
->     \end{align}
+>     \end{aligned}
 >     $$
+>     
 >     得到最优解 $\alpha^*$。
-> 4. **计算 $b^*$**：选择一个满足 $0 < \alpha_j^* < C$ 的分量，计算
+> 1. **计算 $b^*$**：选择一个满足 $0 < \alpha_j^* < C$ 的分量，计算
 >     $$
 >     b^* = y_j - \sum_{i=1}^N \alpha_i^* y_i K(x_i, x_j)
 >     $$
-> 5. **构造决策函数**：
+> 2. **构造决策函数**：
 >     $$
 >     f(x) = \text{sign}\left( \sum_{i=1}^{N_s} \alpha_i^* y_i K(x_i, x) + b^* \right)
 >     $$

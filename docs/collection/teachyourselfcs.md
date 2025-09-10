@@ -60,6 +60,7 @@ comments: true
 
 ### 实用技能/工具
 
+- [ziishaned/learn-regex](https://github.com/ziishaned/learn-regex) 正则表达式
 - [skill_learn](../tutorial/skill_learn/README.md) 系列；
 - [web_sites](web_sites.md) “开发者谈”板块；
 - [cheatsheet.zip](https://cheatsheets.zip/) or [中文翻译版](https://wangchujiang.com/reference/) 或者 [learn x in y minutes](https://learnxinyminutes.com/)
@@ -67,9 +68,10 @@ comments: true
 - [网道](https://wangdoc.com/)
     - “项目的目标是，提供高质量的、自主版权的、可以自由使用的中文软件文档”
 - [鱼皮的编程宝典](https://www.codefather.cn/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/)
-    - 有不少种语言，可能会更加面向工作
+    - 有不少种语言和学习路线，可能会更加面向工作
 - [编程词典](https://dict.code-nav.cn/)
-    - 系统了解某一门语言需要了解哪些专业术语；以工作为目的，不具备搜索功能 ~~但是不会还有人不会用你的搜索引擎搜索特定网站吧~~
+    - 系统了解某一门语言需要了解哪些专业术语；以工作为目的
+    - 不具备搜索功能 ~~但是不会还有人不会用你的搜索引擎搜索特定网站吧~~
 
 ## 自学指南
 
@@ -116,6 +118,12 @@ comments: true
 
 ## 机器学习/人工智能
 
+- [datawhalechina](https://github.com/datawhalechina)
+	- Datawhale是一个专注于AI与数据科学的开源组织，汇集了众多领域院校和知名企业的优秀学习者
+	- 本页面有几个教程就是该社区的工作
+- [AI 算法工程师手册](https://www.huaxiaozhuan.com/)
+	- 【20250905 更】域名过期了，且笔记仓库没有找到，作者的 github 似乎也很久没有活跃了；但是这个手册作者修订的还是较多的，可能过阵子就续费了
+	- [这里](https://www.bookstack.cn/read/huaxiaozhuan-ai/README.md)是一个存档（至 202006），基础部分基本齐全
 - [ZhaoWeiGuo 的个人知识体系](https://knowledge.zhaoweiguo.com/)
 	- [AI相关](https://knowledge.zhaoweiguo.com/build/html/ai/)
 - [Dive into Deep Learning](https://d2l.ai/)
@@ -125,10 +133,13 @@ comments: true
     - "CIML is a set of introductory materials that covers most major aspects of modern machine learning (supervised learning, unsupervised learning, large margin methods, probabilistic modeling, learning theory, etc.). It's focus is on broad applications with a rigorous backbone. A subset can be used for an undergraduate course; a graduate course could probably cover the entire material and then some."
     - [这里下载pdf](http://ciml.info/dl/v0_99/ciml-v0_99-all.pdf)
 - [提示工程指南](https://www.promptingguide.ai/zh)
+- [王木头学科学](https://space.bilibili.com/504715181)
 
 ## 其他
 
 - [Awesome-CS-Course-Learning-Notes](https://github.com/Zhang-Each/Awesome-CS-Course-Learning-Notes)
+- [BookStack](https://www.bookstack.cn/)
+	- 可以在这里找找开源的教程/书籍
 - [codethechange.stanford.edu](https://codethechange.stanford.edu/guides/)
     - 也许有些奇怪的东西你不知道，但是可能感兴趣。
 - [数理百科](https://wuli.wiki/index.html)

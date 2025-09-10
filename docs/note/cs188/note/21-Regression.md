@@ -92,4 +92,4 @@ where we used the fact that $\sum_{k}{t_{i,k}}=1$.
 ## link
 
 - [cs188-sp24-note21](https://inst.eecs.berkeley.edu/~cs188/sp24/assets/notes/cs188-sp24-note21.pdf)
-- [6-logistic](../../DMA/6-logistic.md)
+- [06-logistic](../../DMA/06-logistic.md)

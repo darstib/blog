@@ -87,6 +87,7 @@ $$
     $$
     \hat{\theta}_{SRM} = \arg\min_{\theta} R_{srm}(\theta)
     $$
+
 - $J(\theta)$ 是一个关于模型参数 $\theta$ 的函数，$\theta$ 越复杂，$J(\theta)$ 的值越大。例如，$L_2$ 正则化项 $J(\theta) = ||\theta||_2^2$。
 - $\lambda$ 是一个超参数，用于权衡经验风险和模型复杂度。
 
@@ -99,16 +100,16 @@ $$
 MLE 的目标是寻找参数 $\theta$，使得 **观测到的数据出现的概率最大**。它假设参数 $\theta$ 是一个未知的固定值。
 
 - **似然函数 (Likelihood):** 假设数据点之间独立同分布，给定参数 $\theta$ 时，整个数据集 $D$ 的似然函数是：
-    $$
-    P(D|\theta) = \prod_{i=1}^{N} P(y_i|x_i; \theta)
+    
+    $$P(D|\theta) = \prod_{i=1}^{N} P(y_i|x_i; \theta)
     $$
 - 为了计算方便，通常最大化对数似然函数 (Log-Likelihood):
     $$
     \mathcal{L}(\theta) = \log P(D|\theta) = \sum_{i=1}^{N} \log P(y_i|x_i; \theta)
     $$
 - **MLE 估计量:**
-    $$
-    \hat{\theta}_{MLE} = \arg\max_{\theta} \mathcal{L}(\theta) = \arg\max_{\theta} \sum_{i=1}^{N} \log P(y_i|x_i; \theta)
+    
+    $$\hat{\theta}_{MLE} = \arg\max_{\theta} \mathcal{L}(\theta) = \arg\max_{\theta} \sum_{i=1}^{N} \log P(y_i|x_i; \theta)
     $$
 
 ##### 2. 最大后验估计 (Maximum a Posteriori, MAP)
@@ -128,8 +129,6 @@ MAP 不仅考虑数据的似然性，还引入了关于参数 $\theta$ 的 **先
     \hat{\theta}_{MAP} = \arg\max_{\theta} (\log P(D|\theta) + \log g(\theta)) = \arg\max_{\theta} \left( \sum_{i=1}^{N} \log P(y_i|x_i; \theta) + \log g(\theta) \right)
     $$
 
----
-
 #### 第三部分：建立对应关系与证明
 
 现在我们将风险最小化和概率估计联系起来。核心思想是：**通过选择特定的损失函数 $L$ 和正则化项 $J$，可以使风险最小化等价于概率估计。**
@@ -145,27 +144,36 @@ MAP 不仅考虑数据的似然性，还引入了关于参数 $\theta$ 的 **先
 $$
 \hat{\theta}_{MLE} = \arg\max_{\theta} \sum_{i=1}^{N} \log P(y_i|x_i; \theta) = \arg\min_{\theta} \left( -\sum_{i=1}^{N} \log P(y_i|x_i; \theta) \right)
 $$
+
 现在，我们来看 ERM 的目标：
 
 $$
 \hat{\theta}_{ERM} = \arg\min_{\theta} \frac{1}{N} \sum_{i=1}^{N} L(y_i, f(x_i; \theta))
 $$
+
 如果我们定义损失函数为负对数似然：
+
 $$
 L(y_i, f(x_i; \theta)) := -\log P(y_i|x_i; \theta)
 $$
+
 那么 ERM 的目标就变为：
+
 $$
 \hat{\theta}_{ERM} = \arg\min_{\theta} \frac{1}{N} \sum_{i=1}^{N} (-\log P(y_i|x_i; \theta)) = \arg\min_{\theta} \left( -\frac{1}{N} \sum_{i=1}^{N} \log P(y_i|x_i; \theta) \right)
 $$
+
 由于 $1/N$ 是一个正的常数，最小化上式等价于最小化括号内的求和项，这与 MLE 的最小化形式完全相同。
 
-> [!example]- **示例:** 在线性回归中，假设噪声服从均值为0、方差为 $\sigma^2$ 的高斯分布，即 $y \sim \mathcal{N}(f(x;\theta), \sigma^2)$。
-
-$P(y_i|x_i; \theta) = \frac{1}{\sqrt{2\pi}\sigma} \exp\left(-\frac{(y_i - f(x_i; \theta))^2}{2\sigma^2}\right)$。
-其负对数似然损失为：
-$-\log P(y_i|x_i; \theta) = \frac{(y_i - f(x_i; \theta))^2}{2\sigma^2} + \text{const}$。
-最小化这个损失，就等价于最小化 **平方误差损失 (Squared Error Loss)**。因此，在线性回归中，最小二乘法（ERM 的一种）等价于高斯噪声假设下的极大似然估计。
+> [!example]+ **示例:** 在线性回归中，假设噪声服从均值为0、方差为 $\sigma^2$ 的高斯分布，即 $y \sim \mathcal{N}(f(x;\theta), \sigma^2)$。
+> 
+> $$P(y_i|x_i; \theta) = \frac{1}{\sqrt{2\pi}\sigma} \exp\left(-\frac{(y_i - f(x_i; \theta))^2}{2\sigma^2}\right)$$
+> 
+> 其负对数似然损失为：
+> 
+> $$-\log P(y_i|x_i; \theta) = \frac{(y_i - f(x_i; \theta))^2}{2\sigma^2} + \text{const}$$
+> 
+> 最小化这个损失，就等价于最小化 **平方误差损失 (Squared Error Loss)**。因此，在线性回归中，最小二乘法（ERM 的一种）等价于高斯噪声假设下的极大似然估计。
 
 ##### 2. 结构风险最小化 (SRM) $\iff$ 最大后验估计 (MAP)
 
@@ -174,35 +182,43 @@ $-\log P(y_i|x_i; \theta) = \frac{(y_i - f(x_i; \theta))^2}{2\sigma^2} + \text{c
 **证明:**
 
 将 MAP 的目标转换为一个最小化问题：
+
 $$
 \hat{\theta}_{MAP} = \arg\max_{\theta} \left( \sum_{i=1}^{N} \log P(y_i|x_i; \theta) + \log g(\theta) \right) = \arg\min_{\theta} \left( -\sum_{i=1}^{N} \log P(y_i|x_i; \theta) - \log g(\theta) \right)
 $$
+
 现在，我们来看 SRM 的目标：
+
 $$
 \hat{\theta}_{SRM} = \arg\min_{\theta} \left( \sum_{i=1}^{N} L(y_i, f(x_i; \theta)) + \tilde{\lambda} J(\theta) \right)
 $$
+
 (这里用 $\tilde{\lambda}$ 是为了和前面公式的 $\lambda$ 区分，因为 $\lambda=1/N$)
 
 如果我们定义：
+
 1.  **损失函数:** $L(y_i, f(x_i; \theta)) := -\log P(y_i|x_i; \theta)$
 2.  **正则化项:** $J(\theta) := -\log g(\theta)$
 
 那么 SRM 的目标就变为：
+
 $$
 \hat{\theta}_{SRM} = \arg\min_{\theta} \left( \sum_{i=1}^{N} (-\log P(y_i|x_i; \theta)) + \tilde{\lambda} (-\log g(\theta)) \right)
 $$
+
 当超参数 $\tilde{\lambda}=1$ 时，上式与 MAP 的最小化形式完全相同。因此，MAP 估计可以被看作是正则化的极大似然估计，也等价于一种特殊的结构风险最小化。
 
-> [!example]- **示例:**
-
-- **L2 正则化 (Ridge Regression):** 如果参数的先验分布 $g(\theta)$ 是一个均值为0的高斯分布 $g(\theta) \sim \mathcal{N}(0, \alpha^2 I)$，那么负对数先验 $-\log g(\theta) = \frac{1}{2\alpha^2}||\theta||_2^2 + \text{const}$。这正好对应了 $L_2$ 正则化项。
-- **L1 正则化 (Lasso):** 如果参数的先验分布 $g(\theta)$ 是一个拉普拉斯分布 (Laplace Distribution)，那么负对数先验 $-\log g(\theta)$ 正好对应了 $L_1$ 正则化项 $||\theta||_1$。
+> [!example]- 正则化项示例:
+> 
+> - **L2 正则化 (Ridge Regression):** 如果参数的先验分布 $g(\theta)$ 是一个均值为0的高斯分布 $g(\theta) \sim \mathcal{N}(0, \alpha^2 I)$，那么负对数先验 $-\log g(\theta) = \frac{1}{2\alpha^2}||\theta||_2^2 + \text{const}$。这正好对应了 $L_2$ 正则化项。
+> - **L1 正则化 (Lasso):** 如果参数的先验分布 $g(\theta)$ 是一个拉普拉斯分布 (Laplace Distribution)，那么负对数先验 $-\log g(\theta)$ 正好对应了 $L_1$ 正则化项 $||\theta||_1$。
 
 ##### 3. 后验概率最大化 (Bayesian Estimation)
 
 “后验概率最大化” 通常就是指 **MAP**；然而，一个完整的 **贝叶斯估计 (Bayesian Estimation)** 观点与 MAP 是不同的。贝叶斯方法并不寻求一个单一的点估计 $\hat{\theta}$，而是计算参数的 **完整后验分布** $P(\theta|D)$。在做预测时，它会通过积分（或求和）来考虑所有可能的参数值，并用后验概率加权：
 
 **后验预测分布 (Posterior Predictive Distribution):**
+
 $$
 P(y_{new}|x_{new}, D) = \int P(y_{new}|x_{new}, \theta) P(\theta|D) \,d\theta
 $$
@@ -211,13 +227,13 @@ $$
 
 #### 总结与辨析
 
-| 框架                | 目标函数                                               | 对应关系                                             | 核心思想                          |
-| :---------------- | :------------------------------------------------- | :----------------------------------------------- | :---------------------------- |
-| **经验风险最小化 (ERM)** | $R_{emp} = \frac{1}{N}\sum L(y_i, f_i)$            | **极大似然估计 (MLE)**                                 | 最小化训练集上的平均损失。                 |
-| **结构风险最小化 (SRM)** | $R_{srm} = R_{emp} + \lambda J(\theta)$            | **最大后验估计 (MAP)**                                 | 在最小化训练损失的同时，惩罚模型复杂度以防过拟合。     |
-| **极大似然估计 (MLE)**  | $\sum \log P(y_i\|x_i; \theta)$                    | **ERM** (当 $L = -\log P$)                        | 找到最能解释观测数据的参数。                |
-| **最大后验估计 (MAP)**  | $\sum \log P(y_i \| x_i; \theta) + \log g(\theta)$ | **SRM** (当 $L = -\log P$, $J = -\log g(\theta)$) | 结合数据和先验知识，找到后验概率最大的参数。        |
-| **贝叶斯估计**         | $P(\theta\|D)$ (整个分布)                              | (无直接对应)                                          | 不找单一最优参数，而是计算参数的完整后验分布，并用于预测。 |
+|        框架         |                        目标函数                        |                       对应关系                       | 核心思想                         |
+| :---------------: | :------------------------------------------------: | :----------------------------------------------: | :--------------------------- |
+| **经验风险最小化 (ERM)** |      $R_{emp} = \frac{1}{N}\sum L(y_i, f_i)$       |                 **极大似然估计 (MLE)**                 | 最小化训练集上的平均损失                 |
+| **结构风险最小化 (SRM)** |      $R_{srm} = R_{emp} + \lambda J(\theta)$       |                 **最大后验估计 (MAP)**                 | 在最小化训练损失的同时，惩罚模型复杂度以防过拟合     |
+| **极大似然估计 (MLE)**  |          $\sum \log P(y_i\|x_i; \theta)$           |             **ERM** (当$L = -\log P$)             | 找最能解释观测数据的参数                 |
+| **最大后验估计 (MAP)**  | $\sum \log P(y_i \| x_i; \theta) + \log g(\theta)$ | **SRM** (当 $L = -\log P$, $J = -\log g(\theta)$) | 结合数据和先验知识，找到后验概率最大的参数        |
+|     **贝叶斯估计**     |               $P(\theta\|D)$ (整个分布)                |                     (无直接对应)                      | 不找单一最优参数，而是计算参数的完整后验分布，并用于预测 |
 
 ### 算法
 

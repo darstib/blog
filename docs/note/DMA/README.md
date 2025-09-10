@@ -22,7 +22,7 @@ tags:
 > 	- [x] 编程大作业（15%）
 > 	- [x] 读书报告（15%）
 > 		- 论文阅读报告
-> 	- [ ] 期末考试（50%）
+> 	- [x] 期末考试（50%）
 
 - [统计学习方法习题解答](https://datawhalechina.github.io/statistical-learning-method-solutions-manual/#)
 - [统计学习方法参考解答](http://db.darstib.cn/static/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E5%8F%82%E8%80%83%E8%A7%A3%E7%AD%94.pdf)
@@ -39,7 +39,7 @@ tags:
 	- 奇异值分解（奇异值存在、求解过程、唯一性判断）
 	- 主成分分析（求解过程）
 	- 马尔可夫链（概率转移矩阵、平稳分布，例 19.3）
-- [2021 - 2022](https://www.cc98.org/topic/5356728/)、
+- [2021 - 2022](https://www.cc98.org/topic/5356728/)
 	- k 近邻模型（概念、构造、使用）
 	- 决策树（信息增益、基尼指数）
 	- 支持向量机（概念、对偶问题、求解）

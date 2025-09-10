@@ -371,10 +371,13 @@ $$
 - 全局最优解 $\theta^* = H^{-1}c$。
 
 梯度下降的更新规则变为：
+
 $$
 \theta_t = \theta_{t-1} - \frac{1}{L}(H\theta_{t-1} - c) = \theta_{t-1} - \frac{1}{L}(H\theta_{t-1} - H\theta^*)
 $$
+
 这可以进一步简化为：
+
 $$
 \theta_t - \theta^* = \left(I - \frac{1}{L}H\right)(\theta_{t-1} - \theta^*) = \left(I - \frac{1}{L}H\right)^t(\theta_0 - \theta^*)
 $$
@@ -462,13 +465,10 @@ $$
 投影梯度下降用于解决带有简单凸约束的优化问题，形式为 $\min_{\theta \in \mathcal{K}} f(\theta)$，其中 $\mathcal{K}$ 是一个凸集。
 
 - **算法**: 投影梯度下降的迭代更新包括一个梯度下降步骤和一个到约束集的投影步骤：
-  $$
-  \theta_{t+1} = \arg \min_{\theta \in \mathcal{K}} \left\{f(\theta_t) + (\theta - \theta_t)^\top \nabla f(\theta_t) + \frac{L}{2}\|\theta - \theta_t\|_2^2\right\}
-  $$
-  这等价于：
-  $$
-  \theta_{t+1} = \arg \min_{\theta \in \mathcal{K}} \frac{1}{2}\left\|\theta - \left(\theta_t - \frac{1}{L}\nabla f(\theta_t)\right)\right\|_2^2
-  $$
+	$$\theta_{t+1} = \arg \min_{\theta \in \mathcal{K}} \left\{f(\theta_t) + (\theta - \theta_t)^\top \nabla f(\theta_t) + \frac{L}{2}\|\theta - \theta_t\|_2^2\right\}$$
+  
+	这等价于：
+	$$\theta_{t+1} = \arg \min_{\theta \in \mathcal{K}} \frac{1}{2}\left\|\theta - \left(\theta_t - \frac{1}{L}\nabla f(\theta_t)\right)\right\|_2^2$$
   这个操作 $\Pi_{\mathcal{K}}(x) = \arg \min_{z \in \mathcal{K}} \|x - z\|_2$ 就是将点 $x$ 投影到凸集 $\mathcal{K}$ 上。
 - **收敛率 (Convergence Rates)**：投影梯度下降的收敛率与无约束的光滑优化方法类似。
 - **加速方法 (Acceleration Methods)**：同样存在加速投影梯度下降的方法 (Nesterov, 2007; Beck and Teboulle, 2009)。
@@ -494,11 +494,11 @@ $$
 
 ### 光滑凸函数最小化总结 (Summary: Minimizing Smooth Convex Functions) (page 58-59)
 
-| 方法             | 收敛假设                                       | 收敛率 (一般凸) | 收敛率 (强凸)                                |
-| :--------------- | :--------------------------------------------- | :-------------- | :------------------------------------------- |
-| **梯度下降**     | $g$ 凸，梯度 $L$ -Lipschitz 连续                  | $O(1/t)$        | $O(e^{-t\mu/L})$                             |
-| **加速梯度下降** | $g$ 凸，梯度 $L$ -Lipschitz 连续                  | $O(1/t^2)$      | $O(e^{-t\sqrt{\mu/L}})$                      |
-| **牛顿法**       | $g$ 凸，二阶可微，Hessian $L$ -Lipschitz 连续     | $O(e^{-\rho^2t})$ | $O(e^{-\rho^2t})$ (局部二次收敛)           |
+|     方法     |                  收敛假设                   |     收敛率 (一般凸)     |            收敛率 (强凸)            |
+| :--------: | :-------------------------------------: | :---------------: | :----------------------------: |
+|  **梯度下降**  |       $g$ 凸，梯度 $L$ -Lipschitz 连续        |     $O(1/t)$      |        $O(e^{-t\mu/L})$        |
+| **加速梯度下降** |       $g$ 凸，梯度 $L$ -Lipschitz 连续        |    $O(1/t^2)$     |    $O(e^{-t\sqrt{\mu/L}})$     |
+|  **牛顿法**   | $g$ 凸，二阶可微<br>Hessian $L$ -Lipschitz 连续 | $O(e^{-\rho^2t})$ | $O(e^{-\rho^2t})$ <br>(局部二次收敛) |
 
 从光滑函数到非光滑函数，通常使用**次梯度法 (Subgradient Method)** 和 **椭球法 (Ellipsoid Algorithm)**。
 
@@ -565,6 +565,7 @@ $$
 ### 机器学习与统计 (Machine Learning - Statistics) (page 74)
 
 在机器学习中，这种无偏估计是很自然的：
+
 - **单对观测的损失 (Loss for a single pair of observations)**：$f_n(\theta) = \ell(y_n, \theta^\top \Phi(x_n))$。
 - **期望损失 (Expected loss)**：$f(\theta) = \mathbb{E} f_n(\theta) = \mathbb{E} \ell(y_n, \theta^\top \Phi(x_n))$，这就是泛化误差 (generalization error)。
 - **期望梯度 (Expected gradient)**：$f'(\theta) = \mathbb{E} f'_n(\theta) = \mathbb{E}[\ell'(y_n, \theta^\top \Phi(x_n)) \Phi(x_n)]$。
@@ -578,7 +579,8 @@ $$
   $$
   \theta_n = \theta_{n-1} - \gamma_n h_n(\theta_{n-1}) \quad \text{with } \mathbb{E}[h_n(\theta_{n-1})|\theta_{n-1}] = h(\theta_{n-1})
   $$
-  其中 $h_n(\theta_{n-1})$ 是真实梯度 $h(\theta_{n-1})$ 的无偏估计，$\gamma_n$ 是学习率（步长）。
+  
+	其中 $h_n(\theta_{n-1})$ 是真实梯度 $h(\theta_{n-1})$ 的无偏估计，$\gamma_n$ 是学习率（步长）。
 - **Polyak-Ruppert 平均 (Polyak-Ruppert Averaging)**：通常对迭代点进行平均可以改善收敛性，即 $\bar{\theta}_n = \frac{1}{n}\sum_{k=0}^{n-1} \theta_k$。
 - **学习率序列 (Learning Rate Sequence)**：经典的设置是 $\gamma_n = Cn^{-\alpha}$。
 - **理想行为**: 适用于经典监督学习问题，对未知常数 (L, B, $\mu$) 具有鲁棒性，并能适应问题难度（如强凸性）。
@@ -591,10 +593,10 @@ $$
 
 ### 凸随机逼近 (Convex Stochastic Approximation) (page 79-81)
 
-- **关键性质**:
-- **光滑性 (Smoothness)**：函数 $f$ 是 $B$ -Lipschitz 连续的，其梯度 $f'$ 是 $L$ -Lipschitz 连续的。
-- **强凸性 (Strong Convexity)**：函数 $f$ 是 $\mu$ -强凸的。
-- **核心算法**: 随机梯度下降 (Robbins-Monro)。
+- 关键性质:
+	- **光滑性 (Smoothness)**：函数 $f$ 是 $B$ -Lipschitz 连续的，其梯度 $f'$ 是 $L$ -Lipschitz 连续的。
+	- **强凸性 (Strong Convexity)**：函数 $f$ 是 $\mu$ -强凸的。
+	- **核心算法**: 随机梯度下降 (Robbins-Monro)。
   $$
   \theta_n = \theta_{n-1} - \gamma_n f'_n(\theta_{n-1})
   $$
@@ -649,6 +651,7 @@ $$
 |                | **强凸**     | $\exp(-t\sqrt{\mu/L})$           | $d/n + LD^2/n$            |                         |
 
 其中：
+
 - $D$: 域的直径 (diameter of the domain)。
 - $B$: Lipschitz 常数。
 - $L$: 光滑常数。
@@ -658,6 +661,7 @@ $$
 - $d$: 维度。
 
 **注意**:
+
 - 对于非光滑凸函数，随机方法通常比确定性方法更快，因为它们能够利用数据的随机性。
 - 对于光滑凸函数，加速梯度方法可以达到 $O(1/t^2)$ 的收敛率，优于普通梯度下降的 $O(1/t)$。
 - 强凸函数通常具有指数级的收敛速度，这比次线性收敛快得多。

@@ -107,4 +107,4 @@ The specific value of k that’s appropriate to use in our model is typically de
 ## link
 
 - [cs188-sp24-note19](https://inst.eecs.berkeley.edu/~cs188/sp24/assets/notes/cs188-sp24-note19.pdf)
-- [4-Naive_Bayes](../../DMA/4-Naive_Bayes.md)
+- [04-Naive_Bayes](../../DMA/04-Naive_Bayes.md)

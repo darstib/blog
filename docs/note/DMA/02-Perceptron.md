@@ -225,45 +225,58 @@ Novikoff 定理（Novikoff's theorem）是感知机算法收敛性的一个重�
 
 ### 收敛性证明 (page 18-21)
 
-> [!proof]- 证明感知机算法的收敛性主要依赖于上述 Novikoff 定理。
+> [!proof] 证明感知机算法的收敛性主要依赖于上述 Novikoff 定理。
 
-**第一部分证明 (1)**：
+#### 第一部分证明 (1)
+
 由于训练数据集是线性可分的，根据定义 2.2，存在一个超平面可以将训练数据完全正确分开。我们可以选取这样一个分离超平面，使其对应的扩充权重向量为 $\hat{w}_{\text{opt}}$，并且满足 $||\hat{w}_{\text{opt}}|| = 1$（可以通过对任意分离超平面的法向量进行归一化实现）。
 
 由于所有样本点都能被正确分类，对于任意样本 $(x_i, y_i)$，均有 $y_i(w_{\text{opt}} \cdot x_i + b_{\text{opt}}) > 0$。
 由于数据集是有限的，我们可以找到一个最小的正值 $\gamma$，使得：
+
 $$
 \gamma = \min_i \{y_i(\hat{w}_{\text{opt}} \cdot \hat{x}_i)\} > 0
 $$
+
 因此，对于所有 $i$，都有 $y_i(\hat{w}_{\text{opt}} \cdot \hat{x}_i) \ge \gamma$。
 
-**第二部分证明 (2)**：
+#### 第二部分证明 (2)
+
 我们来推导两个重要的不等式 (2.12) 和 (2.13)。
 假设感知机算法从 $\hat{w}_0 = 0$ 开始迭代。如果第 $k$ 个误分类实例是 $(x_i, y_i)$，那么在第 $k$ 次更新之前，扩充权重向量为 $\hat{w}_{k-1}$。此时误分类的条件是 $y_i(\hat{w}_{k-1} \cdot \hat{x}_i) \le 0$ (2.10)。
 根据更新规则，新的扩充权重向量为：
+
 $$
 \hat{w}_k = \hat{w}_{k-1} + \eta y_i \hat{x}_i \quad (2.11)
 $$
 
 **首先证明 (2.12)**：
+
 考虑 $\hat{w}_k$ 与 $\hat{w}_{\text{opt}}$ 的内积：
+
 $$
 \hat{w}_k \cdot \hat{w}_{\text{opt}} = (\hat{w}_{k-1} + \eta y_i \hat{x}_i) \cdot \hat{w}_{\text{opt}}
 $$
+
 $$
 = \hat{w}_{k-1} \cdot \hat{w}_{\text{opt}} + \eta y_i (\hat{x}_i \cdot \hat{w}_{\text{opt}})
 $$
+
 根据 (2.8) 式，我们知道 $y_i(\hat{w}_{\text{opt}} \cdot \hat{x}_i) \ge \gamma$，因此 $\eta y_i (\hat{x}_i \cdot \hat{w}_{\text{opt}}) \ge \eta \gamma$。
 所以，
+
 $$
 \hat{w}_k \cdot \hat{w}_{\text{opt}} \ge \hat{w}_{k-1} \cdot \hat{w}_{\text{opt}} + \eta \gamma
 $$
+
 这是一个递推关系。由于初始 $\hat{w}_0 = 0$，我们可以递推得到：
+
 $$
 \hat{w}_k \cdot \hat{w}_{\text{opt}} \ge \hat{w}_{k-1} \cdot \hat{w}_{\text{opt}} + \eta \gamma \ge \hat{w}_{k-2} \cdot \hat{w}_{\text{opt}} + 2 \eta \gamma \ge \dots \ge k \eta \gamma \quad (2.12)
 $$
 
 **接着证明 (2.13)**：
+
 考虑 $|| \hat{w}_k ||^2$：
 $$
 ||\hat{w}_k||^2 = ||\hat{w}_{k-1} + \eta y_i \hat{x}_i||^2
@@ -288,26 +301,36 @@ $$
 $$
 
 **最后结合 (2.12) 和 (2.13)**：
+
 利用柯西-施瓦茨不等式（Cauchy-Schwarz inequality）：$|\hat{w}_k \cdot \hat{w}_{\text{opt}}| \le ||\hat{w}_k|| \cdot ||\hat{w}_{\text{opt}}||$。
 由于 $||\hat{w}_{\text{opt}}|| = 1$，且 $\hat{w}_k \cdot \hat{w}_{\text{opt}} \ge k \eta \gamma > 0$（因为 $k, \eta, \gamma$ 都是正数），所以 $\hat{w}_k \cdot \hat{w}_{\text{opt}} = |\hat{w}_k \cdot \hat{w}_{\text{opt}}|$。
 因此，
+
 $$
 k \eta \gamma \le \hat{w}_k \cdot \hat{w}_{\text{opt}} \le ||\hat{w}_k|| \cdot ||\hat{w}_{\text{opt}}|| = ||\hat{w}_k||
 $$
+
 结合 (2.13) 式，我们有 $|| \hat{w}_k || \le \sqrt{k \eta^2 R^2} = \eta R \sqrt{k}$。
 所以，
+
 $$
 k \eta \gamma \le \eta R \sqrt{k}
 $$
+
 两边平方（因为都是正数）：
+
 $$
 k^2 \eta^2 \gamma^2 \le k \eta^2 R^2
 $$
+
 由于 $k > 0$ 且 $\eta > 0$，可以两边同除以 $k \eta^2$：
+
 $$
 k \gamma^2 \le R^2
 $$
+
 最终得到误分类次数 $k$ 的上界：
+
 $$
 k \le \left(\frac{R}{\gamma}\right)^2
 $$

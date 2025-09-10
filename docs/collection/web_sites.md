@@ -143,7 +143,7 @@ comments: true
 
 ### 电子资料
 
-- [电子书](https://chen-huaneng.github.io/2024/11/14/2024-11-14-2024-11-14-website/#%E7%94%B5%E5%AD%90%E4%B9%A6)
+- [电子书查找](https://chen-huaneng.github.io/2024/11/14/2024-11-14-2024-11-14-website/#%E7%94%B5%E5%AD%90%E4%B9%A6)
 	- [Anna's Archive](https://annas-archive.org/)
 	- Zlibrary
 	- [鸠摩搜索](https://www.wangdu.site/software/av-read/540.html)
@@ -152,10 +152,18 @@ comments: true
 	- [magazine lib](https://magazinelib.com/)
 	- [公开真题库](https://www.gkzenti.cn/)
 - [BT磁力种子搜索引擎网站](https://www.wangdu.site/software/av-read/540.html)
-- [真题在线](https://www.wehuster.com/)
+- [x] [真题在线](https://www.wehuster.com/)
 - [Ayouth的影视站点推荐](https://ayouth.top/ayouth/video.html)
 - [dytt](https://dydytt.net/index.htm)
 - [vidhub](https://vidhub.link/)
+
+### 影视
+
+- [ ] [Animeko.org](https://animeko.org/)（应用）
+- [ ] [Omoo](https://www.omoo.app/)（在线网站 + 应用）
+- [次元狗](https://www.acgndog.com/)（网盘资源）
+- [trace 番](https://trace.moe/)
+- [樱花动漫6](https://yhdm6.top/)
 
 ### 工具箱
 
@@ -392,10 +400,7 @@ comments: true
 
 ### 杂乱工具
 
-- [奇客在线文字识别](https://www.geekersoft.com.cn/ocr-online.html)
-- [geogebra](https://www.geogebra.org/) or [wolframalpha](https://www.wolframalpha.com/) or [数字帝国](https://zh.numberempire.com/) or [mathdf](https://mathdf.com/)
-    - 数学工具【套件】
-- [聚合翻译](https://openl.club/)
+- [微信公众号文章下载](https://github.com/qiye45/wechatDownload)
 - [微信文件传输助手](https://filehelper.weixin.qq.com/)
 - [Scrcpy](https://github.com/Genymobile/scrcpy)
     - 手机投屏电脑
@@ -406,6 +411,11 @@ comments: true
     - 多种论文参考文献标准引用生成器
 - [citationmachine](https://www.citationmachine.net/)
     - APA Citation Generator
+- [similar sites](https://www.similarsites.com/)
+	- 寻找相似的网站
+- [geogebra](https://www.geogebra.org/) or [wolframalpha](https://www.wolframalpha.com/) or [数字帝国](https://zh.numberempire.com/) or [mathdf](https://mathdf.com/)
+    - 数学工具【套件】
+- [奇客在线文字识别](https://www.geekersoft.com.cn/ocr-online.html)
 
 ### 杂文趣事
 
@@ -428,9 +438,6 @@ comments: true
 - [知链](https://zhiurl.cn/)
     - 临时缩短链接
 - [繁简中文转换](https://www.aies.cn/)
-- [trace 番](https://trace.moe/)
-- [樱花动漫6](https://yhdm6.top/)
-- [次元狗](https://www.acgndog.com/)
 - [stars](https://stars.chromeexperiments.com/)
     - 一起来看星星
 - [The Scale of the Universe](https://htwins.net/scale2/)

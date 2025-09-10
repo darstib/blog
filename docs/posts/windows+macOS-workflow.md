@@ -12,13 +12,13 @@ mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协�
 
 ## 串流
 
-|  比较   | sun+moon |           parsec            |         uu remote         |
-| :---: | :------: | :-------------------------: | :-----------------------: |
-| 跨 LAN |    ❌     |             ✔️              |            ✔️             |
-| 稳定安全  |    ✔️    |              ❌              |             ❌             |
-| 键盘映射  |   ✔️✔️   |           ✔️✔️✔️            |            ✔️             |
-| 配置复杂度 |  ✔️✔️✔️  |            ✔️✔️             |            ✔️             |
-|  备注   |          | 剪贴板同步[^6]<br><br>[^6]: <br> | 串流时防窥屏+结束后锁屏+文件传输功能，剪贴板同步 |
+|  比较   | sun+moon |   parsec   |         uu remote         |
+| :---: | :------: | :--------: | :-----------------------: |
+| 跨 LAN |    ❌     |     ✔️     |            ✔️             |
+| 稳定安全  |    ✔️    |     ❌      |             ❌             |
+| 键盘映射  |   ✔️✔️   |   ✔️✔️✔️   |            ✔️             |
+| 配置复杂度 |  ✔️✔️✔️  |    ✔️✔️    |            ✔️             |
+|  备注   |          | 剪贴板同步 <br> | 串流时防窥屏+结束后锁屏+文件传输功能，剪贴板同步 |
 
 > [!extra]+
 >
@@ -47,18 +47,13 @@ mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协�
 
 简而言之，sunshine 作为服务端应用，moonlight 作为客户端应用，能够实现在 **局域网** 内高质量串流[^1] 。
 
-> [!extra]-
->
-> 出于某些原因[^2]，我后来试用了 [apollo](https://github.com/ClassicOldSong/Apollo) ，但是本质上是 sunshine 的一个分支，所以和 sunshine 使用基本一致。
-
 [^1]: 当然，具体效果如何很大程度取决于局域网质量、设备硬件。
-[^2]: 其实我自己也不记得为什么了……
 
 #### 安装
 
-分别下载[^3] [sunshine](https://github.com/LizardByte/Sunshine/releases) + [moonlight](https://github.com/moonlight-stream/moonlight-qt/releases)，各自安装打开（sunshine 的打开需要在开始菜单栏，不过有时使用管理员身份打开也是可以的）。
+分别下载[^2] [sunshine](https://github.com/LizardByte/Sunshine/releases) + [moonlight](https://github.com/moonlight-stream/moonlight-qt/releases)，各自安装打开（sunshine 的打开需要在开始菜单栏，不过有时使用管理员身份打开也是可以的）。
 
-[^3]: 点进链接了还不知道哪个装哪个或者下哪个的建议上网搜索。
+[^2]: 点进链接了还不知道哪个装哪个或者下哪个的建议上网搜索。
 
 接下来我们主要需要操作 sunshine 即服务端（打开文档的那个不用管，相信你也没心思看），在 windows 右下角菜单栏或者托盘中右键图标，`open sunshine` ，看到下面的界面：
 
@@ -71,10 +66,6 @@ mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协�
 在 moonlight 中按照介绍是自动寻找局域网内的设备，但至少我是没有成功找到过，所以点击“手动添加计算机”，输入主机 ip 即可发起配对（注意需要在**局域网**内），且获得一个 PIN 码；此时 windows 端应该有弹窗，或者自己点进 sunshine web UI 中的 "Pin" 部分的 "PIN Pairing" 部分进行配对 (这里是已经配对成功的视图)。
 
 ![右上角红色框内手动添加计算机](https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/10_250311-141713.png)
-
-> [!extra]-
->
-> 如果自己有域名的话用个三级域名给自己的 windows 地址其实也是不错的，方便记忆；就是不知道有没有安全隐患……
 
 ## 副屏
 
@@ -108,6 +99,8 @@ mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协�
 > 在我刚开始用 sunshine 时标识（虚拟）显示屏还是使用 `display_name` 部分，这在 parsec-vdd 上是非常好获取的，这也是起初我使用 parsec-vdd 的原因之一。
 
 如果为空则默认使用主屏幕，也就是我们前面的串流形式；这里也就是需要修改这里的 ID；但是这个 ID 获取确实是一个头痛的方法[^4]，因为实际上打开 sunshine.exe 后终端很快就没了（如果还有的话就能看到开头有类似[这样的输出](https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/10_250311-132043.png)，前提是已经创建了虚拟屏）；比较丑陋的方法是直接点击，让他输出错误信息，然后快速通过截图保留 ID ~~比较考验手速~~ ，配对方式同串流。
+
+> [!help] 【20250705 更】打开 sunshine 后在 `config/sunshine.log` 中可以找到 ID 信息，就是之前终端中的输出？
 
 [^4]: 搜索/尝试过一些命令行获取方式，与这里需要的 ID 并不相同。
 
@@ -143,10 +136,6 @@ mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协�
 
 - [一套键鼠无缝切换多台电脑](https://zhuanlan.zhihu.com/p/1823127149)
 - [MacOS 与 Win11 ……](https://blog.kl.do/posts/630993824.html)
-
-## ssh 连接
-
-> ssh 连接主要是为了写代码；这一点感觉需求很小，虽然捣鼓了不少时间，但是涉及到的东西对没基础读者属实不太友好，工作量略大，先不写了，有需要的话可以留评论催更。
 
 ## 其他参考资料
 
