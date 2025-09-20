@@ -17,43 +17,48 @@ comments: true
 - windows 上执行 `netsh interface portproxy show all` 查看开放端口
 
 ### Wsl default user
-#### 法 1（终端中能运行对应发行版程序）
 
-```windows title="cmd/powershell"
-<Distro> config --default-user <user>
-```
-
-#### 法 2（通用）
+#### 法 1（通用）
 
 ```linux title="/etc/wsl.conf"
 [user]
 default=darstib
 ```
 
-### Wsl change disk
+#### 法 2（终端中能运行对应发行版程序）
 
-> [!attention] 20250714 更：（来自 https://linux.do/t/topic/785798 ）
-> 
-> ```sh
-> wsl --list -v # 获取发行版名称，此处以Ubuntu-24.04为例
-> $targetPath = "D:\Ubuntu-24"
-> if (!(Test-Path $targetPath)) { New-Item -Path $targetPath -ItemType Directory | Out-Null }
-> wsl --shutdown
-> wsl --manage Ubuntu-24.04 --move "$targetPath"
-> ```
+```windows title="cmd/powershell"
+<Distro> config --default-user <user>
+```
+
+> 基本失效，一般都使用 `wsl -d <Distro>` 。
+
+### Wsl 磁盘转移
 
 Wsl 越用越大，默认在 C 盘，如何移动到 D 盘自己指定的位置呢？
 
-```shell title="in cmd or powershell"
-wsl --shutdown # 关闭 wsl 上运行的发行版
-wsl --export <Distro> <FileName> [选项] # 建议将分发版导出到 tar 文件。
-wsl --unregister <Distro> # 将原来的卸载
-wsl --import-in-place <Distro> <InstallLocation> <FileName>
+> [!tip] 显然迁移是需要打包、迁移、解包的，那么当然是发行版越小的时候迁移越方便。
+
+> [!attention] 20250714 更：（来自 https://linux.do/t/topic/785798 ）
+
+```sh title="in cmd or powershell"
+wsl --list -v # 获取发行版名称，此处以Ubuntu-24.04为例
+$targetPath = "D:\Ubuntu-24"
+if (!(Test-Path $targetPath)) { New-Item -Path $targetPath -ItemType Directory | Out-Null }
+wsl --shutdown
+wsl --manage Ubuntu-24.04 --move "$targetPath"
 ```
 
-> [!tip]- 显然迁移是需要打包、迁移、解包的，那么当然是发行版越小的时候迁移越方便。
+> [!extra]- 原方案
+> 
+> ```shell title="in cmd or powershell"
+> wsl --shutdown # 关闭 wsl 上运行的发行版
+> wsl --export <Distro> <FileName> [选项] # 建议将分发版导出到 tar 文件。
+> wsl --unregister <Distro> # 将原来的卸载
+> wsl --import-in-place <Distro> <InstallLocation> <FileName>
+> ```
 
-> [!extra]- windows 上 docker 的迁移
+> [!note]- windows 上 docker 的迁移
 > 
 > 可以参考 [Windows 11 Docker Desktop 更换默认C盘存储路径，释放C盘空间](https://hellodk.cn/post/1177)；
 > 
@@ -80,9 +85,20 @@ wsl 不主动释放使用过的空间，可以使用 [WSL2 虚拟磁盘文件(.v
 - https://blog.csdn.net/qq_39779233/article/details/105124478
 - https://lindevs.com/install-gcc-on-ubuntu/
 
+### WSL (0x80190193)
+
+```powershell
+> wsl --update --pre-release
+正在检查更新。
+已禁止(403)。
+错误代码: Wsl/UpdatePackage/0x80190193
+```
+
+解决方案：**关闭代理**，参考 [wsl安装问题](https://blog.csdn.net/qq_44154915/article/details/140602090)。
+
 ### Kali linux install
 
--  [2023 Kali安装教程](https://blog.csdn.net/fingue/article/details/127559353)
+- [2023 Kali安装教程](https://blog.csdn.net/fingue/article/details/127559353)
 - [Kali Linux(VMware)中解决界面太小等问题](https://blog.csdn.net/qq_34668863/article/details/134009574)
 
 ## windows

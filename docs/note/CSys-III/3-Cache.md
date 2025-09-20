@@ -1,3 +1,9 @@
+---
+tags:
+  - notes
+comments: true
+---
+
 # 计算机系统 III：存储层次结构 (Memory Hierarchy)
 
 ## §3.1 引言 (page 3-24)

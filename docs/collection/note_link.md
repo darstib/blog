@@ -15,11 +15,12 @@ comments: true
 > - 采用倒叙，毕竟对于我自己来说“时间上”越后面的翻得越多；
 > - 一些打算上的课的笔记也在这里，但是不能够保证比较好，最后会留下帮助最大的一些笔记；
 > - 同时链接名前的 `-` 表示我只是粗略地查看过相关资料并将其收集于此而并没用上，仅供参考。
->
 
 ## 大三
 
-### -计算机网络
+### 计算机网络
+
+- [zjucomp.net](https://zjucomp.net/)
 
 - [咸鱼肆-计算机网络](https://www.yuque.com/xianyuxuan/coding/network)
 - [-Isshiki修's Notebook](https://note.isshikih.top/cour_note/D3QD_ComputerNetwork/)

@@ -1,3 +1,9 @@
+---
+tags:
+  - notes
+comments: true
+---
+
 # 指令级并行 (ILP)
 
 指令级并行（Instruction-Level Parallelism, ILP）是指处理器在同一时间执行多条指令的能力。这是通过利用指令之间的独立性来实现的，从而提高程序的执行效率。在现代处理器设计中，ILP 是一个核心概念，它通过流水线（Pipelining）、乱序执行（Out-of-Order Execution）和多发射（Multiple Issue）等技术来实现。

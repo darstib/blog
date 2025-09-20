@@ -1,4 +1,4 @@
-# 贝叶斯劝说 (Bayesian Persuasion)
+# 贝叶斯劝说
 
 ## I 贝叶斯劝说：背景与例子 (page 2-23)
 

@@ -1,3 +1,9 @@
+---
+tags:
+  - notes
+comments: true
+---
+
 # 计算机系统基础
 
 ## I 引言 (page 40-54)

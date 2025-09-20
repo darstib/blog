@@ -1,3 +1,9 @@
+---
+tags:
+  - notes
+comments: true
+---
+
 # 虚拟内存 (Virtual Memory)
 
 ## 前言 (page 1-3)

@@ -151,6 +151,7 @@ comments: true
 	- [pdf drive](https://www.pdfdrive.com/)
 	- [magazine lib](https://magazinelib.com/)
 	- [公开真题库](https://www.gkzenti.cn/)
+- [古诗文网](https://www.gushiwen.cn/)
 - [BT磁力种子搜索引擎网站](https://www.wangdu.site/software/av-read/540.html)
 - [x] [真题在线](https://www.wehuster.com/)
 - [Ayouth的影视站点推荐](https://ayouth.top/ayouth/video.html)

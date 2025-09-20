@@ -12,6 +12,8 @@
         - [project](note/cs188/project/README.md)
 	        - note/cs188/project/*.md
 	    - [intro in English](note/cs188/README_en.md)
+	- [GRL](note/GRL/README.md)
+		- note/GRL/*.md
 	- [RecSys](note/RecSys/README.md)
 		- note/RecSys/*.md
     - [physics](note/physics/README.md)

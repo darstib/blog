@@ -182,7 +182,7 @@ def get_forecast_weather(city: str, days: int = 3) -> str:
 
 看看效果：
 
-![|600](https://cdn.nlark.com/yuque/0/2025/png/38866291/1752323245565-597fbbf4-cd52-4109-b6fd-be3dcbb80cb5.png)
+![](https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/14_image.png)
 
 可以看到响应效果挺不错的，花里胡哨的图标仅供一乐，实际返回信息整合成表格等即可。
 

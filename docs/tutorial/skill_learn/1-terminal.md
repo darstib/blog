@@ -106,9 +106,6 @@ Wed Mar 19 09:09:08 PM CST 2025
 > [!wiki]+ [Path](https://en.wikipedia.org/wiki/Path_(computing))
 >
 > 路径（或文件路径、路径名等）是一串字符，用于**唯一标识目录结构中的位置**。它通过遵循目录树层次结构中的组件组成，这些组件由分隔符分隔，代表每个目录。分隔符最常见的是斜杠（“/”）、反斜杠字符（“\”）或冒号（“:”），尽管某些操作系统可能使用不同的分隔符。
-> 
-> 特殊：
->  
 
 在介绍一些非常常见的命令之前，我们先了解 `-h/--help` `man` 以及一个扩展工具 `tldr` ：
 
@@ -119,6 +116,20 @@ $ mkdir -p ~/.local/share/tldr # 这是在 ubuntu 上的操作，不同系统可
 $ tldr --update # 更新
 $ tldr <cmd>
 ```
+
+> [!help]- "Error: Package 'tldr' has no installation candidate" ?
+> 
+> 有些人安装的发行版的包源可能没有直接为 tldr 的工具，但是可能有替代类型。
+> 
+> 例如，在 WSL 的 kali-linux 的默认 apt 就无法安装；此时可以使用 `apt-cache search` 查询：
+> 
+> ```sh
+> $ apt-cache search tldr
+> tealdeer - simplified, example based and community-driven man pages
+> tldr-py - Python client for tldr: simplified and community-driven man pages
+> ```
+> 
+> 此时安装其一，就可以使用 tldr 了。
 
 |            工具            |        优点        |            适用场景            |
 | :----------------------: | :--------------: | :------------------------: |

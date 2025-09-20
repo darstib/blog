@@ -1,3 +1,9 @@
+---
+tags:
+  - notes
+comments: true
+---
+
 # 主存储器
 
 ## 计算机体系结构回顾 (page 3-4)
@@ -1034,6 +1040,7 @@ EAT 是衡量分页系统性能的重要指标。
 IA-32 支持**分段 (segmentation)** 和**带分页的分段 (segmentation with paging)**。
 
 **分段特性**:
+
 - 每个段最大可以是 4 GB。
 - 每个进程最多可以有 16K ($2^{14}$) 个段。
 - 这些段分为两个分区：
@@ -1067,6 +1074,7 @@ IA-32 支持**分段 (segmentation)** 和**带分页的分段 (segmentation with
 CPU (逻辑地址) -> Segmentation Unit (线性地址) -> Paging Unit (物理地址) -> 物理内存
 
 **IA-32 分页架构图** (page 55):
+
 - CR3 寄存器指向页目录。
 - 线性地址的高 10 位索引页目录，找到一个页目录项 (PDE)。
 - 如果 PDE 指向一个页表（对于 4KB 页）：
@@ -1080,6 +1088,7 @@ CPU (逻辑地址) -> Segmentation Unit (线性地址) -> Paging Unit (物理地
 #### Intel IA-32 物理地址扩展 (PAE) (page 56)
 
 由于 32 位线性地址最多只能寻址 4GB 物理内存，为了让 32 位应用程序能够访问超过 4GB 的物理内存，Intel 引入了 PAE。
+
 - **PAE (Physical Address Extension)**:
     - 允许系统支持高达 $2^{36}$ 字节 (64GB) 的物理内存。
     - 虚拟地址空间（线性地址空间）对每个进程来说仍然是 32 位 (4GB)。

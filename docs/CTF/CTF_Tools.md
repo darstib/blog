@@ -18,17 +18,21 @@ comments: true
 
 - [CTF-wiki](https://ctf-wiki.org/)
 - [Hello-ctf](https://hello-ctf.com/)
-- [-Practical CTF](https://book.jorianwoltjer.com/)
-- [ZJUBUS](https://zjusec.com/)
-    - 需要 ZJU 校网
-- [NSSCTF](https://www.nssctf.cn/problem)
-- [BUUCTF](https://buuoj.cn/challenges)
-- [-bugku](https://ctf.bugku.com/)
-- [-攻防世界](https://adworld.xctf.org.cn/challenges/list)
 - [Ethernaut 题库闯关题解](https://learnblockchain.cn/column/19)
 - [ctftime](https://ctftime.org/ctfs)
     - 国内外知名赛事
 - [-CTF-writeups-public](https://shiltemann.github.io/CTF-writeups-public/)
+- [CTF all in one](https://firmianay.gitbooks.io/ctf-all-in-one/content/)
+
+## 练习平台
+
+- [NSSCTF](https://www.nssctf.cn/problem)
+- [BUUCTF](https://buuoj.cn/challenges)
+- [-Practical CTF](https://book.jorianwoltjer.com/)
+- [-bugku](https://ctf.bugku.com/)
+- [-攻防世界](https://adworld.xctf.org.cn/challenges/list)
+- [ZJUBUS](https://zjusec.com/)
+    - 需要 ZJU 校网
 
 ## MISC
 

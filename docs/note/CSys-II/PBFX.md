@@ -2,7 +2,6 @@
 tags:
   - notes
 comments: true
-dg-publish: true
 ---
 
 ## Instruction Set Architecture
