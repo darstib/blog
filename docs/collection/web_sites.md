@@ -417,6 +417,7 @@ comments: true
 - [geogebra](https://www.geogebra.org/) or [wolframalpha](https://www.wolframalpha.com/) or [数字帝国](https://zh.numberempire.com/) or [mathdf](https://mathdf.com/)
     - 数学工具【套件】
 - [奇客在线文字识别](https://www.geekersoft.com.cn/ocr-online.html)
+- [屏幕分辨率检测](https://www.infobyip.com/detectscreenresolution.php)
 
 ### 杂文趣事
 

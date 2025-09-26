@@ -5,7 +5,7 @@ tags:
 comments: true
 ---
 
-# 使用 Chrome 内置 AI api 进行翻译
+# 使用 Chrome 内置 AI 进行翻译
 
 Chrome 在 138 版本正式开放了三项内置 AI 的 apis（最新情况可见 [api status](https://developer.chrome.com/docs/ai/built-in-apis#api_status)）：
 
@@ -13,7 +13,7 @@ Chrome 在 138 版本正式开放了三项内置 AI 的 apis（最新情况可�
 - [Language Detector API](https://developer.chrome.com/docs/ai/built-in-apis#language_detector_api)
 - [Summarizer API](https://developer.chrome.com/docs/ai/built-in-apis#summarizer_api)
 
-显然主要为翻译服务和总结服务；又恰好看见 [fancy-translator](https://github.com/daidr/fancy-translator)，纯前端项目，翻译都在本地且质量不错，结合 github page 部署一个。
+显然主要为翻译服务和总结服务；又恰好看见 [fancy-translator](https://github.com/daidr/fancy-translator)，纯前端项目，翻译都在本地且质量不错，但是又有点不爽的地方，故修改后结合 github page 部署一个。
 
 <!-- more -->
 

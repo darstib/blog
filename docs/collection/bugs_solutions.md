@@ -70,7 +70,7 @@ wsl 不主动释放使用过的空间，可以使用 [WSL2 虚拟磁盘文件(.v
 
 ### 忘记了 wsl root 权限密码
 
-- https://learn.microsoft.com/zh-cn/windows/wsl/setup/environment#set-up-your-linux-username-and-password
+- [set-up-your-linux-username-and-password](https://learn.microsoft.com/zh-cn/windows/wsl/setup/environment#set-up-your-linux-username-and-password)
 
 ### 忘记 Vmware-machine 密码
 

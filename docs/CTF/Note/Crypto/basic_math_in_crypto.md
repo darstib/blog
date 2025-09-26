@@ -25,7 +25,7 @@ $ax\equiv ay \pmod{p} \implies x\equiv y\pmod{\frac{p}{d}}$
 
 **有解条件：**
 
-- gcd(a, p) = 1，则方程有唯一解；
+- $gcd(a, p) = 1$，则方程有唯一解；
 - $gcd(a, p) = d \neq 1$ ，则方程有解当且仅当 d|b 。
 
 ## GCD && LCM
@@ -44,6 +44,7 @@ def gcd(a, b) -> int:
 ```
 
 那么最小公倍数 lcm(a,b) 呢？想想 $gcd(a,b) \times lcm(a,b)=a\times b$ ，解决了。
+
 ### Extended Euclidean algorithm
 
 扩展欧几里得算法使用的关键等式和上面相同，推导略去，主要用于求解形如 $ax+by=\gcd(a,b)$ 中的 (x, y) 解。
@@ -83,11 +84,12 @@ while s.check() == sat:
 2. ax' + py' = gcd(a, p)，求 x', y'
 3. $ax'*\frac{b}{d}+py'* \frac{b}{d}=d * \frac{b}{d}=b$
 4. $x = \frac{x'*b}{d}$
+
 ## Quadratic Residues
 
 ### 定义
 
-> [!DEFINITION] 
+> [!definition]+
 >
 > We say that an integer x is a _Quadratic Residue_ if there exists an aa such that $a^2≡x\pmod p$. If there is no such solution, then the integer is a _Quadratic Non-Residue_.
 >
@@ -107,27 +109,40 @@ print(f"flag {min(qr)}")
 
 ```python title="sqrt_mod"
 from sympy import *
-# a^2 = x (mod p)
-print(sqrt_mod(x, p))
+# x^2 = a (mod p)
+print(legendre_symbol(a, p)) # 求勒让德符号
+print(sqrt_mod(a, p)) # 求 x
 ```
 
 ### 数学推导求解
 
-#### 勒让德符号
+#### Legendre symbol
 
-一些性质：
+> [!wiki]+ Legendre symbol
+> 
+> $$
+> \left(\frac ap\right)=\begin{cases}1&\mathrm{if~}a\text{ is a quadratic residue modulo }p\mathrm{~and~}a\not\equiv0\mathrm{~(mod~}p),\\-1&\mathrm{if~}a\text{ is a quadratic nonresidue modulo }p,\\0&\mathrm{if~}a\equiv0\mathrm{~(mod~}p).&\end{cases}
+> $$
+> 
+> where p is an **odd prime number** and a is a **positive integer** that may or may not be a quadratic residue mod p. We can get that:
+> 
+> $$
+> \left(\frac ap\right)\equiv a^{\frac{p-1}2}\quad(\mathrm{mod~}p)\quad\mathrm{~and~}\quad\left(\frac ap\right)\in\{-1,0,1\}.
+> $$
 
-- (a/p)(b/p) = (ab/p)
+勒让德符号的一些性质：
+
+- $\left( \frac{a}{p} \right)\left( \frac{b}{p} \right) = \left( \frac{ab}{p} \right)$
+- $\left( \frac{p}{q} \right) \left( \frac{q}{p} \right)= (-1)^{(p-1)(q-1)/4}$
 - $a\equiv b\pmod{p} \implies \left( \frac{a}{p} \right)=\left( \frac{b}{p} \right)$
-- $\left( \frac{p}{q} \right) = (-1)^{(p-1)(q-1)/4}\left( \frac{q}{p} \right)$
+- $p\equiv3 \pmod{4} \implies (a^{(p+1)/4})^2\equiv a\pmod{p}$ 
+	- [when-p-3-pmod-4-show-that-ap1-4-pmod-p-is-a-square-root-of-a](https://math.stackexchange.com/questions/1273690/when-p-3-pmod-4-show-that-ap1-4-pmod-p-is-a-square-root-of-a)
+	- $x = a^{(1+p) / 4}$
 
-> https://math.stackexchange.com/questions/1273690/when-p-3-pmod-4-show-that-ap1-4-pmod-p-is-a-square-root-of-a
-
-1. 当 p%4=3 时，$(a^{(p+1)/4})^2\equiv a\pmod{p}$ 。 
-2. tonelli_shanks 算法
+#### tonelli_shanks 算法
 
 ```python title="tonelli_shanks"
-# 代码来自 https://devv.ai/search?threadId=dxl1i5f103r4
+# 代码来自        
 def tonelli_shanks(n, p):
     # Step 1: Check if n is a quadratic residue modulo p
     if pow(n, (p - 1) // 2, p) != 1:
@@ -167,7 +182,6 @@ def tonelli_shanks(n, p):
 
     return R if t == 1 else None
 ```
-``
 
 ## Euler-totient, Fermat's little theorem
 

@@ -18,16 +18,14 @@ comments: true
 
 因为题目类型很丰富，梯度比较合适，网站 UI 也很不错。
 
-> 过程材料位于 https://github.com/Darstib/CTF/ 文件夹下（还没放呢，挖坑）
-
 ## writeup
 
 {{ begin_toc }}
 
 - [MOECTF 2024](https://ctf.xidian.edu.cn/games/10)
-	- [MISC](MISC.md)
-	- [WEB](WEB.md)
-	- [CRYPTO](CRYPTO.md)
-	- [AI](AI.md)
+	- [web](web.md)
+	- [crypto](crypto.md)
+	- [misc](misc.md)
+	- [ai](ai.md)
 
 {{ end_toc }}

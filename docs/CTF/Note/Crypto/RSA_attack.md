@@ -5,9 +5,9 @@ tags:
 comments: true
 ---
 
-## I 基本原理
+## 基本原理
 
-### I.1 加密原理
+### 加密原理
 
 1. 寻找两个大质数 p, q（p/q 之间的关系暂且不谈，不当的选取就会导致攻击漏洞）；
 2. n = pq; $phi = \phi(n) = (p-1)(q-1)$ （欧拉函数）
@@ -15,20 +15,20 @@ comments: true
 4. m 为明文映射为的大数，则密文 $c\equiv m^e\pmod{n}$
 5. (e, n) 作为公钥公开。
 
-### I.2 解密原理
+### 解密原理
 
-1. 私钥为 $d=e^-1\pmod{\phi(n)}$
+1. 私钥为 $d=e^{-1}\pmod{\phi(n)}$
 2. $c^d = m^{ed}\pmod{n} = m^{ed\pmod{\phi(n)}} =m$
 
-### I.3 安全性保证
+### 安全性保证
 
 **正常** 的 RSA 的安全性完全来自 n 的质数分解难度；不正常的是什么？看下面就知道了。
 
-## II 指数攻击
+## 指数攻击
 
-### II.1 Low public exponent attack（低加密指数攻击）
+### Low public exponent attack（低加密指数攻击）
 
-#### II.1.1 e = 1
+#### e = 1
 
 > [!QUESTION]
 >
@@ -54,7 +54,7 @@ for i in range(123456789):
 >
 > crypto{saltstack_fell_for_this!}
 
-#### II.1.2 e = 2 (Rabin)
+#### e = 2 (Rabin)
 
 $\phi=(p-1)(q-1)$ 且由于 p/q 为素数，所以 $gcd(e, \phi)\neq 1$ ，那么怎么做？
 
@@ -155,7 +155,7 @@ for i in sqrt_c_p:
         print(long_to_bytes(m))
 ```
 
-#### II.1.3 e = 3
+#### e = 3
 
 如果 $m^e < n$ ，仍然可以直接开根；不然，可以由 $m^e = kn+c$ ，尝试爆破 k 并尝试开 3 次根，能分解多半是可行解；但是一般来说花费时间有点久。
 
@@ -178,9 +178,9 @@ m = Mod(c, n).nth_root(e)
 print(long_to_bytes(m)) # b'darctf{r@bln_a77@ck_e_2}'
 ```
 
-### II.2 gcd(e, phi) != 1
+### gcd(e, phi) != 1
 
-#### II.2.1 一组 e, phi
+#### 一组 e, phi
 
 一般来说 $gcd(e, \phi)=1$ 的，但要是 $gcd(e, \phi)\neq 1$ ，那么怎么做？e=2/3/4 …… 等十分小的数时后面另讲，这里考虑比较一般的情况。
 
@@ -210,7 +210,7 @@ print(bytes.fromhex(hex(m)[2:]))
 # b'flag{0e2f9add-31fd-4733-8f25-39297516f4e2}'
 ```
 
-#### II.2.2 多组 e phi
+#### 多组 e phi
 
 攻击条件：gcd(e, phi) != 1，gcd(n1, n2) != 1
 
@@ -228,7 +228,7 @@ $$
 [^1]: 可能是由于两次使用的 n 不同，m 所在的有限域不同导致的（猜测）。
 [^2]: `<=` 表示的是赋值，并非 `≤` 。
 
-##### II.2.2.1 新的 gcd(e,phi)=1
+##### 新的 gcd(e,phi)=1
 
 如果在经过上面转变后，新的 gcd(e, phi)=1 ，那么我们就是正常的 rsa 了，且 n 已经分解好：
 
@@ -296,7 +296,7 @@ print(bytes.fromhex(hex(m)[2:])) # b'moectf{Th1s_iS_Chinese_rEm41nDeR_The0rEm_CR
 >
 > 当使用的 e 相同时，其实不难得到：$\begin{cases}m^e =c_{1}\pmod{n_{1}}\\ m^e=c_{2}\pmod{n_{2}}\end{cases}$，使用 sagemath 中的 CRT_list() 方法可以很快的求解到 $m^e \pmod{p*q*r}$ ，可以验证这样获得值等于 $pow(m,e,p*q*r)$；但是模数太大了，难以分解；即使是很小的 e (e = 2) 我也没能分解出来。
 
-##### II.2.2.2 新的 gcd(e, phi)!=1
+##### 新的 gcd(e, phi)!=1
 
 要是新产生的 gcd(e,phi)!=1 ，就转变为了 **一组 e, phi** 的情况了：
 
@@ -335,9 +335,9 @@ m = Integer(m_b2).nth_root(b2)
 print(bytes.fromhex(hex(m)[2:])) # b"flag{gcd_e&\xcf\x86_isn't_1}"
 ```
 
-## III 模数攻击
+## 模数攻击
 
-### III.1 N 太小/被公开
+### N 太小/被公开
 
 > [!QUESTION]
 >
@@ -359,7 +359,7 @@ m = pow(c, d, N)
 print(bytes.fromhex(hex(m)[2:]).decode()) # crypto{s0m3th1ng5_c4n_b3_t00_b1g}
 ```
 
-### III.2 Roll 按行加密
+### Roll 按行加密
 
 类似于分组加密，分别解密之后恢复即可。
 
@@ -380,11 +380,11 @@ for i in c:
 print(flag)
 ```
 
-### III.3 模不互素
+### 模不互素
 
 模不互素是指：多次给出的 n 不互素，那么使用欧几里得算法求解公因数后两个都可以分解，从而被破解。
 
-### III.4 多素数 RSA
+### 多素数 RSA
 
 n 能够分解为多个素数，那么分解难度相对较低，分解后求解欧拉函数即可。
 
@@ -413,7 +413,7 @@ def manyPrime(n):
 >
 > 例如，当前已经分解 $n = a*....*b * A$ 且 $is\_prime(A)==False$，那么我们记 $a*\dots*b = k, \phi(k)$ 是不难计算的。如果 m < k，则有 $m=c^{d_n}\pmod{n} = c^{d_{k}}\pmod{k}$ 其中 $d_x$ 表示在模 x 的情况下 e 的逆元。
 
-### III.5 共模攻击
+### 共模攻击
 
 攻击条件：使用相同的 n，不同的 e 对同一段密文进行了两次加密且 gcd(e1, e2)=1。
 
@@ -449,9 +449,9 @@ m = mod(power_mod(c1,s1,n)*power_mod(c2,s2,n), n)
 print(long_to_bytes(int(m))) # b"darctf{D0n't_uS@_s4me_m_wlth_s@m3_n}"
 ```
 
-### III.6 p & q 选取不当
+### p & q 选取不当
 
-#### III.6.1 |p-q| 较小
+#### |p-q| 较小
 
 > [CTF Wiki (ctf-wiki.org)](https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_module_attack/#p-q_1)
 
@@ -494,7 +494,7 @@ from libnum import n2s
 print(n2s(m)) # b'crypto{f3rm47_w45_4_g3n1u5}'
 ```
 
-#### III.6.2 n & npnq
+#### n & npnq
 
 偶然间做到这么一个题，给我 e, n, c 之外，还给我 npnq，其中 `n == p*q and npnq = next_prime(p)*next_prime(q)`
 
@@ -547,17 +547,19 @@ for p1, q1 in factors_list:
         print("Error:", error)
 ```
 
-#### III.6.3 RSA backdoor (4p-1 method)
+#### RSA backdoor (4p-1 method)
 
 攻击条件：$4p-1 = Ds^2$ 其中 Ds 参见 [cm_factorization](https://github.com/crocs-muni/cm_factorization) 。
 
-## IV 私钥攻击
+## 私钥攻击
 
-### IV.1 d 泄露攻击
+### d 泄露攻击
 
 当对应的 (e,d) 泄露后，我们就能够分解对应的 N 。具体原理可见 [ctf-wiki](https://ctf-wiki.org/crypto/asymmetric/rsa/d_attacks/rsa_d_attack/#d_1) 。
 
->  [rsatool](https://github.com/ius/rsatool) calculates RSA (p, q, n, d, e) and RSA-CRT (dP, dQ, qInv) parameters given either two primes (p, q) or modulus and private exponent (n, d).
+> [!quote] 
+> 
+> [rsatool](https://github.com/ius/rsatool) calculates RSA (p, q, n, d, e) and RSA-CRT (dP, dQ, qInv) parameters given either two primes (p, q) or modulus and private exponent (n, d).
 
 > [!QUESTION]
 >
@@ -582,7 +584,7 @@ for key in friends_key[::-1]:
 long_to_bytes(c) # b'crypto{3ncrypt_y0ur_s3cr3t_w1th_y0ur_fr1end5_publ1c_k3y}'
 ```
 
-### IV.2 dp || dq leak attack
+### dp || dq leak attack
 
 > [!DEFINITION]
 >
@@ -618,7 +620,7 @@ m = pow(c,d,n)
 print(bytes.fromhex(hex(m)[2:]))
 ```
 
-### IV.3 dp && dq leak attack
+### dp && dq leak attack
 
 攻击条件：知道 dp, dp, p, q, c。
 攻击原理：crt 求解 d。
@@ -640,7 +642,7 @@ m=pow(c,d,n)
 bytes.fromhex(hex(m)[2:])
 ```
 
-### IV.4 dp && dq && dr leak attack
+### dp && dq && dr leak attack
 
 攻击条件：
 
@@ -722,9 +724,9 @@ m = pow(c,d,p*q*r)
 bytes.fromhex(hex(m)[2:]) # b'DASCTF{8ec820e5251db6e7a1758543a1123824}'
 ```
 
-### IV.5 Wiener's Attack （维纳攻击）
+### Wiener's Attack
 
-攻击使用于：e 较大，$d< \frac{1}{3}N^{1/4}, q<p<2q$ 。
+维纳攻击适用于：e 较大，$d< \frac{1}{3}N^{1/4}, q<p<2q$ 。
 
 原理简述：由于 $ed \equiv 1\pmod{\phi(n)} \implies ed = k*\phi + 1$ ，当 n 较大时，$ed \approx k*\phi \approx k*n\implies \frac{e}{n} \approx \frac{k}{d}$  ；利用连分数从两侧逼近于极限值的特点，找到真正的 d & k ；甚至我们求解 $\phi$ 后能够分解出 p/q 。 
 
@@ -786,7 +788,7 @@ print(bytes.fromhex(hex(m)[2:])) # b"SKSEC{Do_y0u_Kn0w_Wi3n3r's_4ttack}"
 >
 > - [[CISCN 2022 东北赛区]math](https://www.nssctf.cn/problem/2387)
 
-### IV.6 Boneh and Durfee attack
+### Boneh and Durfee attack
 
 攻击条件：$d<N^{0.292}$
 
@@ -826,9 +828,10 @@ print(f'c = {hex(c)}')
 
 很特别的要求 `(3*d)**4 > N` ，把 Wiener-attack 禁用了；但是有更强的攻击 Boneh and Durfee attack ($d<N^{0.292}$)
 
-> [ctf-wiki - Boneh and Durfee attack](https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_coppersmith_attack/?h=boneh+durfee#boneh-and-durfee-attack)
+> [!tip]- 
 > 
-> [boneh_durfee.sage](https://github.com/mimoo/RSA-and-LLL-attacks/blob/master/boneh_durfee.sage)
+> - [ctf-wiki - Boneh and Durfee attack](https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_coppersmith_attack/?h=boneh+durfee#boneh-and-durfee-attack)
+> - [boneh_durfee.sage](https://github.com/mimoo/RSA-and-LLL-attacks/blob/master/boneh_durfee.sage)
 
 ```python title="final.py"
 d = 4405001203086303853525638270840706181413309101774712363141310824943602913458674670435988275467396881342752245170076677567586495166847569659096584522419007
@@ -839,9 +842,9 @@ m = pow(c, d, N)
 print(bytes.fromhex(hex(m)[2:])) # b'crypto{bon3h5_4tt4ck_i5_sr0ng3r_th4n_w13n3r5}'
 ```
 
-## V Coppersmith's relative attack
+## Coppersmith's relative attack
 
-### V.1 Håstad's broadcast attack
+### Håstad's broadcast attack
 
 发送方将一份明文进行多份（份数 k > e）加密，每份使用不同的 n（如 $n_{1}, n_{2}, \dots$），显然可以使用中国剩余定理解出 $c = m^e\pmod{n_{1}*n_{2}*\dots}$；而显然 m < n1 & m < n2 & ... ，所以当 e 的值小于等于我们获得的密文数量，就会有 $m^e \leq \Pi_{i=0}^{k}n_{i}$ ，此时直接开根就好了。一般来说，这个 e 等于 3。
 
@@ -882,7 +885,7 @@ for l in range(e, max_length+1):
             continue
 ```
 
-### V.2 Franklin–Reiter related-message attack
+### Franklin–Reiter related-message attack
 
 攻击条件：使用同一公钥 (n, e) 线性填充加密同一密文 m 两次，获得两个密文 c1 c2:
 
@@ -919,9 +922,11 @@ $$
 >
 > [cryptohack - Bespoke Padding](https://cryptohack.org/challenges/rsa/)
 
-### V.3 Coppersmith’s short-pad attack
+### Coppersmith’s short-pad attack
 
-### V.4 Known High Bits Attack
+[todo]
+
+### Known High Bits Attack
 
 利用 sagemath 调用的 coppersmith 算法求解小根。
 
@@ -981,7 +986,9 @@ else:
     print("No root found")
 ```
 
-### V.5 Known Low Bits Attack
+### Known Low Bits Attack
+
+#### 已知 p/m 低位
 
 ```python title="known low bits"
 from sage.all import *
@@ -1045,7 +1052,145 @@ else:
     print('root2 not found')
 ```
 
-### V.6 Return of Coppersmith's attack (ROCA)
+#### 已知 d 低位
+
+一个复杂一些的例子是知道 d 的部分低位。 Boneh,Durfee,Frankel 指出：只要 $e < \sqrt{ N }$ 并且给定了 d 的 $\left\lceil  \frac{d}{4}  \right\rceil$ 的低位，就可以从中恢复出 d 。下面是一个例子：
+
+```python title="baby-lifting"
+# https://ctf.xidian.edu.cn/training/10?challenge=147
+from Crypto.Util.number import *
+from secret import flag
+
+p = getPrime(512)
+q = getPrime(512)
+n = p*q
+e = 0x1001
+d = inverse(e, (p-1)*(q-1))
+bit_leak = 400
+d_leak = d & ((1<<bit_leak)-1)
+msg = bytes_to_long(flag)
+cipher = pow(msg,e,n)
+pk = (n, e)
+
+with open('output.txt','w') as f:
+    f.write(f"pk = {pk}\n")
+    f.write(f"cipher = {cipher}\n")
+    f.write(f"hint = {d_leak}\n")
+    f.close()
+
+# pk = (53282434320648520638797489235916411774754088938038649364676595382708882567582074768467750091758871986943425295325684397148357683679972957390367050797096129400800737430005406586421368399203345142990796139798355888856700153024507788780229752591276439736039630358687617540130010809829171308760432760545372777123, 4097)
+# cipher = 14615370570055065930014711673507863471799103656443111041437374352195976523098242549568514149286911564703856030770733394303895224311305717058669800588144055600432004216871763513804811217695900972286301248213735105234803253084265599843829792871483051020532819945635641611821829176170902766901550045863639612054
+# hint = 1550452349150409256147460237724995145109078733341405037037945312861833198753379389784394833566301246926188176937280242129
+```
+
+按照前面的思路，我们期望构造一个方程并求根；但是难点在于我们几乎无法利用已有信息直接构造一个只有 d 未知的方程；我们唯一知道的是 $d*e \equiv 1 \pmod{\phi(n)}$；但是同样困于 $\phi(n)$ 未知。尝试过将 $\phi(n) \approx n$ 直接求解，失败。
+
+在[这里](https://www.ruanx.net/coppersmith/)解给出的思路是：考虑前面我们已知 p/m 的低位可以求解；能否从 d 的低位搞到 p 的低位？
+
+我们知道 $x^{2} - (p+q)x + p*q = 0$ 的根为 p 和 q，在取模的条件下依旧成立，$pq = n$，故而重点转向 $p+q$。
+
+我们知道，$\phi(n) = (p-1)(q-1) = n+1 - (p+q) \implies x^{2}-(n+1-\phi(n))x + n = 0$ 。
+
+记 $l = 2^{bit\_leak}$，有
+
+$$
+\begin{align}
+&de = 1 + k \phi(n) \implies d_{l}e = 1 + k\phi(n)\pmod{t} \\
+\implies &kx^{2} + (d_{l}e - 1 - k(n+1))x + kn = 0 \pmod{t}
+\end{align}
+$$
+
+因为 $d< \phi(n) \implies e > k$，暴力搜索有：
+
+```python
+from sage.all import *
+from Crypto.Util.number import *
+n = 53282434320648520638797489235916411774754088938038649364676595382708882567582074768467750091758871986943425295325684397148357683679972957390367050797096129400800737430005406586421368399203345142990796139798355888856700153024507788780229752591276439736039630358687617540130010809829171308760432760545372777123
+e = 4097
+cipher = 14615370570055065930014711673507863471799103656443111041437374352195976523098242549568514149286911564703856030770733394303895224311305717058669800588144055600432004216871763513804811217695900972286301248213735105234803253084265599843829792871483051020532819945635641611821829176170902766901550045863639612054
+d_l = 1550452349150409256147460237724995145109078733341405037037945312861833198753379389784394833566301246926188176937280242129
+blk = 400
+
+def get_p_lows(d_l, n, e):
+    for k in range(645, e+1): # 理应从 1 开始，这里知道结果后才从 645 开始
+        print(f"trying {k}/{e}")
+        p = var('p')
+        eq = (k* p**2 + (e*d_l - k*(n+1) - 1) * p + k * n == 0)
+        p_l = solve_mod([eq], 1<<blk)
+        if len(p_l) > 0:
+            yield [int(pl[0]) for pl in p_l], k
+    return None
+```
+
+> [!env]- Sagemath 9.3 + Python 3.9
+> 
+> 尝试过使用多项式环上的 small_roots 直接求解方程，失败。
+> 
+> 起初一直用的是较新版本的 sagemath 10.6 + python 3.11，这在执行 solve_mod 时会出现错误：
+> 
+> ```
+> OverflowError: Python int too large to convert to C long
+> Exception ignored in: 'sage.libs.singular.singular.sa2si_ZZmod'
+> Traceback (most recent call last):
+>   File ".../python3.11/site-packages/sage/symbolic/relation.py", line 1701, in <genexpr>
+>     ans = list(t for t in possibles if all(e(*t) == 0 for e in eqns_mod))
+>                                            ^^^^^
+> OverflowError: Python int too large to convert to C long
+> ```
+
+再用上面的已知 p 低位的思路求 p
+
+```python
+def get_full_p(p_low, n):
+    p_h = PolynomialRing(Zmod(n), "p_h", implementation='NTL').gen()
+    p = p_h * (1 << blk) + p_low
+    f = (p-n).monic()
+    phs = f.small_roots(X=(1 << (512//4)), beta=0.4)
+    if phs:
+        return int(p(phs[0]))
+    return None
+```
+
+组合之下我们得到
+
+```python title="solution.py"
+def get_full_d(d_l, n, e):
+    for p_lows, k in get_p_lows(d_l, n, e):
+        # print("p_lows:",p_lows)
+        for low_p in p_lows:
+            p = get_full_p(low_p, n)
+            if p:
+                print("p:", p)
+                q = n // p
+
+                if p * q == n:
+                    d = inverse_mod(e, (p-1)*(q-1))
+                    return d
+                else:
+                    print("p * q != n")
+                    continue
+    return None
+
+d = get_full_d(d_l, n, e)
+if d:
+    print("d:", d)
+    m = pow(cipher, d, n)
+    print("flag:", long_to_bytes(int(m)))
+else:
+    print("d not found")
+    
+# trying 645/4097
+# trying 646/4097
+# trying 647/4097
+# trying 648/4097
+# trying 649/4097
+# trying 650/4097
+# p: 7458062461956620112301588229071392126780346788859113209375105494626101265308095322117111641306328357294968229324362505235806688414035133488417611167744319
+# d: 8453400612258125070836799610286958177590958703862612176480299487127355057097473419454243973552176419700567840361653614387706247105682797730958892608765553970954948853164478455048360634740571200591660362044055606841746827568729277784053763456603113675706647429943809231549106428652993256853303236680813806033
+# flag: b'moectf{7h3_st4rt_0f_c0pp3rsmith!}'
+```
+
+### Return of Coppersmith's attack (ROCA)
 
 攻击条件：fast primes
 
@@ -1056,9 +1201,9 @@ else:
 > - [Analysis of the ROCA vulnerability](https://bitsdeep.com/posts/analysis-of-the-roca-vulnerability)
 > - https://github.com/RsaCtfTool/RsaCtfTool/blob/master/sage/roca_attack.py
 
-## VI 其他
+## 其他
 
-### VI.1 m 的解个数
+### m 的解个数
 
 > [!THEOREM]
 >
@@ -1074,15 +1219,15 @@ else:
 
 证明略，其中最后一两步如果看不懂可以参考 [group theory - Solution to $x^n=a \pmod p$ where $p$ is a prime](https://math.stackexchange.com/questions/1491103/solution-to-xn-a-pmod-p-where-p-is-a-prime) .
 
-### VI.2 Optimal asymmetric encryption padding (OAEP)
+### Optimal asymmetric encryption padding (OAEP)
 
 > https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding
 
-### VI.3 Get p q if we know phi
+### Get p q if we know phi
 
 $$\begin{cases}p+q=n-\varphi(n)+1\\p-q=\sqrt{\left(n-\varphi(n)+1\right)^2-4n}\end{cases}$$
 
-## VII 参考资料
+## 参考资料
 
 - [cryptohack - rsa](https://cryptohack.org/challenges/rsa/)
 - [crypto-attack/attack/rsa](https://github.com/jvdsn/crypto-attacks/tree/master/attacks/rsa)

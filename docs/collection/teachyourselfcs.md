@@ -118,12 +118,13 @@ comments: true
 
 ## 机器学习/人工智能
 
+- [AI 算法工程师手册](https://www.huaxiaozhuan.com/)
+	- 【20250905 更】域名过期了，且笔记仓库没有找到，作者的 github 似乎也很久没有活跃了；但是这个手册作者修订的还是较多的，可能过阵子就续费了
+	- 【20250923 更】恢复 ~~[这里](https://www.bookstack.cn/read/huaxiaozhuan-ai/README.md)是一个存档（至 202006），基础部分基本齐全~~
+	- 相比其他教程的优点在于介绍了需要的数学基础；当然也可以看 [【深度学习数学基础】](https://zhuanlan.zhihu.com/p/25643286963)。
 - [datawhalechina](https://github.com/datawhalechina)
 	- Datawhale是一个专注于AI与数据科学的开源组织，汇集了众多领域院校和知名企业的优秀学习者
 	- 本页面有几个教程就是该社区的工作
-- [AI 算法工程师手册](https://www.huaxiaozhuan.com/)
-	- 【20250905 更】域名过期了，且笔记仓库没有找到，作者的 github 似乎也很久没有活跃了；但是这个手册作者修订的还是较多的，可能过阵子就续费了
-	- [这里](https://www.bookstack.cn/read/huaxiaozhuan-ai/README.md)是一个存档（至 202006），基础部分基本齐全
 - [ZhaoWeiGuo 的个人知识体系](https://knowledge.zhaoweiguo.com/)
 	- [AI相关](https://knowledge.zhaoweiguo.com/build/html/ai/)
 - [Dive into Deep Learning](https://d2l.ai/)

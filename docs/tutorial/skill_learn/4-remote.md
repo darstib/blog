@@ -197,8 +197,25 @@ Hi darstib! You've successfully authenticated, but GitHub does not provide shell
 一个可能用到但是上面没有展示出来的情况是：如果我们在使用公共的服务器，而需要访问诸如 Github 等网络不稳定的服务时，我们希望能够连接使用流量使用我们本地主机的代理服务，此时可以使用 `-R` 选项，具体而言：
 
 ```sh
-$ ssh username@remote_host e-R <remote_port>:localhost:<local_port>
+$ ssh username@remote_host -R <remote_port>:localhost:<local_port>
+# 这等价于在 ~/.ssh/config 中使用 `LocalForward <remote_prot> localhost:<local_port>`
+
+# 之后在服务器上设置 http_proxy 即可
+# export http_proxy=http://localhost:7890 export https_proxy=http://localhost:7890
 ```
+
+> [!extra]- 记录一个便于在服务器上设置别名
+> 
+> ```sh title="~/.bashrc"
+> # 建立反向 ssh 隧道
+> # ssh 连接 host，并将服务器的 22 端口映射到 host 的 port
+> function open_reverse_ssh() {
+>    local port=${1:-host-port}
+>    local user=${2:-host-username}
+>    local host=${3:-host-ip}
+>    ssh -R ${port}:localhost:22 ${user}@${host}
+> }
+> ```
 
 ### SCP：安全的文件复制
 

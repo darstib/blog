@@ -42,6 +42,16 @@ tags:
 
 > 关于 [linux 发行版](https://101.lug.ustc.edu.cn/Appendix/distribution/) 。
 
+> [!tip]- “清除”输出小技巧
+> 
+> 有时为了某些原因需要截图连续执行的多条命令，中间有一步输错了就要重来；此时可以及时止损：
+> 
+> ```sh
+> $ tput cuu N && tput ed
+> ```
+> 
+> 其中 N 为希望清除的行数
+
 ### bash 初印象
 
 ```shell title="cli"
@@ -378,7 +388,7 @@ Error: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), a
 $ sudo !!
 ```
 
-### 系统结构介绍
+### 系统权限介绍
 
 > [!extra]- 用户与用户组、文件系统结构详细介绍
 >
@@ -402,14 +412,22 @@ drwxr-xr-x  3 darstib darstib 4096 Mar 19 16:18 demo
 | `Mar 19 19 16:18` | 修改时间           |
 | `dirname`         | 文件/目录名         |
 
-#### sudo
+#### 超级用户 (sudo)
 
-- `sudo`: 以超级用户 (root) 权限执行命令；
+- `sudo`: 暂时授权用户以超级用户 (root) 权限执行命令；
 - 使用场景: 权限不足时 (`Permission denied`)；
-- `sudo su` 切换到超级用户身份；
+- `sudo su` / `sudo bash` / `sudo -s` 切换到超级用户身份；
 - `passwd` 更改密码。
 
-#### chmod
+如果我们想以其他用户身份执行，使用 `sudo -u user` 即可
+
+```sh
+┌──(root㉿Darstib)-[/]
+└─# sudo -u darstib id
+uid=1000(darstib) gid=1000(darstib) groups=1000(darstib), ...
+```
+
+#### 权限 (chmod)
 
 ##### 字符串语法
 
@@ -449,7 +467,92 @@ drwxr-xr-x  3 darstib darstib 4096 Mar 19 16:18 demo
 > | `chmod g-w file` | 移除组的写权限            | rwxr-xr-- |
 > | `chmod a=r file` | 设置所有人只有读权限         | r--r--r-- |
 
-#### 根目录结构
+> [!info]- umask
+> 
+> umask 是一个"掩码"值，它决定了新创建的文件和目录会被"屏蔽"掉哪些权限。它采用八进制数表示，工作原理是从默认权限中减去 umask 值。直接使用 `umask` 可以获得当前的掩码值；`tldr umask` 查看用法。
+> 
+> ```sh
+> $ umask
+> 0002
+> ```
+
+- 文件的默认权限：666（rw-rw-rw-）
+- 目录的默认权限：777（rwxrwxrwx）
+
+最终权限 = 默认权限 - umask
+
+> [!extra]- Access Control List (ACL)
+> 
+> 如果我们想要设置五种不同的权限集，并将它们分配给五个不同的用户呢？在传统模型中，我们最多只能有三种权限集，因此这是不可能实现的。这就是为什么大多数操作系统都实现了一种更通用的模型—访问控制列表（ACLs）。
+
+#### POSIX
+
+> [!extra]- Set-UID
+> 
+> Set-UID 机制通过在命令的权限位中设置**特殊标志位**来实现权限控制。当该标志位被激活时，任何执行该命令的用户都将以命令所有者的权限运行程序。若命令所有者是 root 用户，则该命令将 <u>获得 root 权限执行</u> 。
+> 
+> 例如，在 Unix 系统中，一个进程有三个用户 ID：真实用户 ID，有效用户 ID 和保留用户 ID。
+> 
+> - 真实用户 ID 标明了进程的真正拥有者，即运行该进程的用户。
+> - 有效用户 ID 是在访问控制中使用的 ID，这个 ID 代表了进程拥有什么样的特权。
+> 
+> 对于非 Set-UID 程序来说，当它被一个用户 ID 为 5000 的用户执行时，进程的真实用户 ID 和有效用户 ID 都是5000。如果该用户执行一个 Set-UID 程序，真实用户 ID 仍是 5000，而有效用户 ID 则取决于该程序的所有者。如果该程序的所有者是 root，那么其有效用户 ID 将为 0。因为访问控制中使用的是有效用户 ID。也就是说即便该进程是普通用户执行的，它也拥有 root 用户的权限。
+> 
+> 这是 Unix 操作系统中独具特色的权限机制，这种过度授权存在安全风险；若攻击者攻破 `Set-UID` 程序即可获取 root 的所有权限。
+> 
+> 为解决该问题，Linux 引入了 POSIX 能力机制。
+
+POSIX 能力机制该机制将 root 特权拆分为多个独立的_能力单元_（capabilities），每个单元可单独启用或禁用。例如，具有 `CAP_DAC_OVERRIDE` 能力的进程可绕过文件权限检查—即即使文件权限限制用户访问，持有该能力的用户仍可访问文件。
+
+可通过 `"man capabilities"` 查看完整的 POSIX 能力列表。例如：
+
+```
+CAP_DAC_OVERRIDE:    绕过文件读/写/执行权限检查
+CAP_DAC_READ_SEARCH: 绕过文件读权限检查...
+```
+
+使用 `getpcaps` 可以获得进程的能力
+
+```sh
+$ getpcaps
+usage: getcaps [opts] <pid> [<pid> ...]
+
+  This program displays the capabilities on the queried process(es).
+  The capabilities are displayed in the cap_from_text(3) format.
+
+  Optional arguments:
+     --help, -h or --usage display this message.
+     --verbose             use a more verbose output format.
+     --ugly or --legacy    use the archaic legacy output format.
+     --iab                 show IAB of process too.
+     --license             display license info
+
+Deb ~
+$ getpcaps $$
+177: =
+```
+
+使用 setcap 能够为程序授权：
+
+```sh
+seed@VM101:~/sandbox$ cp /bin/bash ./test_bash
+seed@VM101:~/sandbox$ ./test_bash
+seed@VM101:~/sandbox$ cat /etc/shadow
+cat: /etc/shadow: Permission denied
+seed@VM101:~/sandbox$ exit 
+
+seed@VM101:~/sandbox$ sudo setcap CAP_DAC_READ_SEARCH=ep ./test_bash # 设置有效位和允许位
+seed@VM101:~/sandbox$ ./test_bash 
+seed@VM101:~/sandbox$ cat /etc/shadow # fork 子进程执行 cat，无权限
+cat: /etc/shadow: Permission denied
+seed@VM101:~/sandbox$ getpcaps $$
+13088: = cap_dac_read_search+ep
+seed@VM101:~/sandbox$ cat < /etc/shadow
+root ...
+...
+```
+
+### 系统文件结构
 
 ![](https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/14_250314-204022.png)
 

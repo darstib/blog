@@ -240,6 +240,7 @@ comments: true
 - 大语言模型(LLM)基础知识
 	- [AI 算法工程师手册](https://www.huaxiaozhuan.com/)
 	- [LLMBook-zh](https://llmbook-zh.github.io/)
+	- [Rethink Fun](https://www.rethink.fun/)
 	- [深入浅出 PyTorch](https://datawhalechina.github.io/thorough-pytorch/index.html)
 	- [Transformers快速入门](https://transformers.run/)
 

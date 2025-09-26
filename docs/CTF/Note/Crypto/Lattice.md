@@ -91,6 +91,10 @@ for s in [1200]:
 
 > 经典的背包加密问题，[格密码笔记（二）](https://www.ruanx.net/lattice-2/) 讲的很清楚了。
 
+> [!extra]- 超级递增序列
+> 
+> 在上面的格密码笔记中，超级递增序列是一个比较简单的情况，在 [Easy_Pack](../../MOECTF2024/crypto.md#Easy_Pack) 是一个例子。
+
 在理解上，我们将下面这题转变为上面文章中描述。
 
 ```python title="hidden-poly"

