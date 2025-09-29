@@ -24,7 +24,8 @@ tags:
     - 重点在于其能够划词/句，**并结合上下文** 解释。
 - [Page Sidebar | Open any page in side panel](https://chromewebstore.google.com/search/Page%20Sidebar%20%7C%20Open%20any%20page%20in%20side%20panel)
     - chrome 没有 edge 的网页分屏功能，这个插件可以一定程度上平替；
-- [VertiTab - Vertical Tabs in Side Panel](https://chromewebstore.google.com/detail/vertitab-vertical-tabs-in/chejfhdknideagdnddjpgamkchefjhoi)
+- ~~[VertiTab - Vertical Tabs in Side Panel](https://chromewebstore.google.com/detail/vertitab-vertical-tabs-in/chejfhdknideagdnddjpgamkchefjhoi)~~
+	- [Tab Groups Extension](https://chromewebstore.google.com/detail/tab-groups-extension/nplimhmoanghlebhdiboeellhgmgommi) 的自动分组嫩巩固满足我的需求了
 	- 垂直便签栏（虽然 windows 上由于上边无法收起，mac 上可以自动回缩，所以基本没怎么用）
 	- 标签页自分组（多种自分组模式，我比较喜欢按域名划分，经过反馈也是支持了多种匹配模式）
 	- 快照生成（保留自己的工作状态）
@@ -34,20 +35,20 @@ tags:
         - DevTools 中的 Console 是否爆出许多错误；这一点 AdGuard 做的稍好一些。
     - [AdGuard](https://chromewebstore.google.com/detail/adguard-%E5%B9%BF%E5%91%8A%E6%8B%A6%E6%88%AA%E5%99%A8/bgnkhhnnamicmpeenaelnjfhikgbkllg)
     - [广告拦截器 - 1Block](https://chromewebstore.google.com/detail/%E5%B9%BF%E5%91%8A%E6%8B%A6%E6%88%AA%E5%99%A8-1block/jajikjbellknnfcomfjjinfjokihcfoi)
-- [沉浸式翻译 - 网页翻译插件 | PDF翻译 | 免费](https://chrome.google.com/webstore/detail/bpoadfkcbjbfhfodiogcnhhhpibjhbnh)
+- ~~[沉浸式翻译 - 网页翻译插件 | PDF翻译 | 免费](https://chrome.google.com/webstore/detail/bpoadfkcbjbfhfodiogcnhhhpibjhbnh)~~
+	- 2025 年 8 月被爆出某种程度上泄露了用户隐私，改用一个开源替代：[Kiss-translator](https://github.com/fishjar/kiss-translator)
     - 使用谷歌/微软/免费 llm 等进行翻译，可以自己接入主流模型的 api，个人使用前两个就够了；
     - 主要是可以对照翻译，即保留了原文，且可以设置译文格式，体验相对更好
         - ![|350](attachments/chrome_begin.png)
-- [篡改猴](https://chromewebstore.google.com/detail/dhdgffkkebhmkfjojejmpbldmpobfkfo)
+- [Tampermonkey](https://chromewebstore.google.com/detail/dhdgffkkebhmkfjojejmpbldmpobfkfo)
     - 用于执行众多脚本，网上介绍甚多，在此略过。
 - [Tabliss](https://chromewebstore.google.com/detail/tabliss-a-beautiful-new-t/hipekcciheckooncpjeljhnekcoolahp)
     - 一个不错的高度可自定义标签页，简洁好看；
     - 比较奇怪的是，这个内存消耗居然只有 chrome 原生的一半😅。
 - [Simple Outliner / 智能网页大纲](https://chromewebstore.google.com/detail/simple-outliner-%E6%99%BA%E8%83%BD%E7%BD%91%E9%A1%B5%E5%A4%A7%E7%BA%B2/ppdjhggfcaenclmimmdigbcglfoklgaf)
 	- 依据文章内容自动生成可跳转目录/大纲，阅读知乎等不自动生成目录的长文友好。
-- [Diigo Web Collector - Capture and Annotate](https://chromewebstore.google.com/detail/diigo-web-collector-captu/pnhplgjpclknigjpccbcnmicgcieojbh)
-	- 很好的网页和 pdf 的标记/旁注工具
-	- 似乎是若干年前几个学生的产物，ui 设计一直没更新，所以有种~~复古美~~。
+- [GitZip for github](https://chromewebstore.google.com/detail/gitzip-for-github/ffabmkklhbepgcgfonabamgnfafbdlkn)
+	- 方便下载 github 上的部分文件。
 - [Ginsmooc](https://github.com/ginnnnnncc/GinsMooc)
 
 ## II setting

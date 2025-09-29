@@ -698,7 +698,7 @@ print(long_to_bytes(m)) # b'moectf{Ju5t_0n3_st3p_m0r3_th4n_wi3n3r_4ttack!}\x02\x
 
 也可以看到不符合 wiener attack 的条件，题目标题和 flag 的含义大概也正在于此。
 
-## EasyLCG
+## ezLCG
 
 ```python title="task.py"
 from sage.all import *

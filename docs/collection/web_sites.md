@@ -75,7 +75,7 @@ comments: true
 - 文件相关
 	- [DownGit](https://downgit.github.io/#/home) or [download-directory](https://download-directory.github.io/)
 	    - 下载开源 github 仓库内容，指哪打哪
-	- [GitHub 文件加速](https://github.moeyy.xyz/)
+	- ~~[GitHub 文件加速](https://github.moeyy.xyz/)~~
 - [技术相关](https://github.com/skills/)
 	- [Git tag](https://slides.tonycrane.cc/PracticalSkillsTutorial/2023-spring-cs/lec2/#/2/5)
 	- [开源许可证](https://docs.github.com/zh/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository)
@@ -160,10 +160,11 @@ comments: true
 
 ### 影视
 
-- [ ] [Animeko.org](https://animeko.org/)（应用）
-- [ ] [Omoo](https://www.omoo.app/)（在线网站 + 应用）
+- [ ] [Animeko](https://github.com/open-ani/animeko/)（应用）
+- [x] [kuzima](https://kazumi.app/)（应用）
+- [omofun](https://www.omofuns.com/)（在线网站，很多备用站点，自搜）
 - [次元狗](https://www.acgndog.com/)（网盘资源）
-- [trace 番](https://trace.moe/)
+- [trace 番](https://trace.moe/)（用截图查番）
 - [樱花动漫6](https://yhdm6.top/)
 
 ### 工具箱
@@ -235,15 +236,14 @@ comments: true
 
 > [!extra] 下面主要是视频在线下载网站，总有这个网站无效另一个有效的情况，所以留下几个比较好用的，功能上具有重复性。
 
-- [SaveTheVideo](https://www.savethevideo.com/home)
-    - 个人主要使用，感觉除了 Youtube 都支持。
+- [SnapAny](https://snapany.com/zh)
+    - 理论支持[哔哩哔哩](https://snapany.com/zh/bilibili) [TikTok](https://snapany.com/zh/tiktok) [Pinterest](https://snapany.com/zh/pinterest) [Facebook](https://snapany.com/zh/facebook) [VK](https://snapany.com/zh/vk) [Snapchat](https://snapany.com/zh/snapchat) [Threads](https://snapany.com/zh/threads) [Suno](https://snapany.com/zh/suno)
 - [Save](https://save.tube/)
     - 主要用于 youtube 视频下载。
 - [ssyoutube](https://ssyoutube.com/en778EN/)
-- [SnapAny](https://snapany.com/zh)
-    - 理论支持[哔哩哔哩](https://snapany.com/zh/bilibili) [TikTok](https://snapany.com/zh/tiktok) [Pinterest](https://snapany.com/zh/pinterest) [Facebook](https://snapany.com/zh/facebook) [VK](https://snapany.com/zh/vk) [Snapchat](https://snapany.com/zh/snapchat) [Threads](https://snapany.com/zh/threads) [Suno](https://snapany.com/zh/suno)
 - [ParseVideo](https://pv.vlogdownloader.com/)
 - [savefrom](https://zh.savefrom.net/)
+- ~~[SaveTheVideo](https://www.savethevideo.com/home)~~
 
 ### X 床
 
@@ -407,7 +407,6 @@ comments: true
     - 手机投屏电脑
 - [Zoho survey](https://www.zoho.com.cn/survey/)
     - 免费在线问卷
-
 - [scribbr](https://www.scribbr.com/citation/generator/)
     - 多种论文参考文献标准引用生成器
 - [citationmachine](https://www.citationmachine.net/)
@@ -418,6 +417,7 @@ comments: true
     - 数学工具【套件】
 - [奇客在线文字识别](https://www.geekersoft.com.cn/ocr-online.html)
 - [屏幕分辨率检测](https://www.infobyip.com/detectscreenresolution.php)
+- [Claude SessionKey Checker](https://c.zhucn.org/)
 
 ### 杂文趣事
 

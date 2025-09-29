@@ -22,11 +22,13 @@ comments: true
 
 ### 安全性保证
 
-**正常** 的 RSA 的安全性完全来自 n 的质数分解难度；不正常的是什么？看下面就知道了。
+**合理**的 RSA 的安全性完全来自 n 的质数分解难度；不合理的是什么？看下面就知道了。
 
-## 指数攻击
+## Exponential attack
 
 ### Low public exponent attack（低加密指数攻击）
+
+> [!tip] 优先尝试 sagemath 的 `m = Integer(c).nth_root(e)`
 
 #### e = 1
 
@@ -34,7 +36,7 @@ comments: true
 >
 > [cryptohack - Salty](https://cryptohack.org/challenges/rsa/)
 
-cryptohack 上刚好有这么一个题，就一并放在这里了：
+cryptohack 上刚好有这么一个题：
 
 ```python
 n = 110581795715958566206600392161360212579669637391437097703685154237017351570464767725324182051199901920318211290404777259728923614917211291562555864753005179326101890427669819834642007924406862482343614488768256951616086287044725034412802176312273081322195866046098595306261781788276570920467840172004530873767                                                                  
@@ -50,7 +52,7 @@ for i in range(123456789):
         print(i)
 ```
 
-> [!FLAG]
+> [!FLAG]-
 >
 > crypto{saltstack_fell_for_this!}
 
@@ -178,15 +180,31 @@ m = Mod(c, n).nth_root(e)
 print(long_to_bytes(m)) # b'darctf{r@bln_a77@ck_e_2}'
 ```
 
+> [!note]+ solution of m^e
+> 
+> > [!THEOREM]
+> >
+> > If $gcd(e, p-1)=1$ and p is prime, the $m^e \equiv c\pmod{p}$ has exactly one solution for m.
+> 
+> [math.stackexchange 上的问答](https://math.stackexchange.com/questions/2842399/solutions-to-xn-equiv-a-pmodp)中较为靠下的一个回答给出更广泛的结论：
+> 
+> > [!THEOREM]
+> >
+> > If p is prime, $p \nmid c$, then $m^e \equiv c \pmod{p}$ has **0 or d = gcd(e, p-1)** solutions, being the latter if $c^{\frac{p-1}{d}}\equiv 1 \pmod{p}$.
+> 
+> 证明略，其中最后一两步如果看不懂可以参考 [group theory - Solution to $x^n=a \pmod p$ where $p$ is a prime](https://math.stackexchange.com/questions/1491103/solution-to-xn-a-pmod-p-where-p-is-a-prime) .
+
 ### gcd(e, phi) != 1
 
-#### 一组 e, phi
-
-一般来说 $gcd(e, \phi)=1$ 的，但要是 $gcd(e, \phi)\neq 1$ ，那么怎么做？e=2/3/4 …… 等十分小的数时后面另讲，这里考虑比较一般的情况。
+一般来说 $gcd(e, \phi)=1$ 的，但要是 $gcd(e, \phi)\neq 1$ ，那么怎么做？e=2/3/4 …… 等十分小的数时前面已经说明了，这里考虑比较一般的情况。
 
 由于 $gcd(e, \phi)\neq 1$，正常意义下的私钥 d 是不存在的，但是考虑到欧拉扩展定理：
 
-若 $gcd(e, \phi) = b \neq 1$ ，则有 $c = m^e = m^{ab}\pmod{n} = m^{ab \pmod{\phi}}$ （$gcd(a, \phi)=1$，否则 $gcd(e, \phi)=1$ 不成立）；取 $d = a^{-1}\pmod{\phi}$，则有 $c^d = m^{bad\pmod{\phi}} =  m^b\pmod{n}$；所以只需要对 $c^d\pmod{\phi}$ 开 b 次根就好。
+若 $gcd(e, \phi) = b \neq 1$ ，则有 $c = m^e = m^{ab}\pmod{n} = m^{ab \pmod{\phi}}$；
+
+#### gcd(a, phi)=1
+
+取 $d = a^{-1}\pmod{\phi}$，则有 $c^d = m^{abd\pmod{\phi}} =  m^b\pmod{n}$；所以只需要对 $c^d\pmod{\phi}$ 开 b 次根就好。
 
 当然，不难发现，哪怕 $gcd(e, \phi)=1$ ，上述过程依然适用。
 
@@ -198,19 +216,127 @@ q= 15649227370858723453950650148060969208599798959471705847260552305124452249370
 e= 750
 c= 7029383721249299532521086933490698266831518266762255492452526410777276825803657150303837084263410309063739203644435184397762022380085273363900423091223180151147964276354189658062571415744140073426572149093499560918765793389358300893454490774387180728097370701432534877005948330689495694820361726719418371072834639369078180094444137972424909816959445043108154884587947573054460257114169961823509538355580857411319157089278918107229480661280354242839678709689654304688727345294473487201644985815128413154870914132135222144633969959773621933444285994038028721862094040876152694240238708737727034258171506516394913692187
 
+def get_m(n, e, c, phi=None):
+    """
+    Returns the private exponent for the given public exponent and modulus.
+    """
+    from sage.all import GCD, euler_phi, inverse_mod, power_mod, Integer, is_prime
+    if is_prime(n):
+        phi = n - 1
+    elif phi is None:
+        phi = euler_phi(n)
+    b = GCD(e, phi)
+    if b == 1:
+        d = inverse_mod(e, phi)
+    else:
+        a = e // b
+        assert a*b == e
+        # print(a, b)
+        d = inverse_mod(a, phi)
+        mb = power_mod(c, d, n)
+        m = Integer(mb).nth_root(b)
+    return m
+
 import sympy
 n = p*q
 phi = (p-1)*(q-1)
-b = gcd(e, phi) # b = 6
-a = e // b
-d = inverse_mod(a, phi)
-m_b = power_mod(c, d, n)
-m = Integer(m_b).nth_root(b)
+m = get_m(n, e, c, phi)
 print(bytes.fromhex(hex(m)[2:]))
 # b'flag{0e2f9add-31fd-4733-8f25-39297516f4e2}'
 ```
 
-#### 多组 e phi
+#### gcd(a, phi)!=1
+
+如果 $gcd(a, \phi) \neq 1$，也就同样无法找到 a 的逆元 d；此时考虑递归求解：
+
+```python
+def get_mb(n, e, c, phi=None):
+    """
+    Returns the private exponent for the given public exponent and modulus.
+    """
+    from sage.all import GCD, euler_phi, inverse_mod, power_mod, is_prime
+    if is_prime(n):
+        phi = n - 1
+    elif phi is None:
+        phi = euler_phi(n)
+    b = GCD(e, phi)
+    if b == 1:
+        d = inverse_mod(e, phi)
+    else:
+        a = e // b
+        assert a*b == e
+        # print(a, b)
+        if GCD(a, phi) == 1:
+            d = inverse_mod(a, phi)
+            mb = power_mod(c, d, n)
+        else:
+            print("gcd(a, phi) != 1, a =", a)
+            mb, b_ = get_mb(n, a, c, phi=phi)
+            b *= b_
+    return mb, b
+    
+from sage.all import Integer
+mb, b = get_mb(n, e, c)
+m = Integer(mb).nth_root(b)
+```
+
+如果最后一个 get_mb 中得到的 a = 1，那么毫无疑问 b = e，且 mb = c；那就好比直接开根，没有什么意义（如果能直接开，那就不需要这些东西）。
+
+此时大概率是 $e=2^{k}, k\in N$ 的情况；而这样我们可以一层一层开平方根（此时攻击条件与 e=2 相同），示例来自 [cryptohack - Broken RSA](https://cryptohack.org/challenges/maths/)：
+
+```python title="broken rsa"
+from sage.all import *
+from Crypto.Util.number import long_to_bytes
+from sympy import sqrt_mod, legendre_symbol
+n = 27772857409875257529415990911214211975844307184430241451899407838750503024323367895540981606586709985980003435082116995888017731426634845808624796292507989171497629109450825818587383112280639037484593490692935998202437639626747133650990603333094513531505209954273004473567193235535061942991750932725808679249964667090723480397916715320876867803719301313440005075056481203859010490836599717523664197112053206745235908610484907715210436413015546671034478367679465233737115549451849810421017181842615880836253875862101545582922437858358265964489786463923280312860843031914516061327752183283528015684588796400861331354873
+e = 16
+ct = 11303174761894431146735697569489134747234975144162172162401674567273034831391936916397234068346115459134602443963604063679379285919302225719050193590179240191429612072131629779948379821039610415099784351073443218911356328815458050694493726951231241096695626477586428880220528001269746547018741237131741255022371957489462380305100634600499204435763201371188769446054925748151987175656677342779043435047048130599123081581036362712208692748034620245590448762406543804069935873123161582756799517226666835316588896306926659321054276507714414876684738121421124177324568084533020088172040422767194971217814466953837590498718
+
+################# m^16 = m^2^2^2^2
+assert is_prime(n)
+
+def debug_info(*args, **kwargs):
+    DEBUG = False
+    if DEBUG:
+        print(*args, **kwargs)
+        
+def sqrt_mods(cs:list, n, debug=False):
+    ms = []
+    for c in cs:
+        if legendre_symbol(int(c), int(n)) != 1:
+            # 不是二次剩余，不可开根
+            continue
+
+        m_ = Mod(c, n).sqrt(all=True)
+        debug_info("dealing c:", c)
+        for m in m_:
+            debug_info(long_to_bytes(int(m)))
+        ms += m_
+
+        # sympy 的 sqrt_mod 只分解得到其中一个结果，最终会漏掉
+        # 详见 https://darstib.github.io/blog/CTF/Note/Crypto/RSA_attack/#m-%E7%9A%84%E8%A7%A3%E4%B8%AA%E6%95%B0
+        # m = sqrt_mod(c, n)
+        # debug_info(long_to_bytes(m))
+        # ms.append(m)
+    return ms
+
+
+m16s = [ct]
+m8s = sqrt_mods(m16s, n)
+debug_info("m8s:", m8s)
+m4s = sqrt_mods(m8s, n)
+debug_info("m4s:", m4s)
+m2s = sqrt_mods(m4s, n)
+debug_info("m2s:", m2s)
+ms = sqrt_mods(m2s, n, debug=True)
+debug_info("ms:", ms)
+for m in ms:
+    print(long_to_bytes(int(m)))
+
+# b"Hey, if you are reading this maybe I didn't mess up my code too much. Phew. I really should play more CryptoHack before rushing to code stuff from scratch again. Here's the flag: crypto{m0dul4r_squ4r3_r00t}"
+```
+
+### Multi e&phi
 
 攻击条件：gcd(e, phi) != 1，gcd(n1, n2) != 1
 
@@ -228,7 +354,7 @@ $$
 [^1]: 可能是由于两次使用的 n 不同，m 所在的有限域不同导致的（猜测）。
 [^2]: `<=` 表示的是赋值，并非 `≤` 。
 
-##### 新的 gcd(e,phi)=1
+#### new gcd(e,phi)=1
 
 如果在经过上面转变后，新的 gcd(e, phi)=1 ，那么我们就是正常的 rsa 了，且 n 已经分解好：
 
@@ -296,7 +422,7 @@ print(bytes.fromhex(hex(m)[2:])) # b'moectf{Th1s_iS_Chinese_rEm41nDeR_The0rEm_CR
 >
 > 当使用的 e 相同时，其实不难得到：$\begin{cases}m^e =c_{1}\pmod{n_{1}}\\ m^e=c_{2}\pmod{n_{2}}\end{cases}$，使用 sagemath 中的 CRT_list() 方法可以很快的求解到 $m^e \pmod{p*q*r}$ ，可以验证这样获得值等于 $pow(m,e,p*q*r)$；但是模数太大了，难以分解；即使是很小的 e (e = 2) 我也没能分解出来。
 
-##### 新的 gcd(e, phi)!=1
+#### new gcd(e, phi)!=1
 
 要是新产生的 gcd(e,phi)!=1 ，就转变为了 **一组 e, phi** 的情况了：
 
@@ -335,9 +461,9 @@ m = Integer(m_b2).nth_root(b2)
 print(bytes.fromhex(hex(m)[2:])) # b"flag{gcd_e&\xcf\x86_isn't_1}"
 ```
 
-## 模数攻击
+## Modular attack
 
-### N 太小/被公开
+### N ezFactor
 
 > [!QUESTION]
 >
@@ -359,7 +485,7 @@ m = pow(c, d, N)
 print(bytes.fromhex(hex(m)[2:]).decode()) # crypto{s0m3th1ng5_c4n_b3_t00_b1g}
 ```
 
-### Roll 按行加密
+### Roll enc
 
 类似于分组加密，分别解密之后恢复即可。
 
@@ -380,11 +506,11 @@ for i in c:
 print(flag)
 ```
 
-### 模不互素
+### Modulars not coprime
 
 模不互素是指：多次给出的 n 不互素，那么使用欧几里得算法求解公因数后两个都可以分解，从而被破解。
 
-### 多素数 RSA
+### n=multi primes
 
 n 能够分解为多个素数，那么分解难度相对较低，分解后求解欧拉函数即可。
 
@@ -413,7 +539,7 @@ def manyPrime(n):
 >
 > 例如，当前已经分解 $n = a*....*b * A$ 且 $is\_prime(A)==False$，那么我们记 $a*\dots*b = k, \phi(k)$ 是不难计算的。如果 m < k，则有 $m=c^{d_n}\pmod{n} = c^{d_{k}}\pmod{k}$ 其中 $d_x$ 表示在模 x 的情况下 e 的逆元。
 
-### 共模攻击
+### Same modulars
 
 攻击条件：使用相同的 n，不同的 e 对同一段密文进行了两次加密且 gcd(e1, e2)=1。
 
@@ -449,13 +575,18 @@ m = mod(power_mod(c1,s1,n)*power_mod(c2,s2,n), n)
 print(long_to_bytes(int(m))) # b"darctf{D0n't_uS@_s4me_m_wlth_s@m3_n}"
 ```
 
-### p & q 选取不当
+### Get p q if we know phi
 
-#### |p-q| 较小
+$$\begin{cases}p+q=n-\varphi(n)+1\\p-q=\sqrt{\left(n-\varphi(n)+1\right)^2-4n}\end{cases}$$
 
-> [CTF Wiki (ctf-wiki.org)](https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_module_attack/#p-q_1)
+### Improper pq
 
-常见的情况有 `q = next_prime(p)` 或者 `p, q = util.GeneratePrimePairByBitLength(bsize, gap)` 导致二者非常接近。
+#### small |p-q|
+
+- [CTF Wiki (ctf-wiki.org)](https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_module_attack/#p-q_1)
+- [Wikipedia - Fermat's factorization](https://en.wikipedia.org/wiki/Fermat's_factorization_method)
+
+常见的情况有 `q = next_prime(p)` 或者 `p, q = util.GeneratePrimePairByBitLength(bsize, gap)` 导致二者非常接近，可以使用费马因式分解法。
 
 > [!QUESTION]
 >
@@ -494,9 +625,9 @@ from libnum import n2s
 print(n2s(m)) # b'crypto{f3rm47_w45_4_g3n1u5}'
 ```
 
-#### n & npnq
+#### n&npnq
 
-偶然间做到这么一个题，给我 e, n, c 之外，还给我 npnq，其中 `n == p*q and npnq = next_prime(p)*next_prime(q)`
+ZJUBUS 上有这么一个题，给我 e, n, c 之外，还给我 npnq，其中 `n == p*q and npnq = next_prime(p)*next_prime(q)`
 
 我们记 $npnq = np*nq$ ，则会发现：`p*nq - q*np` 很小！也就是说，我们可以利用上面讲的方法分解 `n*npnq` ，如果能够得到 $p1 = p*nq$ ，则有 $p = gcd(n, p_{1})$ ，这样 n 就分解出来了。
 
@@ -547,13 +678,355 @@ for p1, q1 in factors_list:
         print("Error:", error)
 ```
 
+#### n&p.xor.q
+
+在 [Math.stackexchange](https://math.stackexchange.com/questions/2087588/integer-factorization-with-additional-knowledge-of-p-oplus-q) 提出了一个问题：
+
+> [!question]+
+> 
+> Given two unknown large primes p and q, can we efficiently factor n=pq if we additionally know p⊕q (bitwise XOR of the primes)?
+
+下面的回答给出了算法思路，大致思路是逐比特判断 $p[:k] \times q[:k] \equiv n[:k] \pmod{2^{k}}$ ，并从 0 开始逐步推导 p,q；但是显然每一步都有两种解，如此计算的复杂度依旧在 $O(2^{\log n})=O(n)$；而 $p \oplus q = t$ 作为一个约束，可以达到剪枝的效果，提高了算法思路的可行性。
+
+提出问题的人也实现了这个算法，并放在了 [xor_factor](https://github.com/sliedes/xor_factor/blob/master/xor_factor.py) 。但是疑似存在一些 bug，来看 zer0ptsCTF2022-AntiFermat：
+
+```python title="chall.py"
+from Crypto.Util.number import isPrime, getStrongPrime
+from gmpy import next_prime
+from secret import flag
+
+# Anti-Fermat Key Generation
+p = getStrongPrime(1024)
+q = next_prime(p ^ ((1<<1024)-1))
+n = p * q
+e = 65537
+
+# Encryption
+m = int.from_bytes(flag, 'big')
+assert m < n
+c = pow(m, e, n)
+
+print('n = {}'.format(hex(n)))
+print('c = {}'.format(hex(c)))
+#n = 0x1ffc7dc6b9667b0dcd00d6ae92fb34ed0f3d84285364c73fbf6a572c9081931be0b0610464152de7e0468ca7452c738611656f1f9217a944e64ca2b3a89d889ffc06e6503cfec3ccb491e9b6176ec468687bf4763c6591f89e750bf1e4f9d6855752c19de4289d1a7cea33b077bdcda3c84f6f3762dc9d96d2853f94cc688b3c9d8e67386a147524a2b23b1092f0be1aa286f2aa13aafba62604435acbaa79f4e53dea93ae8a22655287f4d2fa95269877991c57da6fdeeb3d46270cd69b6bfa537bfd14c926cf39b94d0f06228313d21ec6be2311f526e6515069dbb1b06fe3cf1f62c0962da2bc98fa4808c201e4efe7a252f9f823e710d6ad2fb974949751
+#c = 0x60160bfed79384048d0d46b807322e65c037fa90fac9fd08b512a3931b6dca2a745443a9b90de2fa47aaf8a250287e34563e6b1a6761dc0ccb99cb9d67ae1c9f49699651eafb71a74b097fc0def77cf287010f1e7bd614dccfb411cdccbb84c60830e515c05481769bd95e656d839337d430db66abcd3a869c6348616b78d06eb903f8abd121c851696bd4cb2a1a40a07eea17c4e33c6a1beafb79d881d595472ab6ce3c61d6d62c4ef6fa8903149435c844a3fab9286d212da72b2548f087e37105f4657d5a946afd12b1822ceb99c3b407bb40e21163c1466d116d67c16a2a3a79e5cc9d1f6a1054d6be6731e3cd19abbd9e9b23309f87bfe51a822410a62
+```
+
+只给出了 c, n，只能够从 p, q 的关系入手。依据素数分布定律，$next\_prime(k)-k$ 应该远小于 k，因而 
+
+$$q = \text{next\_prime}(p \oplus((1\ll 1024) -1)) \approx p \oplus((1\ll 1024) -1) \implies p \oplus q \approx ((1\ll 1024) -1)$$
+
+也即 $t = p\oplus q$ 的高位全为 1；关于低位，我们需要得知具体有多少位不可确认；依据有关[素数间隙](https://en.wikipedia.org/wiki/Prime_gap)的研究，我进行了简单的测试：
+
+```python
+def exp():
+    """
+    随机测试可以发现 p^q 的高 1004 位基本都是 1
+    """
+    for _ in range(10):
+        p = getStrongPrime(1024)
+        q = next_prime(p ^ ((1<<1024)-1))
+        pxq = p^q
+        print(pxq.bit_length(), bin(pxq))
+```
+
+观察多轮随机测试输出可以发现，pxq 的高位基本全为 1 符合猜想；第一个不为 0 的数为 **14** 位，因此只需要对低 14 位（或者保险一点使用 15 位）进行遍历填充，使用 [xor_factor](https://github.com/sliedes/xor_factor/blob/master/xor_factor.py) 算法即可。但是，在实际操作中发现没能成功分解；即便之后找答案拿到了 p, q，异或后依旧失败。检查信息后发现 bug：
+
+```python
+def factor(n, p_xor_q):
+    ...
+    PRIME_BITS = int(math.ceil(math.log(n, 2)/2))
+    ...
+    for k in range(2, PRIME_BITS+1):
+    ...
+```
+
+在这里，$PRIME\_BITS =\lceil \frac{\log(n)}{2} \rceil$ 是 k 的上限，也即 p, q 的位数；但是作者没有考虑到 p, q 位数差别较大的情况（大概也就是题目的 anti fermat 的含义），这里就是如此：`p.bit_length() == 1022, q.bit_length() == 1024, n.bit_length() == 2045`，这导致 PRIME_BITS == 1023，故而始终无法求解。最简单的方法：
+
+```python
+PRIME_BITS = int(math.ceil(math.log(n, 2)/2)) + 1
+```
+
+就可以解题了。考虑如何修改的更加鲁棒，例如修改为 
+
+```python
+PRIME_BITS = p_xor_q.bit_length()
+```
+
+在本题中有效，但是如果 p, q 的高位都全为 1 显然会出问题，因而将他们结合起来好了：
+
+```python
+PRIME_BITS = max(p_xor_q.bit_length(), int(math.ceil(math.log(n, 2)/2)))
+```
+
+让 AI 封装了一下，预计之后加入 [pyPack](https://github.com/darstib/pyPack) 中去：
+
+```python title="xor_factor.py"
+"""Utilities for factoring RSA moduli when p ⊕ q is known.
+
+The implementation follows the branching technique described in ``algo.md`` and
+adds a robust bit-length heuristic so that the search is deep enough even when
+p and q do not have identical bit lengths.  The core entry point is
+``factor_from_xor`` which returns the two prime factors in ascending order.
+
+modified from https://github.com/sliedes/xor_factor/blob/master/xor_factor.py
+to xxx by @darstib
+"""
+
+import math
+from typing import Iterable, Optional, Tuple
+
+__all__ = ["factor_from_xor", "recover_plaintext"]
+
+
+def _check_congruence(k: int, p: int, q: int, n: int, xored: Optional[int]) -> bool:
+    """Check p·q ≡ n (mod 2ᵏ) and optionally p ⊕ q ≡ xored (mod 2ᵏ)."""
+    kmask = (1 << k) - 1
+    p &= kmask
+    q &= kmask
+    n &= kmask
+    product = (p * q) & kmask
+    if product != n:
+        return False
+    if xored is not None and (p ^ q) != (xored & kmask):
+        return False
+    return True
+
+
+def _extend_candidates(k: int, prefix: int) -> Iterable[int]:
+    """Yield prefix and prefix with the k-th bit set."""
+    kbit = 1 << (k - 1)
+    assert prefix < kbit
+    yield prefix
+    yield prefix | kbit
+
+
+def _compute_prime_bits(n: int, p_xor_q: int) -> int:
+    """Heuristic for the expected prime bit length.
+
+    We combine the classical ceil(log₂(n)/2) estimate with the concrete bit
+    length of the xor hint and take the maximum to avoid under-estimating the
+    required depth in edge cases (e.g. p ≈ q).
+    """
+    estimate_from_n = int(math.ceil(math.log(n, 2) / 2)) + 1
+    estimate_from_xor = p_xor_q.bit_length()
+    return max(estimate_from_n, estimate_from_xor)
+
+
+def factor_from_xor(n: int, p_xor_q: int) -> Tuple[int, int]:
+    """Recover the prime factors (p, q) of n given the xor hint.
+
+    Returns the two primes in ascending order.  Raises ``ValueError`` if the
+    search exhausts all candidates without success, which usually indicates the
+    xor hint is incorrect or inconsistent with ``n``.
+    """
+    tracked = {
+        (p, q)
+        for p in (0, 1)
+        for q in (0, 1)
+        if _check_congruence(1, p, q, n, p_xor_q)
+    }
+
+    max_prime_bits = _compute_prime_bits(n, p_xor_q)
+
+    for k in range(2, max_prime_bits + 1):
+        new_candidates = set()
+        for prefix_p, prefix_q in tracked:
+            for candidate_p in _extend_candidates(k, prefix_p):
+                for candidate_q in _extend_candidates(k, prefix_q):
+                    cand_p, cand_q = sorted((candidate_p, candidate_q))
+                    if _check_congruence(k, cand_p, cand_q, n, p_xor_q):
+                        new_candidates.add((cand_p, cand_q))
+        tracked = new_candidates
+        if not tracked:
+            break
+
+    for p, q in tracked:
+        if p not in (0, 1) and p * q == n:
+            return (p, q) if p <= q else (q, p)
+
+    raise ValueError("Failed to recover RSA factors; check the xor hint.")
+
+
+def crack_from_xor(n: int, e: int, c: int, p_xor_q: int) -> bytes:
+    """Recover the RSA plaintext given n, e, ciphertext c, and p ⊕ q."""
+    from Crypto.Util.number import inverse
+
+    p, q = factor_from_xor(n, p_xor_q)
+    phi = (p - 1) * (q - 1)
+    d = inverse(e, phi)
+    m = pow(c, d, n)
+    hex_str = hex(m)[2:]
+    if len(hex_str) % 2:
+        hex_str = "0" + hex_str
+    return bytes.fromhex(hex_str)
+
+def _check():
+    from Crypto.Util.number import getStrongPrime
+    p = getStrongPrime(1024)
+    q = getStrongPrime(1024)
+    print("gold truth:", p, q)
+    pq = p ^ q
+    n = p * q
+    p_, q_ = factor_from_xor(n, pq)
+    assert p_ * q_ == n
+    print("pass")
+    return (p, q)
+
+```
+
+完整解题代码：
+
+```python title="exp.py"
+from Crypto.Util.number import inverse
+from xor_factor import factor_from_xor
+
+e = 65537
+n = 0x1ffc7dc6b9667b0dcd00d6ae92fb34ed0f3d84285364c73fbf6a572c9081931be0b0610464152de7e0468ca7452c738611656f1f9217a944e64ca2b3a89d889ffc06e6503cfec3ccb491e9b6176ec468687bf4763c6591f89e750bf1e4f9d6855752c19de4289d1a7cea33b077bdcda3c84f6f3762dc9d96d2853f94cc688b3c9d8e67386a147524a2b23b1092f0be1aa286f2aa13aafba62604435acbaa79f4e53dea93ae8a22655287f4d2fa95269877991c57da6fdeeb3d46270cd69b6bfa537bfd14c926cf39b94d0f06228313d21ec6be2311f526e6515069dbb1b06fe3cf1f62c0962da2bc98fa4808c201e4efe7a252f9f823e710d6ad2fb974949751
+c = 0x60160bfed79384048d0d46b807322e65c037fa90fac9fd08b512a3931b6dca2a745443a9b90de2fa47aaf8a250287e34563e6b1a6761dc0ccb99cb9d67ae1c9f49699651eafb71a74b097fc0def77cf287010f1e7bd614dccfb411cdccbb84c60830e515c05481769bd95e656d839337d430db66abcd3a869c6348616b78d06eb903f8abd121c851696bd4cb2a1a40a07eea17c4e33c6a1beafb79d881d595472ab6ce3c61d6d62c4ef6fa8903149435c844a3fab9286d212da72b2548f087e37105f4657d5a946afd12b1822ceb99c3b407bb40e21163c1466d116d67c16a2a3a79e5cc9d1f6a1054d6be6731e3cd19abbd9e9b23309f87bfe51a822410a62
+
+
+def get_pq(n):
+    shift = 13
+    for lowbit in range(2 ** shift - 1, -1, -1):
+        t = (((1 << (1024 - shift)) - 1) << shift) + lowbit
+        assert t.bit_length() == 1024
+        try:
+            p, q = factor_from_xor(n, t)
+        except ValueError:
+            p = q = None
+        if lowbit % (1 << (shift // 2)) == 0:
+            print(f"trying lowbit:, {bin(lowbit >> (shift // 2))} => {p, q}")
+        if p and q and p * q == n:
+            return p, q, t
+    
+    assert False, 'factors were not in tracked set. Is your p^q correct?'
+
+def get_msg():     
+    p, q, hint = get_pq(n)
+    print(p, p.bit_length())
+    print(q, q.bit_length())
+    phi = (p-1) * (q-1)
+    d = inverse(e, phi)
+    m = pow(c, d, n)
+    hex_m = hex(m)[2:]
+    if len(hex_m) % 2:
+        hex_m = '0' + hex_m
+    msg = bytes.fromhex(hex_m)
+    return msg
+
+msg = get_msg()
+print(msg.decode())
+# +-----------------------------------------------------------+
+# | zer0pts{F3rm4t,y0ur_m3th0d_n0_l0ng3r_w0rks.y0u_4r3_f1r3d} |
+# +-----------------------------------------------------------+
+```
+
+> [!extra]- 当然我上面的求解大概是一个非预期解，[官方题解](https://ctftime.org/writeup/32627)的思路是
+> 
+> 考虑 `q = next_prime(p ^ ((1<<1024)-1)) ≈ p^((1<<1024)-1) = (1<<2024) -p -1`，带入 $n = p*q$，解得
+> 
+> $$
+> p\approx\frac{(1\ll1024)+\sqrt{(1\ll1024)^2-4n}}2
+> $$
+> 
+> 求解后只是近似值，取 next_prime(p)，即可得到 p。
+
+#### part p.xor.q
+
+但如果我们 $t = p \oplus q$ 的未知部分不适合爆破呢？看 [starctf2022 - ezRSA](https://github.com/sixstars/starctf2022/tree/main/crypto-ezRSA) ：
+
+```python title="https://github.com/sixstars/starctf2022/blob/main/crypto-ezRSA/chall.py"
+from Crypto.Util.number import getStrongPrime
+from gmpy import next_prime
+from random import getrandbits
+from flag import flag
+
+p=getStrongPrime(1024)
+q=next_prime(p^((1<<900)-1)^getrandbits(300))
+n=p*q
+e=65537
+
+m=int(flag.encode('hex'),16)
+assert m<n
+c=pow(m,e,n)
+
+print(hex(n))
+#0xe78ab40c343d4985c1de167e80ba2657c7ee8c2e26d88e0026b68fe400224a3bd7e2a7103c3b01ea4d171f5cf68c8f00a64304630e07341cde0bc74ef5c88dcbb9822765df53182e3f57153b5f93ff857d496c6561c3ddbe0ce6ff64ba11d4edfc18a0350c3d0e1f8bd11b3560a111d3a3178ed4a28579c4f1e0dc17cb02c3ac38a66a230ba9a2f741f9168641c8ce28a3a8c33d523553864f014752a04737e555213f253a72f158893f80e631de2f55d1d0b2b654fc7fa4d5b3d95617e8253573967de68f6178f78bb7c4788a3a1e9778cbfc7c7fa8beffe24276b9ad85b11eed01b872b74cdc44959059c67c18b0b7a1d57512319a5e84a9a0735fa536f1b3
+
+print(hex(c))
+#0xd7f6c90512bc9494370c3955ff3136bb245a6d1095e43d8636f66f11db525f2063b14b2a4363a96e6eb1bea1e9b2cc62b0cae7659f18f2b8e41fca557281a1e859e8e6b35bd114655b6bf5e454753653309a794fa52ff2e79433ca4bbeb1ab9a78ec49f49ebee2636abd9dd9b80306ae1b87a86c8012211bda88e6e14c58805feb6721a01481d1a7031eb3333375a81858ff3b58d8837c188ffcb982a631e1a7a603b947a6984bd78516c71cfc737aaba479688d56df2c0952deaf496a4eb3f603a46a90efbe9e82a6aef8cfb23e5fcb938c9049b227b7f15c878bd99b61b6c56db7dfff43cd457429d5dcdb5fe314f1cdf317d0c5202bad6a9770076e9b25b1
+```
+
+只给出了 c, n，同样只能够从 p, q 的关系入手：由于
+
+```py
+p=getStrongPrime(1024)
+q=next_prime(p^((1<<900)-1)^getrandbits(300))
+```
+
+我们可以得到的消息有（注意 python 中 `^` 是异或）：
+
+- p, q 均为 1024 位
+- $t = p \oplus q$ 
+	- t 的高 124 位全为 0，即 p, q 高位相同，可以通过对 n 开方求得；
+	- t 的中间 600 位全为 1，即 p, q 中间相反，考虑探索剪枝；这里的剪枝参考了[官方题解](https://github.com/sixstars/starctf2022/blob/main/crypto-ezRSA/exp.sage)，即先按照符合约束的情况进行初始化，随后从高位开始，用 $p*q \leq n$ 来决定是否都要进行 bit 翻转（不过这应该仅限于 $p \oplus q$ 对应 bit 位为 1 才可以使用）
+	- t 的低 300 位随机，没有信息，等待使用 [Known High Bits Attack](#Known%20High%20Bits%20Attack) 攻击。
+
+```python title="exp.py"
+import gmpy2
+from sage.all import *
+e=65537
+c = 0xd7f6c90512bc9494370c3955ff3136bb245a6d1095e43d8636f66f11db525f2063b14b2a4363a96e6eb1bea1e9b2cc62b0cae7659f18f2b8e41fca557281a1e859e8e6b35bd114655b6bf5e454753653309a794fa52ff2e79433ca4bbeb1ab9a78ec49f49ebee2636abd9dd9b80306ae1b87a86c8012211bda88e6e14c58805feb6721a01481d1a7031eb3333375a81858ff3b58d8837c188ffcb982a631e1a7a603b947a6984bd78516c71cfc737aaba479688d56df2c0952deaf496a4eb3f603a46a90efbe9e82a6aef8cfb23e5fcb938c9049b227b7f15c878bd99b61b6c56db7dfff43cd457429d5dcdb5fe314f1cdf317d0c5202bad6a9770076e9b25b1
+n = 0xe78ab40c343d4985c1de167e80ba2657c7ee8c2e26d88e0026b68fe400224a3bd7e2a7103c3b01ea4d171f5cf68c8f00a64304630e07341cde0bc74ef5c88dcbb9822765df53182e3f57153b5f93ff857d496c6561c3ddbe0ce6ff64ba11d4edfc18a0350c3d0e1f8bd11b3560a111d3a3178ed4a28579c4f1e0dc17cb02c3ac38a66a230ba9a2f741f9168641c8ce28a3a8c33d523553864f014752a04737e555213f253a72f158893f80e631de2f55d1d0b2b654fc7fa4d5b3d95617e8253573967de68f6178f78bb7c4788a3a1e9778cbfc7c7fa8beffe24276b9ad85b11eed01b872b74cdc44959059c67c18b0b7a1d57512319a5e84a9a0735fa536f1b3
+# 用 n 的高 248 位来进行开根
+top_bits = int(gmpy2.isqrt(n>>(2048-248)))
+assert top_bits.bit_length() == 124
+# print("top_bits:", hex(top_bits))
+p_ = (top_bits << 900) + (1<<900) -1
+q_ = (top_bits << 900)
+assert p_.bit_length() == q_.bit_length() == 1024
+for i in range(899, 301, -1):
+    bit = 1 << i
+    if (p_^bit)*(q_^bit) <= n:
+        # swap p_ & q_ bit
+        p_^=bit
+        q_^=bit
+
+# print("p:", hex(p))
+# print("q:", hex(q))
+# 0xf376c68d76f4ab9b4d247852ef07159a09eeac920ac89148a8dee4f3c359a291b6bf03ab9258ca64783c416fcfeade13cf3c18a7677c29283c7fc6bfcdbba1d6fecbe9e243cc2e3ef0fe60035e1dbc727f3522bfab2bc28d5e29bfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+# 0xf376c68d76f4ab9b4d247852ef071595f611536df5376eb757211b0c3ca65d6e4940fc546da7359b87c3be90301521ec30c3e7589883d6d7c380394032445e290134161dbc33d1c10f019ffca1e2438d80cadd4054d43d72a1d64000000000000000000000000000000000000000000000000000000000000000000000000000
+shift = 450 # 这个 shift 还挺重要的，多了少了都解不出来
+p_ = p_ >> shift << shift
+def get_pq(p_high, n):
+    # print(hex(p_high))
+    x = Zmod(n)['x'].gen()
+    # x = PolynomialRing(Zmod(n), "x").gen()
+    f=x+p_high
+    roots=f.small_roots(X=2**shift,beta=0.4)
+    if roots:
+        p=int(f(roots[0]))
+        assert n%p==0
+        q = n//p
+        return (p, q)
+    return None
+
+p, q = get_pq(p_, n)
+phi = (p-1) * (q-1)
+d = inverse_mod(e, phi)
+m = power_mod(c, d, n)
+print(bytes.fromhex(hex(m)[2:]))
+# b'*CTF{St.Diana_pls_take_me_with_you!}'
+```
+
 #### RSA backdoor (4p-1 method)
 
 攻击条件：$4p-1 = Ds^2$ 其中 Ds 参见 [cm_factorization](https://github.com/crocs-muni/cm_factorization) 。
 
-## 私钥攻击
+## Private key attack
 
-### d 泄露攻击
+### d leak
 
 当对应的 (e,d) 泄露后，我们就能够分解对应的 N 。具体原理可见 [ctf-wiki](https://ctf-wiki.org/crypto/asymmetric/rsa/d_attacks/rsa_d_attack/#d_1) 。
 
@@ -930,8 +1403,8 @@ $$
 
 利用 sagemath 调用的 coppersmith 算法求解小根。
 
-攻击条件：已知 N 的一个素数 p/q 的高位或者是明文的高位；
-攻击方式：构造多项式，调用 sagemath 求解。
+- 攻击条件：已知 N 的一个素数 p/q 的高位或者是明文的高位；
+- 攻击方式：构造多项式，调用 sagemath 求解。
 
 ```python title="known_bits"
 from sage.all import *
@@ -988,7 +1461,7 @@ else:
 
 ### Known Low Bits Attack
 
-#### 已知 p/m 低位
+#### p/m low bits
 
 ```python title="known low bits"
 from sage.all import *
@@ -1052,7 +1525,7 @@ else:
     print('root2 not found')
 ```
 
-#### 已知 d 低位
+#### d low bits
 
 一个复杂一些的例子是知道 d 的部分低位。 Boneh,Durfee,Frankel 指出：只要 $e < \sqrt{ N }$ 并且给定了 d 的 $\left\lceil  \frac{d}{4}  \right\rceil$ 的低位，就可以从中恢复出 d 。下面是一个例子：
 
@@ -1203,29 +1676,9 @@ else:
 
 ## 其他
 
-### m 的解个数
-
-> [!THEOREM]
->
-> If $gcd(e, p-1)=1$ and p is prime, the $m^e \equiv c\pmod{p}$ has exactly one solution for m.
-
-> [elementary number theory - solutions to $x^n\equiv a\pmod{p}$ - Mathematics Stack Exchange](https://math.stackexchange.com/questions/2842399/solutions-to-xn-equiv-a-pmodp)
-
-其实更为重要的是上面问答中较为靠下的一个回答给出的结论：
-
-> [!THEOREM]
->
-> If p is prime, $p \nmid c$, then $m^e \equiv c \pmod{p}$ has **0 or d = gcd(e, p-1)** solutions, being the latter if $c^{\frac{p-1}{d}}\equiv 1 \pmod{p}$.
-
-证明略，其中最后一两步如果看不懂可以参考 [group theory - Solution to $x^n=a \pmod p$ where $p$ is a prime](https://math.stackexchange.com/questions/1491103/solution-to-xn-a-pmod-p-where-p-is-a-prime) .
-
 ### Optimal asymmetric encryption padding (OAEP)
 
 > https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding
-
-### Get p q if we know phi
-
-$$\begin{cases}p+q=n-\varphi(n)+1\\p-q=\sqrt{\left(n-\varphi(n)+1\right)^2-4n}\end{cases}$$
 
 ## 参考资料
 

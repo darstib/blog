@@ -36,7 +36,8 @@ def NTRU_solver(h, p, c, k=1):
     def decrypt(f, g, c):
         a = c * f % p
         return a * pow(f, -1, g) % g
-    L = matrix(ZZ,[[1, k*h], [0, k*p]])
+    L = matrix(ZZ,[[1, k*h],
+                   [0, k*p]])
     # L.LLL()
     w = L.LLL()[0]
     f, g = abs(w[0]), abs(w[1])//k

@@ -8,7 +8,7 @@ tags:
 
 如果刚接触下面的东西，不妨看看吧！
 
-> [!attention] 部分文章旨在以比较通俗简单的方式向读者介绍一些东西，可能不深入、不严谨。
+> [!attention] 部分文章旨在以比较通俗简单的方式向读者介绍一些东西（软件为主），可能不深入、不严谨。
 
 {{ begin_toc }}
 
@@ -56,5 +56,7 @@ tags:
 	- 基于模型 ID 将不同服务商的 api 整合
 	- [uni-api-status](https://github.com/melosbot/uni-api-status) 前端
 	- [uni-api 配置生成器](https://uni-api-config-generator.vercel.app/)
+- [LockHunter](https://lockhunter.com/)
+	- 修改、删除一个文件（夹）的时候被其他进程占用？帮你找出来！
 
 [^1]: 生态的前提是有一个谷歌账号。
