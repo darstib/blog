@@ -1,3 +1,9 @@
+---
+tags:
+  - notes
+comments: true
+---
+
 ## Adaboost 的起源 (page 3-4)
 
 要理解 AdaBoost，我们首先需要追溯到计算学习理论中的一个重要概念。

@@ -14,7 +14,7 @@ dg-publish: true
 {{ begin_toc }}
 
 - Crypto
-	- [国家商用密码](国家商用密码.md)
+	- [National_commercial_cryptography](National_commercial_cryptography.md)
 	- [Homomorphic_encryption](Homomorphic_encryption.md)
 	- [padding_oracle_attack](padding_oracle_attack.md)
 	- [RSA_attack](RSA_attack.md)

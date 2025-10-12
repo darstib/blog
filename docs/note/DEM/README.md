@@ -1,8 +1,7 @@
 ---
 comments: true
-tags:
-- notes
 ---
+
 # Data element market
 
 2025 暑期短学期课程综合实践 II 之一 —— 数据要素市场基础的课程笔记。

@@ -1,3 +1,9 @@
+---
+tags:
+  - notes
+comments: true
+---
+
 # 非合作博弈论基础（一）
 
 ## I 微观经济学基础 (page 3-35)

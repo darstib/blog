@@ -1,3 +1,9 @@
+---
+tags:
+  - notes
+comments: true
+---
+
 # 合作博弈与数据估值
 
 ## I 从非合作博弈到合作博弈 (page 3-7)

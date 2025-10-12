@@ -1,6 +1,6 @@
 ---
 tags:
-- notes
+- wp
 - ctf
 comments: true
 ---
@@ -43,7 +43,9 @@ comments: true
 >
 > nssctf{I_h0te_the_QRc0de!!!!}
 
-## [SWPU 2019]神奇的二维码
+## [SWPU 2019]
+
+### 神奇的二维码
 
 > [题目](https://www.nssctf.cn/problem/39) [参考题解](https://www.nssctf.cn/note/set/2780)
 

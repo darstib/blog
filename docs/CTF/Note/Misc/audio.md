@@ -1,6 +1,6 @@
 ---
 tags:
-- notes
+- wp
 - ctf
 comments: true
 ---

@@ -1,3 +1,9 @@
+---
+tags:
+  - notes
+comments: true
+---
+
 ## 聚类的基本概念
 
 ### 相似度或距离 (page 3)

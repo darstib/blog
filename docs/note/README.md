@@ -32,6 +32,7 @@ comments: true
 {{ begin_toc }}
 
 - [cs188](cs188/README.md)
+- [CSys-I](CSys-I/README.md)
 - [CSys-II](CSys-II/README.md)
 - [CSys-III](CSys-III/README.md)
 - [DEM](DEM/README.md)

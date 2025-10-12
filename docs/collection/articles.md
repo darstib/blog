@@ -16,6 +16,7 @@ tags:
 
 ### 机器/深度学习
 
+- [神经网络中的偏置（bias）究竟有什么用？](https://www.zhihu.com/question/305340182)
 - [凸优化 - 拉格朗日对偶](https://www.lesswrong.com/)
 - [混合专家模型 (MoE) 详解](https://huggingface.co/blog/zh/moe)
 - [Understanding Reasoning LLMs](https://magazine.sebastianraschka.com/p/understanding-reasoning-llms)

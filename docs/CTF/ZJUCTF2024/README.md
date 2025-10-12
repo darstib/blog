@@ -9,11 +9,11 @@ comments: true
 {{ begin_toc }}
 
 - [ZJUCTF2024](https://ctf.zjusec.com/games/4/challenges)
-    - [Crypto](Crypto.md)
-    - [Misc](Misc.md)
-    - [Reverse](Reverse.md)
-    - [Web](Web.md)
-    - [Welcome](Welcome.md)
+    - [crypto](crypto.md)
+    - [misc](misc.md)
+    - [reverse](reverse.md)
+    - [web](web.md)
+    - [welcome](welcome.md)
 
 {{ end_toc }}
 

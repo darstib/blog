@@ -1,3 +1,9 @@
+---
+tags:
+  - notes
+comments: true
+---
+
 ## 感知机模型 (page 2-4)
 
 感知机（Perceptron）是一种简单的人工神经网络，由F. Rosenblatt 于 1957 年提出，它被视为一种最简单的前馈神经网络，本质上是一个二元线性分类器。

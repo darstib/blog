@@ -1,3 +1,9 @@
+---
+tags:
+  - notes
+comments: true
+---
+
 # 非合作博弈论基础 (二)
 
 ## I 混合策略纳什均衡 (page 2-22)

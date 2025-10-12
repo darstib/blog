@@ -1,3 +1,9 @@
+---
+tags:
+  - notes
+comments: true
+---
+
 > [!help] 补补基础，主要参考 [AI 算法工程师手册](https://www.huaxiaozhuan.com/) 。
 
 ## 线性代数

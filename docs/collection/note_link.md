@@ -1,7 +1,7 @@
 ---
 tags:
 - collection
-- note
+- notes
 comments: true
 ---
 
@@ -25,6 +25,9 @@ comments: true
 - [咸鱼肆-计算机网络](https://www.yuque.com/xianyuxuan/coding/network)
 - [-Isshiki修's Notebook](https://note.isshikih.top/cour_note/D3QD_ComputerNetwork/)
 - [-小角龙的学习记录](https://zhang-each.github.io/My-CS-Notebook/Networking/)
+
+- [-GNS3图形化网络设计与图标管理入门到精通](https://blog.csdn.net/weixin_42581846/article/details/148378865)
+- [GNS3常用命令](https://www.keepnight.com/archives/269/)
 
 ### -编译原理
 

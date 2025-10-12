@@ -1,3 +1,9 @@
+---
+tags:
+  - notes
+comments: true
+---
+
 # 数据交易定价
 
 ## I 数据交易的基本框架 (page 4-6)

@@ -12,12 +12,10 @@
         - [project](note/cs188/project/README.md)
 	        - note/cs188/project/*.md
 	    - [intro in English](note/cs188/README_en.md)
-	- [GRL](note/GRL/README.md)
-		- note/GRL/*.md
-	- [RecSys](note/RecSys/README.md)
-		- note/RecSys/*.md
     - [physics](note/physics/README.md)
 	    - note/physics/*.md
+	- [README](note/CSys-I/README.md)
+		- note/CSys-I/*.md
 	- [CSys-II](note/CSys-II/README.md)
 		- note/CSys-II/*.md
 	- [CSys-III](note/CSys-III/README.md)
@@ -64,6 +62,10 @@
     - [大一小记](summary/大一小记.md)
     - [大二小结](summary/大二小结.md)
 - AI
+	- [RecSys](AI/RecSys/README.md)
+	    - AI/RecSys/*.md
+	- [GRL](AI/GRL/README.md)
+	    - AI/GRL/*.md
 	- [PaperRead](AI/PaperRead/README.md)
 		- AI/PaperRead/*.md
 	- JustDo

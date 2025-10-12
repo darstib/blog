@@ -1,6 +1,6 @@
 ---
 tags:
-- notes
+- tool
 - ctf
 comments: true
 ---

@@ -1,3 +1,9 @@
+---
+tags:
+  - notes
+comments: true
+---
+
 # 多臂老虎机算法基础与应用
 
 ## I 一般的机器学习任务 (page 3-4)

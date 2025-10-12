@@ -160,9 +160,11 @@ comments: true
 
 ### 影视
 
-- [ ] [Animeko](https://github.com/open-ani/animeko/)（应用）
-- [x] [kuzima](https://kazumi.app/)（应用）
-- [omofun](https://www.omofuns.com/)（在线网站，很多备用站点，自搜）
+> [硬核指南](https://yinghezhinan.com/)
+
+- [x] [Animeko](https://github.com/open-ani/animeko/)（应用）
+- [kuzima](https://kazumi.app/)（应用）
+- [omofun](https://www.omofuns.com/)（在线网站）
 - [次元狗](https://www.acgndog.com/)（网盘资源）
 - [trace 番](https://trace.moe/)（用截图查番）
 - [樱花动漫6](https://yhdm6.top/)
@@ -219,10 +221,8 @@ comments: true
 - [remove bg](https://www.remove.bg/)
     - 背景移除/抠图。
 - [artStation](https://www.artstation.com/) （过于专业了可能）
-- [excalidraw](https://excalidraw.com/)
-	- 在线手写风格作图白板
 
-- [数据可视化](data_visualization.md)
+- [数据可视化](./data_visualization.md)
 	- 我收集的数据可视化基础和工具
 - [graph_editor](https://csacademy.com/app/graph_editor)
     - 图论中的作图工具
@@ -234,10 +234,11 @@ comments: true
 - [Online Video Cutter](https://online-video-cutter.com/cn/)
     - 免费支持最大 4 G 的视频裁剪
 
-> [!extra] 下面主要是视频在线下载网站，总有这个网站无效另一个有效的情况，所以留下几个比较好用的，功能上具有重复性。
+> [!extra] 下面主要是视频在线下载网站，总有这个网站无效另一个有效的情况，所以留下几个比较好用的，功能上具有重复性；仅供个人学习使用，请勿商用。
 
 - [SnapAny](https://snapany.com/zh)
     - 理论支持[哔哩哔哩](https://snapany.com/zh/bilibili) [TikTok](https://snapany.com/zh/tiktok) [Pinterest](https://snapany.com/zh/pinterest) [Facebook](https://snapany.com/zh/facebook) [VK](https://snapany.com/zh/vk) [Snapchat](https://snapany.com/zh/snapchat) [Threads](https://snapany.com/zh/threads) [Suno](https://snapany.com/zh/suno)
+- [VO2B](https://www.v2ob.com/)
 - [Save](https://save.tube/)
     - 主要用于 youtube 视频下载。
 - [ssyoutube](https://ssyoutube.com/en778EN/)
@@ -306,6 +307,7 @@ comments: true
 
 ### 字体资源
 
+- [猫啃网](https://www.maoken.com/)
 - [方正字库](http://www.foundertype.com/)
 - [汉仪字库](http://www.hanyi.com.cn/)
 - [求字体网](http://www.qiuziti.com) - 字体识别
@@ -427,6 +429,8 @@ comments: true
 
 ### 权作娱乐
 
+> [有趣网址之家](https://youquhome.com/) - 收藏全球有趣的网站
+
 - [websim](https://websim.ai/) or [lovable](https://lovable.dev/) <- [demo](https://lovable.dev/projects/86d3f892-e56a-4c50-a027-9da3a9d94ae6)
 	- 用 AI 创作网页
 - [信任的进化](https://dccxi.com/trust/)
@@ -445,4 +449,6 @@ comments: true
 - [The Scale of the Universe](https://htwins.net/scale2/)
     - 你知道宇宙有多大吗？
 - [Emoji](https://www.emojiall.com/zh-hans)
+- [vivoplus](https://www.viwoplus.site/)
+	- 结合加税政策（）
 - [knowsex](https://knowsex.net/)

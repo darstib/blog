@@ -1,3 +1,9 @@
+---
+tags:
+  - notes
+comments: true
+---
+
 EM（Expectation-Maximization，期望最大化）算法是一种在机器学习中应用广泛的迭代算法。它主要用于解决**含有隐变量（latent variable）的概率模型**的参数估计问题。当模型中存在无法直接观测到的变量时，我们无法像往常一样直接使用极大似然估计法（MLE）或极大后验概率估计法（MAP）。EM 算法通过一个巧妙的迭代过程，逐步优化模型参数，最终得到一个（局部）最优解。
 
 ## EM 算法的引入 (page 2)
@@ -109,7 +115,7 @@ EM 算法的迭代过程可以直观地理解为：
 
 > [!note]+
 > 
-> ![EM 算法理解|375](https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/09_250609-151238.png)
+> ![|375](https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/09_250609-151238.png)
 > 
 > 从上图可以看出，EM 算法保证了似然函数值的单调增加，但**不能保证找到全局最优解**。算法的最终结果依赖于初始值的选择，可能会收敛到局部最优值。
 
@@ -194,6 +200,7 @@ EM 算法具有良好的收敛性质，但理解其收敛的含义至关重要�
 > $$
 >
 > 其中：
+> 
 > - $\alpha_k$ 是第 $k$ 个分模型的**混合系数**，满足 $\alpha_k \ge 0$ 且 $\sum_{k=1}^{K} \alpha_k = 1$。
 > - $\phi(y|\theta_k)$ 是第 $k$ 个高斯分模型的概率密度函数，其参数为 $\theta_k = (\mu_k, \sigma_k^2)$。
 >     $$

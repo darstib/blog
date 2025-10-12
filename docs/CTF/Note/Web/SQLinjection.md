@@ -1,7 +1,7 @@
 ---
 comments: true
 tags:
-- notes
+- tool
 - ctf
 ---
 

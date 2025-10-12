@@ -1,3 +1,9 @@
+---
+tags:
+  - notes
+comments: true
+---
+
 > [!tip]  推荐阅读 [Visual Information Theory](https://colah.github.io/posts/2015-09-Visual-Information/)
 
 ## 回归问题回顾 (page 4-5)

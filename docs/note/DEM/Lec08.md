@@ -1,3 +1,9 @@
+---
+tags:
+  - notes
+comments: true
+---
+
 # 最优机制
 
 ## I 虚拟福利最大化
