@@ -37,6 +37,38 @@ tags:
 >
 > 参考：[SSH 访问 Windows 的 WSL2 Ubuntu](https://zhi.moe/post/access-into-wsl2-ubuntu-from-macos/)
 
+> [!summary]- tldr ssh
+>
+> ```sh title="tldr ssh"
+> $ tldr ssh
+> ssh
+>
+> Secure Shell is a protocol used to securely log onto remote systems.
+> It can be used for logging or executing commands on a remote server.
+> More information: https://man.openbsd.org/ssh.
+>
+>  - Connect to a remote server:
+>    ssh username@remote_host
+>
+>  - Connect to a remote server with a specific identity (private key):
+>    ssh -i path/to/key_file username@remote_host
+>
+>  - Connect to a remote server using a specific [p]ort:
+>    ssh username@remote_host -p 2222
+>
+>  - Run a command on a remote server with a [t]ty allocation allowing interaction with the remote command:
+>    ssh username@remote_host -t command command_arguments
+>
+>  - SSH tunneling: [D]ynamic port forwarding (SOCKS proxy on localhost:1080):
+>    ssh -D 1080 username@remote_host
+>
+>  - SSH tunneling: Forward a specific port (localhost:9999 to example.org:80) along with disabling pseudo-[T]ty allocation and executio[N] of remote commands:
+>    ssh -L 9999:example.org:80 -N -T username@remote_host
+>
+>  - SSH [J]umping: Connect through a jumphost to a remote server (Multiple jump hops may be specified separated by comma characters):
+>    ssh -J username@jump_host username@remote_host
+> ```
+
 #### 基本连接
 
 这是最常用的命令，用于登录到远程服务器。
@@ -56,7 +88,7 @@ ssh [username@]remote_host # [表示可以省略]
 ssh username@remote_host -p 2222
 ```
 
-#### 远程执行命令
+#### 远程执行
 
 可以在不登录交互式 Shell 的情况下，直接在远程主机上执行单个命令。
 
@@ -162,60 +194,83 @@ Hi darstib! You've successfully authenticated, but GitHub does not provide shell
 
 当然，如果在命令行中重新指定选项，命令行选项会覆盖配置文件中的设置。
 
-> [!summary]- tldr ssh
->
-> ```sh title="tldr ssh"
-> $ tldr ssh
-> ssh
->
-> Secure Shell is a protocol used to securely log onto remote systems.
-> It can be used for logging or executing commands on a remote server.
-> More information: https://man.openbsd.org/ssh.
->
->  - Connect to a remote server:
->    ssh username@remote_host
->
->  - Connect to a remote server with a specific identity (private key):
->    ssh -i path/to/key_file username@remote_host
->
->  - Connect to a remote server using a specific [p]ort:
->    ssh username@remote_host -p 2222
->
->  - Run a command on a remote server with a [t]ty allocation allowing interaction with the remote command:
->    ssh username@remote_host -t command command_arguments
->
->  - SSH tunneling: [D]ynamic port forwarding (SOCKS proxy on localhost:1080):
->    ssh -D 1080 username@remote_host
->
->  - SSH tunneling: Forward a specific port (localhost:9999 to example.org:80) along with disabling pseudo-[T]ty allocation and executio[N] of remote commands:
->    ssh -L 9999:example.org:80 -N -T username@remote_host
->
->  - SSH [J]umping: Connect through a jumphost to a remote server (Multiple jump hops may be specified separated by comma characters):
->    ssh -J username@jump_host username@remote_host
-> ```
+#### 端口转发
 
 一个可能用到但是上面没有展示出来的情况是：如果我们在使用公共的服务器，而需要访问诸如 Github 等网络不稳定的服务时，我们希望能够连接使用流量使用我们本地主机的代理服务，此时可以使用 `-R` 选项，具体而言：
 
 ```sh
 $ ssh username@remote_host -R <remote_port>:localhost:<local_port>
-# 这等价于在 ~/.ssh/config 中使用 `LocalForward <remote_prot> localhost:<local_port>`
+# 这将你本地的 <local_port> 的流量映射到了远程服务器的 <remote_port>
+# 等价于在 ~/.ssh/config 中使用 `LocalForward <remote_prot> localhost:<local_port>`
 
-# 之后在服务器上设置 http_proxy 即可
+# 之后在服务器上设置 http_proxy 即可（其中7890替换为 <remote_port> 的实际值）
 # export http_proxy=http://localhost:7890 export https_proxy=http://localhost:7890
 ```
 
-> [!extra]- 记录一个便于在服务器上设置别名
+进一步的，考虑下面的情况：我们不能够直接连接一个服务器（被内网保护、没有暴露出来的 ip）**且能够获得服务器的一个 shell**（看似奇怪的条件居然短时间内我遇到了两次，故亟需解决）。
+
+此时考虑使用[反向向隧道](https://samzong.me/blog/2025-02-27-ssh-tunnel-proxy-guide)，即令先服务器（以 linux 服务器为例，下称 L）访问我们自己的电脑（这里以 windows 为例，下称 P；mac 是类 unix 系统，操作与 linux 类似且没有遇到什么问题），将 L 的 22 号端口（即 <local_port>，这是 ssh 服务的默认端口）映射到 P 的一个端口（即<remote_port>，下面以 2222 为例）建立好反向隧道。之后我们就能从 P 去 ssh 连接自己的 <remote_port> 即可访问 L 。
+
+> [!help]- 比喻：你去朋友家做客
 > 
-> ```sh title="~/.bashrc"
-> # 建立反向 ssh 隧道
-> # ssh 连接 host，并将服务器的 22 端口映射到 host 的 port
-> function open_reverse_ssh() {
->    local port=${1:-host-port}
->    local user=${2:-host-username}
->    local host=${3:-host-ip}
->    ssh -R ${port}:localhost:22 ${user}@${host}
-> }
-> ```
+> 你第一次去朋友家，但朋友家非常偏僻，地图上都找不到，但你家是可以在地图上找到的；你只好打电话让朋友先来你家找你，再给你引路。
+
+> [!attention] 下面的流程省略了密钥的生成，请自己复习前文。
+
+**Windows(P)**:
+
+1. 我们需要开启 windows 上的 OpenSSH 服务端和客户端，这一点可以参考[微软的 OpenSSH 入门](https://learn.microsoft.com/zh-cn/windows-server/administration/openssh/openssh_install_firstuse)；
+	- 在 powershell 中执行 `Get-Service -Name *ssh*` `ssh -V`
+2. 在 `powershell` 中执行 `ipconfig` 获得 P 的 IP <ip_win>
+
+**Linux(L)**:
+
+> 如果 linux 上此时未开启 ssh 服务（客户端/服务端），也需要配置。
+
+1. 使用 `nc -z <ip_win> 22` 检查 L 能否访问 P 的 22 端口，预期是顺利执行结束无输出；
+2. 连接 P：
+	- 如果只是少数几次连接，直接执行 `ssh -R 2222:localhost:22 username@<ip_win>` 并使用 windows 的密码即可（注意是你**登录 windows 系统**的账户和密码，一般对于 PC 而言应该是只有一个用户才对），这一点如果还不清楚需要考虑重新读上文；
+	- 如果是频繁连接且确保服务器在你可控时间内无人可访问，考虑使用密钥文件和配置 ~/.ssh/config 文件，参考如下：
+		```config
+		Host reverse-win
+		    HostName <ip_win>
+		    User username
+		    Port 22
+		    RemoteForward 2222 localhost:22
+		    IdentityFile ~/.ssh/id_ed25519_win
+		    ServerAliveInterval 60 # 每 60 s 向对方发送一条保活消息
+		    ServerAliveCountMax 3 # 连续 3 次保活消息未被响应则断开连接
+		    ExitOnForwardFailure yes # 如果转发建立失败则退出，因为这意味着这个连接对我们失去了意义
+		```
+
+**Windows(P)**:
+
+1. 将 L 的 `~/.ssh/id_ed25519_win.pub` 的内容写入 `"$env:ProgramData\ssh\administrators_authorized_keys"`
+	- 注意这一前提是你给出的用户是 windows 系统的管理员，对于 PC 来说一般默认即是
+	- 考虑到编辑这个文件需要管理员权限，我们可以以管理员权限打开 powershell：
+		1. 直接 `notepad "$env:ProgramData\ssh\administrators_authorized_keys"`
+		2. 或者先写入 `"$env:USERPROFILE\.ssh\authorized_keys"`，（这是一个我们更加习惯的位置），最后将其进行复制
+			-  `Copy-Item "$env:USERPROFILE\.ssh\authorized_keys" "$env:ProgramData\ssh\administrators_authorized_keys"`
+
+**Linux(L)**:
+
+1. 执行 `ssh reverse-win` ，此时应该打开 windows 的 powershell 
+	- 为了节约进程资源，我们之后可以执行 `ssh -Nf reverse-win`，N 表示不执行命令；f 表示在后台进行
+	- 之后可以使用 `ps aux | grep "ssh -Nf"` 找到进程，使用 `pkill -f "ssh -Nf"` 终止进程
+2.  将 `"$env:USERPROFILE\.ssh\id_ed25519_remote.pub"` 的内容放入 `~/.ssh/authorized_keys` 中
+3. 执行 `whoami` 获得用户名 <remote_user>
+
+**Windows(P)**:
+
+1. 配置 `"$env:USERPROFILE\.ssh\config"` ，参考如下
+	```config
+	Host remote-server
+		HostName localhost
+		Port 2222
+		User <remote_user>
+		IdentityFile ~/.ssh/id_ed25519_remote
+	```
+2. 执行 `ssh remote-server` ，应该可以成功连接了。
 
 ### SCP：安全的文件复制
 

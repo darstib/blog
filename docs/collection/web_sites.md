@@ -4,6 +4,8 @@ tags:
 comments: true
 ---
 
+收集各种可能有用的网站，整理自我的书签，蕾丝
+
 ## 人工智能
 
 ### llm
@@ -17,8 +19,8 @@ comments: true
 - [DeepSeek](https://chat.deepseek.com/)(深度求索)
 - [Chatgpt](https://chatgpt.com/) 
 - [Claude](https://claude.ai/)
-- [kimi](https://kimi.moonshot.cn/) 
-- [Chatglm](https://chatglm.cn/main/alltoolsdetail?lang=zh)(智谱清言)
+- [kimi](https://kimi.moonshot.cn/)
+- [ZAI](https://chat.z.ai)或者[Chatglm](https://chatglm.cn/main/alltoolsdetail?lang=zh)(智谱清言)
 - [豆包](https://www.doubao.com/) 
 
 - [Lmarena](https://lmarena.ai/?mode=direct)
@@ -26,6 +28,11 @@ comments: true
 	- 纯文字/生图
 
 ### search/agent
+
+> [!summary]- 来自这里的导航站以及自己收集
+> 
+> - [x] [aipure](https://aipure.ai/cn)
+> - [AI bot](https://ai-bot.cn/)
 
 - [x] [Gemini](https://gemini.google.com) 的 Deep Research
 - [AutoGLM](https://chatglm.cn/main/autoglm)
@@ -44,12 +51,17 @@ comments: true
 		- [komo](https://komo.ai/)
 		- [秘塔](https://metaso.cn/)
 
-### other
+### image
 
 - [Anakin](https://app.anakin.ai/artist)
     - 本身是一个集成平台，我看中的是其 artist 部分的文生图模型；
     - ~~部分模型可免费使用[^2]，例如 Stable Diffusion XL Base 1.0。~~
-- [raphael](https://raphael.app/)
+- [dreamifly](https://github.com/LastLighter/Dreamifly) or [raphael](https://raphael.app/)
+	- 免费 AI 生图
+- [极梦](https://dreamina.capcut.com/)
+
+### other
+
 - [AI short](https://www.aishort.top/) or [prompts.chat](https://prompts.chat/) or [提示词优化器](https://prompt.always200.com/)
     - AI 提示词
 - [openai - tokenizer](https://platform.openai.com/tokenizer)
@@ -69,7 +81,8 @@ comments: true
 	- [hello github 月刊](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzA5MzYyNzQ0MQ==&action=getalbum&album_id=1331197538447310849)
 	- [github trending](https://github.com/trending)
 - 开源项目分析
-	- [Zread](https://zread.ai)
+	- [x] [Zread](https://zread.ai)
+		- 支持中英文
 	- [DeepWiki](https://deepwiki.com/)
 		- [探索DeepWiki：代码世界的智能百科全书](https://www.wangdu.site/software/ai/2224.html)
 - 文件相关
@@ -81,9 +94,9 @@ comments: true
 	- [开源许可证](https://docs.github.com/zh/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository)
 	- [Github 工作流](https://docs.github.com/zh/actions/writing-workflows/about-workflows)
 - 交流
+	- [Linux Do](https://linux.do/faq)
 	- [V2EX](https://www.v2ex.com/) or [segmentfault](https://segmentfault.com/)
-	    - 国内程序员交流网站（还算比较活跃）
-	- [Linux Do](https://linux.do/faq)（还算比较活跃）
+	    - ~~国内程序员交流网站~~（还算比较活跃）
 	- [吾爱破解](https://www.52pojie.cn/) （误入）
 - 镜像站
 	- [清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/)
@@ -93,16 +106,25 @@ comments: true
 - [ETA](https://eta.js.org) <- [docs](https://eta.js.org/docs)
     - JS 模版引擎
 
+### 前沿快讯
+
+- [bestblog](https://www.bestblogs.dev/)
+	- 聚焦 AI 领域的文章/推文/博客
+- [zenfeed](https://zenfeed.xyz/)
+	- 抓取知名论坛/平台的热门贴
+	- 来自 [LinuxDo](https://linux.do/t/topic/608974)
+- [摸鱼岛](https://yucoder.cn/index)
+	- 摸鱼也可以看看各个平台的热门贴嘛
+	- 来自 [LinuxDo](https://linux.do/t/topic/929297)
+
 ### 白嫖服务
 
 #### 容器服务
 
-> [!quote] 
+> [!summary]- 基本来自这里的帖子，正文是我自己体验过的评价
 > 
 > - [盘点那些免费的Docker容器（1）](https://linux.do/t/topic/174075)
 > - [盘点那些免费的Docker容器（2）](https://linux.do/t/topic/826133)
-> 
-> 基本来自上面的帖子，下面是我自己体验过的评价：
 
 - [Claw cloud](https://run.claw.cloud/)
 	- 注册需要 180 天以上的 github 账号最佳，其余情况似乎有其他限制？无需绑卡
@@ -114,14 +136,18 @@ comments: true
 	- 会重启容器，如果有存储需求需要额外的数据库服务（见下）；免费版不能自定义域名
 - [Render](https://dashboard.render.com/)
 	- 注册较随意，（疑似）需要绑卡
-	- 按照免费配置可部署任意多容器，所有容器共享 750 h；部署较快
+	- 按照免费配置可部署任意多容器，所有容器共享 750 h/month；部署较快
 	- 会重启容器，如果有存储需求需要额外的数据库服务（见下）
 
 #### 数据库服务
 
-> [!quote] 
+> [!summary]- 基本来自这里的帖子，正文是我自己体验过的评价
 > 
 > - [免费云端数据库个人总结](https://linux.do/t/topic/707744)
+
+- [supabase](https://supabase.com/) PostgreSQL
+	- 免费 500M x 2
+	- 目前配合 render，个人使用没出现过问题
 
 ### 查查办
 
@@ -131,51 +157,56 @@ comments: true
     - 获取 ip 地址
 - [Nslookup](https://www.nslookup.io/)
 	- DNS 查询
+- [aherfs-backlink checker](https://ahrefs.com/backlink-checker/)
+	- 查找反向链接，即哪些网站索引了指定的 url，免费版支持小部分结果
+	- 如果是域名拥有者，可以尝试 [Google Search Console](https://search.google.com/search-console/about) 或 [Bing Webmaster Tools](https://www.bing.com/webmasters/about)
 - [solant](https://www.slant.co/)
     - 什么是最好的？
 - [wikiHow](https://zh.wikihow.com/%E9%A6%96%E9%A1%B5)
-    - “互联网上最值得信赖的指南网站”
+    - “互联网上最值得信赖的指南网站”（网站自称）
 - [The On-Line Encyclopedia of Integer Sequences (OEIS)](https://oeis.org/)
 	- 在线整数序列百科
-
 
 ## 资源查找
 
 ### 电子资料
 
 - [电子书查找](https://chen-huaneng.github.io/2024/11/14/2024-11-14-2024-11-14-website/#%E7%94%B5%E5%AD%90%E4%B9%A6)
+	- [中国国家数字图书馆](https://www.nlc.cn/web/index.shtml)
 	- [Anna's Archive](https://annas-archive.org/)
 	- Zlibrary
 	- [鸠摩搜索](https://www.wangdu.site/software/av-read/540.html)
-	- [中国国家数字图书馆](https://www.nlc.cn/web/index.shtml)
-	- [pdf drive](https://www.pdfdrive.com/)
-	- [magazine lib](https://magazinelib.com/)
-	- [公开真题库](https://www.gkzenti.cn/)
+	- [welib](https://welib.org/)（原 [pdf drive](https://www.pdfdrive.com/)）
+	- [magazine lib](https://magazinelib.com/)（外网杂志）
+- [夸克搜](http://www.kuakeso.net/)
+	- 搜公开的夸克/百度网盘资源
+- [pansou](https://github.com/fish2018/pansou)
+	- [盘搜](https://so.252035.xyz/)
+- [公开真题库](https://www.gkzenti.cn/)（公考，事考）
+- [真题在线](https://www.wehuster.com/)（大学英语四六级试卷）
 - [古诗文网](https://www.gushiwen.cn/)
-- [BT磁力种子搜索引擎网站](https://www.wangdu.site/software/av-read/540.html)
-- [x] [真题在线](https://www.wehuster.com/)
-- [Ayouth的影视站点推荐](https://ayouth.top/ayouth/video.html)
-- [dytt](https://dydytt.net/index.htm)
-- [vidhub](https://vidhub.link/)
+- [x] [macked](https://macked.app/) or [xclient](https://xclient.info/)
+	- mac 软件
 
 ### 影视
 
-> [硬核指南](https://yinghezhinan.com/)
+> [!summary]- 来自这里的导航站以及自己收集
+> 
+> - [硬核指南](https://yinghezhinan.com/)
+> - [Ayouth的影视站点推荐](https://ayouth.top/ayouth/video.html)
 
-- [x] [Animeko](https://github.com/open-ani/animeko/)（应用）
-- [kuzima](https://kazumi.app/)（应用）
-- [omofun](https://www.omofuns.com/)（在线网站）
-- [次元狗](https://www.acgndog.com/)（网盘资源）
+- [vidhub](https://vidhub.link/)（杂，在线网站）
+- [x] [Animeko](https://github.com/open-ani/animeko/)（动漫，应用）
+- [kuzima](https://kazumi.app/)（动漫，应用）
+- [omofun](https://www.omofuns.com/)（动漫，在线网站）
+- [樱花动漫6](https://yhdm6.top/)（动漫，在线网站）
+- [次元狗](https://www.acgndog.com/)（二次元，磁力/网盘）
+- [BT磁力种子搜索引擎网站](https://www.wangdu.site/software/av-read/540.html)
+    - [电影天堂](https://dydytt.net/index.htm)
 - [trace 番](https://trace.moe/)（用截图查番）
-- [樱花动漫6](https://yhdm6.top/)
-
-### 工具箱
-
-- [x] [aipure](https://aipure.ai/cn)
-- [AI bot](https://ai-bot.cn/)
-- [x] [lddgo](https://www.lddgo.net/)
-- [eureka](https://lin64850.github.io/posts/32227)
-- [x] [macked](https://macked.app/) or [xclient](https://xclient.info/)
+- [影视接口](https://webnote.cc/yinshi-jiekou)（杂，接入一些软件）
+	- 密码：gongdian.top
+- [追剧吧](www.zhuiju.us) （杂，网盘资源）
 
 ## 文件处理
 
@@ -194,7 +225,7 @@ comments: true
 - [pandoc](https://pandoc.org/)
     - a universal document converter
 - 英文论文翻译
-	- [幻觉翻译](https://hjfy.top/)
+	- [x] [幻觉翻译](https://hjfy.top/)
 		- 来自[消耗 3 亿 token，我用大模型翻译了 1 万篇 arXiv 论文](https://zhuanlan.zhihu.com/p/1905569596599169419)
 	- [ChatPaper](https://github.com/kaixindelele/ChatPaper)
 		- 可以免费使用[学术版GPT 网页非盈利版](https://academic.chatwithpaper.org/)
@@ -216,20 +247,22 @@ comments: true
 - [搜图神器工具](https://www.soutushenqi.com/tools)
 	- AI 处理图片，有时效果还行
 - [稿顶 - 在线 PS](https://ps.gaoding.com/#/)
-- [Canva](https://www.canva.com/) or [fotor](https://www.fotor.com/)
-    - 适合做些简单的图。
+	- [抠图](https://www.gaoding.com/koutu)
 - [remove bg](https://www.remove.bg/)
-    - 背景移除/抠图。
-- [artStation](https://www.artstation.com/) （过于专业了可能）
-
-- [数据可视化](./data_visualization.md)
-	- 我收集的数据可视化基础和工具
+    - 背景移除/抠图
+- [Canva](https://www.canva.com/) or [fotor](https://www.fotor.com/)
+    - 适合做些简单的图
 - [graph_editor](https://csacademy.com/app/graph_editor)
     - 图论中的作图工具
 - [excalidraw](https://excalidraw.com/) or [processon](https://www.processon.com/)
     - 比较适合画结构图/流程图
+- [artStation](https://www.artstation.com/) （过于专业了可能）
 
-### 视频处理
+- [数据可视化](./data_visualization.md)
+	- 我收集的数据可视化基础和工具
+
+
+### 视频相关
 
 - [Online Video Cutter](https://online-video-cutter.com/cn/)
     - 免费支持最大 4 G 的视频裁剪
@@ -250,6 +283,7 @@ comments: true
 
 > [!extra] 取图“床”之意，表示能够暂时借助以在线存储/传播一些东西。
 
+- [云便签](https://webnote.cc/)
 - [imgbb](https://imgbb.com/) or [smms](https://sm.ms/)
     - 免费图床，敏感图片就最好自己搭建图床了。
 - [godbolt](https://godbolt.org/)
@@ -400,8 +434,35 @@ comments: true
 
 - 其他你可能感兴趣的收集：
 	- 一些自学经验见 [teachyourselfcs](teachyourselfcs.md)
+- [各种网站资源合集](https://lin64850.github.io/posts/32227)
+	- 另一个小众需求网站合集
 
 ### 杂乱工具
+
+> [!summary]- 关于节点质量检查的网站有点多，具体可以先看看第[何为好 IP](https://linux.do/t/topic/45300)
+> 
+> 结论就是……没有非常完美的检查方法，交叉验证吧。下面随我觉得比较认可的网站，例如偶然得到一个美国原生节点，最后检测结果确实很漂亮；然后找一些便宜机场的节点，应当显示比较差的等等……
+
+- [pixelscan](https://pixelscan.net/)
+	- [vpn-check](https://pixelscan.net/vpn-check) 可能从时区和 WebRTC 推断你的物理位置和 IP 是否一致。
+- [ipcheck](https://ipcheck.aibici.org/#/)
+	- 多个来源检测 IP 信息和 DNS 泄露
+	- 如果各个来源的结果基本一致，那当前节点的质量应该是不错的
+- [ ] [ipdata](https://ipdata.co/)
+	- 严格程度一般，能过这个差不多够日常使用了
+- [IPQuality](https://github.com/xykt/IPQuality)
+	- 这是一个脚本，会查找多个数据库检测，速度较慢，结果较详细
+	- 一个类似地是 [ping0](https://ping0.cc)，但是据说不太准？
+
+- [Sublink](https://github.com/7Sageer/sublink-worker) 节点转订阅
+	- 自建了一个 [sublink-workr](https://sublink-worker.qssgatcn.workers.dev/)
+	- 绑了个[丑丑的域名](http://sub.2.a.4.b.0.d.0.0.1.0.a.2.ip6.arpa/)（以支持不翻墙）
+- [-CF-Workers-SUB](https://github.com/cmliu/CF-Workers-SUB)
+
+> [!summary]- 来自这里的导航站以及自己收集
+> 
+> - [x]  [lddgo](https://www.lddgo.net/)
+> - [eureka](https://lin64850.github.io/posts/32227)
 
 - [微信公众号文章下载](https://github.com/qiye45/wechatDownload)
 - [微信文件传输助手](https://filehelper.weixin.qq.com/)
@@ -423,16 +484,21 @@ comments: true
 
 ### 杂文趣事
 
-- [best blog](https://www.bestblogs.dev/)
 - [the website of Gwern Branwen](https://gwern.net/)
 - [LessWrong](https://www.lesswrong.com/)
 
 ### 权作娱乐
 
-> [有趣网址之家](https://youquhome.com/) - 收藏全球有趣的网站
+> [!summary]- 来自这里的导航站以及自己收集
+> 
+> - [有趣网址之家](https://youquhome.com/)
+> 	- “收藏全球有趣的网站”
 
+- [钟楼谜团](https://clocktower.gstonegames.com/)
 - [websim](https://websim.ai/) or [lovable](https://lovable.dev/) <- [demo](https://lovable.dev/projects/86d3f892-e56a-4c50-a027-9da3a9d94ae6)
 	- 用 AI 创作网页
+- [超级挖掘机](https://mastersgo.cc/)
+	- “智能分析热点，精准把握机会”
 - [信任的进化](https://dccxi.com/trust/)
 	- 信任小游戏
 - [chatcrypt](https://client.chatcrypt.com/)

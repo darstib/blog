@@ -4,12 +4,16 @@ tags:
 - collection
 ---
 
+## 杂文
+
+- [【干货】《统计因果推理入门》读书笔记](https://zhuanlan.zhihu.com/p/380711267)
+- [【干货、万字长文】远不止B=MAP：《福格行为模型》到底讲了什么？](https://zhuanlan.zhihu.com/p/462990256)
+
 ## 知识类
 
 ### 传统计算机科学
 
 - [Why you should use `python -m pip`](https://snarky.ca/why-you-should-use-python-m-pip/)
-- [编程范式](https://devv.ai/search?threadId=edi2mlfxs740)
 - [huffman-tree](https://oi-wiki.org/ds/huffman-tree/) & [Visual Information Theory](https://colah.github.io/posts/2015-09-Visual-Information/)
     - 哈夫曼树/编码 & 信息论/交叉熵
 - [一文读懂Python async/await异步编程](https://zhuanlan.zhihu.com/p/698683843)
@@ -17,6 +21,8 @@ tags:
 ### 机器/深度学习
 
 - [神经网络中的偏置（bias）究竟有什么用？](https://www.zhihu.com/question/305340182)
+	- 推荐先看[霍普菲尔德网络如何通过能量景观帮助大脑完成记忆回忆？](https://www.bilibili.com/video/BV1d6zSYTEFp)
+- [反馈神经网络——Hopfield网络](https://zhuanlan.zhihu.com/p/457810569)
 - [凸优化 - 拉格朗日对偶](https://www.lesswrong.com/)
 - [混合专家模型 (MoE) 详解](https://huggingface.co/blog/zh/moe)
 - [Understanding Reasoning LLMs](https://magazine.sebastianraschka.com/p/understanding-reasoning-llms)
@@ -73,7 +79,6 @@ tags:
 	- 紫色：好奇内容，没看懂/希望能够较为深入进行了解，了解后转蓝；
 	- 灰色：其他有效信息；
 	- 一般采用下划线，高亮进行特别突出。
-- [devv - 如何获得一篇论文的 bib 信息](https://devv.ai/search?threadId=eh3zbw3osoow)
 
 ## AI work
 
@@ -87,3 +92,6 @@ tags:
 	- [Python 代码规范](https://0rkd5buozm.fellou.io/python-code-specification-guide-modern-version-vDsqj1Gl)
 		- [在Python类型标注中放飞自我](https://zhuanlan.zhihu.com/p/636582050)
 		- [谷歌 python 风格规范](https://google.github.io/styleguide/pyguide.html)
+- [devv](https://devv.ai/search)
+	- [如何获得一篇论文的 bib 信息](https://devv.ai/search?threadId=eh3zbw3osoow)
+	- [编程范式](https://devv.ai/search?threadId=edi2mlfxs740)

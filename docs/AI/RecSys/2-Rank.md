@@ -1,4 +1,9 @@
-# 排序
+---
+tags:
+  - notes
+comments: true
+---
+
 ## 多目标排序
 
 在对物品召回后，我们需要对召回物品进行排序以筛选出合适数量的推荐内容。由于一般需要考虑的指标非常多，包括点击率、点赞率、收藏率、转发率等，为了综合考虑这些指标融合评估，我们一般训练使用多目标模型进行融合（例如加权和，更多可见 [bilibili](https://www.bilibili.com/video/BV1YT411578u)/[rank-03]([RecommenderSystem/Slides/03_Rank_03.pdf at main · wangshusen/RecommenderSystem](https://github.com/wangshusen/RecommenderSystem/blob/main/Slides/03_Rank_03.pdf))），并依据融合分数进行排序、截断。

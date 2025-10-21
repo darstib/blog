@@ -1,10 +1,14 @@
-# 冷启动
+---
+tags:
+  - notes
+comments: true
+---
 
 > [!info]- UGC & PGC
 > 
 > UGC(User-Generated Content) 和 PGC(User-Generated Content) 的区别即在于平台中物品主要由用户生成（知乎、Bilibili、小红书）还是平台提供（腾讯视频、QQ 音乐）。
 
-在 UGC 平台，物品由用户提供，数量大且良莠不齐，冷启动较为困难。
+在 UGC 平台，物品由用户提供，数量大且良莠不齐，冷启动(code start)较为困难。
 
 > [!question]+ 为什么需要冷启动？
 > 

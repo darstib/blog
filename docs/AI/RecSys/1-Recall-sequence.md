@@ -1,4 +1,12 @@
-# Sequence-based
+
+
+---
+tags:
+  - notes
+comments: true
+---
+
+基于序列的召回。
 
 ## LastN
 
@@ -254,9 +262,7 @@ $$
 然后就是经典的计算概率，极大似然/极小负对数似然（论文中没有取负，但也只是说是目标函数，也许默认就是求解收敛最大值吧），sampled softmax 学习到映射 $f_{user}$
 
 $$
-\Pr(i|u)=\Pr\left(\overrightarrow{e}_i|\overrightarrow{v}_u\right)=\frac{\exp\left(\overrightarrow{v}_u^\mathrm{T}\overrightarrow{e}_i\right)}{\sum_{j\in I}\exp\left(\overrightarrow{v}_u^\mathrm{T}\overrightarrow{e}_j\right)} \Rightarrow
-
-L=\sum_{(u,i)\in D}\log\Pr(i|u)
+\Pr(i|u)=\Pr\left(\overrightarrow{e}_i|\overrightarrow{v}_u\right)=\frac{\exp\left(\overrightarrow{v}_u^\mathrm{T}\overrightarrow{e}_i\right)}{\sum_{j\in I}\exp\left(\overrightarrow{v}_u^\mathrm{T}\overrightarrow{e}_j\right)} \Rightarrow L=\sum_{(u,i)\in D}\log\Pr(i|u)
 $$
 
 #### 服务

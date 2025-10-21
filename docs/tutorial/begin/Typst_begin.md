@@ -147,7 +147,7 @@ $ typst init @preview/bloated-neurips:0.2.1
 
 学习一个东西最好的办法就是阅读他的[官方文档](https://typst.app/docs/tutorial/)。对于教程，如果您不喜英文，可以看看非官方维护的[中文教程](https://typst-doc-cn.github.io/docs/tutorial/)。当然，有时候官方文档会较为晦涩；又或者过于详细，而我们不需要知道那么多。
 
-- 一个语法简单的介绍使用可见我使用 touyin 做的 [typst_cheatsheet](../../static/typst_cheatsheet.pdf)【[源码](../../static/typst_cheatsheet.zip) 】 笔记，使用 [touyin](https://touying-typ.github.io/zh/) 模板；
+- 一个语法简单的介绍使用可见我使用 touyin 做的 [typst_cheatsheet](../../static/typst_cheatsheet.pdf)【[源码](../../static/typst_cheatsheet.zip)】 笔记，使用 [touyin](https://touying-typ.github.io/zh/) 模板；
 - [Typst Examples Book](https://sitandr.github.io/typst-examples-book/book/) 
 	- 也是一个很好的入门和进阶教程；
 - [不太简短的 typst 教程](http://ai-assets.404.net.cn/pdf/typst/typst-zh_CN-20230409.pdf)

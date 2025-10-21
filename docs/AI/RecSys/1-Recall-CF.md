@@ -1,4 +1,8 @@
-# Collaborative Filtering
+---
+tags:
+  - notes
+comments: true
+---
 
 协同过滤（Collaborative Filtering）推荐算法是最经典、最常用的召回算法。基本思想是：根据用户之前的喜好以及其他兴趣相近的用户的选择来给用户推荐物品。
 

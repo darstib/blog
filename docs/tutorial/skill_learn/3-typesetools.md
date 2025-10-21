@@ -33,8 +33,6 @@ tags:
 > Markdown ...
 ```
 
-> [!extra]-
->
 > 考虑到之后可能在 github 进行项目开发并攥写自述文件(README)，推荐大家优先学习 [Github 的基本撰写和格式语法](https://docs.github.com/zh/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#headings)。
 
 对于 markdown 的基础语法实在太常见了，鹤翔学长的 [Markdown 教学](https://slides.tonycrane.cc/MarkdownLecture/#slide=1)也非常详细，我不准备全部讲解，
@@ -88,7 +86,7 @@ tags:
 >
 >在 demo.docx 文件中添加一级标题、二级标题、一张图片后，使用解压缩软件及进行解压，可以得到一个文件夹，内容如下：
 >
-> ![docx demo](https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/17_250317-221550.png)
+> ![](https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/17_250317-221550.png)
 >
 >我们无需看懂这些奇怪的标签内容，只需要了解编辑的文本不过是在内部使用这样那样的语法进行了修饰，便于我们稍后总结。
 >
@@ -100,7 +98,7 @@ tags:
 
 > [!wiki]- $\LaTeX$
 >
-> LaTeX（/ˈlɑːtɛx/或/ˈleɪtɛx/，常被读作/ˈlɑːtɛk/或/ˈleɪtɛk/，风格化后写作“LaTeX”），是一种基于 TeX 的排版系统。
+> LaTeX（/ˈlɑːtɛx/或/ˈleɪtɛx/，常被读作/ˈlɑːtɛk/或/ˈleɪtɛk/，风格化后写作 $\LaTeX$），是一种基于 TeX 的排版系统。
 > 
 > 发音介绍可见 [Latex 入门 - 熟悉 LaTeX](https://lrita.github.io/images/wiki/latex%E5%85%A5%E9%97%A8-%E7%AE%80%E7%89%88-%E5%88%98%E6%B5%B7%E6%B4%8B.pdf)；[TeX 引擎、格式、发行版之介绍](https://liam.page/2018/11/26/introduction-to-TeX-engine-format-and-distribution/)。
 

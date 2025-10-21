@@ -1,4 +1,8 @@
-# Graph-based
+---
+tags:
+  - notes
+comments: true
+---
 
 一般而言，我们说的基于图的召回是依据[图嵌入](../../../AI/GRL/GE.md)学习物品/用户的嵌入表示，之后使用 ANN 等技术进行召回。
 

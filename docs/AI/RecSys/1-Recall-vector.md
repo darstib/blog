@@ -1,4 +1,10 @@
-# Vector-based
+---
+tags:
+  - notes
+comments: true
+---
+
+基于向量的召回。
 
 ## Deep retrieval
 

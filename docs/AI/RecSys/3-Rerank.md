@@ -1,6 +1,10 @@
-# 重排
+---
+tags:
+  - notes
+comments: true
+---
 
-粗排和精排后都可以有对应的后处理提高推荐内容效果（其中精排后的后处理一般被称为重排）。
+粗排和精排后都可以有对应的后处理提高推荐内容效果（其中精排后的后处理一般被称为重排(rerank)）。
 
 ![re-rank](https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-214412.png)
 

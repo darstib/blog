@@ -14,7 +14,7 @@
 	    - [intro in English](note/cs188/README_en.md)
     - [physics](note/physics/README.md)
 	    - note/physics/*.md
-	- [README](note/CSys-I/README.md)
+	- [CSys-I](note/CSys-I/README.md)
 		- note/CSys-I/*.md
 	- [CSys-II](note/CSys-II/README.md)
 		- note/CSys-II/*.md

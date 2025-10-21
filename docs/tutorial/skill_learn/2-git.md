@@ -539,16 +539,17 @@ README.md  docs  github-resume  sub-repo
 > 我其实想要 github-resume 放进 demo-repo/sub-repo 中，我应该用 mv 吗？
 
 - **git 不仅仅是文件系统：** Git 通过 .gitmodules 文件和父仓库中的特殊 "gitlink" 条目来跟踪子模块的位置和它应该指向的特定 commit；
-- **mv 只移动文件：** 操作系统的 mv github-resume sub-repo/ 命令只会移动物理目录，但它**不会**更新 .gitmodules 文件中记录的 path，也不会更新父仓库索引中关于子模块位置的信息；
-- **导致不一致：** 如果你只用 mv，Git 会认为子模块丢失了（因为它不在原来的 github-resume 路径了），并且 sub-repo/github-resume 目录会被视为未跟踪的文件。
+- **mv 只移动文件：** 操作系统的 mv github-resume sub-repo/ 命令只会移动物理目录，但它**不会**更新 .gitmodules 文件中记录的 path，也不会更新父仓库索引中关于子模块位置的信息；如果只用 mv，Git 会认为子模块丢失了（因为它不在原来的 github-resume 路径了），并且 sub-repo/github-resume 目录会被视为未跟踪的文件。
 
-与 git Submodule 相关的文件：
+> [!extra]- 与 git Submodule 相关的文件
+> 
+> | 文件/目录            | 描述                                                           |
+> | ---------------- | ------------------------------------------------------------ |
+> | **.gitmodules**  | 文本文件，存储了项目中所有子模块的映射关                                 |
+> | **.git/config**  | 当运行 git submodule init 后，.gitmodules 中的子模块信息（主要是 URL）会被复制到这里 |
+> | **.git/objects** | ...                                                          |
 
-| 文件/目录            | 描述                                                           |
-| ---------------- | ------------------------------------------------------------ |
-| **.gitmodules**  | 这是一个**文本文件**，存储了项目中所有子模块的映射关                                 |
-| **.git/config**  | 当运行 git submodule init 后，.gitmodules 中的子模块信息（主要是 URL）会被复制到这里 |
-| **.git/objects** | ...                                                          |
+移动子仓库时，应该使用 `git mv`：
 
 ```sh
 $ git mv github-resume sub-repo/github-resume
