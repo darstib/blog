@@ -4,7 +4,7 @@ tags:
 comments: true
 ---
 
-收集各种可能有用的网站，整理自我的书签，蕾丝
+收集各种可能有用的网站，整理自我的书签和后续收集。
 
 ## 人工智能
 
@@ -50,6 +50,7 @@ comments: true
 		- [iAsk](https://iask.ai/)
 		- [komo](https://komo.ai/)
 		- [秘塔](https://metaso.cn/)
+- [SearXNG instances](https://searx.space/#)
 
 ### image
 
@@ -110,9 +111,12 @@ comments: true
 
 - [bestblog](https://www.bestblogs.dev/)
 	- 聚焦 AI 领域的文章/推文/博客
+- [ai-bot](https://ai-bot.cn/daily-ai-news/)
+	- 每日 AI 快讯新闻
 - [zenfeed](https://zenfeed.xyz/)
 	- 抓取知名论坛/平台的热门贴
 	- 来自 [LinuxDo](https://linux.do/t/topic/608974)
+- [free me](https://feedme.icu/)
 - [摸鱼岛](https://yucoder.cn/index)
 	- 摸鱼也可以看看各个平台的热门贴嘛
 	- 来自 [LinuxDo](https://linux.do/t/topic/929297)

@@ -42,6 +42,8 @@ comments: true
     - [Rust 中文教程](https://course.rs/about-book.html)
         - 应该会比官方文档友善一点？
         - [配套练习](https://practice-zh.course.rs/)
+    - [Rust 之旅](https://tourofrust.com/)
+	    - 交互式学习
     - [Rust 编译运行可视化](https://github.com/cognitive-engineering-lab/aquascope)
 - SQL
 	- [CS-Note 面试宝典](https://cyc2018.xyz/%E6%95%B0%E6%8D%AE%E5%BA%93/)
@@ -63,7 +65,7 @@ comments: true
 - [ziishaned/learn-regex](https://github.com/ziishaned/learn-regex) 正则表达式
 - [skill_learn](../tutorial/skill_learn/README.md) 系列；
 - [web_sites](web_sites.md) “开发者谈”板块；
-- [cheatsheet.zip](https://cheatsheets.zip/) or [中文翻译版](https://wangchujiang.com/reference/) 或者 [learn x in y minutes](https://learnxinyminutes.com/)
+- [cheatsheet.zip](https://cheatsheets.zip/) or [中文翻译版](https://wangchujiang.com/reference/) （分化后有新加内容）或者 [learn x in y minutes](https://learnxinyminutes.com/)
     - 精致的 cheatsheet
 - [网道](https://wangdoc.com/)
     - “项目的目标是，提供高质量的、自主版权的、可以自由使用的中文软件文档”
