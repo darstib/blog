@@ -14,8 +14,6 @@
 	    - [intro in English](note/cs188/README_en.md)
     - [physics](note/physics/README.md)
 	    - note/physics/*.md
-	- [CSys-I](note/CSys-I/README.md)
-		- note/CSys-I/*.md
 	- [CSys-II](note/CSys-II/README.md)
 		- note/CSys-II/*.md
 	- [CSys-III](note/CSys-III/README.md)
@@ -61,11 +59,13 @@
 - [Summary](summary/README.md)
     - [大一小记](summary/大一小记.md)
     - [大二小结](summary/大二小结.md)
-- AI
+- [AI](AI/README.md)
 	- [RecSys](AI/RecSys/README.md)
 	    - AI/RecSys/*.md
 	- [GRL](AI/GRL/README.md)
 	    - AI/GRL/*.md
+    - [KG](AI/KG/README.md)
+        - AI/KG/*.md
 	- [PaperRead](AI/PaperRead/README.md)
 		- AI/PaperRead/*.md
 	- JustDo

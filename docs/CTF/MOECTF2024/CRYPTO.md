@@ -943,6 +943,6 @@ else:
 
 ## babyLifting
 
-> 转见[已知 d 低位](../Note/Crypto/RSA_attack.md#已知%20d%20低位) ；看标题起初以为是要用 [Hensel's Lifting Method](https://pikaball.cc/2024/03/22/Hensel-s-Lifting-Method/)，最后疑似没用上。
+> 转见[已知 d 低位](../Note/Crypto/RSA_attack.md#p/m low bits) ；看标题起初以为是要用 [Hensel's Lifting Method](https://pikaball.cc/2024/03/22/Hensel-s-Lifting-Method/)，最后疑似没用上。
 
 

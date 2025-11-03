@@ -4,9 +4,10 @@ tags:
 - blog
 - tool
 comments: true
+slug: windows-macOS-workflow
 ---
 
-> Windows MacOS 协同工作流
+# Windows MacOS 协同工作流
 
 mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协同工作和开发利用成了难题，搞了很久，留个备忘录方便自己和其他人，包括 **串流** **副屏** **文件同步** 等操作实现；看完全文，不必完全按照我的设计，你应该很容易发现自己也能够设计各式各样的方案出来。
 

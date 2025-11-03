@@ -55,7 +55,7 @@ DeepWalk 由两部分组成：
 
 ### Skip-Gram
 
-在 [Skip-gram(SG)](../RecSys/1-Recall-CF.md#Skip-gram(SG)) 处介绍了 SG 算法在 word2vec 的应用，不难发现我们期望学习的映射 $V \rightarrow \mathbb{R}^{d}$ 在模型中应该作为一个矩阵：$\Phi \in \mathbb{R}^{|V| \times d}$ ，$\Phi$ 的每一个行向量即为对应节点的嵌入表达，在开始被随机初始化。同样的，我们将遇到因为节点数量过多导致的不可接受的 Softmax 计算量问题；论文中考虑层序 Softmax (Hierarchical Softmax, see section [Skip-gram(SG)](../RecSys/1-Recall-CF.md#Skip-gram(SG))) 。
+在 [Skip-gram(SG)](../RecSys/1-Recall-vector.md#Skip-gram(SG)) 处介绍了 SG 算法在 word2vec 的应用，不难发现我们期望学习的映射 $V \rightarrow \mathbb{R}^{d}$ 在模型中应该作为一个矩阵：$\Phi \in \mathbb{R}^{|V| \times d}$ ，$\Phi$ 的每一个行向量即为对应节点的嵌入表达，在开始被随机初始化。同样的，我们将遇到因为节点数量过多导致的不可接受的 Softmax 计算量问题；论文中考虑层序 Softmax (Hierarchical Softmax, see section [Skip-gram(SG)](../RecSys/1-Recall-vector.md#Skip-gram(SG))) 。
 
 ### DeepWalk
 

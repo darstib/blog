@@ -4,7 +4,7 @@ tags:
 comments: true
 ---
 
-一般而言，我们说的基于图的召回是依据[图嵌入](../../../AI/GRL/GE.md)学习物品/用户的嵌入表示，之后使用 ANN 等技术进行召回。
+一般而言，我们说的基于图的召回是依据[图嵌入](../GRL/GE.md)学习物品/用户的嵌入表示，之后使用 ANN 等技术进行召回。
 
 ## Enhanced Graph Embedding with Side information (EGES)
 
@@ -16,7 +16,7 @@ comments: true
 2. 由于物品集数量庞大，用户-物品交互矩阵稀疏
 3. 冷启动问题
 
-引入 [Graph Embedding](../../../AI/GRL/GE.md) 以尝试解决这些问题；论文中使用的是 [DeepWalk](../../../AI/GRL/GE.md#DeepWalk) 并进行了一些改进，共提出了三种嵌入方法：BGE, GES, EGES 。
+引入 [Graph Embedding](../GRL/GE.md) 以尝试解决这些问题；论文中使用的是 [DeepWalk](../GRL/GE.md#DeepWalk) 并进行了一些改进，共提出了三种嵌入方法：BGE, GES, EGES 。
 
 ### 构建物品图
 
@@ -108,7 +108,7 @@ $$
 
 ## PinSAGE
 
-PinSAGE 模型是 Pinterest 在 [GraphSAGE](../../../AI/GRL/GNN.md#GraphSAGE) 的基础上实现的可以应用于实际工业场景的召回算法。
+PinSAGE 模型是 Pinterest 在 [GraphSAGE](../GRL/GNN.md#GraphSAGE) 的基础上实现的可以应用于实际工业场景的召回算法。
 
 Pinterest 公司的主要业务是采用瀑布流的形式向用户展现图片，无需用户翻页，新的图片会自动加载。因此在 Pinterest 网站上，有大量的图片(被称为 pins)，而用户可以将喜欢的图片分类，即将 pins 钉在画板 boards 上。可以发现基于这样的场景，pin 相当于普通推荐场景中 item，用户**钉**的行为可以认为是用于的交互行为。
 
@@ -142,7 +142,7 @@ PinSAGE 使用 Convolve 算法（单层图卷积）进行聚合：
 
 ### 基于 mini-batch 多层图卷积
 
-与 [GraphSAGE](../../../AI/GRL/GNN.md#GraphSAGE) 一样基于 mini-batch 堆叠多层图卷积层来逐层聚合信息。训练时使用 Margin Hinge Loss 损失函数：
+与 [GraphSAGE](../GRL/GNN.md#GraphSAGE) 一样基于 mini-batch 堆叠多层图卷积层来逐层聚合信息。训练时使用 Margin Hinge Loss 损失函数：
 
 $$
 J_{\mathcal{G}}(\mathbf{z}_{q}\mathbf{z}_{i})=\mathbb{E}_{n_{k}\sim P_{n}(q)}\max\{0,\mathbf{z}_{q}\cdot\mathbf{z}_{n_{k}}-\mathbf{z}_{q}\cdot\mathbf{z}_{i}+\Delta\}

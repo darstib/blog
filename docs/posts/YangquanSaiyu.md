@@ -3,6 +3,7 @@ date: 2024-07-28
 tags:
   - blog
 comments: true
+slug: yangquansaiyu
 ---
 
 # 山西阳泉 -矿区赛鱼小学-刘慈欣展览馆&科学宫

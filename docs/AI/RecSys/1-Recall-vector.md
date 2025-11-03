@@ -269,7 +269,7 @@ $$
 
 #### SENet 双塔模型
 
-[SENet](3-Cross.md#SENet) 是一种对特征进行交叉筛选的网络，将其添加进入双塔模型中形成 SENet 双塔：
+[SENet](#SENet) 是一种对特征进行交叉筛选的网络，将其添加进入双塔模型中形成 SENet 双塔：
 
 ![twin tower with SENet](https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/03_1756909714106.png)
 

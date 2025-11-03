@@ -210,7 +210,7 @@ comments: true
 - [trace 番](https://trace.moe/)（用截图查番）
 - [影视接口](https://webnote.cc/yinshi-jiekou)（杂，接入一些软件）
 	- 密码：gongdian.top
-- [追剧吧](www.zhuiju.us) （杂，网盘资源）
+- [追剧吧](https://www.zhuiju.us) （杂，网盘资源）
 
 ## 文件处理
 

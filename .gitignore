@@ -7,6 +7,11 @@ docs/.obsidian/
 docs/.stfolder/
 docs/.stignore
 docs/.stversions/
+docs/sandbox.md
 docs/templates/
 docs/snippet/
 docs/note/ComputerNet/
+docs/ext/
+
+# env
+.venv/

@@ -4,9 +4,10 @@ date: 2024-03-23
 tags:
 - blog
 - algo
+slug: k-way_merge_algorithm
 ---
 
-> K 路合并算法
+# K 路合并算法
 
 > [!SUMMARY]-
 >  
