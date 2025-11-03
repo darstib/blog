@@ -6,7 +6,7 @@ tags:
 - algo
 ---
 
-# K 路合并算法
+> K 路合并算法
 
 > [!SUMMARY]-
 >  

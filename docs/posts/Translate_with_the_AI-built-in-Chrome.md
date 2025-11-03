@@ -5,7 +5,7 @@ tags:
 comments: true
 ---
 
-# 使用 Chrome 内置 AI 进行翻译
+> 使用 Chrome 内置 AI 进行翻译
 
 Chrome 在 138 版本正式开放了三项内置 AI 的 apis（最新情况可见 [api status](https://developer.chrome.com/docs/ai/built-in-apis#api_status)）：
 
