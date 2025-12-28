@@ -31,7 +31,7 @@ tags:
 
 {{ end_toc }}
 
-> [!extra] 下面是其他待办项目
+> [!extra] 下面是其他推荐内容
 
 - 浏览器：对于我个人而言，使用电脑的 50%以上时间在浏览器中；主流的 pc 端浏览器包括但不限为以下四种：
 	- [Chrome](https://www.google.com/chrome/)：性能优越，扩展最丰富，主流网站兼容最好，但相对内存占用更高，适合追求**速度与生态**[^1]的用户
@@ -58,5 +58,7 @@ tags:
 	- [uni-api 配置生成器](https://uni-api-config-generator.vercel.app/)
 - [LockHunter](https://lockhunter.com/)
 	- 修改、删除一个文件（夹）的时候被其他进程占用？帮你找出来！
+- [WizTree](https://diskanalyzer.com/)
+	- "The FASTEST Disk Space Analyzer"
 
 [^1]: 生态的前提是有一个谷歌账号。

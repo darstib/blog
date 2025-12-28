@@ -5,7 +5,7 @@
 // greek letters
 // greek letters
 
-    {trigger: "bo", replacement: " $\\box{$1}$", options: "mA"},
+    {trigger: "box", replacement: "\\boxed{$1}", options: "mA"},
     {trigger: "eps", replacement: "\\epsilon ", options: "mA"},
     {trigger: "vareps", replacement: "\\varepsilon ", options: "mA"},
     {trigger: "pmod", replacement: "\\pmod{n$1}", options: "mA"},
@@ -52,6 +52,8 @@
     {trigger: "jj", replacement: "_{j}", options: "mA"},
     {trigger: "kk", replacement: "_{k}", options: "mA"},
     {trigger: "nn", replacement: "_{n}", options: "mA"},
+    {trigger: "uu", replacement: "_{u}", options: "mA"},
+    {trigger: "vv", replacement: "_{v}", options: "mA"},
     {trigger: "npp", replacement: "_{n+1}", options: "mA"},
     {trigger: "ipp", replacement: "_{i+1}", options: "mA"},
     {trigger: "jpp", replacement: "_{j+1}", options: "mA"},
@@ -72,7 +74,7 @@
     {trigger: "> suc", replacement: "> [!success]+ $0", options: "tA"},
     {trigger: "> check", replacement: "> [!check]+ $0", options: "tA"},
     {trigger: "> done", replacement: "> [!done] $0", options: "tA"},
-    {trigger: "> ques", replacement: "> [!question]+ $0", options: "tA"},
+    {trigger: "> ques", replacement: "> [!question]$0", options: "tA"},
     {trigger: "> help", replacement: "> [!help]- $0", options: "tA"},
     {trigger: "> faq", replacement: "> [!faq] $0", options: "tA"},
     {trigger: "> warn", replacement: "> [!warning] $0", options: "tA"},
@@ -122,9 +124,9 @@
 	{trigger: "cb", replacement: "^{3}", options: "mA"},
 	{trigger: "rd", replacement: "^{$0}$1", options: "mA"},
 	{trigger: "_", replacement: "_{$0}$1", options: "mA"},
-	{trigger: "^", replacement: "^{$0}$1", options: "mA"},
+	// {trigger: "^", replacement: "^{$0}$1", options: "mA"},
 	{trigger: "sts", replacement: "_\\text{$0}", options: "mA"},
-	{trigger: "sq", replacement: "\\sqrt{ $0 }$1", options: "mA"},
+	{trigger: "sq", replacement: "\\sqrt{$0}$1", options: "mA"},
 	{trigger: "//", replacement: "\\frac{$0}{$1}$2", options: "mA"},
 	{trigger: "ee", replacement: "e^{ $0 }$1", options: "mA"},
     {trigger: "invs", replacement: "^{-1}", options: "mA"},
@@ -132,11 +134,12 @@
 
     {trigger: /([^\\])(exp|log|ln)/, replacement: "[[0]]\\[[1]]", options: "rmA"},
     {trigger: "conj", replacement: "^{*}", options: "mA"},
-    {trigger: "Re", replacement: "\\mathrm{Re}", options: "mA"},
-	{trigger: "Im", replacement: "\\mathrm{Im}", options: "mA"},
-    {trigger: "bf", replacement: "\\mathbf{$0}", options: "mA"},
-    {trigger: "bb", replacement: "\\mathbb{$0}", options: "mA"},
+    // {trigger: "Re", replacement: "\\mathrm{Re}", options: "mA"},
+	// {trigger: "Im", replacement: "\\mathrm{Im}", options: "mA"},
+    {trigger: "bf", replacement: "\\mathbf{$0}$1", options: "mA"},
+    {trigger: "bb", replacement: "\\mathbb{$0}$1", options: "mA"},
 	{trigger: "rm", replacement: "\\mathrm{$0}$1", options: "mA"},
+	{trigger: "cal", replacement: "\\mathcal{$0}$1", options: "mA"},
 
     // Linear algebra
     {trigger: /([^\\])(det)/, replacement: "[[0]]\\[[1]]", options: "rmA"},
@@ -161,7 +164,7 @@
 	{trigger: "ddot", replacement: "\\ddot{$0}$1", options: "mA"},
 	{trigger: "cdot", replacement: "\\cdot", options: "mA"},
 	{trigger: "tilde", replacement: "\\tilde{$0}$1", options: "mA"},
-	{trigger: "und", replacement: "\\underline{$0}$1", options: "mA"},
+	{trigger: "under", replacement: "\\underline{$0}$1", options: "mA"},
 	{trigger: "vec", replacement: "\\vec{$0}$1", options: "mA"},
 
     // More auto letter subscript
@@ -190,7 +193,7 @@
     {trigger: "...", replacement: "\\dots", options: "mA"},
     {trigger: "nabla", replacement: "\\nabla", options: "mA"},
     {trigger: "xx", replacement: "\\times", options: "mA"},
-    {trigger: "**", replacement: "\\cdot", options: "mA"},
+{trigger: "**", replacement: "\\cdot", options: "mA"},
     {trigger: "para", replacement: "\\parallel", options: "mA"},
 
 	{trigger: "===", replacement: "\\equiv", options: "mA"},
@@ -199,9 +202,10 @@
 	{trigger: "<=", replacement: "\\leq", options: "mA"},
 	{trigger: ">>", replacement: "\\gg", options: "mA"},
 	{trigger: "<<", replacement: "\\ll", options: "mA"},
-	{trigger: "simm", replacement: "\\sim", options: "mA"},
-	{trigger: "sim=", replacement: "\\simeq", options: "mA"},
+	{trigger: "sim", replacement: "\\sim", options: "mA"},
+	{trigger: "\\sim=", replacement: "\\simeq", options: "mA"},
     {trigger: "prop", replacement: "\\propto", options: "mA"},
+    {trigger: "defeq", replacement: "\\triangleq", options: "mA"},
 
 
     {trigger: "<->", replacement: "\\leftrightarrow ", options: "mA"},
@@ -229,17 +233,17 @@
 	{trigger: "exists", replacement: "\\exists", options: "mA", priority: 1},
 
 	{trigger: "AA", replacement: "\\mathcal{A}", options: "mA"},
-	{trigger: "LL", replacement: "\\mathcal{L}", options: "mA"},
-	{trigger: "HH", replacement: "\\mathcal{H}", options: "mA"},
-	{trigger: "MM", replacement: "\\mathcal{M}", options: "mA"},
 	{trigger: "CC", replacement: "\\mathcal{C}", options: "mA"},
 	{trigger: "\\mathcal{C}A", replacement: "CCA", options: "mA"},
+	{trigger: "HH", replacement: "\\mathcal{H}", options: "mA"},
 	{trigger: "KK", replacement: "\\mathcal{K}", options: "mA"},
+	{trigger: "LL", replacement: "\\mathcal{L}", options: "mA"},
+	{trigger: "MM", replacement: "\\mathcal{M}", options: "mA"},
+
 	{trigger: "cc", replacement: "\\mathbb{C}", options: "mA"},
+	{trigger: "qq", replacement: "\\mathbb{Q}", options: "mA"},
 	{trigger: "rr", replacement: "\\mathbb{R}", options: "mA"},
 	{trigger: "zz", replacement: "\\mathbb{Z}", options: "mA"},
-	{trigger: "nn", replacement: "\\mathbb{N}", options: "mA"},
-	{trigger: "qq", replacement: "\\mathbb{Q}", options: "mA"},
 
     // Handle spaces and backslashes
 
@@ -305,6 +309,7 @@
 
     // Quantum mechanics
     {trigger: "dag", replacement: "^{\\dagger}", options: "mA"},
+	{trigger: "o`", replacement: "\\odot ", options: "mA"},
 	{trigger: "o+", replacement: "\\oplus ", options: "mA"},
 	{trigger: "ox", replacement: "\\otimes ", options: "mA"},
     {trigger: "bra", replacement: "\\bra{$0} $1", options: "mA"},
@@ -341,6 +346,8 @@
 
 
     // Brackets
+	{trigger: "lang", replacement: "\\langle", options: "mA"},
+	{trigger: "rang", replacement: "\\rangle", options: "mA"},
 	{trigger: "avg", replacement: "\\langle $0 \\rangle $1", options: "mA"},
 	{trigger: "norm", replacement: "\\lvert $0 \\rvert $1", options: "mA", priority: 1},
 	{trigger: "Norm", replacement: "\\lVert $0 \\rVert $1", options: "mA", priority: 1},
@@ -357,7 +364,7 @@
 	{trigger: "lr{", replacement: "\\left\\{ $0 \\right\\} $1", options: "mA"},
 	{trigger: "lr[", replacement: "\\left[ $0 \\right] $1", options: "mA"},
 	{trigger: "lr|", replacement: "\\left| $0 \\right| $1", options: "mA"},
-	{trigger: "lra", replacement: "\\left< $0 \\right> $1", options: "mA"},
+	{trigger: "lr<", replacement: "\\left< $0 \\right> $1", options: "mA"},
 
 
     // Misc

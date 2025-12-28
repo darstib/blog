@@ -20,6 +20,8 @@ dg-publish: true
 
 ## 扩展链接
 
-学习推荐：[Bilibili - 可厉害的土豆](https://space.bilibili.com/253413704/upload/video)
+- 学习推荐
+	- [Bilibili - 可厉害的土豆](https://space.bilibili.com/253413704/upload/video)
+	- [SM3 杂凑算法](https://blog.csdn.net/qq_37969092/article/details/113525749)
 
 代码实现： [GmSSL](https://github.com/guanzhi/GmSSL) or [GmSSL-Python](https://github.com/GmSSL/GmSSL-Python) ，[使用文档](http://gmssl.org/docs/docindex.html)  。

@@ -26,9 +26,29 @@ comments: true
 
 ## Exponential attack
 
-### Low public exponent attack（低加密指数攻击）
+### Low public exponent attack
+
+低加密指数攻击，攻击条件：e 很小
 
 > [!tip] 优先尝试 sagemath 的 `m = Integer(c).nth_root(e)`
+
+> [!note]+ solution of m^e （解的数量）
+> 
+> > [!THEOREM]
+> >
+> > If $gcd(e, p-1)=1$ and p is prime, the $m^e \equiv c\pmod{p}$ has exactly one solution for m.
+> 
+> [math.stackexchange 上的问答](https://math.stackexchange.com/questions/2842399/solutions-to-xn-equiv-a-pmodp)中较为靠下的一个回答给出更广泛的结论：
+> 
+> > [!THEOREM]
+> >
+> > If p is prime, $p \nmid c$, then $m^e \equiv c \pmod{p}$ has **0 or d = gcd(e, p-1)** solutions, being the latter if $c^{\frac{p-1}{d}}\equiv 1 \pmod{p}$.
+> 
+> 证明略，其中最后一两步如果看不懂可以参考 [group theory - Solution to $x^n=a \pmod p$ where $p$ is a prime](https://math.stackexchange.com/questions/1491103/solution-to-xn-a-pmod-p-where-p-is-a-prime) .
+> 
+> 依据费马小定理，在 p 是素数时，随机在 $\mathbb{Z}_{p}$ 中生成一个非零元素 x 将会满足 $x^{(p-1 /n)*n} = x^{p-1}\equiv 1 \pmod{p}$，此时 $x^{(p-1 / n)}$ 称为素数 p 有限域 $F_{p}$ 上的一个 n 次单位根；
+> 
+> 更基础的结论是：在素数 p 有限域 $F_{p}$ 中，乘法子群的阶为 p-1；对于 n，如果满足 $n|p-1$，则有 n 个单位根；否则只有 1 本身。对于 e 而言，即如果 $e|p-1$，则有 e 个根 m 满足 $m^e \equiv c \pmod{p}$
 
 #### e = 1
 
@@ -180,21 +200,9 @@ m = Mod(c, n).nth_root(e)
 print(long_to_bytes(m)) # b'darctf{r@bln_a77@ck_e_2}'
 ```
 
-> [!note]+ solution of m^e
-> 
-> > [!THEOREM]
-> >
-> > If $gcd(e, p-1)=1$ and p is prime, the $m^e \equiv c\pmod{p}$ has exactly one solution for m.
-> 
-> [math.stackexchange 上的问答](https://math.stackexchange.com/questions/2842399/solutions-to-xn-equiv-a-pmodp)中较为靠下的一个回答给出更广泛的结论：
-> 
-> > [!THEOREM]
-> >
-> > If p is prime, $p \nmid c$, then $m^e \equiv c \pmod{p}$ has **0 or d = gcd(e, p-1)** solutions, being the latter if $c^{\frac{p-1}{d}}\equiv 1 \pmod{p}$.
-> 
-> 证明略，其中最后一两步如果看不懂可以参考 [group theory - Solution to $x^n=a \pmod p$ where $p$ is a prime](https://math.stackexchange.com/questions/1491103/solution-to-xn-a-pmod-p-where-p-is-a-prime) .
-
 ### gcd(e, phi) != 1
+
+> 参考[针对 CTFer 的 e 与 phi 不互素的问题](https://tttang.com/archive/1504/)
 
 一般来说 $gcd(e, \phi)=1$ 的，但要是 $gcd(e, \phi)\neq 1$ ，那么怎么做？e=2/3/4 …… 等十分小的数时前面已经说明了，这里考虑比较一般的情况。
 
@@ -203,6 +211,8 @@ print(long_to_bytes(m)) # b'darctf{r@bln_a77@ck_e_2}'
 若 $gcd(e, \phi) = b \neq 1$ ，则有 $c = m^e = m^{ab}\pmod{n} = m^{ab \pmod{\phi}}$；
 
 #### gcd(a, phi)=1
+
+1. 当 b 比较小的时候
 
 取 $d = a^{-1}\pmod{\phi}$，则有 $c^d = m^{abd\pmod{\phi}} =  m^b\pmod{n}$；所以只需要对 $c^d\pmod{\phi}$ 开 b 次根就好。
 
@@ -216,34 +226,167 @@ q= 15649227370858723453950650148060969208599798959471705847260552305124452249370
 e= 750
 c= 7029383721249299532521086933490698266831518266762255492452526410777276825803657150303837084263410309063739203644435184397762022380085273363900423091223180151147964276354189658062571415744140073426572149093499560918765793389358300893454490774387180728097370701432534877005948330689495694820361726719418371072834639369078180094444137972424909816959445043108154884587947573054460257114169961823509538355580857411319157089278918107229480661280354242839678709689654304688727345294473487201644985815128413154870914132135222144633969959773621933444285994038028721862094040876152694240238708737727034258171506516394913692187
 
-def get_m(n, e, c, phi=None):
+def get_ms(n, e, c, phi=None) -> list:
     """
     Returns the private exponent for the given public exponent and modulus.
     """
-    from sage.all import GCD, euler_phi, inverse_mod, power_mod, Integer, is_prime
-    if is_prime(n):
-        phi = n - 1
-    elif phi is None:
-        phi = euler_phi(n)
+    from sage.all import is_prime, euler_phi, GCD, inverse_mod, power_mod, Integer, ZZ, Zmod
+    if not phi:
+        if is_prime(n):
+            phi = n - 1
+        elif phi is None:
+            phi = euler_phi(n)
     b = GCD(e, phi)
+    ms = None
     if b == 1:
         d = inverse_mod(e, phi)
+        ms = [power_mod(c, d, n)]
     else:
         a = e // b
         assert a*b == e
-        # print(a, b)
+        assert gcd(a, phi) == 1
         d = inverse_mod(a, phi)
-        mb = power_mod(c, d, n)
-        m = Integer(mb).nth_root(b)
-    return m
+        mb = power_mod(c, d, n) # mb = m^b % n
+        ##### if m^b < n
+        ## Method 1
+        # ms = [Integer(mb).nth_root(b)]
+        ## Method 2
+        # x = ZZ['x'].gen(); f = x**b - mb
+        # ms = f.roots(multiplicities=False)
+        ##### if m^b >= n
+        ## Method 3
+        # ms = Zmod(n)(mb).nth_root(b, all=True)
+        ## Method 4
+        ms = Mod(mb, n).nth_root(b, all=True)
+        ## Method 5
+        # x = Zmod(n)['x'].gen(); f = x**b - mb
+        # ms = f.roots(multiplicities=False)
+    return ms
 
-import sympy
 n = p*q
 phi = (p-1)*(q-1)
-m = get_m(n, e, c, phi)
-print(bytes.fromhex(hex(m)[2:]))
+ms = get_m(n, e, c, phi)
+for m in ms:
+    print(bytes.fromhex(hex(abs(m))[2:]))
 # b'flag{0e2f9add-31fd-4733-8f25-39297516f4e2}'
 ```
+
+2. 当 b = e 时，考虑 AMM 算法 ([Adleman-Manders-Miller rth Root Extraction Method](https://arxiv.org/pdf/1111.4877))，示例来自 [NCTF2019 - easyRSA](https://blog.soreatu.com/posts/intended-solution-to-crypto-problems-in-nctf-2019/)
+
+```python title="NCTF2019 - easyRSA"
+# https://tttang.com/archive/1504/#toc_0x00
+from flag import flag
+
+e = 0x1337
+p = 199138677823743837339927520157607820029746574557746549094921488292877226509198315016018919385259781238148402833316033634968163276198999279327827901879426429664674358844084491830543271625147280950273934405879341438429171453002453838897458102128836690385604150324972907981960626767679153125735677417397078196059
+q = 112213695905472142415221444515326532320352429478341683352811183503269676555434601229013679319423878238944956830244386653674413411658696751173844443394608246716053086226910581400528167848306119179879115809778793093611381764939789057524575349501163689452810148280625226541609383166347879832134495444706697124741
+n = p * q
+
+assert(flag.startswith('NCTF'))
+m = int.from_bytes(flag.encode(), 'big')
+assert(m.bit_length() > 1337)
+
+c = pow(m, e, n)
+print(c)
+# 10562302690541901187975815594605242014385201583329309191736952454310803387032252007244962585846519762051885640856082157060593829013572592812958261432327975138581784360302599265408134332094134880789013207382277849503344042487389850373487656200657856862096900860792273206447552132458430989534820256156021128891296387414689693952047302604774923411425863612316726417214819110981605912408620996068520823370069362751149060142640529571400977787330956486849449005402750224992048562898004309319577192693315658275912449198365737965570035264841782399978307388920681068646219895287752359564029778568376881425070363592696751183359
+```
+
+帮我们分解好了 n，但是求 $\phi$ 后可以发现 $gcd(e, \phi)=e$，即 $e|\phi$；由于 e 是素数，所以肯定存在 $e|p-1 \lor e|q-1$ ；测试发现这里：$e|p-1, e|q-1$ 均成立；考虑分治为：$m^e \equiv c \pmod{p}, m^e \equiv c \pmod{q}$ 再通过 CRT 进行组合。
+
+以 p 为例，问题转向：$m^e \equiv c \pmod{p}$；首先考虑如何求解，AMM 算法能够做到这件事（注意 p 为素数）：
+
+```python title="AMM"
+def AMM(o, r, q) -> int:
+    """
+    使用 Adleman-Manders-Miller 算法在模 q 的有限域中求 r 次根的一组解中的一个。
+    参数:
+        o (int): 要开 r 次根的元素（明文在模 q 下的值）。
+        r (int): 根的阶（例如 e = 0x1337）。
+        q (int): 素数模数，定义有限域 GF(q)。
+    返回:
+        int: o 在 GF(q) 上的一个 r 次根。
+    """
+    pass
+```
+
+考虑前面提到的“解的数量”，我们验证 $c^{\frac{p-1}{d}} \equiv 1 \pmod{p}$ 通过，表明 $m^e \equiv c \pmod{p}$ 可以得到 $gcd(e, \phi)=e=0x1337$ 个解；考虑两个公式，我们一共有 $e^2 = 24196561$ 种可能；同时我们也提到了有 e 个根的原因是对应于有 e 个 e 次单位根，而 [Finding the n-th root of unity in a finite field](https://crypto.stackexchange.com/questions/63614/finding-the-n-th-root-of-unity-in-a-finite-field) 向我们介绍了如何找到一个单位根（代码来自 [Van1sh](https://jayxv.github.io/2019/12/04/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E6%B5%85%E6%9E%90On%20r-th%20Root%20Extraction%20Algorithm%20in%20Fq/)）：
+
+```python title="onemod"
+def onemod(p, r):
+    """
+    在模素数 p 的乘法群中找到一个阶为 r 的元素 g，使得 g^r ≡ 1 (mod p)。
+    参数:
+        p (int): 素数模数。
+        r (int): 期望的阶。
+    返回:
+        int: 一个满足 g^r ≡ 1 (mod p) 且阶整除 r 的元素 g。
+    """
+    t = p - 2
+    while pow(t, (p-1) // r, p) == 1:
+        t -= 1
+    return pow(t, (p-1) // r, p)
+```
+
+以及扩展扩展找到其他单位根：
+
+```python title="solution"
+def solution(p, root, e):
+    """
+    根据一个 e 次根 root，枚举模 p 下所有可能的 e 次根解集合。
+    给定某个根 root，使得 root^e ≡ c (mod p)，通过乘以所有阶为 e 的生成元幂得到
+    所有等价的解。
+    参数:
+        p (int): 素数模数。
+        root (int): 已知的一个 e 次根。
+        e (int): 指数 e。
+    返回:
+        set[int]: 所有可能的 e 次根集合。
+    """
+    g = onemod(p, e)
+    may = set()
+    for i in range(e):
+        may.add(root * pow(g, i, p) % p)
+    return may
+```
+
+总结一下，我们的思路就是：
+
+1. 通过 AMM 找到一个根
+2. 通过 onemod 找到一个 e 次单位根
+3. 通过 solution 扩展到所有根
+4. 通过 CRT 合并答案
+
+```python title="exp.py"
+cp = c % p
+cq = c % q
+mp = AMM(cp,e,p)
+mq = AMM(cq,e,q)
+mps = solution(p,mp,e)
+mqs = solution(q,mq,e)
+for mpp in tqdm(mps):
+    for mqq in mqs:
+        ai = [int(mpp),int(mqq)]
+        mi = [p,q]
+        m = CRT_list(ai,mi)
+        flag = long_to_bytes(m)
+        if b'NCTF' in flag:
+            print(flag)
+            exit(0)
+            
+"""
+ 46%|████████████████████████████████▍                                     | 2280/4919 [06:02<06:59,  6.30it/s]
+ b'NCTF{T4k31ng_Ox1337_r00t_1s_n0t_th4t_34sy}e$71N{D]0su{ZDEKfEnY>TTQ(=qR?GBpN\\U{3@O\\/I8ZsxW.Uw)3&&s&xD-<Uf*pKXOkV0~oiWubv<VAD9roRJU9:9S?>MyZ<wMN~T||%PC*j]inkgus4f9t:g:O9!FsIas^?M*q:BU{_J*r"*6Fi94hdRUW#s0=N+][l}Js7j,c5kiLB+/f<_1*N=V3Eq%~s^!5Gh8*'
+ 46%|████████████████████████████████▍                                     | 2280/4919 [06:02<06:59,  6.29it/s]
+python 运行 6 m 7s，sagemath 运行 5m 26s
+"""
+```
+
+> [!extra]- [HackGame2019 - 十次方根](https://github.com/ustclug/hackergame2019-writeups/blob/master/official/%E5%8D%81%E6%AC%A1%E6%96%B9%E6%A0%B9/src/easy_math.py)
+> 
+> 这是一个 e=10 的 RSA 问题（且 $gcd(e,\phi)=e$）；但对于我们前面提到的算法重点在于 $n =x*y^3$，且 $e|x-1$ 不成立，直接套 AMM 似乎存在问题；
+> 
+> - [7feilee r认为](https://github.com/ustclug/hackergame2019-writeups/blob/master/players/7feilee/writeup-%E5%8D%81%E6%AC%A1%E6%96%B9%E6%A0%B9.md) e=10 比较小，可以针对 x,y 分别开根，使用 Hensel’s lifting 提升到 $y_{3}$
+> - [官方题解](https://github.com/ustclug/hackergame2019-writeups/tree/master/official/%E5%8D%81%E6%AC%A1%E6%96%B9%E6%A0%B9)给出了一个使用 wolfram math 的方法，[在线存档](https://www.wolframcloud.com/obj/darstibreed/Published/HackGame-10TimesRoot.nb)。
 
 #### gcd(a, phi)!=1
 
@@ -280,9 +423,10 @@ mb, b = get_mb(n, e, c)
 m = Integer(mb).nth_root(b)
 ```
 
-如果最后一个 get_mb 中得到的 a = 1，那么毫无疑问 b = e，且 mb = c；那就好比直接开根，没有什么意义（如果能直接开，那就不需要这些东西）。
+如果最后一个 get_mb 中得到的 a = 1，那么毫无疑问 b = e，且 mb = c，回到上一部分讨论的 AMM 算法。
 
-此时大概率是 $e=2^{k}, k\in N$ 的情况；而这样我们可以一层一层开平方根（此时攻击条件与 e=2 相同），示例来自 [cryptohack - Broken RSA](https://cryptohack.org/challenges/maths/)：
+- 大概率是 $e=2^{k}, k\in N$ 的情况；而这样我们可以一层一层开平方根（此时攻击条件与 e=2 相同）
+	- 示例来自 [cryptohack - Broken RSA](https://cryptohack.org/challenges/maths/)：
 
 ```python title="broken rsa"
 from sage.all import *
@@ -338,7 +482,7 @@ for m in ms:
 
 ### Multi e&phi
 
-攻击条件：gcd(e, phi) != 1，gcd(n1, n2) != 1
+低加密指数广播攻击，攻击条件：gcd(e, phi) != 1，gcd(n1, n2) != 1
 
 类似于模不互素，我们令 p = gcd(n1, n2) ，则 q1 = n1//p, q2 = n2//p，则有：
 
@@ -469,7 +613,7 @@ print(bytes.fromhex(hex(m)[2:])) # b"flag{gcd_e&\xcf\x86_isn't_1}"
 >
 > [CryptoHack – RSA challenges](https://cryptohack.org/challenges/rsa/) Everything is Big
 
-题目中给出了很大的 N，但是放到 factordb.com 中，分解一下就出来了；或者对于比较小的 N，sage math 的 factor 之类的都可以分解。
+题目中给出了很大的 N，但是放到 factordb.com 中，分解一下就出来了；或者对于比较小的 N，[yafu](https://sourceforge.net/projects/yafu/) /sagemath 的 factor之类的都可以分解。
 
 分解为 factors 如下：
 
@@ -539,9 +683,9 @@ def manyPrime(n):
 >
 > 例如，当前已经分解 $n = a*....*b * A$ 且 $is\_prime(A)==False$，那么我们记 $a*\dots*b = k, \phi(k)$ 是不难计算的。如果 m < k，则有 $m=c^{d_n}\pmod{n} = c^{d_{k}}\pmod{k}$ 其中 $d_x$ 表示在模 x 的情况下 e 的逆元。
 
-### Same modulars
+### common modulars
 
-攻击条件：使用相同的 n，不同的 e 对同一段密文进行了两次加密且 gcd(e1, e2)=1。
+共模攻击，攻击条件：使用相同的 n，不同的 e 对同一段密文进行了两次加密且 gcd(e1, e2)=1。
 
 若 gcd(e1, e2)=1，由扩展欧几里得算法得 s1e1+s2e2 = 1 (mod n)，故有
 
@@ -627,7 +771,7 @@ print(n2s(m)) # b'crypto{f3rm47_w45_4_g3n1u5}'
 
 #### n&npnq
 
-ZJUBUS 上有这么一个题，给我 e, n, c 之外，还给我 npnq，其中 `n == p*q and npnq = next_prime(p)*next_prime(q)`
+xxxBUS 上有这么一个题，给我 e, n, c 之外，还给我 npnq，其中 `n == p*q and npnq = next_prime(p)*next_prime(q)`
 
 我们记 $npnq = np*nq$ ，则会发现：`p*nq - q*np` 很小！也就是说，我们可以利用上面讲的方法分解 `n*npnq` ，如果能够得到 $p1 = p*nq$ ，则有 $p = gcd(n, p_{1})$ ，这样 n 就分解出来了。
 
@@ -680,15 +824,13 @@ for p1, q1 in factors_list:
 
 #### n&p.xor.q
 
-在 [Math.stackexchange](https://math.stackexchange.com/questions/2087588/integer-factorization-with-additional-knowledge-of-p-oplus-q) 提出了一个问题：
-
-> [!question]+
+> [!question]+ 在 [Math.stackexchange](https://math.stackexchange.com/questions/2087588/integer-factorization-with-additional-knowledge-of-p-oplus-q) 提出了一个问题：
 > 
 > Given two unknown large primes p and q, can we efficiently factor n=pq if we additionally know p⊕q (bitwise XOR of the primes)?
 
 下面的回答给出了算法思路，大致思路是逐比特判断 $p[:k] \times q[:k] \equiv n[:k] \pmod{2^{k}}$ ，并从 0 开始逐步推导 p,q；但是显然每一步都有两种解，如此计算的复杂度依旧在 $O(2^{\log n})=O(n)$；而 $p \oplus q = t$ 作为一个约束，可以达到剪枝的效果，提高了算法思路的可行性。
 
-提出问题的人也实现了这个算法，并放在了 [xor_factor](https://github.com/sliedes/xor_factor/blob/master/xor_factor.py) 。但是疑似存在一些 bug，来看 zer0ptsCTF2022-AntiFermat：
+提出问题的人也实现了这个算法，并放在了 [xor_factor](https://github.com/sliedes/xor_factor/blob/master/xor_factor.py) 。但是疑似存在一些 bug，来看 [zer0ptsCTF2022-AntiFermat](https://ctftime.org/writeup/32627)：
 
 ```python title="chall.py"
 from Crypto.Util.number import isPrime, getStrongPrime
@@ -1020,6 +1162,36 @@ print(bytes.fromhex(hex(m)[2:]))
 # b'*CTF{St.Diana_pls_take_me_with_you!}'
 ```
 
+### other hint
+
+当泄露以下信息 (l) 时的技巧
+
+- $l = (p+q)^2 \pmod{n}$ 【 [Moectf-ez_square](https://ctf.xidian.edu.cn/training/22?challenge=905) 】
+	- 由于 l 一定小于 n，变形后可知 $l = (p-q)^2$ 
+	- $p-q = \sqrt{l}, p+q = \sqrt{(p-q) + 4*n}$
+- $l=p^2+q^2$，且不知道 n 【[[国城杯 2024]EZ_sign](https://seandictionary.top/%E5%9B%BD%E5%9F%8E%E6%9D%AF-2024-crypto/)】
+	- 平方和分解不唯一，sagemath 的 `two_squares` 只能得到一种结果，不一定正确
+	- $(p+qi)(p-qi)=C$
+		```python title="get_pq.sage"
+		def get_pq(C):
+		    """
+		    p^2 + q^2 = C
+		    """
+		    f = ZZ[I](C)
+		    divisors_f = divisors(f)
+		    for d in divisors_f:
+		        a,b = d.real(), d.imag()
+		        if a**2 + b**2 == C:
+		            p = abs(int(a))
+		            q = abs(int(b))
+		            if is_prime(p) and is_prime(q):
+		                return (p, q)
+		```
+- $l_{1} = p^q \pmod{n}, l_{2} = q^p \pmod{n}$，且不知道 n 【[[HGAME 2024]ezRSA](https://seandictionary.top/hgame-2024/)】
+	- 易得 $p^q \equiv p \pmod{p}, p^q \equiv p \pmod{q}$
+	- 由中国剩余定理可得 $l_{1} = p = p^q \pmod{n}$
+	- 同理 $l_{2} = q$
+
 #### RSA backdoor (4p-1 method)
 
 攻击条件：$4p-1 = Ds^2$ 其中 Ds 参见 [cm_factorization](https://github.com/crocs-muni/cm_factorization) 。
@@ -1057,13 +1229,13 @@ for key in friends_key[::-1]:
 long_to_bytes(c) # b'crypto{3ncrypt_y0ur_s3cr3t_w1th_y0ur_fr1end5_publ1c_k3y}'
 ```
 
-### dp || dq leak attack
+### dp || dq leak
 
-> [!DEFINITION]
+> [!definition] dp/dq
 >
 > $dp \equiv d\pmod{p-1}, dq \equiv d\pmod{q-1}$
 
-攻击条件：直到 dp 或者 dq，完整的公钥 (n,e) 和密文 c。
+攻击条件：知道 dp 或者 dq，完整的公钥 (n,e) 和密文 c。
 攻击原理：$p = \frac{edp-1}{i}+1, i \in[1, e]$ ，推导省略，只要 p 是整数且整除 n 即符合条件：
 
 ```python title="demo_dp_leak"
@@ -1093,7 +1265,53 @@ m = pow(c,d,n)
 print(bytes.fromhex(hex(m)[2:]))
 ```
 
-### dp && dq leak attack
+> [!note] 改进的解法：
+
+上面是最常见的出题方法，[那要是 e 很大呢](https://tover.xyz/p/2024-HSCTF-babyDP/)：
+
+```python title="2024-HSCTF-babyDP-chall.py"
+from secret import flag
+import libnum
+
+bits = 1024
+p, q = [random_prime(2**bits) for _ in range(2)]
+n = p * q
+e = 2*10**76-3
+d = e.inverse_mod((p-1) * (q-1))
+dp = d % (p-1)
+
+m = libnum.s2n(flag)
+c = pow(m, e, n)
+
+print('e  = %d' % e)
+print('n  = %d' % n)
+print('dp = %d' % dp)
+
+print('c  = %d' % c)
+
+'''
+e  = 19999999999999999999999999999999999999999999999999999999999999999999999999997
+n  = 7195506839435218889565105541674965483194164483027741709706696451513641438345177472634371310250998546706062462270851552911697354605048972081656931006641878545036542923897114647393564522132057589249800431430995780074871171268958056358251827104531889348948541240686274977093185746573748206617663459128090693743840574459752890533065398493485714768878646999590143805843490432318539260302521682823958290340460403361801534822098048095280034600065200137857346827560676300256938953222718633375808719441534702981763523406056651752914141143665893462943582116716812913462656214604870428310720751101481210148746546806273965485289
+dp = 34961801811050613471700883525108632060492526395401334090302835931304663757529660746363964830407055340550990256271716811099606849841913560556222756478612800702209651907866303152581107449312861896692310607989826809665245295483724533775337076019316812377921373194504440845718347150919782506437242366281376701299
+c  = 3014636373048664939954772778404195986026862165799593915685719641505606570670923436003664110094703916031096486273947905494103538805486521321522443488182065845367347589071783679908494724693530639371358965655992560909299314626568439587755874253430614726720724608456333450258184012429367293386944954388615812902809362326474915645899324083994448117282677622943580354006160302366855350193039875335543211982510928721395526768129547143054319585071252781483346116972611571317425047748862917945459911485505200762492537496489429730213393936533514665994680707861503489288913062785427211743828345144957201996243444547648085230048
+'''
+```
+
+事实上，已知 dp/dq 足够分解 n 了，因为：$\forall c = m^e\%n, m \equiv c^{d_{p}} \pmod{p} \implies c^{d_{p}}-m = kp \implies p = gcd(n, c^{d_{p}}-m)$:
+
+```python
+n  = ...
+dp = ...
+
+m = 1997
+c = pow(m, e, n)
+p = gcd(pow(c, dp, n) - m, n)
+assert n % p == 0
+```
+
+[这里](https://tover.xyz/p/2024-HSCTF-babyDP/#%E6%80%9D%E8%B7%AF)还给了一种使用 Coppersmith 求小根的思路，按下不表。
+
+### dp && dq leak
 
 攻击条件：知道 dp, dp, p, q, c。
 攻击原理：crt 求解 d。
@@ -1199,21 +1417,26 @@ bytes.fromhex(hex(m)[2:]) # b'DASCTF{8ec820e5251db6e7a1758543a1123824}'
 
 ### Wiener's Attack
 
-维纳攻击适用于：e 较大，$d< \frac{1}{3}N^{1/4}, q<p<2q$ 。
+维纳攻击，攻击条件：e 较大，$d< \frac{1}{3}N^{1/4}, q<p<2q$ 。
+
+> [!info]+ 在[代入 Wiener](https://tover.xyz/p/LLL-attack-equation/#Wiener%E6%94%BB%E5%87%BB) 中 tover 表示：
+> 
+> -  $ed^2\lessapprox\frac12N^{3/2}$ 时即可
+> - 可以使用格完成 Wiener's attack
 
 原理简述：由于 $ed \equiv 1\pmod{\phi(n)} \implies ed = k*\phi + 1$ ，当 n 较大时，$ed \approx k*\phi \approx k*n\implies \frac{e}{n} \approx \frac{k}{d}$  ；利用连分数从两侧逼近于极限值的特点，找到真正的 d & k ；甚至我们求解 $\phi$ 后能够分解出 p/q 。 
 
-> [!extra]-
+> [!extra]- 阈值分析
 >
 >> [!theorem] Legendre's theorem
 >> 
->> 如果存在 $\alpha \in Q$, $c,d \in Z$: $|a- \frac{c}{d}|< \frac{1}{2d^2}$，那么 $\frac{c}{d}$ 就是 $\alpha$ 的一个有理近似。
+>> 如果存在 $\alpha \in Q$, $c,d \in Z$: $|\alpha- \frac{c}{d}|< \frac{1}{2d^2}$，那么 $\frac{c}{d}$ 就是 $\alpha$ 的一个有理近似。
 >  
 > $ed = k*\phi + 1 \implies | \frac{e}{\phi}- \frac{k}{d}|= \frac{1}{d*\phi}$
 > 
 > 大部分情况下，构成 $n=p*q$ 公式中，p 与 q 的二进制长度相同，即有 $p < q < 2*p$ （p q 可互换位置）；由适当推导可以得到 $d< \frac{1}{3}N^{1/4} \implies (3d)^4 < n$
 
-> 攻击代码可以使用 [crypto-attacks/attacks/rsa/wiener_attack.py](https://github.com/jvdsn/crypto-attacks/blob/master/attacks/rsa/wiener_attack.py) ，下面是一个使用示例：
+> [!help] 攻击代码可以使用 [crypto-attacks/attacks/rsa/wiener_attack.py](https://github.com/jvdsn/crypto-attacks/blob/master/attacks/rsa/wiener_attack.py) ，下面是一个使用示例：
 
 ```python title="wiener_attack.py"
 import os
@@ -1257,7 +1480,7 @@ print(m)
 print(bytes.fromhex(hex(m)[2:])) # b"SKSEC{Do_y0u_Kn0w_Wi3n3r's_4ttack}"
 ```
 
-> [!EXAMPLE]
+> [!EXAMPLE]+
 >
 > - [[CISCN 2022 东北赛区]math](https://www.nssctf.cn/problem/2387)
 
@@ -1306,13 +1529,270 @@ print(f'c = {hex(c)}')
 > - [ctf-wiki - Boneh and Durfee attack](https://ctf-wiki.org/crypto/asymmetric/rsa/rsa_coppersmith_attack/?h=boneh+durfee#boneh-and-durfee-attack)
 > - [boneh_durfee.sage](https://github.com/mimoo/RSA-and-LLL-attacks/blob/master/boneh_durfee.sage)
 
-```python title="final.py"
+```python title="exp.py"
 d = 4405001203086303853525638270840706181413309101774712363141310824943602913458674670435988275467396881342752245170076677567586495166847569659096584522419007
 N = 0xb12746657c720a434861e9a4828b3c89a6b8d4a1bd921054e48d47124dbcc9cfcdcc39261c5e93817c167db818081613f57729e0039875c72a5ae1f0bc5ef7c933880c2ad528adbc9b1430003a491e460917b34c4590977df47772fab1ee0ab251f94065ab3004893fe1b2958008848b0124f22c4e75f60ed3889fb62e5ef4dcc247a3d6e23072641e62566cd96ee8114b227b8f498f9a578fc6f687d07acdbb523b6029c5bbeecd5efaf4c4d35304e5e6b5b95db0e89299529eb953f52ca3247d4cd03a15939e7d638b168fd00a1cb5b0cc5c2cc98175c1ad0b959c2ab2f17f917c0ccee8c3fe589b4cb441e817f75e575fc96a4fe7bfea897f57692b050d2b
 c = 0xa3bce6e2e677d7855a1a7819eb1879779d1e1eefa21a1a6e205c8b46fdc020a2487fdd07dbae99274204fadda2ba69af73627bdddcb2c403118f507bca03cb0bad7a8cd03f70defc31fa904d71230aab98a10e155bf207da1b1cac1503f48cab3758024cc6e62afe99767e9e4c151b75f60d8f7989c152fdf4ff4b95ceed9a7065f38c68dee4dd0da503650d3246d463f504b36e1d6fafabb35d2390ecf0419b2bb67c4c647fb38511b34eb494d9289c872203fa70f4084d2fa2367a63a8881b74cc38730ad7584328de6a7d92e4ca18098a15119baee91237cea24975bdfc19bdbce7c1559899a88125935584cd37c8dd31f3f2b4517eefae84e7e588344fa5
 
 m = pow(c, d, N)
 print(bytes.fromhex(hex(m)[2:])) # b'crypto{bon3h5_4tt4ck_i5_sr0ng3r_th4n_w13n3r5}'
+```
+
+### Extended Wiener's attack
+
+当 d 略大于 Boneh and Durfee attack 的攻击条件（如 $d\approx N^{0.293}$）时，前面描述的攻击都将失效；但是如果此时这样的 d 不止一个，我们似乎又有了可以利用的余地，延伸出[扩展维纳攻击](https://ctf-wiki.org/crypto/asymmetric/rsa/d_attacks/rsa_extending_wiener)；基于 ctf-wiki 和 [_Extending Wiener’s Attack in the Presence of Many Decrypting Exponents_](https://dunkirkturbo.github.io/2020/05/04/WriteUp-De1CTF2020-Crypto/howgrave-graham1999.pdf) ，可以编写已知 2/3/4 个小 d 对应的 e 的情况下的 sagemath 脚本（放在 [Gist](https://gist.github.com/darstib/49d9ced26c50c2641972ebf4f59fe7d1) 上了）。
+
+具体需要几组取决于 d 相对 N 的大小，[如表所示](https://huangx607087.online/2021/03/01/LatticeNotes6/#4-3D-4D-Expand-WienerAttack)：
+
+$$
+\begin{array}{|c|c|c|c|c|c|c|c|c|c|}\hline n&1&2&3&4&5&6&\geq7\\\hline\frac{\ln d}{\ln n}&0.25&0.357&0.4&0.441&0.468&0.493&0.5\\\hline\end{array}
+$$
+
+---
+
+来看 moectf 2025 上的一道 [wiener++](https://ctf.xidian.edu.cn/training/22?challenge=981) 题，题面如下：
+
+```python title="wiener++.py"
+from Crypto.Util.number import *
+from secret import flag
+
+m = bytes_to_long(flag)
+p = getPrime(1024)
+q = getPrime(1024)
+phi = (p-1)*(q-1)
+E = []
+for i in range(3):
+    E.append(pow(getPrime(600),-1,phi))  
+n = p*q
+e = 65537
+c = pow(m,e,n)
+print(f'E = {E}')
+print(f'c = {c}')
+print(f'n = {n}')
+"""
+E = [6535354858431850852882901159552069642652745264375395319401872291559383432177438285988364127472613549365509820935925577361414464075764640533208334665987592109205997966463551882468734344050074283602043327838642976610275755119106168019918564063715435876334390534614689273949767994713168344350212980200133843053996291542940897549076525747071976992346914997811867133598974772513201381446388313238061416275364774924879724623269275665955247476790410755454726735472729022234802527690839198476806961518389403284927512824802658120648166827671254702373707128253843009043343574820976133354679456691450195111421331838281980791169, 521740717797571328928542404746379489096681606296105709448001512801594188896794342910355692394114530313434027423805653128165121456821386005483234429465641848647231537545838107252519841836568394320914726188097536963645943740347602217310772591525035163575052097127250480550907254287152638159351757425050079034153320658804563142684053234861691610577439191450390837819069924806441572660111002277302472455857154076563710145258049404077025429614021344906361972885981934904848504701502497235325466136083457136074450313163397641812912247912853463291040073062853345391031149063654983069868879608400357250959694496146579685451, 8911805261833830474004605259907370605807913822533492645509364142094890565950914302571054903181099150347283987131973548407729373207539140949793938540351210310484507151010644704903841608034912618537032004944897772587351902872171465767156632786417718010302417945824640353543336103022123477513493841427508247924758472122357830026975916981381121237555468719061263601411254700854117936657411984123602591805427708008566595616753092377705022452331809886048933193760019801687147365544765265412906882965454515613718524542064373022515540363942939377959932432943637382868458666514763671495031622571616696370398455908620153043919]
+c = 6753155979488207369146877527563962489798459549318070923366033245920698810626960872130015507640079255967883699975637707573487421437682484657575346378258338966332206545439810503073328798748741132167015894650686768925239854863550203205724604895839456517875108542083858900948587934359333734716352762480295451652976617660823153097682212487885039311354081578869472189112818410420202093044127626917233949906728334691001613133349724175401388010902496533739535048147542837664443019380587362527652958368440203848684943761090115145949772541171220588682127280853035360547963393464562446348630721098472522627580664983812781660775
+n = 13574881868338582214480395446670580940012507548374450902518317364375475722668157493607158810724244896266071642370444779252115446641944766507717015889181393406304349721002246334571932443491014007813032684284177348256442664560920714698180362225066349458599934259487635040453190554685942293568882945035152595000888123888791436446731739856349561654337315238581318196198972142582551083105737178416447194992839881126339173823749783111704949164881364240077721677409809320748025824802169248149833407214474947847788378002642917634973813614056523994315689432930551129372591378019659084153696307545609036884627279543075621209259
+"""
+
+```
+
+攻击脚本如下：
+
+```python title="exp.sage"
+from extended_wiener_attack import ex_wa
+E = []
+c = ...
+n = ...
+e = 65537
+
+phi = ex_wa(n, E)
+
+print(f"[+] phi = {phi}")
+factors = factor_from_phi(n, phi)
+if factors:
+    p, q = factors
+    # Verify phi if needed (p-1)*(q-1) should equal phi
+    if (p-1)*(q-1) != phi:
+        print("[!] Warning: Calculated phi does not match (p-1)*(q-1). This can happen due to g > 1.")
+        # We can recalculate phi based on the factors
+        phi = (p-1)*(q-1)
+    # Decrypt the message
+    print("\n[*] Decrypting the message...")
+    d = inverse_mod(e, phi)
+    m_long = power_mod(c, d, n)
+    
+    def long_to_bytes(n):
+        return bytes.fromhex(hex(n)[2:].rstrip("L"))
+    try:
+        flag = long_to_bytes(m_long)
+        print(f"\n[+] Flag found: {flag.decode()}") # moectf{W1N4er_A@tT@CkRR-R@4ENggeEE|!}
+    except Exception as e:
+        print(f"[-] Could not decode flag: {e}")
+        print(f"    Plaintext as integer: {m_long}")
+```
+
+再来看 [NCTF2020-RRRSA](https://huangx607087.online/2021/03/01/LatticeNotes6/#5-%E4%BE%8B%E9%A2%98-2020NCTF-RRRSA)：
+
+```python title="RSA.py"
+#RSA.py
+from Crypto.Util.number import getPrime, getRandomNBitInteger, GCD, inverse
+lcm = lambda x, y: x*y // GCD(x,y)
+class RSA():
+    def __init__(self, bits):
+        p = getPrime(bits//2)
+        q = getPrime(bits//2)
+        self.N = p * q
+        self.lbd = lcm(p-1, q-1)
+        self.gen_ed(bits)
+    def gen_ed(self, bits):
+        while True:
+            d = getRandomNBitInteger(int(bits*0.4))
+            if GCD(d, self.lbd) == 1:
+                e = inverse(d, self.lbd)
+                self.e, self.d = e, d
+                break
+    def encrypt(self, m):
+        return pow(m, self.e, self.N)
+    def decrypt(self, c, d):
+        return pow(c, d, self.N)
+```
+
+```python title="task.py"
+#task.py
+from random import choice
+from hashlib import sha256
+from string import ascii_letters, digits
+from RSA import RSA
+from secret import FLAG
+MENU = """
+1. encrypt
+2. decrypt
+3. newkey
+4. encflag
+5. exit"""
+def proof_of_work():
+    proof = ''.join([choice(ascii_letters+digits) for _ in range(20)])
+    _hexdigest = sha256(proof.encode()).hexdigest()
+    print(f"sha256(XXXX+{proof[4:]}) == {_hexdigest}")
+    try:
+        prefix = input("Give me XXXX: ")
+    except:
+        print("Error!")
+        exit(-1)
+    return sha256((prefix+proof[4:]).encode()).hexdigest() == _hexdigest
+def task():
+    CHANCE = 1
+    RRRSA = RSA(1024)
+    print(f"My public key: {RRRSA.e}, {RRRSA.N}")
+    for _ in range(10):
+        try:
+            print(MENU)
+            choice = input("Your choice: ")
+            if choice == "1":
+                m = int(input("Your message: "))
+                c = RRRSA.encrypt(m)
+                print(f"Your cipher: {c}")
+            elif choice == "2":
+                c = int(input("Your message: "))
+                d = int(input("Your decryption exponent: "))
+                m = RRRSA.decrypt(c, d)
+                print(f"Your message: {m}")
+            elif choice == "3":
+                RRRSA.gen_ed(1024)
+                print(f"My new public key: {RRRSA.e}, {RRRSA.N}")
+            elif choice == "4":
+                if CHANCE:
+                    CHANCE -= 1
+                    flag = int.from_bytes(FLAG, 'big')
+                    encflag = RRRSA.encrypt(flag)
+                    print(f"encflag: {encflag}")
+                else:
+                    print("Nope, only 1 chance to get encflag.")
+            else:
+                print("Bye!")
+                exit(0)
+        except Exception as e:
+            print(e)
+            print("Error!")
+            exit(-1)
+if __name__ == "__main__":
+    if proof_of_work():
+        task()
+```
+
+显然这里 $\frac{\ln d}{\ln n} = 0.4$，使用 4 个 e 能够尝试恢复 phi；但这里其实还有个问题 `e = inverse(d, self.lbd)`，使用 $\lambda(n) = lcm(p-1, q-1)$ 当 $\varphi(n)=(p-1)*(q-1)$ 用，还能这么干吗？（从参考的题解来说确实可以，暂时挖坑吧 #todo ）。
+
+### common d
+
+```python title="task.py"
+from Crypto.Util.number import *
+
+flag = b'darctf{xxxxxxxxxxxxxxxxxxx}'
+flag = bytes_to_long(flag)
+d = getPrime(400)
+
+for i in range(4):
+    p = getPrime(512)
+    q = getPrime(512)
+    n = p * q
+    e = inverse(d, (p-1)*(q-1))
+    c = pow(flag, e, n)
+    print(f'e{i} =', e)
+    print(f'n{i} =', n)
+    print(f'c{i} =', c)
+
+'''
+e0 = 23844114241409164386809132218388868354264029199272891084709234309724158242864996012783905462475537573245862803694757748895957177908141041413116255316724561208736642617470467078478619042140268786586183895211481564391111178698452245307025651226211909103256546806557759885095799788351100191348777600339651478591
+n0 = 69036225587269604587380828901110959985820993104339166121952435700418237634884566882380661771083506554283938902859275601769840064565952882178731506464866270733357184875037630166845264127377651804173189451500736544719907454193858174375188647669243173368179546380071693963057411374219879730555780084721257185663
+c0 = 25919994984006494136117763940434107674027325362716831602111253353303312624950949244870141228310150398346225979345639834949450316401168402257977080462742941409884413450456343996608363699189273633186815603506411818482277791703378774040695810935035144274982279618243241555858616150507413430364949497014898459149
+e1 = 90227595770798329429543773376871102772936312496108372576645218459845442190961925721920308644012475971055712240490824429020187051893983437106526625545004025441742660408871198214420700018631241447159623873053699968499724826440813154790906891293256068588364266754507063532093517401246106130400153232720885119383
+n1 = 95018697907811905388348168966643819870431786565455754516869846768936627751616391459055741771645229919599086026202150338312064743859507786094624995592213819328921071806986060124918106493195648281643336238358671055792671721940544939312770559081353577401130988021800867564754104190852488382143254732103642530087
+c1 = 61754320221743759233065500021099993531816432330793348444588244530260861766516279667925579405472694997398214986157779800660212567507768828169727324987163176985363345897993819026535555548687226385416718142192208370923386429475997149114353749344817646742924465192811146580825484480291208840716280564361694864736
+e2 = 48436352174538763645407644971106273644384063698361935647029449962466195465988178835554358488268166392312903786539521207370520215437108228916671408239777663473340941629006170373460474769931653556801223896212652866162477593257053759252765539855609264405307505776094145705223912290876655703882182613563925340591
+n2 = 79298575208625662122217380170674490352029876259237329052532470648179836953643740249006121287223747696466043924149836698083695810801355660950241408571319425882277932762946786909216491079644003971491918799579224953982575800826473679194352007906249630812597483376008728062904339206798756997528224954887081000253
+c2 = 3193110934002044409318986068547938917927914194425590281649004983277691653690661760583880972618091469046967293951731672660957069138700739499999533078945884300306480766473953983459716137405783361390166697486777216808092308928704730448676281698937103305878976076391949094288750872456591287874971059095860369356
+e3 = 87386679582879797604111547110599099110567090087056142592469346107224071138506565164646979832903001578978653572500207450807082420333442167861402396827337780115219781115991724302157866191795307397700562628226448893516202695130423545487876908541015965410107488857158852611720962222793083868484783686519692025391
+n3 = 114854814804165287261892516196610245073496593524492698346301772352004426440576935073002800821365588587465086811039742854832566154065444281285574462506500612214357445628214391558263176158881581038294138724757815389225465421721516660119458048525456082047658388721166122008735177086863798238786090988397938474453
+c3 = 2628221891288775142730119400504625873661913557342797639332389889995494226897641124532043767301323269404579967203071158722088045137803611630295981086272025145539877643261676492818599564573074217978667225322783675473461608751143683659247347376427203720932989397503856751335285009642198314940546804845309680472
+'''
+```
+
+基于 [_Lattice Based Attack on Common Private Exponent RSA_](https://ijcsi.org/papers/IJCSI-9-2-1-311-314.pdf) ，论文中给出了构造的格：
+
+$$
+\begin{aligned}&x_{r}=(d,k_1,k_2,\cdots,k_r)\\&\mathcal{B}_{r}=\begin{bmatrix}M&e_1&e_2&&e_r\\0&-N_1&0&\cdots&0\\0&0&-N_2&&0\\&\vdots&&\ddots&\vdots\\0&0&0&\cdots&-N_r\end{bmatrix}\\&v_{r}=(dM,1-k_1s_1,\cdots,1-k_rs_r).\end{aligned}
+$$
+
+```python title="exp.py"
+from sage.all import *
+from Crypto.Util.number import long_to_bytes
+es = [e0, e1, e2, e3]
+ns = [n0, n1, n2, n3]
+
+r = len(es)
+M = floor(n0^0.5) # 权重 M，通常取 N^(1/2) 左右
+
+# 构造格基矩阵
+# [ M  e0  e1  e2  e3 ]
+# [ 0 -n0   0   0   0 ]
+# [ 0   0 -n1   0   0 ]
+# [ 0   0   0 -n2   0 ]
+# [ 0   0   0   0 -n3 ]
+
+dim = r + 1
+B = Matrix(ZZ, dim, dim)
+B[0, 0] = M
+
+for i in range(r):
+    B[0, i+1] = es[i]
+    B[i+1, i+1] = -ns[i]
+
+L = B.LLL()
+
+# 在规约后的基中，目标向量 v = [d*M, ...]，所以 d = abs(row[0]) // M
+
+d_found = 0
+for row in L:
+    possible_d = abs(row[0]) // M
+    if possible_d == 0: continue
+    try:
+        m = pow(c0, possible_d, n0)
+        flag_cand = long_to_bytes(int(m))
+        if b'darctf{' in flag_cand:
+            d_found = possible_d
+            print(f"[+] Found d: {d_found}")
+            print(f"[+] Flag: {flag_cand.decode()}")
+            break
+    except:
+        continue
+
+if d_found == 0:
+    print("[-] Attack failed to recover d.")
+"""
+[+] Found d: 1494282151976595577258857772505247454114539908857454581578416856533872627447784513499219236773851002321291861627331150671
+[+] Flag: darctf{C0mMon_D_1s_N0t_@_G0od_Choic3}
+"""
 ```
 
 ## Coppersmith's relative attack
@@ -1360,7 +1840,7 @@ for l in range(e, max_length+1):
 
 ### Franklin–Reiter related-message attack
 
-攻击条件：使用同一公钥 (n, e) 线性填充加密同一密文 m 两次，获得两个密文 c1 c2:
+相关消息攻击，攻击条件：使用同一公钥 (n, e) （一般要求 e 比较小）线性填充加密同一密文 m 两次，获得两个密文 c1 c2:
 
 ```python title="related-message"
 class Challenge:
@@ -1391,20 +1871,157 @@ $$
 
 不难发现二者都有 (x-m) 这一因式，提取出来后求解即可得到 m。
 
-> [!QUESTION]
+> [!question]+
 >
 > [cryptohack - Bespoke Padding](https://cryptohack.org/challenges/rsa/)
+> 
+> - 可参考 [多项式扩展欧几里得算法](https://billcookmath.com/sage/algebra/Euclidean_algorithm-poly.html)
+
+```python title="sage"
+x = Zmod(N)["x"].gen()
+p1 = ...
+p2 = ...
+# 多项式辗转相除法
+def poly_gcd(a, b):
+    while b:
+        a, b = b, a % b
+    return a.monic()
+# poly_egcd 仅作备忘，这里没用到
+def poly_egcd(a, b):
+    if a == 0:
+        return (b, 0, 1)
+    else:
+        gcd, x, y = egcd(b % a, a)
+        return (gcd, y - (b//a) * x, x)
+
+common_poly = poly_gcd(p1, p2)
+for m in (common_poly).small_roots():
+    print(long_to_bytes(int(m)))
+```
+
+> [!question]+
+> 
+> [Moectf2025 - ezHalfGCD](https://ctf.xidian.edu.cn/training/22?challenge=878)
+> 
+> 关于 HalfGCD 的原理可参考：[HalfGCD algorithm](https://codeforces.com/blog/entry/101850)
+
+```python title="task.py"
+from Crypto.Util.number import bytes_to_long, getStrongPrime
+from secret import flag
+
+e = 11
+p = getStrongPrime(1024)
+q = getStrongPrime(1024)
+n = p * q
+phi = (p - 1) * (q - 1)
+d = pow(e, -1, phi)
+enc_d = pow(d, e, n)
+enc_phi = pow(phi, e, n)
+enc_flag = pow(bytes_to_long(flag), e, n)
+print(f"{e=}")
+print(f"{n = }")
+print(f"{enc_d = }")
+print(f"{enc_phi = }")
+print(f"{enc_flag = }")
+# 输出在此省略
+```
+
+已知值 `e, n, enc_d, enc_phi, enc_flag`，且：
+
+1. $enc_d = d^e \pmod n$
+2. $enc_\phi = \phi^e \pmod n$
+3. $e*d = 1 \pmod \phi => 取 e*d = k*\phi + 1$
+    - d < phi => k < e （可以遍历，故而可以视为已知）
+    - $k^e * \phi^e = (k*\phi)^e = (e*d -1)^e$
+
+将 3 式代入 2 式可得：
+
+4. $k^e * \phi^e = (e*d -1)^e = enc_\phi*k^e \pmod n$
+
+依据 1,4 式建立两个在 Zmod(n) 上的多项式：
+
+- $f(x) = x^e - enc_d$
+- $g(x) = (e*x-1)^e - enc_\phi*k^e$ 
+
+不难发现 d 是这两个公式的公共根；据此，使用 sagemath 进行求解
+
+```python title="exp.sage"
+load("./output.sage") # load e, n, enc_d, enc_phi, enc_flag
+# load("../../../tools/archive/halfGCD.sage") # import PolyGCD for using HalfGCD
+# HalfGCD comes from https://seandictionary.top/sagemath/
+
+def PolyGCD(a, b):
+    while b:
+        a, b = b, a % b
+    return a
+
+R = Zmod(n)
+P.<x> = PolynomialRing(R)
+
+d = None
+phi = None
+
+for k in range(e):
+    # f(x) = x^e - enc_d
+    f = x^e - enc_d
+    # g(x) = (e*x - 1)^e - enc_phi * k^e
+    g = (e*x - 1)^e - enc_phi * (k^e)
+    # gcd 寻找公共因子
+    h = PolyGCD(f, g)
+    # 如果 gcd 度数为 1，则有形如 (x - d) 的因子
+    if h.degree() == 1:
+        # 在线性多项式 ax + b 中, 根为 -b/a
+        a = h[1]
+        b = h[0]
+        d_candidate = -b/a
+
+        if pow(Integer(d_candidate), e, n) == enc_d:
+            d = Integer(d_candidate)
+
+            # 由 e*d = k*phi + 1 => phi = (e*d - 1)//k
+            num = e*d - 1
+            if num % k == 0:
+                phi_candidate = num // k
+                # 验证 enc_phi
+                if pow(phi_candidate, e, n) == enc_phi:
+                    phi = phi_candidate
+                    print("[+] 找到 k =", k)
+                    print("[+] d =", d)
+                    print("[+] phi =", phi)
+                    break
+
+if d is None or phi is None:
+    print("[-] 未能找到合适的 d / phi")
+else:
+    # 用 d 解密 flag
+    m = pow(enc_flag, d, n)
+    try:
+        flag = bytes.fromhex(hex(m)[2:])
+    except:
+        # 有时前面会有填充 0，需要补到偶数长度再解码
+        h = hex(m)[2:]
+        if len(h) % 2 == 1:
+            h = "0" + h
+        flag = bytes.fromhex(h)
+
+    print("[+] flag_int =", m)
+    print("[+] flag =", flag, flag.decode())
+```
 
 ### Coppersmith’s short-pad attack
 
-[todo]
+#todo 
 
 ### Known High Bits Attack
 
-利用 sagemath 调用的 coppersmith 算法求解小根。
+已知高位攻击，利用 sagemath 调用的 coppersmith 算法求解小根。
 
-- 攻击条件：已知 N 的一个素数 p/q 的高位或者是明文的高位；
+- 攻击条件：已知 p/q/m/d 的高位；
+	- 对于512位素数，需要未知至多227位，对于1024位素数，需要未知至多454\455位，可能性大致对半开
+	- 如果不满足，可以尝试爆破一些位
 - 攻击方式：构造多项式，调用 sagemath 求解。
+
+#### p/m high bits
 
 ```python title="known_bits"
 from sage.all import *
@@ -1458,6 +2075,10 @@ if root2:
 else:
     print("No root found")
 ```
+
+#### d high bits
+
+> #todo https://weichujian.github.io/2020/05/27/rsa%E5%B7%B2%E7%9F%A5%E9%AB%98%E4%BD%8D%E6%94%BB%E5%87%BB1/
 
 ### Known Low Bits Attack
 
@@ -1626,7 +2247,7 @@ def get_full_p(p_low, n):
 
 组合之下我们得到
 
-```python title="solution.py"
+```python title="exp.py"
 def get_full_d(d_l, n, e):
     for p_lows, k in get_p_lows(d_l, n, e):
         # print("p_lows:",p_lows)
@@ -1669,7 +2290,7 @@ else:
 
 起源于 [cryptohack](https://cryptohack.org/challenges/rsa/) 上的 "Fast Primes"，当然去搜 Fast Primes 也能找到这个攻击（方便和安全总是难以兼得的），具体下面的文章讲的很清楚了，推荐攻击脚本如下，自己有能力写一个更好。
 
-> [!NOTE]
+> [!help]+
 >
 > - [Analysis of the ROCA vulnerability](https://bitsdeep.com/posts/analysis-of-the-roca-vulnerability)
 > - https://github.com/RsaCtfTool/RsaCtfTool/blob/master/sage/roca_attack.py
@@ -1680,8 +2301,9 @@ else:
 
 > https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding
 
-## 参考资料
+## 主要参考资料
 
+- [RSA 的一些攻击方式](https://seandictionary.top/rsa/)
 - [cryptohack - rsa](https://cryptohack.org/challenges/rsa/)
 - [crypto-attack/attack/rsa](https://github.com/jvdsn/crypto-attacks/tree/master/attacks/rsa)
 - [RSA学习笔记 | Chemtrails (ch3mtr4ils.cn)](https://ch3mtr4ils.cn/2022/12/29/RSA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/)

@@ -9,20 +9,14 @@ comments: true
 >
 > CTF 学习过程中用到的工具（后来加了一些觉得比较好的文章）；后来也把一些比较好的文章放在里面了；如果前有一个 `-` 表示我还没具体看/用过，但是粗看还不错。
 
-## 综合性网站
-
-- [随波逐流](http://1o1o.xyz/)
-- [mzy0](https://ctf.mzy0.com/)
-
 ## 学习平台
 
-- [CTF-wiki](https://ctf-wiki.org/)
-- [Hello-ctf](https://hello-ctf.com/)
-- [Ethernaut 题库闯关题解](https://learnblockchain.cn/column/19)
+- [CTF-wiki](https://ctf-wiki.org/) or [Hello-ctf](https://hello-ctf.com/) ior [CTF all in one](https://firmianay.gitbooks.io/ctf-all-in-one/content/)
 - [ctftime](https://ctftime.org/ctfs)
     - 国内外知名赛事
+
 - [-CTF-writeups-public](https://shiltemann.github.io/CTF-writeups-public/)
-- [CTF all in one](https://firmianay.gitbooks.io/ctf-all-in-one/content/)
+- [Ethernaut 题库闯关题解](https://learnblockchain.cn/column/19)
 
 ## 练习平台
 
@@ -36,18 +30,20 @@ comments: true
 
 ## MISC
 
+- [CTF-Misc Guide](https://goodlunatic.github.io/posts/1ad9200/)
+	- MISC 教程汇总了可以说是（包括多个合集）
+- [随波逐流](http://1o1o.xyz/)
+- [misc总结(隐写篇)](https://www.dr0n.top/posts/b9152a17/#0x06-snow%E9%9A%90%E5%86%99)
 - [FileReverse-Tools](https://github.com/AabyssZG/FileReverse-Tools)
     - “对二进制文件反转、倒置以及十六进制编码处理相关的工具，解决CTF和工作中的文件处理问题”
-- [CTFCrackTools](https://github.com/0Chencc/CTFCrackTools)
-    - 挺久没更新了
 - [-PuzzleSolver](https://github.com/Byxs20/PuzzleSolver)
-    - 现在获取需要一些“代价”
-- [misc总结(隐写篇)](https://www.dr0n.top/posts/b9152a17/#0x06-snow%E9%9A%90%E5%86%99)
 
 ### 图片类
 
 - [Aperi'Solve](https://aperisolve.com) or [项目仓库](https://github.com/Zeecka/AperiSolve)
     - 图片一把梭
+- [unroll](https://www.unroll.ing/)
+	- 在线版 binwalk
 - [steghide](https://steghide.sourceforge.net/download.php)
     - [medium——Steghide Tool](https://medium.com/@ece11106.sbit/steghide-tool-ec74edd69de4)
 - [Barcode 阅读器](https://demo.dynamsoft.com/barcode-reader/)
@@ -144,14 +140,15 @@ comments: true
 - [volatility foundation](https://github.com/volatilityfoundation)
     - [csdn-volatility 的安装与使用](https://blog.csdn.net/weixin_44895005/article/details/123917324)
 - [-LovelyMem](https://github.com/Tokeii0/LovelyMem)
-
 - [ctf101-misc](https://slides.tonycrane.cc/CTF101-2023-misc/lec3/#/2)
+
 ### 区块链与以太坊
 
 - [remix](https://remix.ethereum.org/)
     - solidity 在线编辑平台
 - [ethernaut](https://ethernaut.openzeppelin.com/)
     - 著名以太坊智能合约入门题目集
+    - [Ethernaut 超详细解题与分析(完结 全27道题目)](https://www.snowywar.top/3848.html)
     - [Youtube上的讲解](https://www.youtube.com/playlist?list=PLO5VPQH6OWdWh5ehvlkFX-H3gRObKvSL6)
 - [powfaucet](https://sepolia-faucet.pk910.de/)
       -  sepolia 中 ETH 的获取源
@@ -161,45 +158,48 @@ comments: true
 
 ### 简单编解码
 
-- [CyberChef](https://gchq.github.io/CyberChef/)
+- [x] [CyberChef](https://gchq.github.io/CyberChef/)
     - 赛博厨子
-- [ciphey](https://github.com/Ciphey/Ciphey)
+- [x] [ciphey](https://github.com/bee-san/Ciphey)
     - 自称快于 CyberChef，且捕获类似于 flag{content} 的结果（如果实际的 flag 比较奇怪，或者有一层混淆之类的，可能导致无法解出）
     - 基本使用：
         - `ciphey -t "encode_flag"`
         - `ciphey -f flag.txt`
+- [-pwcrack-framework](https://github.com/L-codes/pwcrack-framework)
+- [-basecrack](https://github.com/mufeedvh/basecrack/) <- base 系列爆破
+    - [-base64decode](https://www.base64decode.org/) 还支持文件解码
 - [python-codext](https://github.com/dhondta/python-codext)
     - 能在 python 中使用，也能在命令行使用
-- [CaptfEncoder](https://github.com/guyoung/CaptfEncoder)
+- [-CaptfEncoder](https://github.com/guyoung/CaptfEncoder)
 - [Tupper's self-referential formula](https://www.wikiwand.com/en/articles/Tupper%27s_self-referential_formula)
     - [tuppers-formula](https://tuppers-formula.ovh/)
 - [Zero-Width Characters](https://medium.com/@umpox/be-careful-what-you-copy-invisibly-inserting-usernames-into-text-with-zero-width-characters-18b4e6f17b66)
     - [zero-width-web](https://yuanfux.github.io/zero-width-web/)
-- [-basecrack](https://github.com/mufeedvh/basecrack/) <- base 系列爆破
-    - [-base64decode](https://www.base64decode.org/) 还支持文件解码
 - [键盘按键代码](https://www.lizhanglong.com/Tools/KeyCode)
 - [新佛曰](http://hi.pcmoe.net/buddha.html)
 
 - [CTF 常见编码及加解密](https://www.cnblogs.com/ruoli-s/p/14206145.html)
 - [Crypto CTFs Tricks](https://book.hacktricks.xyz/cn/crypto-and-stego/crypto-ctfs-tricks)
+- [Crypto - ffffffff0x/](https://github.com/ffffffff0x/1earn/blob/master/1earn/Security/Crypto/Crypto.md)
 
 ### 其他
 
+- [CTF 中那些脑洞大开的编码和加密](https://qftm.github.io/2018/01/30/Cryptography-Learning/)
 - [Poppler (software)](https://www.wikiwand.com/en/articles/Poppler_(software))
     - 处理 pdf 的命令行工具。
 - [igfonts](https://igfonts.io/) or [Italic Text Generator](https://lingojam.com/ItalicTextGenerator)
     - 生成 Unicode 混淆字符，绕过 ASCII 过滤
 - [Alternate Data Streams (ADS)](https://www.nirsoft.net/utils/alternate_data_streams.html)
-    - 
 - [hex](https://hexed.it/)
     - 在线十六进制编辑器
-- [List_of_file_signatures](https://www.wikiwand.com/en/articles/List_of_file_signatures)
-- [NATO phonetic alphabet](https://www.wikiwand.com/zh/articles/%E5%8C%97%E7%BA%A6%E9%9F%B3%E6%A0%87%E5%AD%97%E6%AF%8D)
+- [List_of_file_signatures](https://en.wikipedia.org/wiki/List_of_file_signatures)
+- [NATO phonetic alphabet](https://en.wikipedia.org/wiki/NATO_phonetic_alphabet)
+- [-NTLM](https://3gstudent.github.io/Windows%E4%B8%8B%E7%9A%84%E5%AF%86%E7%A0%81hash-Net-NTLMv1%E4%BB%8B%E7%BB%8D)
 - [-VirusTotal](https://www.virustotal.com/gui/home/upload)
     - 文档、url 等病毒检测
 - [whitespace](https://esolangs.org/wiki/Whitespace)
     - 奇奇怪怪的编程语言；居然有在线编译能运行它
-    - [-ideone](https://ideone.com/)
+	    - [-ideone](https://ideone.com/)
 
 ## Crypto
 

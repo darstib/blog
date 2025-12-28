@@ -61,6 +61,7 @@ def Exgcd(a, b) -> tuple: # d, x, y
 
 ```python title="exgcd"
 from z3 import *
+from math import gcd
 u, v = Ints("u v")
 s = Solver()
 s.add(u * p + v * q == gcd(p, q))
@@ -85,7 +86,29 @@ while s.check() == sat:
 3. $ax'*\frac{b}{d}+py'* \frac{b}{d}=d * \frac{b}{d}=b$
 4. $x = \frac{x'*b}{d}$
 
+### 卡迈克尔函数
+
+> [!wiki]- [Carmicheal function](https://en.wikipedia.org/wiki/Carmichael_function)
+> 
+> In number theory, a branch of mathematics, the Carmichael function λ(n) of a positive integer n is the smallest positive integer m such that
+> 
+> $$a^{m} \equiv 1 \pmod{n}$$
+
+类似于欧拉函数 $\varphi(n)$，$\lambda(n)$ 具有优美的递归性质：
+
+$$
+\lambda(n)=\begin{cases}\varphi(n)&\mathrm{if~}n\mathrm{~is~}1,2,4,\text{or an odd prime power,}\\\frac12\varphi(n)&\mathrm{if~}n=2^r,\quad r\geq3,\\\operatorname{lcm}\left(\lambda(n_1),\lambda(n_2),\ldots,\lambda(n_k)\right)&\mathrm{if~}n=n_1n_2\ldots n_k\mathrm{~where~}n_1,n_2,\ldots,n_k\text{ are powers of distinct primes.}&\end{cases}
+$$
+
+当 $n = p*q$ 时，结合 gcd 和 lcm 的性质，我们有：
+
+$$
+\varphi(n) = (p-1)*(q-1) = \text{lcm}(p-1, q-1) \cdot \text{gcd}(p-1, q-1) = \lambda(n) \cdot g
+$$
+
 ## Quadratic Residues
+
+> [bluewindde - 二次剩余](https://www.cnblogs.com/bluewindde/p/18100507) 是一个比较完整、详细的讲解。
 
 ### 定义
 
@@ -139,11 +162,14 @@ print(sqrt_mod(a, p)) # 求 x
 	- [when-p-3-pmod-4-show-that-ap1-4-pmod-p-is-a-square-root-of-a](https://math.stackexchange.com/questions/1273690/when-p-3-pmod-4-show-that-ap1-4-pmod-p-is-a-square-root-of-a)
 	- $x = a^{(1+p) / 4}$
 
-#### tonelli_shanks 算法
+#### tonelli_shanks
 
 ```python title="tonelli_shanks"
-# 代码来自        
 def tonelli_shanks(n, p):
+    """
+    x**2 == n (mod p)
+    :Return: x
+    """
     # Step 1: Check if n is a quadratic residue modulo p
     if pow(n, (p - 1) // 2, p) != 1:
         return None  # No solution exists

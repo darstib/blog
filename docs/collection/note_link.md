@@ -20,7 +20,7 @@ comments: true
 
 ### 计算机网络
 
-- [zjucomp.net](https://zjucomp.net/)
+- [x] [zjucomp.net](https://zjucomp.net/)
 
 - [咸鱼肆-计算机网络](https://www.yuque.com/xianyuxuan/coding/network)
 - [-Isshiki修's Notebook](https://note.isshikih.top/cour_note/D3QD_ComputerNetwork/)

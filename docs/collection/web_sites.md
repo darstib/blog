@@ -189,7 +189,7 @@ comments: true
 - [公开真题库](https://www.gkzenti.cn/)（公考，事考）
 - [真题在线](https://www.wehuster.com/)（大学英语四六级试卷）
 - [古诗文网](https://www.gushiwen.cn/)
-- [x] [macked](https://macked.app/) or [xclient](https://xclient.info/)
+- [x] [awesome-mac](https://github.com/jaywcjlove/awesome-mac) or [macked](https://macked.app/) or [xclient](https://xclient.info/) or [appstorrent](https://appstorrent.ru/)
 	- mac 软件
 
 ### 影视
@@ -468,8 +468,11 @@ comments: true
 > - [x]  [lddgo](https://www.lddgo.net/)
 > - [eureka](https://lin64850.github.io/posts/32227)
 
+- [微信公众号文章搜索](https://weixin.sogou.com/)
 - [微信公众号文章下载](https://github.com/qiye45/wechatDownload)
 - [微信文件传输助手](https://filehelper.weixin.qq.com/)
+- [谷百度歌](https://www.gobaidugle.com/)
+	- 聚合搜索，可分屏显示
 - [Scrcpy](https://github.com/Genymobile/scrcpy)
     - 手机投屏电脑
 - [Zoho survey](https://www.zoho.com.cn/survey/)

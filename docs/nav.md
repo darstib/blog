@@ -28,12 +28,16 @@
         - note/other/*.md
 - [CTF](CTF/README.md)
     - [CTF_Tools](CTF/CTF_Tools.md)
+    - [CISCN-CCB2025](CTF/CISCN-CCB2025/README.md)
+	    - CTF/CISCN-CCB2025/*.md
+    - [ZJUCTF2025](CTF/ZJUCTF2025/README.md)
+	    - CTF/ZJUCTF2025/*.md
     - [ZJUCTF2024](CTF/ZJUCTF2024/README.md)
 	    - CTF/ZJUCTF2024/*.md
     - [MOECTF2024](CTF/MOECTF2024/README.md)
 	    - CTF/MOECTF2024/*.md
-    - [ZJS-DASCTF2024](CTF/ZJS-DASCTF2024/README.md)
-        - [crypto](CTF/ZJS-DASCTF2024/crypto.md)
+    - [DASCTF2024](CTF/DASCTF2024/README.md)
+        - [crypto](CTF/DASCTF2024/crypto.md)
     - [Note](CTF/Note/README.md)
         - [Misc](CTF/Note/Misc/README.md)
 	        - CTF/Note/Misc/*.md

@@ -11,6 +11,8 @@ slug: windows-macOS-workflow
 
 mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协同工作和开发利用成了难题，搞了很久，留个备忘录方便自己和其他人，包括 **串流** **副屏** **文件同步** 等操作实现；看完全文，不必完全按照我的设计，你应该很容易发现自己也能够设计各式各样的方案出来。
 
+在文章刚写的那段时间内，我还是刚上手 mac，所以主要以 windows 为主；后来打算好好利用一下 mac 用于开发，也研究了一些以 mac 为主的方案。
+
 <!-- more -->
 
 ## 串流
@@ -31,7 +33,7 @@ mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协�
 > - **配置复杂度**：看后文实际操作便知道了；
 > - 来源于我的主观感受，仅供参考。
 
-综合上述考虑，我在局域网内（如校园网、企业网）远程控制时主要使用 sun+moon，公网使用 parsec；uu remote 传输文件以及以备不时之需。
+综合上述考虑，我在~~局域网内（如校园网、企业网）远程控制时主要使用 sun+moon，公网使用 parsec；uu remote 传输文件以及以备不时之需~~（；而 sunshine + moonlight 后续将会主要用于副屏，切换较为复杂）串流时以 uu remote 为主，希望这个应用能够坚持下去吧（不过从网易的尿性可能也就现在还在开发中所以比较推荐）。
 
 ### Parsec & UU remote
 
@@ -40,7 +42,7 @@ mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协�
 - [Parsec介绍及快速配置](https://makise.xlog.app/parsec) or [人人走向云游戏——Parsec详解](https://foxi.buduanwang.vip/virtualization/1736.html/)
 - [网易 UU 远程 - 使用帮助](https://uuyc.163.com/help/)
 
-串流最重要的是希望沉浸式体验，但是 uu remote 的快捷键映射并不太好，很多时候会优先使用本机（例如我这里是 mac 控制 windows，mac 如果有全局快捷键和 windows 快捷键冲突，使用的是 mac 自己的，我觉得这是不合理的），parsec 这一点做的比较好；但是 parsec 在安卓端（ios 端未尝试）支持有很大问题，所以
+串流最重要的是希望沉浸式体验，但是 uu remote 的快捷键映射并不太好，很多时候会优先使用本机（例如我这里是 mac 控制 windows，mac 如果有全局快捷键和 windows 快捷键冲突，使用的是 mac 自己的，我觉得这是不合理的），parsec 这一点做的比较好；但是 parsec 在安卓端（ios 端未尝试）支持有很大问题（且后续发现使用 parsec 时不能够关闭弹窗，感觉虽然传输画面能够看到发生的所有事，但是实际操作画面只是再更低的一些层面，非常不爽），现在还是以 uu remote 为主。
 
 ### Sunshine+Moonlight
 
@@ -136,6 +138,20 @@ mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协�
 ![250615-110728.png](https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/15_250615-110728.png)
 
 > 大概来说，super 对应了 mac 上的 `command` 和 windows 上的 `win` 键。
+
+---
+
+后来尝试了一下，[share mouse](https://www.sharemouse.com/) 比 deskflow 还是要舒服一点？而且 share mouse 是真的 share，没有主次关系，即键鼠本身连着谁都可以操控另一边。更有甚者，可以同步剪贴板，甚至直接拖拽（包括文字，甚至是图片）！
+
+> [!tip]- 推荐 v6.0.59 之后的版本~~也可找下 enterprise 版本更好~~
+> 
+> 可以看[更新](https://www.sharemouse.com/download/changelog/)：“The Standard Edition now supports two computers and a total of four displays, up from the previous limit of two displays. ” ，即两台设备共四个屏幕；老版本可能会出现每个屏幕都被识别为一个设备的情况，~~不过后续使用似乎遇到这种情况，要么每过一段时间重启，要么找 enterprise~~。
+
+由于平时还是会带着 mac 出门，为了减少重连接（以及暂时还是更加适应 windows 的键盘），还是把键盘连接着 windows（其实也尝试过连在 mac 上，但是此时鼠标在 windows 上时键盘的输出依旧作用在 mac 上，不知道是不是 bug），同时在 mac 的 shareMouse 中调整修饰键映射：
+
+![](https://raw.githubusercontent.com/darstib/public_imgs/utool/2511/30_1764472670116.png)
+
+但是还是会遇到一个问题：在 mac 上中英文切换是个问题（我之前都是使用 CapsLk 切换输入法），找解决方法的时候刚好也解决了一个我挺久之前的疑惑：“mac 切换输入法中间总会有个延迟，打起字来非常不爽”，[解决方法](在 windows11 上，如何设置 win+space 切换输入法)就是改用 “control + space” 来切换输入法，这样 shareMouse 就可以为我处理这一点了。
 
 - [一套键鼠无缝切换多台电脑](https://zhuanlan.zhihu.com/p/1823127149)
 - [MacOS 与 Win11 ……](https://blog.kl.do/posts/630993824.html)

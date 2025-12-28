@@ -19,7 +19,7 @@ comments: true
 
 ## 基本使用
 
-在 windows 中进入到对应文件夹下，使用 powershell[^1] 打开。
+在 windows 中进入到对应文件夹下，使用 powershell 打开。
 
 键入：
 
@@ -31,7 +31,5 @@ comments: true
 ```
 
 我使用的是 git clone 下来的源代码。使用第二条命令时，大整数，放在文件中，末尾多换两个行，不然似乎会有问题；而且似乎这样做也会导致文本被吞了??？有点奇怪。
-
-[^1]: powershell 支持部分 linux 命令，个人更加熟悉，cmd 也是一样的。
 
 ![](attachments/yafu.png)

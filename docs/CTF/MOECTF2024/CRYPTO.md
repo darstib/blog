@@ -426,7 +426,6 @@ print("".join(map(str,stream))[:-5])
 - 在 `__init__` 阶段先 stream(8*(len(secrets)))，也即将本来应该输出的 secrets 对应部分放空
 - 在 `print` 时截断了最后 5 个
 
-
 了解到 berlekamp_massey 算法可以依据 2n 长度的 stream 计算出长度为 n 的寄存器的反馈多项式，我们下面使用 sagemath 中实现的 BM 算法；同时出于理解方便，我实现了更加可控的 LFSR 和反向的 ReverseLFSR：
 
 ```python title="solution.py"

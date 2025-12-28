@@ -23,8 +23,8 @@ comments: true
     - 类上，基于在 LeetCode 上的题；使用 C++。
 - [leetcode_problem_rating](https://zerotrac.github.io/leetcode_problem_rating/#/)
     - [zerotrac](https://github.com/zerotrac) 对于部分 LeetCode 题基于难度的排序，由难到容易，适合刷题入门
-- [-labuladong 的算法笔记](https://labuladong.online/algo/home/)
-    - 半免费，可以看看他的插件
+- [codefather](https://algo.codefather.cn/)
+	- 交互式学习，登陆后免费
 - [OI wiki](https://oi-wiki.org/)
     - “**OI Wiki** 致力于成为一个免费开放且持续更新的 **编程竞赛（competitive programming）** 知识整合站点”。
 - [-CodeForce](https://codeforces.com/)
@@ -42,9 +42,10 @@ comments: true
     - [Rust 中文教程](https://course.rs/about-book.html)
         - 应该会比官方文档友善一点？
         - [配套练习](https://practice-zh.course.rs/)
-    - [Rust 之旅](https://tourofrust.com/)
+    - [-Rust 之旅](https://tourofrust.com/)
 	    - 交互式学习
-    - [Rust 编译运行可视化](https://github.com/cognitive-engineering-lab/aquascope)
+    - [-Rust 编译运行可视化](https://github.com/cognitive-engineering-lab/aquascope)
+    - [-数据结构与语法](https://github.com/QMHTMY/RustBook)
 - SQL
 	- [CS-Note 面试宝典](https://cyc2018.xyz/%E6%95%B0%E6%8D%AE%E5%BA%93/)
 	- [programiz online sql editor](https://www.programiz.com/sql/online-compiler)
@@ -52,9 +53,8 @@ comments: true
     - [PAT Solution](https://github.com/liuchuo/PAT)
     - [PAT Solution in C](https://xlucn.github.io/PAT/)
     - [地址、指针、数组](https://tree.45gfg9.net/c/pointers/)
-	    - 来自 [45gfg9](https://45gfg9.net/) 的讲解
 - C++
-	- [Sunrisepeak/mcpp-standard](https://github.com/Sunrisepeak/mcpp-standard)
+	- [-CppGuide](https://github.com/balloonwj/CppGuide)
 - [Verilog](https://www.chipverify.com/)
 - [Sagemath](https://www.sagemath.org/)
     - [sagemath 官方在线编译器](https://sagecell.sagemath.org/)

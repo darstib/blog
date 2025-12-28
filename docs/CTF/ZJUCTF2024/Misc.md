@@ -5,6 +5,15 @@ tags:
 comments: true
 ---
 
+
+## Silence
+
+比赛时没有解出来的，因为确实没有考虑太多，看的[出题人题解](https://note.xecades.xyz/ctf/game/zjuctf2024#9)，最简单的大抵就是这个“6 号文件描述符”
+
+![](attachments/Pasted%20image%2020251204175348.png)
+
+> [!flag]- ZJUCTF{I_Jus7-w4nt_2_slEE3p!zZZ}
+
 ## 锅里捞面
 
 致敬传奇电报员：

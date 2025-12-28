@@ -133,7 +133,7 @@ print(bytes.fromhex(hex(decrypted_message)[2:]).decode())
 
 ## 全同态 (FHE)
 
-![1741700485340.webp](https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/11_1741700485340.webp)
+![](attachments/Homomorphic_encryption-1.png)
 
 ## 参考资料
 
