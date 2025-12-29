@@ -9,19 +9,11 @@ comments: true
 {{ begin_toc }}
 
 - [CTF_Tools](CTF_Tools.md)
+- [CISCN-CCB2025](CISCN-CCB2025/README.md)
+- [ZJUCTF2025](ZJUCTF2025/README.md)
+- [DASCTF2024](DASCTF2024/README.md)
 - [ZJUCTF2024](ZJUCTF2024/README.md)
-    - [crypto](ZJUCTF2024/crypto.md)
-    - [misc](ZJUCTF2024/misc.md)
-    - [reverse](ZJUCTF2024/reverse.md)
-    - [web](ZJUCTF2024/web.md)
-    - [welcome](ZJUCTF2024/welcome.md)
 - [MOECTF2024](MOECTF2024/README.md)
-    - [misc](MOECTF2024/misc.md)
-    - [web](MOECTF2024/web.md)
-    - [crypto](MOECTF2024/crypto.md)
-    - [ai](MOECTF2024/ai.md)
-- [ZJS-DASCTF2024](DASCTF2024/README.md)
-    - [crypto](DASCTF2024/crypto.md)
 - Note
     - [Crypto](Note/Crypto/README.md)
     - [Misc](Note/Misc/README.md)

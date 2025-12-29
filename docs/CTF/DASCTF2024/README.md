@@ -4,7 +4,7 @@ tags:
 comments: true
 ---
 
-# ZJS-DASCTF2024
+# DASCTF2024
 
 ## 概述
 

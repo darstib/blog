@@ -4,9 +4,9 @@
 
 - [crypto](crypto.md)
 - [misc](misc.md)
-- [完整题解](../../static/Ap3ir0n.pdf){:download="Ap3ir0n"}
-
 {{ end_toc }}
+
+- [完整题解](../../static/Ap3ir0n.pdf){:download="Ap3ir0n"}
 
 ## 赛果
 
@@ -15,4 +15,7 @@
 
 ![](https://raw.githubusercontent.com/darstib/public_imgs/utool/2512/28_1766925735738.png)
 
-自闭了，密码学一共就出 3 题，还都是最后只有 50pt 的题，何意味？退役了。
+## 吐槽
+
+- 密码学一共就出 3 题，还都是最后只有 50pt 的简单题，何意味？
+- 附件用百度网盘/腾讯微云下载，何意味？
