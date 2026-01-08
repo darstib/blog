@@ -59,4 +59,4 @@ where $U^*(s)=\max_aQ^*(s,a)$ (namly the bellman equation - the optimal value of
 ## link
 
 - [cs188-sp24-note17](https://inst.eecs.berkeley.edu/~cs188/sp24/assets/notes/cs188-sp24-note17.pdf)
-- [13-MCMC](../../DMA/13-MCMC.md)
+- [19-MCMC](../../DMA/19-MCMC.md)

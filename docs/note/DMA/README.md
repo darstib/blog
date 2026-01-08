@@ -4,7 +4,7 @@ comments: true
 
 # Data modeling and analysis
 
-数据建模与分析的笔记，可能存在错误。
+数据建模与分析的笔记，可能存在错误；后续可能将涉及到的其他机器学习的“额外内容”补充在其中，放在附录中。
 
 > [!attention] 2025-12-26 更
 > 
@@ -12,7 +12,7 @@ comments: true
 
 > [!attention]
 >
-> 需要声明的是，复习笔记为将 slids 上传给 gemini-2.5 处理后，我自己边学边修改的结果。
+> 需要声明的是，大部分复习笔记为将 slids 上传给 gemini-2.5 处理后，我自己边学边修改的结果。
 >
 > 主要是有时候自己想加点东西，而全自己做笔记发现更多的时候还是在复制粘贴截图，故借助 LLM 整理，望悉知。
 
@@ -28,6 +28,13 @@ comments: true
 
 - [统计学习方法习题解答](https://datawhalechina.github.io/statistical-learning-method-solutions-manual/#)
 - [统计学习方法参考解答](http://db.darstib.cn/static/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E5%8F%82%E8%80%83%E8%A7%A3%E7%AD%94.pdf)
+
+## 推荐资料
+
+- [AI 算法工程师手册](https://www.huaxiaozhuan.com/)
+- [矩阵求导术](https://zhuanlan.zhihu.com/p/24709748)
+- [如何通俗并深刻的理解beta分布](https://zhuanlan.zhihu.com/p/149964631) & [带你理解beta分布](https://blog.csdn.net/a358463121/article/details/52562940)
+    - [概率分布可视化](https://homepage.divms.uiowa.edu/~mbognar/)
 
 ## 关于历年卷
 

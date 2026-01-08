@@ -145,5 +145,5 @@ def gibbs_ask(X, e, bn, N):
 ## link
 
 - [cs188-sp24-note13](https://inst.eecs.berkeley.edu/~cs188/sp24/assets/notes/cs188-sp24-note13.pdf) 
-- [13-MCMC](../../DMA/13-MCMC.md)
+- [19-MCMC](../../DMA/19-MCMC.md)
 - [A Gentle Introduction to Bayesian Deep Learning](https://towardsdatascience.com/a-gentle-introduction-to-bayesian-deep-learning-d298c7243fd6)

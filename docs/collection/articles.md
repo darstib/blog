@@ -16,7 +16,6 @@ tags:
 
 ### 机器/深度学习
 
-- [矩阵求导术](https://zhuanlan.zhihu.com/p/24709748)
 - [神经网络中的偏置（bias）究竟有什么用？](https://www.zhihu.com/question/305340182)
 	- 推荐先看[霍普菲尔德网络如何通过能量景观帮助大脑完成记忆回忆？](https://www.bilibili.com/video/BV1d6zSYTEFp)
 - [反馈神经网络——Hopfield网络](https://zhuanlan.zhihu.com/p/457810569)

@@ -7,7 +7,6 @@ comments: true
 # Graph Neural Network
 
 - [AI 算法工程师手册 - GNN](https://www.huaxiaozhuan.com/深度学习/chapters/11_GNN.html)
-	- [第三方备份](https://www.bookstack.cn/read/huaxiaozhuan-ai/1d6b4f71c978a00a.md)
 
 很多领域的数据关系可以表示为图结构，如计算机视觉、分子化学、模式识别、目标检测等，这些图结构往往比较复杂，基本的 Graph Embedding （可以认为是将图“压缩”为实值向量）会损失较多信息（如损失了节点的拓扑依赖性），难以捕捉到图的细节。
 
@@ -201,7 +200,7 @@ $$
 
 #### GraphSAGE
 
-见下文 [GraphSAGE](#GraphSAGE) 。
+见下文 [GraphSAGE](#GraphSAGE)。
 
 ### 频域卷积(Spectral Convolution)
 

@@ -101,7 +101,9 @@
     
 	{trigger: "<ques", replacement: "---\n**Q $0** _$1_\n\n$2", options: "tA"}, 
 	{trigger: "``p", replacement: "```python title=\"$0\"\n$1\n```", options: "tA"}, 
-	{trigger: "222", replacement: " $\\\{0，1\\\}^n$ $0", options: "tA"}, 
+	{trigger: "```py", replacement: "```python title=\"$0\"\n$1\n```", options: "tA"}, 
+	{trigger: "0,1", replacement: "\\\{0, 1\\\}$0", options: "mA"}, 
+	{trigger: "0,1", replacement: " $\\\{0, 1\\\}$0$ $1", options: "tA"}, 
 	{trigger: "toc", replacement: "{{ begin_toc }}\n\n$0\n\n{{ end_toc }}", options: "tA"}, 
 
 

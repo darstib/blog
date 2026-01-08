@@ -152,7 +152,6 @@ MIND 网络架构如上图所示：
 3. Pooling Layer：对每组特征向量进行[池化操作](1-Recall-graph.md#聚合算法) 各得到一个向量
 4. 特征 I 经过一个 Multi-Interest Extractor Layer 提取多个兴趣胶囊
 5. 特征 P 与兴趣胶囊拼接输入 DNN
-6. 
 
 ### 嵌入层和池化层 (Embedding & Pooling Layer)
 

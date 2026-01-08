@@ -70,8 +70,6 @@
 	    - AI/GRL/*.md
     - [KG](AI/KG/README.md)
         - AI/KG/*.md
-	- [PaperRead](AI/PaperRead/README.md)
-		- AI/PaperRead/*.md
 	- JustDo
 		- AI/JustDo/*.md
 - [Links](https://darstib.github.io/myworld/)
