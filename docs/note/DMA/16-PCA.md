@@ -50,7 +50,7 @@ PCA 的执行过程和核心理念可以概括为以下几点：
 >
 > 假设我们有二维数据，由两个线性相关的变量 $x_1$ 和 $x_2$ 表示，如图 (a) 所示，数据点呈现椭圆状分布。
 >
-> ![|500](https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/06_250606-115724.png)
+> ![](https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/06_250606-115724.png)
 >
 > **特性**：
 >
@@ -651,7 +651,7 @@ $$
 > 
 > 将原变量在以 $y_1, y_2$ 为轴的平面上表示（坐标为因子负荷量）。
 >
-> ![|500](https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/06_250606-160117.png)
+> ![](https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/06_250606-160117.png)
 >
 > 从图中可以看出：
 > 

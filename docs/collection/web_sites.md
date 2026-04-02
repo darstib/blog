@@ -175,6 +175,7 @@ comments: true
 
 ### 电子资料
 
+- [计算机考研杂货铺](https://www.csgraduates.com/)
 - [电子书查找](https://chen-huaneng.github.io/2024/11/14/2024-11-14-2024-11-14-website/#%E7%94%B5%E5%AD%90%E4%B9%A6)
 	- [中国国家数字图书馆](https://www.nlc.cn/web/index.shtml)
 	- [Anna's Archive](https://annas-archive.org/)
@@ -191,6 +192,7 @@ comments: true
 - [古诗文网](https://www.gushiwen.cn/)
 - [x] [awesome-mac](https://github.com/jaywcjlove/awesome-mac) or [macked](https://macked.app/) or [xclient](https://xclient.info/) or [appstorrent](https://appstorrent.ru/)
 	- mac 软件
+- [acgbox](https://www.acgbox.link/)
 
 ### 影视
 
@@ -456,12 +458,11 @@ comments: true
 	- 严格程度一般，能过这个差不多够日常使用了
 - [IPQuality](https://github.com/xykt/IPQuality)
 	- 这是一个脚本，会查找多个数据库检测，速度较慢，结果较详细
-	- 一个类似地是 [ping0](https://ping0.cc)，但是据说不太准？
+	- 一个类似地是 [ping0](https://ping0.cc)，~~但是据说收钱就可以改数据~？
 
 - [Sublink](https://github.com/7Sageer/sublink-worker) 节点转订阅
 	- 自建了一个 [sublink-workr](https://sublink-worker.qssgatcn.workers.dev/)
 	- 绑了个[丑丑的域名](http://sub.2.a.4.b.0.d.0.0.1.0.a.2.ip6.arpa/)（以支持不翻墙）
-- [-CF-Workers-SUB](https://github.com/cmliu/CF-Workers-SUB)
 
 > [!summary]- 来自这里的导航站以及自己收集
 > 
@@ -501,6 +502,7 @@ comments: true
 > - [有趣网址之家](https://youquhome.com/)
 > 	- “收藏全球有趣的网站”
 
+- [一键投降装置](https://syaro.io/1ksu/)
 - [钟楼谜团](https://clocktower.gstonegames.com/)
 - [websim](https://websim.ai/) or [lovable](https://lovable.dev/) <- [demo](https://lovable.dev/projects/86d3f892-e56a-4c50-a027-9da3a9d94ae6)
 	- 用 AI 创作网页

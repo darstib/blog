@@ -97,3 +97,5 @@ tags:
 - [devv](https://devv.ai/search)
 	- [如何获得一篇论文的 bib 信息](https://devv.ai/search?threadId=eh3zbw3osoow)
 	- [编程范式](https://devv.ai/search?threadId=edi2mlfxs740)
+- [知乎直答](https://zhida.zhihu.com)
+	- [vscode 远程服务器网络代理配置](https://zhida.zhihu.com/share/7602573837732502940)

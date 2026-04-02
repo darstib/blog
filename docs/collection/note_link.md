@@ -16,38 +16,58 @@ comments: true
 > - 一些打算上的课的笔记也在这里，但是不能够保证比较好，最后会留下帮助最大的一些笔记；
 > - 同时链接名前的 `-` 表示我只是粗略地查看过相关资料并将其收集于此而并没用上，仅供参考。
 
-## 大三
-
-### 计算机网络
-
-- [x] [zjucomp.net](https://zjucomp.net/)
-
-- [咸鱼肆-计算机网络](https://www.yuque.com/xianyuxuan/coding/network)
-- [-Isshiki修's Notebook](https://note.isshikih.top/cour_note/D3QD_ComputerNetwork/)
-- [-小角龙的学习记录](https://zhang-each.github.io/My-CS-Notebook/Networking/)
-
-- [-GNS3图形化网络设计与图标管理入门到精通](https://blog.csdn.net/weixin_42581846/article/details/148378865)
-- [GNS3常用命令](https://www.keepnight.com/archives/269/)
+## 大三下
 
 ### -编译原理
 
+- [-编译原理课程笔记（All-in-One速通版）](https://cubicy.icu/compiler-construction-principles/)
 - [-Transcription-Malfunctioned - CP.pdf](https://github.com/Tian42chen/Transcription-Malfunctioned/blob/main/_Finalized_Notes/CP.pdf)
+- [-lhxcs - 编译原理](https://github.com/lhxcs/ZJU_Courses/tree/main/(%E5%A4%A7%E4%B8%89%E6%98%A5%E5%A4%8F)%20%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86)
+- [-咸鱼肆-编译原理](https://www.yuque.com/xianyuxuan/coding/compiler)
 
-### -密码学进阶
+## 大三上
 
-- [-「密码学基础」学习笔记](https://penghao.site/post/mi-ma-xue-ji-chu-xue-xi-bi-ji/)
-- [-鹤翔万里的笔记本](https://note.tonycrane.cc/sec/crypto/)
+### 计算机网络
 
-### -软件安全
+- [x] [王道计算机网络](https://www.bilibili.com/video/BV19E411D78Q/)
+- [咸鱼肆-计算机网络](https://www.yuque.com/xianyuxuan/coding/network)
+- ~~[-Isshiki修's Notebook](https://note.isshikih.top/cour_note/D3QD_ComputerNetwork/)~~
+- ~~[-小角龙的学习记录](https://zhang-each.github.io/My-CS-Notebook/Networking/)~~
 
-- [-RyanFrc - ZJU](https://github.com/RyanFcr/ZJU_Course/tree/main/%E5%A4%A7%E4%BA%8C%E6%98%A5%E5%A4%8F/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8)
-- [二进制安全](https://www.yuque.com/hxfqg9/bin/ug9gx5#5dvaL)
+- [x] [zjucomp.net](https://zjucomp.net/)
+- [GNS3常用命令](https://www.keepnight.com/archives/269/)
+
+> 我上的是 bk 老师的课，老师上课比较有活力，~~就是全英文导致不是很想听~~
+> 
+> - 实验部分用的是老实验（非 cs144）难度不大，纯体力活……
+> - 作业方面，bk 老师就期末前布置了一次，非常基础
+> - 考试方面，感觉王道书+B 站上王道的视频比较好理解，然后再过一遍咸鱼肆，最后（98 上）找题目刷刷，我觉得差不多了（尤其要关注一下专业术语的中英文映射，考试应该都是全英文的，虽然貌似也可以考场问老师）
+
+### 密码学进阶
+
+- ~~[-「密码学基础」学习笔记](https://penghao.site/post/mi-ma-xue-ji-chu-xue-xi-bi-ji/)~~
+- ~~[-鹤翔万里的笔记本](https://note.tonycrane.cc/sec/crypto/)~~
+
+> 不知道是不是课改了之类的，我上的是 lj 老师的课；
+> 
+> - 10% 考勤（lj 老师第一节课明确说会都给到所有人）
+> - 50% 自选主题展示（每人 20 分钟，实际老师对时间没有特别严格要求）
+> - 40% 与展示相比配的报告一份
+> 
+> 所以似乎没有什么“笔记”可言
+
+### 软件安全
+
+- ~~[-RyanFrc - ZJU](https://github.com/RyanFcr/ZJU_Course/tree/main/%E5%A4%A7%E4%BA%8C%E6%98%A5%E5%A4%8F/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8)~~
+- ~~[二进制安全](https://www.yuque.com/hxfqg9/bin/ug9gx5#5dvaL)~~
+
+> 由 dwl 老师课改，seedlab 的内容还是比较朴实好懂的，就是实验不占分很无语，小测给分略迷。
 
 ## 大二下
 
 ### 计算机系统三
 
-- [CSys-III](../note/CSys-III/README.md)
+- [CSys-III](../note/CSys-III/README.md) （声明：借助了 AI 整理 ppt，再自己阅读、修改）
 - [RyanFcr 的仓库](https://github.com/RyanFcr/ZJU_Course/tree/main/%E5%A4%A7%E4%BA%8C%E6%98%A5%E5%A4%8F/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E2%85%A2)
 
 ### 人工智能安全
@@ -61,7 +81,7 @@ comments: true
 
 ### 人工智能伦理与安全
 
-> [!extra] 从完成上课任务来看这些都没有必要
+> [!extra] 从完成上课任务来看下面这些都没有必要
 
 - 参考资料
 	- [-Introduction to AI Safety, Ethics, and Society](https://www.aisafetybook.com/)
@@ -78,7 +98,7 @@ comments: true
 	- [cc98](https://www.cc98.org/topic/5926719)
 	- [DMA](../note/DMA/README.md)
 
-> [!extra] 课程内容和老师都很好，可能是外界评价太高的原因，期末被恶心到了😑，老师出难就是让大家都别选。
+> [!extra] 课程内容很好，可能是外界评价太高的原因，期末被恶心到了😑，小道消息：老师出难就是让大家都别选。
 
 ### 隐私计算与数据合规
 

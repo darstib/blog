@@ -18,7 +18,6 @@ comments: true
 ## 文章
 
 - [推荐系统干货总结](https://zhuanlan.zhihu.com/p/34004488)
-- [Awesome llm for RecSys](https://github.com/CHIANGEL/Awesome-LLM-for-RecSys)
 - [推荐系统遇上深度学习](https://www.jianshu.com/u/c5df9e229a67)
 - [深度学习强化学习推荐算法](https://www.zhihu.com/column/c_1122565407583678464)
 - [推荐系统干货分享](https://mp.weixin.qq.com/mp/appmsgalbum?search_click_id=13149378246798038131-1756284450041-7270066970&__biz=MzA4NTUxNTE4Ng==&action=getalbum&album_id=1346609229339262977)（公众号更新，论文）

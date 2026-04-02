@@ -307,10 +307,9 @@ int main() {
 
 ### LWEWL
 
-> https://suhanhan-cpu.github.io/2024/12/21/2024%20CISCN%20x%20%E9%95%BF%E5%9F%8E%E6%9D%AF%E9%93%81%E4%BA%BA%E4%B8%89%E9%A1%B9%20%E5%88%9D%E8%B5%9B%20WriteUp/#lwewl
-
 > - https://github.com/CTF-Archives/2024-CISCN-Quals/releases/tag/Latest
-> - [ ] https://blog.csdn.net/XiongSiqi_blog/article/details/139064568
+> - https://suhanhan-cpu.github.io/2024/12/21/2024%20CISCN%20x%20%E9%95%BF%E5%9F%8E%E6%9D%AF%E9%93%81%E4%BA%BA%E4%B8%89%E9%A1%B9%20%E5%88%9D%E8%B5%9B%20WriteUp/#lwewl
+
 
 ### hash
 

@@ -6,9 +6,9 @@ comments: true
 
 > [!help] 即自己遇到的问题以及相应的解决方法。
 
-## Unix
+## I Unix
 
-### ssh to WSL 
+### I.1 ssh to WSL 
 
 - [从 macOS 到 Windows WSL](https://blog.csdn.net/Narutolxy/article/details/144226085)
 	- ubuntu: `sudo systemctl start ssh`
@@ -16,16 +16,16 @@ comments: true
 	- kali-linux: `sudo /usr/sbin/service ssh start`
 - windows 上执行 `netsh interface portproxy show all` 查看开放端口
 
-### Wsl default user
+### I.2 Wsl default user
 
-#### 法 1（通用）
+#### I.2.1 法 1（通用）
 
 ```linux title="/etc/wsl.conf"
 [user]
 default=darstib
 ```
 
-#### 法 2（终端中能运行对应发行版程序）
+#### I.2.2 法 2（终端中能运行对应发行版程序）
 
 ```windows title="cmd/powershell"
 <Distro> config --default-user <user>
@@ -33,7 +33,7 @@ default=darstib
 
 > 基本失效，一般都使用 `wsl -d <Distro>` 。
 
-### Wsl 磁盘转移
+### I.3 Wsl 磁盘转移
 
 Wsl 越用越大，默认在 C 盘，如何移动到 D 盘自己指定的位置呢？
 
@@ -64,28 +64,28 @@ wsl --manage Ubuntu-24.04 --move "$targetPath"
 > 
 > 原文为（但是迁移上面文件夹的同时迁移了 docker 的 `*.vhdx` ，所以看上面的文章即可）：[How can I change the location of docker images when using Docker Desktop on WSL2 with Windows 10 Home?](https://stackoverflow.com/questions/62441307/how-can-i-change-the-location-of-docker-images-when-using-docker-desktop-on-wsl2)
 
-### wsl 磁盘压缩
+### I.4 wsl 磁盘压缩
 
 wsl 不主动释放使用过的空间，可以使用 [WSL2 虚拟磁盘文件(.vhdx)占用过大处理办法](https://www.cnblogs.com/T6uE13s/p/18704140) 解决。
 
-### 忘记了 wsl root 权限密码
+### I.5 忘记了 wsl root 权限密码
 
 - [set-up-your-linux-username-and-password](https://learn.microsoft.com/zh-cn/windows/wsl/setup/environment#set-up-your-linux-username-and-password)
 
-### 忘记 Vmware-machine 密码
+### I.6 忘记 Vmware-machine 密码
 
 - [bilibili - 忘记虚拟机密码登录不了（虚拟机开启报错）与虚拟机修改密码](https://www.bilibili.com/video/BV1Ha4y1X76Y/?spm_id_from=333.337.search-card.all.click&vd_source=0a037c4dd2becee04d2b1ccafdc1862e)
 
-### change version of JAVA in linux
+### I.7 change version of JAVA in linux
 
 `sudo update-alternatives --config java`
 
-### change version of GCC in linux
+### I.8 change version of GCC in linux
 
 - https://blog.csdn.net/qq_39779233/article/details/105124478
 - https://lindevs.com/install-gcc-on-ubuntu/
 
-### WSL (0x80190193)
+### I.9 WSL (0x80190193)
 
 ```powershell
 > wsl --update --pre-release
@@ -96,14 +96,84 @@ wsl 不主动释放使用过的空间，可以使用 [WSL2 虚拟磁盘文件(.v
 
 解决方案：**关闭代理**，参考 [wsl安装问题](https://blog.csdn.net/qq_44154915/article/details/140602090)。
 
-### Kali linux install
+### I.10 Kali linux install
 
 - [2023 Kali安装教程](https://blog.csdn.net/fingue/article/details/127559353)
 - [Kali Linux(VMware)中解决界面太小等问题](https://blog.csdn.net/qq_34668863/article/details/134009574)
 
-## windows
+### I.11 内网服务器的网络问题
 
-### oh-my-posh 显示 python 虚拟环境
+> [!question] pip 安装 python 包缓慢/失败
+
+使用清华源安装：
+
+```
+pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
+> [!question] vsc 插件的网络访问问题
+> 
+>> [!important]- 【20260304 更新】这里是原来的版本
+>> 
+>> - https://blog.csdn.net/qq_40620465/article/details/152000104
+>> - 在 ssh 连接时使用 `RemoteForward 7890 localhost:7890`
+>> - 在**服务器**的 setting.json 中添加下列选项（前两条是关键）
+>> 
+>> ```json title="setting.json"
+>> {
+>>     "http.proxy": "http://127.0.0.1:7890",
+>>     "http.useLocalProxyConfiguration": true,
+>>     "http.proxyStrictSSL": false,
+>>     "http.proxySupport": "on"
+>> }
+>> ```
+
+按照上面的配置，很多时候是可用的（如果没问题用上面的做法即可）；但有时出现了问题，可以表现为对 google.com 的请求异常：
+
+```shell
+$ export https_proxy=http://127.0.0.1:7890 
+
+$ curl -I https://www.google.com              
+HTTP/1.1 200 Connection established
+
+curl: (35) OpenSSL SSL_connect: Connection reset by peer in connection to google.com:443 
+```
+
+经过对日志的排查以及借助 gemini-3.1-pro 的分析，猜测是：由于服务器是多人共用的（或者说我自己就是两台电脑），当不同的主机尝试通过 ssh 连接服务器并在 7890 端口建立转发服务时，就会产生一些奇怪的行为……所以我们换一个端口用，且不再使用本地主机的代理配置（ssh 连接时配置 `RemoteForward 17890 localhost:7890`）：
+
+```json title="setting.json"
+{
+    "http.useLocalProxyConfiguration": false,
+    "http.proxy": "http://127.0.0.1:17890",
+    "http.proxySupport": "override",
+}
+```
+
+重新构建连接后测试：
+
+```shell
+$ export https_proxy=http://127.0.0.1:17890
+
+$ curl -I https://www.google.com           
+HTTP/1.1 200 Connection established
+
+HTTP/2 200 
+content-type: text/html; charset=ISO-8859-1
+...
+```
+
+## II windows
+
+### II.1 电脑假死
+
+> [!question] 我的电脑的鼠标可以移动，针对键盘也有响应，但是鼠标无法点击屏幕上的任何东西。
+
+虽然不知道为什么，但是成功在 [reddit](https://www.reddit.com/r/computerhelp/comments/12t6aik/my_mouse_cursor_works_but_cannot_click_anything/?tl=zh-hans) 上找到了“在我的情况下”可行的方式（原理不详）：
+
+1. Ctrl+Alt+Delete ，选中“资源管理器”
+2. 按下 Esc，似乎无事发生，但是此时发现可以点击了……
+
+### II.2 oh-my-posh 显示 python 虚拟环境
 
 > [!bug]- PowerShell 显示 Module 相关问题
 > 
@@ -137,7 +207,7 @@ wsl 不主动释放使用过的空间，可以使用 [WSL2 虚拟磁盘文件(.v
 },
 ```
 
-### windows 文件资源管理器中的 “网盘图标” 移除
+### II.3 windows 文件资源管理器中的 “网盘图标” 移除
 
 注册表中：
 
@@ -146,17 +216,17 @@ wsl 不主动释放使用过的空间，可以使用 [WSL2 虚拟磁盘文件(.v
 也有些可能在 HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\
 ```
 
-### 电脑不使用后两分钟锁屏自动锁屏
+### II.4 电脑不使用后两分钟锁屏自动锁屏
 
 - https://www.zhihu.com/question/55617612
 
-### 在 Windows11 上隐藏任务栏中的 copilot
+### II.5 在 Windows11 上隐藏任务栏中的 copilot
 
 最近在 windows 11 更新后，任务栏中出现了一个 **copilot** ，基于仍然是试用期，而且大陆不能直接访问，懒得用了，放那也碍眼：
 
 - [系统极客-3 招教你在 Windows 11 中轻松关闭或移除 Copilot 功能](https://www.sysgeek.cn/windows-11-disable-copilot/)
 
-### windows 多任务处理 edge 浏览器标签页显示过多
+### II.6 windows 多任务处理 edge 浏览器标签页显示过多
 
 > [!tip]+ 温知识
 > 
@@ -169,13 +239,49 @@ wsl 不主动释放使用过的空间，可以使用 [WSL2 虚拟磁盘文件(.v
 
 此时虽然说“不显示”，但还是会保留基本的 edge 的页面的。
 
-## Network
+### Docker 未安装在指定位置导致 compose 插件无法被找到
 
-### macOS clash 系统代理打开无效
+> [!question]
+> 
+> 我使用 windows 上的 docker desktop 并默认安装在了 D 盘；在启动容器时出现下面的错误： 
+> 
+> ```
+> Cannot start Docker Compose application. Reason: compose [start] exit status 125. unknown flag: --project-name Usage: docker [OPTIONS] COMMAND [ARG...] Run 'docker --help' for more information
+> ```
+> 
+> 但是在管理员权限下执行下面命令之后可以正常：
+> 
+> ```sh
+>  C:\..\system32
+> > new-Item -ItemType SymbolicLink -Path "$HOME\.docker\cli-plugins\docker-compose.exe" -Target "D:\Docker\docker_desktop\resources\bin\docker-compose.exe"
+> 
+> 
+>     目录: C:\Users\xxxxx\.docker\cli-plugins
+> 
+> 
+> Mode                 LastWriteTime         Length Name
+> ----                 -------------         ------ ----
+> -a---l         2026/2/25     10:53              0 docker-compose.exe
+> ```
+> 但依旧不幸的是 docker desktop （或者是电脑重启后）依旧会失效，需要重新执行该命令。
+
+问题和[这个 issue](https://github.com/docker/for-win/issues/14902) 类似，最后翻到可以在 `$HOME\.docker\config.json` 添加（路径结合实际修改）：
+
+```json
+{
+  "cliPluginsExtraDirs": [
+    "D:\\Docker\\docker_desktop\\resources\\cli-plugins"
+  ]
+}
+```
+
+## III Network
+
+### III.1 macOS clash 系统代理打开无效
 
 - [打开隐私与安全中的高级设置，关闭访问系统范围的设置需要输入管理员密码](https://github.com/clash-verge-rev/clash-verge-rev/issues/1118#issuecomment-2144418510)
 
-### missing cap_net_raw+p capability or setuid
+### III.2 missing cap_net_raw+p capability or setuid
 
 ```shell
 $ ping github.com
@@ -188,17 +294,17 @@ curl: (35) GnuTLS, handshake failed: The TLS connection was non-properly termina
 
 `ping` 权限不够，`sudo setcap cap_net_raw+ep /usr/bin/ping` 提供权限。
 
-### From xxxx icmp_seq=n Destination Host Unreachable
+### III.3 From xxxx icmp_seq=n Destination Host Unreachable
 
 WSL `ping <domain>/<ip>` 时出现无法找到的问题，但是宿主机是可以正常访问的，**unreachable** 似乎将问题指向了 DNS，最后通过修改 `/etc/resolv.conf` 中的 nameserver 后的 DNS 服务器 ip 解决（修改至与宿主机一致即可）。
 
-### 连接需要登录的 wifi 时重定向界面错误
+### III.4 连接需要登录的 wifi 时重定向界面错误
 
 在登入企业/学校 wifi 时，需要账号登入；但是发现只是跳转到 http://www.msftconnecttest.com/redirect 之后显示失败了，在[这里](https://answers.microsoft.com/zh-hans/windows/forum/all/windows%E8%BF%9E%E6%8E%A5%E5%85%AC%E5%85%B1/9cee5962-a379-4335-893f-984f0cd0f151#:~:text=%E7%9A%84%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98-,%E9%A6%96%E5%85%88%E5%85%B3%E9%97%AD%E7%94%B5%E8%84%91%E4%B8%8A%E6%89%80%E6%9C%89%E7%9A%84%E4%BB%A3%E7%90%86%E4%B8%8EVPN%E8%BD%AF%E4%BB%B6,-%E6%8C%89%E4%B8%8B%E3%80%90windows%20%2B%20x) 找到了答案。
 
 简而言之，先把 VPN 什么的关了，否则影响上述链接重定向。
 
-### vscode 中使用 copilot 登录失败
+### III.5 vscode 中使用 copilot 登录失败
 
 > 在更换学生认证包后，vscode 上的 copilot 突然间登入不上，体现在点击登陆后自动跳转到认证界面，确定后 vscode 这边却没反应。
 
@@ -217,31 +323,31 @@ WSL `ping <domain>/<ip>` 时出现无法找到的问题，但是宿主机是可�
 
 尝试删除后重试，问题解决；建议 Ctrl x 剪切，万一问题不在这，也能复原。
 
-## Other
+## IV Other
 
-#### 如何获取 Google 安全码？
+#### IV.1.1 如何获取 Google 安全码？
 
 -  [热夏的博客](https://www.lifeee.top/posts/13004.html)
 	- 有些手机没有 google 官方给出的获取安全码的方式，我们可以在 google play 中下载 "google" 这个应用。
 
-#### Tab Foucs in Vscode
+#### IV.1.2 Tab Foucs in Vscode
 
 - **Q:** 在 VSCode 中，Tab 键变成了在各选项间跳跃（即焦点切换），而不是接受 AI 插件给出的建议。
 - **A:** 使用 `Ctrl M` 快捷键切换了这一模式。
 
-#### obsidian 文件保存失败？
+#### IV.1.3 obsidian 文件保存失败？
 
 - [Fail to save files](https://forum.obsidian.md/t/failed-to-save-a-file-eperm-operation-not-permitted/33760/4)
 
-#### Obsidian 调整 mermaid 宽度
+#### IV.1.4 Obsidian 调整 mermaid 宽度
 
 - [let-the-user-decide-the-size-and-alignment-of-mermaid-diagrams](https://forum.obsidian.md/t/let-the-user-decide-the-size-and-alignment-of-mermaid-diagrams/7019/1)
 
-#### Syncthing 跨设备同步工具
+#### IV.1.5 Syncthing 跨设备同步工具
 
 - [Syncthing - P2P文件同步工具](https://zhuanlan.zhihu.com/p/69267020)
 
-#### Deskflow
+#### IV.1.6 Deskflow
 
 - **Q**: `NOTE: cursor is locked to screen, check scroll lock key` 
 - (windows) 键盘上的 `ScrLk` 按键。

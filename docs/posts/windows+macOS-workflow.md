@@ -49,6 +49,8 @@ mac 和 windows 两种系统各有千秋，我全都要！但二者之间的协�
 > [!quote]-
 >
 > Sunshine 和 Moonlight 是一对用于游戏流式传输的开源软件，旨在为用户提供高质量、低延迟的游戏体验。它们的工作原理是将游戏从一台主机传输到另一台设备上，能在局域网或互联网中进行游戏流式播放。
+> 
+> 实际上也有一些 Fork 改进版本，如[基地版](https://docs.qq.com/aio/DSGdQc3htbFJjSFdO?p=DXpTjzl2kZwBjN7jlRMkRJ)，可自行选择。
 
 简而言之，sunshine 作为服务端应用，moonlight 作为客户端应用，能够实现在 **局域网** 内高质量串流[^1] 。
 

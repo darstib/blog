@@ -20,8 +20,8 @@ comments: true
 >
 > 假设用户在 $t_{0}$ 天浏览了平台，未来 7/30 天用户浏览平台的天数即为 $t_{0}$ 对应的 LT7/LT30；LT 的提高往往意味着用户体验提升（除非 DAU 显著降低）。
 
+- [x] [推荐‑搜索‑广告系统评估指标与损失函数技术报告](https://www.cnblogs.com/GlenTt/p/19009559)
 - [动手实现推荐系统评价指标AUC，GAUC，NDCG，HitRate，MRR，Recall，LogLoss](https://zhuanlan.zhihu.com/p/514209681)
-- 
 
 ## 召回优化
 

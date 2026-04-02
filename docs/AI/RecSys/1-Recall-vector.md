@@ -8,7 +8,7 @@ comments: true
 
 ## Deep retrieval
 
-> [!info] 参考字节跳动的 [Deep Retrieval: Learning A Retrievable Structure for Large-Scale Recommendations](https://arxiv.org/abs/2007.07203)。
+> [!info] 参考字节跳动的 [[2020] Deep Retrieval: Learning A Retrievable Structure for Large-Scale Recommendations](https://arxiv.org/abs/2007.07203)。
 
 简要来说，在前面的学习中，我们使用过向量作为物品和用户中间的关联中介，下面将要介绍使用路径作为物品和用户的中介。 
 

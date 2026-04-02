@@ -10,7 +10,8 @@ comments: true
 > [!PREREQUISITE]
 >
 > 准备练练 python jail ，准备资料如下：
->
+> 
+> - [【CTF】Python Jail 沙箱逃逸手法总结 PyJail All in One](https://www.freebuf.com/articles/web/422169.html)
 > - [Tr0y's Blog](https://www.tr0y.wang/)
 >     - [Python 沙箱逃逸的经验总结](https://www.tr0y.wang/2019/05/06/Python%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93/)
 >     - [Python 沙箱逃逸的通解探索之路](https://www.tr0y.wang/2022/09/28/common-exp-of-python-jail/)

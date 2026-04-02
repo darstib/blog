@@ -127,14 +127,12 @@ comments: true
 - [datawhalechina](https://github.com/datawhalechina)
 	- Datawhale是一个专注于AI与数据科学的开源组织，汇集了众多领域院校和知名企业的优秀学习者
 	- 本页面有几个教程就是该社区的工作
+- [《Hello，大模型》](https://www.yuque.com/zhangqiang-studyisalifestyle/it-technology/hellollm-index)
 - [ZhaoWeiGuo 的个人知识体系](https://knowledge.zhaoweiguo.com/)
 	- [AI相关](https://knowledge.zhaoweiguo.com/build/html/ai/)
 - [Dive into Deep Learning](https://d2l.ai/)
     - [动手学深度学习](https://zh-v2.d2l.ai/index.html#)
     - [习题解答](https://datawhalechina.github.io/d2l-ai-solutions-manual/#/)
-- [CIML(Course in Machine Learning)](http://ciml.info/)
-    - "CIML is a set of introductory materials that covers most major aspects of modern machine learning (supervised learning, unsupervised learning, large margin methods, probabilistic modeling, learning theory, etc.). It's focus is on broad applications with a rigorous backbone. A subset can be used for an undergraduate course; a graduate course could probably cover the entire material and then some."
-    - [这里下载pdf](http://ciml.info/dl/v0_99/ciml-v0_99-all.pdf)
 - [提示工程指南](https://www.promptingguide.ai/zh)
 - [王木头学科学](https://space.bilibili.com/504715181)
 

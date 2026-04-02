@@ -54,8 +54,10 @@
 	            - tutorial/python_learn/crypto/sage_math/*.ipynb
             - python_lib
 	            - tutorial/python_learn/crypto/python_lib/*.ipynb
-        - [Data](tutorial/python_learn/data/README.md)
+        - [data](tutorial/python_learn/data/README.md)
 	        - tutorial/python_learn/data/*.ipynb
+	    - [Torch](tutorial/python_learn/torch/README.md)
+		    - tutorial/python_learn/torch/*.ipynb
     - [Begin](tutorial/begin/README.md)
         - tutorial/begin/*.md
     - [Skill_learn](tutorial/skill_learn/README.md)
