@@ -20,8 +20,6 @@ comments: true
 
 ### -编译原理
 
-- [-南京大学-许畅](https://cs.nju.edu.cn/changxu/2_compiler/index.html)
-- 鹤翔万里的[计算理论笔记](https://note.tonycrane.cc/cs/tcs/toc/)
 - [-编译原理课程笔记（All-in-One速通版）](https://cubicy.icu/compiler-construction-principles/)
 - [-Transcription-Malfunctioned - CP.pdf](https://github.com/Tian42chen/Transcription-Malfunctioned/blob/main/_Finalized_Notes/CP.pdf)
 - [-lhxcs - 编译原理](https://github.com/lhxcs/ZJU_Courses/tree/main/(%E5%A4%A7%E4%B8%89%E6%98%A5%E5%A4%8F)%20%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86)
@@ -76,7 +74,7 @@ comments: true
 
 - 笔记
 	- [金鱼马的人工智能安全笔记](https://www.zhihu.com/column/c_1633936906831552512)
-- 参考资料（如果为了混一些 bonus 之类的）
+- 参考资料
 	- [人工智能：数据与模型安全](https://ai-data-model-safety.github.io/index.html)
 	- [Interpretable Machine Learning](https://christophm.github.io/interpretable-ml-book/)
 		- [-中文翻译](https://github.com/MingchaoZhu/InterpretableMLBook)
@@ -87,7 +85,7 @@ comments: true
 
 - 参考资料
 	- [-Introduction to AI Safety, Ethics, and Society](https://www.aisafetybook.com/)
-	- [-人工智能治理公共服务平台](https://www.ai-governance.online/cn)
+	- [人工智能治理公共服务平台](https://www.ai-governance.online/cn)
 - 笔记
 	- [-YEY blog - COMP90087](https://yey.world/archive/?tag=COMP90087)
 
@@ -124,6 +122,7 @@ comments: true
 - [cc98 - 毛概资源汇总](https://www.cc98.org/topic/6181236)
 	- 下面的内容基本出于此/发源于此
 - 回忆卷
+	- [-飞书 - 回忆卷整理](https://gi7cake7hk2.feishu.cn/docx/NoTPdE0qZoKazcxKfwtcuLegnKg#UTl0dAYuAo3S5lxAk5bcgMS5nrh)
 	- [毛概资源汇总 - 回忆卷汇总](https://www.cc98.org/topic/6181236#:~:text=%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%9F%A5%E7%9C%8B~-,%E5%9B%9E%E5%BF%86%E5%8D%B7%E6%B1%87%E6%80%BB,-%E3%80%90%E5%AD%A6%E4%B9%A0%E5%A4%A9%E5%9C%B0%E3%80%912024)
 - 其他
 	- [【毛概】重要会议和文献梳理](https://www.cc98.org/topic/5921889)

@@ -172,7 +172,7 @@ $$
 f_r(h,t)=\mathbf{r}^\top\tanh(\mathbf{h}^\top\underline{\mathbf{M}}_r\mathbf{t}+\mathbf{M}_r^1\mathbf{h}+\mathbf{M}_r^2\mathbf{t}+\mathbf{b}_r)
 $$
 
-看起来有点像推荐系统中的[二阶交叉特征](../RecSys/Classic/1-Recall-vector.md#二阶交叉特征)，是本篇涉及的模型中表达能力最强的模型，但是碍于参数过多难以处理大型图谱。
+看起来有点像推荐系统中的[二阶交叉特征](../RecSys/1-Recall-vector.md#二阶交叉特征)，是本篇涉及的模型中表达能力最强的模型，但是碍于参数过多难以处理大型图谱。
 
 #### MLP
 

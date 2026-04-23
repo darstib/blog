@@ -10,7 +10,7 @@ comments: true
 	- [第三方备份](https://www.bookstack.cn/read/huaxiaozhuan-ai/2541a32ee733af23.md)
 - [Github - GraphEmbedding](https://github.com/shenweichen/GraphEmbedding)
 
-在 [Word2vec](../RecSys/Classic/1-Recall-CF.md#Word2vec) 和 [Item2vec](../RecSys/Classic/1-Recall-CF.md#Item2vec) 中我们的嵌入都是从**序列信息**中去学习的，这种思路面对错综复杂的图结构时似乎有些力不从心了。
+在 [Word2vec](../RecSys/1-Recall-CF.md#Word2vec) 和 [Item2vec](../RecSys/1-Recall-CF.md#Item2vec) 中我们的嵌入都是从**序列信息**中去学习的，这种思路面对错综复杂的图结构时似乎有些力不从心了。
 
 考虑目标：基于一个图 $G = (V, E), E\subseteq(V\times V)$ 学习一个映射 $\Phi: V \rightarrow \mathbb{R}^{d}$ 以将图上的节点嵌入。
 
@@ -55,7 +55,7 @@ DeepWalk 由两部分组成：
 
 ### Skip-Gram
 
-在 [Skip-gram(SG)](../RecSys/Classic/1-Recall-vector.md#Skip-gram(SG)) 处介绍了 SG 算法在 word2vec 的应用，不难发现我们期望学习的映射 $V \rightarrow \mathbb{R}^{d}$ 在模型中应该作为一个矩阵：$\Phi \in \mathbb{R}^{|V| \times d}$ ，$\Phi$ 的每一个行向量即为对应节点的嵌入表达，在开始被随机初始化。同样的，我们将遇到因为节点数量过多导致的不可接受的 Softmax 计算量问题；论文中考虑层序 Softmax (Hierarchical Softmax, see section [Skip-gram(SG)](../RecSys/Classic/1-Recall-vector.md#Skip-gram(SG))) 。
+在 [Skip-gram(SG)](../RecSys/1-Recall-vector.md#Skip-gram(SG)) 处介绍了 SG 算法在 word2vec 的应用，不难发现我们期望学习的映射 $V \rightarrow \mathbb{R}^{d}$ 在模型中应该作为一个矩阵：$\Phi \in \mathbb{R}^{|V| \times d}$ ，$\Phi$ 的每一个行向量即为对应节点的嵌入表达，在开始被随机初始化。同样的，我们将遇到因为节点数量过多导致的不可接受的 Softmax 计算量问题；论文中考虑层序 Softmax (Hierarchical Softmax, see section [Skip-gram(SG)](../RecSys/1-Recall-vector.md#Skip-gram(SG))) 。
 
 ### DeepWalk
 
@@ -184,6 +184,6 @@ LINE 分别训练了一阶邻近度模型和二阶邻近度模型，分别得到
 - 当某些顶点邻居非常少时，可能需要结合邻居的邻居的信息
 - 当加入新节点时，只需要优化 $-\sum_{j\in N(i)}w_{ji}\log p_1(v_j,v_i), -\sum_{j\in N(i)}w_{ji}\log p_1(v_j|v_i)$ 即可
 
-如果新节点与已有节点的关系也非常少甚至没有，可能需要参考 [EGES](../RecSys/Classic/1-Recall-CF.md#Enhanced%20Graph%20Embedding%20with%20Side%20information%20(EGES))，使用辅助信息来表征。
+如果新节点与已有节点的关系也非常少甚至没有，可能需要参考 [EGES](../RecSys/1-Recall-CF.md#Enhanced%20Graph%20Embedding%20with%20Side%20information%20(EGES))，使用辅助信息来表征。
 
 
