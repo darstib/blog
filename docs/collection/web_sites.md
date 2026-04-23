@@ -307,13 +307,12 @@ comments: true
 - [基于Mermaid画流程图的工具](http://github.com/shixixiyue/MermaidHelp)
 - [SVG 绘图 prompt](https://linux.do/t/topic/812293)
 
-
 ### PPT 模板
+
+> [!attention] 如果你发现下面的网站无法访问/没有“免费板块”（甚至连免费下载的可能性都没有），请在底部评论区留言，我将考虑将其移除。
 
 - [【PPT随记】私藏的PPT制作常用网站及技巧分享 (ZJU CC98)](https://www.cc98.org/topic/5015451)
     - 来自 ZJU 校内论坛 cc98，查看请链接校园内网
-- [象牙PPT](https://ppt.101dao.com/ppt/search/)
-- [包图网](https://ibaotu.com/)
 - [51PPT模板网](http://www.51pptmoban.com)
 - [Envato Market (GraphicRiver)](https://graphicriver.net/)
 - [优品PPT](http://www.ypppt.com)
