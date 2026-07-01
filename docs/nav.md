@@ -3,74 +3,77 @@
     - [更新小记](changelog.md)
     - [联系我](connect_me.md)
     - [Tags](tags.md)
-- [Collection](collection/README.md)
+- [Collection](collection/readme.md)
 	- collection/*.md
-- [Note](note/README.md)
-    - [cs188](note/cs188/README.md)
-        - [note](note/cs188/note/README.md)
+- [Note](note/readme.md)
+    - [cs188](note/cs188/readme.md)
+        - [note](note/cs188/note/readme.md)
 	        - note/cs188/note/*.md
-        - [project](note/cs188/project/README.md)
+        - [project](note/cs188/project/readme.md)
 	        - note/cs188/project/*.md
 	    - [intro in English](note/cs188/README_en.md)
-    - [physics](note/physics/README.md)
+    - [physics](note/physics/readme.md)
 	    - note/physics/*.md
-	- [CSys-II](note/CSys-II/README.md)
+	- [CSys-II](note/CSys-II/readme.md)
 		- note/CSys-II/*.md
-	- [CSys-III](note/CSys-III/README.md)
+	- [CSys-III](note/CSys-III/readme.md)
 		- note/CSys-III/*.md
-	- [DEM](note/DEM/README.md)
+	- [DEM](note/DEM/readme.md)
 		- note/DEM/*.md
-	- [DMA](note/DMA/README.md)
+	- [DMA](note/DMA/readme.md)
 		- note/DMA/*.md
-    - [cs70](note/cs70/README.md)
+    - [cs70](note/cs70/readme.md)
 	    - note/cs70/*.md
-    - [other](note/other/README.md)
+    - [other](note/other/readme.md)
         - note/other/*.md
-- [CTF](CTF/README.md)
+- [CTF](CTF/readme.md)
     - [CTF_Tools](CTF/CTF_Tools.md)
-    - [CISCN-CCB2025](CTF/CISCN-CCB2025/README.md)
+    - [CISCN-CCB2025](CTF/CISCN-CCB2025/readme.md)
 	    - CTF/CISCN-CCB2025/*.md
-    - [ZJUCTF2025](CTF/ZJUCTF2025/README.md)
+    - [ZJUCTF2025](CTF/ZJUCTF2025/readme.md)
 	    - CTF/ZJUCTF2025/*.md
-    - [ZJUCTF2024](CTF/ZJUCTF2024/README.md)
+    - [ZJUCTF2024](CTF/ZJUCTF2024/readme.md)
 	    - CTF/ZJUCTF2024/*.md
-    - [MOECTF2024](CTF/MOECTF2024/README.md)
+    - [MOECTF2024](CTF/MOECTF2024/readme.md)
 	    - CTF/MOECTF2024/*.md
-    - [DASCTF2024](CTF/DASCTF2024/README.md)
+    - [DASCTF2024](CTF/DASCTF2024/readme.md)
         - [crypto](CTF/DASCTF2024/crypto.md)
-    - [Note](CTF/Note/README.md)
-        - [Misc](CTF/Note/Misc/README.md)
+    - [Note](CTF/Note/readme.md)
+        - [Misc](CTF/Note/Misc/readme.md)
 	        - CTF/Note/Misc/*.md
-	    - [Web](CTF/Note/Web/README.md)
+	    - [Web](CTF/Note/Web/readme.md)
 		    - CTF/Note/Web/*.md
-        - [Crypto](CTF/Note/Crypto/README.md)
+        - [Crypto](CTF/Note/Crypto/readme.md)
             - CTF/Note/Crypto/*.md
         - other
             - CTF/Note/other/*.md
-- [Tutorial](tutorial/README.md)
+- [Tutorial](tutorial/readme.md)
     - python_learn
-        - [crypto](tutorial/python_learn/crypto/README.md)
-            - [sage_math](tutorial/python_learn/crypto/sage_math/README.md)
+        - [crypto](tutorial/python_learn/crypto/readme.md)
+            - [sage_math](tutorial/python_learn/crypto/sage_math/readme.md)
 	            - tutorial/python_learn/crypto/sage_math/*.ipynb
             - python_lib
 	            - tutorial/python_learn/crypto/python_lib/*.ipynb
-        - [data](tutorial/python_learn/data/README.md)
+        - [data](tutorial/python_learn/data/readme.md)
 	        - tutorial/python_learn/data/*.ipynb
-	    - [Torch](tutorial/python_learn/torch/README.md)
+	    - [Torch](tutorial/python_learn/torch/readme.md)
 		    - tutorial/python_learn/torch/*.ipynb
-    - [Begin](tutorial/begin/README.md)
+    - [Begin](tutorial/begin/readme.md)
         - tutorial/begin/*.md
-    - [Skill_learn](tutorial/skill_learn/README.md)
+    - [Skill_learn](tutorial/skill_learn/readme.md)
 	    - tutorial/skill_learn/*.md
-- [Summary](summary/README.md)
+- [Summary](summary/readme.md)
     - [大一小记](summary/大一小记.md)
     - [大二小结](summary/大二小结.md)
-- [AI](AI/README.md)
-	- [RecSys](AI/RecSys/README.md)
-	    - AI/RecSys/*.md
-	- [GRL](AI/GRL/README.md)
+- [AI](AI/readme.md)
+	- [RecSys](AI/RecSys/readme.md)
+        - Classic
+            - AI/RecSys/*.md
+        - GenRec
+            - AI/RecSys/GenRec/*.md
+	- [GRL](AI/GRL/readme.md)
 	    - AI/GRL/*.md
-    - [KG](AI/KG/README.md)
+    - [KG](AI/KG/readme.md)
         - AI/KG/*.md
 	- JustDo
 		- AI/JustDo/*.md

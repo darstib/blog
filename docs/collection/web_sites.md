@@ -312,8 +312,8 @@ comments: true
 
 - [【PPT随记】私藏的PPT制作常用网站及技巧分享 (ZJU CC98)](https://www.cc98.org/topic/5015451)
     - 来自 ZJU 校内论坛 cc98，查看请链接校园内网
-- [象牙PPT](https://ppt.101dao.com/ppt/search/)
-- [包图网](https://ibaotu.com/)
+- ~~[象牙PPT](https://ppt.101dao.com/ppt/search/)~~
+- ~~[包图网](https://ibaotu.com/)~~
 - [51PPT模板网](http://www.51pptmoban.com)
 - [Envato Market (GraphicRiver)](https://graphicriver.net/)
 - [优品PPT](http://www.ypppt.com)
