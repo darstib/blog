@@ -3,77 +3,77 @@
     - [更新小记](changelog.md)
     - [联系我](connect_me.md)
     - [Tags](tags.md)
-- [Collection](collection/readme.md)
+- [Collection](collection/index.md)
 	- collection/*.md
-- [Note](note/readme.md)
-    - [cs188](note/cs188/readme.md)
-        - [note](note/cs188/note/readme.md)
+- [Note](note/index.md)
+    - [cs188](note/cs188/index.md)
+        - [note](note/cs188/note/index.md)
 	        - note/cs188/note/*.md
-        - [project](note/cs188/project/readme.md)
+        - [project](note/cs188/project/index.md)
 	        - note/cs188/project/*.md
 	    - [intro in English](note/cs188/README_en.md)
-    - [physics](note/physics/readme.md)
+    - [physics](note/physics/index.md)
 	    - note/physics/*.md
-	- [CSys-II](note/CSys-II/readme.md)
+	- [CSys-II](note/CSys-II/index.md)
 		- note/CSys-II/*.md
-	- [CSys-III](note/CSys-III/readme.md)
+	- [CSys-III](note/CSys-III/index.md)
 		- note/CSys-III/*.md
-	- [DEM](note/DEM/readme.md)
+	- [DEM](note/DEM/index.md)
 		- note/DEM/*.md
-	- [DMA](note/DMA/readme.md)
+	- [DMA](note/DMA/index.md)
 		- note/DMA/*.md
-    - [cs70](note/cs70/readme.md)
+    - [cs70](note/cs70/index.md)
 	    - note/cs70/*.md
-    - [other](note/other/readme.md)
+    - [other](note/other/index.md)
         - note/other/*.md
-- [CTF](CTF/readme.md)
+- [CTF](CTF/index.md)
     - [CTF_Tools](CTF/CTF_Tools.md)
-    - [CISCN-CCB2025](CTF/CISCN-CCB2025/readme.md)
+    - [CISCN-CCB2025](CTF/CISCN-CCB2025/index.md)
 	    - CTF/CISCN-CCB2025/*.md
-    - [ZJUCTF2025](CTF/ZJUCTF2025/readme.md)
+    - [ZJUCTF2025](CTF/ZJUCTF2025/index.md)
 	    - CTF/ZJUCTF2025/*.md
-    - [ZJUCTF2024](CTF/ZJUCTF2024/readme.md)
+    - [ZJUCTF2024](CTF/ZJUCTF2024/index.md)
 	    - CTF/ZJUCTF2024/*.md
-    - [MOECTF2024](CTF/MOECTF2024/readme.md)
+    - [MOECTF2024](CTF/MOECTF2024/index.md)
 	    - CTF/MOECTF2024/*.md
-    - [DASCTF2024](CTF/DASCTF2024/readme.md)
+    - [DASCTF2024](CTF/DASCTF2024/index.md)
         - [crypto](CTF/DASCTF2024/crypto.md)
-    - [Note](CTF/Note/readme.md)
-        - [Misc](CTF/Note/Misc/readme.md)
+    - [Note](CTF/Note/index.md)
+        - [Misc](CTF/Note/Misc/index.md)
 	        - CTF/Note/Misc/*.md
-	    - [Web](CTF/Note/Web/readme.md)
+	    - [Web](CTF/Note/Web/index.md)
 		    - CTF/Note/Web/*.md
-        - [Crypto](CTF/Note/Crypto/readme.md)
+        - [Crypto](CTF/Note/Crypto/index.md)
             - CTF/Note/Crypto/*.md
         - other
             - CTF/Note/other/*.md
-- [Tutorial](tutorial/readme.md)
+- [Tutorial](tutorial/index.md)
     - python_learn
-        - [crypto](tutorial/python_learn/crypto/readme.md)
-            - [sage_math](tutorial/python_learn/crypto/sage_math/readme.md)
+        - [crypto](tutorial/python_learn/crypto/index.md)
+            - [sage_math](tutorial/python_learn/crypto/sage_math/index.md)
 	            - tutorial/python_learn/crypto/sage_math/*.ipynb
             - python_lib
 	            - tutorial/python_learn/crypto/python_lib/*.ipynb
-        - [data](tutorial/python_learn/data/readme.md)
+        - [data](tutorial/python_learn/data/index.md)
 	        - tutorial/python_learn/data/*.ipynb
-	    - [Torch](tutorial/python_learn/torch/readme.md)
+	    - [Torch](tutorial/python_learn/torch/index.md)
 		    - tutorial/python_learn/torch/*.ipynb
-    - [Begin](tutorial/begin/readme.md)
+    - [Begin](tutorial/begin/index.md)
         - tutorial/begin/*.md
-    - [Skill_learn](tutorial/skill_learn/readme.md)
+    - [Skill_learn](tutorial/skill_learn/index.md)
 	    - tutorial/skill_learn/*.md
-- [Summary](summary/readme.md)
+- [Summary](summary/index.md)
     - [大一小记](summary/大一小记.md)
     - [大二小结](summary/大二小结.md)
-- [AI](AI/readme.md)
-	- [RecSys](AI/RecSys/readme.md)
+- [AI](AI/index.md)
+	- [RecSys](AI/RecSys/index.md)
         - Classic
             - AI/RecSys/*.md
         - GenRec
             - AI/RecSys/GenRec/*.md
-	- [GRL](AI/GRL/readme.md)
+	- [GRL](AI/GRL/index.md)
 	    - AI/GRL/*.md
-    - [KG](AI/KG/readme.md)
+    - [KG](AI/KG/index.md)
         - AI/KG/*.md
 	- JustDo
 		- AI/JustDo/*.md

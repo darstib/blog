@@ -173,7 +173,17 @@ comments: true
 
 ## 资源查找
 
+### 盘搜
+
+- [夸克搜](http://www.kuakeso.net/)
+	- 搜公开的夸克/百度网盘资源
+- [pansou](https://github.com/fish2018/pansou)
+	- [盘搜](https://so.252035.xyz/)
+- [网盘搜](https://kkso.net/)
+    - 依旧夸克网盘资源
+
 ### 电子资料
+
 
 - [计算机考研杂货铺](https://www.csgraduates.com/)
 - [电子书查找](https://chen-huaneng.github.io/2024/11/14/2024-11-14-2024-11-14-website/#%E7%94%B5%E5%AD%90%E4%B9%A6)
@@ -183,10 +193,6 @@ comments: true
 	- [鸠摩搜索](https://www.wangdu.site/software/av-read/540.html)
 	- [welib](https://welib.org/)（原 [pdf drive](https://www.pdfdrive.com/)）
 	- [magazine lib](https://magazinelib.com/)（外网杂志）
-- [夸克搜](http://www.kuakeso.net/)
-	- 搜公开的夸克/百度网盘资源
-- [pansou](https://github.com/fish2018/pansou)
-	- [盘搜](https://so.252035.xyz/)
 - [公开真题库](https://www.gkzenti.cn/)（公考，事考）
 - [真题在线](https://www.wehuster.com/)（大学英语四六级试卷）
 - [古诗文网](https://www.gushiwen.cn/)

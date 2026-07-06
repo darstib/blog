@@ -67,7 +67,7 @@ comments: true
 
 ### 计算机系统三
 
-- [CSys-III](../note/CSys-III/README.md) （声明：借助了 AI 整理 ppt，再自己阅读、修改）
+- [CSys-III](../note/CSys-III/index.md) （声明：借助了 AI 整理 ppt，再自己阅读、修改）
 - [RyanFcr 的仓库](https://github.com/RyanFcr/ZJU_Course/tree/main/%E5%A4%A7%E4%BA%8C%E6%98%A5%E5%A4%8F/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E2%85%A2)
 
 ### 人工智能安全
@@ -96,7 +96,7 @@ comments: true
 		- [参考习题解答](https://datawhalechina.github.io/statistical-learning-method-solutions-manual/#/)
 - 笔记
 	- [cc98](https://www.cc98.org/topic/5926719)
-	- [DMA](../note/DMA/README.md)
+	- [DMA](../note/DMA/index.md)
 
 > [!extra] 课程内容很好，可能是外界评价太高的原因，期末被恶心到了😑，小道消息：老师出难就是让大家都别选。
 

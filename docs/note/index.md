@@ -6,7 +6,7 @@ comments: true
 
 ## 介绍
 
-这里是课内/外课程的我自己记录的学习笔记（对于相对更加齐全的课内笔记，参见 [note_link](../collection/note_link.md)）。(已完善 Mkdocs 笔记，本节剩余内容忽略，可以直接跳转[目录](README.md#目录) 。) ~~由于原本在 obsidian 上记录，部分效果无法在网站上展示出来[^1]，故除了在本站阅读外，这里提供了三个方案获取更好的阅读体验：~~ 
+这里是课内/外课程的我自己记录的学习笔记（对于相对更加齐全的课内笔记，参见 [note_link](../collection/note_link.md)）。(已完善 Mkdocs 笔记，本节剩余内容忽略，可以直接跳转[目录](index.md#目录) 。) ~~由于原本在 obsidian 上记录，部分效果无法在网站上展示出来[^1]，故除了在本站阅读外，这里提供了三个方案获取更好的阅读体验：~~ 
 
 [^1]: obsidian 倒是支持 [publish](https://obsidian.md/publish)，8$/month，用不起……
 
@@ -31,19 +31,19 @@ comments: true
 
 {{ begin_toc }}
 
-- [cs188](cs188/README.md)
-- [CSys-I](CSys-I/README.md)
-- [CSys-II](CSys-II/README.md)
-- [CSys-III](CSys-III/README.md)
-- [DEM](DEM/README.md)
-- [DMA](DMA/README.md)
-- [cs70](cs70/README.md)
-- [physics](physics/README.md)
+- [cs188](cs188/index.md)
+- [CSys-I](CSys-I/index.md)
+- [CSys-II](CSys-II/index.md)
+- [CSys-III](CSys-III/index.md)
+- [DEM](DEM/index.md)
+- [DMA](DMA/index.md)
+- [cs70](cs70/index.md)
+- [physics](physics/index.md)
 	- [physics1-problems](physics/physics1-problems.md)
 	- [physics2-problems](physics/physics2-problems.md)
 	- [大物实验绪论课作业](physics/大物实验绪论课作业.md)
 	- [大物实验数据处理脚本](physics/大物实验数据处理脚本.md)
-- [other](other/README.md)
+- [other](other/index.md)
 	- [FDS-questions](other/FDS-questions.md)
 	- [ADS_problems](other/ADS_problems.md)
 

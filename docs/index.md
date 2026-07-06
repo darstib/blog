@@ -15,7 +15,7 @@
 最初我也想着要记录自己的课程学习笔记，但是渐渐地发现：
 
 - 大多数课程中，其他人的笔记已然十分完善（例如数据结构基础、离散数学、高级数据结构这些），而这些课程内容并没有较大改动，实在没有必要再去记载；对于这些内容，可以在 [note_link](collection/note_link.md) 查看一些其他人的笔记。
-- 相对地，我选择记录“计算机系统” 等这类非被广泛学习的学科的笔记（一般会在对应课程学习完毕后的长假期整理上来并放在 [note](note/README.md)），以及一些自己学习其他课程所记录的笔记。
+- 相对地，我选择记录“计算机系统” 等这类非被广泛学习的学科的笔记（一般会在对应课程学习完毕后的长假期整理上来并放在 [note](note/index.md)），以及一些自己学习其他课程所记录的笔记。
 - 得益于某 Top3 高校参差不齐的课程设计和质量，我还是更喜欢自主学习。所以，我将会把一些学习零碎的技能的过程分享于此，作学习交流使用。
 
 > [!extra]- 我在做什么？
@@ -31,12 +31,12 @@
     - [联系我](connect_me.md) -> 记录了联系我的方式；
     - [tags](tags.md) -> 记录了内容的标签；
     - [归档](https://darstib.github.io/blog/archive/2024/) -> 记录了所有的博客文章；
-- [Collection](collection/README.md) -> 收集，包括一些工具、资料等；
-- [CTF](CTF/README.md) -> 记录了CTF比赛的一些笔记、题解、工具；
-- [Note](note/README.md) -> 笔记，主要是一些校内外课程的学习笔记；
-- [Tutorial](tutorial/README.md) -> 教程，尝试为网站/软件工具的使用方法提供教程；
-- [AI](AI/README.md) -> 笔记，主要是关于 ML/DL/RL 的学习笔记；
-- [Summary](summary/README.md) -> 总结，随便写写吧；
+- [Collection](collection/index.md) -> 收集，包括一些工具、资料等；
+- [CTF](CTF/index.md) -> 记录了CTF比赛的一些笔记、题解、工具；
+- [Note](note/index.md) -> 笔记，主要是一些校内外课程的学习笔记；
+- [Tutorial](tutorial/index.md) -> 教程，尝试为网站/软件工具的使用方法提供教程；
+- [AI](AI/index.md) -> 笔记，主要是关于 ML/DL/RL 的学习笔记；
+- [Summary](summary/index.md) -> 总结，随便写写吧；
 - [AboutMe&Link](https://darstib.github.io/link/) -> 主要是关于我和友链。
 
 ### 我是谁？(Who am I ?)

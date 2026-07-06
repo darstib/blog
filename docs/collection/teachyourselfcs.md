@@ -58,12 +58,12 @@ comments: true
 - [Verilog](https://www.chipverify.com/)
 - [Sagemath](https://www.sagemath.org/)
     - [sagemath 官方在线编译器](https://sagecell.sagemath.org/)
-    - [sagemath in crypto](../tutorial/python_learn/crypto/sage_math/README.md)
+    - [sagemath in crypto](../tutorial/python_learn/crypto/sage_math/index.md)
 
 ### 实用技能/工具
 
 - [ziishaned/learn-regex](https://github.com/ziishaned/learn-regex) 正则表达式
-- [skill_learn](../tutorial/skill_learn/README.md) 系列；
+- [skill_learn](../tutorial/skill_learn/index.md) 系列；
 - [web_sites](web_sites.md) “开发者谈”板块；
 - [cheatsheet.zip](https://cheatsheets.zip/) or [中文翻译版](https://wangchujiang.com/reference/) （分化后有新加内容）或者 [learn x in y minutes](https://learnxinyminutes.com/)
     - 精致的 cheatsheet
@@ -122,7 +122,7 @@ comments: true
 
 - [AI 算法工程师手册](https://www.huaxiaozhuan.com/)
 	- 【20250905 更】域名过期了，且笔记仓库没有找到，作者的 github 似乎也很久没有活跃了；但是这个手册作者修订的还是较多的，可能过阵子就续费了
-	- 【20250923 更】恢复 ~~[这里](https://www.bookstack.cn/read/huaxiaozhuan-ai/README.md)是一个存档（至 202006），基础部分基本齐全~~
+	- 【20250923 更】恢复 ~~[这里](https://www.bookstack.cn/read/huaxiaozhuan-ai/index.md)是一个存档（至 202006），基础部分基本齐全~~
 	- 相比其他教程的优点在于介绍了需要的数学基础；当然也可以看 [【深度学习数学基础】](https://zhuanlan.zhihu.com/p/25643286963)。
 - [datawhalechina](https://github.com/datawhalechina)
 	- Datawhale是一个专注于AI与数据科学的开源组织，汇集了众多领域院校和知名企业的优秀学习者

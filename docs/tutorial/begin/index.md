@@ -27,7 +27,7 @@ tags:
 	- [Url_begin](Url_begin.md)
 	- [vim_begin](vim_begin.md)
 	- [zsh_begin](zsh_begin.md)
-	- [skill learn](../skill_learn/README.md)
+	- [skill learn](../skill_learn/index.md)
 
 {{ end_toc }}
 

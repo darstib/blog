@@ -7,7 +7,7 @@ comments: true
 
 # cs188 - sp24
 
-> [中文](README.md) | English
+> [中文](index.md) | English
 
 > [!warning]
 >

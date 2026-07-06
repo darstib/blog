@@ -11,11 +11,11 @@ dg-publish: true
 
 {{ begin_toc }}
 
-- [Begin](begin/README.md)
-- [skill learn](skill_learn/README.md)
+- [Begin](begin/index.md)
+- [skill learn](skill_learn/index.md)
 - python_learn
-	- [crypto](python_learn/crypto/README.md)
-	- [data](python_learn/data/README.md)
+	- [crypto](python_learn/crypto/index.md)
+	- [data](python_learn/data/index.md)
 
 
 {{ end_toc }}
