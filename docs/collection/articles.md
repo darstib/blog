@@ -9,6 +9,13 @@ tags:
 > - [Computing Life](https://yage.ai/)
 > 	- “这个博客叫Computing Life，从 2012 年开始写作，现在有 370 多篇文章，中英双语（[English](https://yage.ai/tag/english.html) / [中文](https://yage.ai/tag/chinese.html)）。主要写 AI 方法论和工程实践，偶尔写天文摄影。贯穿始终的主题是：怎么对技术做清晰的思考，怎么构建真正能用的系统。”
 
+## 博客
+
+- [ArthurChiao's Blog](https://arthurchiao.art/)
+	- 高质量的原创/熟肉博客
+- [Lil’Log](https://lilianweng.github.io/)
+	- 有哲思的 Deep Learning
+
 ## 知识类
 
 ### 传统计算机科学

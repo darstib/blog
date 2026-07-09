@@ -142,6 +142,7 @@ comments: true
 - [BookStack](https://www.bookstack.cn/)
 	- 可以在这里找找开源的教程/书籍
 - [codethechange.stanford.edu](https://codethechange.stanford.edu/guides/)
-    - 也许有些奇怪的东西你不知道，但是可能感兴趣。
+    - 也许有些奇怪的东西你不知道，但是可能感兴趣
+- https://knowledge.zhaoweiguo.com/
 - [数理百科](https://wuli.wiki/index.html)
-- [数模百科](https://modelwiki.cn/wiki)
+- ~~[数模百科](https://modelwiki.cn/wiki)~~
