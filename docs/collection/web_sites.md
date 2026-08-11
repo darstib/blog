@@ -59,6 +59,8 @@ comments: true
     - ~~部分模型可免费使用[^2]，例如 Stable Diffusion XL Base 1.0。~~
 - [dreamifly](https://github.com/LastLighter/Dreamifly) or [raphael](https://raphael.app/)
 	- 免费 AI 生图
+- [ClipLumi](https://cliplumi.com/)
+	- AI 图片生成与编辑，支持自然语言修改图片
 - [极梦](https://dreamina.capcut.com/)
 
 ### other
