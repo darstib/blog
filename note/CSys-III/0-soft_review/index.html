@@ -1,0 +1,2000 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/note/CSys-III/0-soft_review/" rel="canonical"/>
+<link href="../0-hard_review/" rel="prev"/>
+<link href="../1-Fundamentals/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>操作系统核心概念回顾 - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#操作系统核心概念回顾">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              操作系统核心概念回顾
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Note
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs188/">
+<span class="md-ellipsis">
+    
+  
+    cs188
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../physics/">
+<span class="md-ellipsis">
+    
+  
+    physics
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-II/">
+<span class="md-ellipsis">
+    
+  
+    CSys-II
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3_5" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    CSys-III
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_5_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    CSys-III
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../0-hard_review/">
+<span class="md-ellipsis">
+    
+  
+    计算机体系结构课程回顾
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    操作系统核心概念回顾
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    操作系统核心概念回顾
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#操作系统概述-R1-page-3-17">
+<span class="md-ellipsis">
+      
+        操作系统概述 (R1: page 3-17)
+      
+    </span>
+</a>
+<nav aria-label="操作系统概述 (R1: page 3-17)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#核心功能与运行模式-R1-page-6-9">
+<span class="md-ellipsis">
+      
+        核心功能与运行模式 (R1: page 6-9)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#资源管理-R1-page-13-17">
+<span class="md-ellipsis">
+      
+        资源管理 (R1: page 13-17)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#操作系统结构与服务-R1-page-18-48">
+<span class="md-ellipsis">
+      
+        操作系统结构与服务 (R1: page 18-48)
+      
+    </span>
+</a>
+<nav aria-label="操作系统结构与服务 (R1: page 18-48)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#操作系统服务-R1-page-19-21">
+<span class="md-ellipsis">
+      
+        操作系统服务 (R1: page 19-21)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#系统调用连接用户程序与内核的桥梁-R1-page-23-34">
+<span class="md-ellipsis">
+      
+        系统调用：连接用户程序与内核的桥梁 (R1: page 23-34)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#操作系统结构模型-R1-page-41-47">
+<span class="md-ellipsis">
+      
+        操作系统结构模型 (R1: page 41-47)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#进程管理-R1-page-49-75">
+<span class="md-ellipsis">
+      
+        进程管理 (R1: page 49-75)
+      
+    </span>
+</a>
+<nav aria-label="进程管理 (R1: page 49-75)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#进程与程序-R1-page-50-51">
+<span class="md-ellipsis">
+      
+        进程与程序 (R1: page 50-51)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#进程控制块-PCB-R1-page-52">
+<span class="md-ellipsis">
+      
+        进程控制块 (PCB) (R1: page 52)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#进程的生命周期-R1-page-56">
+<span class="md-ellipsis">
+      
+        进程的生命周期 (R1: page 56)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#进程创建-R1-page-57-65">
+<span class="md-ellipsis">
+      
+        进程创建 (R1: page 57-65)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#上下文切换-Context-Switch-R1-page-69-72">
+<span class="md-ellipsis">
+      
+        上下文切换 (Context Switch) (R1: page 69-72)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#线程管理-R2-page-3-24">
+<span class="md-ellipsis">
+      
+        线程管理 (R2: page 3-24)
+      
+    </span>
+</a>
+<nav aria-label="线程管理 (R2: page 3-24)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#为什么需要线程-R2-page-4">
+<span class="md-ellipsis">
+      
+        为什么需要线程？ (R2: page 4)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#线程的定义-R2-page-5">
+<span class="md-ellipsis">
+      
+        线程的定义 (R2: page 5)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#线程的优缺点-R2-page-8-10">
+<span class="md-ellipsis">
+      
+        线程的优缺点 (R2: page 8-10)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#用户线程与内核线程-R2-page-11-12">
+<span class="md-ellipsis">
+      
+        用户线程与内核线程 (R2: page 11-12)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#多线程模型-R2-page-13-16">
+<span class="md-ellipsis">
+      
+        多线程模型 (R2: page 13-16)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Linux-中的线程实现-R2-page-18-24">
+<span class="md-ellipsis">
+      
+        Linux 中的线程实现 (R2: page 18-24)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#CPU-调度-R2-page-25-36">
+<span class="md-ellipsis">
+      
+        CPU 调度 (R2: page 25-36)
+      
+    </span>
+</a>
+<nav aria-label="CPU 调度 (R2: page 25-36)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#基本概念-R2-page-26-27">
+<span class="md-ellipsis">
+      
+        基本概念 (R2: page 26-27)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#调度准则-R2-page-28">
+<span class="md-ellipsis">
+      
+        调度准则 (R2: page 28)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#常用调度算法-R2-page-29-36">
+<span class="md-ellipsis">
+      
+        常用调度算法 (R2: page 29-36)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#同步-Synchronization-R2-page-37-59">
+<span class="md-ellipsis">
+      
+        同步 (Synchronization) (R2: page 37-59)
+      
+    </span>
+</a>
+<nav aria-label="同步 (Synchronization) (R2: page 37-59)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#竞态条件与临界区-Race-Condition--Critical-Section-R2-page-39-42">
+<span class="md-ellipsis">
+      
+        竞态条件与临界区 (Race Condition &amp; Critical Section) (R2: page 39-42)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#临界区问题的解决方案-R2-page-44-45">
+<span class="md-ellipsis">
+      
+        临界区问题的解决方案 (R2: page 44-45)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#同步原语-R2-page-47-53">
+<span class="md-ellipsis">
+      
+        同步原语 (R2: page 47-53)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#死锁-Deadlock-R2-page-60-65">
+<span class="md-ellipsis">
+      
+        死锁 (Deadlock) (R2: page 60-65)
+      
+    </span>
+</a>
+<nav aria-label="死锁 (Deadlock) (R2: page 60-65)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#死锁的定义与条件-R2-page-61-64">
+<span class="md-ellipsis">
+      
+        死锁的定义与条件 (R2: page 61, 64)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#死锁处理策略-R2-page-65">
+<span class="md-ellipsis">
+      
+        死锁处理策略 (R2: page 65)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../1-Fundamentals/">
+<span class="md-ellipsis">
+    
+  
+    计算机系统基础
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../2-ILP/">
+<span class="md-ellipsis">
+    
+  
+    指令级并行 (ILP)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../3-Cache/">
+<span class="md-ellipsis">
+    
+  
+    计算机系统 III：存储层次结构 (Memory Hierarchy)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../4-DLP_TLP/">
+<span class="md-ellipsis">
+    
+  
+    数据级到线程级并行
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../5-MM/">
+<span class="md-ellipsis">
+    
+  
+    主存储器
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../6-VM/">
+<span class="md-ellipsis">
+    
+  
+    虚拟内存 (Virtual Memory)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../7-Disk/">
+<span class="md-ellipsis">
+    
+  
+    大容量存储结构 (Mass-Storage Structure)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../8-IO/">
+<span class="md-ellipsis">
+    
+  
+    I/O 系统
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../9-FS/">
+<span class="md-ellipsis">
+    
+  
+    文件系统 (File System)
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DEM/">
+<span class="md-ellipsis">
+    
+  
+    DEM
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DMA/">
+<span class="md-ellipsis">
+    
+  
+    DMA
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs70/">
+<span class="md-ellipsis">
+    
+  
+    cs70
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../other/">
+<span class="md-ellipsis">
+    
+  
+    other
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#操作系统概述-R1-page-3-17">
+<span class="md-ellipsis">
+      
+        操作系统概述 (R1: page 3-17)
+      
+    </span>
+</a>
+<nav aria-label="操作系统概述 (R1: page 3-17)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#核心功能与运行模式-R1-page-6-9">
+<span class="md-ellipsis">
+      
+        核心功能与运行模式 (R1: page 6-9)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#资源管理-R1-page-13-17">
+<span class="md-ellipsis">
+      
+        资源管理 (R1: page 13-17)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#操作系统结构与服务-R1-page-18-48">
+<span class="md-ellipsis">
+      
+        操作系统结构与服务 (R1: page 18-48)
+      
+    </span>
+</a>
+<nav aria-label="操作系统结构与服务 (R1: page 18-48)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#操作系统服务-R1-page-19-21">
+<span class="md-ellipsis">
+      
+        操作系统服务 (R1: page 19-21)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#系统调用连接用户程序与内核的桥梁-R1-page-23-34">
+<span class="md-ellipsis">
+      
+        系统调用：连接用户程序与内核的桥梁 (R1: page 23-34)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#操作系统结构模型-R1-page-41-47">
+<span class="md-ellipsis">
+      
+        操作系统结构模型 (R1: page 41-47)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#进程管理-R1-page-49-75">
+<span class="md-ellipsis">
+      
+        进程管理 (R1: page 49-75)
+      
+    </span>
+</a>
+<nav aria-label="进程管理 (R1: page 49-75)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#进程与程序-R1-page-50-51">
+<span class="md-ellipsis">
+      
+        进程与程序 (R1: page 50-51)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#进程控制块-PCB-R1-page-52">
+<span class="md-ellipsis">
+      
+        进程控制块 (PCB) (R1: page 52)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#进程的生命周期-R1-page-56">
+<span class="md-ellipsis">
+      
+        进程的生命周期 (R1: page 56)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#进程创建-R1-page-57-65">
+<span class="md-ellipsis">
+      
+        进程创建 (R1: page 57-65)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#上下文切换-Context-Switch-R1-page-69-72">
+<span class="md-ellipsis">
+      
+        上下文切换 (Context Switch) (R1: page 69-72)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#线程管理-R2-page-3-24">
+<span class="md-ellipsis">
+      
+        线程管理 (R2: page 3-24)
+      
+    </span>
+</a>
+<nav aria-label="线程管理 (R2: page 3-24)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#为什么需要线程-R2-page-4">
+<span class="md-ellipsis">
+      
+        为什么需要线程？ (R2: page 4)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#线程的定义-R2-page-5">
+<span class="md-ellipsis">
+      
+        线程的定义 (R2: page 5)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#线程的优缺点-R2-page-8-10">
+<span class="md-ellipsis">
+      
+        线程的优缺点 (R2: page 8-10)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#用户线程与内核线程-R2-page-11-12">
+<span class="md-ellipsis">
+      
+        用户线程与内核线程 (R2: page 11-12)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#多线程模型-R2-page-13-16">
+<span class="md-ellipsis">
+      
+        多线程模型 (R2: page 13-16)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Linux-中的线程实现-R2-page-18-24">
+<span class="md-ellipsis">
+      
+        Linux 中的线程实现 (R2: page 18-24)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#CPU-调度-R2-page-25-36">
+<span class="md-ellipsis">
+      
+        CPU 调度 (R2: page 25-36)
+      
+    </span>
+</a>
+<nav aria-label="CPU 调度 (R2: page 25-36)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#基本概念-R2-page-26-27">
+<span class="md-ellipsis">
+      
+        基本概念 (R2: page 26-27)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#调度准则-R2-page-28">
+<span class="md-ellipsis">
+      
+        调度准则 (R2: page 28)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#常用调度算法-R2-page-29-36">
+<span class="md-ellipsis">
+      
+        常用调度算法 (R2: page 29-36)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#同步-Synchronization-R2-page-37-59">
+<span class="md-ellipsis">
+      
+        同步 (Synchronization) (R2: page 37-59)
+      
+    </span>
+</a>
+<nav aria-label="同步 (Synchronization) (R2: page 37-59)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#竞态条件与临界区-Race-Condition--Critical-Section-R2-page-39-42">
+<span class="md-ellipsis">
+      
+        竞态条件与临界区 (Race Condition &amp; Critical Section) (R2: page 39-42)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#临界区问题的解决方案-R2-page-44-45">
+<span class="md-ellipsis">
+      
+        临界区问题的解决方案 (R2: page 44-45)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#同步原语-R2-page-47-53">
+<span class="md-ellipsis">
+      
+        同步原语 (R2: page 47-53)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#死锁-Deadlock-R2-page-60-65">
+<span class="md-ellipsis">
+      
+        死锁 (Deadlock) (R2: page 60-65)
+      
+    </span>
+</a>
+<nav aria-label="死锁 (Deadlock) (R2: page 60-65)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#死锁的定义与条件-R2-page-61-64">
+<span class="md-ellipsis">
+      
+        死锁的定义与条件 (R2: page 61, 64)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#死锁处理策略-R2-page-65">
+<span class="md-ellipsis">
+      
+        死锁处理策略 (R2: page 65)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Note
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    CSys-III
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:notes">notes</a>
+</nav>
+<h1 id="操作系统核心概念回顾">操作系统核心概念回顾<a class="headerlink" href="#操作系统核心概念回顾" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h1>
+<p>本文档综合了两份演示文稿，对操作系统的核心概念进行了全面回顾，涵盖了从操作系统基础、进程与线程管理，到<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>调度、同步机制和死锁等关键主题。</p>
+<h2 id="操作系统概述-R1-page-3-17">操作系统概述<span><span class="heti-spacing"> </span>(R1: page 3-17)</span><a class="headerlink" href="#操作系统概述-R1-page-3-17" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>操作系统（Operating System, OS）是计算机系统中最核心的系统软件，它在应用程序和底层硬件之间扮演着至关重要的桥梁角色。</p>
+<details class="definition" open="open">
+<summary>什么是操作系统？ (R1: page 4)</summary>
+<blockquote>
+<p><strong>OS a resource abstractor and a resource allocator.</strong> </p>
+</blockquote>
+<p>操作系统是一个软件层，位于应用程序和硬件之间。它的主要目的是管理计算机的硬件资源，并为用户和应用程序提供一个简单、一致的接口来使用这些硬件。如果没有操作系统，用户将需要直接与复杂的硬件交互，这将极其困难。</p>
+<p>如图所示，计算机系统可以被抽象为四个层次：
+1. <strong>硬件<span><span class="heti-spacing"> </span>(Hardware)</span></strong><span>:<span class="heti-spacing"> </span></span>提供基本的计算资源（CPU、内存、<span>I/O<span class="heti-spacing"> </span></span>设备<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。
+2. <strong>操作系统<span><span class="heti-spacing"> </span>(OS)</span></strong><span>:<span class="heti-spacing"> </span></span>控制和协调各个用户和应用程序对硬件资源的使用。
+3. <strong>系统和应用软件<span><span class="heti-spacing"> </span>(System and application programs)</span></strong><span>:<span class="heti-spacing"> </span></span>如编译器、数据库系统、<span>Web<span class="heti-spacing"> </span></span>浏览器等，它们使用操作系统提供的服务来解决用户的计算问题。
+4. <strong>用户<span><span class="heti-spacing"> </span>(Users)</span></strong><span>:<span class="heti-spacing"> </span></span>通过应用软件与系统交互。</p>
+</details>
+<h3 id="核心功能与运行模式-R1-page-6-9">核心功能与运行模式<span><span class="heti-spacing"> </span>(R1: page 6-9)</span><a class="headerlink" href="#核心功能与运行模式-R1-page-6-9" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>为了有效管理资源并提高效率，操作系统引入了多道程序设计、分时系统等关键技术，并通过硬件支持的双模式操作来确保自身的稳定和安全。</p>
+<ul>
+<li><strong>多道程序设计<span><span class="heti-spacing"> </span>(Multiprogramming)</span></strong><span>:<span class="heti-spacing"> </span></span>内存中同时存放多个作业（Jobs<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。当一个作业需要等待<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>操作时，操作系统会切换到另一个作业，从而保证<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>始终有任务执行，提高了系统利用率。</li>
+<li><strong>分时系统<span><span class="heti-spacing"> </span>(Timesharing / Multitasking)</span></strong><span>:<span class="heti-spacing"> </span></span>这是多道程序设计的逻辑扩展。操作系统在不同作业之间进行极其频繁的切换（通常响应时间小于<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>秒<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，使得每个用户都能与自己的程序（即<strong>进程</strong>）进行交互，感觉就像是独占了整个计算机。</li>
+</ul>
+<details class="extra" open="open">
+<summary>双模式操作<span><span class="heti-spacing"> </span>(Dual-mode Operation) (R1: page 8-9)</span></summary>
+<p>为了保护操作系统自身及其管理的其他进程不受恶意或无意程序的破坏，现代<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>提供了至少两种操作模式：</p>
+<ol>
+<li><strong>用户模式<span><span class="heti-spacing"> </span>(User Mode)</span></strong><span>:<span class="heti-spacing"> </span></span>应用程序运行的模式。在此模式下，程序能访问的指令和内存区域受到限制。</li>
+<li><strong>内核模式<span><span class="heti-spacing"> </span>(Kernel Mode)</span></strong><span>:<span class="heti-spacing"> </span></span>操作系统内核运行的模式。在此模式下，代码可以执行所有指令并访问所有内存。</li>
+</ol>
+<p><span>CPU<span class="heti-spacing"> </span></span>通过一个<strong>模式位<span><span class="heti-spacing"> </span>(mode bit)</span></strong> 来区分当前所处的模式。当应用程序需要执行特权操作（如<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>请求）时，它不能直接执行，而是必须通过<strong>系统调用<span><span class="heti-spacing"> </span>(System Call)</span></strong> 请求操作系统代为执行。这个过程会触发一个“陷阱<span><span class="heti-spacing"> </span>(trap)</span>”，使<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>从用户模式切换到内核模式。当操作系统完成服务后，它会将模式切换回用户模式，并将控制权交还给应用程序。</p>
+<p><strong>中断<span><span class="heti-spacing"> </span>(Interrupt)</span></strong>、<strong>异常<span><span class="heti-spacing"> </span>(Exception)</span></strong> 和 <strong>系统调用</strong> 是从用户模式转换到内核模式的主要途径。这种设计是操作系统实现保护和资源管理的基础。</p>
+</details>
+<h3 id="资源管理-R1-page-13-17">资源管理<span><span class="heti-spacing"> </span>(R1: page 13-17)</span><a class="headerlink" href="#资源管理-R1-page-13-17" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>操作系统是计算机系统的资源管理器，主要负责以下几类资源的管理：</p>
+<ol>
+<li><strong>进程管理<span><span class="heti-spacing"> </span>(Process Management)</span></strong><span>:<span class="heti-spacing"> </span></span>进程是“执行中的程序”，是操作系统进行资源分配和保护的基本单位。操作系统负责进程的创建、终止、挂起、恢复、同步和通信。</li>
+<li><strong>内存管理<span><span class="heti-spacing"> </span>(Memory Management)</span></strong><span>:<span class="heti-spacing"> </span></span>内存是<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>能直接访问的存储。操作系统需要跟踪哪些内存正在被使用、由谁使用，并在进程需要时为其分配和回收内存。为了优化<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>利用率和响应时间，操作系统还为程序员提供了<strong>虚拟内存<span><span class="heti-spacing"> </span>(virtual memory)</span></strong> 的抽象。</li>
+<li><strong>文件系统管理<span><span class="heti-spacing"> </span>(File System Management)</span></strong><span>:<span class="heti-spacing"> </span></span>操作系统以<strong>文件<span><span class="heti-spacing"> </span>(file)</span></strong> 的形式提供统一、逻辑的数据存储视图。文件通常被组织在<strong>目录<span><span class="heti-spacing"> </span>(directories)</span></strong> 中。操作系统负责文件的创建、删除、读写以及访问控制。</li>
+</ol>
+<h2 id="操作系统结构与服务-R1-page-18-48">操作系统结构与服务<span><span class="heti-spacing"> </span>(R1: page 18-48)</span><a class="headerlink" href="#操作系统结构与服务-R1-page-18-48" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>操作系统向用户和系统自身提供一系列服务，并通过特定的结构来组织这些功能。</p>
+<h3 id="操作系统服务-R1-page-19-21">操作系统服务<span><span class="heti-spacing"> </span>(R1: page 19-21)</span><a class="headerlink" href="#操作系统服务-R1-page-19-21" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>从不同视角看，操作系统的服务可分为两类：</p>
+<p><strong><span>1.<span class="heti-spacing"> </span></span>用户可见的服务<span><span class="heti-spacing"> </span>(User-Visible Services):</span></strong>
+- <strong>用户界面<span><span class="heti-spacing"> </span>(UI)</span></strong><span>:<span class="heti-spacing"> </span></span>包括命令行界面（CLI<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、图形用户界面（GUI）和批处理。
+- <strong>程序执行</strong><span>:<span class="heti-spacing"> </span></span>加载程序到内存，执行它，并处理其正常或异常的终止。
+- <strong><span>I/O<span class="heti-spacing"> </span></span>操作</strong><span>:<span class="heti-spacing"> </span></span>管理程序与文件或<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>设备的交互。
+- <strong>文件系统操作</strong><span>:<span class="heti-spacing"> </span></span>文件的读、写、创建、删除、搜索和权限管理。
+- <strong>通信</strong><span>:<span class="heti-spacing"> </span></span>支持进程间的信息交换，可以通过共享内存或消息传递。
+- <strong>错误检测</strong><span>:<span class="heti-spacing"> </span></span>持续监控<span><span class="heti-spacing"> </span>CPU</span>、内存、<span>I/O<span class="heti-spacing"> </span></span>设备及用户程序中可能发生的错误，并采取措施保证系统的正确性和一致性。</p>
+<p><strong><span>2.<span class="heti-spacing"> </span></span>系统视角的服务<span><span class="heti-spacing"> </span>(System View Services):</span></strong>
+- <strong>资源分配</strong><span>:<span class="heti-spacing"> </span></span>为并发运行的多个用户或作业分配<span><span class="heti-spacing"> </span>CPU</span>、内存、文件、<span>I/O<span class="heti-spacing"> </span></span>设备等资源。
+- <strong>记账<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>日志</strong><span>:<span class="heti-spacing"> </span></span>跟踪记录用户使用的资源类型和数量。
+- <strong>保护与安全<span><span class="heti-spacing"> </span>(Protection and Security)</span></strong>:
+    - <strong>保护</strong>是控制进程或用户对系统资源访问的<strong>机制</strong>。例如，访问控制和进程隔离。
+    - <strong>安全</strong>是基于保护机制实现的<strong>策略</strong>，用于防止内外部对系统的非法访问，如用户认证。</p>
+<h3 id="系统调用连接用户程序与内核的桥梁-R1-page-23-34">系统调用：连接用户程序与内核的桥梁<span><span class="heti-spacing"> </span>(R1: page 23-34)</span><a class="headerlink" href="#系统调用连接用户程序与内核的桥梁-R1-page-23-34" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><u>系统调用是用户程序访问操作系统服务的编程接口。</u> </p>
+<details class="note" open="open">
+<summary><span>API<span class="heti-spacing"> </span></span>与系统调用的关系<span><span class="heti-spacing"> </span>(R1: page 24-25, 27)</span></summary>
+<p>程序员通常不直接使用系统调用，而是通过高级的<strong>应用程序编程接口<span><span class="heti-spacing"> </span>(Application Programming Interface, API)</span></strong> 来编程。常见的<span class="heti-skip"><span class="heti-spacing"> </span>API<span class="heti-spacing"> </span></span>包括用于<span class="heti-skip"><span class="heti-spacing"> </span>Windows<span class="heti-spacing"> </span></span>的<span><span class="heti-spacing"> </span>Win32 API</span>，以及用于<span class="heti-skip"><span class="heti-spacing"> </span>UNIX/Linux/macOS<span class="heti-spacing"> </span></span>的<span><span class="heti-spacing"> </span>POSIX API</span>。</p>
+<p>API（例如<span class="heti-skip"><span class="heti-spacing"> </span>C<span class="heti-spacing"> </span></span>语言库中的 <code>printf()</code>）作为用户程序和系统调用之间的“包装器<span><span class="heti-spacing"> </span>(wrapper)</span>”。<code>printf()</code> 库函数最终会调用底层的 <code>write()</code> 系统调用来完成屏幕输出。使用<span class="heti-skip"><span class="heti-spacing"> </span>API<span class="heti-spacing"> </span></span>的主要好处是<strong>可移植性<span><span class="heti-spacing"> </span>(portability)</span></strong>，因为只要遵循相同的<span class="heti-skip"><span class="heti-spacing"> </span>API<span class="heti-spacing"> </span></span>标准，代码就可以在不同操作系统上编译运行，而无需关心底层系统调用的具体实现。</p>
+</details>
+<p><strong>系统调用的处理流程<span><span class="heti-spacing"> </span>(R1: page 26, 32-34):</span></strong>
+以 x86-64 架构上的 <code>write</code> 系统调用为例：
+1. <strong>用户空间</strong><span>: C<span class="heti-spacing"> </span></span>库函数 <code>write()</code> 将系统调用号（<code>syscall number</code>）放入 <code>%eax</code> 寄存器，并将其他参数（文件描述符、缓冲区地址、大小）按约定放入其他寄存器。
+2. <strong>陷入内核</strong><span>:<span class="heti-spacing"> </span></span>程序执行 <code>syscall</code> 指令。这会导致<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>发生陷阱，模式从用户模式切换到内核模式，并将控制权转移到内核中一个预定义的入口点<span><span class="heti-spacing"> </span>(</span><code>kernel_entry</code><span><span class="heti-spacing"> </span>)</span>。
+3. <strong>内核空间</strong>:
+    - <code>kernel_entry</code> 代码首先保存所有用户空间寄存器的状态到当前进程的内核栈中。
+    - 内核通过 <code>%eax</code> 寄存器中的系统调用号，在系统调用表 (<code>syscall_table</code>) 中查找对应的处理函数（<code>syscall_table[1]</code> 指向 <code>write</code> 的实现）。
+    - 执行系统调用处理函数。
+    - 处理完成后，调用 <code>ret_to_user</code>，恢复之前保存的用户寄存器。
+    - 执行 <code>iret</code> (或类似指令) ，将 CPU 模式切换回用户模式，并返回到用户程序 <code>syscall</code> 指令的下一条指令继续执行。</p>
+<h3 id="操作系统结构模型-R1-page-41-47">操作系统结构模型<span><span class="heti-spacing"> </span>(R1: page 41-47)</span><a class="headerlink" href="#操作系统结构模型-R1-page-41-47" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>操作系统的内部组件可以有多种组织方式：
+- <strong>简单结构<span><span class="heti-spacing"> </span>(Simple Structure)</span></strong><span>:<span class="heti-spacing"> </span></span>如<span><span class="heti-spacing"> </span>MS-DOS</span>，功能层级和接口划分不清晰，模块之间耦合度高，就像一盘意大利面。
+- <strong>宏内核<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>单体结构<span><span class="heti-spacing"> </span>(Monolithic Structure)</span></strong><span>:<span class="heti-spacing"> </span></span>如传统的<span class="heti-skip"><span class="heti-spacing"> </span>UNIX<span class="heti-spacing"> </span></span>和现代的<span><span class="heti-spacing"> </span>Linux</span>。所有核心功能（文件系统、<span>CPU<span class="heti-spacing"> </span></span>调度、内存管理等）都运行在内核空间。优点是效率高，因为功能间的调用只是函数调用；缺点是代码庞大，一个模块的<span class="heti-skip"><span class="heti-spacing"> </span>bug<span class="heti-spacing"> </span></span>可能导致整个系统崩溃。
+- <strong>分层结构<span><span class="heti-spacing"> </span>(Layered Approach)</span></strong><span>:<span class="heti-spacing"> </span></span>将操作系统划分为若干层，每一层只使用其下一层提供的服务。结构清晰，易于调试，但层级间的通信开销较大。
+- <strong>微内核结构<span><span class="heti-spacing"> </span>(Microkernel Structure)</span></strong><span>:<span class="heti-spacing"> </span></span>将尽可能多的功能（如文件系统、设备驱动）移出内核，作为用户空间的服务器进程来运行。内核只保留最基本的功能（如进程通信、基本调度、内存管理<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。优点是更可靠、更安全、易于扩展；缺点是用户空间和内核空间之间的通信（通常是消息传递）会带来性能开销。</p>
+<h2 id="进程管理-R1-page-49-75">进程管理<span><span class="heti-spacing"> </span>(R1: page 49-75)</span><a class="headerlink" href="#进程管理-R1-page-49-75" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>进程是操作系统中一个至关重要的概念，它是资源分配和调度的基础。</p>
+<h3 id="进程与程序-R1-page-50-51">进程与程序<span><span class="heti-spacing"> </span>(R1: page 50-51)</span><a class="headerlink" href="#进程与程序-R1-page-50-51" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="definition" open="open">
+<summary>进程<span><span class="heti-spacing"> </span>(Process)</span></summary>
+<p><strong>进程</strong>是“一个正在执行中的程序”。它是一个<strong>动态的</strong>、<strong>活跃的</strong>实体，而程序本身只是一个存放在磁盘上的<strong>静态的</strong>、<strong>被动的</strong>文件。一个程序可以对应多个进程（例如，打开多个浏览器窗口<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<p>核心区别在于：
+- <strong>进程是资源分配和保护的基本单位</strong>。操作系统为每个进程分配独立的地址空间、文件句柄等资源。
+- <strong>线程是<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>调度的基本单位</strong><heti-adjacent class="heti-adjacent-half">。</heti-adjacent>（详见下一章）</p>
+</details>
+<p>一个进程的内存布局通常包括：
+- <strong>文本段<span><span class="heti-spacing"> </span>(Text Section)</span></strong><span>:<span class="heti-spacing"> </span></span>程序代码。
+- <strong>数据段<span><span class="heti-spacing"> </span>(Data Section)</span></strong><span>:<span class="heti-spacing"> </span></span>全局变量。
+- <strong>堆<span><span class="heti-spacing"> </span>(Heap)</span></strong><span>:<span class="heti-spacing"> </span></span>动态分配的内存。
+- <strong>栈<span><span class="heti-spacing"> </span>(Stack)</span></strong><span>:<span class="heti-spacing"> </span></span>存储函数参数、局部变量和返回地址。
+- <strong>运行时状态</strong><span>:<span class="heti-spacing"> </span></span>包括程序计数器<span class="heti-skip"><span class="heti-spacing"> </span>(PC)<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>寄存器的值。</p>
+<h3 id="进程控制块-PCB-R1-page-52">进程控制块<span><span class="heti-spacing"> </span>(PCB) (R1: page 52)</span><a class="headerlink" href="#进程控制块-PCB-R1-page-52" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>操作系统在内核中为每个进程维护一个<strong>进程控制块<span><span class="heti-spacing"> </span>(Process Control Block, PCB)</span></strong>，它包含了管理该进程所需的所有信息。在<span class="heti-skip"><span class="heti-spacing"> </span>Linux<span class="heti-spacing"> </span></span>中，这由 <code>task_struct</code> 结构体实现，其内容包括：</p>
+<ul>
+<li><strong>进程<span><span class="heti-spacing"> </span>ID (pid)</span></strong></li>
+<li><strong>进程状态<span><span class="heti-spacing"> </span>(Process State)</span></strong><span>:<span class="heti-spacing"> </span></span>如运行、就绪、等待等。</li>
+<li><strong>程序计数器<span><span class="heti-spacing"> </span>(PC)</span></strong> 和 <strong><span>CPU<span class="heti-spacing"> </span></span>寄存器</strong><span>:<span class="heti-spacing"> </span></span>当进程被中断时，这些信息被保存，以便后续恢复。</li>
+<li><strong><span>CPU<span class="heti-spacing"> </span></span>调度信息</strong><span>:<span class="heti-spacing"> </span></span>进程优先级、调度队列指针等。</li>
+<li><strong>内存管理信息</strong><span>:<span class="heti-spacing"> </span></span>指向页表等数据结构的指针。</li>
+<li><strong><span>I/O<span class="heti-spacing"> </span></span>状态信息</strong><span>:<span class="heti-spacing"> </span></span>分配给进程的<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>设备和打开的文件列表。</li>
+</ul>
+<h3 id="进程的生命周期-R1-page-56">进程的生命周期<span><span class="heti-spacing"> </span>(R1: page 56)</span><a class="headerlink" href="#进程的生命周期-R1-page-56" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>进程在其生命周期中会经历以下几种状态：
+- <strong>新建<span><span class="heti-spacing"> </span>(New)</span></strong><span>:<span class="heti-spacing"> </span></span>进程正在被创建。
+- <strong>运行<span><span class="heti-spacing"> </span>(Running)</span></strong><span>:<span class="heti-spacing"> </span></span>指令正在被<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>执行。
+- <strong>等待<span><span class="heti-spacing"> </span>(Waiting)</span></strong><span>:<span class="heti-spacing"> </span></span>进程正在等待某个事件发生（如<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>完成或收到信号<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。
+- <strong>就绪<span><span class="heti-spacing"> </span>(Ready)</span></strong><span>:<span class="heti-spacing"> </span></span>进程已准备好，等待被分配给<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>运行。
+- <strong>终止<span><span class="heti-spacing"> </span>(Terminated)</span></strong><span>:<span class="heti-spacing"> </span></span>进程已完成执行。</p>
+<h3 id="进程创建-R1-page-57-65">进程创建<span><span class="heti-spacing"> </span>(R1: page 57-65)</span><a class="headerlink" href="#进程创建-R1-page-57-65" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在<span class="heti-skip"><span class="heti-spacing"> </span>UNIX/Linux<span class="heti-spacing"> </span></span>系统中，进程通过 <code>fork()</code> 和 <code>exec()</code> 系统调用来创建：
+- <code>fork()</code>: 创建一个与父进程几乎完全相同的新进程（子进程）。它复制父进程的地址空间、寄存器等。<code>fork()</code> 的奇妙之处在于它<strong>调用一次，返回两次</strong>：在父进程中返回子进程的<span><span class="heti-spacing"> </span>PID</span>，在子进程中返回<span><span class="heti-spacing"> </span>0</span>。
+- <code>exec()</code>: 在一个进程的上下文中加载并运行一个新的程序。它会用新程序的代码、数据、堆栈等<strong>覆盖</strong>当前进程的内存空间。
+- <code>wait()</code>: 父进程可以使用此调用来等待其子进程终止。</p>
+<details class="example" open="open">
+<summary><span>fork()<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>exec()<span class="heti-spacing"> </span></span>组合使用<span><span class="heti-spacing"> </span>(R1: page 59)</span></summary>
+<p>这种模式是<span class="heti-skip"><span class="heti-spacing"> </span>Shell<span class="heti-spacing"> </span></span>执行命令的基础。</p>
+<p></p><div class="highlight"><span class="filename">C</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="kt">pid_t</span><span class="w"> </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fork</span><span class="p">();</span><span class="w"> </span><span class="c1">// 1. 创建子进程</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><a href="#__codelineno-0-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="c1">// fork 失败</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><a href="#__codelineno-0-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><a href="#__codelineno-0-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">    </span><span class="c1">// 2. 子进程执行此代码块</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><a href="#__codelineno-0-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">    </span><span class="n">execlp</span><span class="p">(</span><span class="s">"/bin/ls"</span><span class="p">,</span><span class="w"> </span><span class="s">"ls"</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span><span class="w"> </span><span class="c1">// 3. 加载并执行 'ls' 程序</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><a href="#__codelineno-0-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><a href="#__codelineno-0-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">    </span><span class="c1">// 4. 父进程执行此代码块</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a><a href="#__codelineno-0-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">    </span><span class="n">wait</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span><span class="w"> </span><span class="c1">// 5. 等待子进程执行完毕</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><a href="#__codelineno-0-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"Child Complete"</span><span class="p">);</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a><a href="#__codelineno-0-11"><span class="linenos" data-linenos="11 "></span></a><span class="p">}</span>
+</span></code></pre></div>
+子进程通过 <code>exec()</code> 变身为 <code>ls</code> 命令，而父进程（通常是 Shell）则等待命令执行完成。
+</details>
+<details class="extra" open="open">
+<summary>深入理解 <code>fork()</code> 的双返回值<span><span class="heti-spacing"> </span>(R1: page 62-64)</span></summary>
+<p><code>fork()</code> 如何实现返回两个不同的值？这与内核处理系统调用的方式密切相关。
+1. 当父进程调用 <code>fork()</code> 时，它像其他系统调用一样陷入内核。内核创建一个新的 <code>task_struct</code> 和子进程的内核栈，并复制父进程的资源。
+2. <strong>对于父进程</strong><span>:<span class="heti-spacing"> </span></span>内核完成 <code>fork</code> 操作后，将新创建子进程的<span class="heti-skip"><span class="heti-spacing"> </span>PID<span class="heti-spacing"> </span></span>作为返回值，存入父进程内核栈上保存的寄存器上下文中（如<span class="heti-skip"><span class="heti-spacing"> </span>ARM64<span class="heti-spacing"> </span></span>的 <code>pt_regs</code><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。当父进程从系统调用返回用户空间时，这个返回值就被置入相应的寄存器，父进程便获取了子进程的<span><span class="heti-spacing"> </span>PID</span>。
+3. <strong>对于子进程</strong><span>:<span class="heti-spacing"> </span></span>内核在创建子进程时，会将其 <code>pt_regs</code> 中用于存放返回值的寄存器位<strong>直接设置为<span><span class="heti-spacing"> </span>0</span></strong>。子进程被创建后处于<strong>就绪</strong>状态。当调度器选择子进程运行时，子进程的启动点并非其程序的开头，而是从一个特殊的内核函数 <code>ret_from_fork</code> 开始，该函数最终会完成从内核模式到用户模式的切换。在切换时，它会加载 <code>pt_regs</code> 中的值（包括那个被设为<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>的返回值<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，因此子进程在用户空间“看到”的 <code>fork()</code> 返回值就是<span><span class="heti-spacing"> </span>0</span>。</p>
+</details>
+<h3 id="上下文切换-Context-Switch-R1-page-69-72">上下文切换<span><span class="heti-spacing"> </span>(Context Switch) (R1: page 69-72)</span><a class="headerlink" href="#上下文切换-Context-Switch-R1-page-69-72" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>当操作系统需要将<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>从一个进程（或线程）切换到另一个时，就会发生<strong>上下文切换</strong>。这个过程包括：
+1. <strong>保存</strong>当前进程的上下文（<span>CPU<span class="heti-spacing"> </span></span>寄存器状态、程序计数器等）到其<span class="heti-skip"><span class="heti-spacing"> </span>PCB<span class="heti-spacing"> </span></span>中。
+2. <strong>加载</strong>新进程的上下文到<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>寄存器中。</p>
+<p>上下文切换是纯粹的系统<strong>开销<span><span class="heti-spacing"> </span>(overhead)</span></strong>，因为在此期间<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>没有执行任何有用的用户代码。其耗时取决于硬件支持，例如，某些硬件提供多套寄存器组，可以加快切换速度。</p>
+<h2 id="线程管理-R2-page-3-24">线程管理<span><span class="heti-spacing"> </span>(R2: page 3-24)</span><a class="headerlink" href="#线程管理-R2-page-3-24" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>在现代操作系统中，线程是比进程更轻量级的执行单位，它极大地提升了并发编程的效率和响应性。</p>
+<h3 id="为什么需要线程-R2-page-4">为什么需要线程？ (R2: page 4)<a class="headerlink" href="#为什么需要线程-R2-page-4" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>并发执行</strong><span>:<span class="heti-spacing"> </span></span>一个应用程序中可能包含多个可以同时进行的任务，如<span class="heti-skip"><span class="heti-spacing"> </span>Web<span class="heti-spacing"> </span></span>服务器需要同时响应多个客户端请求，文本编辑器可以在用户输入的同时进行后台拼写检查。</li>
+<li><strong>效率</strong><span>:<span class="heti-spacing"> </span></span>创建一个新进程的开销很大（需要分配全新的地址空间等<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，而创建一个新线程则非常“轻量级”，因为它与同进程的其他线程共享大部分资源。线程间的上下文切换也比进程间的切换快得多。</li>
+<li><strong>简化编码</strong><span>:<span class="heti-spacing"> </span></span>将复杂的任务分解为多个独立的线程可以简化程序结构。</li>
+</ul>
+<h3 id="线程的定义-R2-page-5">线程的定义<span><span class="heti-spacing"> </span>(R2: page 5)</span><a class="headerlink" href="#线程的定义-R2-page-5" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="definition" open="open">
+<summary>线程<span><span class="heti-spacing"> </span>(Thread)</span></summary>
+<p>线程是<strong>进程内的一个基本执行单元</strong>，是<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>调度的基本单位。一个多线程进程可以同时执行多个任务。</p>
+<ul>
+<li><strong>线程独有的资源</strong>:</li>
+<li>线程<span><span class="heti-spacing"> </span>ID</span></li>
+<li>程序计数器<span><span class="heti-spacing"> </span>(Program Counter)</span></li>
+<li>寄存器集合<span><span class="heti-spacing"> </span>(Register Set)</span></li>
+<li>栈<span><span class="heti-spacing"> </span>(Stack)</span></li>
+<li><strong>线程共享的资源</strong> <span>(<span class="heti-spacing"> </span></span>与同进程的其他线程共享<span><span class="heti-spacing"> </span>):</span></li>
+<li>代码段<span><span class="heti-spacing"> </span>(Code Section)</span></li>
+<li>数据段<span><span class="heti-spacing"> </span>(Data Section)</span></li>
+<li>堆<span><span class="heti-spacing"> </span>(Heap)</span></li>
+<li>打开的文件和信号</li>
+</ul>
+</details>
+<h3 id="线程的优缺点-R2-page-8-10">线程的优缺点<span><span class="heti-spacing"> </span>(R2: page 8-10)</span><a class="headerlink" href="#线程的优缺点-R2-page-8-10" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><strong>优点</strong>:
+1. <strong>经济性<span><span class="heti-spacing"> </span>(Economy)</span></strong><span>:<span class="heti-spacing"> </span></span>创建和切换线程的成本远低于进程。线程切换时，由于共享地址空间，无需刷新<span class="heti-skip"><span class="heti-spacing"> </span>TLB (Translation Lookaside Buffer)<span class="heti-spacing"> </span></span>和缓存。
+2. <strong>资源共享<span><span class="heti-spacing"> </span>(Resource Sharing)</span></strong><span>:<span class="heti-spacing"> </span></span>线程天然共享内存，无需像进程那样依赖复杂的<span class="heti-skip"><span class="heti-spacing"> </span>IPC<span class="heti-spacing"> </span></span>机制（如共享内存段）来进行数据交换。
+3. <strong>响应性<span><span class="heti-spacing"> </span>(Responsiveness)</span></strong><span>:<span class="heti-spacing"> </span></span>在一个多线程应用中，即使一个线程被阻塞（例如，等待网络数据<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，其他线程仍然可以继续执行，从而保证了应用的响应能力。
+4. <strong>可伸缩性<span><span class="heti-spacing"> </span>(Scalability)</span></strong><span>:<span class="heti-spacing"> </span></span>在多核处理器上，多线程可以实现真正的并行执行，有效利用多核优势。</p>
+<p><strong>缺点</strong>:
+1. <strong>弱隔离性</strong><span>:<span class="heti-spacing"> </span></span>由于共享内存，一个线程的错误（如非法内存访问，即段错误）会导致整个进程崩溃，进而影响所有其他线程。
+2. <strong>编程复杂性</strong><span>:<span class="heti-spacing"> </span></span>共享资源带来了同步问题（如竞态条件<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，需要程序员小心处理，这比单线程编程要困难得多。</p>
+<h3 id="用户线程与内核线程-R2-page-11-12">用户线程与内核线程<span><span class="heti-spacing"> </span>(R2: page 11-12)</span><a class="headerlink" href="#用户线程与内核线程-R2-page-11-12" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>线程的实现可以分为两个层面：
+- <strong>用户线程<span><span class="heti-spacing"> </span>(User Threads)</span></strong><span>:<span class="heti-spacing"> </span></span>在用户空间由线程库（如<span><span class="heti-spacing"> </span>POSIX Pthreads, Win32 threads</span>）来管理，内核对此一无所知。管理开销小，但如果一个用户线程发起了阻塞式系统调用，整个进程（包括所有其他用户线程）都会被阻塞。
+- <strong>内核线程<span><span class="heti-spacing"> </span>(Kernel Threads)</span></strong><span>:<span class="heti-spacing"> </span></span>由操作系统内核直接支持和管理。一个内核线程阻塞不会影响其他线程。现代主流操作系统（如<span><span class="heti-spacing"> </span>Windows, Linux</span>）都支持内核线程。</p>
+<p>为了让用户线程能够真正运行，必须将其映射到内核线程上。</p>
+<h3 id="多线程模型-R2-page-13-16">多线程模型<span><span class="heti-spacing"> </span>(R2: page 13-16)</span><a class="headerlink" href="#多线程模型-R2-page-13-16" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>用户线程与内核线程的映射关系有以下几种模型：</p>
+<ol>
+<li>
+<p><strong>多对一模型<span><span class="heti-spacing"> </span>(Many-to-One)</span></strong>:</p>
+<ul>
+<li><strong>描述</strong><span>:<span class="heti-spacing"> </span></span>多个用户线程映射到<strong>一个</strong>内核线程。</li>
+<li><strong>优点</strong><span>:<span class="heti-spacing"> </span></span>线程管理在用户空间完成，效率高。</li>
+<li><strong>缺点</strong>:<ul>
+<li>一个线程阻塞，整个进程阻塞。</li>
+<li>无法在多核处理器上实现并行。</li>
+</ul>
+</li>
+<li><strong>示例</strong>: Solaris Green Threads。</li>
+</ul>
+</li>
+<li>
+<p><strong>一对一模型<span><span class="heti-spacing"> </span>(One-to-One)</span></strong>:</p>
+<ul>
+<li><strong>描述</strong><span>:<span class="heti-spacing"> </span></span>每个用户线程映射到<strong>一个</strong>内核线程。</li>
+<li><strong>优点</strong>:<ul>
+<li>解决了阻塞问题，一个线程阻塞不影响其他线程。</li>
+<li>可以在多核上并行执行。</li>
+</ul>
+</li>
+<li><strong>缺点</strong><span>:<span class="heti-spacing"> </span></span>每创建一个用户线程都需要创建一个内核线程，开销较大，可能导致系统对线程数量有所限制。</li>
+<li><strong>示例</strong>: Windows, Linux。这是目前最主流的模型。</li>
+</ul>
+</li>
+<li>
+<p><strong>多对多模型<span><span class="heti-spacing"> </span>(Many-to-Many)</span></strong>:</p>
+<ul>
+<li><strong>描述</strong><span>: M<span class="heti-spacing"> </span></span>个用户线程映射到<span class="heti-skip"><span class="heti-spacing"> </span>N<span class="heti-spacing"> </span></span>个内核线程（M &gt;= N<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>优点</strong><span>:<span class="heti-spacing"> </span></span>结合了前两种模型的优点，既允许创建大量用户线程，又能实现多核并行。</li>
+<li><strong>缺点</strong><span>:<span class="heti-spacing"> </span></span>实现复杂。</li>
+<li><strong>示例</strong><span>:<span class="heti-spacing"> </span></span>旧版<span><span class="heti-spacing"> </span>Solaris, Windows NT/2000 with ThreadFiber package</span>。</li>
+</ul>
+</li>
+</ol>
+<h3 id="Linux-中的线程实现-R2-page-18-24"><span>Linux<span class="heti-spacing"> </span></span>中的线程实现<span><span class="heti-spacing"> </span>(R2: page 18-24)</span><a class="headerlink" href="#Linux-中的线程实现-R2-page-18-24" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="extra" open="open">
+<summary><span>Linux<span class="heti-spacing"> </span></span>的轻量级进程<span><span class="heti-spacing"> </span>(LWP) (R2: page 19)</span></summary>
+<p><span>Linux<span class="heti-spacing"> </span></span>内核并不严格区分进程和线程。它使用<strong>轻量级进程<span><span class="heti-spacing"> </span>(Light-Weight Process, LWP)</span></strong> 的概念来指代线程。无论是创建进程还是线程，<span>Linux<span class="heti-spacing"> </span></span>都使用 <code>clone()</code> 这个系统调用。</p>
+<p><code>clone()</code> 系统调用允许调用者精确地控制父子执行上下文之间共享哪些资源。通过传递不同的标志（flags<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，可以实现不同的效果：</p>
+<ul>
+<li><code>clone(SIGCHLD)</code> <span>(<span class="heti-spacing"> </span></span>无共享<span class="heti-skip"><span class="heti-spacing"> </span>):<span class="heti-spacing"> </span></span>效果类似 <code>fork()</code>，创建一个新进程。</li>
+<li><code>clone(CLONE_VM | CLONE_FS | CLONE_FILES | ...)</code><span>:<span class="heti-spacing"> </span></span>共享地址空间、文件系统信息、打开的文件等。这实际上创建了一个线程。</li>
+</ul>
+<p>在<span class="heti-skip"><span class="heti-spacing"> </span>Linux<span class="heti-spacing"> </span></span>中，<code>pthread_create()</code> 库函数底层就是通过调用 <code>clone()</code> 来创建新线程的。</p>
+<p>从 <code>ps -elf</code> 命令的输出可以看出，同一个进程下的所有线程共享同一个<code>PID</code><span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>这里指主线程的<span><span class="heti-spacing"> </span>ID</span>，即线程组<span><span class="heti-spacing"> </span>ID TGID)</span>，但每个线程有自己唯一的 <code>LWP</code> 号<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>在内核中就是其<span><span class="heti-spacing"> </span>PID)</span>。</p>
+<p><strong>共享与非共享的内核视图<span><span class="heti-spacing"> </span>(R2: page 22-24):</span></strong>
+通过分析内核数据结构，可以清晰地看到：
+- <strong>共享</strong><span>:<span class="heti-spacing"> </span></span>同一个进程的所有 <code>task_struct</code> 共享同一个内存描述符 <code>mm_struct</code>。
+- <strong>不共享</strong><span>:<span class="heti-spacing"> </span></span>每个 <code>task_struct</code> 有自己唯一的 <code>pid</code>、独立的内核栈 <code>stack</code> 和独立的<code>comm</code><span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>命令名<span><span class="heti-spacing"> </span>)</span>。</p>
+</details>
+<h2 id="CPU-调度-R2-page-25-36"><span>CPU<span class="heti-spacing"> </span></span>调度<span><span class="heti-spacing"> </span>(R2: page 25-36)</span><a class="headerlink" href="#CPU-调度-R2-page-25-36" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p><span>CPU<span class="heti-spacing"> </span></span>调度是操作系统的核心功能之一，其目标是选择就绪队列中的一个进程（或线程<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，并为其分配<span><span class="heti-spacing"> </span>CPU</span>。</p>
+<h3 id="基本概念-R2-page-26-27">基本概念<span><span class="heti-spacing"> </span>(R2: page 26-27)</span><a class="headerlink" href="#基本概念-R2-page-26-27" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong><span>CPU-I/O<span class="heti-spacing"> </span></span>执行周期</strong><span>:<span class="heti-spacing"> </span></span>进程的执行是在<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>计算（CPU burst）和<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>等待（I/O burst）之间交替进行的。</li>
+<li><strong>调度时机</strong><span>: CPU<span class="heti-spacing"> </span></span>调度决策可能在以下情况发生：<ol>
+<li>进程从运行态切换到等待态（如<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>请求<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>进程从运行态切换到就绪态（如时钟中断<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>进程从等待态切换到就绪态（如<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>完成<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>进程终止。</li>
+</ol>
+</li>
+<li><strong>抢占式<span class="heti-skip"><span class="heti-spacing"> </span>vs.<span class="heti-spacing"> </span></span>非抢占式调度</strong>:<ul>
+<li><strong>非抢占式<span><span class="heti-spacing"> </span>(Non-preemptive)</span></strong><span>:<span class="heti-spacing"> </span></span>调度仅在情况<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>发生。一旦<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>分配给一个进程，该进程会一直持有<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>直到它自愿放弃（等待<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>或终止<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。也称为<strong>协作式调度<span><span class="heti-spacing"> </span>(cooperative scheduling)</span></strong>。</li>
+<li><strong>抢占式<span><span class="heti-spacing"> </span>(Preemptive)</span></strong><span>:<span class="heti-spacing"> </span></span>调度也可能在情况<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>3<span class="heti-spacing"> </span></span>发生。操作系统可以强制剥夺当前进程的<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>使用权，并将其分配给另一个进程。现代通用操作系统都采用抢占式调度。</li>
+</ul>
+</li>
+</ul>
+<h3 id="调度准则-R2-page-28">调度准则<span><span class="heti-spacing"> </span>(R2: page 28)</span><a class="headerlink" href="#调度准则-R2-page-28" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>评估调度算法性能的主要准则包括：</p>
+<ul>
+<li><strong><span>CPU<span class="heti-spacing"> </span></span>利用率<span><span class="heti-spacing"> </span>(CPU utilization)</span></strong><span>: CPU<span class="heti-spacing"> </span></span>处于忙碌状态的时间百分比。目标是最大化。</li>
+<li><strong>吞吐量<span><span class="heti-spacing"> </span>(Throughput)</span></strong><span>:<span class="heti-spacing"> </span></span>单位时间内完成的进程数量。目标是最大化。</li>
+<li><strong>周转时间<span><span class="heti-spacing"> </span>(Turnaround time)</span></strong><span>:<span class="heti-spacing"> </span></span>从进程提交到进程完成的总时间。目标是最小化。</li>
+<li><strong>等待时间<span><span class="heti-spacing"> </span>(Waiting time)</span></strong><span>:<span class="heti-spacing"> </span></span>进程在就绪队列中等待的总时间。目标是最小化。</li>
+<li><strong>响应时间<span><span class="heti-spacing"> </span>(Response time)</span></strong><span>:<span class="heti-spacing"> </span></span>从提交请求到产生第一次响应的时间。目标是最小化。</li>
+</ul>
+<h3 id="常用调度算法-R2-page-29-36">常用调度算法<span><span class="heti-spacing"> </span>(R2: page 29-36)</span><a class="headerlink" href="#常用调度算法-R2-page-29-36" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ol>
+<li><strong>先来先服务<span><span class="heti-spacing"> </span>(First-Come, First-Served, FCFS)</span></strong> (R2: page 30)<ul>
+<li><strong>策略</strong><span>:<span class="heti-spacing"> </span></span>按照进程到达就绪队列的顺序进行调度。</li>
+<li><strong>特点</strong><span>:<span class="heti-spacing"> </span></span>实现简单，但平均等待时间可能很长，特别是当一个长任务先于多个短任务到达时（护航效应<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。非抢占式。</li>
+</ul>
+</li>
+<li><strong>最短作业优先<span><span class="heti-spacing"> </span>(Shortest-Job-First, SJF)</span></strong> (R2: page 31-33)<ul>
+<li><strong>策略</strong><span>:<span class="heti-spacing"> </span></span>选择下一个<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>执行周期最短的进程。</li>
+<li><strong>特点</strong>:<ul>
+<li><strong>理论上最优</strong><span>:<span class="heti-spacing"> </span></span>对于给定的进程集合，<span>SJF<span class="heti-spacing"> </span></span>能保证<strong>最小的平均等待时间</strong>。</li>
+<li><strong>实现的困难</strong><span>:<span class="heti-spacing"> </span></span>无法精确预知下一个<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>执行周期的长度。通常使用历史数据进行指数平均来预测。</li>
+<li>可以是<strong>抢占式</strong>或<strong>非抢占式</strong>。抢占式版本称为<strong>最短剩余时间优先<span><span class="heti-spacing"> </span>(Shortest-Remaining-Time-First, SRTF)</span></strong>，即当一个新进程到达且其执行时间比当前进程的剩余时间还短时，会发生抢占。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<details class="example" open="open">
+<summary><span>SRTF<span class="heti-spacing"> </span></span>调度示例<span><span class="heti-spacing"> </span>(R2: page 33)</span></summary>
+<p>假设有以下进程：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">进程</th>
+<th style="text-align: center;">到达时间</th>
+<th style="text-align: center;">执行时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">P1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">8</td>
+</tr>
+<tr>
+<td style="text-align: left;">P2</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr>
+<td style="text-align: left;">P3</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">9</td>
+</tr>
+<tr>
+<td style="text-align: left;">P4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">5</td>
+</tr>
+</tbody>
+</table>
+<p><strong>调度过程</strong>:
+1. 时刻 0: P1 到达，开始执行。
+2. 时刻 1: P2 到达（执行时间 4），P1 剩余时间 7。P2 更短，P1 被抢占，P2 开始执行。
+3. 时刻 2: P3 到达（执行时间 9），P2 剩余时间 3。P2 仍最短，继续执行。
+4. 时刻 3: P4 到达（执行时间 5），P2 剩余时间 2。P2 仍最短，继续执行。
+5. 时刻 5: P2 执行完毕。就绪队列中有 P1(剩 7), P3(9), P4(5)。P4 最短，开始执行。
+6. 时刻 10: P4 执行完毕。就绪队列中有 P1(剩 7), P3(9)。P1 更短，开始执行。
+7. 时刻 17: P1 执行完毕。P3 开始执行。
+8. 时刻 26: P3 执行完毕。</p>
+<p><strong><span>Gantt<span class="heti-spacing"> </span></span>图</strong>: <code>| P1(1) | P2(4) | P4(5) | P1(7) | P3(9) |</code></p>
+<p><strong>平均等待时间</strong> = <code>[(10-1) + (1-1) + (17-2) + (5-3)] / 4 = (9 + 0 + 15 + 2) / 4 = 6.5</code> msec。</p>
+</details>
+<ol start="3">
+<li><strong>优先级调度<span><span class="heti-spacing"> </span>(Priority Scheduling)</span></strong> (R2: page 34-35)<ul>
+<li><strong>策略</strong><span>:<span class="heti-spacing"> </span></span>为每个进程分配一个优先级，<span>CPU<span class="heti-spacing"> </span></span>分配给优先级最高的进程。</li>
+<li><strong>特点</strong>:<ul>
+<li>可以是抢占式或非抢占式。</li>
+<li><span>SJF<span class="heti-spacing"> </span></span>是优先级调度的一个特例，优先级是下一个<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>执行周期的倒数。</li>
+<li><strong>问题</strong><span>:<span class="heti-spacing"> </span></span>可能导致<strong>饥饿<span><span class="heti-spacing"> </span>(Starvation)</span></strong>，即低优先级进程可能永远得不到执行。</li>
+<li><strong>解决方案</strong>: <strong>老化<span><span class="heti-spacing"> </span>(Aging)</span></strong>，即随着时间的推移，逐步提高等待时间过长进程的优先级。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>轮转调度<span><span class="heti-spacing"> </span>(Round Robin, RR)</span></strong> (R2: page 36)<ul>
+<li><strong>策略</strong><span>:<span class="heti-spacing"> </span></span>专门为分时系统设计。将就绪队列视为一个循环队列，每个进程被分配一个固定的<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>时间片（time quantum, q<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。如果进程在一个时间片内未完成，它将被抢占并放回就绪队列的末尾。</li>
+<li><strong>特点</strong>:<ul>
+<li><strong>时间片大小是关键</strong>:<ul>
+<li><code>q</code> 太大：退化为<span><span class="heti-spacing"> </span>FCFS</span>。</li>
+<li><code>q</code> 太小：上下文切换开销过大，系统效率降低。</li>
+</ul>
+</li>
+<li>通常时间片大小在<span class="heti-skip"><span class="heti-spacing"> </span>10-100<span class="heti-spacing"> </span></span>毫秒之间。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="同步-Synchronization-R2-page-37-59">同步<span><span class="heti-spacing"> </span>(Synchronization) (R2: page 37-59)</span><a class="headerlink" href="#同步-Synchronization-R2-page-37-59" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>当多个并发进程或线程需要访问共享数据时，必须对它们的执行顺序进行协调，以避免数据不一致的问题。</p>
+<h3 id="竞态条件与临界区-Race-Condition--Critical-Section-R2-page-39-42">竞态条件与临界区<span><span class="heti-spacing"> </span>(Race Condition &amp; Critical Section) (R2: page 39-42)</span><a class="headerlink" href="#竞态条件与临界区-Race-Condition--Critical-Section-R2-page-39-42" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="definition" open="open">
+<summary>竞态条件<span><span class="heti-spacing"> </span>(Race Condition) (R2: page 40)</span></summary>
+<p>当多个进程（或线程）并发地访问和操作同一共享数据，而最终的结果取决于访问发生的特定顺序时，就称之为<strong>竞态条件</strong>。</p>
+</details>
+<details class="example" open="open">
+<summary><code>counter++</code> 的竞态条件<span><span class="heti-spacing"> </span>(R2: page 39)</span></summary>
+<p><code>counter++</code> 这个高级语言操作在机器层面通常需要三条指令：
+1. <code>mov 0x8049a1c, %eax</code> (将内存中的 counter 值加载到寄存器 eax)
+2. <code>add $0x1, %eax</code> (将寄存器 eax 的值加 1)
+3. <code>mov %eax, 0x8049a1c</code> (将寄存器 eax 的新值写回内存)</p>
+<p>假设两个线程同时执行 <code>counter++</code>，初始 <code>counter</code> 为<span><span class="heti-spacing"> </span>50</span>。一种可能的交错执行顺序如下：
+4. 线程1 执行 <code>mov</code> 和 <code>add</code>，其 <code>%eax</code> 变为 51。
+5. <strong>发生中断</strong>，切换到线程<span><span class="heti-spacing"> </span>2</span>。
+6. 线程2 执行 <code>mov</code>、<code>add</code>、<code>mov</code>，它从内存加载 50，计算后将 51 写回内存。此时 <code>counter</code> 值为 51。
+7. 切换回线程1，它从中断处继续，执行 <code>mov</code>，将自己寄存器中的 51 写回内存。</p>
+<p>最终结果 <code>counter</code> 是<span><span class="heti-spacing"> </span>51</span>，而不是期望的<span><span class="heti-spacing"> </span>52</span>。</p>
+</details>
+<p>为了解决竞态条件，我们需要识别出代码中访问共享资源的<strong>临界区<span><span class="heti-spacing"> </span>(Critical Section)</span></strong>，并确保在任何时候，最多只有一个进程能在其临界区内执行。</p>
+<h3 id="临界区问题的解决方案-R2-page-44-45">临界区问题的解决方案<span><span class="heti-spacing"> </span>(R2: page 44-45)</span><a class="headerlink" href="#临界区问题的解决方案-R2-page-44-45" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>任何一个有效的解决方案都必须满足以下三个要求：
+1. <strong>互斥<span><span class="heti-spacing"> </span>(Mutual Exclusion)</span></strong><span>:<span class="heti-spacing"> </span></span>如果一个进程正在其临界区内执行，那么其他任何进程都不能进入其临界区。
+2. <strong>进步<span><span class="heti-spacing"> </span>(Progress)</span></strong><span>:<span class="heti-spacing"> </span></span>如果没有进程在临界区内，并且有进程希望进入，那么只有那些不在剩余区（remainder section）的进程可以参与选择，且这种选择不能被无限期推迟。
+3. <strong>有界等待<span><span class="heti-spacing"> </span>(Bounded Waiting)</span></strong><span>:<span class="heti-spacing"> </span></span>从一个进程发出进入临界区的请求，到该请求被允许为止，其他进程被允许进入临界区的次数必须是有限的。这可以防止饥饿。</p>
+<h3 id="同步原语-R2-page-47-53">同步原语<span><span class="heti-spacing"> </span>(R2: page 47-53)</span><a class="headerlink" href="#同步原语-R2-page-47-53" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>操作系统和硬件提供了一系列同步工具，从低级到高级包括：</p>
+<ol>
+<li><strong>硬件指令<span><span class="heti-spacing"> </span>(Hardware Instructions)</span></strong> (R2: page 47)<ul>
+<li>现代处理器提供特殊的<strong>原子指令<span><span class="heti-spacing"> </span>(atomic instructions)</span></strong>，如 <code>Test-and-Set</code> 和 <code>Compare-and-Swap</code>。这些指令在执行期间不会被中断，是构建更高级同步锁的基础。</li>
+</ul>
+</li>
+<li><strong>互斥锁<span><span class="heti-spacing"> </span>(Mutex Locks)</span></strong> (R2: page 48-50)<ul>
+<li>最简单的同步工具。通过 <code>acquire()</code> 获取锁，<code>release()</code> 释放锁来保护临界区。</li>
+<li>基于原子硬件指令的简单实现会导致<strong>忙等待<span><span class="heti-spacing"> </span>(busy waiting)</span></strong>，即进程在循环中不断检查锁是否可用，浪费<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>时间。这种锁也称为<strong>自旋锁<span><span class="heti-spacing"> </span>(spinlock)</span></strong>。自旋锁在锁持有时间极短且在多核系统上时是高效的，因为它避免了上下文切换的开销。</li>
+</ul>
+</li>
+<li><strong>信号量<span><span class="heti-spacing"> </span>(Semaphore)</span></strong> (R2: page 51-53)<ul>
+<li>一个更强大的同步工具，由一个整数变量 <code>S</code> 和两个原子操作构成：<code>wait(S)</code> 和 <code>signal(S)</code>（也称为 <code>P()</code> 和 <code>V()</code><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>计数信号量</strong><span>:<span class="heti-spacing"> </span></span><code>S</code>的值可以为任意整数，用于控制对<span class="heti-skip"><span class="heti-spacing"> </span>N<span class="heti-spacing"> </span></span>个资源的访问。</li>
+<li><strong>二元信号量</strong><span>:<span class="heti-spacing"> </span></span><code>S</code>的值只能是<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>或<span><span class="heti-spacing"> </span>1</span>，功能类似互斥锁。</li>
+<li><strong>避免忙等待的实现</strong>:<ul>
+<li><code>wait(S)</code>: <code>S--</code>。如果 <code>S &lt; 0</code>，则将当前进程放入与信号量关联的等待队列并<strong>阻塞<span><span class="heti-spacing"> </span>(block)</span></strong>。</li>
+<li><code>signal(S)</code>: <code>S++</code>。如果 <code>S &lt;= 0</code>，则从等待队列中<strong>唤醒<span><span class="heti-spacing"> </span>(wakeup)</span></strong> 一个进程。</li>
+</ul>
+</li>
+<li>这里的 <code>S</code> 值的含义：若为正，表示可用资源数；若为负，其绝对值表示等待该资源的进程数。</li>
+</ul>
+</li>
+</ol>
+<details class="summary" open="open">
+<summary>生产者<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>消费者问题<span><span class="heti-spacing"> </span>(Bounded-Buffer Problem) (R2: page 56-59)</span></summary>
+<p>这是一个经典的同步问题，可用信号量完美解决。</p>
+<ul>
+<li><strong>设置</strong><span>:<span class="heti-spacing"> </span></span>一个容量为<span class="heti-skip"><span class="heti-spacing"> </span>N<span class="heti-spacing"> </span></span>的有界缓冲区。</li>
+<li><strong>目标</strong><span>:<span class="heti-spacing"> </span></span>生产者不能在缓冲区满时放入物品；消费者不能在缓冲区空时取出物品；同时只能有一个进程操作缓冲区。</li>
+</ul>
+<p><strong>解决方案</strong>:
+- <code>semaphore mutex = 1;</code> // 用于互斥访问缓冲区
+- <code>semaphore empty_slots = N;</code> // 记录空槽位数量
+- <code>semaphore full_slots = 0;</code> // 记录满槽位数量</p>
+<p><strong>生产者伪代码</strong>:
+</p><div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos" data-linenos="1 "></span></a>do {
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><a href="#__codelineno-1-2"><span class="linenos" data-linenos="2 "></span></a>  // produce an item
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><a href="#__codelineno-1-3"><span class="linenos" data-linenos="3 "></span></a>  wait(empty_slots); // 等待有空位
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><a href="#__codelineno-1-4"><span class="linenos" data-linenos="4 "></span></a>  wait(mutex);       // 获取缓冲区访问权
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><a href="#__codelineno-1-5"><span class="linenos" data-linenos="5 "></span></a>  // add item to buffer
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a><a href="#__codelineno-1-6"><span class="linenos" data-linenos="6 "></span></a>  signal(mutex);       // 释放缓冲区访问权
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a><a href="#__codelineno-1-7"><span class="linenos" data-linenos="7 "></span></a>  signal(full_slots);  // 通知有一个物品已满
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a><a href="#__codelineno-1-8"><span class="linenos" data-linenos="8 "></span></a>} while (TRUE);
+</span></code></pre></div>
+<p><strong>消费者伪代码</strong>:
+</p><div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><a href="#__codelineno-2-1"><span class="linenos" data-linenos="1 "></span></a>do {
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><a href="#__codelineno-2-2"><span class="linenos" data-linenos="2 "></span></a>  wait(full_slots);  // 等待有物品
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><a href="#__codelineno-2-3"><span class="linenos" data-linenos="3 "></span></a>  wait(mutex);       // 获取缓冲区访问权
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><a href="#__codelineno-2-4"><span class="linenos" data-linenos="4 "></span></a>  // remove item from buffer
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><a href="#__codelineno-2-5"><span class="linenos" data-linenos="5 "></span></a>  signal(mutex);       // 释放缓冲区访问权
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><a href="#__codelineno-2-6"><span class="linenos" data-linenos="6 "></span></a>  signal(empty_slots); // 通知有一个槽位已空
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a><a href="#__codelineno-2-7"><span class="linenos" data-linenos="7 "></span></a>  // consume the item
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a><a href="#__codelineno-2-8"><span class="linenos" data-linenos="8 "></span></a>} while (TRUE);
+</span></code></pre></div>
+</details>
+<h2 id="死锁-Deadlock-R2-page-60-65">死锁<span><span class="heti-spacing"> </span>(Deadlock) (R2: page 60-65)</span><a class="headerlink" href="#死锁-Deadlock-R2-page-60-65" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>死锁是多道程序环境下可能出现的一种严重问题。</p>
+<h3 id="死锁的定义与条件-R2-page-61-64">死锁的定义与条件<span><span class="heti-spacing"> </span>(R2: page 61, 64)</span><a class="headerlink" href="#死锁的定义与条件-R2-page-61-64" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="definition" open="open">
+<summary>死锁<span><span class="heti-spacing"> </span>(Deadlock)</span></summary>
+<p>当一组进程中的每个进程都在等待一个仅由该组中其他进程才能释放的资源时，这组进程就陷入了<strong>死锁</strong>状态。</p>
+</details>
+<p><strong>死锁发生的四个必要条件</strong>:</p>
+<ol>
+<li><strong>互斥<span><span class="heti-spacing"> </span>(Mutual exclusion)</span></strong><span>:<span class="heti-spacing"> </span></span>至少有一个资源必须以非共享模式持有，即一次只有一个进程可以使用。</li>
+<li><strong>持有并等待<span><span class="heti-spacing"> </span>(Hold and wait)</span></strong><span>:<span class="heti-spacing"> </span></span>一个进程至少持有一个资源，并且正在等待获取由其他进程持有的额外资源。</li>
+<li><strong>非抢占<span><span class="heti-spacing"> </span>(No preemption)</span></strong><span>:<span class="heti-spacing"> </span></span>资源不能被强制性地从持有它的进程中抢占，只能由持有它的进程在完成任务后自愿释放。</li>
+<li><strong>循环等待<span><span class="heti-spacing"> </span>(Circular wait)</span></strong><span>:<span class="heti-spacing"> </span></span>存在一个等待进程集合 <code>{P₀, P₁, ..., Pₙ}</code>，其中<span><span class="heti-spacing"> </span>P</span>₀ 在等待<span><span class="heti-spacing"> </span>P</span>₁ 持有的资源，P₁ 在等待<span><span class="heti-spacing"> </span>P</span>₂ 持有的资源，...，Pₙ 在等待<span><span class="heti-spacing"> </span>P</span>₀ 持有的资源。</li>
+</ol>
+<details class="example" open="open">
+<summary>死锁程序示例<span><span class="heti-spacing"> </span>(R2: page 62-63)</span></summary>
+<p>两个线程试图以相反的顺序获取两个互斥锁。
+</p><div class="highlight"><span class="filename">C</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><a href="#__codelineno-3-1"><span class="linenos" data-linenos="1 "></span></a><span class="c1">// Thread 1</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><a href="#__codelineno-3-2"><span class="linenos" data-linenos="2 "></span></a><span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">first_mutex</span><span class="p">);</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><a href="#__codelineno-3-3"><span class="linenos" data-linenos="3 "></span></a><span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">second_mutex</span><span class="p">);</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a><a href="#__codelineno-3-4"><span class="linenos" data-linenos="4 "></span></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a><a href="#__codelineno-3-5"><span class="linenos" data-linenos="5 "></span></a><span class="c1">// Thread 2</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a><a href="#__codelineno-3-6"><span class="linenos" data-linenos="6 "></span></a><span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">second_mutex</span><span class="p">);</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a><a href="#__codelineno-3-7"><span class="linenos" data-linenos="7 "></span></a><span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">first_mutex</span><span class="p">);</span>
+</span></code></pre></div>
+如果线程1获得了 <code>first_mutex</code>，同时线程2获得了 <code>second_mutex</code>，那么线程1将永远等待 <code>second_mutex</code>（由线程2持有），而线程2将永远等待 <code>first_mutex</code>（由线程 1 持有），形成死锁。
+</details>
+<h3 id="死锁处理策略-R2-page-65">死锁处理策略<span><span class="heti-spacing"> </span>(R2: page 65)</span><a class="headerlink" href="#死锁处理策略-R2-page-65" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>主要有四种处理死锁的方法：
+1. <strong>死锁预防<span><span class="heti-spacing"> </span>(Prevention)</span></strong><span>:<span class="heti-spacing"> </span></span>通过破坏死锁发生的四个必要条件中的至少一个来从结构上防止死锁。例如，要求所有进程一次性申请所有资源（破坏“持有并等待”<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，或者对资源类型进行排序，要求进程按序申请（破坏“循环等待”<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。这种方法通常过于严格，会降低资源利用率。
+2. <strong>死锁避免<span><span class="heti-spacing"> </span>(Avoidance)</span></strong><span>:<span class="heti-spacing"> </span></span>系统在分配资源前，先判断此次分配是否会导致系统进入不安全状态（可能导致死锁的状态<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。如果会，则拒绝分配。这需要系统预先知道进程未来的资源需求，如银行家算法。
+3. <strong>死锁检测与恢复<span><span class="heti-spacing"> </span>(Detection and Recovery)</span></strong><span>:<span class="heti-spacing"> </span></span>允许系统进入死锁状态，通过算法定期检测是否存在死锁。如果检测到，则采取措施进行恢复，如终止一个或多个死锁进程，或者抢占资源。
+4. <strong>忽略问题<span><span class="heti-spacing"> </span>(Ignoring the problem)</span></strong><span>:<span class="heti-spacing"> </span></span>像鸵鸟一样把头埋进沙里，假装死锁从未发生。这是<strong>主流通用操作系统</strong>（如<span><span class="heti-spacing"> </span>UNIX, Linux, Windows</span>）采用的策略。因为死锁预防和避免的代价太高，而死锁在通用系统中发生的频率相对较低，所以把处理死锁的责任交给了应用程序员。</p>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年9月20日 18:33:45 CST">2025年9月20日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年6月14日 00:21:22 CST">2025年6月14日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: 计算机体系结构课程回顾" class="md-footer__link md-footer__link--prev" href="../0-hard_review/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                计算机体系结构课程回顾
+              </div>
+</div>
+</a>
+<a aria-label="下一页: 计算机系统基础" class="md-footer__link md-footer__link--next" href="../1-Fundamentals/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                计算机系统基础
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

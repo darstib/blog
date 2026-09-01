@@ -1,0 +1,2125 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/note/DMA/07-SVM/" rel="canonical"/>
+<link href="../06-logistic/" rel="prev"/>
+<link href="../08-Adaboost/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>07 SVM - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#感知机-page-6-7">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              07 SVM
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Note
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs188/">
+<span class="md-ellipsis">
+    
+  
+    cs188
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../physics/">
+<span class="md-ellipsis">
+    
+  
+    physics
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-II/">
+<span class="md-ellipsis">
+    
+  
+    CSys-II
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-III/">
+<span class="md-ellipsis">
+    
+  
+    CSys-III
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DEM/">
+<span class="md-ellipsis">
+    
+  
+    DEM
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3_7" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    DMA
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_7_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    DMA
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../01-Intro/">
+<span class="md-ellipsis">
+    
+  
+    01 Intro
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../02-Perceptron/">
+<span class="md-ellipsis">
+    
+  
+    02 Perceptron
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../03-KNN/">
+<span class="md-ellipsis">
+    
+  
+    03 KNN
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../04-Naive_Bayes/">
+<span class="md-ellipsis">
+    
+  
+    04 Naive Bayes
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../05-Decision_Tree/">
+<span class="md-ellipsis">
+    
+  
+    05 Decision Tree
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../06-logistic/">
+<span class="md-ellipsis">
+    
+  
+    06 logistic
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    07 SVM
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    07 SVM
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#感知机-page-6-7">
+<span class="md-ellipsis">
+      
+        感知机 (page 6-7)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#支持向量机SVM概述-page-8-9">
+<span class="md-ellipsis">
+      
+        支持向量机（SVM）概述 (page 8-9)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#线性可分支持向量机-page-10-28">
+<span class="md-ellipsis">
+      
+        线性可分支持向量机 (page 10-28)
+      
+    </span>
+</a>
+<nav aria-label="线性可分支持向量机 (page 10-28)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#函数间隔与几何间隔-page-13-16">
+<span class="md-ellipsis">
+      
+        函数间隔与几何间隔 (page 13-16)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#硬间隔最大化-page-17-18">
+<span class="md-ellipsis">
+      
+        (硬)间隔最大化 (page 17-18)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#支持向量与间隔边界-page-27">
+<span class="md-ellipsis">
+      
+        支持向量与间隔边界 (page 27)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#对偶算法-page-29-48">
+<span class="md-ellipsis">
+      
+        对偶算法 (page 29-48)
+      
+    </span>
+</a>
+<nav aria-label="对偶算法 (page 29-48)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#拉格朗日对偶性-page-29-35">
+<span class="md-ellipsis">
+      
+        拉格朗日对偶性 (page 29-35)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#SVM-对偶问题推导-page-36-39">
+<span class="md-ellipsis">
+      
+        SVM 对偶问题推导 (page 36-39)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#求解原始变量-page-40-42">
+<span class="md-ellipsis">
+      
+        求解原始变量 (page 40-42)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#线性支持向量机与软间隔最大化-page-49-62">
+<span class="md-ellipsis">
+      
+        线性支持向量机与软间隔最大化 (page 49-62)
+      
+    </span>
+</a>
+<nav aria-label="线性支持向量机与软间隔最大化 (page 49-62)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#软间隔的优化问题-page-49-50">
+<span class="md-ellipsis">
+      
+        软间隔的优化问题 (page 49-50)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#软间隔的对偶问题-page-51-57">
+<span class="md-ellipsis">
+      
+        软间隔的对偶问题 (page 51-57)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#合页损失函数-page-58-62">
+<span class="md-ellipsis">
+      
+        合页损失函数 (page 58-62)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#非线性支持向量机与核函数-page-65-83">
+<span class="md-ellipsis">
+      
+        非线性支持向量机与核函数 (page 65-83)
+      
+    </span>
+</a>
+<nav aria-label="非线性支持向量机与核函数 (page 65-83)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#特征映射与核技巧-page-66-72">
+<span class="md-ellipsis">
+      
+        特征映射与核技巧 (page 66-72)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#核函数的定义与常用核函数-page-68-81">
+<span class="md-ellipsis">
+      
+        核函数的定义与常用核函数 (page 68, 81)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#非线性-SVM-算法-page-82-83">
+<span class="md-ellipsis">
+      
+        非线性 SVM 算法 (page 82-83)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#序列最小最优化算法SMO-page-84-100">
+<span class="md-ellipsis">
+      
+        序列最小最优化算法（SMO） (page 84-100)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#误差分析-page-101-102考试不涉及">
+<span class="md-ellipsis">
+      
+        误差分析 (page 101-102，考试不涉及)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#习题">
+<span class="md-ellipsis">
+      
+        习题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../08-Adaboost/">
+<span class="md-ellipsis">
+    
+  
+    08 Adaboost
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../09-Expect_Max/">
+<span class="md-ellipsis">
+    
+  
+    09 Expect Max
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../14-Cluster_Methods/">
+<span class="md-ellipsis">
+    
+  
+    14 Cluster Methods
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../15-SVD/">
+<span class="md-ellipsis">
+    
+  
+    15 SVD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../16-PCA/">
+<span class="md-ellipsis">
+    
+  
+    16 PCA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../19-MCMC/">
+<span class="md-ellipsis">
+    
+  
+    19 MCMC
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../21-PageRank/">
+<span class="md-ellipsis">
+    
+  
+    21 PageRank
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../appendix-UML/">
+<span class="md-ellipsis">
+    
+  
+    appendix UML
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../appendix-grad/">
+<span class="md-ellipsis">
+    
+  
+    Appendix grad
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../appendix-martirx_derivation/">
+<span class="md-ellipsis">
+    
+  
+    矩阵求导术（上/下）
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs70/">
+<span class="md-ellipsis">
+    
+  
+    cs70
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../other/">
+<span class="md-ellipsis">
+    
+  
+    other
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#感知机-page-6-7">
+<span class="md-ellipsis">
+      
+        感知机 (page 6-7)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#支持向量机SVM概述-page-8-9">
+<span class="md-ellipsis">
+      
+        支持向量机（SVM）概述 (page 8-9)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#线性可分支持向量机-page-10-28">
+<span class="md-ellipsis">
+      
+        线性可分支持向量机 (page 10-28)
+      
+    </span>
+</a>
+<nav aria-label="线性可分支持向量机 (page 10-28)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#函数间隔与几何间隔-page-13-16">
+<span class="md-ellipsis">
+      
+        函数间隔与几何间隔 (page 13-16)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#硬间隔最大化-page-17-18">
+<span class="md-ellipsis">
+      
+        (硬)间隔最大化 (page 17-18)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#支持向量与间隔边界-page-27">
+<span class="md-ellipsis">
+      
+        支持向量与间隔边界 (page 27)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#对偶算法-page-29-48">
+<span class="md-ellipsis">
+      
+        对偶算法 (page 29-48)
+      
+    </span>
+</a>
+<nav aria-label="对偶算法 (page 29-48)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#拉格朗日对偶性-page-29-35">
+<span class="md-ellipsis">
+      
+        拉格朗日对偶性 (page 29-35)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#SVM-对偶问题推导-page-36-39">
+<span class="md-ellipsis">
+      
+        SVM 对偶问题推导 (page 36-39)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#求解原始变量-page-40-42">
+<span class="md-ellipsis">
+      
+        求解原始变量 (page 40-42)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#线性支持向量机与软间隔最大化-page-49-62">
+<span class="md-ellipsis">
+      
+        线性支持向量机与软间隔最大化 (page 49-62)
+      
+    </span>
+</a>
+<nav aria-label="线性支持向量机与软间隔最大化 (page 49-62)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#软间隔的优化问题-page-49-50">
+<span class="md-ellipsis">
+      
+        软间隔的优化问题 (page 49-50)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#软间隔的对偶问题-page-51-57">
+<span class="md-ellipsis">
+      
+        软间隔的对偶问题 (page 51-57)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#合页损失函数-page-58-62">
+<span class="md-ellipsis">
+      
+        合页损失函数 (page 58-62)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#非线性支持向量机与核函数-page-65-83">
+<span class="md-ellipsis">
+      
+        非线性支持向量机与核函数 (page 65-83)
+      
+    </span>
+</a>
+<nav aria-label="非线性支持向量机与核函数 (page 65-83)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#特征映射与核技巧-page-66-72">
+<span class="md-ellipsis">
+      
+        特征映射与核技巧 (page 66-72)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#核函数的定义与常用核函数-page-68-81">
+<span class="md-ellipsis">
+      
+        核函数的定义与常用核函数 (page 68, 81)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#非线性-SVM-算法-page-82-83">
+<span class="md-ellipsis">
+      
+        非线性 SVM 算法 (page 82-83)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#序列最小最优化算法SMO-page-84-100">
+<span class="md-ellipsis">
+      
+        序列最小最优化算法（SMO） (page 84-100)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#误差分析-page-101-102考试不涉及">
+<span class="md-ellipsis">
+      
+        误差分析 (page 101-102，考试不涉及)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#习题">
+<span class="md-ellipsis">
+      
+        习题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Note
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    DMA
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:notes">notes</a>
+</nav>
+<h1>07 SVM</h1>
+<p>支持向量机（Support Vector Machine, SVM）是一种功能强大且用途广泛的监督学习模型，能够执行线性和非线性分类、回归，甚至异常值检测任务。它在<span class="heti-skip"><span class="heti-spacing"> </span>20<span class="heti-spacing"> </span></span>世纪<span class="heti-skip"><span class="heti-spacing"> </span>90<span class="heti-spacing"> </span></span>年代由<span class="heti-skip"><span class="heti-spacing"> </span>Vapnik<span class="heti-spacing"> </span></span>等人提出，因其在理论上的完备性和在实践中优异的性能，迅速成为机器学习领域的明星算法之一。</p>
+<div class="admonition help">
+<p class="admonition-title">推荐阅读<a href="https://zhuanlan.zhihu.com/p/61123737"><span class="heti-skip"><span class="heti-spacing"> </span>SVM<span class="heti-spacing"> </span></span>系列<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>从基础到掌握</a></p>
+</div>
+<h2 id="感知机-page-6-7">感知机<span><span class="heti-spacing"> </span>(page 6-7)</span><a class="headerlink" href="#感知机-page-6-7" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>在深入了解支持向量机之前，我们先回顾一下它的“前身”——感知机（Perceptron<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<details class="wiki" open="open">
+<summary>感知机<span><span class="heti-spacing"> </span>(Perceptron)</span></summary>
+<p>感知机是<span class="heti-skip"><span class="heti-spacing"> </span>1957<span class="heti-spacing"> </span></span>年由<span class="heti-skip"><span class="heti-spacing"> </span>Frank Rosenblatt<span class="heti-spacing"> </span></span>提出的一种早期的人工神经网络模型，可以被看作是最简单的前馈神经网络。它本质上是一个二元线性分类器。</p>
+<p><strong>模型定义</strong>:</p>
+<ul>
+<li>
+<p><strong>分类超平面</strong>:</p>
+<div class="arithmatex">\[
+w \cdot x + b = 0
+\]</div>
+<p>其中，<span><span class="arithmatex">\(w\)</span><span class="heti-spacing"> </span></span>是权重向量，<span><span class="arithmatex">\(b\)</span><span class="heti-spacing"> </span></span>是偏置项，<span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>是输入特征向量。这个超平面将特征空间一分为二。</p>
+</li>
+<li>
+<p><strong>分类决策函数</strong>:</p>
+<div class="arithmatex">\[
+f(x) = \text{sign}(w \cdot x + b)
+\]</div>
+<p><span><span class="arithmatex">\(\text{sign}(\cdot)\)</span><span class="heti-spacing"> </span></span>是符号函数，当输入大于<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>时输出<span><span class="heti-spacing"> </span>+1</span>，小于<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>时输出<span><span class="heti-spacing"> </span>-1</span>。</p>
+</li>
+</ul>
+</details>
+<p>感知机的学习目标是通过训练数据找到一组参数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(w\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(b\)</span></span>。</p>
+<ul>
+<li><strong>学习策略</strong>：最小化所有<strong>误分类点</strong>到分类超平面的总距离。</li>
+<li><strong>学习算法</strong>：通常采用<strong>随机梯度下降<span><span class="heti-spacing"> </span>(SGD)</span></strong> 的方法，一次只用一个误分类点来更新<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(w\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(b\)</span></span>。</li>
+</ul>
+<p><strong>感知机的特点与局限性</strong>：</p>
+<ol>
+<li><strong>解不唯一</strong>：对于同一个线性可分的数据集，感知机算法可能因为初始值的不同或样本点的选取顺序不同，而找到多个不同的分离超平面。如幻灯片第<span class="heti-skip"><span class="heti-spacing"> </span>5<span class="heti-spacing"> </span></span>页所示，有很多条线都能将两类点分开，但哪一条是“最好”的呢？感知机没有回答这个问题。</li>
+<li><strong>收敛性</strong>：对于<strong>线性可分</strong>的数据集，感知机算法被证明是收敛的，即经过有限次迭代后，总能找到一个能够将训练数据完全正确划分的超平面。但对于线性不可分的数据，算法将不会收敛，会永远震荡下去。</li>
+</ol>
+<details class="attention" open="open">
+<summary>感知机<span class="heti-skip"><span class="heti-spacing"> </span>vs.<span class="heti-spacing"> </span></span>支持向量机</summary>
+<p>感知机的目标是找到<strong>任意一个</strong>可以将数据分开的超平面。而支持向量机（SVM）的目标是找到<strong>最好的</strong>那一个，也就是接下来要讲的“间隔最大化”的超平面。这使得<span class="heti-skip"><span class="heti-spacing"> </span>SVM<span class="heti-spacing"> </span></span>通常具有更好的泛化性能。</p>
+</details>
+<h2 id="支持向量机SVM概述-page-8-9">支持向量机（SVM）概述<span><span class="heti-spacing"> </span>(page 8-9)</span><a class="headerlink" href="#支持向量机SVM概述-page-8-9" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>支持向量机是对感知机模型的重大改进，其核心思想是<strong>间隔最大化</strong>。</p>
+<details class="definition" open="open">
+<summary>支持向量机<span><span class="heti-spacing"> </span>(Support Vector Machine, SVM)</span></summary>
+<ul>
+<li>它首先是一个<strong>二分类模型</strong>。</li>
+<li>其学习策略是<strong>间隔最大化<span><span class="heti-spacing"> </span>(Margin Maximization)</span></strong>，这使得它与感知机有本质区别。</li>
+<li>其学习问题可以形式化为一个<strong>凸二次规划<span><span class="heti-spacing"> </span>(Convex Quadratic Programming)</span></strong> 问题，这保证了它能找到全局最优解。这个问题也等价于一个带<span class="heti-skip"><span class="heti-spacing"> </span>L2<span class="heti-spacing"> </span></span>正则化的<strong>合页损失函数<span><span class="heti-spacing"> </span>(Hinge Loss)</span></strong> 的最小化问题。</li>
+<li>通过引入<strong>核技巧<span><span class="heti-spacing"> </span>(Kernel Trick)</span></strong>，<span>SVM<span class="heti-spacing"> </span></span>可以高效地处理非线性分类问题，成为实质上的非线性分类器。</li>
+</ul>
+</details>
+<p>根据数据和问题的不同，<span>SVM<span class="heti-spacing"> </span></span>可以分为以下三类：</p>
+<ol>
+<li><strong>线性可分支持向量机<span><span class="heti-spacing"> </span>(Linear SVM in Linearly Separable Case)</span></strong><ul>
+<li>当训练数据是<strong>线性可分</strong>的，通过<strong>硬间隔最大化<span><span class="heti-spacing"> </span>(Hard Margin Maximization)</span></strong> 学习一个线性分类器。这对应于上图中的图<span><span class="heti-spacing"> </span>a</span>。</li>
+</ul>
+</li>
+<li><strong>线性支持向量机<span><span class="heti-spacing"> </span>(Linear SVM)</span></strong><ul>
+<li>当训练数据<strong>近似线性可分</strong>时（即存在一些噪声点或异常值<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，通过<strong>软间隔最大化<span><span class="heti-spacing"> </span>(Soft Margin Maximization)</span></strong> 来学习。这对应于上图中的图<span><span class="heti-spacing"> </span>b</span>。</li>
+</ul>
+</li>
+<li><strong>非线性支持向量机<span><span class="heti-spacing"> </span>(Non-linear SVM)</span></strong><ul>
+<li>当训练数据是<strong>线性不可分</strong>的，通过使用<strong>核技巧</strong>和软间隔最大化来学习。这对应于上图中的图<span><span class="heti-spacing"> </span>c</span>，它将原始二维空间中的数据映射到了三维空间，从而变得线性可分。</li>
+</ul>
+</li>
+</ol>
+<h2 id="线性可分支持向量机-page-10-28">线性可分支持向量机<span><span class="heti-spacing"> </span>(page 10-28)</span><a class="headerlink" href="#线性可分支持向量机-page-10-28" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>我们首先从最简单的情况开始：训练数据是完全线性可分的。</p>
+<p><strong>问题设定</strong>：</p>
+<ul>
+<li>
+<p><strong>给定训练数据集</strong>:</p>
+<div class="arithmatex">\[
+T = \{(x_1, y_1), (x_2, y_2), \dots, (x_N, y_N)\}
+\]</div>
+<p>其中，<span><span class="arithmatex">\(x_i \in \mathcal{X} = \mathbb{R}^n\)</span><span class="heti-spacing"> </span></span>是第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>个样本的特征向量，<span><span class="arithmatex">\(y_i \in \mathcal{Y} = \{+1, -1\}\)</span><span class="heti-spacing"> </span></span>是对应的类别标签。
+- <strong>学习目标</strong>：在特征空间中找到一个分离超平面，能将不同类别的样本分到超平面的两侧。
+- <strong>决策函数</strong>：找到最优的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(w^*\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(b^*\)</span><span class="heti-spacing"> </span></span>后，最终的决策函数为：
+$$
+f(x) = \text{sign}(w^<em> \cdot x + b^</em>)
+$$</p>
+</li>
+</ul>
+<h3 id="函数间隔与几何间隔-page-13-16">函数间隔与几何间隔<span><span class="heti-spacing"> </span>(page 13-16)</span><a class="headerlink" href="#函数间隔与几何间隔-page-13-16" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>为了找到“最好”的超平面，我们需要一种方式来度量一个超平面对样本分类的确信度。<span>SVM<span class="heti-spacing"> </span></span>引入了“间隔” <span>(Margin)<span class="heti-spacing"> </span></span>的概念。</p>
+<details class="definition" open="open">
+<summary>函数间隔<span><span class="heti-spacing"> </span>(Functional Margin)</span></summary>
+<p>对于给定的一个样本<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((x_i, y_i)\)</span><span class="heti-spacing"> </span></span>和一个超平面<span><span class="heti-spacing"> </span><span class="arithmatex">\((w,b)\)</span></span>，其函数间隔定义为：</p>
+<div class="arithmatex">\[
+\hat{\gamma}_i = y_i(w \cdot x_i + b)
+\]</div>
+<ul>
+<li><span><span class="arithmatex">\(\hat{\gamma}_i &gt; 0\)</span><span class="heti-spacing"> </span></span>表示分类正确。</li>
+<li><span><span class="arithmatex">\(|\hat{\gamma}_i|\)</span><span class="heti-spacing"> </span></span>的大小可以表示分类的确信程度。值越大，点离超平面越远，分类越可信。</li>
+</ul>
+<p>对于整个训练数据集，其函数间隔定义为所有样本点中最小的函数间隔：</p>
+<div class="arithmatex">\[
+\hat{\gamma} = \min_{i=1, \dots, N} \hat{\gamma}_i
+\]</div>
+<p><strong>缺点</strong>：函数间隔有一个问题，当我们按比例缩放<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(w\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(b\)</span></span>（例如，都乘以<span><span class="heti-spacing"> </span>2</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，超平面<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(w \cdot x + b = 0\)</span><span class="heti-spacing"> </span></span>并没有改变，但是函数间隔<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{\gamma}\)</span><span class="heti-spacing"> </span></span>却会同比例变化。这使得我们无法通过最大化函数间隔来选择超平面。</p>
+</details>
+<p>为了解决这个问题，我们需要一个不受缩放影响的、更本质的度量，这就是几何间隔。</p>
+<details class="definition" open="open">
+<summary>几何间隔<span><span class="heti-spacing"> </span>(Geometric Margin)</span></summary>
+<p>几何间隔是点到超平面的真实欧氏距离。根据点到平面的距离公式，样本<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((x_i, y_i)\)</span><span class="heti-spacing"> </span></span>到超平面<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((w,b)\)</span><span class="heti-spacing"> </span></span>的几何间隔为：</p>
+<div class="arithmatex">\[
+\gamma_i = \frac{|w \cdot x_i + b|}{\|w\|}
+\]</div>
+<p>为了表示分类的正确性，我们同样引入标签<span><span class="heti-spacing"> </span><span class="arithmatex">\(y_i\)</span></span>：</p>
+<div class="arithmatex">\[
+\gamma_i = y_i \left( \frac{w \cdot x_i + b}{\|w\|} \right) = \frac{\hat{\gamma}_i}{\|w\|}
+\]</div>
+<p>几何间隔不随<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(w\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(b\)</span><span class="heti-spacing"> </span></span>的等比例缩放而改变，是一个更稳定的度量。</p>
+<p>对于整个训练数据集，其几何间隔定义为：</p>
+<div class="arithmatex">\[
+\gamma = \min_{i=1, \dots, N} \gamma_i
+\]</div>
+</details>
+<h3 id="硬间隔最大化-page-17-18"><span>(<span class="heti-spacing"> </span></span>硬<span class="heti-skip"><span class="heti-spacing"> </span>)<span class="heti-spacing"> </span></span>间隔最大化<span><span class="heti-spacing"> </span>(page 17-18)</span><a class="headerlink" href="#硬间隔最大化-page-17-18" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>SVM<span class="heti-spacing"> </span></span>的目标就是找到一个超平面，使得这个几何间隔<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\gamma\)</span><span class="heti-spacing"> </span></span>最大化。这可以表示为以下约束最优化问题：</p>
+<div class="arithmatex">\[
+\begin{align}
+&amp;\max_{w,b} \gamma \\
+\text{s.t.}\quad &amp; y_i \left( \frac{w \cdot x_i + b}{\|w\|} \right) \ge \gamma, \quad i = 1,2, \dots, N
+\end{align}
+\]</div>
+<p>这个问题看起来有点复杂。我们可以利用函数间隔和几何间隔的关系<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\gamma = \hat{\gamma} / \|w\|\)</span><span class="heti-spacing"> </span></span>来简化它。最大化<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\gamma\)</span><span class="heti-spacing"> </span></span>相当于在固定<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{\gamma}\)</span><span class="heti-spacing"> </span></span>的情况下最大化<span><span class="heti-spacing"> </span><span class="arithmatex">\(1/\|w\|\)</span></span>。</p>
+<p>我们可以将上述问题转化为：</p>
+<div class="arithmatex">\[
+\begin{align}
+&amp;\max_{w,b} \frac{\hat{\gamma}}{\|w\|} \\
+\text{s.t.}\quad &amp; y_i(w \cdot x_i + b) \ge \hat{\gamma}, \quad i = 1,2, \dots, N
+\end{align}
+\]</div>
+<p>注意到函数间隔<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{\gamma}\)</span><span class="heti-spacing"> </span></span>的取值并不影响最优化问题的解（因为如果<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((w, b)\)</span><span class="heti-spacing"> </span></span>是一个解，那么<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((\lambda w, \lambda b)\)</span><span class="heti-spacing"> </span></span>也是，我们可以自由缩放<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。为了方便计算，我们可以<strong>令函数间隔<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{\gamma} = 1\)</span></span></strong>。</p>
+<p>这个设定非常关键，它意味着所有样本点的函数间隔都必须大于等于<span><span class="heti-spacing"> </span>1</span>。</p>
+<details class="note" open="open">
+<summary>为什么可以令<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{\gamma}=1\)</span></span>？</summary>
+<p>假设我们找到了最优解<span><span class="heti-spacing"> </span><span class="arithmatex">\((w^*, b^*)\)</span></span>，它对应的函数间隔是<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{\gamma}^*\)</span></span>。那么我们总可以通过缩放得到一组新的参数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(w' = w^*/\hat{\gamma}^*\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(b' = b^*/\hat{\gamma}^*\)</span></span>。对于这组新参数，超平面没有变，但是它的函数间隔变成了<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{\gamma}' = y_i(w' \cdot x_i + b') = y_i(w^*/\hat{\gamma}^* \cdot x_i + b^*/\hat{\gamma}^*) = 1\)</span></span>。所以，这个设定不失一般性。</p>
+</details>
+<p>令<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{\gamma} = 1\)</span><span class="heti-spacing"> </span></span>后，最大化<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{1}{\|w\|}\)</span><span class="heti-spacing"> </span></span>就等价于最小化<span><span class="heti-spacing"> </span><span class="arithmatex">\(\|w\|\)</span></span>，为了后续求导方便，我们通常最小化<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{1}{2}\|w\|^2\)</span></span>。这样，我们得到了线性可分<span class="heti-skip"><span class="heti-spacing"> </span>SVM<span class="heti-spacing"> </span></span>的最终标准型：</p>
+<details class="theorem" open="open">
+<summary>线性可分<span class="heti-skip"><span class="heti-spacing"> </span>SVM<span class="heti-spacing"> </span></span>的原始最优化问题</summary>
+<div class="arithmatex">\[
+\begin{align}
+&amp;\min_{w,b} \frac{1}{2}\|w\|^2 \\
+\text{s.t.}\quad &amp; y_i(w \cdot x_i + b) - 1 \ge 0, \quad i = 1,2, \dots, N
+\end{align}
+\]</div>
+<p>这是一个典型的<strong>凸二次规划<span><span class="heti-spacing"> </span>(Convex Quadratic Programming)</span></strong> 问题。</p>
+</details>
+<details class="wiki" open="open">
+<summary>凸优化问题<span><span class="heti-spacing"> </span>(page 19-22)</span></summary>
+<p>凸优化问题是一类特殊的优化问题，它具有很好的性质，即<strong>局部最优解就是全局最优解</strong>。</p>
+<ul>
+<li><strong>凸集<span><span class="heti-spacing"> </span>(Convex Set)</span></strong>：集合内任意两点的连线段上的所有点都仍然在该集合内。</li>
+<li><strong>凸函数<span><span class="heti-spacing"> </span>(Convex Function)</span></strong>：函数图形上任意两点之间的弦都在这两点之间的函数图形的上方。对于可微函数，其一阶导数（梯度）满足<span><span class="heti-spacing"> </span><span class="arithmatex">\(f(x_2) \ge f(x_1) + \nabla f(x_1)^T (x_2 - x_1)\)</span></span>；对于二阶可微函数，其<span class="heti-skip"><span class="heti-spacing"> </span>Hessian<span class="heti-spacing"> </span></span>矩阵半正定。</li>
+<li><strong>凸优化问题</strong>：指目标函数为凸函数，且可行域（由约束条件定义的区域）为凸集的优化问题。
+    $$
+    \begin{align}
+    &amp;\min_w f(w) \
+    \text{s.t.}\quad &amp; g_i(w) \le 0, \quad i = 1,2, \dots, k \
+    &amp;h_j(w) = 0, \quad j = 1,2, \dots, l
+    \end{align}
+    $$
+    其中，<span class="arithmatex">\(f(w)\)</span> 和 <span class="arithmatex">\(g_i(w)\)</span> 都是凸函数，<span class="arithmatex">\(h_j(w)\)</span> 是仿射函数（形如 <span class="arithmatex">\(a \cdot w + b = 0\)</span>）。</li>
+</ul>
+<p><span>SVM<span class="heti-spacing"> </span></span>的优化问题中，目标函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{1}{2}\|w\|^2\)</span><span class="heti-spacing"> </span></span>是凸函数，约束条件<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(1 - y_i(w \cdot x_i + b) \le 0\)</span><span class="heti-spacing"> </span></span>是关于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((w,b)\)</span><span class="heti-spacing"> </span></span>的仿射函数（也是凸函数<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，因此它是一个凸二次规划问题，保证了存在唯一的全局最优解。</p>
+</details>
+<h3 id="支持向量与间隔边界-page-27">支持向量与间隔边界<span><span class="heti-spacing"> </span>(page 27)</span><a class="headerlink" href="#支持向量与间隔边界-page-27" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在解决了这个优化问题之后，我们会发现一个有趣的现象：</p>
+<details class="definition" open="open">
+<summary>支持向量<span><span class="heti-spacing"> </span>(Support Vectors)</span></summary>
+<p>在线性可分的情况下，训练数据中那些与分离超平面<strong>距离最近</strong>的样本点被称为<strong>支持向量</strong>。</p>
+<p>这些点是使得优化问题中的约束条件等号成立的点，即：</p>
+<div class="arithmatex">\[
+y_i(w \cdot x_i + b) - 1 = 0
+\]</div>
+<ul>
+<li>对于正例<span><span class="heti-spacing"> </span>(<span class="arithmatex">\(y_i = +1\)</span>)</span>，支持向量位于超平面<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(w \cdot x + b = 1\)</span><span class="heti-spacing"> </span></span>上。</li>
+<li>对于负例<span><span class="heti-spacing"> </span>(<span class="arithmatex">\(y_i = -1\)</span>)</span>，支持向量位于超平面<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(w \cdot x + b = -1\)</span><span class="heti-spacing"> </span></span>上。</li>
+</ul>
+<p>这两个平行于分离超平面的平面<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(H_1\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(H_2\)</span><span class="heti-spacing"> </span></span>之间的距离被称为<strong>间隔<span><span class="heti-spacing"> </span>(margin)</span></strong>，其宽度为<span><span class="heti-spacing"> </span><span class="arithmatex">\(2/\|w\|\)</span></span>。</p>
+<p><strong>重要性</strong>：最终的分离超平面<strong>仅仅由这些支持向量决定</strong>，而与其他数据点无关。如果移动非支持向量，只要它们不越过间隔边界，就不会对最优解产生任何影响。这体现了<span class="heti-skip"><span class="heti-spacing"> </span>SVM<span class="heti-spacing"> </span></span>的稀疏性和鲁棒性。</p>
+</details>
+<details class="example" open="open">
+<summary><span>(page 28)<span class="heti-spacing"> </span></span>给定三个点：<span class="arithmatex">\(x_1=(3,3)^T, y_1=1\)</span>; <span class="arithmatex">\(x_2=(4,3)^T, y_2=1\)</span>; <span class="arithmatex">\(x_3=(1,1)^T, y_3=-1\)</span>。求最大间隔分离超平面。</summary>
+<p>根据<span class="heti-skip"><span class="heti-spacing"> </span>SVM<span class="heti-spacing"> </span></span>原始优化问题，我们求解：</p>
+<div class="arithmatex">\[
+\begin{align}
+&amp;\min_{w,b} \frac{1}{2}(w_1^2 + w_2^2) \\
+\text{s.t.}\quad &amp; 1(3w_1 + 3w_2 + b) \ge 1 \\
+&amp; 1(4w_1 + 3w_2 + b) \ge 1 \\
+&amp; -1(w_1 + w_2 + b) \ge 1
+\end{align}
+\]</div>
+<p>通过求解这个<span class="heti-skip"><span class="heti-spacing"> </span>QP<span class="heti-spacing"> </span></span>问题（具体过程在后面的对偶算法中会更清晰<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，可以得到解为：</p>
+<p><span class="arithmatex">\(w_1 = w_2 = \frac{1}{2}, b = -2\)</span></p>
+<ul>
+<li><strong>分离超平面</strong>: <span class="arithmatex">\(\frac{1}{2}x^{(1)} + \frac{1}{2}x^{(2)} - 2 = 0\)</span></li>
+<li><strong>支持向量</strong><span>:<span class="heti-spacing"> </span></span>将三个点代入<span><span class="heti-spacing"> </span><span class="arithmatex">\(y(w \cdot x + b)\)</span></span>：<ul>
+<li><span><span class="arithmatex">\(x_1\)</span>: <span class="arithmatex">\(1 \cdot (\frac{1}{2} \cdot 3 + \frac{1}{2} \cdot 3 - 2) = 1\)</span>.<span class="heti-spacing"> </span></span>这是支持向量。</li>
+<li><span><span class="arithmatex">\(x_2\)</span>: <span class="arithmatex">\(1 \cdot (\frac{1}{2} \cdot 4 + \frac{1}{2} \cdot 3 - 2) = 1.5 &gt; 1\)</span>.<span class="heti-spacing"> </span></span>这不是支持向量。</li>
+<li><span><span class="arithmatex">\(x_3\)</span>: <span class="arithmatex">\(-1 \cdot (\frac{1}{2} \cdot 1 + \frac{1}{2} \cdot 1 - 2) = 1\)</span>.<span class="heti-spacing"> </span></span>这是支持向量。</li>
+</ul>
+</li>
+</ul>
+<p>因此，支持向量是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_1 = (3,3)^T\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_3 = (1,1)^T\)</span></span>。</p>
+</details>
+<h3 id="对偶算法-page-29-48">对偶算法<span><span class="heti-spacing"> </span>(page 29-48)</span><a class="headerlink" href="#对偶算法-page-29-48" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>直接求解原始的凸二次规划问题在变量维度很高时可能很复杂。一个更常用、更高效，并且能自然引出核技巧的方法是求解它的<strong>对偶问题<span><span class="heti-spacing"> </span>(Dual Problem)</span></strong>。</p>
+<h4 id="拉格朗日对偶性-page-29-35">拉格朗日对偶性<span><span class="heti-spacing"> </span>(page 29-35)</span><a class="headerlink" href="#拉格朗日对偶性-page-29-35" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<details class="wiki" open="open">
+<summary>拉格朗日对偶性<span><span class="heti-spacing"> </span>(Lagrange Duality)</span></summary>
+<p>考虑一个一般的约束优化问题（<strong>原始问题</strong><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<div class="arithmatex">\[
+\begin{align}
+&amp;\min_{x} f(x) \\
+\text{s.t.}\quad &amp; c_i(x) \le 0, \quad i = 1,2, \dots, k \\
+&amp;h_j(x) = 0, \quad j = 1,2, \dots, l
+\end{align}
+\]</div>
+<ol>
+<li>
+<p><strong>定义拉格朗日函数</strong>：我们为每个约束引入一个拉格朗日乘子<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha_i \ge 0\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(\beta_j\)</span></span>，构造拉格朗日函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(L(x, \alpha, \beta)\)</span></span>：</p>
+<div class="arithmatex">\[
+L(x, \alpha, \beta) = f(x) + \sum_{i=1}^k \alpha_i c_i(x) + \sum_{j=1}^l \beta_j h_j(x)
+\]</div>
+</li>
+<li>
+<p><strong>原始问题的等价形式</strong>：可以证明，原始问题等价于下面的<strong>极小极大<span><span class="heti-spacing"> </span>(minimax)</span></strong> 问题：</p>
+<p>$$
+p^* = \min_{x} \max_{\alpha \ge 0, \beta} L(x, \alpha, \beta)
+$$
+这里的 <span class="arithmatex">\(p^*\)</span> 是原始问题的最优值。</p>
+</li>
+<li>
+<p><strong>定义对偶问题</strong>：交换 <code>min</code> 和 <code>max</code> 的顺序，得到<strong>极大极小<span><span class="heti-spacing"> </span>(maximin)</span></strong> 问题，即<strong>对偶问题</strong>：</p>
+<p>$$
+d^* = \max_{\alpha \ge 0, \beta} \min_{x} L(x, \alpha, \beta)
+$$
+这里的 <span class="arithmatex">\(d^*\)</span> 是对偶问题的最优值。</p>
+</li>
+<li>
+<p><strong>弱对偶性</strong>：在任何情况下，对偶问题的最优值总是小于或等于原始问题的最优值，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(d^* \le p^*\)</span></span>。</p>
+</li>
+<li>
+<p><strong>强对偶性与<span class="heti-skip"><span class="heti-spacing"> </span>KKT<span class="heti-spacing"> </span></span>条件</strong>：当原始问题是凸优化问题，并且满足某些条件（如<span class="heti-skip"><span class="heti-spacing"> </span>Slater<span class="heti-spacing"> </span></span>条件）时，<strong>强对偶性</strong>成立，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(d^* = p^*\)</span></span>。此时，我们可以通过求解更简单的对偶问题来得到原始问题的解。并且，原始问题和对偶问题的最优解<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((x^*, \alpha^*, \beta^*)\)</span><span class="heti-spacing"> </span></span>必须满足<strong><span>Karush-Kuhn-Tucker (KKT)<span class="heti-spacing"> </span></span>条件</strong>。</p>
+</li>
+</ol>
+<details class="theorem" open="open">
+<summary><span>KKT<span class="heti-spacing"> </span></span>条件<span><span class="heti-spacing"> </span>(page 34)</span></summary>
+<div class="arithmatex">\[
+\begin{align}
+&amp;\nabla_x L(x^*, \alpha^*, \beta^*) = 0 &amp;&amp;\text{(梯度为0)} \\
+&amp;c_i(x^*) \le 0, \quad i = 1, \dots, k &amp;&amp;\text{(原始可行性)} \\
+&amp;h_j(x^*) = 0, \quad j = 1, \dots, l &amp;&amp;\text{(原始可行性)} \\
+&amp;\alpha_i^* \ge 0, \quad i = 1, \dots, k &amp;&amp;\text{(对偶可行性)} \\
+&amp;\alpha_i^* c_i(x^*) = 0, \quad i = 1, \dots, k &amp;&amp;\text{(对偶互补条件)}
+\end{align}
+\]</div>
+<p><strong>对偶互补条件</strong>是<span class="heti-skip"><span class="heti-spacing"> </span>KKT<span class="heti-spacing"> </span></span>条件中最重要的部分。它表明，如果一个不等式约束是“松的”（即<span><span class="heti-spacing"> </span><span class="arithmatex">\(c_i(x^*) &lt; 0\)</span></span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，那么它对应的拉格朗日乘子必须为<span><span class="heti-spacing"> </span>0</span>（<span class="arithmatex">\(\alpha_i^*=0\)</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。反之，如果一个乘子大于<span><span class="heti-spacing"> </span>0</span>（<span class="arithmatex">\(\alpha_i^*&gt;0\)</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，那么它对应的约束必须是“紧的”（即<span><span class="heti-spacing"> </span><span class="arithmatex">\(c_i(x^*)=0\)</span></span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+</details>
+</details>
+<h4 id="SVM-对偶问题推导-page-36-39"><span>SVM<span class="heti-spacing"> </span></span>对偶问题推导<span><span class="heti-spacing"> </span>(page 36-39)</span><a class="headerlink" href="#SVM-对偶问题推导-page-36-39" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>现在，我们将拉格朗日对偶性应用到线性可分<span class="heti-skip"><span class="heti-spacing"> </span>SVM<span class="heti-spacing"> </span></span>的原始问题上。</p>
+<ol>
+<li>
+<p><strong>构造拉格朗日函数</strong>：
+    原始问题为 <span class="arithmatex">\(\min \frac{1}{2}\|w\|^2\)</span> s.t. <span class="arithmatex">\(1 - y_i(w \cdot x_i + b) \le 0\)</span>。引入拉格朗日乘子 <span class="arithmatex">\(\alpha = (\alpha_1, \dots, \alpha_N)^T\)</span>，其中 <span class="arithmatex">\(\alpha_i \ge 0\)</span>。</p>
+<p>$$
+L(w, b, \alpha) = \frac{1}{2}|w|^2 - \sum_{i=1}^N \alpha_i (y_i(w \cdot x_i + b) - 1)
+$$
+那么对偶问题为 <span class="arithmatex">\(max_{\alpha}min_{w,b}L(w, b, \alpha)\)</span> 。</p>
+</li>
+<li>
+<p><strong>求<span><span class="heti-spacing"> </span><span class="arithmatex">\(\min_{w,b} L(w, b, \alpha)\)</span></span></strong>：
+    为了求 <span class="arithmatex">\(L\)</span> 对 <span class="arithmatex">\(w, b\)</span> 的极小值，我们分别对 <span class="arithmatex">\(w\)</span> 和 <span class="arithmatex">\(b\)</span> 求偏导并令其为 0。
+    $$
+    \nabla_w L(w, b, \alpha) = w - \sum_{i=1}^N \alpha_i y_i x_i = 0 \quad \implies \quad w = \sum_{i=1}^N \alpha_i y_i x_i
+    $$</p>
+<div class="arithmatex">\[
+\nabla_b L(w, b, \alpha) = -\sum_{i=1}^N \alpha_i y_i = 0 \quad \implies \quad \sum_{i=1}^N \alpha_i y_i = 0
+\]</div>
+<p>将这两个结果代回到拉格朗日函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L\)</span><span class="heti-spacing"> </span></span>中，以消去<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(w\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(b\)</span></span>：</p>
+<p>$$
+\begin{aligned}
+\min_{w,b} L(w,b,\alpha) &amp;= \frac{1}{2} \left( \sum_i \alpha_i y_i x_i \right)^T \left( \sum_j \alpha_j y_j x_j \right) - \sum_i \alpha_i y_i \left( \left( \sum_j \alpha_j y_j x_j \right)^T x_i + b \right) + \sum_i \alpha_i \
+&amp;= \frac{1}{2} \sum_i \sum_j \alpha_i \alpha_j y_i y_j (x_i \cdot x_j) - \sum_i \sum_j \alpha_i \alpha_j y_i y_j (x_i \cdot x_j) - b \sum_i \alpha_i y_i + \sum_i \alpha_i \
+&amp;= -\frac{1}{2} \sum_i \sum_j \alpha_i \alpha_j y_i y_j (x_i \cdot x_j) + \sum_i \alpha_i
+\end{aligned}
+$$
+这里我们用到了 <span class="arithmatex">\(\sum_i \alpha_i y_i = 0\)</span>。</p>
+</li>
+<li>
+<p><strong>对偶问题</strong>：
+    现在我们要求解 <span class="arithmatex">\(\max_{\alpha} \left( -\frac{1}{2} \sum_i \sum_j \alpha_i \alpha_j y_i y_j (x_i \cdot x_j) + \sum_i \alpha_i \right)\)</span>，这通常写成一个等价的 <code>min</code> 问题。</p>
+</li>
+</ol>
+<details class="theorem" open="open">
+<summary>线性可分<span class="heti-skip"><span class="heti-spacing"> </span>SVM<span class="heti-spacing"> </span></span>的对偶最优化问题<span><span class="heti-spacing"> </span>(page 39)</span></summary>
+<div class="arithmatex">\[
+\begin{aligned}
+\min_{\alpha}&amp; \frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j (x_i \cdot x_j) - \sum_{i=1}^N \alpha_i \\
+&amp;\text{s.t.}\quad \sum_{i=1}^N \alpha_i y_i = 0 \\
+&amp;\alpha_i \ge 0, \quad i = 1,2, \dots, N
+\end{aligned}
+\]</div>
+</details>
+<h4 id="求解原始变量-page-40-42">求解原始变量<span><span class="heti-spacing"> </span>(page 40-42)</span><a class="headerlink" href="#求解原始变量-page-40-42" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>在解出对偶问题的最优解<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha^* = (\alpha_1^*, \dots, \alpha_N^*)^T\)</span><span class="heti-spacing"> </span></span>后，我们可以根据<span class="heti-skip"><span class="heti-spacing"> </span>KKT<span class="heti-spacing"> </span></span>条件来恢复原始问题的解<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(w^*\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(b^*\)</span></span>。</p>
+<ul>
+<li>
+<p><strong>计算<span><span class="heti-spacing"> </span><span class="arithmatex">\(w^*\)</span></span></strong>:
+    根据前面求导的结果，我们有：
+    $$
+    w^<em> = \sum_{i=1}^N \alpha_i^</em> y_i x_i
+    $$</p>
+</li>
+<li>
+<p><strong>计算<span><span class="heti-spacing"> </span><span class="arithmatex">\(b^*\)</span></span></strong>:
+    根据KKT的对偶互补条件 <span class="arithmatex">\(\alpha_i^*(y_i(w^* \cdot x_i + b^*) - 1) = 0\)</span>，我们知道，必然存在至少一个 <span class="arithmatex">\(\alpha_j^* &gt; 0\)</span>（否则 <span class="arithmatex">\(w^*=0\)</span>，不是原始问题的解）。对于任何一个 <span class="arithmatex">\(\alpha_j^* &gt; 0\)</span> 的样本 <span class="arithmatex">\(x_j\)</span>（它就是一个支持向量），必须有：
+    $$
+    y_j(w^<em> \cdot x_j + b^</em>) - 1 = 0
+    $$
+    两边同乘以 <span class="arithmatex">\(y_j\)</span>（注意到 <span class="arithmatex">\(y_j^2=1\)</span>），可得：
+    $$
+    w^<em> \cdot x_j + b^</em> = y_j
+    $$
+    于是，可以解出 <span class="arithmatex">\(b^*\)</span>：
+    $$
+    b^<em> = y_j - w^</em> \cdot x_j = y_j - \sum_{i=1}^N \alpha_i^* y_i (x_i \cdot x_j)
+    $$
+    在实际计算中，为了更稳健，通常会选择所有支持向量计算出的 <span class="arithmatex">\(b^*\)</span> 值，然后取平均值。</p>
+</li>
+</ul>
+<details class="note" open="open">
+<summary>对偶形式的优势</summary>
+<ul>
+<li><strong>支持向量的体现</strong>：从<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(w^*\)</span><span class="heti-spacing"> </span></span>的表达式可以看出，只有那些<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha_i^* &gt; 0\)</span><span class="heti-spacing"> </span></span>的样本（即支持向量）才对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(w^*\)</span><span class="heti-spacing"> </span></span>有贡献。</li>
+<li><strong>内积计算</strong>：可以看到，无论是对偶问题的目标函数还是最终的决策函数，都只涉及到输入样本之间的<strong>内积<span><span class="heti-spacing"> </span>(inner product)</span></strong> <span class="arithmatex">\(x_i \cdot x_j\)</span>。这个特性是使用核技巧的关键。</li>
+</ul>
+</details>
+<p>最终，分类决策函数也可以写成对偶形式：
+$$
+f(x) = \text{sign} \left( \sum_{i=1}^N \alpha_i^<em> y_i (x_i \cdot x) + b^</em> \right)
+$$</p>
+<h2 id="线性支持向量机与软间隔最大化-page-49-62">线性支持向量机与软间隔最大化<span><span class="heti-spacing"> </span>(page 49-62)</span><a class="headerlink" href="#线性支持向量机与软间隔最大化-page-49-62" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>现实世界的数据往往不是完美线性可分的，可能存在一些<strong>特异点<span><span class="heti-spacing"> </span>(outlier)</span></strong> 或噪声。如果坚持使用硬间隔最大化，可能会导致模型过拟合，或者根本找不到解。</p>
+<p>为了解决这个问题，我们允许模型犯一些错误，引入<strong>软间隔最大化<span><span class="heti-spacing"> </span>(Soft Margin Maximization)</span></strong>。</p>
+<h3 id="软间隔的优化问题-page-49-50">软间隔的优化问题<span><span class="heti-spacing"> </span>(page 49-50)</span><a class="headerlink" href="#软间隔的优化问题-page-49-50" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>我们对每个样本点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((x_i, y_i)\)</span><span class="heti-spacing"> </span></span>引入一个<strong>松弛变量<span><span class="heti-spacing"> </span>(slack variable)</span></strong> <span class="arithmatex">\(\xi_i \ge 0\)</span>。</p>
+<ul>
+<li>
+<p><strong>约束条件</strong>：函数间隔加上松弛变量要大于等于<span><span class="heti-spacing"> </span>1</span>。
+    $$
+    y_i(w \cdot x_i + b) \ge 1 - \xi_i
+    $$
+    如果 <span class="arithmatex">\(\xi_i = 0\)</span>，样本被正确分类且在间隔边界之外。如果 <span class="arithmatex">\(0 &lt; \xi_i \le 1\)</span>，样本在间隔边界之内但仍被正确分类。如果 <span class="arithmatex">\(\xi_i &gt; 1\)</span>，样本被错误分类。</p>
+</li>
+<li>
+<p><strong>目标函数</strong>：我们希望总的松弛量尽可能小，因此在原目标函数中加入一个惩罚项。
+    $$
+    \min_{w,b,\xi} \frac{1}{2}|w|^2 + C \sum_{i=1}^N \xi_i
+    $$
+    其中 <span class="arithmatex">\(C &gt; 0\)</span> 是一个<strong>惩罚参数</strong>（也叫正则化参数<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，由用户设定。</p>
+</li>
+</ul>
+<details class="extra" open="open">
+<summary>惩罚参数<span class="heti-skip"><span class="heti-spacing"> </span>C<span class="heti-spacing"> </span></span>的作用</summary>
+<p><span><span class="arithmatex">\(C\)</span><span class="heti-spacing"> </span></span>用来权衡“间隔大小”和“分类错误”这两个目标。
+- <strong>大的<span><span class="heti-spacing"> </span>C</span></strong>：意味着对误分类的惩罚很重，算法会倾向于选择一个更小的间隔来尽可能地正确分类所有样本，可能导致过拟合。
+- <strong>小的<span><span class="heti-spacing"> </span>C</span></strong>：意味着对误分类的容忍度更高，算法会选择一个更大的间隔，即使这会导致一些样本被误分类，模型泛化能力可能更强。</p>
+</details>
+<p>最终，线性<span><span class="heti-spacing"> </span>SVM</span>（软间隔）的原始优化问题是：</p>
+<div class="arithmatex">\[
+\begin{align}
+\min_{w,b,\xi} \quad &amp;\frac{1}{2}\|w\|^2 + C \sum_{i=1}^N \xi_i \\
+\text{s.t.} \quad &amp; y_i(w \cdot x_i + b) \ge 1 - \xi_i, \quad i = 1, \dots, N \\
+&amp; \xi_i \ge 0, \quad i = 1, \dots, N
+\end{align}
+\]</div>
+<h3 id="软间隔的对偶问题-page-51-57">软间隔的对偶问题<span><span class="heti-spacing"> </span>(page 51-57)</span><a class="headerlink" href="#软间隔的对偶问题-page-51-57" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>通过与硬间隔情况类似的推导（引入两组拉格朗日乘子<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha_i\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(\beta_i\)</span></span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，我们可以得到软间隔<span class="heti-skip"><span class="heti-spacing"> </span>SVM<span class="heti-spacing"> </span></span>的对偶问题。</p>
+<details class="theorem" open="open">
+<summary>线性<span class="heti-skip"><span class="heti-spacing"> </span>SVM<span class="heti-spacing"> </span></span>的对偶最优化问题<span><span class="heti-spacing"> </span>(page 54)</span></summary>
+<div class="arithmatex">\[
+\begin{aligned}
+\min_{\alpha} \quad &amp;\frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j (x_i \cdot x_j) - \sum_{i=1}^N \alpha_i \\
+\text{s.t.} \quad &amp; \sum_{i=1}^N \alpha_i y_i = 0 \\
+&amp; 0 \le \alpha_i \le C, \quad i = 1,2, \dots, N
+\end{aligned}
+\]</div>
+</details>
+<p>对比硬间隔的对偶问题，唯一的变化是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha_i\)</span><span class="heti-spacing"> </span></span>多了一个上界<span><span class="heti-spacing"> </span><span class="arithmatex">\(C\)</span></span>，即所谓的<strong>盒约束<span><span class="heti-spacing"> </span>(box constraint)</span></strong>。</p>
+<p>在软间隔情况下，支持向量的含义更丰富，根据<span class="heti-skip"><span class="heti-spacing"> </span>KKT<span class="heti-spacing"> </span></span>条件和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha_i^*\)</span><span class="heti-spacing"> </span></span>的取值（page 57<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<ul>
+<li>若<span><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha_i^* = 0\)</span></span>，则<span><span class="heti-spacing"> </span><span class="arithmatex">\(y_i(w^* \cdot x_i + b^*) \ge 1\)</span></span>，样本在间隔边界外被正确分类。</li>
+<li>若<span><span class="heti-spacing"> </span><span class="arithmatex">\(0 &lt; \alpha_i^* &lt; C\)</span></span>，则<span><span class="heti-spacing"> </span><span class="arithmatex">\(y_i(w^* \cdot x_i + b^*) = 1\)</span></span>（即<span><span class="heti-spacing"> </span><span class="arithmatex">\(\xi _{i} = 0\)</span></span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，样本在间隔边界上，是标准的<strong>支持向量</strong>。</li>
+<li>若<span><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha_i^* = C\)</span></span>，则<span><span class="heti-spacing"> </span><span class="arithmatex">\(y_i(w^* \cdot x_i + b^*) \le 1\)</span></span>。<ul>
+<li>若<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(y_i(w^* \cdot x_i + b^*) &lt; 1\)</span> (<span class="heti-spacing"> </span></span>即<span><span class="heti-spacing"> </span><span class="arithmatex">\(\xi_i &gt; 0\)</span>)</span>，样本在间隔边界内，可能是正确分类（<span class="arithmatex">\(\xi _{i}&lt;1\)</span>）也可能是错误分类（<span class="arithmatex">\(\xi_{i}&gt;1\)</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。这些点也是<strong>支持向量</strong>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="合页损失函数-page-58-62">合页损失函数<span><span class="heti-spacing"> </span>(page 58-62)</span><a class="headerlink" href="#合页损失函数-page-58-62" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>软间隔<span class="heti-skip"><span class="heti-spacing"> </span>SVM<span class="heti-spacing"> </span></span>的原始优化问题还可以从另一个角度来理解，即<strong>损失函数最小化</strong>。</p>
+<details class="definition" open="open">
+<summary>合页损失函数<span><span class="heti-spacing"> </span>(Hinge Loss)</span></summary>
+<p>合页损失函数定义为：</p>
+<div class="arithmatex">\[
+L_{hinge}(z) = [1 - z]_+ = \max(0, 1 - z)
+\]</div>
+<p>对于一个样本<span><span class="heti-spacing"> </span><span class="arithmatex">\((x_i, y_i)\)</span></span>，令<span><span class="heti-spacing"> </span><span class="arithmatex">\(z = y_i(w \cdot x_i + b)\)</span></span>，则其合页损失为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\max(0, 1 - y_i(w \cdot x_i + b))\)</span></span>。</p>
+<ul>
+<li>当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(y_i(w \cdot x_i + b) \ge 1\)</span><span class="heti-spacing"> </span></span>时（分类正确且在间隔外<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，损失为<span><span class="heti-spacing"> </span>0</span>。</li>
+<li>当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(y_i(w \cdot x_i + b) &lt; 1\)</span><span class="heti-spacing"> </span></span>时（在间隔内或分类错误<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，损失为<span><span class="heti-spacing"> </span><span class="arithmatex">\(1 - y_i(w \cdot x_i + b) &gt; 0\)</span></span>，且损失随距离线性增加。</li>
+</ul>
+</details>
+<p>可以证明，软间隔<span class="heti-skip"><span class="heti-spacing"> </span>SVM<span class="heti-spacing"> </span></span>的原始优化问题
+$$
+\min_{w,b,\xi} \quad \frac{1}{2}|w|^2 + C \sum_{i=1}^N \xi_i
+$$
+等价于最小化以下目标函数：
+$$
+\min_{w,b} \quad \sum_{i=1}^N [1 - y_i(w \cdot x_i + b)]_+ + \lambda |w|^2
+$$
+这是一种常见的<strong>正则化</strong>形式：<strong>经验风险<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>合页损失<span class="heti-skip"><span class="heti-spacing"> </span>) +<span class="heti-spacing"> </span></span>结构风险<span class="heti-skip"><span class="heti-spacing"> </span>(L2<span class="heti-spacing"> </span></span>正则化项<span><span class="heti-spacing"> </span>)</span></strong>。其中正则化参数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\lambda\)</span><span class="heti-spacing"> </span></span>和惩罚参数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(C\)</span><span class="heti-spacing"> </span></span>是成反比关系的<span><span class="heti-spacing"> </span>(<span class="arithmatex">\(\lambda = 1/(2C)\)</span>)</span>。</p>
+<h2 id="非线性支持向量机与核函数-page-65-83">非线性支持向量机与核函数<span><span class="heti-spacing"> </span>(page 65-83)</span><a class="headerlink" href="#非线性支持向量机与核函数-page-65-83" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>当数据本身就是非线性的，比如一个“环形”分布的数据，任何直线都无法分开。此时，我们需要非线性支持向量机。</p>
+<h3 id="特征映射与核技巧-page-66-72">特征映射与核技巧<span><span class="heti-spacing"> </span>(page 66-72)</span><a class="headerlink" href="#特征映射与核技巧-page-66-72" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>解决非线性问题的基本思路是：</p>
+<ol>
+<li><strong>非线性变换（特征映射）</strong>：使用一个映射函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(\phi(x)\)</span></span>，将原始输入空间<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{X}\)</span><span class="heti-spacing"> </span></span>中的数据点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>映射到一个更高维度的<strong>特征空间<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{H}\)</span></span></strong>。</li>
+<li><strong>线性分类</strong>：我们希望在这个新的特征空间中，数据变得线性可分（或近似线性可分<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，然后我们就可以在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{H}\)</span><span class="heti-spacing"> </span></span>中使用前面介绍的线性<span class="heti-skip"><span class="heti-spacing"> </span>SVM<span class="heti-spacing"> </span></span>来学习分类模型。</li>
+</ol>
+<p>然而，这个特征空间<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{H}\)</span><span class="heti-spacing"> </span></span>的维度可能非常高，甚至是无限维，直接计算<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\phi(x)\)</span><span class="heti-spacing"> </span></span>是不现实的。</p>
+<details class="tip" open="open">
+<summary>核技巧<span><span class="heti-spacing"> </span>(Kernel Trick)</span></summary>
+<p>回顾<span class="heti-skip"><span class="heti-spacing"> </span>SVM<span class="heti-spacing"> </span></span>的对偶问题，我们发现所有计算都只涉及样本的<strong>内积</strong> <span class="arithmatex">\((x_i \cdot x_j)\)</span>。在特征空间中，这个内积就变成了<span><span class="heti-spacing"> </span><span class="arithmatex">\((\phi(x_i) \cdot \phi(x_j))\)</span></span>。</p>
+<p>核技巧的核心思想是：我们不需要知道映射函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\phi\)</span><span class="heti-spacing"> </span></span>的具体形式，也不需要在高维特征空间中进行计算，我们只需要定义一个<strong>核函数<span><span class="heti-spacing"> </span>(Kernel Function)</span></strong> <span class="arithmatex">\(K(x_i, x_j)\)</span>，使得它的计算结果等于特征空间中的内积：</p>
+<div class="arithmatex">\[
+K(x_i, x_j) = \phi(x_i) \cdot \phi(x_j)
+\]</div>
+<p>这样，我们就可以直接在原始输入空间中计算核函数的值，来隐式地利用高维特征空间的强大表示能力，而计算量却没有显著增加。</p>
+</details>
+<h3 id="核函数的定义与常用核函数-page-68-81">核函数的定义与常用核函数<span><span class="heti-spacing"> </span>(page 68, 81)</span><a class="headerlink" href="#核函数的定义与常用核函数-page-68-81" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="definition" open="open">
+<summary>核函数<span><span class="heti-spacing"> </span>(Kernel Function)</span></summary>
+<p>设<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{X}\)</span><span class="heti-spacing"> </span></span>是输入空间，<span><span class="arithmatex">\(\mathcal{H}\)</span><span class="heti-spacing"> </span></span>是特征空间（一个希尔伯特空间<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。如果存在一个从<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{X}\)</span><span class="heti-spacing"> </span></span>到<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{H}\)</span><span class="heti-spacing"> </span></span>的映射<span><span class="heti-spacing"> </span><span class="arithmatex">\(\phi\)</span></span>，使得对于所有的<span><span class="heti-spacing"> </span><span class="arithmatex">\(x, z \in \mathcal{X}\)</span></span>，函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(K(x, z)\)</span><span class="heti-spacing"> </span></span>满足<span><span class="heti-spacing"> </span><span class="arithmatex">\(K(x, z) = \phi(x) \cdot \phi(z)\)</span></span>，则称<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(K(x,z)\)</span><span class="heti-spacing"> </span></span>为核函数。</p>
+</details>
+<p>一个函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(K(x,z)\)</span><span class="heti-spacing"> </span></span>能否成为核函数的充要条件是它是<strong>正定核<span><span class="heti-spacing"> </span>(Positive-definite Kernel)</span></strong>，即对于任意数据点集<span><span class="heti-spacing"> </span><span class="arithmatex">\(\{x_1, \dots, x_m\}\)</span></span>，其对应的<strong><span>Gram<span class="heti-spacing"> </span></span>矩阵</strong> <span><span class="arithmatex">\(K_{ij} = K(x_i, x_j)\)</span><span class="heti-spacing"> </span></span>是半正定的。</p>
+<p><strong>常用核函数</strong>：</p>
+<ol>
+<li>
+<p><strong>多项式核函数<span><span class="heti-spacing"> </span>(Polynomial Kernel)</span></strong>
+    $$
+    K(x, z) = (x \cdot z + 1)^p
+    $$
+    它对应的SVM是一个 <span class="arithmatex">\(p\)</span> 次多项式分类器。</p>
+</li>
+<li>
+<p><strong>高斯核函数<span><span class="heti-spacing"> </span>(Gaussian Kernel)</span></strong>，也称<strong>径向基函数核<span><span class="heti-spacing"> </span>(RBF Kernel)</span></strong>
+    $$
+    K(x, z) = \exp\left(-\frac{|x-z|^2}{2\sigma^2}\right)
+    $$
+    这是最常用的一种核函数，它可以将原始数据映射到<strong>无限维</strong>的特征空间，具有很强的拟合能力。<span><span class="arithmatex">\(\sigma\)</span><span class="heti-spacing"> </span></span>是一个需要调节的超参数，控制了“高斯钟形”的宽度。</p>
+</li>
+</ol>
+<h3 id="非线性-SVM-算法-page-82-83">非线性<span class="heti-skip"><span class="heti-spacing"> </span>SVM<span class="heti-spacing"> </span></span>算法<span><span class="heti-spacing"> </span>(page 82-83)</span><a class="headerlink" href="#非线性-SVM-算法-page-82-83" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>使用核技巧后，非线性<span class="heti-skip"><span class="heti-spacing"> </span>SVM<span class="heti-spacing"> </span></span>的学习算法非常简洁：</p>
+<details class="tip" open="open">
+<summary>非线性<span class="heti-skip"><span class="heti-spacing"> </span>SVM<span class="heti-spacing"> </span></span>学习算法</summary>
+<ol>
+<li><strong>输入</strong>：训练数据<span><span class="heti-spacing"> </span><span class="arithmatex">\(T = \{(x_1, y_1), \dots, (x_N, y_N)\}\)</span></span>。</li>
+<li><strong>选取</strong>：选择合适的核函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(K(x_{i},x_{j})\)</span><span class="heti-spacing"> </span></span>和惩罚参数<span><span class="heti-spacing"> </span><span class="arithmatex">\(C\)</span></span>。</li>
+<li>
+<p><strong>求解对偶问题</strong>：
+    $$
+    \begin{aligned}
+    \min_{\alpha} \quad &amp;\frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j K(x_i, x_j) - \sum_{i=1}^N \alpha_i \
+    \text{s.t.} \quad &amp; \sum_{i=1}^N \alpha_i y_i = 0 \
+    &amp; 0 \le \alpha_i \le C, \quad i = 1,2, \dots, N
+    \end{aligned}
+    $$</p>
+<p>得到最优解<span><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha^*\)</span></span>。</p>
+</li>
+<li>
+<p><strong>计算<span><span class="heti-spacing"> </span><span class="arithmatex">\(b^*\)</span></span></strong>：选择一个满足<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(0 &lt; \alpha_j^* &lt; C\)</span><span class="heti-spacing"> </span></span>的分量，计算
+    $$
+    b^<em> = y_j - \sum_{i=1}^N \alpha_i^</em> y_i K(x_i, x_j)
+    $$</p>
+</li>
+<li><strong>构造决策函数</strong>：
+    $$
+    f(x) = \text{sign}\left( \sum_{i=1}^{N_s} \alpha_i^<em> y_i K(x_i, x) + b^</em> \right)
+    $$
+    其中 <span class="arithmatex">\(N_s\)</span> 是支持向量的个数。</li>
+</ol>
+</details>
+<h2 id="序列最小最优化算法SMO-page-84-100">序列最小最优化算法（SMO） (page 84-100)<a class="headerlink" href="#序列最小最优化算法SMO-page-84-100" title="Permanent link">¶</a></h2>
+<p><span>SVM<span class="heti-spacing"> </span></span>的对偶问题是一个二次规划问题。当训练样本数量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(N\)</span><span class="heti-spacing"> </span></span>非常大时，通用的<span class="heti-skip"><span class="heti-spacing"> </span>QP<span class="heti-spacing"> </span></span>求解器会变得非常慢，内存开销也很大（因为<span class="heti-skip"><span class="heti-spacing"> </span>Gram<span class="heti-spacing"> </span></span>矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(K\)</span><span class="heti-spacing"> </span></span>的大小是<span><span class="heti-spacing"> </span><span class="arithmatex">\(N \times N\)</span></span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<p><strong>序列最小最优化<span><span class="heti-spacing"> </span>(Sequential Minimal Optimization, SMO)</span></strong> 是一种专门用于快速求解<span class="heti-skip"><span class="heti-spacing"> </span>SVM<span class="heti-spacing"> </span></span>对偶问题的有效算法。</p>
+<details class="wiki" open="open">
+<summary><span>SMO<span class="heti-spacing"> </span></span>算法<span><span class="heti-spacing"> </span>(page 84, 86)</span></summary>
+<p><strong>动机</strong>：解决大规模训练集下<span class="heti-skip"><span class="heti-spacing"> </span>SVM<span class="heti-spacing"> </span></span>的计算效率问题。</p>
+<p><strong>核心思想</strong>：<span>SMO<span class="heti-spacing"> </span></span>将一个大的<span class="heti-skip"><span class="heti-spacing"> </span>QP<span class="heti-spacing"> </span></span>问题分解为一系列最小的<span class="heti-skip"><span class="heti-spacing"> </span>QP<span class="heti-spacing"> </span></span>子问题来求解。</p>
+<ul>
+<li><strong>变量选择</strong>：<span>SMO<span class="heti-spacing"> </span></span>算法每次迭代时，选择<strong>两个</strong>拉格朗日乘子<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha_i\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha_j\)</span><span class="heti-spacing"> </span></span>作为变量，并将其他所有乘子<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha_k (k \ne i, j)\)</span><span class="heti-spacing"> </span></span>看作是固定的。</li>
+<li><strong>解析求解</strong>：因为有约束<span><span class="heti-spacing"> </span><span class="arithmatex">\(\sum \alpha_i y_i = 0\)</span></span>，一旦固定了其他变量，<span><span class="arithmatex">\(\alpha_i\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha_j\)</span><span class="heti-spacing"> </span></span>之间就存在线性关系。这使得这个<strong>两个变量的二次规划子问题</strong>可以被<strong>解析地（也就是用公式直接）求解</strong>，而不需要调用数值优化方法，从而大大提高了计算速度。</li>
+<li><strong>迭代</strong>：算法不断地重复这个过程，通过启发式方法（通常是选择违反<span class="heti-skip"><span class="heti-spacing"> </span>KKT<span class="heti-spacing"> </span></span>条件最严重的变量）选择一对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((\alpha_i, \alpha_j)\)</span><span class="heti-spacing"> </span></span>进行优化，直到所有变量都在一定精度内满足<span class="heti-skip"><span class="heti-spacing"> </span>KKT<span class="heti-spacing"> </span></span>条件为止。</li>
+</ul>
+</details>
+<p><span>SMO<span class="heti-spacing"> </span></span>算法的详细推导过程比较复杂（如幻灯片<span class="heti-skip"><span class="heti-spacing"> </span>page 87-99<span class="heti-spacing"> </span></span>所示<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，但其本质就是通过一系列解析可解的子问题，高效地逼近原始<span class="heti-skip"><span class="heti-spacing"> </span>QP<span class="heti-spacing"> </span></span>问题的最优解。</p>
+<h2 id="误差分析-page-101-102考试不涉及">误差分析<span><span class="heti-spacing"> </span>(page 101-102</span>，考试不涉及<span><span class="heti-spacing"> </span>)</span><a class="headerlink" href="#误差分析-page-101-102考试不涉及" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>这部分简要介绍了<span class="heti-skip"><span class="heti-spacing"> </span>SVM<span class="heti-spacing"> </span></span>的理论基础，涉及统计学习理论中的泛化误差分析。</p>
+<ul>
+<li><strong>错分误差<span><span class="heti-spacing"> </span>(Misclassification Error)</span></strong> <span class="arithmatex">\(\mathcal{R}(C)\)</span>：指分类器<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(C\)</span><span class="heti-spacing"> </span></span>在整个数据分布上犯错的概率。</li>
+<li><strong>贝叶斯最优分类器<span><span class="heti-spacing"> </span>(Bayes Rule)</span></strong> <span class="arithmatex">\(f_c\)</span>：理论上能达到的最低错分误差的分类器，它的决策是<span><span class="heti-spacing"> </span><span class="arithmatex">\(f_c(x) = \text{arg min}_y P(y|x)\)</span></span>。</li>
+<li><strong>Excess Misclassification Error</strong>：指我们通过算法学到的分类器<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f_{z, \lambda}^\phi\)</span><span class="heti-spacing"> </span></span>的错分误差，与理论最优的贝叶斯误差<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{R}(f_c)\)</span><span class="heti-spacing"> </span></span>之间的差距。</li>
+<li><strong>泛化界</strong>：幻灯片第<span class="heti-skip"><span class="heti-spacing"> </span>102<span class="heti-spacing"> </span></span>页展示了一个<span class="heti-skip"><span class="heti-spacing"> </span>SVM<span class="heti-spacing"> </span></span>泛化误差界的例子。这类理论结果告诉我们，在一定条件下，<span>SVM<span class="heti-spacing"> </span></span>的泛化误差会随着训练样本数量的增加而减小，这为<span class="heti-skip"><span class="heti-spacing"> </span>SVM<span class="heti-spacing"> </span></span>的良好性能提供了理论保障。</li>
+</ul>
+<h2 id="习题">习题<a class="headerlink" href="#习题" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<details class="question" open="open">
+<summary>习题<span><span class="heti-spacing"> </span>7.1</span></summary>
+<p>比较感知机的对偶形式与线性可分支持向量机的对偶形式。</p>
+</details>
+<p>在感知机的对偶形式中，对偶函数为：</p>
+<div class="arithmatex">\[\min_{w,b}L(w,b)=\min_\alpha L(\alpha)=-\sum_{x_i\in M}(y_i(\sum_{j=1}^N\alpha_jy_jx_j\cdot x_i+\sum_{j=1}^N\alpha_jy_j))\]</div>
+<p>线性可分支持向量机的对偶函数最后可化作：</p>
+<div class="arithmatex">\[\min_{w,b}L(w,b)=\min_\alpha L(\alpha)=\frac12\sum_{i=1}^N\sum_{j=1}^N\alpha_i\alpha_jy_iy_j(x_i\cdot x_j)-\sum_{i=1}^N\alpha_i\]</div>
+<p>结合上课内容可以发现：</p>
+<ol>
+<li>在两者的对偶形式中，<span>w,b<span class="heti-spacing"> </span></span>都可以表示为⟨xi,yi⟩的线性组合形式；</li>
+<li>在两者的对偶形式中，都可以通过求解<span><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha=(\alpha_1,\alpha_2,\cdots,\alpha_N)^T\)</span></span>，最后代入由<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_i,y_i,α_i\)</span><span class="heti-spacing"> </span></span>表示的<span class="heti-skip"><span class="heti-spacing"> </span>L(w, b)<span class="heti-spacing"> </span></span>中，从而求解最优化问题的解<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(w^{*}\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(b^{*}\)</span></span>；</li>
+<li>感知机学习得到一个分隔超平面，而线性可分支持向量机学习得到所有分隔超平面中的间隔最大分隔超平面。</li>
+</ol>
+<details class="question" open="open">
+<summary>习题<span><span class="heti-spacing"> </span>7.2</span></summary>
+<p>已知正例点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_{1}=(1,2)^{T},x_{2}=(2,3)^{T},x_{3}=(3,3)^{T}\)</span><span class="heti-spacing"> </span></span>负例点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_{4}=(2,1)^{T},x_{5}=(3,2)^{T}\)</span><span class="heti-spacing"> </span></span>试求最大间隔分离平面和分类决策函数<span class="heti-skip"><span class="heti-spacing"> </span>,<span class="heti-spacing"> </span></span>并在图中画出分离超平面、间隔边界及支持向量。</p>
+</details>
+<blockquote>
+<p>也可以参考<span class="heti-skip"><span class="heti-spacing"> </span>slide 46-47<span class="heti-spacing"> </span></span>页方法计算，这里<span class="heti-skip"><span class="heti-spacing"> </span>5<span class="heti-spacing"> </span></span>个点数据计算比较多。</p>
+</blockquote>
+<p>利用<span class="heti-skip"><span class="heti-spacing"> </span>sklearn<span class="heti-spacing"> </span></span>以及<span class="heti-skip"><span class="heti-spacing"> </span>matplotlab<span class="heti-spacing"> </span></span>进行求解绘图（代码附在末尾）输出结果如下：</p>
+<div class="highlight"><span class="filename">Text Output</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos="1 "></span></a><span class="go">Weight vector (w): [-1.  2.]</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos" data-linenos="2 "></span></a><span class="go">Bias (b): -2.0000000000000004</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><a href="#__codelineno-0-3"><span class="linenos" data-linenos="3 "></span></a><span class="go">Support vector indices: [4 0 2]</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><a href="#__codelineno-0-4"><span class="linenos" data-linenos="4 "></span></a><span class="go">Support vectors:</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><a href="#__codelineno-0-5"><span class="linenos" data-linenos="5 "></span></a><span class="go"> [[3 2]</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><a href="#__codelineno-0-6"><span class="linenos" data-linenos="6 "></span></a><span class="go"> [1 2]</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><a href="#__codelineno-0-7"><span class="linenos" data-linenos="7 "></span></a><span class="go"> [3 3]]</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><a href="#__codelineno-0-8"><span class="linenos" data-linenos="8 "></span></a><span class="go">Margin width: 0.44721359549995765</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a><a href="#__codelineno-0-9"><span class="linenos" data-linenos="9 "></span></a><span class="go">Decision function: f(x) = -1.0000*x1 + 2.0000*x2 + -2.0000</span>
+</span></code></pre></div>
+<p>可以得到：</p>
+<ol>
+<li>最大间隔分离超平面： <span class="arithmatex">\(-x^{(1)}+2x^{(2)}-2=0\)</span></li>
+<li>分类决策函数：<span class="arithmatex">\(f(x)=\sin(-x^{(1)}+2x^{(2)}-2)\)</span></li>
+<li>支持向量： <span class="arithmatex">\(x_1=(3,2)^T,x_2=(1,2)^T,x_3=(3,3)^T\)</span></li>
+</ol>
+<div style="text-align: center;">
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2504/11_svm_plot.png"><img alt="" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2504/11_svm_plot.png" style="width: 50%;"/></a>
+<p></p>
+</div>
+<div class="highlight"><span class="filename">svm_train.py</span><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos" data-linenos="  1 "></span></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><a href="#__codelineno-1-2"><span class="linenos" data-linenos="  2 "></span></a><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><a href="#__codelineno-1-3"><span class="linenos" data-linenos="  3 "></span></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.svm</span><span class="w"> </span><span class="kn">import</span> <span class="n">SVC</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><a href="#__codelineno-1-4"><span class="linenos" data-linenos="  4 "></span></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><a href="#__codelineno-1-5"><span class="linenos" data-linenos="  5 "></span></a><span class="c1">##### train the svm #####</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a><a href="#__codelineno-1-6"><span class="linenos" data-linenos="  6 "></span></a><span class="n">positive_samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a><a href="#__codelineno-1-7"><span class="linenos" data-linenos="  7 "></span></a><span class="n">negative_samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a><a href="#__codelineno-1-8"><span class="linenos" data-linenos="  8 "></span></a><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">positive_samples</span><span class="p">,</span> <span class="n">negative_samples</span><span class="p">))</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a><a href="#__codelineno-1-9"><span class="linenos" data-linenos="  9 "></span></a><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># 1 for positive class, -1 for negative class</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a><a href="#__codelineno-1-10"><span class="linenos" data-linenos=" 10 "></span></a><span class="n">svm</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">"linear"</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">1e6</span><span class="p">)</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11"></a><a href="#__codelineno-1-11"><span class="linenos" data-linenos=" 11 "></span></a><span class="n">svm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12"></a><a href="#__codelineno-1-12"><span class="linenos" data-linenos=" 12 "></span></a><span class="n">w</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Normal vector to the hyperplane</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13"></a><a href="#__codelineno-1-13"><span class="linenos" data-linenos=" 13 "></span></a><span class="n">b</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">intercept_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Intercept</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14"></a><a href="#__codelineno-1-14"><span class="linenos" data-linenos=" 14 "></span></a><span class="n">sv_indices</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">support_</span>  <span class="c1"># Indices of support vectors</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15"></a><a href="#__codelineno-1-15"><span class="linenos" data-linenos=" 15 "></span></a>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16"></a><a href="#__codelineno-1-16"><span class="linenos" data-linenos=" 16 "></span></a><span class="c1">##### Draw the pic #####</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17"></a><a href="#__codelineno-1-17"><span class="linenos" data-linenos=" 17 "></span></a>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18"></a><a href="#__codelineno-1-18"><span class="linenos" data-linenos=" 18 "></span></a><span class="k">def</span><span class="w"> </span><span class="nf">get_hyperplane_points</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">):</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19"></a><a href="#__codelineno-1-19"><span class="linenos" data-linenos=" 19 "></span></a>    <span class="c1"># w[0]*x + w[1]*y + b = 0</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20"></a><a href="#__codelineno-1-20"><span class="linenos" data-linenos=" 20 "></span></a>    <span class="c1"># y = (-w[0]*x - b) / w[1]</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21"></a><a href="#__codelineno-1-21"><span class="linenos" data-linenos=" 21 "></span></a>    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22"></a><a href="#__codelineno-1-22"><span class="linenos" data-linenos=" 22 "></span></a>    <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23"></a><a href="#__codelineno-1-23"><span class="linenos" data-linenos=" 23 "></span></a>    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24"></a><a href="#__codelineno-1-24"><span class="linenos" data-linenos=" 24 "></span></a>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25"></a><a href="#__codelineno-1-25"><span class="linenos" data-linenos=" 25 "></span></a><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26"></a><a href="#__codelineno-1-26"><span class="linenos" data-linenos=" 26 "></span></a><span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27"></a><a href="#__codelineno-1-27"><span class="linenos" data-linenos=" 27 "></span></a>    <span class="n">positive_samples</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28"></a><a href="#__codelineno-1-28"><span class="linenos" data-linenos=" 28 "></span></a>    <span class="n">positive_samples</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29"></a><a href="#__codelineno-1-29"><span class="linenos" data-linenos=" 29 "></span></a>    <span class="n">c</span><span class="o">=</span><span class="s2">"b"</span><span class="p">,</span>
+</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30"></a><a href="#__codelineno-1-30"><span class="linenos" data-linenos=" 30 "></span></a>    <span class="n">marker</span><span class="o">=</span><span class="s2">"o"</span><span class="p">,</span>
+</span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31"></a><a href="#__codelineno-1-31"><span class="linenos" data-linenos=" 31 "></span></a>    <span class="n">label</span><span class="o">=</span><span class="s2">"Positive class"</span><span class="p">,</span>
+</span><span id="__span-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32"></a><a href="#__codelineno-1-32"><span class="linenos" data-linenos=" 32 "></span></a><span class="p">)</span>
+</span><span id="__span-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33"></a><a href="#__codelineno-1-33"><span class="linenos" data-linenos=" 33 "></span></a><span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+</span><span id="__span-1-34"><a id="__codelineno-1-34" name="__codelineno-1-34"></a><a href="#__codelineno-1-34"><span class="linenos" data-linenos=" 34 "></span></a>    <span class="n">negative_samples</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
+</span><span id="__span-1-35"><a id="__codelineno-1-35" name="__codelineno-1-35"></a><a href="#__codelineno-1-35"><span class="linenos" data-linenos=" 35 "></span></a>    <span class="n">negative_samples</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+</span><span id="__span-1-36"><a id="__codelineno-1-36" name="__codelineno-1-36"></a><a href="#__codelineno-1-36"><span class="linenos" data-linenos=" 36 "></span></a>    <span class="n">c</span><span class="o">=</span><span class="s2">"r"</span><span class="p">,</span>
+</span><span id="__span-1-37"><a id="__codelineno-1-37" name="__codelineno-1-37"></a><a href="#__codelineno-1-37"><span class="linenos" data-linenos=" 37 "></span></a>    <span class="n">marker</span><span class="o">=</span><span class="s2">"x"</span><span class="p">,</span>
+</span><span id="__span-1-38"><a id="__codelineno-1-38" name="__codelineno-1-38"></a><a href="#__codelineno-1-38"><span class="linenos" data-linenos=" 38 "></span></a>    <span class="n">label</span><span class="o">=</span><span class="s2">"Negative class"</span><span class="p">,</span>
+</span><span id="__span-1-39"><a id="__codelineno-1-39" name="__codelineno-1-39"></a><a href="#__codelineno-1-39"><span class="linenos" data-linenos=" 39 "></span></a><span class="p">)</span>
+</span><span id="__span-1-40"><a id="__codelineno-1-40" name="__codelineno-1-40"></a><a href="#__codelineno-1-40"><span class="linenos" data-linenos=" 40 "></span></a>
+</span><span id="__span-1-41"><a id="__codelineno-1-41" name="__codelineno-1-41"></a><a href="#__codelineno-1-41"><span class="linenos" data-linenos=" 41 "></span></a><span class="n">support_vectors</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">sv_indices</span><span class="p">]</span>
+</span><span id="__span-1-42"><a id="__codelineno-1-42" name="__codelineno-1-42"></a><a href="#__codelineno-1-42"><span class="linenos" data-linenos=" 42 "></span></a><span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+</span><span id="__span-1-43"><a id="__codelineno-1-43" name="__codelineno-1-43"></a><a href="#__codelineno-1-43"><span class="linenos" data-linenos=" 43 "></span></a>    <span class="n">support_vectors</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
+</span><span id="__span-1-44"><a id="__codelineno-1-44" name="__codelineno-1-44"></a><a href="#__codelineno-1-44"><span class="linenos" data-linenos=" 44 "></span></a>    <span class="n">support_vectors</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+</span><span id="__span-1-45"><a id="__codelineno-1-45" name="__codelineno-1-45"></a><a href="#__codelineno-1-45"><span class="linenos" data-linenos=" 45 "></span></a>    <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+</span><span id="__span-1-46"><a id="__codelineno-1-46" name="__codelineno-1-46"></a><a href="#__codelineno-1-46"><span class="linenos" data-linenos=" 46 "></span></a>    <span class="n">facecolors</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span>
+</span><span id="__span-1-47"><a id="__codelineno-1-47" name="__codelineno-1-47"></a><a href="#__codelineno-1-47"><span class="linenos" data-linenos=" 47 "></span></a>    <span class="n">edgecolors</span><span class="o">=</span><span class="s2">"g"</span><span class="p">,</span>
+</span><span id="__span-1-48"><a id="__codelineno-1-48" name="__codelineno-1-48"></a><a href="#__codelineno-1-48"><span class="linenos" data-linenos=" 48 "></span></a>    <span class="n">linewidths</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+</span><span id="__span-1-49"><a id="__codelineno-1-49" name="__codelineno-1-49"></a><a href="#__codelineno-1-49"><span class="linenos" data-linenos=" 49 "></span></a>    <span class="n">label</span><span class="o">=</span><span class="s2">"Support vectors"</span><span class="p">,</span>
+</span><span id="__span-1-50"><a id="__codelineno-1-50" name="__codelineno-1-50"></a><a href="#__codelineno-1-50"><span class="linenos" data-linenos=" 50 "></span></a><span class="p">)</span>
+</span><span id="__span-1-51"><a id="__codelineno-1-51" name="__codelineno-1-51"></a><a href="#__codelineno-1-51"><span class="linenos" data-linenos=" 51 "></span></a>
+</span><span id="__span-1-52"><a id="__codelineno-1-52" name="__codelineno-1-52"></a><a href="#__codelineno-1-52"><span class="linenos" data-linenos=" 52 "></span></a><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span>
+</span><span id="__span-1-53"><a id="__codelineno-1-53" name="__codelineno-1-53"></a><a href="#__codelineno-1-53"><span class="linenos" data-linenos=" 53 "></span></a>
+</span><span id="__span-1-54"><a id="__codelineno-1-54" name="__codelineno-1-54"></a><a href="#__codelineno-1-54"><span class="linenos" data-linenos=" 54 "></span></a><span class="n">x_hyperplane</span><span class="p">,</span> <span class="n">y_hyperplane</span> <span class="o">=</span> <span class="n">get_hyperplane_points</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">)</span>
+</span><span id="__span-1-55"><a id="__codelineno-1-55" name="__codelineno-1-55"></a><a href="#__codelineno-1-55"><span class="linenos" data-linenos=" 55 "></span></a><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_hyperplane</span><span class="p">,</span> <span class="n">y_hyperplane</span><span class="p">,</span> <span class="s2">"k-"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Separating hyperplane"</span><span class="p">)</span>
+</span><span id="__span-1-56"><a id="__codelineno-1-56" name="__codelineno-1-56"></a><a href="#__codelineno-1-56"><span class="linenos" data-linenos=" 56 "></span></a>
+</span><span id="__span-1-57"><a id="__codelineno-1-57" name="__codelineno-1-57"></a><a href="#__codelineno-1-57"><span class="linenos" data-linenos=" 57 "></span></a><span class="n">x_pos_margin</span><span class="p">,</span> <span class="n">y_pos_margin</span> <span class="o">=</span> <span class="n">get_hyperplane_points</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">)</span>
+</span><span id="__span-1-58"><a id="__codelineno-1-58" name="__codelineno-1-58"></a><a href="#__codelineno-1-58"><span class="linenos" data-linenos=" 58 "></span></a><span class="n">x_neg_margin</span><span class="p">,</span> <span class="n">y_neg_margin</span> <span class="o">=</span> <span class="n">get_hyperplane_points</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">)</span>
+</span><span id="__span-1-59"><a id="__codelineno-1-59" name="__codelineno-1-59"></a><a href="#__codelineno-1-59"><span class="linenos" data-linenos=" 59 "></span></a><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_pos_margin</span><span class="p">,</span> <span class="n">y_pos_margin</span><span class="p">,</span> <span class="s2">"k--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Margin boundaries"</span><span class="p">)</span>
+</span><span id="__span-1-60"><a id="__codelineno-1-60" name="__codelineno-1-60"></a><a href="#__codelineno-1-60"><span class="linenos" data-linenos=" 60 "></span></a><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_neg_margin</span><span class="p">,</span> <span class="n">y_neg_margin</span><span class="p">,</span> <span class="s2">"k--"</span><span class="p">)</span>
+</span><span id="__span-1-61"><a id="__codelineno-1-61" name="__codelineno-1-61"></a><a href="#__codelineno-1-61"><span class="linenos" data-linenos=" 61 "></span></a>
+</span><span id="__span-1-62"><a id="__codelineno-1-62" name="__codelineno-1-62"></a><a href="#__codelineno-1-62"><span class="linenos" data-linenos=" 62 "></span></a><span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">)</span>
+</span><span id="__span-1-63"><a id="__codelineno-1-63" name="__codelineno-1-63"></a><a href="#__codelineno-1-63"><span class="linenos" data-linenos=" 63 "></span></a><span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</span><span id="__span-1-64"><a id="__codelineno-1-64" name="__codelineno-1-64"></a><a href="#__codelineno-1-64"><span class="linenos" data-linenos=" 64 "></span></a><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"x1"</span><span class="p">)</span>
+</span><span id="__span-1-65"><a id="__codelineno-1-65" name="__codelineno-1-65"></a><a href="#__codelineno-1-65"><span class="linenos" data-linenos=" 65 "></span></a><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"x2"</span><span class="p">)</span>
+</span><span id="__span-1-66"><a id="__codelineno-1-66" name="__codelineno-1-66"></a><a href="#__codelineno-1-66"><span class="linenos" data-linenos=" 66 "></span></a><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"SVM Maximum Margin Classifier"</span><span class="p">)</span>
+</span><span id="__span-1-67"><a id="__codelineno-1-67" name="__codelineno-1-67"></a><a href="#__codelineno-1-67"><span class="linenos" data-linenos=" 67 "></span></a>
+</span><span id="__span-1-68"><a id="__codelineno-1-68" name="__codelineno-1-68"></a><a href="#__codelineno-1-68"><span class="linenos" data-linenos=" 68 "></span></a><span class="n">margin</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">w</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+</span><span id="__span-1-69"><a id="__codelineno-1-69" name="__codelineno-1-69"></a><a href="#__codelineno-1-69"><span class="linenos" data-linenos=" 69 "></span></a><span class="n">w_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+</span><span id="__span-1-70"><a id="__codelineno-1-70" name="__codelineno-1-70"></a><a href="#__codelineno-1-70"><span class="linenos" data-linenos=" 70 "></span></a><span class="n">normalized_w</span> <span class="o">=</span> <span class="n">w</span> <span class="o">/</span> <span class="n">w_norm</span>
+</span><span id="__span-1-71"><a id="__codelineno-1-71" name="__codelineno-1-71"></a><a href="#__codelineno-1-71"><span class="linenos" data-linenos=" 71 "></span></a><span class="n">normalized_b</span> <span class="o">=</span> <span class="n">b</span> <span class="o">/</span> <span class="n">w_norm</span>
+</span><span id="__span-1-72"><a id="__codelineno-1-72" name="__codelineno-1-72"></a><a href="#__codelineno-1-72"><span class="linenos" data-linenos=" 72 "></span></a><span class="n">formula</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"Decision Function: f(x) = </span><span class="si">{</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">*x1 + </span><span class="si">{</span><span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">*x2 + </span><span class="si">{</span><span class="n">b</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span>
+</span><span id="__span-1-73"><a id="__codelineno-1-73" name="__codelineno-1-73"></a><a href="#__codelineno-1-73"><span class="linenos" data-linenos=" 73 "></span></a><span class="n">normalized_formula</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"Normalized: f(x) = </span><span class="si">{</span><span class="n">normalized_w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">*x1 + </span><span class="si">{</span><span class="n">normalized_w</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">*x2 + </span><span class="si">{</span><span class="n">normalized_b</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span>
+</span><span id="__span-1-74"><a id="__codelineno-1-74" name="__codelineno-1-74"></a><a href="#__codelineno-1-74"><span class="linenos" data-linenos=" 74 "></span></a><span class="n">margin_text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"Margin width: </span><span class="si">{</span><span class="n">margin</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span>
+</span><span id="__span-1-75"><a id="__codelineno-1-75" name="__codelineno-1-75"></a><a href="#__codelineno-1-75"><span class="linenos" data-linenos=" 75 "></span></a><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+</span><span id="__span-1-76"><a id="__codelineno-1-76" name="__codelineno-1-76"></a><a href="#__codelineno-1-76"><span class="linenos" data-linenos=" 76 "></span></a>    <span class="mf">0.5</span><span class="p">,</span>
+</span><span id="__span-1-77"><a id="__codelineno-1-77" name="__codelineno-1-77"></a><a href="#__codelineno-1-77"><span class="linenos" data-linenos=" 77 "></span></a>    <span class="mf">0.05</span><span class="p">,</span>
+</span><span id="__span-1-78"><a id="__codelineno-1-78" name="__codelineno-1-78"></a><a href="#__codelineno-1-78"><span class="linenos" data-linenos=" 78 "></span></a>    <span class="n">formula</span><span class="p">,</span>
+</span><span id="__span-1-79"><a id="__codelineno-1-79" name="__codelineno-1-79"></a><a href="#__codelineno-1-79"><span class="linenos" data-linenos=" 79 "></span></a>    <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+</span><span id="__span-1-80"><a id="__codelineno-1-80" name="__codelineno-1-80"></a><a href="#__codelineno-1-80"><span class="linenos" data-linenos=" 80 "></span></a>    <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+</span><span id="__span-1-81"><a id="__codelineno-1-81" name="__codelineno-1-81"></a><a href="#__codelineno-1-81"><span class="linenos" data-linenos=" 81 "></span></a>    <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">),</span>
+</span><span id="__span-1-82"><a id="__codelineno-1-82" name="__codelineno-1-82"></a><a href="#__codelineno-1-82"><span class="linenos" data-linenos=" 82 "></span></a><span class="p">)</span>
+</span><span id="__span-1-83"><a id="__codelineno-1-83" name="__codelineno-1-83"></a><a href="#__codelineno-1-83"><span class="linenos" data-linenos=" 83 "></span></a><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+</span><span id="__span-1-84"><a id="__codelineno-1-84" name="__codelineno-1-84"></a><a href="#__codelineno-1-84"><span class="linenos" data-linenos=" 84 "></span></a>    <span class="mf">0.5</span><span class="p">,</span>
+</span><span id="__span-1-85"><a id="__codelineno-1-85" name="__codelineno-1-85"></a><a href="#__codelineno-1-85"><span class="linenos" data-linenos=" 85 "></span></a>    <span class="mf">0.1</span><span class="p">,</span>
+</span><span id="__span-1-86"><a id="__codelineno-1-86" name="__codelineno-1-86"></a><a href="#__codelineno-1-86"><span class="linenos" data-linenos=" 86 "></span></a>    <span class="n">normalized_formula</span><span class="p">,</span>
+</span><span id="__span-1-87"><a id="__codelineno-1-87" name="__codelineno-1-87"></a><a href="#__codelineno-1-87"><span class="linenos" data-linenos=" 87 "></span></a>    <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+</span><span id="__span-1-88"><a id="__codelineno-1-88" name="__codelineno-1-88"></a><a href="#__codelineno-1-88"><span class="linenos" data-linenos=" 88 "></span></a>    <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+</span><span id="__span-1-89"><a id="__codelineno-1-89" name="__codelineno-1-89"></a><a href="#__codelineno-1-89"><span class="linenos" data-linenos=" 89 "></span></a>    <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">),</span>
+</span><span id="__span-1-90"><a id="__codelineno-1-90" name="__codelineno-1-90"></a><a href="#__codelineno-1-90"><span class="linenos" data-linenos=" 90 "></span></a><span class="p">)</span>
+</span><span id="__span-1-91"><a id="__codelineno-1-91" name="__codelineno-1-91"></a><a href="#__codelineno-1-91"><span class="linenos" data-linenos=" 91 "></span></a><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+</span><span id="__span-1-92"><a id="__codelineno-1-92" name="__codelineno-1-92"></a><a href="#__codelineno-1-92"><span class="linenos" data-linenos=" 92 "></span></a>    <span class="mf">0.5</span><span class="p">,</span>
+</span><span id="__span-1-93"><a id="__codelineno-1-93" name="__codelineno-1-93"></a><a href="#__codelineno-1-93"><span class="linenos" data-linenos=" 93 "></span></a>    <span class="mf">0.15</span><span class="p">,</span>
+</span><span id="__span-1-94"><a id="__codelineno-1-94" name="__codelineno-1-94"></a><a href="#__codelineno-1-94"><span class="linenos" data-linenos=" 94 "></span></a>    <span class="n">margin_text</span><span class="p">,</span>
+</span><span id="__span-1-95"><a id="__codelineno-1-95" name="__codelineno-1-95"></a><a href="#__codelineno-1-95"><span class="linenos" data-linenos=" 95 "></span></a>    <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+</span><span id="__span-1-96"><a id="__codelineno-1-96" name="__codelineno-1-96"></a><a href="#__codelineno-1-96"><span class="linenos" data-linenos=" 96 "></span></a>    <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+</span><span id="__span-1-97"><a id="__codelineno-1-97" name="__codelineno-1-97"></a><a href="#__codelineno-1-97"><span class="linenos" data-linenos=" 97 "></span></a>    <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">),</span>
+</span><span id="__span-1-98"><a id="__codelineno-1-98" name="__codelineno-1-98"></a><a href="#__codelineno-1-98"><span class="linenos" data-linenos=" 98 "></span></a><span class="p">)</span>
+</span><span id="__span-1-99"><a id="__codelineno-1-99" name="__codelineno-1-99"></a><a href="#__codelineno-1-99"><span class="linenos" data-linenos=" 99 "></span></a>
+</span><span id="__span-1-100"><a id="__codelineno-1-100" name="__codelineno-1-100"></a><a href="#__codelineno-1-100"><span class="linenos" data-linenos="100 "></span></a><span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">"upper right"</span><span class="p">)</span>
+</span><span id="__span-1-101"><a id="__codelineno-1-101" name="__codelineno-1-101"></a><a href="#__codelineno-1-101"><span class="linenos" data-linenos="101 "></span></a><span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+</span><span id="__span-1-102"><a id="__codelineno-1-102" name="__codelineno-1-102"></a><a href="#__codelineno-1-102"><span class="linenos" data-linenos="102 "></span></a>
+</span><span id="__span-1-103"><a id="__codelineno-1-103" name="__codelineno-1-103"></a><a href="#__codelineno-1-103"><span class="linenos" data-linenos="103 "></span></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Weight vector (w):"</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+</span><span id="__span-1-104"><a id="__codelineno-1-104" name="__codelineno-1-104"></a><a href="#__codelineno-1-104"><span class="linenos" data-linenos="104 "></span></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Bias (b):"</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+</span><span id="__span-1-105"><a id="__codelineno-1-105" name="__codelineno-1-105"></a><a href="#__codelineno-1-105"><span class="linenos" data-linenos="105 "></span></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Support vector indices:"</span><span class="p">,</span> <span class="n">sv_indices</span><span class="p">)</span>
+</span><span id="__span-1-106"><a id="__codelineno-1-106" name="__codelineno-1-106"></a><a href="#__codelineno-1-106"><span class="linenos" data-linenos="106 "></span></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Support vectors:</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">support_vectors</span><span class="p">)</span>
+</span><span id="__span-1-107"><a id="__codelineno-1-107" name="__codelineno-1-107"></a><a href="#__codelineno-1-107"><span class="linenos" data-linenos="107 "></span></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Margin width:"</span><span class="p">,</span> <span class="n">margin</span><span class="p">)</span>
+</span><span id="__span-1-108"><a id="__codelineno-1-108" name="__codelineno-1-108"></a><a href="#__codelineno-1-108"><span class="linenos" data-linenos="108 "></span></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Decision function: f(x) = </span><span class="si">{</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">*x1 + </span><span class="si">{</span><span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">*x2 + </span><span class="si">{</span><span class="n">b</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-1-109"><a id="__codelineno-1-109" name="__codelineno-1-109"></a><a href="#__codelineno-1-109"><span class="linenos" data-linenos="109 "></span></a><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</span><span id="__span-1-110"><a id="__codelineno-1-110" name="__codelineno-1-110"></a><a href="#__codelineno-1-110"><span class="linenos" data-linenos="110 "></span></a><span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"imgs/svm_plot.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">"tight"</span><span class="p">)</span>
+</span><span id="__span-1-111"><a id="__codelineno-1-111" name="__codelineno-1-111"></a><a href="#__codelineno-1-111"><span class="linenos" data-linenos="111 "></span></a><span class="c1"># plt.show()</span>
+</span></code></pre></div>
+<details class="question" open="open">
+<summary>习题<span><span class="heti-spacing"> </span>7.3</span></summary>
+<p>线性支持向量机还可以定义为以下形式：</p>
+<div class="arithmatex">\[
+\begin{aligned}&amp;\min_{w,b,\xi}\quad\frac{1}{2}\|w\|^{2}+C\sum_{i=1}^{N}\xi_{i}^{2}\\&amp;\mathrm{s.t.}\quad y_{i}(w\bullet x_{i}+b)\geqslant1-\xi_{i},\quad i=1,2,\cdots,N\\&amp;\xi_{i}\geqslant0,\quad i=1,2,\cdots,N\end{aligned}
+\]</div>
+<p>试求其对偶形式。</p>
+</details>
+<p>构建拉格朗日函数：</p>
+<div class="arithmatex">\[
+L(w,b,\xi,\alpha,\mu)=\frac{1}{2}||w||^{2}+C\sum_{i=1}^{N}\xi_{i}^{2}-\sum_{i=1}^{N}\alpha_{i}y_{i}(w\cdot x_{i}+b)+\sum_{i=1}^{N}(1-\xi_{i})\alpha_{i}-\sum_{i=1}^{N}\mu_{i}\xi_{i}
+\]</div>
+<p>首先求<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L(w,b,\xi,\alpha,\mu)\)</span><span class="heti-spacing"> </span></span>对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(w,b,\xi\)</span><span class="heti-spacing"> </span></span>的极小，由</p>
+<div class="arithmatex">\[\begin{cases}
+\nabla_{w}L(w,b,\xi,\alpha,\mu)=w-\sum_{i=1}^{N}\alpha_{i}y_{i}x_{i}=0\\\nabla_{b}L(w,b,\xi,\alpha,\mu)=-\sum_{i=1}^{N}\alpha_{i}y_{i}=0\\\nabla_{\xi_{i}}L(w,b,\xi,\alpha,\mu)=2C\xi_{i}-\alpha_{i}-\mu_{i}=0
+\end{cases} \implies 
+\begin{cases}
+w=\sum_{i=1}^{N}\alpha_{i}y_{i}x_{i} \\ \sum_{i=1}^{N}\alpha_{i}y_{i}=0\\2C\xi_{i}-\alpha_{i}-\mu_{i}=0
+\end{cases}
+\]</div>
+<p>代入拉格朗日函数得：</p>
+<div class="arithmatex">\[
+\min_{w,b,\xi}L(w,b,\xi,\alpha,\mu)=-\frac{1}{2}\sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_{i}\alpha_{j}y_{j}(x_{i}\cdot x_{j})+\sum_{i=1}^{N}\alpha_{i}-\sum_{j=1}^{N}\frac{(\alpha_{i}+\mu_{i})^{2}}{4C}
+\]</div>
+<p>对上述拉格朗日函数求<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha, \mu\)</span><span class="heti-spacing"> </span></span>的极大，再将对目标函数求极大转换为求极小<span class="heti-skip"><span class="heti-spacing"> </span>,<span class="heti-spacing"> </span></span>于是得到对偶问题：</p>
+<div class="arithmatex">\[
+\begin{aligned}\min_{\alpha,\mu}&amp;\frac{1}{2}\sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_{i}\alpha_{j}y_{i}y_{j}(x_{i}\cdot x_{j})-\sum_{i=1}^{N}\alpha_{i}+\sum_{j=1}^{N}\frac{(\alpha_{i}+\mu_{i})^{2}}{4C}\\\mathrm{s.t.}&amp;\sum_{i=1}^{N}\alpha_{i}y_{i}=0\\&amp;\alpha_{i}\geq0\\&amp;\mu_{i}\geq0,\quad i=1,2,\cdots,N\end{aligned}
+\]</div>
+<details class="question" open="open">
+<summary>习题<span><span class="heti-spacing"> </span>7.4</span></summary>
+<p>证明内积的正整数幕函数：<span><span class="arithmatex">\(K(x,z)=(x\bullet z)^p\)</span><span class="heti-spacing"> </span></span>是正定核函数，这里<span class="heti-skip"><span class="heti-spacing"> </span>p<span class="heti-spacing"> </span></span>是正整数，<span class="arithmatex">\(x,z \in \mathbf{R}^{n}\)</span> 。</p>
+</details>
+<p>根据书中第<span class="heti-skip"><span class="heti-spacing"> </span>7<span class="heti-spacing"> </span></span>章的定理<span><span class="heti-spacing"> </span>7.5</span>（正定核的充要条件<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，要证<span class="heti-skip"><span class="heti-spacing"> </span>K(x, z)<span class="heti-spacing"> </span></span>是正定核函数，只要证<span class="heti-skip"><span class="heti-spacing"> </span>K(x, z)<span class="heti-spacing"> </span></span>对应的<span class="heti-skip"><span class="heti-spacing"> </span>Gram<span class="heti-spacing"> </span></span>矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(K = [K(x_i , x_j )]_{n×n}\)</span><span class="heti-spacing"> </span></span>是半正定的。下面使用数学归纳法证明，对于任意<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mathbf{c}=(c_{1},c_{2},\cdots,c_{n})^{T},c_{1},c_{2},\cdots,c_{n}\in\mathbb{R}\)</span></span>，记<span class="heti-skip"><span class="heti-spacing"> </span>K<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>Gram<span class="heti-spacing"> </span></span>矩阵为<span><span class="heti-spacing"> </span><span class="arithmatex">\(K_{G}\)</span></span>：</p>
+<ol>
+<li>当<span class="heti-skip"><span class="heti-spacing"> </span>p=1<span class="heti-spacing"> </span></span>时，则应该有：</li>
+</ol>
+<div class="arithmatex">\[
+\begin{aligned}\mathbf{c}^{T}K_{G}\mathbf{c}&amp;=\sum_{i,j=1}^{n}c_{i}c_{j}K(x_{i},x_{j})\\&amp;=\sum_{i,j=1}^{n}c_{i}c_{j}(x_{i}\cdot x_{j})\\&amp;=\left(\sum_{i}^{n}c_{i}x_{i}\right)\cdot\left(\sum_{j}^{n}c_{j}x_{j}\right)\\&amp;=\left|\left|\sum_{i}^{n}c_{i}x_{i}\right|\right|^{2}\geq0\end{aligned}
+\]</div>
+<p>表明<span class="heti-skip"><span class="heti-spacing"> </span>p = 1<span class="heti-spacing"> </span></span>时，<span>K(x, z)<span class="heti-spacing"> </span></span>对应的<span class="heti-skip"><span class="heti-spacing"> </span>Gram<span class="heti-spacing"> </span></span>矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(K_{G}\)</span><span class="heti-spacing"> </span></span>是半正定的。</p>
+<ol start="2">
+<li>假设当<span class="heti-skip"><span class="heti-spacing"> </span>p=t (t&gt;1)<span class="heti-spacing"> </span></span>时<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(K_{G}\)</span><span class="heti-spacing"> </span></span>是半正定的。</li>
+<li>考虑<span class="heti-skip"><span class="heti-spacing"> </span>p = t+1<span class="heti-spacing"> </span></span>的情况，记<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mathbf{d}=(d_{1},d_{2},\cdots,d_{n})^{T},d_{i}=\sum_{i}^{n}c_{i}x_{i}\)</span></span>，有</li>
+</ol>
+<div class="arithmatex">\[
+\begin{aligned}\mathbf{c}^{T}K_{t+1}\mathbf{c}&amp;=\sum_{i,j=1}^{n}c_{i}c_{j}K(x_{i},x_{j})\\&amp;=\sum_{i,j=1}^{n}c_{i}c_{j}(x_{i}\cdot x_{j})^{t+1}\\&amp;=\sum_{i,j=1}^{n}c_{i}c_{j}(x_{i}\cdot x_{j})(x_{i}\cdot x_{j})^{t}\\&amp;=\sum_{i}^{n}c_{i}\sum_{j}^{n}c_{j}x_{j}(x_{i}\cdot x_{j})^{t}\\&amp;=\mathbf{d}^{T}K_{t}\mathbf{d}\geq0\end{aligned}
+\]</div>
+<p>所以<span class="heti-skip"><span class="heti-spacing"> </span>p = t+1<span class="heti-spacing"> </span></span>时<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(K_{G}\)</span><span class="heti-spacing"> </span></span>也是半正定的。</p>
+<ol start="4">
+<li>由数学归纳法知， <span>K(x, z)<span class="heti-spacing"> </span></span>对应的<span class="heti-skip"><span class="heti-spacing"> </span>Gram<span class="heti-spacing"> </span></span>矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(K = [K(x_i , x_j )]_{n×n}\)</span><span class="heti-spacing"> </span></span>是半正定的。</li>
+</ol>
+<p>根据书中第<span class="heti-skip"><span class="heti-spacing"> </span>7<span class="heti-spacing"> </span></span>章的定理<span><span class="heti-spacing"> </span>7.5</span>（正定核的充要条件<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，<span>K(x, z)<span class="heti-spacing"> </span></span>是正定核函数。</p>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年10月12日 23:48:09 CST">2025年10月12日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年6月17日 10:27:55 CST">2025年6月17日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: 06 logistic" class="md-footer__link md-footer__link--prev" href="../06-logistic/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                06 logistic
+              </div>
+</div>
+</a>
+<a aria-label="下一页: 08 Adaboost" class="md-footer__link md-footer__link--next" href="../08-Adaboost/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                08 Adaboost
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

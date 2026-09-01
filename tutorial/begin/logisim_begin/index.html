@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/tutorial/begin/logisim_begin/" rel="canonical"/>
+<link href="../chrome_begin/" rel="prev"/>
+<link href="../vim_begin/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>Logisim begin - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#电线">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Logisim begin
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../note/">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../note/">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Tutorial
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../python_learn/crypto/">
+<span class="md-ellipsis">
+    
+  
+    python_learn
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_5_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    Begin
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_5_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Begin
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Emmet_begin/">
+<span class="md-ellipsis">
+    
+  
+    Emmet begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Mkdocs_begin/">
+<span class="md-ellipsis">
+    
+  
+    Mkdocs begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Obsidian_begin/">
+<span class="md-ellipsis">
+    
+  
+    Obsidian begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Python_begin/">
+<span class="md-ellipsis">
+    
+  
+    Python begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Requirements_begin/">
+<span class="md-ellipsis">
+    
+  
+    Requirements begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Typst_begin/">
+<span class="md-ellipsis">
+    
+  
+    Typst begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Url_begin/">
+<span class="md-ellipsis">
+    
+  
+    Url begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Utools_begin/">
+<span class="md-ellipsis">
+    
+  
+    Utools begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../chrome_begin/">
+<span class="md-ellipsis">
+    
+  
+    Chrome begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    Logisim begin
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    Logisim begin
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#电线">
+<span class="md-ellipsis">
+      
+        电线
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#引脚">
+<span class="md-ellipsis">
+      
+        引脚
+      
+    </span>
+</a>
+<nav aria-label="引脚" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#引脚的添加">
+<span class="md-ellipsis">
+      
+        引脚的添加
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#引脚的使用">
+<span class="md-ellipsis">
+      
+        引脚的使用
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Wiring-工具">
+<span class="md-ellipsis">
+      
+        Wiring 工具
+      
+    </span>
+</a>
+<nav aria-label="Wiring 工具" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#probe探针">
+<span class="md-ellipsis">
+      
+        probe（探针）
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Constant常量-">
+<span class="md-ellipsis">
+      
+        Constant（常量 ）
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Tunnel隧道">
+<span class="md-ellipsis">
+      
+        Tunnel（隧道）
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#splitter分线器">
+<span class="md-ellipsis">
+      
+        splitter（分线器）
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#MUX多路选择器">
+<span class="md-ellipsis">
+      
+        MUX（多路选择器）
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Register寄存器">
+<span class="md-ellipsis">
+      
+        Register（寄存器）
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#自定义封装电路">
+<span class="md-ellipsis">
+      
+        自定义封装电路
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#参考文章">
+<span class="md-ellipsis">
+      
+        参考文章
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../vim_begin/">
+<span class="md-ellipsis">
+    
+  
+    Vim begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../zsh_begin/">
+<span class="md-ellipsis">
+    
+  
+    Zsh begin
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../skill_learn/">
+<span class="md-ellipsis">
+    
+  
+    Skill_learn
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#电线">
+<span class="md-ellipsis">
+      
+        电线
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#引脚">
+<span class="md-ellipsis">
+      
+        引脚
+      
+    </span>
+</a>
+<nav aria-label="引脚" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#引脚的添加">
+<span class="md-ellipsis">
+      
+        引脚的添加
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#引脚的使用">
+<span class="md-ellipsis">
+      
+        引脚的使用
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Wiring-工具">
+<span class="md-ellipsis">
+      
+        Wiring 工具
+      
+    </span>
+</a>
+<nav aria-label="Wiring 工具" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#probe探针">
+<span class="md-ellipsis">
+      
+        probe（探针）
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Constant常量-">
+<span class="md-ellipsis">
+      
+        Constant（常量 ）
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Tunnel隧道">
+<span class="md-ellipsis">
+      
+        Tunnel（隧道）
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#splitter分线器">
+<span class="md-ellipsis">
+      
+        splitter（分线器）
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#MUX多路选择器">
+<span class="md-ellipsis">
+      
+        MUX（多路选择器）
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Register寄存器">
+<span class="md-ellipsis">
+      
+        Register（寄存器）
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#自定义封装电路">
+<span class="md-ellipsis">
+      
+        自定义封装电路
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#参考文章">
+<span class="md-ellipsis">
+      
+        参考文章
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Tutorial
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    Begin
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:begin">begin</a>
+</nav>
+<h1>Logisim begin</h1>
+<hr/>
+<details class="summary">
+<summary>Summary</summary>
+<p><span>Logisim<span class="heti-spacing"> </span></span>是一款用于学习计算机系统和数字逻辑电路的软件。</p>
+<ul>
+<li><strong>电线：</strong> 不同颜色的电线代表不同的含义。</li>
+<li><strong>引脚：</strong> 可以添加输入<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>输出引脚，并改变数据位宽和输入值。</li>
+<li><strong><span>Wiring<span class="heti-spacing"> </span></span>工具：</strong> 包括探针、常量、隧道、分线器等，用于信号传输和处理。</li>
+<li><strong>MUX（多路选择器<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</strong> 根据选择端信号选择输入端口。</li>
+<li><strong>Register（寄存器<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</strong> 用于存储数据。</li>
+<li><strong>自定义封装电路：</strong> 可以创建自己的电路模块。</li>
+</ul>
+</details>
+<!-- more -->
+<p>对于每一位学习计算机系统或者数字逻辑电路的<span><span class="heti-spacing"> </span>zjuer</span>，<span>logisim<span class="heti-spacing"> </span></span>是必须使用的，下面将较为详细地介绍其使用方法。</p>
+<div class="admonition prerequisite">
+<p class="admonition-title">Prerequisite</p>
+<ul>
+<li>
+<p>安装<span class="heti-skip"><span class="heti-spacing"> </span>logisim-evolution<span class="heti-spacing"> </span></span>并学会启动</p>
+</li>
+<li>
+<p>清楚基本的概念，如引脚、反相器及对应图标，线路连接原理 </p>
+</li>
+</ul>
+</div>
+<div class="admonition env">
+<p class="admonition-title">Env</p>
+<ul>
+<li>logisim-evolution-3.8.0-all.jar</li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><span>File =&gt; Prefence =&gt; Language =&gt; cn/cn<span class="heti-spacing"> </span></span>可以设置中文</p>
+<p>但是不是很建议。</p>
+</div>
+<p>基本使用可以先看<a href="https://soc.ustc.edu.cn/COD/other/logisim/"><span class="heti-skip"><span class="heti-spacing"> </span>Logisim<span class="heti-spacing"> </span></span>教程</a></p>
+<h2 id="电线">电线<a class="headerlink" href="#电线" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>下面是电线颜色代表含义</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/logisim%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8-1.png"><img alt="|450" src="../attachments/logisim%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8-1.png"/></a></p>
+<h2 id="引脚">引脚<a class="headerlink" href="#引脚" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="引脚的添加">引脚的添加<a class="headerlink" href="#引脚的添加" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>下面是输入引脚（输出引脚同理）添加步骤<heti-adjacent class="heti-adjacent-half">：</heti-adjacent>（椭圆表示起始步骤，下同）</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/logisim%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8.png"><img alt="|450" src="../attachments/logisim%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8.png"/></a></p>
+<h3 id="引脚的使用">引脚的使用<a class="headerlink" href="#引脚的使用" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>我们可以看到，可以改变数据位宽<span><span class="heti-spacing"> </span>(data bits)</span>，通过“手指”可以点击改变输入 <strong>0/1</strong></p>
+<blockquote>
+<p>引脚内部数字的排列顺序与二进制相同，我们亦可以说图中输入的是<span><span class="heti-spacing"> </span>3'b010</span>（即立即数）
+<strong>立即数线路数组</strong><a href="https://zju-sys.pages.zjusct.io/sys1/sys1-sp24/lab1-1/#_11" title="Permanent link">¶</a></p>
+<p>立即数数组由三部分组成<span><span class="heti-spacing"> </span>:</span><code>imm = LEN ' BASE NUM</code>
+</p>
+</blockquote>
+<ul>
+<li>第一部分<span class="heti-skip"><span class="heti-spacing"> </span>LEN<span class="heti-spacing"> </span></span>是立即数的线路长度，<span>LEN=3<span class="heti-spacing"> </span></span>表示立即数大小为<span class="heti-skip"><span class="heti-spacing"> </span>3<span class="heti-spacing"> </span></span>位线路</li>
+<li>第二部分<span class="heti-skip"><span class="heti-spacing"> </span>BASE<span class="heti-spacing"> </span></span>表示立即数的进制，b、d、<span>h<span class="heti-spacing"> </span></span>分别表示二进制、十进制、十六进制</li>
+<li>第三部分<span class="heti-skip"><span class="heti-spacing"> </span>NUM<span class="heti-spacing"> </span></span>是对应立即数的值，必须和<span class="heti-skip"><span class="heti-spacing"> </span>BASE<span class="heti-spacing"> </span></span>指示的进制相对应，例如<span class="heti-skip"><span class="heti-spacing"> </span>4'b98<span class="heti-spacing"> </span></span>就是非法的</li>
+</ul>
+<blockquote>
+<p>将立即数转化为电路的方法如下：</p>
+<p>将立即数转换为二进制的<span class="heti-skip"><span class="heti-spacing"> </span>01<span class="heti-spacing"> </span></span>串，如果<span class="heti-skip"><span class="heti-spacing"> </span>01<span class="heti-spacing"> </span></span>串位数少于<span class="heti-skip"><span class="heti-spacing"> </span>LEN<span class="heti-spacing"> </span></span>则在前面补<span><span class="heti-spacing"> </span>0</span>，如果大于<span class="heti-skip"><span class="heti-spacing"> </span>LEN<span class="heti-spacing"> </span></span>则高位截断</p>
+</blockquote>
+<ol start="2">
+<li>
+<p>立即数的<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>表示该线路的输入是<span><span class="heti-spacing"> </span>GND</span>，立即数是<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>表示该线路输入是<span><span class="heti-spacing"> </span>VCC</span></p>
+</li>
+<li>
+<p>立即数的<span class="heti-skip"><span class="heti-spacing"> </span>01<span class="heti-spacing"> </span></span>串从低位到高位依次是<span><span class="heti-spacing"> </span>IMM[0], IMM[1], ..., IMM[LEN-1]</span></p>
+</li>
+</ol>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos="1 "></span></a>3'b01 // 3'b001 
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos" data-linenos="2 "></span></a>6'd67 // 6'b1000011 -&gt; 6'b000011 
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><a href="#__codelineno-0-3"><span class="linenos" data-linenos="3 "></span></a>16'h1234 // 16'b0001001000110100
+</span></code></pre></div>
+<p>改变输入引脚的输入后，可以发现线路颜色变了，那么就可以尝试遍历不同的输入观察输出了！</p>
+<details class="tip" open="open">
+<summary>Tip</summary>
+<ul>
+<li>想改变引脚朝向？选中引脚后上下左右方向键即可！</li>
+<li>双击引脚可以命名哦，这对于导出电路非常重要（注意字母大小写<heti-adjacent class="heti-adjacent-half">！</heti-adjacent>）</li>
+</ul>
+</details>
+<h2 id="Wiring-工具"><span>Wiring<span class="heti-spacing"> </span></span>工具<a class="headerlink" href="#Wiring-工具" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>页面上直接能看见的工具我们不再讲解，来看看 <strong>Wiring</strong> 中的工具：</p>
+<div style="text-align: center;">
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/18_logisim_begin-2.png"><img alt="" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/18_logisim_begin-2.png" style="width: 30%;"/></a>
+<p></p>
+</div>
+<h3 id="probe探针">probe（探针）<a class="headerlink" href="#probe探针" title="Permanent link">¶</a></h3>
+<p>获得线路信号</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/logisim%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8-3.png"><img alt="|425" src="../attachments/logisim%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8-3.png"/></a></p>
+<p>不过其实用“手指”点线路就能看到信号，探针适用于需要观察多条线路信号</p>
+<h3 id="Constant常量-">Constant（常量 ）<a class="headerlink" href="#Constant常量-" title="Permanent link">¶</a></h3>
+<p>顾名思义，当我们想要一个（局部）唯一的输入时使用，同样可以改变位宽、值</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/logisim%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8-4.png"><img alt="|475" src="../attachments/logisim%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8-4.png"/></a></p>
+<p>注意，值 <code>Value</code> 使用<span class="heti-skip"><span class="heti-spacing"> </span>16<span class="heti-spacing"> </span></span>进制表示</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/logisim%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8-5.png"><img alt="|450" src="../attachments/logisim%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8-5.png"/></a></p>
+<h3 id="Tunnel隧道">Tunnel（隧道）<a class="headerlink" href="#Tunnel隧道" title="Permanent link">¶</a></h3>
+<p>隧道起到一个传输信号的作用，同名隧道代表同一个值</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/logisim%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8-6.png"><img alt="|475" src="../attachments/logisim%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8-6.png"/></a></p>
+<h3 id="splitter分线器">splitter（分线器）<a class="headerlink" href="#splitter分线器" title="Permanent link">¶</a></h3>
+<p>我们常需要将位宽合并，直接相连是不可行的</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/logisim%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8-7.png"><img alt="|450" src="../attachments/logisim%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8-7.png"/></a></p>
+<p>分线器就是用于将信号分路<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>合并的</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/logisim%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8-8.png"><img alt="|475" src="../attachments/logisim%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8-8.png"/></a></p>
+<p>注意调设位宽等，小数字暗示了输出位置</p>
+<p>也可以用于截取信号，左侧面板调节每个口的信号源</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/logisim%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8-9.png"><img alt="|450" src="../attachments/logisim%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8-9.png"/></a></p>
+<p>其他<span class="heti-skip"><span class="heti-spacing"> </span>wiring<span class="heti-spacing"> </span></span>工具我们在后面遇到再进行讲解</p>
+<h2 id="MUX多路选择器">MUX（多路选择器）<a class="headerlink" href="#MUX多路选择器" title="Permanent link">¶</a></h2>
+<p>多路选择器（Multiplexer）在复用器<span class="heti-skip"><span class="heti-spacing"> </span>Plexers<span class="heti-spacing"> </span></span>中</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/logisim%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8-10.png"><img alt="|425" src="../attachments/logisim%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8-10.png"/></a></p>
+<p>如图，<code>select bits</code> <span>(<span class="heti-spacing"> </span></span>记为<span class="heti-skip"><span class="heti-spacing"> </span>n)<span class="heti-spacing"> </span></span>代表选择端信号的位数，输入端口数即为<span><span class="heti-spacing"> </span><span class="arithmatex">\(2^{n}\)</span></span> ；<code>data bits</code> 即数据位宽，要求输入端（每一个<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、多路选择器、输出端一致；在图中，由上至下依次为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(0,1,2\dots 2^{n}-1\)</span><span class="heti-spacing"> </span></span>接口，选择端的输入即表示选择几号接口的输入</p>
+<h2 id="Register寄存器">Register（寄存器）<a class="headerlink" href="#Register寄存器" title="Permanent link">¶</a></h2>
+<p>(To be continue)</p>
+<h2 id="自定义封装电路">自定义封装电路<a class="headerlink" href="#自定义封装电路" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>(To be continue)</p>
+<h2 id="参考文章">参考文章<a class="headerlink" href="#参考文章" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<ul>
+<li>https://blog.csdn.net/RuanFun/article/details/130795720</li>
+<li>https://blog.csdn.net/qq_44838412/article/details/107074857</li>
+</ul>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年5月19日 14:01:11 CST">2025年5月19日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2024年3月18日 20:33:22 CST">2024年3月18日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: Chrome begin" class="md-footer__link md-footer__link--prev" href="../chrome_begin/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                Chrome begin
+              </div>
+</div>
+</a>
+<a aria-label="下一页: Vim begin" class="md-footer__link md-footer__link--next" href="../vim_begin/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                Vim begin
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

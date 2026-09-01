@@ -1,0 +1,2562 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/note/DEM/Lec09/" rel="canonical"/>
+<link href="../Lec08/" rel="prev"/>
+<link href="../Lec10/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>第九讲：数据交易定价 - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#第九讲数据交易定价">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              第九讲：数据交易定价
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Note
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs188/">
+<span class="md-ellipsis">
+    
+  
+    cs188
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../physics/">
+<span class="md-ellipsis">
+    
+  
+    physics
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-II/">
+<span class="md-ellipsis">
+    
+  
+    CSys-II
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-III/">
+<span class="md-ellipsis">
+    
+  
+    CSys-III
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3_6" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    DEM
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    DEM
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec01/">
+<span class="md-ellipsis">
+    
+  
+    第一讲 数据要素市场简介
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec02/">
+<span class="md-ellipsis">
+    
+  
+    第二讲：数据合规与安全
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec03/">
+<span class="md-ellipsis">
+    
+  
+    第三讲：非合作博弈论基础（一）
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec04/">
+<span class="md-ellipsis">
+    
+  
+    第四讲：非合作博弈论基础 (二)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec05/">
+<span class="md-ellipsis">
+    
+  
+    第五讲：合作博弈与数据估值
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec06/">
+<span class="md-ellipsis">
+    
+  
+    第六讲：多臂老虎机算法基础与应用
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec07/">
+<span class="md-ellipsis">
+    
+  
+    第七讲：拍卖与机制设计基础
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec08/">
+<span class="md-ellipsis">
+    
+  
+    第八讲：最优机制
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    第九讲：数据交易定价
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    第九讲：数据交易定价
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I-数据交易的基本框架-page-4-6">
+<span class="md-ellipsis">
+      
+        I 数据交易的基本框架 (page 4-6)
+      
+    </span>
+</a>
+<nav aria-label="I 数据交易的基本框架 (page 4-6)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I1-数据服务方-Data-server--数据交易平台-Data-marketplace--数据中介-Data-broker-page-4">
+<span class="md-ellipsis">
+      
+        I.1 数据服务方 (Data server) / 数据交易平台 (Data marketplace) / 数据中介 (Data broker) (page 4)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I2-数据提供方-Data-owner-或-Data-seller-即数据卖家-page-5">
+<span class="md-ellipsis">
+      
+        I.2 数据提供方 (Data owner, 或 Data seller, 即数据卖家) (page 5)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I3-数据使用方-Data-user-或-Data-buyer-即数据买家-page-6">
+<span class="md-ellipsis">
+      
+        I.3 数据使用方 (Data user, 或 Data buyer, 即数据买家) (page 6)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II-数据定价要求-page-7-9">
+<span class="md-ellipsis">
+      
+        II 数据定价要求 (page 7-9)
+      
+    </span>
+</a>
+<nav aria-label="II 数据定价要求 (page 7-9)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II1-保持传统市场中定价的基本要求-page-7">
+<span class="md-ellipsis">
+      
+        II.1 保持传统市场中定价的基本要求 (page 7)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II2-针对数据的特性数据定价的挑战-page-8">
+<span class="md-ellipsis">
+      
+        II.2 针对数据的特性，数据定价的挑战 (page 8)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II3-定价要求是否必须同时达到page-9">
+<span class="md-ellipsis">
+      
+        II.3 定价要求是否必须同时达到？(page 9)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III-现实中的数据定价策略-page-11-13">
+<span class="md-ellipsis">
+      
+        III 现实中的数据定价策略 (page 11-13)
+      
+    </span>
+</a>
+<nav aria-label="III 现实中的数据定价策略 (page 11-13)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III1-免费数据-page-11">
+<span class="md-ellipsis">
+      
+        III.1 免费数据 (page 11)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III2-根据使用次数决定价格-page-11">
+<span class="md-ellipsis">
+      
+        III.2 根据使用次数决定价格 (page 11)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III3-打包定价-page-11">
+<span class="md-ellipsis">
+      
+        III.3 打包定价 (page 11)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III4-订阅制-page-12">
+<span class="md-ellipsis">
+      
+        III.4 订阅制 (page 12)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III5-免费增值-Freemium-page-12-14">
+<span class="md-ellipsis">
+      
+        III.5 免费增值 (Freemium) (page 12-14)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III6-特点总结-page-13">
+<span class="md-ellipsis">
+      
+        III.6 特点总结 (page 13)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV-数据的版本化与无套利原则-page-15-18">
+<span class="md-ellipsis">
+      
+        IV 数据的版本化与无套利原则 (page 15-18)
+      
+    </span>
+</a>
+<nav aria-label="IV 数据的版本化与无套利原则 (page 15-18)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV1-数据的版本化-page-15">
+<span class="md-ellipsis">
+      
+        IV.1 数据的版本化 (page 15)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV2-版本化的好处-page-16">
+<span class="md-ellipsis">
+      
+        IV.2 版本化的好处 (page 16)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV3-版本化带来的问题套利的可能-page-17-18">
+<span class="md-ellipsis">
+      
+        IV.3 版本化带来的问题：套利的可能 (page 17-18)
+      
+    </span>
+</a>
+<nav aria-label="IV.3 版本化带来的问题：套利的可能 (page 17-18)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV31-套利的严格定义-page-18">
+<span class="md-ellipsis">
+      
+        IV.3.1 套利的严格定义 (page 18)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV32-无套利原则-arbitrage-freeness-page-18">
+<span class="md-ellipsis">
+      
+        IV.3.2 无套利原则 (arbitrage freeness) (page 18)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V-查询数据的版本化与无套利定价-page-19-29">
+<span class="md-ellipsis">
+      
+        V 查询数据的版本化与无套利定价 (page 19-29)
+      
+    </span>
+</a>
+<nav aria-label="V 查询数据的版本化与无套利定价 (page 19-29)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V1-数据库基础知识-page-20-22">
+<span class="md-ellipsis">
+      
+        V.1 数据库基础知识 (page 20-22)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V2-查询定价基本模型-page-23">
+<span class="md-ellipsis">
+      
+        V.2 查询定价基本模型 (page 23)
+      
+    </span>
+</a>
+<nav aria-label="V.2 查询定价基本模型 (page 23)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V21-查询定价的信息无套利原则-page-24">
+<span class="md-ellipsis">
+      
+        V.2.1 查询定价的信息无套利原则 (page 24)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V22-查询定价的组合无套利原则-page-25">
+<span class="md-ellipsis">
+      
+        V.2.2 查询定价的组合无套利原则 (page 25)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V3-查询定价无套利等价条件-page-26-27">
+<span class="md-ellipsis">
+      
+        V.3 查询定价无套利等价条件 (page 26-27)
+      
+    </span>
+</a>
+<nav aria-label="V.3 查询定价无套利等价条件 (page 26-27)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V31-冲突集-conflict-set-page-26">
+<span class="md-ellipsis">
+      
+        V.3.1 冲突集 (conflict set) (page 26)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V32-单调性与次可加性-page-27">
+<span class="md-ellipsis">
+      
+        V.3.2 单调性与次可加性 (page 27)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V4-查询定价最大化利润-page-28-29">
+<span class="md-ellipsis">
+      
+        V.4 查询定价最大化利润 (page 28-29)
+      
+    </span>
+</a>
+<nav aria-label="V.4 查询定价最大化利润 (page 28-29)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V41-针对买家行动的假设-page-28">
+<span class="md-ellipsis">
+      
+        V.4.1 针对买家行动的假设 (page 28)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V42-利润最大化问题-page-28">
+<span class="md-ellipsis">
+      
+        V.4.2 利润最大化问题 (page 28)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V43-超图-hypergraph-模型构建-page-29">
+<span class="md-ellipsis">
+      
+        V.4.3 超图 (hypergraph) 模型构建 (page 29)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI-机器学习模型的版本化与无套利定价-page-30-45">
+<span class="md-ellipsis">
+      
+        VI 机器学习模型的版本化与无套利定价 (page 30-45)
+      
+    </span>
+</a>
+<nav aria-label="VI 机器学习模型的版本化与无套利定价 (page 30-45)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI1-Dealer-端到端机器学习模型买卖市场架构-page-31-35">
+<span class="md-ellipsis">
+      
+        VI.1 Dealer 端到端机器学习模型买卖市场架构 (page 31-35)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI2-预备知识-page-36-40">
+<span class="md-ellipsis">
+      
+        VI.2 预备知识 (page 36-40)
+      
+    </span>
+</a>
+<nav aria-label="VI.2 预备知识 (page 36-40)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI21-版本化-Versioning-page-36">
+<span class="md-ellipsis">
+      
+        VI.2.1 版本化 (Versioning) (page 36)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI22-差分隐私-Differential-Privacy-page-37">
+<span class="md-ellipsis">
+      
+        VI.2.2 差分隐私 (Differential Privacy) (page 37)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI23-无套利-Arbitrage-page-38-39">
+<span class="md-ellipsis">
+      
+        VI.2.3 无套利 (Arbitrage) (page 38-39)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI24-Shapley-值-Shapley-Value-page-40">
+<span class="md-ellipsis">
+      
+        VI.2.4 Shapley 值 (Shapley Value) (page 40)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI3-数据拥有者补偿函数-Compensation-Function-page-41">
+<span class="md-ellipsis">
+      
+        VI.3 数据拥有者：补偿函数 (Compensation Function) (page 41)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI4-模型购买者价格函数-Price-Function-page-42">
+<span class="md-ellipsis">
+      
+        VI.4 模型购买者：价格函数 (Price Function) (page 42)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI5-中间商-Broker-page-43">
+<span class="md-ellipsis">
+      
+        VI.5 中间商 (Broker) (page 43)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI6-收入最大化-Revenue-Maximization-page-44-45">
+<span class="md-ellipsis">
+      
+        VI.6 收入最大化 (Revenue Maximization) (page 44-45)
+      
+    </span>
+</a>
+<nav aria-label="VI.6 收入最大化 (Revenue Maximization) (page 44-45)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI61-优化问题形式化-page-44">
+<span class="md-ellipsis">
+      
+        VI.6.1 优化问题形式化 (page 44)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI62-示例-page-45">
+<span class="md-ellipsis">
+      
+        VI.6.2 示例 (page 45)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VII-思考与未来工作-page-46">
+<span class="md-ellipsis">
+      
+        VII 思考与未来工作 (page 46)
+      
+    </span>
+</a>
+<nav aria-label="VII 思考与未来工作 (page 46)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VII1-如何为隐私定价-page-46">
+<span class="md-ellipsis">
+      
+        VII.1 如何为隐私定价？ (page 46)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VII2-如何做到诚实报价-page-46">
+<span class="md-ellipsis">
+      
+        VII.2 如何做到诚实报价？ (page 46)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VII3-市场一定是完全信息的吗-page-46">
+<span class="md-ellipsis">
+      
+        VII.3 市场一定是完全信息的吗？ (page 46)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec10/">
+<span class="md-ellipsis">
+    
+  
+    第十讲：贝叶斯劝说
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DMA/">
+<span class="md-ellipsis">
+    
+  
+    DMA
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs70/">
+<span class="md-ellipsis">
+    
+  
+    cs70
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../other/">
+<span class="md-ellipsis">
+    
+  
+    other
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I-数据交易的基本框架-page-4-6">
+<span class="md-ellipsis">
+      
+        I 数据交易的基本框架 (page 4-6)
+      
+    </span>
+</a>
+<nav aria-label="I 数据交易的基本框架 (page 4-6)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I1-数据服务方-Data-server--数据交易平台-Data-marketplace--数据中介-Data-broker-page-4">
+<span class="md-ellipsis">
+      
+        I.1 数据服务方 (Data server) / 数据交易平台 (Data marketplace) / 数据中介 (Data broker) (page 4)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I2-数据提供方-Data-owner-或-Data-seller-即数据卖家-page-5">
+<span class="md-ellipsis">
+      
+        I.2 数据提供方 (Data owner, 或 Data seller, 即数据卖家) (page 5)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I3-数据使用方-Data-user-或-Data-buyer-即数据买家-page-6">
+<span class="md-ellipsis">
+      
+        I.3 数据使用方 (Data user, 或 Data buyer, 即数据买家) (page 6)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II-数据定价要求-page-7-9">
+<span class="md-ellipsis">
+      
+        II 数据定价要求 (page 7-9)
+      
+    </span>
+</a>
+<nav aria-label="II 数据定价要求 (page 7-9)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II1-保持传统市场中定价的基本要求-page-7">
+<span class="md-ellipsis">
+      
+        II.1 保持传统市场中定价的基本要求 (page 7)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II2-针对数据的特性数据定价的挑战-page-8">
+<span class="md-ellipsis">
+      
+        II.2 针对数据的特性，数据定价的挑战 (page 8)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II3-定价要求是否必须同时达到page-9">
+<span class="md-ellipsis">
+      
+        II.3 定价要求是否必须同时达到？(page 9)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III-现实中的数据定价策略-page-11-13">
+<span class="md-ellipsis">
+      
+        III 现实中的数据定价策略 (page 11-13)
+      
+    </span>
+</a>
+<nav aria-label="III 现实中的数据定价策略 (page 11-13)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III1-免费数据-page-11">
+<span class="md-ellipsis">
+      
+        III.1 免费数据 (page 11)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III2-根据使用次数决定价格-page-11">
+<span class="md-ellipsis">
+      
+        III.2 根据使用次数决定价格 (page 11)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III3-打包定价-page-11">
+<span class="md-ellipsis">
+      
+        III.3 打包定价 (page 11)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III4-订阅制-page-12">
+<span class="md-ellipsis">
+      
+        III.4 订阅制 (page 12)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III5-免费增值-Freemium-page-12-14">
+<span class="md-ellipsis">
+      
+        III.5 免费增值 (Freemium) (page 12-14)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III6-特点总结-page-13">
+<span class="md-ellipsis">
+      
+        III.6 特点总结 (page 13)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV-数据的版本化与无套利原则-page-15-18">
+<span class="md-ellipsis">
+      
+        IV 数据的版本化与无套利原则 (page 15-18)
+      
+    </span>
+</a>
+<nav aria-label="IV 数据的版本化与无套利原则 (page 15-18)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV1-数据的版本化-page-15">
+<span class="md-ellipsis">
+      
+        IV.1 数据的版本化 (page 15)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV2-版本化的好处-page-16">
+<span class="md-ellipsis">
+      
+        IV.2 版本化的好处 (page 16)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV3-版本化带来的问题套利的可能-page-17-18">
+<span class="md-ellipsis">
+      
+        IV.3 版本化带来的问题：套利的可能 (page 17-18)
+      
+    </span>
+</a>
+<nav aria-label="IV.3 版本化带来的问题：套利的可能 (page 17-18)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV31-套利的严格定义-page-18">
+<span class="md-ellipsis">
+      
+        IV.3.1 套利的严格定义 (page 18)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV32-无套利原则-arbitrage-freeness-page-18">
+<span class="md-ellipsis">
+      
+        IV.3.2 无套利原则 (arbitrage freeness) (page 18)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V-查询数据的版本化与无套利定价-page-19-29">
+<span class="md-ellipsis">
+      
+        V 查询数据的版本化与无套利定价 (page 19-29)
+      
+    </span>
+</a>
+<nav aria-label="V 查询数据的版本化与无套利定价 (page 19-29)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V1-数据库基础知识-page-20-22">
+<span class="md-ellipsis">
+      
+        V.1 数据库基础知识 (page 20-22)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V2-查询定价基本模型-page-23">
+<span class="md-ellipsis">
+      
+        V.2 查询定价基本模型 (page 23)
+      
+    </span>
+</a>
+<nav aria-label="V.2 查询定价基本模型 (page 23)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V21-查询定价的信息无套利原则-page-24">
+<span class="md-ellipsis">
+      
+        V.2.1 查询定价的信息无套利原则 (page 24)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V22-查询定价的组合无套利原则-page-25">
+<span class="md-ellipsis">
+      
+        V.2.2 查询定价的组合无套利原则 (page 25)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V3-查询定价无套利等价条件-page-26-27">
+<span class="md-ellipsis">
+      
+        V.3 查询定价无套利等价条件 (page 26-27)
+      
+    </span>
+</a>
+<nav aria-label="V.3 查询定价无套利等价条件 (page 26-27)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V31-冲突集-conflict-set-page-26">
+<span class="md-ellipsis">
+      
+        V.3.1 冲突集 (conflict set) (page 26)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V32-单调性与次可加性-page-27">
+<span class="md-ellipsis">
+      
+        V.3.2 单调性与次可加性 (page 27)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V4-查询定价最大化利润-page-28-29">
+<span class="md-ellipsis">
+      
+        V.4 查询定价最大化利润 (page 28-29)
+      
+    </span>
+</a>
+<nav aria-label="V.4 查询定价最大化利润 (page 28-29)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V41-针对买家行动的假设-page-28">
+<span class="md-ellipsis">
+      
+        V.4.1 针对买家行动的假设 (page 28)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V42-利润最大化问题-page-28">
+<span class="md-ellipsis">
+      
+        V.4.2 利润最大化问题 (page 28)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V43-超图-hypergraph-模型构建-page-29">
+<span class="md-ellipsis">
+      
+        V.4.3 超图 (hypergraph) 模型构建 (page 29)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI-机器学习模型的版本化与无套利定价-page-30-45">
+<span class="md-ellipsis">
+      
+        VI 机器学习模型的版本化与无套利定价 (page 30-45)
+      
+    </span>
+</a>
+<nav aria-label="VI 机器学习模型的版本化与无套利定价 (page 30-45)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI1-Dealer-端到端机器学习模型买卖市场架构-page-31-35">
+<span class="md-ellipsis">
+      
+        VI.1 Dealer 端到端机器学习模型买卖市场架构 (page 31-35)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI2-预备知识-page-36-40">
+<span class="md-ellipsis">
+      
+        VI.2 预备知识 (page 36-40)
+      
+    </span>
+</a>
+<nav aria-label="VI.2 预备知识 (page 36-40)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI21-版本化-Versioning-page-36">
+<span class="md-ellipsis">
+      
+        VI.2.1 版本化 (Versioning) (page 36)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI22-差分隐私-Differential-Privacy-page-37">
+<span class="md-ellipsis">
+      
+        VI.2.2 差分隐私 (Differential Privacy) (page 37)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI23-无套利-Arbitrage-page-38-39">
+<span class="md-ellipsis">
+      
+        VI.2.3 无套利 (Arbitrage) (page 38-39)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI24-Shapley-值-Shapley-Value-page-40">
+<span class="md-ellipsis">
+      
+        VI.2.4 Shapley 值 (Shapley Value) (page 40)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI3-数据拥有者补偿函数-Compensation-Function-page-41">
+<span class="md-ellipsis">
+      
+        VI.3 数据拥有者：补偿函数 (Compensation Function) (page 41)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI4-模型购买者价格函数-Price-Function-page-42">
+<span class="md-ellipsis">
+      
+        VI.4 模型购买者：价格函数 (Price Function) (page 42)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI5-中间商-Broker-page-43">
+<span class="md-ellipsis">
+      
+        VI.5 中间商 (Broker) (page 43)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI6-收入最大化-Revenue-Maximization-page-44-45">
+<span class="md-ellipsis">
+      
+        VI.6 收入最大化 (Revenue Maximization) (page 44-45)
+      
+    </span>
+</a>
+<nav aria-label="VI.6 收入最大化 (Revenue Maximization) (page 44-45)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI61-优化问题形式化-page-44">
+<span class="md-ellipsis">
+      
+        VI.6.1 优化问题形式化 (page 44)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI62-示例-page-45">
+<span class="md-ellipsis">
+      
+        VI.6.2 示例 (page 45)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VII-思考与未来工作-page-46">
+<span class="md-ellipsis">
+      
+        VII 思考与未来工作 (page 46)
+      
+    </span>
+</a>
+<nav aria-label="VII 思考与未来工作 (page 46)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VII1-如何为隐私定价-page-46">
+<span class="md-ellipsis">
+      
+        VII.1 如何为隐私定价？ (page 46)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VII2-如何做到诚实报价-page-46">
+<span class="md-ellipsis">
+      
+        VII.2 如何做到诚实报价？ (page 46)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VII3-市场一定是完全信息的吗-page-46">
+<span class="md-ellipsis">
+      
+        VII.3 市场一定是完全信息的吗？ (page 46)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Note
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    DEM
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:notes">notes</a>
+</nav>
+<h1 id="第九讲数据交易定价">第九讲：数据交易定价<a class="headerlink" href="#第九讲数据交易定价" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h1>
+<h2 id="I-数据交易的基本框架-page-4-6"><span>I<span class="heti-spacing"> </span></span>数据交易的基本框架<span><span class="heti-spacing"> </span>(page 4-6)</span><a class="headerlink" href="#I-数据交易的基本框架-page-4-6" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>数据交易是数字经济时代的核心组成部分。理解其基本框架对于探讨数据定价至关重要。一个典型的数据交易市场通常涉及以下三个主要参与方：</p>
+<ul>
+<li>数据提供方</li>
+<li>数据服务方（或数据中介）</li>
+<li>数据使用方</li>
+</ul>
+<h3 id="I1-数据服务方-Data-server--数据交易平台-Data-marketplace--数据中介-Data-broker-page-4"><span>I.1<span class="heti-spacing"> </span></span>数据服务方<span class="heti-skip"><span class="heti-spacing"> </span>(Data server) /<span class="heti-spacing"> </span></span>数据交易平台<span class="heti-skip"><span class="heti-spacing"> </span>(Data marketplace) /<span class="heti-spacing"> </span></span>数据中介<span><span class="heti-spacing"> </span>(Data broker) (page 4)</span><a class="headerlink" href="#I1-数据服务方-Data-server--数据交易平台-Data-marketplace--数据中介-Data-broker-page-4" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>数据服务方在数据交易中扮演着核心角色，通常作为数据交易的枢纽。</p>
+<ul>
+<li><strong>职能与任务：</strong> 数据服务方承担数据收集、管理、合规与安全等一系列关键任务，以确保数据交易能够正常、稳定地运行。</li>
+<li><strong>价值创造与收益分配：</strong> 他们负责将从数据提供者那里获得的原始数据转化为有价值的数据产品，例如查询服务或机器学习模型。这些数据产品随后被出售给数据使用方，由此产生的收益会根据预设的公平分配规则（例如，扣除处理费用和利润后）分配给原始数据提供方。</li>
+<li><strong>市场中的角色：</strong> 在现实中的数据交易场景中，数据中介的存在非常普遍。然而，也存在买卖双方直接交易、无需中介的简单场景。</li>
+</ul>
+<h3 id="I2-数据提供方-Data-owner-或-Data-seller-即数据卖家-page-5"><span>I.2<span class="heti-spacing"> </span></span>数据提供方<span class="heti-skip"><span class="heti-spacing"> </span>(Data owner,<span class="heti-spacing"> </span></span>或<span class="heti-skip"><span class="heti-spacing"> </span>Data seller,<span class="heti-spacing"> </span></span>即数据卖家<span><span class="heti-spacing"> </span>) (page 5)</span><a class="headerlink" href="#I2-数据提供方-Data-owner-或-Data-seller-即数据卖家-page-5" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>数据提供方是数据交易生态系统中的数据源头。</p>
+<ul>
+<li><strong>数据来源与转化：</strong> 他们负责提供原始数据。这些原始数据可能会经过加工、清洗或转换，最终形成可供销售的查询结果或用于训练机器学习模型。例如，原始数据可能是用于机器学习模型训练的梯度参数，或者是供查询系统调用的数据。</li>
+<li><strong>收益分配：</strong> 一份加工后出售的数据产品可能聚合了来自多个数据提供者的数据。因此，所得收益需要根据公平的原则（如数据贡献度、数据质量等）分配给这些原始数据提供者。</li>
+</ul>
+<h3 id="I3-数据使用方-Data-user-或-Data-buyer-即数据买家-page-6"><span>I.3<span class="heti-spacing"> </span></span>数据使用方<span class="heti-skip"><span class="heti-spacing"> </span>(Data user,<span class="heti-spacing"> </span></span>或<span class="heti-skip"><span class="heti-spacing"> </span>Data buyer,<span class="heti-spacing"> </span></span>即数据买家<span><span class="heti-spacing"> </span>) (page 6)</span><a class="headerlink" href="#I3-数据使用方-Data-user-或-Data-buyer-即数据买家-page-6" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>数据使用方是数据交易的最终消费者。</p>
+<ul>
+<li><strong>需求发起：</strong> 他们向数据中介（或数据服务方）提出购买特定数据产品的需求。</li>
+<li><strong>价值支付：</strong> 为了获取所需的数据产品，数据使用方需要支付一定的价格。这个价格的确定是数据定价研究的核心问题之一。</li>
+</ul>
+<h2 id="II-数据定价要求-page-7-9"><span>II<span class="heti-spacing"> </span></span>数据定价要求<span><span class="heti-spacing"> </span>(page 7-9)</span><a class="headerlink" href="#II-数据定价要求-page-7-9" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>数据定价不仅仅是简单的商品定价，它还面临数据特有的挑战。在数据交易的框架下，数据定价需要满足多方面的要求。</p>
+<h3 id="II1-保持传统市场中定价的基本要求-page-7"><span>II.1<span class="heti-spacing"> </span></span>保持传统市场中定价的基本要求<span><span class="heti-spacing"> </span>(page 7)</span><a class="headerlink" href="#II1-保持传统市场中定价的基本要求-page-7" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>传统市场经济学中的一些基本原则同样适用于数据定价。</p>
+<ul>
+<li><strong>效用最大化<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>帕累托最优<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>预算约束<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>社会福利最大化：</strong> 这些是市场经济中普遍追求的目标，在数据定价中也需被考虑。例如，定价机制应能引导市场参与者做出最大化自身效用或社会总福利的决策，并受限于参与者的预算。</li>
+<li><strong>平衡预算<span><span class="heti-spacing"> </span>(budget balance)</span>：</strong></li>
+</ul>
+<details class="definition" open="open">
+<summary>平衡预算</summary>
+<p>构建数据市场的总成本应当小于或等于市场所产生的总收益。如果成本超过收益，数据市场的建立将导致“财务赤字”，从而不可持续。</p>
+</details>
+<ul>
+<li><strong>个人理性<span><span class="heti-spacing"> </span>(individual rationality, IR)</span>：</strong></li>
+</ul>
+<details class="definition" open="open">
+<summary>个人理性<span><span class="heti-spacing"> </span>(IR)</span></summary>
+<p>市场中每个参与者（数据提供方、数据使用方）通过参与交易所获得的效用，应不低于其不参与交易所能获得的效用。</p>
+<p><strong>示例：</strong> 通常，不参与市场的效用可以视为零。因此，个人理性的基本要求是每个参与者从市场中获得的收益应大于其参与成本。</p>
+<p><strong>数据外部性：</strong> 数据的外部性（<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>network externalities）使得这一要求变得复杂。例如，竞争对手购买了机器学习模型，能够预测客户偏好，如果自身不购买则可能失去客户，此时不参与市场的效用可能为负数。</p>
+</details>
+<ul>
+<li><strong>无嫉妒<span><span class="heti-spacing"> </span>(envy-free)</span>：</strong></li>
+</ul>
+<details class="definition" open="open">
+<summary>无嫉妒<span><span class="heti-spacing"> </span>(envy-free)</span></summary>
+<p>一个数据买家不会嫉妒另一个数据买家，即他不会觉得用另一个人支付的钱购买那个人的产品，比用自己支付的钱购买自己的产品更值得。</p>
+<p><strong>补充：</strong> 这一概念来源于经济学中经典的“分蛋糕问题”<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>，旨在确保分配的公平性。著名的<span class="heti-skip"><span class="heti-spacing"> </span>Selfridge-Conway<span class="heti-spacing"> </span></span>算法就是解决这一问题的有效方法。</p>
+</details>
+<h3 id="II2-针对数据的特性数据定价的挑战-page-8"><span>II.2<span class="heti-spacing"> </span></span>针对数据的特性，数据定价的挑战<span><span class="heti-spacing"> </span>(page 8)</span><a class="headerlink" href="#II2-针对数据的特性数据定价的挑战-page-8" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>除了传统市场的要求，数据自身的特性也带来了独特的定价挑战。</p>
+<ul>
+<li><strong>考虑数据隐私性<span><span class="heti-spacing"> </span>(privacy)</span>：</strong><ul>
+<li>尽管数据具有“零成本复制”的特性（复制一份数据的边际成本几乎为零<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，但若考虑数据的隐私成本，数据的出售可能导致其价值降低。</li>
+<li>需要辨析：数据出售越多，数据的价值是否越低？这可能取决于我们如何定义“数据的价值”，例如是否包含隐私泄露带来的潜在损失。</li>
+</ul>
+</li>
+<li><strong>动态性<span><span class="heti-spacing"> </span>(dynamicity)</span>：</strong><ul>
+<li>数据是不断更新的，因此动态的数据定价策略值得考虑。</li>
+<li>最新的数据通常具有更高的价值，而过时的数据价值则会降低。</li>
+<li>当买家购买同一份数据集的更新版本时，如何定价以避免大量重复信息的价值问题<heti-adjacent class="heti-adjacent-quarter">？</heti-adjacent>“订阅制定价”是解决这一问题的一种常见方式。</li>
+</ul>
+</li>
+<li><strong>无套利原则<span><span class="heti-spacing"> </span>(arbitrage freeness)</span>：</strong> 市场中不允许出现套利机会，即不能通过无风险的交易策略赚取利润。</li>
+<li><strong>诚实性<span class="heti-skip"><span class="heti-spacing"> </span>(truthful) /<span class="heti-spacing"> </span></span>激励相容<span><span class="heti-spacing"> </span>(incentive compatible, IC)</span>：</strong> 这指的是设计一种机制，使得参与者在追求自身利益最大化时，通过如实报告其真实偏好或信息，能够实现最优结果。这通常在非合作博弈论与机制设计中进行讨论。</li>
+<li><strong>公平分配<span><span class="heti-spacing"> </span>(fairness)</span>：</strong> 涉及到如何公平地在数据提供者之间分配收益，以及在买家之间分配数据产品。这在合作博弈论中有所研究。</li>
+<li><strong>高效<span><span class="heti-spacing"> </span>(efficiency)</span>：</strong> 定价机制需要能够快速计算出结果，通常这意味着可以设计出多项式时间算法来解决定价问题。市场能够高效运行的关键在于，参与者无需等待大量时间即可获得定价结果。<ul>
+<li>这体现了经济学与计算机科学的交叉领域——“算法博弈论”的思想，旨在设计既能实现经济目标又能保证计算效率的机制。</li>
+</ul>
+</li>
+</ul>
+<h3 id="II3-定价要求是否必须同时达到page-9"><span>II.3<span class="heti-spacing"> </span></span>定价要求是否必须同时达到？(page 9)<a class="headerlink" href="#II3-定价要求是否必须同时达到page-9" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>并非必须</strong>：实践中，上述所有定价要求往往难以同时满足。<ul>
+<li><strong><span>Myerson-Satterthwaite<span class="heti-spacing"> </span></span>定理：</strong> 在一般环境下，个人理性、激励相容、平衡预算与社会福利最大化这四个目标通常不可兼得。这意味着在机制设计中，我们往往需要在这些目标之间进行权衡。</li>
+<li><strong><span>NP-hard<span class="heti-spacing"> </span></span>问题：</strong> 满足部分定价要求的价格计算问题可能属于<span class="heti-skip"><span class="heti-spacing"> </span>NP-hard<span class="heti-spacing"> </span></span>问题，这意味着在大型市场中找到最优解在计算上是困难的。</li>
+<li><strong>多参数最优机制：</strong> 还有许多亟待解决的问题，例如如何设计适用于多参数（如不同类型数据、不同买家偏好等）的最优定价机制。</li>
+</ul>
+</li>
+<li><strong>实用性考量：</strong> 在实际的数据定价中，同时考虑过多的理论要求可能不切实际，甚至无法得到最优效果。<ul>
+<li><strong>有限理性：</strong> 人的理性并非完美，工具理性也并非人们做决策的唯一标准。<ul>
+<li><strong>示例：谷歌广告拍卖：</strong> 谷歌早期广告拍卖从广义二价拍卖（类似于<span class="heti-skip"><span class="heti-spacing"> </span>VCG<span class="heti-spacing"> </span></span>机制，旨在实现效率和激励相容）逐渐转向一价拍卖（出价最高者得，可能带来更高收益但激励相容性较弱<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，这反映了在实际商业环境中对不同目标的权衡。</li>
+</ul>
+</li>
+<li><strong>研究侧重：</strong> 通常的研究都是在满足一些基本要求（例如利润最大化、诚实性）的基础上，进一步考虑数据特性带来的定价问题。更深入的探讨可以在博弈论和机制设计领域进行。</li>
+</ul>
+</li>
+</ul>
+<h2 id="III-现实中的数据定价策略-page-11-13"><span>III<span class="heti-spacing"> </span></span>现实中的数据定价策略<span><span class="heti-spacing"> </span>(page 11-13)</span><a class="headerlink" href="#III-现实中的数据定价策略-page-11-13" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>现实世界中存在多种数据定价策略，这些策略往往借鉴了传统商品和服务的定价模型，并根据数据的特性进行了调整。</p>
+<h3 id="III1-免费数据-page-11"><span>III.1<span class="heti-spacing"> </span></span>免费数据<span><span class="heti-spacing"> </span>(page 11)</span><a class="headerlink" href="#III1-免费数据-page-11" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>价值：</strong> 一些公开的统计数据通常不具有直接出售的价值。</li>
+<li><strong>目的：</strong> 然而，免费提供这些数据可以吸引用户进入市场，从而进一步吸引更多数据提供者加入，形成良性循环。</li>
+</ul>
+<h3 id="III2-根据使用次数决定价格-page-11"><span>III.2<span class="heti-spacing"> </span></span>根据使用次数决定价格<span><span class="heti-spacing"> </span>(page 11)</span><a class="headerlink" href="#III2-根据使用次数决定价格-page-11" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>这种策略通常应用于<span class="heti-skip"><span class="heti-spacing"> </span>API (Application Programming Interface)<span class="heti-spacing"> </span></span>调用，类似于咨询服务按小时计费。</p>
+<ul>
+<li><strong>模式：</strong> 每次调用<span class="heti-skip"><span class="heti-spacing"> </span>API<span class="heti-spacing"> </span></span>都收取一定的价格。</li>
+<li><strong>供给侧视角：</strong> 从供给成本角度看，数据可以零成本复制。例如，一个机器学习模型训练好之后，尽管训练成本可能很高，但每次调用<span class="heti-skip"><span class="heti-spacing"> </span>API<span class="heti-spacing"> </span></span>所需的边际成本几乎为零。因此，当<span class="heti-skip"><span class="heti-spacing"> </span>API<span class="heti-spacing"> </span></span>调用次数越多时，理论上边际成本会下降。</li>
+<li><strong>需求侧视角：</strong> 从需求效用角度看，每次买家调用<span class="heti-skip"><span class="heti-spacing"> </span>API<span class="heti-spacing"> </span></span>都是为了获取新的数据或信息，这说明存在着持续的数据需求，因此按使用次数收费具有合理性。</li>
+</ul>
+<h3 id="III3-打包定价-page-11"><span>III.3<span class="heti-spacing"> </span></span>打包定价<span><span class="heti-spacing"> </span>(page 11)</span><a class="headerlink" href="#III3-打包定价-page-11" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>模式：</strong> 以固定的价格出售一定次数的<span class="heti-skip"><span class="heti-spacing"> </span>API<span class="heti-spacing"> </span></span>调用权。</li>
+<li><strong>升级版：</strong> 这种策略可以看作是“根据使用次数定价”的升级版，为买家提供了更灵活的选择和潜在的成本节约。</li>
+</ul>
+<h3 id="III4-订阅制-page-12"><span>III.4<span class="heti-spacing"> </span></span>订阅制<span><span class="heti-spacing"> </span>(page 12)</span><a class="headerlink" href="#III4-订阅制-page-12" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>订阅制是一种常见的服务定价模式，它基于用户支付的固定费用来提供一段时间内的服务访问权。</p>
+<ul>
+<li><strong>按订阅时间收费：</strong><ul>
+<li><strong>全权限开放：</strong> 一种机制是用户订阅后获得全部权限。</li>
+<li><strong>固定费用<span class="heti-skip"><span class="heti-spacing"> </span>+<span class="heti-spacing"> </span></span>额外服务费：</strong> 另一种是支付固定订阅费后，再根据每次服务使用额外收取费用。这类似于移动通信公司或软件许可模式，固定费用用于覆盖固定成本，而服务费用则提供利润。</li>
+</ul>
+</li>
+<li><strong>优势：</strong> 订阅制可以比较有效地解决动态定价问题，并能产生“订阅循环”，从而锁定用户，提高用户粘性。</li>
+</ul>
+<h3 id="III5-免费增值-Freemium-page-12-14"><span>III.5<span class="heti-spacing"> </span></span>免费增值<span><span class="heti-spacing"> </span>(Freemium) (page 12-14)</span><a class="headerlink" href="#III5-免费增值-Freemium-page-12-14" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>免费增值模式结合了免费服务和付费增值服务。</p>
+<ul>
+<li><strong>核心思想：版本化<span><span class="heti-spacing"> </span>(page 14)</span>：</strong> 免费增值模式的关键思想在于“版本化”，即提供不同功能或服务水平的数据产品。</li>
+</ul>
+<details class="example" open="open">
+<summary><span>Freemium<span class="heti-spacing"> </span></span>示例</summary>
+<p>许多软件服务，如<span><span class="heti-spacing"> </span>Overleaf</span>（一个在线<span class="heti-skip"><span class="heti-spacing"> </span>LaTeX<span class="heti-spacing"> </span></span>编辑器）和淘宝旺铺服务，都采用了免费增值模式。它们提供一个免费的基础版本来吸引和锁定用户，然后通过提供更高级的功能或服务（增值服务）来将部分免费用户转化为付费用户。</p>
+<p><strong>优势：</strong></p>
+<ol>
+<li>无需花费大笔广告费用来介绍服务的各种特性，用户通过免费使用即可自我学习并熟悉产品。</li>
+<li>可以利用“二八定律”（<span>20%<span class="heti-spacing"> </span></span>的付费用户支付了<span class="heti-skip"><span class="heti-spacing"> </span>80%<span class="heti-spacing"> </span></span>的成本）来支撑免费用户的使用。因此，如何提高付费转化率成为一个重要课题。</li>
+</ol>
+</details>
+<h3 id="III6-特点总结-page-13"><span>III.6<span class="heti-spacing"> </span></span>特点总结<span><span class="heti-spacing"> </span>(page 13)</span><a class="headerlink" href="#III6-特点总结-page-13" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>经典营销策略的借鉴：</strong> 许多数据定价策略借鉴了传统服务定价（如软件使用、移动通信）或数字商品（如视频平台）的经验。这些产品通常具有高固定成本、低边际成本的特点，且内容动态更新。</li>
+<li><strong>从成本导向转向需求导向：</strong><ul>
+<li>由于数据可以零成本复制，因此在数据定价中，固定成本更多地被视为预算平衡的限制，而非定价的核心要素。</li>
+<li>上述定价方法基本都从买家需求出发，目标是吸引买家，并给予买家更好的体验。</li>
+</ul>
+</li>
+<li><strong>使用次数定价与订阅制的比较：</strong><ul>
+<li>根据使用次数定价类似于传统定价方式，可能显得相对“幼稚” (naive)。</li>
+<li>订阅制有效解决了动态定价问题，同时能够留住客户。它以买家为中心，因为买家若不满意可以选择退出订阅，这会影响市场盈利，而不像买断服务那样可能导致服务质量越来越差。</li>
+</ul>
+</li>
+<li><strong>免费增值：</strong> 免费增值模式通过版本化吸引不同类型的买家群体，并能最大化总销售额与利润。它通过提供个性化的产品，实现个性化定价。</li>
+</ul>
+<h2 id="IV-数据的版本化与无套利原则-page-15-18"><span>IV<span class="heti-spacing"> </span></span>数据的版本化与无套利原则<span><span class="heti-spacing"> </span>(page 15-18)</span><a class="headerlink" href="#IV-数据的版本化与无套利原则-page-15-18" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>数据版本化是一种智能的信息销售方式，它允许数据提供方根据不同的需求和价值提供不同“版本”的数据产品。然而，版本化也可能引入套利机会，这需要通过“无套利原则”来解决。</p>
+<h3 id="IV1-数据的版本化-page-15"><span>IV.1<span class="heti-spacing"> </span></span>数据的版本化<span><span class="heti-spacing"> </span>(page 15)</span><a class="headerlink" href="#IV1-数据的版本化-page-15" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>“数据的版本化”是指将数据或数据产品以不同形式、不同质量或不同功能级别进行销售的策略。这种方法源于<span class="heti-skip"><span class="heti-spacing"> </span>Shapiro<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>Varian 1998<span class="heti-spacing"> </span></span>年关于信息销售的研究。</p>
+<ul>
+<li><strong>原始数据版本化：</strong><ul>
+<li>无需一次性出售所有数据，可以根据用户兴趣将数据划分为不同部分进行出售。</li>
+<li>根据数据的关键性进行分级分类出售。</li>
+<li>通过添加噪声来构造新版本，例如降低数据的精度或匿名化程度。</li>
+</ul>
+</li>
+<li><strong>查询数据版本化：</strong><ul>
+<li>可以为任意的<span class="heti-skip"><span class="heti-spacing"> </span>SQL<span class="heti-spacing"> </span></span>查询（Structured Query Language）定价。这意味着用户可以购买特定查询的结果，而无需购买整个数据集。</li>
+</ul>
+</li>
+<li><strong>机器学习模型版本化：</strong><ul>
+<li>通过向训练好的模型中添加噪声，影响模型的准确性，从而生成不同版本的机器学习模型。例如，提供高精度、高价格的模型和低精度、低价格的模型。</li>
+</ul>
+</li>
+</ul>
+<h3 id="IV2-版本化的好处-page-16"><span>IV.2<span class="heti-spacing"> </span></span>版本化的好处<span><span class="heti-spacing"> </span>(page 16)</span><a class="headerlink" href="#IV2-版本化的好处-page-16" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>版本化策略对买卖双方都带来了显著的益处。</p>
+<ul>
+<li><strong>买家侧：</strong><ul>
+<li><strong>自由选择：</strong> 买家拥有更大的选择自由，可以只购买自己感兴趣或需要的部分数据或特定功能。</li>
+<li><strong>预算友好：</strong> 对于预算有限的买家，即使买不起“最好的”数据，也可以选择购买级别较低、价格更实惠的数据产品。</li>
+</ul>
+</li>
+<li><strong>卖家侧：</strong><ul>
+<li><strong>高效利用零成本复制特性：</strong> 卖家可以有效利用数据“零成本复制”的特性，构建不同类型的数据产品，从而吸引更广泛的用户群体。</li>
+<li><strong>网络外部性<span class="heti-skip"><span class="heti-spacing"> </span>(network externalities)<span class="heti-spacing"> </span></span>或需求面的规模经济<span><span class="heti-spacing"> </span>(demand-side economies of scale)</span>：</strong></li>
+<li><strong>增大卖家利润：</strong> 价格歧视理论</li>
+</ul>
+</li>
+</ul>
+<details class="definition" open="open">
+<summary>网络外部性<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>需求面的规模经济</summary>
+<p>指使用某一产品的消费者越多，个体消费者在使用该产品时获得的效用就越大。</p>
+<p><strong>示例：</strong> 如果没有其他人拥有传真机，那么你购买传真机将毫无意义，因为你无法与他人通信。但当传真机用户增多时，其对每个用户的价值也随之增加。</p>
+<p><strong>与生产规模经济的区别：</strong> 生产规模经济是通过扩大生产规模来降低单位成本，而网络外部性则强调用户数量增加带来的价值提升。</p>
+<p><strong>在数据市场中的疑问：</strong> 在数据市场中，这种网络外部性是否明显？例如，微软通过版本化出售操作系统，低价版本吸引了大量客户，从而建立了庞大的<span class="heti-skip"><span class="heti-spacing"> </span>Windows<span class="heti-spacing"> </span></span>用户生态。随着用户增多，更多开发者愿意为<span class="heti-skip"><span class="heti-spacing"> </span>Windows<span class="heti-spacing"> </span></span>开发应用，进一步增加了<span class="heti-skip"><span class="heti-spacing"> </span>Windows<span class="heti-spacing"> </span></span>系统的价值。微软增加用户或服务的成本可以忽略，但愿意购买付费服务的用户增加，从而实现了需求面的规模经济。然而，在数据市场中，这种直接的网络外部性效应可能不如软件市场那么显著。</p>
+</details>
+<details class="definition" open="open">
+<summary>价格歧视</summary>
+<p>经济学中的定义是“按不同价格出售不同单位的产量”。</p>
+<p><strong>第二级价格歧视：</strong> 表现为非线性定价，即每单位产品的价格不一致，例如批量购买可以获得折扣。在数据市场中，这意味着为支付意愿较高的买家出售高价优质数据，而为支付意愿较低的买家出售低价次级数据。</p>
+<p><strong>个性化定价：</strong> 卖家可以从成本导向转向需求导向，根据用户的具体需求出售产品并制定价格，从而实现利润最大化。</p>
+</details>
+<h3 id="IV3-版本化带来的问题套利的可能-page-17-18"><span>IV.3<span class="heti-spacing"> </span></span>版本化带来的问题：套利的可能<span><span class="heti-spacing"> </span>(page 17-18)</span><a class="headerlink" href="#IV3-版本化带来的问题套利的可能-page-17-18" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>版本化在带来好处的同时，也可能引入套利机会。</p>
+<details class="example" open="open">
+<summary>香蕉套利示例<span><span class="heti-spacing"> </span>(page 17)</span></summary>
+<p>假设市场上有两种购买香蕉的方式：</p>
+<ul>
+<li>购买<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>根香蕉，价格为<span class="heti-skip"><span class="heti-spacing"> </span>3<span class="heti-spacing"> </span></span>美元。</li>
+<li>购买<span class="heti-skip"><span class="heti-spacing"> </span>3<span class="heti-spacing"> </span></span>根香蕉，价格为<span class="heti-skip"><span class="heti-spacing"> </span>10<span class="heti-spacing"> </span></span>美元。</li>
+</ul>
+<p>此时，一个“聪明”的买家会发现，如果他分三次购买，每次购买<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>根香蕉，那么购买<span class="heti-skip"><span class="heti-spacing"> </span>3<span class="heti-spacing"> </span></span>根香蕉的总成本将是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(3 \times 3 = 9\)</span><span class="heti-spacing"> </span></span>美元，这比一次性购买<span class="heti-skip"><span class="heti-spacing"> </span>3<span class="heti-spacing"> </span></span>根香蕉的<span class="heti-skip"><span class="heti-spacing"> </span>10<span class="heti-spacing"> </span></span>美元更便宜。这种行为就叫做<strong>套利<span><span class="heti-spacing"> </span>(arbitrage)</span></strong>。</p>
+</details>
+<h4 id="IV31-套利的严格定义-page-18"><span>IV.3.1<span class="heti-spacing"> </span></span>套利的严格定义<span><span class="heti-spacing"> </span>(page 18)</span><a class="headerlink" href="#IV31-套利的严格定义-page-18" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>套利这一术语来源于金融学，有其严格的定义。</p>
+<details class="definition" open="open">
+<summary>套利<span><span class="heti-spacing"> </span>(Arbitrage)</span></summary>
+<p>利用一个或多个市场存在的各种价格差异，在不冒任何损失风险且无需投资者自有资金的情况下，赚取利润的交易策略或行为。</p>
+<p><strong>金融学中的“做空”：</strong> 在金融学中，类似于香蕉的例子可以通过“做空”来实现。例如，从卖家手中分三次借入三根香蕉（无需立即支付<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，然后将其捆绑以<span class="heti-skip"><span class="heti-spacing"> </span>10<span class="heti-spacing"> </span></span>元出售，最后再分三次向卖家偿还<span class="heti-skip"><span class="heti-spacing"> </span>9<span class="heti-spacing"> </span></span>元。这样，投资者就可以无风险地“空手套白狼”赚取<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>元。</p>
+<p><strong>数据市场中的套利：</strong> 在数据市场的研究中，套利的定义通常没有金融学中那么严谨。上述香蕉例子可以被视为一种套利行为，因为它在市场中创造了套利机会，即通过多次购买更便宜的单价产品来组合成更贵的打包产品。</p>
+<p><strong>影响：</strong> 套利行为的存在可能导致非预期的市场行为，甚至破坏市场稳定性。在金融学理论中，无套利原则是其重要的基石。</p>
+</details>
+<h4 id="IV32-无套利原则-arbitrage-freeness-page-18"><span>IV.3.2<span class="heti-spacing"> </span></span>无套利原则<span><span class="heti-spacing"> </span>(arbitrage freeness) (page 18)</span><a class="headerlink" href="#IV32-无套利原则-arbitrage-freeness-page-18" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<details class="definition" open="open">
+<summary>无套利原则<span><span class="heti-spacing"> </span>(Arbitrage Freeness)</span></summary>
+<p>即市场中不允许出现上述套利机会。</p>
+<p><strong>特性：</strong> 无套利原则在不同的数据类型中具有相同的本质，但其内涵和具体实现方式略有差异。</p>
+</details>
+<p>接下来，我们将分别介绍查询数据和机器学习模型的无套利定价。</p>
+<h2 id="V-查询数据的版本化与无套利定价-page-19-29"><span>V<span class="heti-spacing"> </span></span>查询数据的版本化与无套利定价<span><span class="heti-spacing"> </span>(page 19-29)</span><a class="headerlink" href="#V-查询数据的版本化与无套利定价-page-19-29" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>在数据交易中，查询数据是常见的数据产品形式。本节将深入探讨查询数据的定价模型及其无套利原则。</p>
+<h3 id="V1-数据库基础知识-page-20-22"><span>V.1<span class="heti-spacing"> </span></span>数据库基础知识<span><span class="heti-spacing"> </span>(page 20-22)</span><a class="headerlink" href="#V1-数据库基础知识-page-20-22" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Lec08-2.png"><img alt="数据库基础概念回顾|600" src="../attachments/Lec08-2.png"/></a></p>
+<ul>
+<li>
+<p><strong>关系<span class="heti-skip"><span class="heti-spacing"> </span>(relation) /<span class="heti-spacing"> </span></span>表格：</strong> (page 20)</p>
+<ul>
+<li><strong>属性<span class="heti-skip"><span class="heti-spacing"> </span>(attributes)<span class="heti-spacing"> </span></span>或列<span><span class="heti-spacing"> </span>(columns)</span>：</strong> 表格的每一列，代表数据的一个特定维度或字段（例如：<code>ID</code>, <code>name</code>, <code>gender</code>, <code>age</code><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>元组<span class="heti-skip"><span class="heti-spacing"> </span>(tuples)<span class="heti-spacing"> </span></span>或行<span><span class="heti-spacing"> </span>(rows)</span>：</strong> 表格的每一行，代表一个完整的数据记录或实体（例如<heti-adjacent class="heti-adjacent-half">：</heti-adjacent><code>(10101, Srinivasan, Comp. Sci., 65000)</code><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>形式化定义：</strong> 给定属性集合<span><span class="heti-spacing"> </span><span class="arithmatex">\(D_1, D_2, \dots, D_n\)</span></span>，一个关系<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(r\)</span><span class="heti-spacing"> </span></span>是这些属性域的笛卡尔积<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D_1 \times D_2 \times \dots \times D_n\)</span><span class="heti-spacing"> </span></span>的子集。因此，一个关系（表格）是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>元组<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((a_1, a_2, \dots, a_n)\)</span><span class="heti-spacing"> </span></span>的集合，其中每个<span><span class="heti-spacing"> </span><span class="arithmatex">\(a_i \in D_i\)</span></span>。</li>
+<li><strong>域<span><span class="heti-spacing"> </span>(domain)</span>：</strong> 每个属性可能取值的集合称为该属性的域。</li>
+</ul>
+</li>
+<li>
+<p><strong>关系模式<span class="heti-skip"><span class="heti-spacing"> </span>(relation schema)<span class="heti-spacing"> </span></span>与关系实例<span><span class="heti-spacing"> </span>(relation instance)</span>：</strong> (page 21)</p>
+<ul>
+<li><strong>关系模式<span><span class="heti-spacing"> </span><span class="arithmatex">\(R = (A_1, A_2, \dots, A_n)\)</span></span>：</strong> 通常而言就是数据库表格的“表头”，定义了表格的结构，包括属性的名称和顺序。例如：<code>Instructor_schema = (id, name, dept_name, salary)</code>。</li>
+<li><strong>关系<span><span class="heti-spacing"> </span><span class="arithmatex">\(r(R)\)</span></span>：</strong> 表示关系模式<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(R\)</span><span class="heti-spacing"> </span></span>上的一个关系<span><span class="heti-spacing"> </span><span class="arithmatex">\(r\)</span></span>，换句话说，它是符合表头的、一系列元组的集合。例如：<code>instructor(Instructor_schema)</code>。</li>
+<li><strong>关系实例：</strong> 是一个所有值都已确定的表格。关系<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(r\)</span><span class="heti-spacing"> </span></span>中的一个元素<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span><span class="heti-spacing"> </span></span>称为元组，在表格中表示为一行具体的记录。</li>
+<li><strong>数据库<span><span class="heti-spacing"> </span>(database)</span>：</strong> 包含很多关系（表格）的集合。简而言之，数据库是由许多表格构成的。</li>
+</ul>
+</li>
+<li>
+<p><strong>结构化查询语言<span><span class="heti-spacing"> </span>(Structured Query Language, SQL)</span>：</strong> (page 22)</p>
+<ul>
+<li><strong>定义：</strong> <span>SQL<span class="heti-spacing"> </span></span>是目前最常用的用于访问和处理数据库的标准计算机语言。</li>
+<li><strong>基本结构：</strong> <span>SQL<span class="heti-spacing"> </span></span>查询的基本结构如下：</li>
+</ul>
+<div class="highlight"><span class="filename">SQL</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos="1 "></span></a><span class="k">select</span><span class="w"> </span><span class="n">A1</span><span class="p">,</span><span class="w"> </span><span class="n">A2</span><span class="p">,</span><span class="w"> </span><span class="p">...,</span><span class="w"> </span><span class="n">An</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos" data-linenos="2 "></span></a><span class="k">from</span><span class="w"> </span><span class="n">r1</span><span class="p">,</span><span class="w"> </span><span class="n">r2</span><span class="p">,</span><span class="w"> </span><span class="p">...,</span><span class="w"> </span><span class="n">rm</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><a href="#__codelineno-0-3"><span class="linenos" data-linenos="3 "></span></a><span class="k">where</span><span class="w"> </span><span class="n">P</span>
+</span></code></pre></div>
+<ul>
+<li><span><span class="arithmatex">\(A_1, A_2, \dots, A_n\)</span><span class="heti-spacing"> </span></span>表示要查询的属性（列<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；</li>
+<li><span><span class="arithmatex">\(r_1, r_2, \dots, r_m\)</span><span class="heti-spacing"> </span></span>表示要从中查询的关系（表格<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；</li>
+<li><code>P</code> 是一个谓词（条件表达式<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>含义：</strong> 上述<span class="heti-skip"><span class="heti-spacing"> </span>SQL<span class="heti-spacing"> </span></span>语句的含义是从表格 <code>r1, r2, ..., rm</code> 中查询满足谓词 <code>P</code> 的元组的 <code>A1, A2, ..., An</code> 属性；</li>
+<li><strong>查询结果：</strong> <span>SQL<span class="heti-spacing"> </span></span>查询返回的结果也是一个关系（表格<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，该关系包含了满足查询要求的元组集合；</li>
+<li><strong>其他操作：</strong> <span>SQL<span class="heti-spacing"> </span></span>还支持插入、删除、各种合并操作（如<span><span class="heti-spacing"> </span>JOIN</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，但这些与当前课程关联不大，故不在此赘述。</li>
+</ul>
+</li>
+</ul>
+<h3 id="V2-查询定价基本模型-page-23"><span>V.2<span class="heti-spacing"> </span></span>查询定价基本模型<span><span class="heti-spacing"> </span>(page 23)</span><a class="headerlink" href="#V2-查询定价基本模型-page-23" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>场景设定：</strong> 一个数据卖家需要出售一个关系实例（即一个表格）<span class="arithmatex">\(D \in I\)</span>（其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(I\)</span><span class="heti-spacing"> </span></span>是卖家拥有的全体关系实例<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。数据买家可以通过查询来购买数据。</li>
+<li><strong>查询向量：</strong> 买家可以通过对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D\)</span><span class="heti-spacing"> </span></span>进行一组查询<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q = (Q_1, \dots, Q_p)\)</span><span class="heti-spacing"> </span></span>来购买数据，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q\)</span><span class="heti-spacing"> </span></span>被称为查询向量<span><span class="heti-spacing"> </span>(query vector)</span>。</li>
+<li><strong>查询函数：</strong> 每次查询（一个<span class="heti-skip"><span class="heti-spacing"> </span>SQL<span class="heti-spacing"> </span></span>语句）<span><span class="arithmatex">\(Q\)</span><span class="heti-spacing"> </span></span>可以视为一个确定性函数，将表格<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D\)</span><span class="heti-spacing"> </span></span>映射到查询结果<span><span class="heti-spacing"> </span><span class="arithmatex">\(Q(D)\)</span></span>。因此，整个查询向量得到的答案可以记为<span><span class="heti-spacing"> </span><span class="arithmatex">\(Q(D)\)</span></span>。</li>
+<li><strong>定价函数：</strong> 一个定价函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p(Q, D)\)</span><span class="heti-spacing"> </span></span>根据查询输入的向量以及表格决定一个价格，该价格必须是一个正实数。</li>
+<li><strong>无套利原则：</strong> 我们要求定价函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p(Q, D)\)</span><span class="heti-spacing"> </span></span>满足以下两类无套利原则：<ul>
+<li><strong>信息无套利<span><span class="heti-spacing"> </span>(information arbitrage)</span></strong></li>
+<li><strong>组合无套利<span><span class="heti-spacing"> </span>(combination arbitrage)</span></strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="V21-查询定价的信息无套利原则-page-24"><span>V.2.1<span class="heti-spacing"> </span></span>查询定价的信息无套利原则<span><span class="heti-spacing"> </span>(page 24)</span><a class="headerlink" href="#V21-查询定价的信息无套利原则-page-24" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>信息无套利原则关注的是不同查询之间信息包含关系与价格的关系。</p>
+<p><strong>直观理解：</strong> 如果一个查询向量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q_1\)</span><span class="heti-spacing"> </span></span>得到的结果是另一个查询向量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q_2\)</span><span class="heti-spacing"> </span></span>结果的子集，那么<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q_1\)</span><span class="heti-spacing"> </span></span>的价格一定低于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q_2\)</span><span class="heti-spacing"> </span></span>的价格。</p>
+<p>直观来看，查询向量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q_2\)</span><span class="heti-spacing"> </span></span>可以决定<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q_1\)</span><span class="heti-spacing"> </span></span>表明<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q_2\)</span><span class="heti-spacing"> </span></span>比<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q_1\)</span><span class="heti-spacing"> </span></span>更强，或者说<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q_2\)</span><span class="heti-spacing"> </span></span>包含了<span><span class="heti-spacing"> </span><span class="arithmatex">\(Q_1\)</span></span>，这与我们的直觉相符。</p>
+<details class="definition" open="open">
+<summary>信息无套利<span><span class="heti-spacing"> </span>(Information Arbitrage)</span></summary>
+<p>假设<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D \in I\)</span><span class="heti-spacing"> </span></span>是一个表格。如果对于任意满足<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q_2(D) = Q_2(D')\)</span><span class="heti-spacing"> </span></span>的<span><span class="heti-spacing"> </span><span class="arithmatex">\(D' \in I\)</span></span>，都有<span><span class="heti-spacing"> </span><span class="arithmatex">\(Q_1(D) = Q_1(D')\)</span></span>，则称在表格<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D\)</span><span class="heti-spacing"> </span></span>下查询向量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q_2\)</span><span class="heti-spacing"> </span></span>可以决定<span><span class="heti-spacing"> </span><span class="arithmatex">\(Q_1\)</span></span>。</p>
+<p><strong>定价函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p\)</span><span class="heti-spacing"> </span></span>是信息无套利的条件：</strong>
+如果对于所有满足在表格 <span class="arithmatex">\(D\)</span> 下查询向量 <span class="arithmatex">\(Q_2\)</span> 可以决定 <span class="arithmatex">\(Q_1\)</span> 的表格 <span class="arithmatex">\(D\)</span>，都有：</p>
+<div class="arithmatex">\[
+p(Q_2, D) \ge p(Q_1, D)
+\]</div>
+</details>
+<p><strong>示例：</strong>
+买家 Alice 希望查找表格中有多少个女性用户。她可以使用两种查询方式：</p>
+<ol>
+<li><code>select count(*) from User where gender = 'f'</code> <span>(<span class="heti-spacing"> </span></span>查询<span><span class="heti-spacing"> </span>1)</span></li>
+<li><code>select gender, count(*) from User group by gender</code> <span>(<span class="heti-spacing"> </span></span>查询<span><span class="heti-spacing"> </span>2)</span></li>
+</ol>
+<p>查询<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>精确地查询出女性用户数量。查询<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>则同时给出了男性和女性的用户数量。无论对于任何表格<span><span class="heti-spacing"> </span><span class="arithmatex">\(D\)</span></span>，查询<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>总是能够决定查询<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>的结果。因此，根据信息无套利原则，定价函数必须满足：</p>
+<div class="arithmatex">\[
+p(\text{查询 2}, D) \ge p(\text{查询 1}, D)
+\]</div>
+<h4 id="V22-查询定价的组合无套利原则-page-25"><span>V.2.2<span class="heti-spacing"> </span></span>查询定价的组合无套利原则<span><span class="heti-spacing"> </span>(page 25)</span><a class="headerlink" href="#V22-查询定价的组合无套利原则-page-25" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>组合无套利原则与香蕉套利的故事类似，关注的是一次性查询和分两次查询之间的价格关系。</p>
+<p><strong>直观理解：</strong> 一次查询如果可以拆分成两次查询来完成，那么一次查询的价格不能大于两次查询的价格之和。否则，买家可以通过分别两次查询来绕开一次查询的定价，实现套利。</p>
+<details class="definition" open="open">
+<summary>组合无套利<span><span class="heti-spacing"> </span>(Combination Arbitrage)</span></summary>
+<p>我们记<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q = Q_1 || Q_2\)</span><span class="heti-spacing"> </span></span>为查询<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q_1\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q_2\)</span><span class="heti-spacing"> </span></span>的连接，即查询<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q\)</span><span class="heti-spacing"> </span></span>可以拆成<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q_1\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q_2\)</span><span class="heti-spacing"> </span></span>两次查询分别执行。</p>
+<p>如果对于所有表格<span><span class="heti-spacing"> </span><span class="arithmatex">\(D\)</span></span>，定价函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p\)</span><span class="heti-spacing"> </span></span>是组合无套利的条件是：</p>
+<div class="arithmatex">\[
+p(Q_1 || Q_2, D) \le p(Q_1, D) + p(Q_2, D)
+\]</div>
+</details>
+<p><strong>示例：</strong>
+买家 Alice 希望查找表格中女性用户的平均年龄。她可以使用如下查询方式：</p>
+<ol>
+<li><code>Q3: select avg(age) from User where gender = 'f'</code></li>
+</ol>
+<p>但这一查询也可以通过以下两个查询共同得到：</p>
+<ol>
+<li><code>Q1: select count(*) from User where gender = 'f'</code></li>
+<li><code>Q4: select sum(age) from User where gender = 'f'</code></li>
+</ol>
+<p>因为 <code>avg(age)</code> 等于 <code>sum(age) / count(*)</code>，所以 <code>Q3</code> 可以由 <code>Q1</code> 和 <code>Q4</code> 组合得到。因此，如果定价函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p\)</span><span class="heti-spacing"> </span></span>是组合无套利的，那么必须要满足：</p>
+<div class="arithmatex">\[
+p(Q_3, D) \le p(Q_1, D) + p(Q_4, D)
+\]</div>
+<h3 id="V3-查询定价无套利等价条件-page-26-27"><span>V.3<span class="heti-spacing"> </span></span>查询定价无套利等价条件<span><span class="heti-spacing"> </span>(page 26-27)</span><a class="headerlink" href="#V3-查询定价无套利等价条件-page-26-27" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在实践中，判断查询向量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q_2\)</span><span class="heti-spacing"> </span></span>是否可以决定<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q_1\)</span><span class="heti-spacing"> </span></span>是一个计算上非常困难的问题。为了解决这一困难，引入了“冲突集”的概念，并给出了无套利定价的等价条件。</p>
+<h4 id="V31-冲突集-conflict-set-page-26"><span>V.3.1<span class="heti-spacing"> </span></span>冲突集<span><span class="heti-spacing"> </span>(conflict set) (page 26)</span><a class="headerlink" href="#V31-冲突集-conflict-set-page-26" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<details class="definition" open="open">
+<summary>支撑集<span class="heti-skip"><span class="heti-spacing"> </span>(support)<span class="heti-spacing"> </span></span>与冲突集<span><span class="heti-spacing"> </span>(conflict set)</span></summary>
+<p>令<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(S \subseteq I\)</span><span class="heti-spacing"> </span></span>是任意一个子集，称之为<strong>支撑集<span><span class="heti-spacing"> </span>(support)</span></strong>。</p>
+<p>定义查询<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q\)</span><span class="heti-spacing"> </span></span>关于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(S\)</span><span class="heti-spacing"> </span></span>的<strong>冲突集<span><span class="heti-spacing"> </span>(conflict set)</span></strong> 为：</p>
+<div class="arithmatex">\[
+C_S(Q, D) = \{D' \in S \mid Q(D) \ne Q(D')\}
+\]</div>
+<p>冲突集<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(C_S(Q, D)\)</span><span class="heti-spacing"> </span></span>包含了在支撑集<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(S\)</span><span class="heti-spacing"> </span></span>中，所有与表格<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D\)</span><span class="heti-spacing"> </span></span>相比，会使得查询<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q\)</span><span class="heti-spacing"> </span></span>给出不同结果的表格<span><span class="heti-spacing"> </span><span class="arithmatex">\(D'\)</span></span>。我们可以将任意一个查询<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q\)</span><span class="heti-spacing"> </span></span>映射到对应的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(S\)</span><span class="heti-spacing"> </span></span>上的<strong>捆<span><span class="heti-spacing"> </span>(bundle)</span></strong>，事实上捆的计算在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(S\)</span><span class="heti-spacing"> </span></span>比较小的时候是很容易的，因为只需要对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(S\)</span><span class="heti-spacing"> </span></span>中的每个表格逐个验证是否满足上述定义即可。</p>
+</details>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Lec08-3.png"><img alt="|600" src="../attachments/Lec08-3.png"/></a></p>
+<h4 id="V32-单调性与次可加性-page-27"><span>V.3.2<span class="heti-spacing"> </span></span>单调性与次可加性<span><span class="heti-spacing"> </span>(page 27)</span><a class="headerlink" href="#V32-单调性与次可加性-page-27" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>无套利原则与集合函数（将集合映射到正实数的函数）的特定属性密切相关。</p>
+<details class="definition" open="open">
+<summary>集合函数的单调性<span class="heti-skip"><span class="heti-spacing"> </span>(monotone)<span class="heti-spacing"> </span></span>与次可加性<span><span class="heti-spacing"> </span>(subadditive)</span></summary>
+<p>对于一个集合函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(f: 2^S \to \mathbb{R}^+\)</span></span>（即将<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(S\)</span><span class="heti-spacing"> </span></span>的一个子集映射到正实数的函数<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，我们称函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f\)</span><span class="heti-spacing"> </span></span>是满足：</p>
+<ul>
+<li><strong>单调性<span class="heti-skip"><span class="heti-spacing"> </span>(monotone)<span class="heti-spacing"> </span></span>的：</strong> 如果对于任意的<span><span class="heti-spacing"> </span><span class="arithmatex">\(A \subseteq B\)</span></span>，<span class="arithmatex">\(A, B \subseteq S\)</span>，都有<span><span class="heti-spacing"> </span><span class="arithmatex">\(f(A) \le f(B)\)</span></span>。</li>
+<li><strong>次可加性<span class="heti-skip"><span class="heti-spacing"> </span>(subadditive)<span class="heti-spacing"> </span></span>的：</strong> 如果对于任意的集合<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(B\)</span></span>，<span class="arithmatex">\(A, B \subseteq S\)</span>，都有<span><span class="heti-spacing"> </span><span class="arithmatex">\(f(A \cup B) \le f(A) + f(B)\)</span></span>。</li>
+</ul>
+</details>
+<details class="theorem" open="open">
+<summary>无套利等价条件</summary>
+<p>令<span><span class="heti-spacing"> </span><span class="arithmatex">\(S \subseteq I\)</span></span>，并令<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f: 2^S \to \mathbb{R}^+\)</span><span class="heti-spacing"> </span></span>是一个集合函数。则定价函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p(Q, D) = f(C_S(Q, D))\)</span><span class="heti-spacing"> </span></span>是无套利的，当且仅当函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f\)</span><span class="heti-spacing"> </span></span>是单调、次可加的。</p>
+<p><strong>补充：</strong>
+由此我们得到了一个定价函数无套利的等价条件。事实上，单调性、次可加性对于函数而言并非很严苛的要求，因此这个等价条件在设计定价函数时有很大的帮助。需要注意的是，这里的函数 <span class="arithmatex">\(f\)</span> 取值于冲突集，即其输入是冲突集 <span class="arithmatex">\(C_S(Q, D)\)</span>，输出是价格。</p>
+<p><strong>参考文献：</strong> 定理证明较为复杂，参见<span><span class="heti-spacing"> </span>Deep, S., &amp; Koutris, P. (2016).</span> <em>The Design of Arbitrage-Free Data Pricing Schemes.</em> <span>ArXiv, abs/1606.09376<span class="heti-spacing"> </span></span>中的定理<span><span class="heti-spacing"> </span>3.8</span>。</p>
+</details>
+<h3 id="V4-查询定价最大化利润-page-28-29"><span>V.4<span class="heti-spacing"> </span></span>查询定价最大化利润<span><span class="heti-spacing"> </span>(page 28-29)</span><a class="headerlink" href="#V4-查询定价最大化利润-page-28-29" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在设计数据定价机制时，除了满足无套利原则，最大化卖家利润也是一个重要的目标。</p>
+<h4 id="V41-针对买家行动的假设-page-28"><span>V.4.1<span class="heti-spacing"> </span></span>针对买家行动的假设<span><span class="heti-spacing"> </span>(page 28)</span><a class="headerlink" href="#V41-针对买家行动的假设-page-28" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>为了实现利润最大化，我们需要对买家的行动做出一定的假设。这些假设简化了模型，是研究经济学问题的基础，否则模型参数过多将难以求解和分析。</p>
+<ol>
+<li><strong>单次购买：</strong> 我们假设每个买家只购买一组查询的查询结果。在现实中，一个买家多次查询可以视为多个不同的买家。</li>
+<li><strong>估值购买：</strong> 买家只有当产品价格<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p(Q, D)\)</span><span class="heti-spacing"> </span></span>小于或等于其对查询<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q\)</span><span class="heti-spacing"> </span></span>的估值<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(v_Q\)</span><span class="heti-spacing"> </span></span>时才会购买。<ul>
+<li><span><span class="arithmatex">\(v_Q\)</span><span class="heti-spacing"> </span></span>是买家对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q\)</span><span class="heti-spacing"> </span></span>的估值，即买家愿意为该查询结果支付的最高价格。</li>
+</ul>
+</li>
+<li><strong>完全信息市场：</strong> 假设市场是完全信息的，即卖家知道买家的心理价位（估值<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。这可以通过市场调研获得。</li>
+</ol>
+<h4 id="V42-利润最大化问题-page-28"><span>V.4.2<span class="heti-spacing"> </span></span>利润最大化问题<span><span class="heti-spacing"> </span>(page 28)</span><a class="headerlink" href="#V42-利润最大化问题-page-28" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>现在的问题转化为：在已知所有可能购买查询产品的买家及其估值后，如何利用这些信息来最大化利润，同时满足上述的无套利条件？</p>
+<ul>
+<li><strong>市场调研：</strong> 我们假设市场调研的买家就是所有可能购买的买家，这是一种经典的简化方式。当然，当数据量很大时，可以尝试拟合曲线来解决。</li>
+<li><strong>买家数量：</strong> 为了简化讨论，我们假设有<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\)</span><span class="heti-spacing"> </span></span>个买家，每个买家<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>希望购买查询<span><span class="heti-spacing"> </span><span class="arithmatex">\(Q_i\)</span></span>。</li>
+</ul>
+<h4 id="V43-超图-hypergraph-模型构建-page-29"><span>V.4.3<span class="heti-spacing"> </span></span>超图<span class="heti-skip"><span class="heti-spacing"> </span>(hypergraph)<span class="heti-spacing"> </span></span>模型构建<span><span class="heti-spacing"> </span>(page 29)</span><a class="headerlink" href="#V43-超图-hypergraph-模型构建-page-29" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>为了进一步形式化利润最大化问题，我们可以构建一个超图模型。</p>
+<ul>
+<li><strong>超图定义：</strong> 选定支撑集<span><span class="heti-spacing"> </span><span class="arithmatex">\(S \subseteq I\)</span></span>，其大小为<span><span class="heti-spacing"> </span><span class="arithmatex">\(n = |S|\)</span></span>。我们构建一个<strong>超图<span><span class="heti-spacing"> </span>(hypergraph)</span></strong> <span class="arithmatex">\(H = (V, E)\)</span>。</li>
+</ul>
+<details class="definition" open="open">
+<summary>超图</summary>
+<p>超图是一种广义上的图，它的一条边可以连接任意数量的顶点（在普通图中，一条边只能连接两个顶点<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<ul>
+<li><strong>顶点集<span><span class="heti-spacing"> </span><span class="arithmatex">\(V\)</span></span>：</strong> 设<span><span class="heti-spacing"> </span><span class="arithmatex">\(V = S\)</span></span>，即支撑集中的每个关系实例（表格<span><span class="heti-spacing"> </span><span class="arithmatex">\(D_1, D_2, D_3\)</span></span>）作为超图的一个顶点。</li>
+<li><strong>边集<span><span class="heti-spacing"> </span><span class="arithmatex">\(E\)</span></span>：</strong> 设<span><span class="heti-spacing"> </span><span class="arithmatex">\(E = \{e_i \mid i = 1, \dots, m\}\)</span></span>，其中<span><span class="heti-spacing"> </span><span class="arithmatex">\(e_i = C_S(Q_i, D)\)</span></span>，即每个买家请求的查询<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q_i\)</span><span class="heti-spacing"> </span></span>对应的冲突集作为超图的一条超边。</li>
+</ul>
+</details>
+<ul>
+<li>
+<p><strong>目标问题：</strong> 找到一个满足单调性、次可加性的集合函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(f\)</span></span>（即无套利定价函数）可以最大化卖家利润。</p>
+<div class="arithmatex">\[
+\text{OPT} = \max_{f \text{ 是单调、次可加的}} R(f)
+\]</div>
+<p>其中， <span class="arithmatex">\(R(f) = \sum_{i: v_i \ge f(e_i)} f(e_i)\)</span>。这意味着在集合函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f\)</span><span class="heti-spacing"> </span></span>定义的价格下，只要买家的估值<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(v_i\)</span><span class="heti-spacing"> </span></span>大于或等于价格<span><span class="heti-spacing"> </span><span class="arithmatex">\(f(e_i)\)</span></span>，买家就会购买，并贡献利润<span><span class="heti-spacing"> </span><span class="arithmatex">\(f(e_i)\)</span></span>。</p>
+</li>
+<li>
+<p><strong>回忆：</strong> 这里的<span><span class="heti-spacing"> </span><span class="arithmatex">\(f(e_i) = f(C_S(Q_i, D)) = p(Q_i, D)\)</span></span>，即冲突集上的函数值就是查询的价格。</p>
+</li>
+<li><strong>后续讨论：</strong> 进一步关于如何决定定价函数，以及简单的定价函数如何实现近似比等问题，可以作为更深入的课题。这里引入超图看似没什么关联，但实际上源于其他理论性工作，目标是得到进一步的近似算法等。</li>
+</ul>
+<h2 id="VI-机器学习模型的版本化与无套利定价-page-30-45"><span>VI<span class="heti-spacing"> </span></span>机器学习模型的版本化与无套利定价<span><span class="heti-spacing"> </span>(page 30-45)</span><a class="headerlink" href="#VI-机器学习模型的版本化与无套利定价-page-30-45" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>除了查询数据，机器学习模型也是数据交易市场中重要的产品。本节将探讨机器学习模型的版本化定价以及如何实现无套利。</p>
+<h3 id="VI1-Dealer-端到端机器学习模型买卖市场架构-page-31-35"><span>VI.1 Dealer<span class="heti-spacing"> </span></span>端到端机器学习模型买卖市场架构<span><span class="heti-spacing"> </span>(page 31-35)</span><a class="headerlink" href="#VI1-Dealer-端到端机器学习模型买卖市场架构-page-31-35" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>一个典型的端到端机器学习模型买卖市场涉及多个参与方及其交互流程。这里以“经销商（Dealer）”作为中间商为例。</p>
+<ul>
+<li>
+<p><strong>市场参与方：</strong></p>
+<ul>
+<li><strong>数据拥有者<span><span class="heti-spacing"> </span>(Data Owners)</span>：</strong> 原始数据的提供者。</li>
+<li><strong>中间商<span><span class="heti-spacing"> </span>(Broker / Dealer)</span>：</strong> 连接数据拥有者和模型买家，负责数据处理、模型构建和定价。</li>
+<li><strong>模型买家<span><span class="heti-spacing"> </span>(Model Buyers) (Survey)</span>：</strong> 潜在的模型买家，可能参与市场调查以提供需求信息。</li>
+<li><strong>模型买家<span><span class="heti-spacing"> </span>(Model Buyers)</span>：</strong> 最终购买机器学习模型的消费者。</li>
+</ul>
+</li>
+<li>
+<p><strong>交易流程<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>以<span class="heti-skip"><span class="heti-spacing"> </span>Dealer<span class="heti-spacing"> </span></span>为中心<span><span class="heti-spacing"> </span>)</span>：</strong> (page 31)</p>
+<ol>
+<li><strong>数据拥有者贡献数据并获得补偿</strong> (Data &amp; Compensation Function / Compensation)。 (page 32)</li>
+<li><strong>中间商设定模型参数</strong> (Model Parameter Setting)。</li>
+<li><strong>中间商向模型买家（调研者）询问目标模型参数</strong> (Target Model &amp; Purchasing Budget (Price Function))。</li>
+<li><strong>中间商基于数据拥有者数据设计、构建并出售模型</strong> (Design &amp; Build and Sell Models to Model Buyers)。 (page 33)</li>
+<li><strong>中间商对模型进行定价和训练</strong> (Model Pricing &amp; Model Training)。</li>
+<li><strong>中间商向模型买家提供模型参数（覆盖率、差分隐私参数）和价格</strong> (Model Parameter (Coverage Rate, DP parameter) &amp; Price)。</li>
+<li><strong>模型买家从中间商处购买目标模型，并支付费用</strong> (Target Model &amp; Payment)。 (page 34)</li>
+<li><strong>中间商提供模型</strong> (Model)。</li>
+<li><strong>中间商向数据拥有者提供补偿</strong> (Compensation)。</li>
+</ol>
+</li>
+</ul>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Lec08-4.png"><img alt="|600" src="../attachments/Lec08-4.png"/></a></p>
+<ul>
+<li><strong>核心关注点：</strong> (page 35)<ul>
+<li><strong>数据贡献评估<span><span class="heti-spacing"> </span>(Data Contribution Evaluation)</span>：</strong> 如何评估数据拥有者的贡献并给予公平补偿。</li>
+<li><strong>数据产品定价<span><span class="heti-spacing"> </span>(Data Product Pricing)</span>：</strong> 如何对模型产品进行定价以最大化收益并满足其他市场要求。</li>
+</ul>
+</li>
+</ul>
+<h3 id="VI2-预备知识-page-36-40"><span>VI.2<span class="heti-spacing"> </span></span>预备知识<span><span class="heti-spacing"> </span>(page 36-40)</span><a class="headerlink" href="#VI2-预备知识-page-36-40" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在深入探讨机器学习模型的定价前，我们需要理解几个重要概念。</p>
+<h4 id="VI21-版本化-Versioning-page-36"><span>VI.2.1<span class="heti-spacing"> </span></span>版本化<span><span class="heti-spacing"> </span>(Versioning) (page 36)</span><a class="headerlink" href="#VI21-版本化-Versioning-page-36" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<ul>
+<li><strong>概念：</strong> 版本化是指将产品或服务以不同的功能、质量或特性级别进行发布和销售的策略。</li>
+<li><strong>目的：</strong><ul>
+<li><strong>最大化收益<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>总销售额与利润<span><span class="heti-spacing"> </span>)</span>：</strong> 通过为不同需求的用户提供不同版本，可以捕获更广泛的市场，从而增加总体收入。</li>
+<li><strong>个性化定价<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>个性化产品：</strong> 根据不同用户的支付意愿和需求，提供量身定制的产品版本，实现个性化定价。</li>
+<li><strong>吸引不同类型的买方<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>消费者<span class="heti-skip"><span class="heti-spacing"> </span>)<span class="heti-spacing"> </span></span>群体：</strong> 不同版本能够满足不同用户的需求和预算，从而吸引更多的消费者。</li>
+</ul>
+</li>
+<li><strong>示例：</strong> 微软<span class="heti-skip"><span class="heti-spacing"> </span>Windows 10<span class="heti-spacing"> </span></span>操作系统的不同版本（Home, Pro, Pro for Workstations）就是典型的版本化案例。不同版本提供不同的功能集，定价也不同，以满足个人用户、小型企业和高级用户的需求。</li>
+</ul>
+<h4 id="VI22-差分隐私-Differential-Privacy-page-37"><span>VI.2.2<span class="heti-spacing"> </span></span>差分隐私<span><span class="heti-spacing"> </span>(Differential Privacy) (page 37)</span><a class="headerlink" href="#VI22-差分隐私-Differential-Privacy-page-37" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>差分隐私是一种量化隐私保护程度的数学模型，由<span class="heti-skip"><span class="heti-spacing"> </span>Dwork<span class="heti-spacing"> </span></span>于<span class="heti-skip"><span class="heti-spacing"> </span>2006<span class="heti-spacing"> </span></span>年首次提出。</p>
+<details class="definition" open="open">
+<summary>差分隐私<span><span class="heti-spacing"> </span>(Differential Privacy)</span></summary>
+<p><strong>核心思想：</strong> 通过对真实数据添加随机噪声进行扰动，实现用户隐私的量化保护。其目标是使得在数据集中的任何单个个体的信息的存在或缺失，都对统计结果的影响微乎其微，从而保护个体隐私不被推断。</p>
+<p><strong>实现方式：</strong> 向数据中注入符合特定概率分布（如拉普拉斯分布）的噪声。</p>
+<p><strong>安全性：</strong> 随机噪声对真实数据的扰动是差分隐私安全性的来源。这意味着即使攻击者拥有辅助信息，也无法通过观察输出结果来确定某个特定个体是否在数据集中。</p>
+<p><strong>可用性：</strong> 由于添加的噪声是独立的，它们在统计聚合时会相互抵消，从而使得扰动数据的统计结果（如均值）仍然具有较高的准确度。例如，对身高数据添加噪声后，虽然个体身高值变化较大，但群体的平均身高仍能保持近似一致。</p>
+</details>
+<h4 id="VI23-无套利-Arbitrage-page-38-39"><span>VI.2.3<span class="heti-spacing"> </span></span>无套利<span><span class="heti-spacing"> </span>(Arbitrage) (page 38-39)</span><a class="headerlink" href="#VI23-无套利-Arbitrage-page-38-39" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>无套利原则是金融经济学中的一个核心概念，其目标是消除市场中无风险获利的机会。</p>
+<details class="example" open="open">
+<summary>香蕉套利与无套利属性<span><span class="heti-spacing"> </span>(page 38-39)</span></summary>
+<p>假设市场上有<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>根香蕉售价<span><span class="heti-spacing"> </span>$2</span>，而<span class="heti-skip"><span class="heti-spacing"> </span>3<span class="heti-spacing"> </span></span>根香蕉的捆绑售价为<span><span class="heti-spacing"> </span>$X?</span>。</p>
+<ul>
+<li><strong>套利：</strong> 如果<span class="heti-skip"><span class="heti-spacing"> </span>3<span class="heti-spacing"> </span></span>根香蕉的捆绑售价高于<span><span class="heti-spacing"> </span>$6</span>（即<span class="heti-skip"><span class="heti-spacing"> </span>3<span class="heti-spacing"> </span></span>根单买的总价<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，那么消费者会选择单买<span class="heti-skip"><span class="heti-spacing"> </span>3<span class="heti-spacing"> </span></span>次来获得<span class="heti-skip"><span class="heti-spacing"> </span>3<span class="heti-spacing"> </span></span>根香蕉。</li>
+<li><strong>无套利：</strong> 为了避免这种套利行为，<span>3<span class="heti-spacing"> </span></span>根香蕉的捆绑售价必须小于或等于<span><span class="heti-spacing"> </span>$6</span>。</li>
+</ul>
+<p><strong>无套利属性<span class="heti-skip"><span class="heti-spacing"> </span>1 (<span class="heti-spacing"> </span></span>单调性<span><span class="heti-spacing"> </span>)</span>：</strong></p>
+<p>给定一个函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(f\)</span></span>，定义域为<span><span class="heti-spacing"> </span><span class="arithmatex">\((\mathbb{R}^+)^n\)</span></span>，值域为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mathbb{R}^+\)</span></span>。当且仅当任意两个定义域内向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(x, y\)</span></span>，满足<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x \le y\)</span><span class="heti-spacing"> </span></span>时，都有<span><span class="heti-spacing"> </span><span class="arithmatex">\(f(x) \le f(y)\)</span></span>，则称函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f\)</span><span class="heti-spacing"> </span></span>单调。</p>
+<p><strong>无套利属性<span class="heti-skip"><span class="heti-spacing"> </span>2 (<span class="heti-spacing"> </span></span>次可加性<span><span class="heti-spacing"> </span>)</span>：</strong></p>
+<p>给定一个函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(f\)</span></span>，定义域为<span><span class="heti-spacing"> </span><span class="arithmatex">\((\mathbb{R}^+)^n\)</span></span>，值域为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mathbb{R}^+\)</span></span>。当且仅当任意两个定义域内向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(x, y\)</span></span>，满足<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f(x + y) \le f(x) + f(y)\)</span><span class="heti-spacing"> </span></span>时，则称函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f\)</span><span class="heti-spacing"> </span></span>具有次可加性。</p>
+<p><strong>补充：</strong> 这两个属性对于构建无套利定价函数至关重要。单调性确保了“更多”的数据或功能不会比“更少”的数据或功能更便宜；次可加性则确保了购买组合产品不会比购买其组成部分的成本之和更贵。</p>
+</details>
+<h4 id="VI24-Shapley-值-Shapley-Value-page-40"><span>VI.2.4 Shapley<span class="heti-spacing"> </span></span>值<span><span class="heti-spacing"> </span>(Shapley Value) (page 40)</span><a class="headerlink" href="#VI24-Shapley-值-Shapley-Value-page-40" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p><span>Shapley<span class="heti-spacing"> </span></span>值是合作博弈论中的一个概念，用于公平地分配合作所产生的总收益。</p>
+<details class="definition" open="open">
+<summary><span>Shapley<span class="heti-spacing"> </span></span>值<span><span class="heti-spacing"> </span>(Shapley Value)</span></summary>
+<p><span>Shapley<span class="heti-spacing"> </span></span>值衡量的是一个参与者在其所参与的所有可能合作联盟中，对总收益的平均边际贡献。它确保了每个参与者获得的收益与其边际贡献成正比。</p>
+<p><strong>公式：</strong> 对于参与者<span><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span></span>，其<span class="heti-skip"><span class="heti-spacing"> </span>Shapley<span class="heti-spacing"> </span></span>值<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(SV_i\)</span><span class="heti-spacing"> </span></span>定义为：</p>
+<div class="arithmatex">\[
+SV_i = \frac{1}{n!} \sum_{\pi \in G} [U(S_i^\pi \cup \{z_i\}) - U(S_i^\pi)]
+\]</div>
+<p>其中：
+- <span class="arithmatex">\(n\)</span> 是参与者的总数量。
+- <span class="arithmatex">\(\pi\)</span> 是所有 <span class="arithmatex">\(n!\)</span> 种可能的参与者加入联盟的排列方式。
+- <span class="arithmatex">\(G\)</span> 是所有排列方式的集合。
+- <span class="arithmatex">\(S_i^\pi\)</span> 是在排列 <span class="arithmatex">\(\pi\)</span> 中，参与者 <span class="arithmatex">\(i\)</span> 之前已经加入联盟的参与者集合。
+- <span class="arithmatex">\(U(S)\)</span> 是联盟 <span class="arithmatex">\(S\)</span> 的总收益。
+- <span class="arithmatex">\(U(S_i^\pi \cup \{z_i\}) - U(S_i^\pi)\)</span> 表示参与者 <span class="arithmatex">\(z_i\)</span> 加入联盟 <span class="arithmatex">\(S_i^\pi\)</span> 时所带来的边际贡献。</p>
+<p><strong>应用：</strong> 在数据交易中，<span>Shapley<span class="heti-spacing"> </span></span>值可以用于评估不同数据拥有者对其贡献训练的机器学习模型的价值。</p>
+</details>
+<h3 id="VI3-数据拥有者补偿函数-Compensation-Function-page-41"><span>VI.3<span class="heti-spacing"> </span></span>数据拥有者：补偿函数<span><span class="heti-spacing"> </span>(Compensation Function) (page 41)</span><a class="headerlink" href="#VI3-数据拥有者补偿函数-Compensation-Function-page-41" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>数据拥有者关注的核心是隐私保护程度和收益分配的公平性。</p>
+<ul>
+<li><strong>隐私泄露风险量化：</strong> 使用<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon\)</span> -<span class="heti-spacing"> </span></span>差分隐私来量化数据拥有者的隐私泄露风险。<span><span class="arithmatex">\(\epsilon\)</span><span class="heti-spacing"> </span></span>值越小，隐私保护越严格，数据泄露风险越低。</li>
+<li><strong>补偿函数建模：</strong> 构建一个单调递增的补偿函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(c_i\)</span><span class="heti-spacing"> </span></span>来建模数据拥有者<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D_i\)</span><span class="heti-spacing"> </span></span>对参与训练满足<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon\)</span> -<span class="heti-spacing"> </span></span>差分隐私要求的机器学习模型（数据产品）所需的补偿。</li>
+</ul>
+<details class="definition" open="open">
+<summary>补偿函数</summary>
+<div class="arithmatex">\[
+c_i(\epsilon) = b_i \cdot (e^\epsilon)^{\rho_i}
+\]</div>
+<p>其中：
+- <span class="arithmatex">\(c_i(\epsilon)\)</span> 是数据拥有者 <span class="arithmatex">\(i\)</span> 在隐私预算为 <span class="arithmatex">\(\epsilon\)</span> 时的补偿。
+- <span class="arithmatex">\(b_i\)</span> 是基础价格，通常来源于 Shapley 值，反映了数据拥有者对其数据贡献的固有价值。
+- <span class="arithmatex">\(\epsilon\)</span> 是隐私预算，量化了模型的隐私保护程度。
+- <span class="arithmatex">\(\rho_i\)</span> 是数据拥有者 <span class="arithmatex">\(i\)</span> 的隐私敏感度 (Privacy sensitivity)。</p>
+<p><strong>隐私敏感度<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="arithmatex">\(\rho_i\)</span>)<span class="heti-spacing"> </span></span>的影响：</strong> 如果<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\rho_i\)</span><span class="heti-spacing"> </span></span>较高，意味着数据拥有者对隐私泄露更为敏感，那么随着隐私预算<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon\)</span><span class="heti-spacing"> </span></span>的增加（即隐私保护程度降低<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，其要求的补偿<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(c_i\)</span><span class="heti-spacing"> </span></span>将会更快地增长。</p>
+</details>
+<h3 id="VI4-模型购买者价格函数-Price-Function-page-42"><span>VI.4<span class="heti-spacing"> </span></span>模型购买者：价格函数<span><span class="heti-spacing"> </span>(Price Function) (page 42)</span><a class="headerlink" href="#VI4-模型购买者价格函数-Price-Function-page-42" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>模型购买者关注的是最终机器学习模型（数据产品）的效用。</p>
+<ul>
+<li><strong>模型效用估计：</strong> 使用参与训练数据的<span class="heti-skip"><span class="heti-spacing"> </span>Shapley<span class="heti-spacing"> </span></span>值覆盖率<span class="heti-skip"><span class="heti-spacing"> </span>(Coverage Rate, CR)<span class="heti-spacing"> </span></span>来估计模型的最终效用。</li>
+</ul>
+<details class="definition" open="open">
+<summary>覆盖率<span><span class="heti-spacing"> </span>CR(M)</span></summary>
+<div class="arithmatex">\[
+CR(M) = CR(D_{i_1}, \dots, D_{i_k}) = \frac{SV(\{D_{i_1}, \dots, D_{i_k}\})}{SV(\{D_1, \dots, D_n\})} = \frac{SV(\text{data used for M})}{\text{SV(all data)}}
+\]</div>
+<p>其中：
+- <span class="arithmatex">\(SV(\{D_{i_1}, \dots, D_{i_k}\})\)</span> 是用于训练模型 <span class="arithmatex">\(M\)</span> 的数据子集所产生的 Shapley 值。
+- <span class="arithmatex">\(SV(\{D_1, \dots, D_n\})\)</span> 是所有数据所产生的总 Shapley 值。
+- <span class="arithmatex">\(CR(M)\)</span> 表示用于训练模型 <span class="arithmatex">\(M\)</span> 的数据对整个数据集价值的贡献比例，可以作为衡量模型效用的指标。</p>
+</details>
+<ul>
+<li>
+<p><strong>价格函数建模：</strong> 为了满足差分隐私所添加的噪声，可以使用隐私预算<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon\)</span><span class="heti-spacing"> </span></span>来量化。模型购买者<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(j\)</span><span class="heti-spacing"> </span></span>的价格函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(P(B_j, M)\)</span><span class="heti-spacing"> </span></span>可以建模如下：</p>
+<div class="arithmatex">\[
+P(B_j, M) = V_j \cdot \frac{1}{1 + e^{-\delta_j(CR(M)-\theta_j)}} \cdot \frac{1}{1 + e^{-\gamma_j(\epsilon-\eta_j)}}
+\]</div>
+<p>其中：
+- <span class="arithmatex">\(P(B_j, M)\)</span> 是模型买家 <span class="arithmatex">\(j\)</span> 购买模型 <span class="arithmatex">\(M\)</span> 所需支付的价格。
+- <span class="arithmatex">\(V_j\)</span> 是买家 <span class="arithmatex">\(j\)</span> 的估值或对模型的最大支付意愿。
+- 第一个分数项 <span class="arithmatex">\(\frac{1}{1 + e^{-\delta_j(CR(M)-\theta_j)}}\)</span> 是一个 Sigmoid 函数，它表示买家对模型效用 <span class="arithmatex">\(CR(M)\)</span> 的敏感度。其中 <span class="arithmatex">\(\delta_j\)</span> 和 <span class="arithmatex">\(\theta_j\)</span> 是与买家偏好相关的参数。
+- 第二个分数项 <span class="arithmatex">\(\frac{1}{1 + e^{-\gamma_j(\epsilon-\eta_j)}}\)</span> 也是一个 Sigmoid 函数，它表示买家对隐私预算 <span class="arithmatex">\(\epsilon\)</span> 的敏感度。其中 <span class="arithmatex">\(\gamma_j\)</span> 和 <span class="arithmatex">\(\eta_j\)</span> 是与买家对隐私的偏好相关的参数。这个项反映了隐私预算的期望，<span class="arithmatex">\(\epsilon\)</span> 越大（隐私保护越弱），价格可能越低。</p>
+</li>
+</ul>
+<h3 id="VI5-中间商-Broker-page-43"><span>VI.5<span class="heti-spacing"> </span></span>中间商<span><span class="heti-spacing"> </span>(Broker) (page 43)</span><a class="headerlink" href="#VI5-中间商-Broker-page-43" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>中间商在机器学习模型交易市场中扮演着关键角色，需要在多个目标之间进行平衡。</p>
+<ul>
+<li>
+<p><strong>核心任务：</strong> 给定一组数据拥有者、一组模型买家和模型版本数量<span><span class="heti-spacing"> </span><span class="arithmatex">\(l\)</span></span>，中间商需要合理划分<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(l\)</span><span class="heti-spacing"> </span></span>个模型版本，以在最大化收入的同时兼顾以下几点：</p>
+<ol>
+<li><strong>公平分配补偿：</strong> 确保向数据拥有者公平分配补偿，以激励他们积极参与模型市场。</li>
+<li><strong>无套利定价：</strong> 确保不同模型版本之间的定价公平，避免出现套利机会。</li>
+<li><strong>最小化生产开销，最大化模型效用：</strong> 在给定补偿的情况下，优化模型生产过程，以最小化开销并最大化模型的效用。</li>
+<li><strong>非盈利导向（可选<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</strong> 如果中间商是一个非盈利机构，其目标可能是促进数据市场发展和社会福利最大化。在这种情况下，模型收入可以直接分配给数据拥有者作为补偿，同时最大化模型效用。</li>
+</ol>
+</li>
+<li>
+<p><strong>决策路径：</strong> 中间商的决策可以概括为两个阶段：</p>
+<ul>
+<li><strong>阶段一：收入最大化：</strong> 根据买家对模型的市场需求，制定模型版本定价，以实现总收入的最大化。</li>
+<li><strong>阶段二：效用最大化：</strong> 在给定数据拥有者补偿（由第一阶段的收入决定）的前提下，优化数据和模型的选择，以最大化最终模型的效用。</li>
+</ul>
+</li>
+</ul>
+<h3 id="VI6-收入最大化-Revenue-Maximization-page-44-45"><span>VI.6<span class="heti-spacing"> </span></span>收入最大化<span><span class="heti-spacing"> </span>(Revenue Maximization) (page 44-45)</span><a class="headerlink" href="#VI6-收入最大化-Revenue-Maximization-page-44-45" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在机器学习模型的定价中，收入最大化是一个核心优化问题，需要考虑模型的不同版本、买家估值以及无套利约束。</p>
+<h4 id="VI61-优化问题形式化-page-44"><span>VI.6.1<span class="heti-spacing"> </span></span>优化问题形式化<span><span class="heti-spacing"> </span>(page 44)</span><a class="headerlink" href="#VI61-优化问题形式化-page-44" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>为了最大化收入，中间商需要解决以下优化问题：</p>
+<div class="arithmatex">\[
+\arg \max_{(p(\epsilon_1), \dots, p(\epsilon_{l'}))} \sum_{k=1}^{l'} \sum_{j=1}^{m'} p(\epsilon_k) \cdot \mathbb{I}(tm_j == M_k) \cdot \mathbb{I}(p(\epsilon_k) \le v_j)
+\]</div>
+<p>其中：</p>
+<ul>
+<li><span><span class="arithmatex">\(p(\epsilon_k)\)</span><span class="heti-spacing"> </span></span>表示具有隐私预算<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon_k\)</span><span class="heti-spacing"> </span></span>的模型版本<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(M_k\)</span><span class="heti-spacing"> </span></span>的价格。</li>
+<li><span><span class="arithmatex">\(l'\)</span><span class="heti-spacing"> </span></span>是中间商提供的模型版本总数。</li>
+<li><span><span class="arithmatex">\(m'\)</span><span class="heti-spacing"> </span></span>是市场中的买家总数。</li>
+<li><span><span class="arithmatex">\(\mathbb{I}(\cdot)\)</span><span class="heti-spacing"> </span></span>是指示函数，当括号内的条件为真时取值为<span><span class="heti-spacing"> </span>1</span>，否则为<span><span class="heti-spacing"> </span>0</span>。<ul>
+<li><span><span class="arithmatex">\(\mathbb{I}(tm_j == M_k)\)</span><span class="heti-spacing"> </span></span>表示买家<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(j\)</span><span class="heti-spacing"> </span></span>希望购买的模型<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(tm_j\)</span><span class="heti-spacing"> </span></span>等于模型版本<span><span class="heti-spacing"> </span><span class="arithmatex">\(M_k\)</span></span>。</li>
+<li><span><span class="arithmatex">\(\mathbb{I}(p(\epsilon_k) \le v_j)\)</span><span class="heti-spacing"> </span></span>表示模型版本<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(M_k\)</span><span class="heti-spacing"> </span></span>的价格<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p(\epsilon_k)\)</span><span class="heti-spacing"> </span></span>小于或等于买家<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(j\)</span><span class="heti-spacing"> </span></span>对该模型的估值<span><span class="heti-spacing"> </span><span class="arithmatex">\(v_j\)</span></span>。</li>
+</ul>
+</li>
+<li>整个目标函数表示所有被成功出售的模型版本所产生的总收入。</li>
+</ul>
+<p><strong>约束条件：</strong></p>
+<p>为了确保定价的无套利性，优化问题还必须满足以下约束条件：</p>
+<div class="arithmatex">\[
+\begin{align}
+&amp; p(\epsilon_{k_1} + \epsilon_{k_2}) \le p(\epsilon_{k_1}) + p(\epsilon_{k_2}), \quad \epsilon_{k_1}, \epsilon_{k_2} &gt; 0 \quad (10) \\
+&amp; 0 &lt; p(\epsilon_{k_1}) \le p(\epsilon_{k_2}), \quad 0 &lt; \epsilon_{k_1} \le \epsilon_{k_2} \quad (11)
+\end{align}
+\]</div>
+<ul>
+<li><strong><span>(10)<span class="heti-spacing"> </span></span>次可加性<span class="heti-skip"><span class="heti-spacing"> </span>(subadditivity)<span class="heti-spacing"> </span></span>约束：</strong> 模型的隐私预算<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon\)</span><span class="heti-spacing"> </span></span>可以被视为某种“资源量”或“风险量”。这个约束表示，将两个模型版本（或其隐私预算）组合在一起的价格，不应超过它们各自价格之和。<ul>
+<li>这对应于查询定价中的组合无套利原则。</li>
+<li>可以推得： $\frac{p(x)}{x} \leq $</li>
+</ul>
+</li>
+<li><strong><span>(11)<span class="heti-spacing"> </span></span>单调性<span class="heti-skip"><span class="heti-spacing"> </span>(monotonicity)<span class="heti-spacing"> </span></span>约束：</strong> 这个约束表明，随着隐私预算<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon\)</span><span class="heti-spacing"> </span></span>的增加（即隐私保护程度降低，模型“质量”或“信息量”可能更高<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，模型的价格也应随之增加。同时，价格必须为正。<ul>
+<li>这对应于查询定价中的信息无套利原则。</li>
+</ul>
+</li>
+</ul>
+<div class="arithmatex">\[
+\begin{align} \\
+\arg \max_{(p(\epsilon_1), \dots, p(\epsilon_{l'}))} &amp;\sum_{k=1}^{l'} \sum_{j=1}^{m'} p(\epsilon_k) \cdot \mathbb{I}(tm_j == M_k) \cdot \mathbb{I}(p(\epsilon_k) \le v_j)  \\
+s.t.\quad &amp; p(\epsilon_{k_1} + \epsilon_{k_2}) \le p(\epsilon_{k_1}) + p(\epsilon_{k_2}), \quad \epsilon_{k_1}, \epsilon_{k_2} &gt; 0 \\
+&amp; 0 &lt; p(\epsilon_{k_1}) \le p(\epsilon_{k_2}), \quad 0 &lt; \epsilon_{k_1} \le \epsilon_{k_2}
+\end{align}
+\]</div>
+<h4 id="VI62-示例-page-45"><span>VI.6.2<span class="heti-spacing"> </span></span>示例<span><span class="heti-spacing"> </span>(page 45)</span><a class="headerlink" href="#VI62-示例-page-45" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Lec08-1.png"><img alt="|600" src="../attachments/Lec08-1.png"/></a></p>
+<ul>
+<li><strong>定价空间：</strong> 左侧图表展示了版本定价空间，其中横轴是模型的某种风险或复杂度，纵轴是价格。不同的点代表不同的模型版本及其价格。<ul>
+<li><span class="arithmatex">\(\epsilon_{1}: \epsilon_{2}: \epsilon_{3} = 1:2:3\)</span>，分别对应于模型<span><span class="heti-spacing"> </span><span class="arithmatex">\(M_{1}, M_{2}, M_{3}\)</span></span></li>
+<li>实心圆表示现有买家对对应模型估值，</li>
+</ul>
+</li>
+<li><strong>收入优化结果：</strong> 右侧图表展示了使用不同定价策略的收入结果。</li>
+</ul>
+<h2 id="VII-思考与未来工作-page-46"><span>VII<span class="heti-spacing"> </span></span>思考与未来工作<span><span class="heti-spacing"> </span>(page 46)</span><a class="headerlink" href="#VII-思考与未来工作-page-46" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>本讲座介绍了数据定价的基础和挑战，但仍有许多方面可以改进和深入研究。</p>
+<h3 id="VII1-如何为隐私定价-page-46"><span>VII.1<span class="heti-spacing"> </span></span>如何为隐私定价？ (page 46)<a class="headerlink" href="#VII1-如何为隐私定价-page-46" title="Permanent link">¶</a></h3>
+<ul>
+<li>基于差分隐私的工作是一个重要的方向，它为量化和定价隐私提供了数学基础。这也是课程大作业的一个主题。</li>
+</ul>
+<h3 id="VII2-如何做到诚实报价-page-46"><span>VII.2<span class="heti-spacing"> </span></span>如何做到诚实报价？ (page 46)<a class="headerlink" href="#VII2-如何做到诚实报价-page-46" title="Permanent link">¶</a></h3>
+<ul>
+<li>本讲座介绍的定价机制大多假设通过市场调研可以了解用户的真实偏好和估值。</li>
+<li>然而，在现实中，用户可能出于策略目的恶意低报自己的估值，以期获得更低的价格。</li>
+<li><strong>研究方向：</strong><ul>
+<li>参考<span class="heti-skip"><span class="heti-spacing"> </span>Fernandez, R.C. (2022)<span class="heti-spacing"> </span></span>的研究，该研究关注在战略性买家存在下如何保护数据市场。</li>
+<li>“同行预测<span><span class="heti-spacing"> </span>(peer prediction)</span>”是一种可能的解决方案，它旨在激励参与者诚实报告信息，即使其信息无法被直接验证。</li>
+<li>可以设计一套机制，使得用户在诚实报告其内心价格的情况下效用最大化，从而解决激励不相容问题。</li>
+</ul>
+</li>
+</ul>
+<h3 id="VII3-市场一定是完全信息的吗-page-46"><span>VII.3<span class="heti-spacing"> </span></span>市场一定是完全信息的吗？ (page 46)<a class="headerlink" href="#VII3-市场一定是完全信息的吗-page-46" title="Permanent link">¶</a></h3>
+<ul>
+<li>我们假设市场是完全信息的，即卖家知道买家的效用函数和机器学习模型的训练结果。</li>
+<li>但在许多情况下，市场中存在信息不对称：<ul>
+<li>买家的效用函数可能是未知的。</li>
+<li>机器学习模型的训练结果在训练前也是未知的。</li>
+</ul>
+</li>
+<li><strong>博弈论：</strong> 博弈论是解决不确定条件下决策问题的有力工具。它提供了一个框架，可以分析和设计在信息不完全或参与者行为具有战略性的市场中的机制。</li>
+</ul>
+<p>因此，后续的主题将深入探讨<strong>博弈论与机制设计</strong>，以解决数据市场中更复杂的定价和激励问题。</p>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn:1">
+<p><strong>网络外部性<span><span class="heti-spacing"> </span>(Network Externalities)</span>：</strong> 指产品或服务的价值随着使用该产品或服务的人数增加而增加的现象。例如，电话、社交媒体平台等。 <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn:2">
+<p><strong>分蛋糕问题<span><span class="heti-spacing"> </span>(Cake-Cutting Problem)</span>：</strong> 经济学和数学领域的一个经典公平分配问题，旨在找到一种方法，将一个异质的物品（如蛋糕）在多个参与者之间进行分配，使得每个参与者都认为自己分得的部分是公平的。 <a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年4月2日 11:20:22 CST">2026年4月2日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月28日 21:39:51 CST">2025年7月28日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: 第八讲：最优机制" class="md-footer__link md-footer__link--prev" href="../Lec08/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                第八讲：最优机制
+              </div>
+</div>
+</a>
+<a aria-label="下一页: 第十讲：贝叶斯劝说" class="md-footer__link md-footer__link--next" href="../Lec10/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                第十讲：贝叶斯劝说
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

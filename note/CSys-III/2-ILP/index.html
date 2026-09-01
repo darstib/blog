@@ -1,0 +1,2798 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/note/CSys-III/2-ILP/" rel="canonical"/>
+<link href="../1-Fundamentals/" rel="prev"/>
+<link href="../3-Cache/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>指令级并行 (ILP) - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#指令级并行-ILP">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              指令级并行 (ILP)
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Note
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs188/">
+<span class="md-ellipsis">
+    
+  
+    cs188
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../physics/">
+<span class="md-ellipsis">
+    
+  
+    physics
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-II/">
+<span class="md-ellipsis">
+    
+  
+    CSys-II
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3_5" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    CSys-III
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_5_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    CSys-III
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../0-hard_review/">
+<span class="md-ellipsis">
+    
+  
+    计算机体系结构课程回顾
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../0-soft_review/">
+<span class="md-ellipsis">
+    
+  
+    操作系统核心概念回顾
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../1-Fundamentals/">
+<span class="md-ellipsis">
+    
+  
+    计算机系统基础
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    指令级并行 (ILP)
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    指令级并行 (ILP)
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#流水线技术回顾-page-2">
+<span class="md-ellipsis">
+      
+        流水线技术回顾 (page 2)
+      
+    </span>
+</a>
+<nav aria-label="流水线技术回顾 (page 2)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#依赖关系-Dependences">
+<span class="md-ellipsis">
+      
+        依赖关系 (Dependences)
+      
+    </span>
+</a>
+<nav aria-label="依赖关系 (Dependences)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#数据依赖-Data-Dependences-page-3">
+<span class="md-ellipsis">
+      
+        数据依赖 (Data Dependences) (page 3)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#名称依赖-Name-Dependences-page-4">
+<span class="md-ellipsis">
+      
+        名称依赖 (Name Dependences) (page 4)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#控制依赖-Control-Dependences-page-5">
+<span class="md-ellipsis">
+      
+        控制依赖 (Control Dependences) (page 5)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#冒险-Hazards-page-6">
+<span class="md-ellipsis">
+      
+        冒险 (Hazards) (page 6)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#分支预测-Branch-Prediction-page-20">
+<span class="md-ellipsis">
+      
+        分支预测 (Branch Prediction) (page 20)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#分支的数据冒险-Data-Hazards-for-Branches-page-28-30">
+<span class="md-ellipsis">
+      
+        分支的数据冒险 (Data Hazards for Branches) (page 28-30)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#指令交付与推测的高级技术-Advanced-Techniques-for-Instruction-Delivery-and-Speculation-page-41">
+<span class="md-ellipsis">
+      
+        指令交付与推测的高级技术 (Advanced Techniques for Instruction Delivery and Speculation) (page 41)
+      
+    </span>
+</a>
+<nav aria-label="指令交付与推测的高级技术 (Advanced Techniques for Instruction Delivery and Speculation) (page 41)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#增加指令获取带宽-Increasing-Instruction-Fetch-Bandwidth-page-41">
+<span class="md-ellipsis">
+      
+        增加指令获取带宽 (Increasing Instruction Fetch Bandwidth) (page 41)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#专门的分支预测器-Specialized-Branch-Predictors-page-41">
+<span class="md-ellipsis">
+      
+        专门的分支预测器 (Specialized Branch Predictors) (page 41)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#集成指令获取单元-Integrated-Instruction-Fetch-Units-page-43">
+<span class="md-ellipsis">
+      
+        集成指令获取单元 (Integrated Instruction Fetch Units) (page 43)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#计算分支目标-Calculating-the-Branch-Target-page-44-45">
+<span class="md-ellipsis">
+      
+        计算分支目标 (Calculating the Branch Target) (page 44-45)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#动态调度-Dynamic-Scheduling-21-Dynamic-Scheduling-page-52">
+<span class="md-ellipsis">
+      
+        动态调度 (Dynamic Scheduling) (§2.1 Dynamic Scheduling, page 52)
+      
+    </span>
+</a>
+<nav aria-label="动态调度 (Dynamic Scheduling) (§2.1 Dynamic Scheduling, page 52)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#记分板算法-Scoreboard-Algorithm-page-57-66">
+<span class="md-ellipsis">
+      
+        记分板算法 (Scoreboard Algorithm) (page 57-66)
+      
+    </span>
+</a>
+<nav aria-label="记分板算法 (Scoreboard Algorithm) (page 57-66)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#记分板的四个阶段">
+<span class="md-ellipsis">
+      
+        记分板的四个阶段
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#记分板维护三张状态表">
+<span class="md-ellipsis">
+      
+        记分板维护三张状态表
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Tomasulo-算法-Tomasulos-Approach-page-67">
+<span class="md-ellipsis">
+      
+        Tomasulo 算法 (Tomasulo’s Approach) (page 67)
+      
+    </span>
+</a>
+<nav aria-label="Tomasulo 算法 (Tomasulo’s Approach) (page 67)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Tomasulo-算法的总结-Summary-of-Tomasulos-Algorithm-page-85-87">
+<span class="md-ellipsis">
+      
+        Tomasulo 算法的总结 (Summary of Tomasulo’s Algorithm) (page 85-87)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Tomasulo-算法示例分析-page-1-2">
+<span class="md-ellipsis">
+      
+        Tomasulo 算法示例分析 (page 1-2)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#执行流程追踪-page-2">
+<span class="md-ellipsis">
+      
+        执行流程追踪 (page 2)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Tomasulo-算法的硬件结构-page-3">
+<span class="md-ellipsis">
+      
+        Tomasulo 算法的硬件结构 (page 3)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#基于硬件的推测-Hardware-Based-Speculation-22-Hardware-Based-Speculation-page-4">
+<span class="md-ellipsis">
+      
+        基于硬件的推测 (Hardware-Based Speculation) (§2.2 Hardware-Based Speculation, page 4)
+      
+    </span>
+</a>
+<nav aria-label="基于硬件的推测 (Hardware-Based Speculation) (§2.2 Hardware-Based Speculation, page 4)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#重排序缓冲区-Reorder-Buffer-ROB-page-5">
+<span class="md-ellipsis">
+      
+        重排序缓冲区 (Reorder Buffer, ROB) (page 5)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#推测处理步骤-Processing-Steps-of-Speculation-page-6">
+<span class="md-ellipsis">
+      
+        推测处理步骤 (Processing Steps of Speculation) (page 6)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#硬件推测示例-Hardware-Based-Speculation-Example-page-9-11">
+<span class="md-ellipsis">
+      
+        硬件推测示例 (Hardware-Based Speculation Example) (page 9-11)
+      
+    </span>
+</a>
+<nav aria-label="硬件推测示例 (Hardware-Based Speculation Example) (page 9-11)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#保留站-Reservation-Station-状态-page-10">
+<span class="md-ellipsis">
+      
+        保留站 (Reservation Station) 状态 (page 10)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#重排序缓冲区-ROB-状态-page-11">
+<span class="md-ellipsis">
+      
+        重排序缓冲区 (ROB) 状态 (page 11)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#寄存器状态-Register-Status-表-page-11">
+<span class="md-ellipsis">
+      
+        寄存器状态 (Register Status) 表 (page 11)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#硬件推测的练习与总结-Practice-and-Summary-of-Hardware-Based-Speculation-page-12-38">
+<span class="md-ellipsis">
+      
+        硬件推测的练习与总结 (Practice and Summary of Hardware-Based Speculation) (page 12-38)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#利用多发射和静态调度来利用-ILP-23-Exploiting-ILP-Using-Multiple-Issue-and-Static-Scheduling-page-39">
+<span class="md-ellipsis">
+      
+        利用多发射和静态调度来利用 ILP (§2.3 Exploiting ILP Using Multiple Issue and Static Scheduling, page 39)
+      
+    </span>
+</a>
+<nav aria-label="利用多发射和静态调度来利用 ILP (§2.3 Exploiting ILP Using Multiple Issue and Static Scheduling, page 39)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#多发射处理器类型-Two-types-of-multiple-issue-processor-page-40-43">
+<span class="md-ellipsis">
+      
+        多发射处理器类型 (Two types of multiple-issue processor) (page 40-43)
+      
+    </span>
+</a>
+<nav aria-label="多发射处理器类型 (Two types of multiple-issue processor) (page 40-43)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-超标量-Superscalar-page-40">
+<span class="md-ellipsis">
+      
+        1. 超标量 (Superscalar) (page 40)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-超长指令字-VLIW-page-43">
+<span class="md-ellipsis">
+      
+        2. 超长指令字 (VLIW) (page 43)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#超标量-vs-VLIW-page-44-46">
+<span class="md-ellipsis">
+      
+        超标量 vs. VLIW (page 44-46)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#基于静态调度的多发射技术-Multi-issue-technology-based-on-static-scheduling-page-47">
+<span class="md-ellipsis">
+      
+        基于静态调度的多发射技术 (Multi-issue technology based on static scheduling) (page 47)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#RISC-V-循环执行示例-RISC-V-loop-execution-example-page-53-58">
+<span class="md-ellipsis">
+      
+        RISC-V 循环执行示例 (RISC-V loop execution example) (page 53-58)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#超流水线处理器-Superpipelined-processor-page-68">
+<span class="md-ellipsis">
+      
+        超流水线处理器 (Superpipelined processor) (page 68)
+      
+    </span>
+</a>
+<nav aria-label="超流水线处理器 (Superpipelined processor) (page 68)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#SGI-MIPS-R4000-处理器-page-71">
+<span class="md-ellipsis">
+      
+        SGI MIPS R4000 处理器 (page 71)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#R4000-流水线结构-R4000-Pipeline-Structure-page-72-77">
+<span class="md-ellipsis">
+      
+        R4000 流水线结构 (R4000 Pipeline Structure) (page 72-77)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../3-Cache/">
+<span class="md-ellipsis">
+    
+  
+    计算机系统 III：存储层次结构 (Memory Hierarchy)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../4-DLP_TLP/">
+<span class="md-ellipsis">
+    
+  
+    数据级到线程级并行
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../5-MM/">
+<span class="md-ellipsis">
+    
+  
+    主存储器
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../6-VM/">
+<span class="md-ellipsis">
+    
+  
+    虚拟内存 (Virtual Memory)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../7-Disk/">
+<span class="md-ellipsis">
+    
+  
+    大容量存储结构 (Mass-Storage Structure)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../8-IO/">
+<span class="md-ellipsis">
+    
+  
+    I/O 系统
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../9-FS/">
+<span class="md-ellipsis">
+    
+  
+    文件系统 (File System)
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DEM/">
+<span class="md-ellipsis">
+    
+  
+    DEM
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DMA/">
+<span class="md-ellipsis">
+    
+  
+    DMA
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs70/">
+<span class="md-ellipsis">
+    
+  
+    cs70
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../other/">
+<span class="md-ellipsis">
+    
+  
+    other
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#流水线技术回顾-page-2">
+<span class="md-ellipsis">
+      
+        流水线技术回顾 (page 2)
+      
+    </span>
+</a>
+<nav aria-label="流水线技术回顾 (page 2)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#依赖关系-Dependences">
+<span class="md-ellipsis">
+      
+        依赖关系 (Dependences)
+      
+    </span>
+</a>
+<nav aria-label="依赖关系 (Dependences)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#数据依赖-Data-Dependences-page-3">
+<span class="md-ellipsis">
+      
+        数据依赖 (Data Dependences) (page 3)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#名称依赖-Name-Dependences-page-4">
+<span class="md-ellipsis">
+      
+        名称依赖 (Name Dependences) (page 4)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#控制依赖-Control-Dependences-page-5">
+<span class="md-ellipsis">
+      
+        控制依赖 (Control Dependences) (page 5)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#冒险-Hazards-page-6">
+<span class="md-ellipsis">
+      
+        冒险 (Hazards) (page 6)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#分支预测-Branch-Prediction-page-20">
+<span class="md-ellipsis">
+      
+        分支预测 (Branch Prediction) (page 20)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#分支的数据冒险-Data-Hazards-for-Branches-page-28-30">
+<span class="md-ellipsis">
+      
+        分支的数据冒险 (Data Hazards for Branches) (page 28-30)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#指令交付与推测的高级技术-Advanced-Techniques-for-Instruction-Delivery-and-Speculation-page-41">
+<span class="md-ellipsis">
+      
+        指令交付与推测的高级技术 (Advanced Techniques for Instruction Delivery and Speculation) (page 41)
+      
+    </span>
+</a>
+<nav aria-label="指令交付与推测的高级技术 (Advanced Techniques for Instruction Delivery and Speculation) (page 41)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#增加指令获取带宽-Increasing-Instruction-Fetch-Bandwidth-page-41">
+<span class="md-ellipsis">
+      
+        增加指令获取带宽 (Increasing Instruction Fetch Bandwidth) (page 41)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#专门的分支预测器-Specialized-Branch-Predictors-page-41">
+<span class="md-ellipsis">
+      
+        专门的分支预测器 (Specialized Branch Predictors) (page 41)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#集成指令获取单元-Integrated-Instruction-Fetch-Units-page-43">
+<span class="md-ellipsis">
+      
+        集成指令获取单元 (Integrated Instruction Fetch Units) (page 43)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#计算分支目标-Calculating-the-Branch-Target-page-44-45">
+<span class="md-ellipsis">
+      
+        计算分支目标 (Calculating the Branch Target) (page 44-45)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#动态调度-Dynamic-Scheduling-21-Dynamic-Scheduling-page-52">
+<span class="md-ellipsis">
+      
+        动态调度 (Dynamic Scheduling) (§2.1 Dynamic Scheduling, page 52)
+      
+    </span>
+</a>
+<nav aria-label="动态调度 (Dynamic Scheduling) (§2.1 Dynamic Scheduling, page 52)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#记分板算法-Scoreboard-Algorithm-page-57-66">
+<span class="md-ellipsis">
+      
+        记分板算法 (Scoreboard Algorithm) (page 57-66)
+      
+    </span>
+</a>
+<nav aria-label="记分板算法 (Scoreboard Algorithm) (page 57-66)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#记分板的四个阶段">
+<span class="md-ellipsis">
+      
+        记分板的四个阶段
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#记分板维护三张状态表">
+<span class="md-ellipsis">
+      
+        记分板维护三张状态表
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Tomasulo-算法-Tomasulos-Approach-page-67">
+<span class="md-ellipsis">
+      
+        Tomasulo 算法 (Tomasulo’s Approach) (page 67)
+      
+    </span>
+</a>
+<nav aria-label="Tomasulo 算法 (Tomasulo’s Approach) (page 67)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Tomasulo-算法的总结-Summary-of-Tomasulos-Algorithm-page-85-87">
+<span class="md-ellipsis">
+      
+        Tomasulo 算法的总结 (Summary of Tomasulo’s Algorithm) (page 85-87)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Tomasulo-算法示例分析-page-1-2">
+<span class="md-ellipsis">
+      
+        Tomasulo 算法示例分析 (page 1-2)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#执行流程追踪-page-2">
+<span class="md-ellipsis">
+      
+        执行流程追踪 (page 2)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Tomasulo-算法的硬件结构-page-3">
+<span class="md-ellipsis">
+      
+        Tomasulo 算法的硬件结构 (page 3)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#基于硬件的推测-Hardware-Based-Speculation-22-Hardware-Based-Speculation-page-4">
+<span class="md-ellipsis">
+      
+        基于硬件的推测 (Hardware-Based Speculation) (§2.2 Hardware-Based Speculation, page 4)
+      
+    </span>
+</a>
+<nav aria-label="基于硬件的推测 (Hardware-Based Speculation) (§2.2 Hardware-Based Speculation, page 4)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#重排序缓冲区-Reorder-Buffer-ROB-page-5">
+<span class="md-ellipsis">
+      
+        重排序缓冲区 (Reorder Buffer, ROB) (page 5)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#推测处理步骤-Processing-Steps-of-Speculation-page-6">
+<span class="md-ellipsis">
+      
+        推测处理步骤 (Processing Steps of Speculation) (page 6)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#硬件推测示例-Hardware-Based-Speculation-Example-page-9-11">
+<span class="md-ellipsis">
+      
+        硬件推测示例 (Hardware-Based Speculation Example) (page 9-11)
+      
+    </span>
+</a>
+<nav aria-label="硬件推测示例 (Hardware-Based Speculation Example) (page 9-11)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#保留站-Reservation-Station-状态-page-10">
+<span class="md-ellipsis">
+      
+        保留站 (Reservation Station) 状态 (page 10)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#重排序缓冲区-ROB-状态-page-11">
+<span class="md-ellipsis">
+      
+        重排序缓冲区 (ROB) 状态 (page 11)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#寄存器状态-Register-Status-表-page-11">
+<span class="md-ellipsis">
+      
+        寄存器状态 (Register Status) 表 (page 11)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#硬件推测的练习与总结-Practice-and-Summary-of-Hardware-Based-Speculation-page-12-38">
+<span class="md-ellipsis">
+      
+        硬件推测的练习与总结 (Practice and Summary of Hardware-Based Speculation) (page 12-38)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#利用多发射和静态调度来利用-ILP-23-Exploiting-ILP-Using-Multiple-Issue-and-Static-Scheduling-page-39">
+<span class="md-ellipsis">
+      
+        利用多发射和静态调度来利用 ILP (§2.3 Exploiting ILP Using Multiple Issue and Static Scheduling, page 39)
+      
+    </span>
+</a>
+<nav aria-label="利用多发射和静态调度来利用 ILP (§2.3 Exploiting ILP Using Multiple Issue and Static Scheduling, page 39)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#多发射处理器类型-Two-types-of-multiple-issue-processor-page-40-43">
+<span class="md-ellipsis">
+      
+        多发射处理器类型 (Two types of multiple-issue processor) (page 40-43)
+      
+    </span>
+</a>
+<nav aria-label="多发射处理器类型 (Two types of multiple-issue processor) (page 40-43)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-超标量-Superscalar-page-40">
+<span class="md-ellipsis">
+      
+        1. 超标量 (Superscalar) (page 40)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-超长指令字-VLIW-page-43">
+<span class="md-ellipsis">
+      
+        2. 超长指令字 (VLIW) (page 43)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#超标量-vs-VLIW-page-44-46">
+<span class="md-ellipsis">
+      
+        超标量 vs. VLIW (page 44-46)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#基于静态调度的多发射技术-Multi-issue-technology-based-on-static-scheduling-page-47">
+<span class="md-ellipsis">
+      
+        基于静态调度的多发射技术 (Multi-issue technology based on static scheduling) (page 47)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#RISC-V-循环执行示例-RISC-V-loop-execution-example-page-53-58">
+<span class="md-ellipsis">
+      
+        RISC-V 循环执行示例 (RISC-V loop execution example) (page 53-58)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#超流水线处理器-Superpipelined-processor-page-68">
+<span class="md-ellipsis">
+      
+        超流水线处理器 (Superpipelined processor) (page 68)
+      
+    </span>
+</a>
+<nav aria-label="超流水线处理器 (Superpipelined processor) (page 68)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#SGI-MIPS-R4000-处理器-page-71">
+<span class="md-ellipsis">
+      
+        SGI MIPS R4000 处理器 (page 71)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#R4000-流水线结构-R4000-Pipeline-Structure-page-72-77">
+<span class="md-ellipsis">
+      
+        R4000 流水线结构 (R4000 Pipeline Structure) (page 72-77)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Note
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    CSys-III
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:notes">notes</a>
+</nav>
+<h1 id="指令级并行-ILP">指令级并行<span><span class="heti-spacing"> </span>(ILP)</span><a class="headerlink" href="#指令级并行-ILP" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h1>
+<p>指令级并行（Instruction-Level Parallelism, ILP）是指处理器在同一时间执行多条指令的能力。这是通过利用指令之间的独立性来实现的，从而提高程序的执行效率。在现代处理器设计中，<span>ILP<span class="heti-spacing"> </span></span>是一个核心概念，它通过流水线（Pipelining<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、乱序执行（Out-of-Order Execution）和多发射（Multiple Issue）等技术来实现。</p>
+<h2 id="流水线技术回顾-page-2">流水线技术回顾<span><span class="heti-spacing"> </span>(page 2)</span><a class="headerlink" href="#流水线技术回顾-page-2" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>流水线是一种通过重叠指令的执行来提高处理器吞吐量的技术。它将指令执行过程分解为多个阶段，不同指令的这些阶段可以并行执行。就像洗衣店的例子（page 2）所示，通过将洗衣、烘干、折叠等任务并行化，可以显著缩短完成多件衣物所需的总时间。</p>
+<h3 id="依赖关系-Dependences">依赖关系<span><span class="heti-spacing"> </span>(Dependences)</span><a class="headerlink" href="#依赖关系-Dependences" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在流水线执行中，指令之间的依赖关系是导致流水线停顿（Stall）的主要原因。理解这些依赖关系对于优化流水线性能至关重要。</p>
+<h4 id="数据依赖-Data-Dependences-page-3">数据依赖<span><span class="heti-spacing"> </span>(Data Dependences) (page 3)</span><a class="headerlink" href="#数据依赖-Data-Dependences-page-3" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>数据依赖是指一条指令的执行需要前一条指令产生的结果。数据依赖可以分为以下三种类型：</p>
+<ol>
+<li>
+<p><strong>写后读<span><span class="heti-spacing"> </span>(Read After Write, RAW)</span></strong> (page 7)</p>
+<ul>
+<li>定义：一条指令尝试读取一个寄存器或存储器位置，而该位置在之前的指令中被写入。</li>
+<li>示例<span><span class="heti-spacing"> </span>(page 7):</span>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos="1 "></span></a>FADD.D F6, F0, F12
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos" data-linenos="2 "></span></a>FSUB.D F8, F6, F14
+</span></code></pre></div>
+    在这里，<code>FSUB.D</code> 指令读取 <code>F6</code>，而 <code>F6</code> 是由 <code>FADD.D</code> 指令写入的。如果 <code>FSUB.D</code> 在 <code>FADD.D</code> 完成写入之前读取 <code>F6</code>，就会导致不正确的结果。</li>
+</ul>
+</li>
+<li>
+<p><strong>读后写<span><span class="heti-spacing"> </span>(Write After Read, WAR)</span></strong> (page 7)</p>
+<ul>
+<li>定义：一条指令尝试写入一个寄存器或存储器位置，而该位置在之前的指令中被读取。这是一种名称依赖（Name Dependence<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>示例<span><span class="heti-spacing"> </span>(page 7):</span>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos" data-linenos="1 "></span></a>FDIV.D F2, F6, F4
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><a href="#__codelineno-1-2"><span class="linenos" data-linenos="2 "></span></a>FADD.D F6, F0, F12
+</span></code></pre></div>
+    在这里，<code>FADD.D</code> 尝试写入 <code>F6</code>，而 <code>FDIV.D</code> 在此之前读取了 <code>F6</code>。如果 <code>FADD.D</code> 的写入过早发生，可能会破坏 <code>FDIV.D</code> 所需的旧值。</li>
+</ul>
+</li>
+<li>
+<p><strong>写后写<span><span class="heti-spacing"> </span>(Write After Write, WAW)</span></strong> (page 7)</p>
+<ul>
+<li>定义：两条指令尝试写入相同的寄存器或存储器位置。这同样是一种名称依赖。</li>
+<li>示例<span><span class="heti-spacing"> </span>(page 7):</span>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><a href="#__codelineno-2-1"><span class="linenos" data-linenos="1 "></span></a>FDIV.D F2, F0, F4
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><a href="#__codelineno-2-2"><span class="linenos" data-linenos="2 "></span></a>FSUB.D F2, F6, F14
+</span></code></pre></div>
+    在这里，<code>FDIV.D</code> 和 <code>FSUB.D</code> 都尝试写入 <code>F2</code>。如果 <code>FSUB.D</code> 的写入在 <code>FDIV.D</code> 之后完成，但 <code>FDIV.D</code> 的写入被覆盖，或者写入顺序颠倒，会导致 <code>F2</code> 最终的值不正确。</li>
+</ul>
+</li>
+</ol>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>在经典的五级整型流水线中，由于指令按序执行且写回（WB）阶段在最后，<span>WAR<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>WAW<span class="heti-spacing"> </span></span>冒险通常不会发生。然而，在更复杂的乱序执行处理器中，它们是必须解决的关键问题。</p>
+</details>
+<h4 id="名称依赖-Name-Dependences-page-4">名称依赖<span><span class="heti-spacing"> </span>(Name Dependences) (page 4)</span><a class="headerlink" href="#名称依赖-Name-Dependences-page-4" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>名称依赖是指两条指令使用相同的寄存器或存储器位置，但这些位置并不用于传递真实的数据值。它们是由指令对相同名称（寄存器或内存地址）的使用引起的。名称依赖可以分为<span class="heti-skip"><span class="heti-spacing"> </span>WAR<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>WAW<span class="heti-spacing"> </span></span>两种类型。</p>
+<ul>
+<li>
+<p><strong>反依赖<span><span class="heti-spacing"> </span>(Anti-dependence) (WAR)</span></strong><span>:<span class="heti-spacing"> </span></span>当一条指令的输出寄存器与前面指令的输入寄存器相同，并且执行顺序颠倒会破坏输入值时，发生反依赖。</p>
+<ul>
+<li>示例<span><span class="heti-spacing"> </span>(page 4):</span>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><a href="#__codelineno-3-1"><span class="linenos" data-linenos="1 "></span></a>FDIV.D F2, F6, F4    (Instruction 1: uses F6 as source)
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><a href="#__codelineno-3-2"><span class="linenos" data-linenos="2 "></span></a>FADD.D F6, F0, F12   (Instruction 2: writes to F6)
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><a href="#__codelineno-3-3"><span class="linenos" data-linenos="3 "></span></a>FSUB.D F8, F6, F14   (Instruction 3: uses F6 as source)
+</span></code></pre></div>
+    在这里，<code>FADD.D</code> 写入 <code>F6</code>，而 <code>FDIV.D</code> 和 <code>FSUB.D</code> 读取 <code>F6</code>。如果 <code>FADD.D</code> 提前完成写入，会导致 <code>FDIV.D</code> 和 <code>FSUB.D</code> 读取到错误的值。通过寄存器重命名（Register Renaming），可以将 <code>F6</code> 替换为新的临时寄存器 <code>S</code>，从而消除这种依赖，如附件所示：
+    <div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><a href="#__codelineno-4-1"><span class="linenos" data-linenos="1 "></span></a>FDIV.D F2, F6, F4
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><a href="#__codelineno-4-2"><span class="linenos" data-linenos="2 "></span></a>FADD.D S, F0, F12    (F6 changed to S)
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><a href="#__codelineno-4-3"><span class="linenos" data-linenos="3 "></span></a>FSUB.D F8, S, F14    (F6 changed to S)
+</span></code></pre></div></li>
+</ul>
+</li>
+<li>
+<p><strong>输出依赖<span><span class="heti-spacing"> </span>(Output-dependence) (WAW)</span></strong><span>:<span class="heti-spacing"> </span></span>当两条指令写入同一个寄存器时，发生输出依赖。</p>
+<ul>
+<li>示例<span><span class="heti-spacing"> </span>(page 4):</span>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><a href="#__codelineno-5-1"><span class="linenos" data-linenos="1 "></span></a>FDIV.D F2, F6, F4    (Instruction 1: writes to F2)
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a><a href="#__codelineno-5-2"><span class="linenos" data-linenos="2 "></span></a>FADD.D F6, F0, F12
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a><a href="#__codelineno-5-3"><span class="linenos" data-linenos="3 "></span></a>FSUB.D F2, F6, F14   (Instruction 2: writes to F2)
+</span></code></pre></div>
+    在这里，<code>FDIV.D</code> 和 <code>FSUB.D</code> 都写入 <code>F2</code>。为了保证最终结果的正确性，<code>FSUB.D</code> 必须在 <code>FDIV.D</code> 之后完成写入。通过寄存器重命名，可以将 <code>F2</code> 替换为新的临时寄存器 <code>S</code>，消除这种依赖：
+    <div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><a href="#__codelineno-6-1"><span class="linenos" data-linenos="1 "></span></a>FDIV.D F2, F0, F4
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a><a href="#__codelineno-6-2"><span class="linenos" data-linenos="2 "></span></a>FADD.D F6, F0, F12
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a><a href="#__codelineno-6-3"><span class="linenos" data-linenos="3 "></span></a>FSUB.D S, F6, F14    (F2 changed to S)
+</span></code></pre></div></li>
+</ul>
+</li>
+</ul>
+<details class="definition" open="open">
+<summary>寄存器重命名<span><span class="heti-spacing"> </span>(Register Renaming)</span></summary>
+<p>寄存器重命名是一种硬件技术，用于消除名称依赖（<span>WAR<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>WAW<span class="heti-spacing"> </span></span>冒险<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。它通过为不同的指令分配不同的物理寄存器来存储其结果，即使这些结果在程序中引用相同的逻辑寄存器。这使得指令可以乱序执行，只要它们的数据流依赖关系得到满足。</p>
+</details>
+<h4 id="控制依赖-Control-Dependences-page-5">控制依赖<span><span class="heti-spacing"> </span>(Control Dependences) (page 5)</span><a class="headerlink" href="#控制依赖-Control-Dependences-page-5" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>控制依赖是指一条指令的执行是否发生，取决于前面一条分支指令的结果。
+- 示例 (page 5):
+    </p><div class="highlight"><span class="filename">C</span><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a><a href="#__codelineno-7-1"><span class="linenos" data-linenos="1 "></span></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">p1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a><a href="#__codelineno-7-2"><span class="linenos" data-linenos="2 "></span></a><span class="w">    </span><span class="n">Statement</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a><a href="#__codelineno-7-3"><span class="linenos" data-linenos="3 "></span></a><span class="p">}</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a><a href="#__codelineno-7-4"><span class="linenos" data-linenos="4 "></span></a><span class="n">Statement</span><span class="p">;</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5"></a><a href="#__codelineno-7-5"><span class="linenos" data-linenos="5 "></span></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">p2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6"></a><a href="#__codelineno-7-6"><span class="linenos" data-linenos="6 "></span></a><span class="w">    </span><span class="n">Statement</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7"></a><a href="#__codelineno-7-7"><span class="linenos" data-linenos="7 "></span></a><span class="p">}</span>
+</span></code></pre></div>
+    在这里，<code>Statement 1</code> 的执行依赖于 <code>p1</code> 的结果，而 <code>Statement 2</code> 的执行依赖于 <code>p2</code> 的结果。在流水线中，如果分支条件未能及时确定，会导致流水线无法确定下一条要取出的指令，从而造成停顿。
+<h3 id="冒险-Hazards-page-6">冒险<span><span class="heti-spacing"> </span>(Hazards) (page 6)</span><a class="headerlink" href="#冒险-Hazards-page-6" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>冒险是流水线中阻止下一条指令在下一个时钟周期开始执行的情况。它们阻碍了流水线的理想吞吐量。</p>
+<details class="note" open="open">
+<summary>依赖<span class="heti-skip"><span class="heti-spacing"> </span>(Dependency) vs.<span class="heti-spacing"> </span></span>冒险<span><span class="heti-spacing"> </span>(Hazard)</span></summary>
+<ul>
+<li><strong>依赖</strong>是程序的固有属性，存在于指令之间，与硬件实现无关。</li>
+<li><strong>冒险</strong>是特定流水线结构在遇到特定依赖时产生的问题。一条指令因为冒险而无法在预定的时钟周期执行。</li>
+</ul>
+<p>换言之，不同的流水线设计可能会将同一个依赖关系表现为不同的冒险，或者通过某些技术（如转发）来避免冒险的发生。</p>
+</details>
+<ol>
+<li>
+<p><strong>结构冒险<span><span class="heti-spacing"> </span>(Structure Hazards)</span></strong> (page 6)</p>
+<ul>
+<li>定义：当所需的硬件资源忙碌时发生。例如，如果只有一条内存端口，而指令需要同时访问指令存储器和数据存储器，就会发生结构冒险。</li>
+<li>解决方案：复制资源（如哈佛结构分离指令和数据缓存）或增加流水线级数。</li>
+</ul>
+</li>
+<li>
+<p><strong>数据冒险<span><span class="heti-spacing"> </span>(Data Hazards)</span></strong> (page 6, 8-15)</p>
+<ul>
+<li>定义：当一条指令需要等待前一条指令完成数据读<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>写操作时发生。</li>
+<li>类型：RAW, WAR, WAW（如前所述<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>转发<span class="heti-skip"><span class="heti-spacing"> </span>(Forwarding) /<span class="heti-spacing"> </span></span>旁路<span><span class="heti-spacing"> </span>(Bypassing)</span></strong> (page 8-10):<ul>
+<li>这是一种硬件技术，用于解决<span class="heti-skip"><span class="heti-spacing"> </span>RAW<span class="heti-spacing"> </span></span>冒险。它通过将前一条指令的计算结果直接转发给后续需要该结果的指令，而不需要等待结果写回寄存器文件。例如，<span>ALU<span class="heti-spacing"> </span></span>计算结果可以在<span class="heti-skip"><span class="heti-spacing"> </span>ALU<span class="heti-spacing"> </span></span>阶段结束时直接转发给下一条指令的<span class="heti-skip"><span class="heti-spacing"> </span>ALU<span class="heti-spacing"> </span></span>输入，从而避免一个时钟周期的停顿。附件中的图示清晰地展示了数据如何通过红色箭头从一个指令的执行阶段直接传送到另一个指令的执行阶段。</li>
+</ul>
+</li>
+<li><strong>带气泡的转发<span><span class="heti-spacing"> </span>(Forwarding with Bubble)</span></strong> (page 11-12):<ul>
+<li>尽管有转发机制，某些数据依赖关系仍然可能导致停顿（“气泡”或“泡泡”，Bubble<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。例如，加载指令（<code>LD</code>）的结果通常在内存访问阶段之后才可用。如果紧随其后的指令需要这个加载结果，即使有转发，也可能需要一个或多个时钟周期的停顿，因为数据尚未从内存中取出。附件中的表格（page 12）展示了加载指令 <code>LD R1, 0(R2)</code> 后，<code>DADD R4, R1, R5</code> 需要等待 <code>R1</code> 的值，导致 <code>stall</code>。</li>
+</ul>
+</li>
+<li><strong>代码调度以避免停顿<span><span class="heti-spacing"> </span>(Code Scheduling to Avoid Stalls)</span></strong> (page 13-15):<ul>
+<li>这是一种编译器技术，通过重新排列指令顺序来减少或消除停顿。其核心思想是，将没有依赖关系的指令插入到可能导致停顿的指令之间，从而填补空闲的流水线槽。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<details class="example">
+<summary>代码调度示例<span><span class="heti-spacing"> </span>(page 13-15)</span></summary>
+<p><strong>原始代码序列<span><span class="heti-spacing"> </span>:</span></strong>
+</p><div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a><a href="#__codelineno-8-1"><span class="linenos" data-linenos="1 "></span></a>// A = B + C;  D = E - F
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a><a href="#__codelineno-8-2"><span class="linenos" data-linenos="2 "></span></a>LD   Rb, B
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a><a href="#__codelineno-8-3"><span class="linenos" data-linenos="3 "></span></a>LD   Rc, C
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4"></a><a href="#__codelineno-8-4"><span class="linenos" data-linenos="4 "></span></a>DADD Ra, Rb, Rc  // stall, 等待 Rc
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5"></a><a href="#__codelineno-8-5"><span class="linenos" data-linenos="5 "></span></a>SD   Ra, A
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6"></a><a href="#__codelineno-8-6"><span class="linenos" data-linenos="6 "></span></a>LD   Re, E
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7"></a><a href="#__codelineno-8-7"><span class="linenos" data-linenos="7 "></span></a>LD   Rf, F
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8"></a><a href="#__codelineno-8-8"><span class="linenos" data-linenos="8 "></span></a>DSUB Rd, Re, Rf  // stall, 等待 Rf
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9"></a><a href="#__codelineno-8-9"><span class="linenos" data-linenos="9 "></span></a>SD   Rd, D
+</span></code></pre></div>
+<p><strong>调度后代码序列<span><span class="heti-spacing"> </span>:</span></strong>
+</p><div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a><a href="#__codelineno-9-1"><span class="linenos" data-linenos="1 "></span></a>LD   Rb, B
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a><a href="#__codelineno-9-2"><span class="linenos" data-linenos="2 "></span></a>LD   Rc, C
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3"></a><a href="#__codelineno-9-3"><span class="linenos" data-linenos="3 "></span></a>LD   Re, E      // 将 D=E-F 的指令提前
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4"></a><a href="#__codelineno-9-4"><span class="linenos" data-linenos="4 "></span></a>LD   Rf, F
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5"></a><a href="#__codelineno-9-5"><span class="linenos" data-linenos="5 "></span></a>DADD Ra, Rb, Rc  // 此时 Rc 已准备好，无 stall
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6"></a><a href="#__codelineno-9-6"><span class="linenos" data-linenos="6 "></span></a>DSUB Rd, Re, Rf  // 此时 Rf 已准备好，无 stall
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7"></a><a href="#__codelineno-9-7"><span class="linenos" data-linenos="7 "></span></a>SD   Ra, A
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8"></a><a href="#__codelineno-9-8"><span class="linenos" data-linenos="8 "></span></a>SD   Rd, D
+</span></code></pre></div>
+通过插入不相关的加载指令，成功避免了暂停。在 page 15 的例子中，通过指令重排，执行周期从 13 个减少到了 11 个。
+</details>
+<ol start="3">
+<li><strong>控制冒险<span><span class="heti-spacing"> </span>(Control Hazards)</span></strong> (page 6, 16-19)<ul>
+<li>定义：当流水线无法确定下一条要取出的指令时发生，通常由分支指令引起。</li>
+<li><strong>分支决定控制流<span><span class="heti-spacing"> </span>(Branch determines flow of control)</span></strong> (page 16):<ul>
+<li>处理器需要根据分支指令的条件（例如 <code>if</code> 语句）来确定下一条指令的地址。然而，在流水线中，分支指令的条件判断和目标地址计算通常发生在较晚的阶段（如<span class="heti-skip"><span class="heti-spacing"> </span>ID<span class="heti-spacing"> </span></span>或<span class="heti-skip"><span class="heti-spacing"> </span>EX<span class="heti-spacing"> </span></span>阶段<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><span>RISC-V<span class="heti-spacing"> </span></span>流水线中，为了提前确定分支结果，需要额外的硬件来在<span class="heti-skip"><span class="heti-spacing"> </span>ID<span class="heti-spacing"> </span></span>阶段比较寄存器并计算目标地址。</li>
+</ul>
+</li>
+<li><strong>分支停顿<span><span class="heti-spacing"> </span>(Stall on Branch)</span></strong> (page 17-18):<ul>
+<li>最简单的处理方式是当遇到分支指令时，停顿流水线，直到分支结果确定并且下一条指令地址明确。这会引入显著的性能损失。</li>
+<li>附件中的表格（page 17）展示了分支无论被“采用”（taken）还是“不采用”（not taken<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，都会导致后续指令的多个周期停顿。</li>
+</ul>
+</li>
+<li><strong>等待分支结果<span><span class="heti-spacing"> </span>(Wait until branch outcome determined)</span></strong> (page 19):<ul>
+<li>这是一种直观但效率低下的处理方式，即在分支结果确定之前，不取下一条指令，流水线会填充“气泡”直至分支目标确定。</li>
+</ul>
+</li>
+<li><strong>延迟槽<span><span class="heti-spacing"> </span>(Delay Slot)</span></strong> (page 22)<ul>
+<li>这是一种架构特性（在早期<span class="heti-skip"><span class="heti-spacing"> </span>RISC<span class="heti-spacing"> </span></span>如<span class="heti-skip"><span class="heti-spacing"> </span>MIPS, SPARC<span class="heti-spacing"> </span></span>中使用<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，分支指令后面的那条指令（位于延迟槽中）无论分支是否跳转都会被执行。编译器负责找到一条有用的指令（或 <code>NOP</code>）来填充这个延迟槽。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<details class="extra" open="open">
+<summary>延迟槽的现代观点<span><span class="heti-spacing"> </span>(page 32)</span> </summary>
+<p>延迟槽在简单的流水线中能有效减少分支延迟。但它将流水线的微架构细节暴露给了指令集架构（ISA<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，这使得构建更复杂的超标量和乱序执行处理器变得非常困难。因此，现代<span class="heti-skip"><span class="heti-spacing"> </span>ISA<span class="heti-spacing"> </span></span>如 <strong><span>RISC-V<span class="heti-spacing"> </span></span>明确规定没有分支延迟槽</strong>，将解决控制冒险的复杂性完全留给硬件实现。</p>
+</details>
+<h3 id="分支预测-Branch-Prediction-page-20">分支预测<span><span class="heti-spacing"> </span>(Branch Prediction) (page 20)</span><a class="headerlink" href="#分支预测-Branch-Prediction-page-20" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>为了减少控制冒险造成的停顿，分支预测技术应运而生。处理器会预测分支的走向（<span>Taken<span class="heti-spacing"> </span></span>或<span><span class="heti-spacing"> </span>Not Taken</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，并根据预测结果提前获取指令。</p>
+<ul>
+<li>
+<p><strong>预测分支结果<span><span class="heti-spacing"> </span>(Predict outcome of branch)</span></strong> (page 20):</p>
+<ul>
+<li>如果预测正确，流水线几乎没有停顿。</li>
+<li>如果预测错误，则需要冲刷流水线（Flush Pipeline<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，并重新获取正确的指令，这将导致显著的性能损失。</li>
+</ul>
+</li>
+<li>
+<p><strong>静态分支预测<span><span class="heti-spacing"> </span>(Static Branch Prediction)</span></strong> (page 21):</p>
+<ul>
+<li>基于分支的典型行为进行预测。</li>
+<li>常见的策略：<ul>
+<li><strong>总是预测不跳转<span><span class="heti-spacing"> </span>(Predict Not Taken)</span></strong>：简单有效，因为很多 <code>if</code> 条件分支不跳转。</li>
+<li><strong>基于方向的预测</strong>：向后跳转（通常是循环）预测为<strong>跳转</strong>，向前跳转（通常是条件判断）预测为<strong>不跳转</strong>。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>动态分支预测<span><span class="heti-spacing"> </span>(Dynamic Branch Prediction)</span></strong> (page 21, 33-37):<ul>
+<li>通过硬件记录分支的历史行为，并假设未来的行为会延续当前趋势。</li>
+<li>当预测错误时，流水线会停顿以便重新获取指令，并更新历史记录。</li>
+<li><strong>分支预测缓冲区<span><span class="heti-spacing"> </span>(Branch Prediction Buffer, BHT)</span></strong> (page 33-34):<ul>
+<li>一个存储分支历史记录的缓存，通过最近的分支指令地址进行索引。</li>
+<li>存储分支结果（“采用”或“不采用”<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>执行分支时，首先检查<span><span class="heti-spacing"> </span>BHT</span>，如果命中则根据预测结果获取指令；如果预测错误，则冲刷流水线并更新<span><span class="heti-spacing"> </span>BHT</span>。</li>
+</ul>
+</li>
+<li><strong><span>1<span class="heti-spacing"> </span></span>位预测器<span><span class="heti-spacing"> </span>(1-Bit Predictor)</span></strong> (page 35):<ul>
+<li>只存储上一次分支的结果。</li>
+<li>缺点：在内层循环（Inner Loop）的最后一个迭代中容易发生两次错误预测。例如，一个循环分支在最后一次迭代时不被采用，但预测器仍然预测为采用；下一次循环开始时，它又预测为不采用，但实际应该采用，导致两次错误预测。</li>
+</ul>
+</li>
+<li><strong><span>2<span class="heti-spacing"> </span></span>位预测器<span><span class="heti-spacing"> </span>(2-Bit Predictor)</span></strong> (page 36-37):<ul>
+<li>使用两个比特来存储分支历史，实现一个有限状态机（Finite State Machine, FSM<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>状态转换：例如<heti-adjacent class="heti-adjacent-quarter">，</heti-adjacent>“强预测采用”（Strongly Taken<heti-adjacent class="heti-adjacent-half">）</heti-adjacent><heti-adjacent class="heti-adjacent-quarter">、</heti-adjacent>“弱预测采用”（Weakly Taken<heti-adjacent class="heti-adjacent-half">）</heti-adjacent><heti-adjacent class="heti-adjacent-quarter">、</heti-adjacent>“弱预测不采用”（Weakly Not Taken<heti-adjacent class="heti-adjacent-half">）</heti-adjacent><heti-adjacent class="heti-adjacent-quarter">、</heti-adjacent>“强预测不采用”（Strongly Not Taken<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。需要连续两次错误预测才能改变强预测的状态。</li>
+<li>优点：对于循环分支，即使偶尔出现不采用的情况，也能更好地保持正确的预测，从而减少错误预测的次数（通常只在内层循环的最后一次迭代中发生一次错误预测<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="分支的数据冒险-Data-Hazards-for-Branches-page-28-30">分支的数据冒险<span><span class="heti-spacing"> </span>(Data Hazards for Branches) (page 28-30)</span><a class="headerlink" href="#分支的数据冒险-Data-Hazards-for-Branches-page-28-30" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>分支指令的条件判断通常依赖于之前<span class="heti-skip"><span class="heti-spacing"> </span>ALU<span class="heti-spacing"> </span></span>或加载指令的结果。这会引入数据冒险。</p>
+<ul>
+<li>如果比较寄存器是第<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>或第<span class="heti-skip"><span class="heti-spacing"> </span>3<span class="heti-spacing"> </span></span>条先行<span class="heti-skip"><span class="heti-spacing"> </span>ALU<span class="heti-spacing"> </span></span>指令的目的（Destination<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，可以通过转发解决，通常不会引入停顿<span><span class="heti-spacing"> </span>(page 28)</span>。</li>
+<li>如果比较寄存器是先行<span class="heti-skip"><span class="heti-spacing"> </span>ALU<span class="heti-spacing"> </span></span>指令或第<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>条先行加载指令的目的，可能需要<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>个停顿周期<span><span class="heti-spacing"> </span>(page 29)</span>。</li>
+<li>如果比较寄存器是紧邻的先行加载指令的目的，可能需要<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>个停顿周期<span><span class="heti-spacing"> </span>(page 30)</span>。</li>
+</ul>
+<h2 id="指令交付与推测的高级技术-Advanced-Techniques-for-Instruction-Delivery-and-Speculation-page-41">指令交付与推测的高级技术<span><span class="heti-spacing"> </span>(Advanced Techniques for Instruction Delivery and Speculation) (page 41)</span><a class="headerlink" href="#指令交付与推测的高级技术-Advanced-Techniques-for-Instruction-Delivery-and-Speculation-page-41" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>为了进一步提高<span><span class="heti-spacing"> </span>ILP</span>，处理器采用了更复杂的指令交付（Instruction Delivery）和推测（Speculation）技术。</p>
+<h3 id="增加指令获取带宽-Increasing-Instruction-Fetch-Bandwidth-page-41">增加指令获取带宽<span><span class="heti-spacing"> </span>(Increasing Instruction Fetch Bandwidth) (page 41)</span><a class="headerlink" href="#增加指令获取带宽-Increasing-Instruction-Fetch-Bandwidth-page-41" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>分支目标缓冲区<span class="heti-skip"><span class="heti-spacing"> </span>(Branch-Target Buffer, BTB) /<span class="heti-spacing"> </span></span>分支目标缓存<span><span class="heti-spacing"> </span>(Branch-Target Cache)</span></strong> (page 41-42, 45-47):<ul>
+<li><span>BTB<span class="heti-spacing"> </span></span>是一个存储分支指令地址及其对应目标地址的缓存。<ol>
+<li>取指时，用<span class="heti-skip"><span class="heti-spacing"> </span>PC<span class="heti-spacing"> </span></span>同时访问指令缓存和<span><span class="heti-spacing"> </span>BTB</span>。</li>
+<li>如果<span class="heti-skip"><span class="heti-spacing"> </span>PC<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>BTB<span class="heti-spacing"> </span></span>中<strong>命中<span><span class="heti-spacing"> </span>(hit)</span></strong>，说明这是一条之前执行过的分支指令。</li>
+<li>使用<span class="heti-skip"><span class="heti-spacing"> </span>BTB<span class="heti-spacing"> </span></span>中的预测位来预测分支行为。</li>
+<li>如果预测<strong>跳转<span><span class="heti-spacing"> </span>(Taken)</span></strong>，则直接使用<span class="heti-skip"><span class="heti-spacing"> </span>BTB<span class="heti-spacing"> </span></span>中存储的<strong>目标地址</strong>作为下一个<span><span class="heti-spacing"> </span>PC</span>，从而实现<strong>零延迟</strong>的分支跳转。</li>
+<li>如果预测<strong>不跳转<span><span class="heti-spacing"> </span>(Not Taken)</span></strong> 或<span><span class="heti-spacing"> </span>BTB</span> <strong>未命中<span><span class="heti-spacing"> </span>(miss)</span></strong>，则正常执行<span><span class="heti-spacing"> </span>(PC+4)</span>。</li>
+<li>当分支指令最终在<span class="heti-skip"><span class="heti-spacing"> </span>EX<span class="heti-spacing"> </span></span>阶段被解析后，如果发现预测错误，则清空流水线，并用正确的结果更新<span><span class="heti-spacing"> </span>BTB</span>。</li>
+</ol>
+</li>
+<li><span>2 bits BTB<span class="heti-spacing"> </span></span>延迟周期分析<span><span class="heti-spacing"> </span>(page 46)</span>：<ul>
+<li><span>BTB<span class="heti-spacing"> </span></span>命中，预测<span><span class="heti-spacing"> </span>Taken</span>，实际<span><span class="heti-spacing"> </span>Taken</span>：<span>0<span class="heti-spacing"> </span></span>延迟。</li>
+<li><span>BTB<span class="heti-spacing"> </span></span>命中，预测<span><span class="heti-spacing"> </span>Taken</span>，实际<span><span class="heti-spacing"> </span>Not Taken</span>：<span>2<span class="heti-spacing"> </span></span>延迟（需要冲刷流水线<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><span>BTB<span class="heti-spacing"> </span></span>未命中，预测<span><span class="heti-spacing"> </span>Not Taken</span>，实际<span><span class="heti-spacing"> </span>Taken</span>：<span>2<span class="heti-spacing"> </span></span>延迟（需要计算目标地址并冲刷流水线<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><span>BTB<span class="heti-spacing"> </span></span>未命中，预测<span><span class="heti-spacing"> </span>Not Taken</span>，实际<span><span class="heti-spacing"> </span>Not Taken</span>：<span>0<span class="heti-spacing"> </span></span>延迟。</li>
+</ul>
+</li>
+<li>优势<span><span class="heti-spacing"> </span>(page 47)</span>：<ul>
+<li>更快地获取分支目标处的指令。</li>
+<li>可以一次性提供多条分支目标处的指令，这对于多处理器系统是必要的。</li>
+<li><strong>分支折叠<span><span class="heti-spacing"> </span>(Branch Folding)</span></strong>：在某些情况下，可以实现无延迟的无条件分支，甚至是有条件的无延迟分支。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="专门的分支预测器-Specialized-Branch-Predictors-page-41">专门的分支预测器<span><span class="heti-spacing"> </span>(Specialized Branch Predictors) (page 41)</span><a class="headerlink" href="#专门的分支预测器-Specialized-Branch-Predictors-page-41" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li>除了通用的分支预测器，还有针对特定类型分支的预测器，例如：<ul>
+<li>预测过程返回（Procedure Returns）</li>
+<li>间接跳转（Indirect Jumps）</li>
+<li>循环分支（Loop Branches）</li>
+</ul>
+</li>
+</ul>
+<h3 id="集成指令获取单元-Integrated-Instruction-Fetch-Units-page-43">集成指令获取单元<span><span class="heti-spacing"> </span>(Integrated Instruction Fetch Units) (page 43)</span><a class="headerlink" href="#集成指令获取单元-Integrated-Instruction-Fetch-Units-page-43" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li>现代处理器将多个指令获取功能集成到一个单元中，包括：<ul>
+<li>集成化的分支预测。</li>
+<li>指令预取（Instruction Prefetch<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>指令存储器访问和缓冲。</li>
+</ul>
+</li>
+<li>指令获取不再是一个简单的单流水线阶段，因为它涉及多指令发射（Multiple Issue）的复杂性。</li>
+</ul>
+<h3 id="计算分支目标-Calculating-the-Branch-Target-page-44-45">计算分支目标<span><span class="heti-spacing"> </span>(Calculating the Branch Target) (page 44-45)</span><a class="headerlink" href="#计算分支目标-Calculating-the-Branch-Target-page-44-45" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li>即使有分支预测器，仍然需要计算目标地址。</li>
+<li>对于被采用的分支，即使预测正确，仍然可能存在<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>个周期的延迟，因为目标地址的计算需要时间。</li>
+<li>分支目标缓冲（BTB）通过缓存目标地址来加速这一过程。</li>
+</ul>
+<h2 id="动态调度-Dynamic-Scheduling-21-Dynamic-Scheduling-page-52">动态调度<span><span class="heti-spacing"> </span>(Dynamic Scheduling) (§2.1 Dynamic Scheduling, page 52)</span><a class="headerlink" href="#动态调度-Dynamic-Scheduling-21-Dynamic-Scheduling-page-52" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>简单流水线技术的一个主要限制是它们使用按序指令发射和执行（in-order instruction issue and execution<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。这意味着如果一条指令被停顿，其后的所有指令都无法继续执行，即使它们之间没有数据依赖。动态调度通过允许指令乱序执行（out-of-order execution）来克服这一限制。</p>
+<details class="example" open="open">
+<summary>顺序流水线的性能瓶颈<span><span class="heti-spacing"> </span>(page 52)</span></summary>
+<p></p><div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a><a href="#__codelineno-10-1"><span class="linenos" data-linenos="1 "></span></a>FDIV.D  F4, F0, F2   // 长延迟指令
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2"></a><a href="#__codelineno-10-2"><span class="linenos" data-linenos="2 "></span></a>FSUB.D  F10, F4, F6  // 依赖于 FDIV.D
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3"></a><a href="#__codelineno-10-3"><span class="linenos" data-linenos="3 "></span></a>FADD.D  F12, F6, F14 // 与前两条指令无数据依赖
+</span></code></pre></div>
+在顺序流水线中，<code>FSUB.D</code> 因为等待 <code>FDIV.D</code> 的结果而暂停。这会导致完全独立的 <code>FADD.D</code> 也无法执行，造成了硬件资源的浪费。
+</details>
+<details class="definition" open="open">
+<summary>乱序执行<span><span class="heti-spacing"> </span>(Out-of-Order Execution)</span></summary>
+<p>乱序执行是指处理器在指令准备就绪时（即其操作数可用且没有结构冒险）就执行它们，而不必严格按照程序顺序。这有助于填充流水线空闲槽，从而提高<span><span class="heti-spacing"> </span>ILP</span>。</p>
+</details>
+<ul>
+<li>
+<p><strong>动态调度的核心思想</strong>(page 53)：将<span><span class="heti-spacing"> </span>ID</span>（指令译码）阶段拆分为两个子阶段：</p>
+<ul>
+<li><strong>发射<span><span class="heti-spacing"> </span>(Issue, IS)</span></strong> (page 55):<ul>
+<li>按程序顺序解码指令。</li>
+<li>检查结构冒险：判断是否有可用的功能单元（Functional Unit）和保留站（Reservation Station<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>如果找到匹配的空闲保留站，则将指令发射到该站，并获取其操作数的值（如果操作数已经在寄存器中<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。如果操作数尚未可用，则记录哪个功能单元将产生该操作数。</li>
+<li>这一步负责寄存器重命名（Register Renaming<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，消除<span class="heti-skip"><span class="heti-spacing"> </span>WAR<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>WAW<span class="heti-spacing"> </span></span>冒险。</li>
+</ul>
+</li>
+<li><strong>读取操作数<span><span class="heti-spacing"> </span>(Read Operands, RO)</span></strong> (page 55):<ul>
+<li>等待所有操作数可用（即数据依赖解决<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>一旦操作数可用，指令就可以乱序执行。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>引入冒险<span><span class="heti-spacing"> </span>(Hazards Introduced)</span></strong> (page 56):</p>
+<ul>
+<li>乱序执行引入了<span class="heti-skip"><span class="heti-spacing"> </span>WAR<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>WAW<span class="heti-spacing"> </span></span>冒险的可能性，这些冒险在简单的五级整数流水线中通常不会出现，但在浮点流水线中可能出现。</li>
+<li>示例<span><span class="heti-spacing"> </span>(page 56):</span>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a><a href="#__codelineno-11-1"><span class="linenos" data-linenos="1 "></span></a>FDIV.D F10, F0, F2   // Writes F10
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2"></a><a href="#__codelineno-11-2"><span class="linenos" data-linenos="2 "></span></a>FSUB.D F10, F4, F6   // Writes F10 (WAW with FDIV.D)
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3"></a><a href="#__codelineno-11-3"><span class="linenos" data-linenos="3 "></span></a>FADD.D F6, F8, F14   // Writes F6, Reads F8, F14
+</span></code></pre></div>
+    这里的 <code>FSUB.D</code> 和 <code>FDIV.D</code> 之间存在 WAW 冒险，因为它们都写入 <code>F10</code>。<code>FADD.D</code> 与 <code>FSUB.D</code> 之间可能存在 WAR 冒险（如果 <code>FADD.D</code> 写 <code>F6</code> 而 <code>FSUB.D</code> 读 <code>F6</code>）。</li>
+</ul>
+</li>
+</ul>
+<h3 id="记分板算法-Scoreboard-Algorithm-page-57-66">记分板算法<span><span class="heti-spacing"> </span>(Scoreboard Algorithm) (page 57-66)</span><a class="headerlink" href="#记分板算法-Scoreboard-Algorithm-page-57-66" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<h4 id="记分板的四个阶段">记分板的四个阶段<a class="headerlink" href="#记分板的四个阶段" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<ol>
+<li><strong><span>Issue (<span class="heti-spacing"> </span></span>发射<span><span class="heti-spacing"> </span>)</span></strong><span>:<span class="heti-spacing"> </span></span>如果指令所需的功能单元空闲且没有<span class="heti-skip"><span class="heti-spacing"> </span>WAW<span class="heti-spacing"> </span></span>冒险，就发射该指令。</li>
+<li><strong><span>Read Operands (<span class="heti-spacing"> </span></span>读操作数<span><span class="heti-spacing"> </span>)</span></strong><span>:<span class="heti-spacing"> </span></span>监控源寄存器，一旦所有源操作数都可用（即没有<span class="heti-skip"><span class="heti-spacing"> </span>RAW<span class="heti-spacing"> </span></span>冒险<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，就读取操作数。</li>
+<li><strong><span>Execution (<span class="heti-spacing"> </span></span>执行<span><span class="heti-spacing"> </span>)</span></strong><span>:<span class="heti-spacing"> </span></span>操作数就绪后，功能单元开始执行。</li>
+<li><strong><span>Write Result (<span class="heti-spacing"> </span></span>写回<span><span class="heti-spacing"> </span>)</span></strong><span>:<span class="heti-spacing"> </span></span>执行完毕后，如果目标寄存器没有被之前的指令读取（即没有<span class="heti-skip"><span class="heti-spacing"> </span>WAR<span class="heti-spacing"> </span></span>冒险<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，就将结果写回寄存器。</li>
+</ol>
+<h4 id="记分板维护三张状态表">记分板维护三张状态表<a class="headerlink" href="#记分板维护三张状态表" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<ol>
+<li>
+<p><strong>指令状态表<span><span class="heti-spacing"> </span>(Instruction Status)</span></strong><span>:<span class="heti-spacing"> </span></span>记录每条指令处于哪个阶段（Issue, Read, Exec, Write<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<p><figure markdown="span">
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/14_2-ILP-1.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/14_2-ILP-1.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/14_2-ILP-1.png" width="500"/></a></figure></p>
+</li>
+</ol>
+<ol start="2">
+<li><strong>功能单元状态表<span><span class="heti-spacing"> </span>(Function Component Status)</span></strong><span>: (page 60)<span class="heti-spacing"> </span></span>记录每个功能单元（如<span><span class="heti-spacing"> </span>Integer, Mult, Add</span>）的状态。<ul>
+<li><code>Busy</code><span>:<span class="heti-spacing"> </span></span>功能单元是否繁忙。</li>
+<li><code>Op</code><span>:<span class="heti-spacing"> </span></span>正在执行的操作。</li>
+<li><code>Fi,</code> <code>Fj, Fk</code><span>:<span class="heti-spacing"> </span></span>目标寄存器和源寄存器。</li>
+<li><code>Qj, Qk</code><span>:<span class="heti-spacing"> </span></span>产生源操作数的功能单元（用于解决<span class="heti-skip"><span class="heti-spacing"> </span>RAW<span class="heti-spacing"> </span></span>冒险<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><code>Rj, Rk</code><span>:<span class="heti-spacing"> </span></span>源操作数是否已就绪将被读取。
+<figure markdown="span">
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/14_2-ILP-2.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/14_2-ILP-2.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/14_2-ILP-2.png" width="500"/></a></figure></li>
+</ul>
+</li>
+</ol>
+<ol start="3">
+<li>
+<p><strong>寄存器结果状态表<span><span class="heti-spacing"> </span>(Register Status)</span></strong><span>: (page 60)<span class="heti-spacing"> </span></span>记录每个寄存器将由哪个功能单元写入。</p>
+<p><figure markdown="span">
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/14_2-ILP-3.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/14_2-ILP-3.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/14_2-ILP-3.png" width="500"/></a></figure></p>
+</li>
+</ol>
+<details class="example" open="open">
+<summary>记分板示例分析<span><span class="heti-spacing"> </span>(page 58-64)</span></summary>
+<p>考虑代码序列：
+</p><div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a><a href="#__codelineno-12-1"><span class="linenos" data-linenos="1 "></span></a>FLD  F6, 34(R2)
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a><a href="#__codelineno-12-2"><span class="linenos" data-linenos="2 "></span></a>FLD  F2, 45(R3)
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3"></a><a href="#__codelineno-12-3"><span class="linenos" data-linenos="3 "></span></a>FMUL.D F0, F2, F4
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4"></a><a href="#__codelineno-12-4"><span class="linenos" data-linenos="4 "></span></a>FSUB.D F8, F2, F6
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5"></a><a href="#__codelineno-12-5"><span class="linenos" data-linenos="5 "></span></a>...
+</span></code></pre></div>
+- <strong>当第一条 <code>FLD F6</code> 完成写回时<span><span class="heti-spacing"> </span>(page 59-60):</span></strong>
+    - <code>FLD F6</code> 已完成所有阶段。<code>FLD F2</code> 已发射，正在等待其执行单元完成。
+    - <code>FMUL.D</code> 已发射，它在等待 <code>F2</code>（由 <code>FLD F2</code> 产生）和 <code>F4</code>（假设已就绪）。它的 <code>Qj</code> 字段会指向 <code>Integer</code> 单元（因为 <code>FLD F2</code> 在此执行），<code>Rj</code> 为 "no"。
+    - <code>FSUB.D</code> 已发射，它在等待 <code>F2</code> 和 <code>F6</code>。由于 <code>F6</code> 已就绪，<code>Rk</code> 为 "yes"；<code>F2</code> 未就绪，<code>Qj</code> 指向 <code>Integer</code> 单元，<code>Rj</code> 为 "no"。
+    - 寄存器状态表中，<code>F2</code> 的结果将由 <code>Integer</code> 单元产生，<code>F0</code> 由 <code>Mult1</code> 产生，<code>F8</code> 由 <code>Add</code> 单元产生。
+</details>
+<p>记分板通过这些表格来判断指令何时可以进入下一阶段，从而实现了有限的乱序执行。但它的主要缺点是：</p>
+<ul>
+<li><strong>集中式控制</strong>：记分板成为瓶颈。</li>
+<li><strong>无法处理<span class="heti-skip"><span class="heti-spacing"> </span>WAR<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>WAW</span></strong>：当存在<span class="heti-skip"><span class="heti-spacing"> </span>WAR<span class="heti-spacing"> </span></span>或<span class="heti-skip"><span class="heti-spacing"> </span>WAW<span class="heti-spacing"> </span></span>冒险时，指令在发射阶段就会被暂停，限制了<span class="heti-skip"><span class="heti-spacing"> </span>ILP<span class="heti-spacing"> </span></span>的发掘。</li>
+<li><strong>每个时钟周期只发射一条指令</strong>。</li>
+</ul>
+<h3 id="Tomasulo-算法-Tomasulos-Approach-page-67"><span>Tomasulo<span class="heti-spacing"> </span></span>算法<span><span class="heti-spacing"> </span>(Tomasulo</span>’s Approach) (page 67)<a class="headerlink" href="#Tomasulo-算法-Tomasulos-Approach-page-67" title="Permanent link">¶</a></h3>
+<p><span>Tomasulo<span class="heti-spacing"> </span></span>算法是另一种更先进的动态调度方法，由<span class="heti-skip"><span class="heti-spacing"> </span>IBM 360/91<span class="heti-spacing"> </span></span>处理器首次采用。它通过使用保留站（Reservation Stations）和公共数据总线（Common Data Bus, CDB）来进一步提高乱序执行的效率。</p>
+<ul>
+<li><strong>主要思想<span><span class="heti-spacing"> </span>(Main Idea)</span></strong> (page 70):<ul>
+<li><strong>分布式控制</strong><span>:<span class="heti-spacing"> </span></span>使用<strong>保留站<span><span class="heti-spacing"> </span>(Reservation Stations, RS)</span></strong> 来替代集中的记分板。每个功能单元有多个保留站。</li>
+<li><strong>寄存器重命名</strong><span>:<span class="heti-spacing"> </span></span>当一条指令发射时，它被分配到一个保留站。保留站会记录指令所需操作数的<strong>值</strong>（如果可用）或<strong>来源</strong>（即哪个保留站会产生这个值<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。目标寄存器名被重命名为这个保留站的标识符（tag<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。这样，后续指令会直接从产生结果的保留站获取数据，而不是从原始寄存器，从而消除了名依赖。</li>
+<li><strong>公共数据总线<span><span class="heti-spacing"> </span>(Common Data Bus, CDB)</span></strong><span>:<span class="heti-spacing"> </span></span>这是一个广播总线。当任何功能单元完成计算后，它会把结果（值）和它的来源标识（tag）一起广播到<span class="heti-skip"><span class="heti-spacing"> </span>CDB<span class="heti-spacing"> </span></span>上。所有正在等待这个结果的保留站会“监听”CDB，并捕获它们需要的数据。</li>
+</ul>
+</li>
+<li><strong>三个阶段<span><span class="heti-spacing"> </span>(Three Steps)</span></strong> (page 71-73):<ul>
+<li><strong>发射<span><span class="heti-spacing"> </span>(Issue)</span></strong> (page 71):<ul>
+<li>从指令队列头部获取下一条指令。</li>
+<li>如果有一个匹配的空闲保留站，将指令发射到该站。</li>
+<li>如果操作数在寄存器中可用，则将它们的值复制到保留站；否则，记录将产生这些操作数的功能单元。</li>
+<li>如果保留站或缓冲区不足，则指令停顿，直到资源可用（结构冒险<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>这一步通过重命名寄存器来消除不在寄存器中的<span class="heti-skip"><span class="heti-spacing"> </span>WAR<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>WAW<span class="heti-spacing"> </span></span>冒险。</li>
+</ul>
+</li>
+<li><strong>执行<span><span class="heti-spacing"> </span>(Execute)</span></strong> (page 72):<ul>
+<li>当所有操作数都可用时，操作在对应的功能单元中执行。</li>
+<li>加载（Load）和存储（Store）指令需要两步执行：首先计算有效地址（当基址寄存器可用时<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，然后将有效地址放入加载或存储缓冲区。</li>
+</ul>
+</li>
+<li><strong>写入结果<span><span class="heti-spacing"> </span>(Write Results)</span></strong> (page 73):<ul>
+<li>当结果可用时，通过公共数据总线（CDB）广播结果。</li>
+<li>所有等待该结果的保留站和寄存器（包括存储缓冲区）都会从<span class="heti-skip"><span class="heti-spacing"> </span>CDB<span class="heti-spacing"> </span></span>获取结果并更新自己的操作数。</li>
+<li>存储指令在存储缓冲区中缓冲，直到待存储的值和存储地址都可用，然后尽快写入内存单元。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><span>Tomasulo<span class="heti-spacing"> </span></span>结构<span><span class="heti-spacing"> </span>(Basic Structure of a Floating-Point Unit using Tomasulo</span>’s Algorithm)</strong> (page 69, 74-77):<ul>
+<li><strong>指令队列<span><span class="heti-spacing"> </span>(Instruction Queue)</span></strong><span>:<span class="heti-spacing"> </span></span>存储待发射的指令。</li>
+<li><strong>浮点寄存器<span><span class="heti-spacing"> </span>(FP Registers)</span></strong><span>:<span class="heti-spacing"> </span></span>存储浮点数值，并带有一个 <code>Qi</code> 字段（Register status Qi<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，指示哪个保留站将写入该寄存器的结果。</li>
+<li><strong>加载缓冲区<span class="heti-skip"><span class="heti-spacing"> </span>(Load Buffers) /<span class="heti-spacing"> </span></span>存储缓冲区<span><span class="heti-spacing"> </span>(Store Buffers)</span></strong><span>:<span class="heti-spacing"> </span></span>用于处理内存加载和存储操作。</li>
+<li><strong>保留站<span><span class="heti-spacing"> </span>(Reservation Stations)</span></strong><span>:<span class="heti-spacing"> </span></span>存储等待操作数和功能单元的指令。每个保留站有以下字段<span><span class="heti-spacing"> </span>(page 79):</span><ul>
+<li><code>Op</code> <span>(<span class="heti-spacing"> </span></span>操作<span class="heti-skip"><span class="heti-spacing"> </span>):<span class="heti-spacing"> </span></span>要执行的操作。</li>
+<li><code>Qj</code><span>,<span class="heti-spacing"> </span></span><code>Qk</code><span>(<span class="heti-spacing"> </span></span>源功能单元<span class="heti-skip"><span class="heti-spacing"> </span>):<span class="heti-spacing"> </span></span>将产生相应源操作数的功能单元的名称。</li>
+<li><code>Vj</code><span>,<span class="heti-spacing"> </span></span><code>Vk</code><span>(<span class="heti-spacing"> </span></span>源操作数值<span class="heti-skip"><span class="heti-spacing"> </span>):<span class="heti-spacing"> </span></span>源操作数的值（如果已可用<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><code>Busy</code> <span>(<span class="heti-spacing"> </span></span>忙碌<span class="heti-skip"><span class="heti-spacing"> </span>):<span class="heti-spacing"> </span></span>该保留站是否被占用。</li>
+<li><code>A</code> <span>(<span class="heti-spacing"> </span></span>地址<span class="heti-skip"><span class="heti-spacing"> </span>):<span class="heti-spacing"> </span></span>用于内存地址计算。</li>
+</ul>
+</li>
+<li><strong>公共数据总线<span><span class="heti-spacing"> </span>(Common Data Bus, CDB)</span></strong><span>:<span class="heti-spacing"> </span></span>一条广播总线，所有功能单元将计算结果发布到<span class="heti-skip"><span class="heti-spacing"> </span>CDB<span class="heti-spacing"> </span></span>上，所有等待这些结果的保留站和寄存器都可以在一个周期内获取。</li>
+</ul>
+</li>
+<li><strong><span>Tomasulo<span class="heti-spacing"> </span></span>数据流<span><span class="heti-spacing"> </span>(Data flow)</span></strong><ol>
+<li>指令从 <strong>Instruction queue</strong> 发射到 <strong>Reservation stations</strong>。</li>
+<li>发射时，如果操作数在 <strong>FP registers</strong> 中就绪，值被直接送到<span><span class="heti-spacing"> </span>RS</span>。</li>
+<li>如果操作数未就绪，<strong>Register status Qi</strong> 表提供产生该操作数的<span class="heti-skip"><span class="heti-spacing"> </span>RS<span class="heti-spacing"> </span></span>的<span><span class="heti-spacing"> </span>Tag</span>，该<span class="heti-skip"><span class="heti-spacing"> </span>Tag<span class="heti-spacing"> </span></span>被送到当前<span><span class="heti-spacing"> </span>RS</span>。</li>
+<li>当<span class="heti-skip"><span class="heti-spacing"> </span>RS<span class="heti-spacing"> </span></span>的操作数都就绪，它就在对应的 <strong>FP adder</strong> 或 <strong>FP multiplier</strong> 中执行。</li>
+<li>执行结果通过 <strong>Common data bus (CDB)</strong> 广播。</li>
+<li>所有等待该结果的<span class="heti-skip"><span class="heti-spacing"> </span>RS<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>FP registers<span class="heti-spacing"> </span></span>监听<span class="heti-skip"><span class="heti-spacing"> </span>CDB<span class="heti-spacing"> </span></span>并捕获结果。</li>
+</ol>
+</li>
+<li><strong><span>Tomasulo<span class="heti-spacing"> </span></span>算法与示例<span><span class="heti-spacing"> </span>(Tomasulo</span>’s Algorithm and Examples)</strong> (page 80-84):<ul>
+<li>附件中提供了具体的代码序列<code>FLD F6, 34(R2)</code><span><span class="heti-spacing"> </span>,</span><code>FLD F2, 45(R3)</code><span><span class="heti-spacing"> </span>,</span><code>FMUL.D F0, F2, F4</code><span><span class="heti-spacing"> </span>,</span><code>FSUB.D F8, F2, F6</code><span><span class="heti-spacing"> </span>,</span><code>FDIV.D F10, F0, F6</code><span><span class="heti-spacing"> </span>,</span> <code>FADD.D F6, F8, F2</code>。</li>
+<li>通过展示不同指令在<span class="heti-skip"><span class="heti-spacing"> </span>Issue, Execute, Write Result<span class="heti-spacing"> </span></span>阶段的进度，以及功能单元状态和寄存器状态的变化，详细演示了<span class="heti-skip"><span class="heti-spacing"> </span>Tomasulo<span class="heti-spacing"> </span></span>算法如何处理数据依赖和乱序执行。</li>
+<li>例如，当第一个 <code>FLD</code> 指令完成并写入结果后，<code>FMUL.D</code> 等待 <code>F2</code> 的值（由第二个 <code>FLD</code> 提供<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，而 <code>FSUB.D</code> 等待 <code>F2</code> 和 <code>F6</code> 的值（<code>F6</code> 由第一个 <code>FLD</code> 提供<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+</ul>
+</li>
+</ul>
+<h4 id="Tomasulo-算法的总结-Summary-of-Tomasulos-Algorithm-page-85-87"><span>Tomasulo<span class="heti-spacing"> </span></span>算法的总结<span><span class="heti-spacing"> </span>(Summary of Tomasulo</span>’s Algorithm) (page 85-87)<a class="headerlink" href="#Tomasulo-算法的总结-Summary-of-Tomasulos-Algorithm-page-85-87" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>主要贡献<span><span class="heti-spacing"> </span>(Main Contributions)</span></strong> (page 85):<ol>
+<li><strong>动态调度</strong><span>:<span class="heti-spacing"> </span></span>实现了真正的乱序执行，显著提升了<span><span class="heti-spacing"> </span>ILP</span>。</li>
+<li><strong>硬件寄存器重命名</strong><span>:<span class="heti-spacing"> </span></span>通过保留站和<span class="heti-skip"><span class="heti-spacing"> </span>CDB<span class="heti-spacing"> </span></span>机制，从根本上消除了<span class="heti-skip"><span class="heti-spacing"> </span>WAR<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>WAW<span class="heti-spacing"> </span></span>冒险。</li>
+<li><strong><span>Load/Store<span class="heti-spacing"> </span></span>解耦</strong><span>: Load/Store<span class="heti-spacing"> </span></span>指令有专门的缓冲区，可以独立进行地址计算和数据传输，进一步发掘并行性。</li>
+<li><strong>性能优于记分板</strong><span>:<span class="heti-spacing"> </span></span>性能更高，并行度更好，是现代乱序执行处理器的基础。</li>
+</ol>
+</li>
+<li><strong>缺点<span><span class="heti-spacing"> </span>(Shortcomings)</span></strong> (page 86):<ol>
+<li><strong>硬件复杂度高</strong><span>:<span class="heti-spacing"> </span></span>保留站、<span>CDB<span class="heti-spacing"> </span></span>以及复杂的控制逻辑使得硬件设计非常复杂。</li>
+<li><strong><span>CDB<span class="heti-spacing"> </span></span>成为瓶颈</strong><span>:<span class="heti-spacing"> </span></span>所有执行结果都必须通过<span class="heti-skip"><span class="heti-spacing"> </span>CDB<span class="heti-spacing"> </span></span>广播，如果功能单元很多，<span>CDB<span class="heti-spacing"> </span></span>可能会饱和。现代处理器通常有多条<span><span class="heti-spacing"> </span>CDB</span>。</li>
+<li><strong>内存依赖问题<span><span class="heti-spacing"> </span>(Memory Disambiguation)</span></strong><span>:<span class="heti-spacing"> </span></span>算法本身不能完美解决<span class="heti-skip"><span class="heti-spacing"> </span>Load<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>Store<span class="heti-spacing"> </span></span>指令之间的内存地址依赖。例如，<code>LOAD addr</code> 和 <code>STORE addr</code>，如果地址相同，它们的顺序不能颠倒。现代处理器需要额外的内存排序硬件来处理这个问题。</li>
+</ol>
+</li>
+<li><strong><span>ILP<span class="heti-spacing"> </span></span>限制导致多核发展<span><span class="heti-spacing"> </span>(Limitations on ILP approaches directly led to the movement to multicore)</span></strong> (page 87):<ul>
+<li>随着<span class="heti-skip"><span class="heti-spacing"> </span>ILP<span class="heti-spacing"> </span></span>技术的深入发展，其性能提升的瓶颈越来越明显，尤其是在处理分支密集、内存访问不规则的程序时。这直接推动了计算机体系结构向多核（Multicore）方向发展，通过并行执行多个线程或进程来提高整体吞吐量。</li>
+<li><strong>乱序执行不等于乱序完成<span><span class="heti-spacing"> </span>(Out-of-order execution doesn't mean out-of-order completion)</span></strong> (page 87):<ul>
+<li>这是一个关键点。乱序执行是指指令可以不按程序顺序开始执行。但为了保证程序的正确性（尤其是处理异常和精确异常<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，指令通常仍需要按程序顺序提交（Commit）或完成（Retire<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<details class="extra" open="open">
+<summary>乱序执行<span class="heti-skip"><span class="heti-spacing"> </span>vs.<span class="heti-spacing"> </span></span>乱序完成<span class="heti-skip"><span class="heti-spacing"> </span>vs.<span class="heti-spacing"> </span></span>乱序提交</summary>
+<ul>
+<li><strong>乱序执行<span><span class="heti-spacing"> </span>(Out-of-Order Execution)</span></strong><span>:<span class="heti-spacing"> </span></span>指令的执行顺序与程序顺序不同。</li>
+<li><strong>乱序完成<span><span class="heti-spacing"> </span>(Out-of-Order Completion)</span></strong><span>:<span class="heti-spacing"> </span></span>指令的完成（写回结果）顺序与程序顺序不同。<span>Tomasulo<span class="heti-spacing"> </span></span>算法和记分板都支持乱序完成。</li>
+</ul>
+<p><strong>一个重要问题：乱序执行是否意味着乱序完成？</strong> (page 87)</p>
+<p><strong>是的</strong>，乱序执行通常会导致乱序完成。然而，这会带来一个严重问题：<strong>精确异常<span><span class="heti-spacing"> </span>(Precise Exceptions)</span></strong>。如果一条晚执行的指令（按程序顺序）先于一条早执行的指令完成，而早执行的指令发生了异常（如除零<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，此时处理器的状态已经因为晚指令的写回而被修改，很难恢复到异常发生前的精确状态。</p>
+<p>为了解决这个问题，现代处理器引入了<strong>重排序缓冲区<span><span class="heti-spacing"> </span>(Re-Order Buffer, ROB)</span></strong>。指令虽然可以乱序执行和完成，但它们的结果会先写入<span><span class="heti-spacing"> </span>ROB</span>。最终，指令会按照原始程序顺序<strong>按序提交<span><span class="heti-spacing"> </span>(in-order commit/retire)</span></strong>，即将其结果从<span class="heti-skip"><span class="heti-spacing"> </span>ROB<span class="heti-spacing"> </span></span>正式写入寄存器堆或内存。这样既获得了乱序执行带来的高性能，又保证了异常和程序状态的精确性。</p>
+</details>
+<h4 id="Tomasulo-算法示例分析-page-1-2"><span>Tomasulo<span class="heti-spacing"> </span></span>算法示例分析<span><span class="heti-spacing"> </span>(page 1-2)</span><a class="headerlink" href="#Tomasulo-算法示例分析-page-1-2" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>让我们通过一个具体的例子来理解<span class="heti-skip"><span class="heti-spacing"> </span>Tomasulo<span class="heti-spacing"> </span></span>算法的工作流程。</p>
+<details class="example" open="open">
+<summary>实例分析：指令执行时间计算</summary>
+<p><strong>假设<span><span class="heti-spacing"> </span>(page 1):</span></strong></p>
+<ul>
+<li><code>FLD</code> <span>(<span class="heti-spacing"> </span></span>浮点加载<span class="heti-skip"><span class="heti-spacing"> </span>): 1<span class="heti-spacing"> </span></span>个执行周期</li>
+<li><code>FADD.D</code> <span>/<span class="heti-spacing"> </span></span><code>FSUB.D</code><span>(<span class="heti-spacing"> </span></span>浮点加<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>减<span class="heti-skip"><span class="heti-spacing"> </span>): 2<span class="heti-spacing"> </span></span>个执行周期</li>
+<li><code>FMUL.D</code> <span>(<span class="heti-spacing"> </span></span>浮点乘法<span class="heti-skip"><span class="heti-spacing"> </span>): 10<span class="heti-spacing"> </span></span>个执行周期</li>
+<li><code>FDIV.D</code> <span>(<span class="heti-spacing"> </span></span>浮点除法<span class="heti-skip"><span class="heti-spacing"> </span>): 40<span class="heti-spacing"> </span></span>个执行周期</li>
+<li>指令发射<span class="heti-skip"><span class="heti-spacing"> </span>(Issue, IS)<span class="heti-spacing"> </span></span>和写回<span class="heti-skip"><span class="heti-spacing"> </span>(Write Back, WB)<span class="heti-spacing"> </span></span>阶段各需要<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>个时钟周期。</li>
+</ul>
+<p><strong>指令序列<span><span class="heti-spacing"> </span>:</span></strong></p>
+<ol>
+<li><code>FLD F6, 34(R2)</code></li>
+<li><code>FLD F2, 45(R3)</code></li>
+<li><code>FMUL.D F0, F2, F4</code></li>
+<li><code>FSUB.D F8, F2, F6</code></li>
+<li><code>FDIV.D F10, F0, F6</code></li>
+<li><code>FADD.D F6, F8, F2</code></li>
+</ol>
+</details>
+<h4 id="执行流程追踪-page-2">执行流程追踪<span><span class="heti-spacing"> </span>(page 2)</span><a class="headerlink" href="#执行流程追踪-page-2" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>下表和时序图展示了每条指令在<span class="heti-skip"><span class="heti-spacing"> </span>Tomasulo<span class="heti-spacing"> </span></span>算法下的执行过程。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Inst</th>
+<th style="text-align: left;">Fi</th>
+<th style="text-align: left;">Fj</th>
+<th style="text-align: left;">Fk</th>
+<th style="text-align: left;"><span>is (<span class="heti-spacing"> </span></span>发射<span><span class="heti-spacing"> </span>)</span></th>
+<th style="text-align: left;"><span>ex (<span class="heti-spacing"> </span></span>执行<span><span class="heti-spacing"> </span>)</span></th>
+<th style="text-align: left;"><span>wb (<span class="heti-spacing"> </span></span>写回<span><span class="heti-spacing"> </span>)</span></th>
+<th style="text-align: left;">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">L.D</td>
+<td style="text-align: left;">F6</td>
+<td style="text-align: left;">34+R2</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">周期<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>计算地址，周期<span class="heti-skip"><span class="heti-spacing"> </span>3<span class="heti-spacing"> </span></span>访存，周期<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>写回。</td>
+</tr>
+<tr>
+<td style="text-align: left;">L.D</td>
+<td style="text-align: left;">F2</td>
+<td style="text-align: left;">45+R3</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">周期<span class="heti-skip"><span class="heti-spacing"> </span>3<span class="heti-spacing"> </span></span>计算地址，周期<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>访存，周期<span class="heti-skip"><span class="heti-spacing"> </span>5<span class="heti-spacing"> </span></span>写回。</td>
+</tr>
+<tr>
+<td style="text-align: left;">MUL.D</td>
+<td style="text-align: left;">F0</td>
+<td style="text-align: left;">F2</td>
+<td style="text-align: left;">F4</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">6-15</td>
+<td style="text-align: left;">16</td>
+<td style="text-align: left;">周期<span class="heti-skip"><span class="heti-spacing"> </span>3<span class="heti-spacing"> </span></span>发射，但需等待<span class="heti-skip"><span class="heti-spacing"> </span>F2<span class="heti-spacing"> </span></span>在周期<span class="heti-skip"><span class="heti-spacing"> </span>5<span class="heti-spacing"> </span></span>完成。因此从周期<span class="heti-skip"><span class="heti-spacing"> </span>6<span class="heti-spacing"> </span></span>开始执行。</td>
+</tr>
+<tr>
+<td style="text-align: left;">SUB.D</td>
+<td style="text-align: left;">F8</td>
+<td style="text-align: left;">F2</td>
+<td style="text-align: left;">F6</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">6-7</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">周期<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>发射，需等待<span class="heti-skip"><span class="heti-spacing"> </span>F2(<span class="heti-spacing"> </span></span>周期<span class="heti-skip"><span class="heti-spacing"> </span>5)<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>F6(<span class="heti-spacing"> </span></span>周期<span><span class="heti-spacing"> </span>4)</span>。从周期<span class="heti-skip"><span class="heti-spacing"> </span>6<span class="heti-spacing"> </span></span>开始执行。</td>
+</tr>
+<tr>
+<td style="text-align: left;">DIV.D</td>
+<td style="text-align: left;">F10</td>
+<td style="text-align: left;">F0</td>
+<td style="text-align: left;">F6</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">17-56</td>
+<td style="text-align: left;">57</td>
+<td style="text-align: left;">周期<span class="heti-skip"><span class="heti-spacing"> </span>5<span class="heti-spacing"> </span></span>发射，需等待<span class="heti-skip"><span class="heti-spacing"> </span>F0(<span class="heti-spacing"> </span></span>周期<span class="heti-skip"><span class="heti-spacing"> </span>16)<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>F6(<span class="heti-spacing"> </span></span>周期<span><span class="heti-spacing"> </span>4)</span>。从周期<span class="heti-skip"><span class="heti-spacing"> </span>17<span class="heti-spacing"> </span></span>开始执行。</td>
+</tr>
+<tr>
+<td style="text-align: left;">ADD.D</td>
+<td style="text-align: left;">F6</td>
+<td style="text-align: left;">F8</td>
+<td style="text-align: left;">F2</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">9-10</td>
+<td style="text-align: left;">11</td>
+<td style="text-align: left;">周期<span class="heti-skip"><span class="heti-spacing"> </span>6<span class="heti-spacing"> </span></span>发射，需等待<span class="heti-skip"><span class="heti-spacing"> </span>F8(<span class="heti-spacing"> </span></span>周期<span class="heti-skip"><span class="heti-spacing"> </span>8)<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>F2(<span class="heti-spacing"> </span></span>周期<span><span class="heti-spacing"> </span>5)</span>。从周期<span class="heti-skip"><span class="heti-spacing"> </span>9<span class="heti-spacing"> </span></span>开始执行。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>详细分析</strong>:</p>
+<ol>
+<li><strong><code>FLD F6</code> <span>(<span class="heti-spacing"> </span></span>周期<span><span class="heti-spacing"> </span>1-4)</span></strong><span>:<span class="heti-spacing"> </span></span>在周期<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>发射<span><span class="heti-spacing"> </span>(is)</span>，周期<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>计算地址，周期<span class="heti-skip"><span class="heti-spacing"> </span>3<span class="heti-spacing"> </span></span>执行（访存<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，周期<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>写回<span><span class="heti-spacing"> </span>(wb)</span>。</li>
+<li><strong><code>FLD F2</code> <span>(<span class="heti-spacing"> </span></span>周期<span><span class="heti-spacing"> </span>2-5)</span></strong><span>:<span class="heti-spacing"> </span></span>在周期<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>发射，周期<span class="heti-skip"><span class="heti-spacing"> </span>3<span class="heti-spacing"> </span></span>计算地址，周期<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>执行，周期<span class="heti-skip"><span class="heti-spacing"> </span>5<span class="heti-spacing"> </span></span>写回。</li>
+<li><strong><code>FMUL.D F0</code> <span>(<span class="heti-spacing"> </span></span>周期<span><span class="heti-spacing"> </span>3, 6-16)</span></strong><span>:<span class="heti-spacing"> </span></span>周期<span class="heti-skip"><span class="heti-spacing"> </span>3<span class="heti-spacing"> </span></span>发射。它需要 <code>F2</code> 的值，但此时 <code>F2</code> 还未就绪。<code>F2</code> 的值在周期<span class="heti-skip"><span class="heti-spacing"> </span>5<span class="heti-spacing"> </span></span>结束时通过<span class="heti-skip"><span class="heti-spacing"> </span>CDB<span class="heti-spacing"> </span></span>广播。因此，<code>FMUL.D</code> 可以在周期<span class="heti-skip"><span class="heti-spacing"> </span>6<span class="heti-spacing"> </span></span>开始执行。执行耗时<span class="heti-skip"><span class="heti-spacing"> </span>10<span class="heti-spacing"> </span></span>个周期（<span>6<span class="heti-spacing"> </span></span>到<span><span class="heti-spacing"> </span>15</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，于周期<span class="heti-skip"><span class="heti-spacing"> </span>16<span class="heti-spacing"> </span></span>写回结果。</li>
+<li><strong><code>FSUB.D F8</code> <span>(<span class="heti-spacing"> </span></span>周期<span><span class="heti-spacing"> </span>4, 6-8)</span></strong><span>:<span class="heti-spacing"> </span></span>周期<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>发射。它需要<code>F2</code><span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>周期<span class="heti-skip"><span class="heti-spacing"> </span>5<span class="heti-spacing"> </span></span>就绪<span class="heti-skip"><span class="heti-spacing"> </span>)<span class="heti-spacing"> </span></span>和<code>F6</code><span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>周期<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>就绪<span><span class="heti-spacing"> </span>)</span>。两个操作数最晚在周期<span class="heti-skip"><span class="heti-spacing"> </span>5<span class="heti-spacing"> </span></span>结束时都已就绪，所以它也可以在周期<span class="heti-skip"><span class="heti-spacing"> </span>6<span class="heti-spacing"> </span></span>开始执行。执行耗时<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>个周期（<span>6<span class="heti-spacing"> </span></span>到<span><span class="heti-spacing"> </span>7</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，于周期<span class="heti-skip"><span class="heti-spacing"> </span>8<span class="heti-spacing"> </span></span>写回。</li>
+<li><strong><code>FDIV.D F10</code> <span>(<span class="heti-spacing"> </span></span>周期<span><span class="heti-spacing"> </span>5, 17-57)</span></strong><span>:<span class="heti-spacing"> </span></span>周期<span class="heti-skip"><span class="heti-spacing"> </span>5<span class="heti-spacing"> </span></span>发射。它需要 <code>F0</code> 和 <code>F6</code>。<code>F6</code> 在周期<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>就绪，但 <code>F0</code> 的结果要等到 <code>FMUL.D</code> 在周期<span class="heti-skip"><span class="heti-spacing"> </span>16<span class="heti-spacing"> </span></span>写回后才可用。因此，<code>FDIV.D</code> 必须等到周期<span class="heti-skip"><span class="heti-spacing"> </span>17<span class="heti-spacing"> </span></span>才能开始执行。执行耗时<span class="heti-skip"><span class="heti-spacing"> </span>40<span class="heti-spacing"> </span></span>个周期（<span>17<span class="heti-spacing"> </span></span>到<span><span class="heti-spacing"> </span>56</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，于周期<span class="heti-skip"><span class="heti-spacing"> </span>57<span class="heti-spacing"> </span></span>写回。</li>
+<li><strong><code>FADD.D F6</code> <span>(<span class="heti-spacing"> </span></span>周期<span><span class="heti-spacing"> </span>6, 9-11)</span></strong><span>:<span class="heti-spacing"> </span></span>周期<span class="heti-skip"><span class="heti-spacing"> </span>6<span class="heti-spacing"> </span></span>发射。它需要<code>F8</code><span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>周期<span class="heti-skip"><span class="heti-spacing"> </span>8<span class="heti-spacing"> </span></span>就绪<span class="heti-skip"><span class="heti-spacing"> </span>)<span class="heti-spacing"> </span></span>和<code>F2</code><span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>周期<span class="heti-skip"><span class="heti-spacing"> </span>5<span class="heti-spacing"> </span></span>就绪<span><span class="heti-spacing"> </span>)</span>。最晚的操作数 <code>F8</code> 在周期<span class="heti-skip"><span class="heti-spacing"> </span>8<span class="heti-spacing"> </span></span>结束时就绪，所以它从周期<span class="heti-skip"><span class="heti-spacing"> </span>9<span class="heti-spacing"> </span></span>开始执行。执行耗时<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>个周期（<span>9<span class="heti-spacing"> </span></span>到<span><span class="heti-spacing"> </span>10</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，于周期<span class="heti-skip"><span class="heti-spacing"> </span>11<span class="heti-spacing"> </span></span>写回。</li>
+</ol>
+<details class="extra" open="open">
+<summary>关键观察点</summary>
+<ul>
+<li><strong>乱序执行<span><span class="heti-spacing"> </span>(OoO)</span></strong><span>:<span class="heti-spacing"> </span></span><code>FSUB.D</code>虽然在 <code>FMUL.D</code> 之后，但它先于 <code>FMUL.D</code> 完成执行和写回<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>周期<span class="heti-skip"><span class="heti-spacing"> </span>8 vs<span class="heti-spacing"> </span></span>周期<span><span class="heti-spacing"> </span>16)</span>。</li>
+<li><strong>消除<span class="heti-skip"><span class="heti-spacing"> </span>WAR<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>WAW<span class="heti-spacing"> </span></span>冒险</strong>:<ul>
+<li><strong>WAR</strong><span>:<span class="heti-spacing"> </span></span><code>FADD.D</code>需要 <code>F6</code> 的旧值（来自 <code>FLD</code><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，但它在 <code>FDIV.D</code> 之后。如果严格按序，<code>FDIV.D</code> 会先读 <code>F6</code>。在这里，<code>FADD.D</code> 和 <code>FDIV.D</code> 各自从保留站获取 <code>F6</code> 的值（或等待其值的<span class="heti-skip"><span class="heti-spacing"> </span>CDB<span class="heti-spacing"> </span></span>广播<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，互不影响。</li>
+<li><strong>WAW</strong><span>:<span class="heti-spacing"> </span></span><code>FADD.D</code>的目标寄存器是 <code>F6</code>，与第一条指令 <code>FLD F6</code> 相同。在<span class="heti-skip"><span class="heti-spacing"> </span>Tomasulo<span class="heti-spacing"> </span></span>算法中，当 <code>FADD.D</code> 发射时，寄存器状态表会指向 <code>FADD.D</code> 所在的保留站。之后任何需要 <code>F6</code> 的指令都会从 <code>FADD.D</code> 的保留站获取结果，从而解决了冲突。旧的 <code>FLD F6</code> 的结果可能被后续指令使用（如 <code>FSUB.D</code><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，也可能因为被新的 <code>FADD.D</code> 覆盖而不再需要。</li>
+</ul>
+</li>
+</ul>
+</details>
+<h4 id="Tomasulo-算法的硬件结构-page-3"><span>Tomasulo<span class="heti-spacing"> </span></span>算法的硬件结构<span><span class="heti-spacing"> </span>(page 3)</span><a class="headerlink" href="#Tomasulo-算法的硬件结构-page-3" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>下图展示了采用<span class="heti-skip"><span class="heti-spacing"> </span>Tomasulo<span class="heti-spacing"> </span></span>算法的浮点单元的基本结构。</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/PicGo//PicGo_exe/2-ILP-4.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/PicGo//PicGo_exe/2-ILP-4.png" src="https://raw.githubusercontent.com/darstib/public_imgs/PicGo//PicGo_exe/2-ILP-4.png" width="600"/></a>
+<br/>
+<figcaption>2-ILP-4.png</figcaption>
+</figure>
+<ul>
+<li><strong>指令队列<span><span class="heti-spacing"> </span>(Instruction Queue)</span></strong><span>:<span class="heti-spacing"> </span></span>缓存从指令提取单元送来的指令。</li>
+<li><strong>保留站<span><span class="heti-spacing"> </span>(Reservation Stations)</span></strong><span>:<span class="heti-spacing"> </span></span>这是算法的核心。每种功能单元（如加法器、乘法器）都有一组保留站。当指令发射时，它被送到一个空闲的保留站。保留站会保存指令的操作码、操作数的值（如果可用）或者等待操作数的保留站标识<span><span class="heti-spacing"> </span>(Qj, Qk)</span>。</li>
+<li><strong>加载<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>存储缓冲区<span><span class="heti-spacing"> </span>(Load/Store Buffers)</span></strong><span>:<span class="heti-spacing"> </span></span>专门处理访存指令。加载缓冲区负责计算地址并从内存读取数据；存储缓冲区负责计算地址并向内存写入数据。</li>
+<li><strong>公共数据总线<span><span class="heti-spacing"> </span>(Common Data Bus, CDB)</span></strong><span>:<span class="heti-spacing"> </span></span>连接了所有功能单元、保留站和浮点寄存器。当任何单元完成计算，它会把结果连同其来源（保留站标识）一起广播到<span class="heti-skip"><span class="heti-spacing"> </span>CDB<span class="heti-spacing"> </span></span>上。所有正在等待这个结果的单元（保留站、存储缓冲区）会“监听”<span>CDB<span class="heti-spacing"> </span></span>并捕获它们需要的数据。</li>
+<li><strong>浮点寄存器<span><span class="heti-spacing"> </span>(FP Registers)</span></strong><span>:<span class="heti-spacing"> </span></span>除了存储数据值，每个寄存器还有一个 <code>Qi</code> 字段，用于指示当前是否有指令正在计算将要写入该寄存器的值。如果 <code>Qi</code> 不为<span><span class="heti-spacing"> </span>0</span>，它将保存那个指令所在保留站的标识。</li>
+</ul>
+<h2 id="基于硬件的推测-Hardware-Based-Speculation-22-Hardware-Based-Speculation-page-4">基于硬件的推测<span><span class="heti-spacing"> </span>(Hardware-Based Speculation) (§2.2 Hardware-Based Speculation, page 4)</span><a class="headerlink" href="#基于硬件的推测-Hardware-Based-Speculation-22-Hardware-Based-Speculation-page-4" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>硬件推测是现代高性能处理器中的一项重要技术，它结合了动态分支预测、乱序执行和一种称为“重排序缓冲区”（Reorder Buffer, ROB）的机制，允许指令在控制依赖关系解决之前执行。</p>
+<h3 id="重排序缓冲区-Reorder-Buffer-ROB-page-5">重排序缓冲区<span><span class="heti-spacing"> </span>(Reorder Buffer, ROB) (page 5)</span><a class="headerlink" href="#重排序缓冲区-Reorder-Buffer-ROB-page-5" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>ROB<span class="heti-spacing"> </span></span>是一个用于缓存推测执行结果的先进先出<span class="heti-skip"><span class="heti-spacing"> </span>(FIFO)<span class="heti-spacing"> </span></span>队列。指令的执行结果不再直接写回寄存器，而是先写入<span><span class="heti-spacing"> </span>ROB</span>。</p>
+<p><strong><span>ROB<span class="heti-spacing"> </span></span>的作用</strong>:</p>
+<ol>
+<li><strong>有序提交<span><span class="heti-spacing"> </span>(In-order Commit)</span></strong><span>:<span class="heti-spacing"> </span></span>指令可以乱序执行完成<span><span class="heti-spacing"> </span>(WB)</span>，但必须按照它们在原始程序中的顺序提交<span><span class="heti-spacing"> </span>(Commit)</span>。只有当一条指令到达<span class="heti-skip"><span class="heti-spacing"> </span>ROB<span class="heti-spacing"> </span></span>的队首且没有异常时，它的结果才能被真正写入寄存器或内存，成为体系结构状态的一部分。</li>
+<li><strong>精确异常<span><span class="heti-spacing"> </span>(Precise Exceptions)</span></strong><span>:<span class="heti-spacing"> </span></span>如果一条推测执行的指令产生异常，该异常会被记录在<span class="heti-skip"><span class="heti-spacing"> </span>ROB<span class="heti-spacing"> </span></span>条目中。直到该指令到达<span class="heti-skip"><span class="heti-spacing"> </span>ROB<span class="heti-spacing"> </span></span>队首准备提交时，异常才会被处理。此时，可以清空<span class="heti-skip"><span class="heti-spacing"> </span>ROB<span class="heti-spacing"> </span></span>和保留站，丢弃所有后续指令，并跳转到异常处理程序，从而保证了异常状态的精确性。</li>
+<li><strong>错误预测恢复</strong><span>:<span class="heti-spacing"> </span></span>如果分支预测失败，所有在错误路径上发射的指令（在<span class="heti-skip"><span class="heti-spacing"> </span>ROB<span class="heti-spacing"> </span></span>中位于分支指令之后）都会被简单地从<span class="heti-skip"><span class="heti-spacing"> </span>ROB<span class="heti-spacing"> </span></span>中清除，它们的计算结果永远不会被提交。</li>
+</ol>
+<div style="text-align: center;">
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_2-ILP-5.png"><img alt="" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_2-ILP-5.png" style="width: 50%;"/></a>
+<p></p>
+</div>
+<h3 id="推测处理步骤-Processing-Steps-of-Speculation-page-6">推测处理步骤<span><span class="heti-spacing"> </span>(Processing Steps of Speculation) (page 6)</span><a class="headerlink" href="#推测处理步骤-Processing-Steps-of-Speculation-page-6" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ol>
+<li><strong>发射<span><span class="heti-spacing"> </span>(Issue)</span></strong><span>:<span class="heti-spacing"> </span></span>从浮点操作队列（FP Op Queue）获取指令。</li>
+<li><strong>执行<span><span class="heti-spacing"> </span>(Execution)</span></strong><span>:<span class="heti-spacing"> </span></span>在功能单元上操作数（EX<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>写入结果<span><span class="heti-spacing"> </span>(Write Result, WB)</span></strong><span>:<span class="heti-spacing"> </span></span>完成执行并将结果写入重排序缓冲区（ROB<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，而不是直接写入寄存器。</li>
+<li><strong>提交<span><span class="heti-spacing"> </span>(Commit)</span></strong><span>:<span class="heti-spacing"> </span></span>按照程序顺序更新寄存器（如果推测正确<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+</ol>
+<details class="definition" open="open">
+<summary>基于硬件的推测<span><span class="heti-spacing"> </span>(page 7)</span></summary>
+<p>结合了三个关键思想：
+1. <strong>动态分支预测<span><span class="heti-spacing"> </span>(Dynamic Branch Prediction)</span></strong><span>:<span class="heti-spacing"> </span></span>硬件预测分支指令的走向（跳转或不跳转<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。
+2. <strong>推测执行<span><span class="heti-spacing"> </span>(Speculation)</span></strong><span>:<span class="heti-spacing"> </span></span>在分支结果确定前，沿着预测的路径提前执行指令。
+3. <strong>动态调度<span><span class="heti-spacing"> </span>(Dynamic Scheduling)</span></strong><span>:<span class="heti-spacing"> </span></span>使用<span class="heti-skip"><span class="heti-spacing"> </span>Tomasulo<span class="heti-spacing"> </span></span>算法来管理推测执行的指令。</p>
+</details>
+<h3 id="硬件推测示例-Hardware-Based-Speculation-Example-page-9-11">硬件推测示例<span><span class="heti-spacing"> </span>(Hardware-Based Speculation Example) (page 9-11)</span><a class="headerlink" href="#硬件推测示例-Hardware-Based-Speculation-Example-page-9-11" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>我们来分析一下当指令序列中的 <code>FMUL.D</code> 执行完成（状态为<span><span class="heti-spacing"> </span>WB</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、但还在等待提交（因为它前面的指令还未提交）时的系统状态。</p>
+<details class="example" open="open">
+<summary>状态表分析</summary>
+<p><strong>指令序列<span><span class="heti-spacing"> </span>:</span></strong></p>
+<ol>
+<li><code>FLD F6, 34(R2)</code></li>
+<li><code>FLD F2, 45(R3)</code></li>
+<li><code>FMUL.D F0, F2, F4</code></li>
+<li><code>FSUB.D F8, F6, F2</code></li>
+<li><code>FDIV.D F10, F0, F6</code></li>
+<li><code>FADD.D F6, F8, F2</code></li>
+</ol>
+<p><strong>场景</strong><span>:<span class="heti-spacing"> </span></span><code>FMUL.D</code>已经执行完毕（在<span class="heti-skip"><span class="heti-spacing"> </span>ROB<span class="heti-spacing"> </span></span>中状态为<span><span class="heti-spacing"> </span>WB</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，准备提交。这意味着它前面的两条 <code>FLD</code> 指令已经提交了。</p>
+</details>
+<h4 id="保留站-Reservation-Station-状态-page-10">保留站<span class="heti-skip"><span class="heti-spacing"> </span>(Reservation Station)<span class="heti-spacing"> </span></span>状态<span><span class="heti-spacing"> </span>(page 10)</span><a class="headerlink" href="#保留站-Reservation-Station-状态-page-10" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Name</th>
+<th style="text-align: center;">Busy</th>
+<th style="text-align: center;">Op</th>
+<th style="text-align: center;">Vj</th>
+<th style="text-align: center;">Vk</th>
+<th style="text-align: center;">Qj</th>
+<th style="text-align: center;">Qk</th>
+<th style="text-align: center;">Dest</th>
+<th style="text-align: center;">A</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Add1</td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;">Add2</td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;">Add3</td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;">Mult1</td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">MUL</td>
+<td style="text-align: center;">Mem[45+Regs[R3]]</td>
+<td style="text-align: center;">Regs[F4]</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><strong class="hash">3</strong></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;">Mult2</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">DIV</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">Mem[34+Regs[R2]]</td>
+<td style="text-align: center;"><strong class="hash">3</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><strong class="hash">5</strong></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>Mult1</code> <span>(<span class="heti-spacing"> </span></span>用于<code>FMUL.D</code><span class="heti-skip"><span class="heti-spacing"> </span>)<span class="heti-spacing"> </span></span>已经是 <code>no</code>，因为它已经执行完毕并将结果广播。</li>
+<li><code>Mult2</code> <span>(<span class="heti-spacing"> </span></span>用于<code>FDIV.D</code><span class="heti-skip"><span class="heti-spacing"> </span>)<span class="heti-spacing"> </span></span>处于 <code>yes</code> 状态，它正在等待操作数。它的 <code>Vj</code> 字段已经捕获了 <code>F6</code> 的值<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>来自<span><span class="heti-spacing"> </span>ROB</span> <strong class="hash">1</strong> ，即<code>Mem[34+Regs[R2]]</code><span><span class="heti-spacing"> </span>)</span>，但 <code>Vk</code> 字段对应的 <code>F0</code> 还没有就绪，所以 <code>Qk</code> 指向 <code>F0</code> 所在的<span class="heti-skip"><span class="heti-spacing"> </span>ROB<span class="heti-spacing"> </span></span>条目 <code>#3</code>。</li>
+</ul>
+<h4 id="重排序缓冲区-ROB-状态-page-11">重排序缓冲区<span class="heti-skip"><span class="heti-spacing"> </span>(ROB)<span class="heti-spacing"> </span></span>状态<span><span class="heti-spacing"> </span>(page 11)</span><a class="headerlink" href="#重排序缓冲区-ROB-状态-page-11" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">NO.</th>
+<th style="text-align: center;">Busy</th>
+<th style="text-align: center;">Instruction</th>
+<th style="text-align: center;">Status</th>
+<th style="text-align: center;">Dest</th>
+<th style="text-align: center;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">FLD F6, 34(R2)</td>
+<td style="text-align: center;">Commit</td>
+<td style="text-align: center;">F6</td>
+<td style="text-align: center;">Mem[34+Regs[R2]]</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">FLD F2, 45(R3)</td>
+<td style="text-align: center;">Commit</td>
+<td style="text-align: center;">F2</td>
+<td style="text-align: center;">Mem[45+Regs[R3]]</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">FMUL.D F0, F2, F4</td>
+<td style="text-align: center;">WB</td>
+<td style="text-align: center;">F0</td>
+<td style="text-align: center;"><strong class="hash">2</strong> x Regs[F4]</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">FSUB.D F8, F6, F2</td>
+<td style="text-align: center;">WB</td>
+<td style="text-align: center;">F8</td>
+<td style="text-align: center;"><strong class="hash">1</strong> - <strong class="hash">2</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">FDIV.D F10, F0, F6</td>
+<td style="text-align: center;">EX</td>
+<td style="text-align: center;">F10</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">FADD.D F6, F8, F2</td>
+<td style="text-align: center;">WB</td>
+<td style="text-align: center;">F6</td>
+<td style="text-align: center;"><strong class="hash">4</strong> + <strong class="hash">2</strong></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>#1</code> 和<code>#2</code><span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>两条 <code>FLD</code> 指令<span class="heti-skip"><span class="heti-spacing"> </span>)<span class="heti-spacing"> </span></span>已经提交<span><span class="heti-spacing"> </span>(</span><code>Commit</code><span><span class="heti-spacing"> </span>)</span>，它们的 <code>Busy</code> 状态为 <code>no</code>。</li>
+<li><code>#3</code> <span>(<span class="heti-spacing"> </span></span><code>FMUL.D</code><span>)<span class="heti-spacing"> </span></span>处于<code>WB</code><span class="heti-skip"><span class="heti-spacing"> </span>(Write Back)<span class="heti-spacing"> </span></span>状态，表示执行完成，结果已写入<span><span class="heti-spacing"> </span>ROB</span>，正在等待提交。</li>
+<li><code>#4</code> <span>(<span class="heti-spacing"> </span></span><code>FSUB.D</code><span>)<span class="heti-spacing"> </span></span>和<code>#6</code><span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span><code>FADD.D</code><span class="heti-skip"><span class="heti-spacing"> </span>)<span class="heti-spacing"> </span></span>也已经 <code>WB</code>，体现了乱序完成。</li>
+<li><code>#5</code> <span>(<span class="heti-spacing"> </span></span><code>FDIV.D</code><span>)<span class="heti-spacing"> </span></span>还在<code>EX</code><span class="heti-skip"><span class="heti-spacing"> </span>(Execute)<span class="heti-spacing"> </span></span>状态，因为它依赖 <code>#3</code> 的结果，执行时间很长。</li>
+<li><code>Value</code> 字段中的<code>#1</code><span class="heti-skip"><span class="heti-spacing"> </span>,<span class="heti-spacing"> </span></span><code>#2</code>等表示对其他<span class="heti-skip"><span class="heti-spacing"> </span>ROB<span class="heti-spacing"> </span></span>条目结果的引用。</li>
+</ul>
+<h4 id="寄存器状态-Register-Status-表-page-11">寄存器状态<span class="heti-skip"><span class="heti-spacing"> </span>(Register Status)<span class="heti-spacing"> </span></span>表<span><span class="heti-spacing"> </span>(page 11)</span><a class="headerlink" href="#寄存器状态-Register-Status-表-page-11" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">F0</th>
+<th style="text-align: left;">F2</th>
+<th style="text-align: left;">F4</th>
+<th style="text-align: left;">F6</th>
+<th style="text-align: left;">F8</th>
+<th style="text-align: left;">F10</th>
+<th style="text-align: left;">...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">ROB</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">...</td>
+</tr>
+<tr>
+<td style="text-align: left;">Busy</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: left;">...</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>此表指示了每个寄存器最新的值将由哪个<span class="heti-skip"><span class="heti-spacing"> </span>ROB<span class="heti-spacing"> </span></span>条目产生。</li>
+<li><code>F0</code> 的值将由<span><span class="heti-spacing"> </span>ROB</span> <strong class="hash">3</strong> <span>(<span class="heti-spacing"> </span></span><code>FMUL.D</code><span>)<span class="heti-spacing"> </span></span>提供，所以 <code>Busy</code> 为 <code>yes</code>。</li>
+<li><code>F6</code> 的值最终将由<span><span class="heti-spacing"> </span>ROB</span> <strong class="hash">6</strong> <span>(<span class="heti-spacing"> </span></span><code>FADD.D</code><span>)<span class="heti-spacing"> </span></span>提供，而不是<span><span class="heti-spacing"> </span>ROB</span> <strong class="hash">1</strong> (<code>FLD F6</code>)。这是寄存器重命名的体现。</li>
+<li><code>F2</code> 已经由<span><span class="heti-spacing"> </span>ROB</span> <strong class="hash">2</strong> 提交并写入寄存器堆，所以它的 <code>Busy</code> 为 <code>no</code>。</li>
+</ul>
+<h3 id="硬件推测的练习与总结-Practice-and-Summary-of-Hardware-Based-Speculation-page-12-38">硬件推测的练习与总结<span><span class="heti-spacing"> </span>(Practice and Summary of Hardware-Based Speculation) (page 12-38)</span><a class="headerlink" href="#硬件推测的练习与总结-Practice-and-Summary-of-Hardware-Based-Speculation-page-12-38" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-104022.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-104022.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-104022.png" width="600"/></a>
+<br/>
+<figcaption>题目内容</figcaption>
+</figure>
+<p>这部分内容通过一个完整的动画展示了上述指令序列在带<span class="heti-skip"><span class="heti-spacing"> </span>ROB<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>Tomasulo<span class="heti-spacing"> </span></span>架构上逐个时钟周期的执行过程。最终的总结表<span class="heti-skip"><span class="heti-spacing"> </span>(page 37)<span class="heti-spacing"> </span></span>清晰地展示了每条指令的四个阶段（发射、执行完成、写回、提交）所处的时钟周期。</p>
+<details class="summary" open="open">
+<summary>Tomasulo with Reorder Buffer - Summary (page 37)</summary>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Instruction</th>
+<th style="text-align: left;">Issue</th>
+<th style="text-align: left;">Exec Comp</th>
+<th style="text-align: left;">Writeback</th>
+<th style="text-align: left;">Commit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">FLD F6, 34(R2)</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr>
+<td style="text-align: left;">FLD F2, 45(R3)</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">6</td>
+</tr>
+<tr>
+<td style="text-align: left;">FMUL.D F0, F2, F4</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">6-15</td>
+<td style="text-align: left;">16</td>
+<td style="text-align: left;">17</td>
+</tr>
+<tr>
+<td style="text-align: left;">FSUB.D F8, F6, F2</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">6-7</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">18</td>
+</tr>
+</tbody>
+</table>
+</details>
+<p>| FDIV.D F10, F0, F6 | 5     | 17-56     | 57        | 58     |
+| FADD.D F6, F8, F2  | 6     | 9-10      | 11        | 59     |</p>
+<blockquote>
+<p><strong>关键结论</strong>: <strong>顺序发射<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>提交，乱序执行<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>写回<span><span class="heti-spacing"> </span>(In-order Issue/Commit, Out-of-Order Execution/Writeback)</span></strong>。</p>
+<ul>
+<li>指令按程序顺序依次发射<span><span class="heti-spacing"> </span>(Issue: 1, 2, 3, ...)</span>。</li>
+<li>指令的执行<span class="heti-skip"><span class="heti-spacing"> </span>(Exec Comp)<span class="heti-spacing"> </span></span>和写回<span class="heti-skip"><span class="heti-spacing"> </span>(Writeback)<span class="heti-spacing"> </span></span>是乱序的，取决于数据依赖和功能单元的可用性<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>例如，<span>FSUB<span class="heti-spacing"> </span></span>在第<span class="heti-skip"><span class="heti-spacing"> </span>8<span class="heti-spacing"> </span></span>周期就写回，而<span class="heti-skip"><span class="heti-spacing"> </span>FMUL<span class="heti-spacing"> </span></span>在第<span class="heti-skip"><span class="heti-spacing"> </span>16<span class="heti-spacing"> </span></span>周期才写回<span><span class="heti-spacing"> </span>)</span>。</li>
+<li>指令的提交<span class="heti-skip"><span class="heti-spacing"> </span>(Commit)<span class="heti-spacing"> </span></span>必须严格按照程序顺序<span><span class="heti-spacing"> </span>(Commit: 5, 6, 17, 18, ...)</span>。<code>FSUB.D</code> 即使在第<span class="heti-skip"><span class="heti-spacing"> </span>8<span class="heti-spacing"> </span></span>周期就完成了，也必须等到它前面的 <code>FMUL.D</code> 在第<span class="heti-skip"><span class="heti-spacing"> </span>17<span class="heti-spacing"> </span></span>周期提交后，才能在第<span class="heti-skip"><span class="heti-spacing"> </span>18<span class="heti-spacing"> </span></span>周期提交。</li>
+</ul>
+</blockquote>
+<h2 id="利用多发射和静态调度来利用-ILP-23-Exploiting-ILP-Using-Multiple-Issue-and-Static-Scheduling-page-39">利用多发射和静态调度来利用<span><span class="heti-spacing"> </span>ILP (§2.3 Exploiting ILP Using Multiple Issue and Static Scheduling, page 39)</span><a class="headerlink" href="#利用多发射和静态调度来利用-ILP-23-Exploiting-ILP-Using-Multiple-Issue-and-Static-Scheduling-page-39" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>到目前为止，我们讨论的都是单发射<span class="heti-skip"><span class="heti-spacing"> </span>(single-issue)<span class="heti-spacing"> </span></span>处理器，即每个时钟周期最多发射一条指令。为了进一步挖掘指令级并行，现代处理器普遍采用<strong>多发射<span><span class="heti-spacing"> </span>(Multiple-Issue)</span></strong> 技术。</p>
+<h3 id="多发射处理器类型-Two-types-of-multiple-issue-processor-page-40-43">多发射处理器类型<span><span class="heti-spacing"> </span>(Two types of multiple-issue processor) (page 40-43)</span><a class="headerlink" href="#多发射处理器类型-Two-types-of-multiple-issue-processor-page-40-43" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<h4 id="1-超标量-Superscalar-page-40"><span>1.<span class="heti-spacing"> </span></span>超标量<span><span class="heti-spacing"> </span>(Superscalar) (page 40)</span><a class="headerlink" href="#1-超标量-Superscalar-page-40" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<details class="definition" open="open">
+<summary>超标量处理器</summary>
+<ul>
+<li><strong>可变发射数量</strong><span>:<span class="heti-spacing"> </span></span>每个时钟周期可以发射的指令数量不是固定的（通常有上限，如<span><span class="heti-spacing"> </span>2</span>、4、<span>8<span class="heti-spacing"> </span></span>条<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。硬件会在运行时动态决定发射多少条指令。</li>
+<li><strong>硬件依赖检查</strong><span>:<span class="heti-spacing"> </span></span>处理器硬件负责检查指令间的依赖关系和资源冲突。</li>
+<li><strong>调度方式</strong>:<ul>
+<li><strong>静态调度超标量</strong><span>:<span class="heti-spacing"> </span></span>依赖检查在硬件中进行，但指令调度主要由编译器静态完成。</li>
+<li><strong>动态调度超标量</strong><span>:<span class="heti-spacing"> </span></span>在硬件中同时进行依赖检查和指令调度（例如，结合<span class="heti-skip"><span class="heti-spacing"> </span>Tomasulo<span class="heti-spacing"> </span></span>算法<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。这是目前主流高性能处理器的实现方式（如<span class="heti-skip"><span class="heti-spacing"> </span>Intel Core i<span class="heti-spacing"> </span></span>系列，<span>AMD Ryzen<span class="heti-spacing"> </span></span>系列<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+</ul>
+</li>
+</ul>
+</details>
+<h4 id="2-超长指令字-VLIW-page-43"><span>2.<span class="heti-spacing"> </span></span>超长指令字<span><span class="heti-spacing"> </span>(VLIW) (page 43)</span><a class="headerlink" href="#2-超长指令字-VLIW-page-43" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<details class="definition" open="open">
+<summary><span>VLIW<span class="heti-spacing"> </span></span>处理器</summary>
+<ul>
+<li><strong>固定发射数量</strong><span>:<span class="heti-spacing"> </span></span>每个时钟周期发射一个包含多条独立操作的“指令包<span><span class="heti-spacing"> </span>(packet)</span>”或“长指令字”。</li>
+<li><strong>编译器依赖检查</strong><span>:<span class="heti-spacing"> </span></span>编译器负责解决所有指令间的依赖关系，将可以并行执行的指令打包在一起。硬件设计大大简化，因为它假定一个指令包内的所有操作都是可以并行执行的。</li>
+<li><strong>应用领域</strong><span>:<span class="heti-spacing"> </span></span>在数字信号处理<span class="heti-skip"><span class="heti-spacing"> </span>(DSP)<span class="heti-spacing"> </span></span>和嵌入式领域非常成功，因为这些领域的工作负载（如循环和矩阵运算）具有高度可预测的并行性。</li>
+</ul>
+</details>
+<h4 id="超标量-vs-VLIW-page-44-46">超标量<span><span class="heti-spacing"> </span>vs. VLIW (page 44-46)</span><a class="headerlink" href="#超标量-vs-VLIW-page-44-46" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">特性</th>
+<th style="text-align: left;">超标量<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>动态<span><span class="heti-spacing"> </span>)</span></th>
+<th style="text-align: left;">VLIW</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>调度</strong></td>
+<td style="text-align: left;">硬件动态调度</td>
+<td style="text-align: left;">编译器静态调度</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>复杂性</strong></td>
+<td style="text-align: left;">硬件复杂，需要动态的依赖检查逻辑</td>
+<td style="text-align: left;">编译器复杂，硬件相对简单</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>代码兼容性</strong></td>
+<td style="text-align: left;">对程序员透明，旧代码不经重新编译也能运行（可能效率不高）</td>
+<td style="text-align: left;">硬件和指令集紧密耦合，代码不兼容，需要专门的编译器</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>并行性发掘</strong></td>
+<td style="text-align: left;">在运行时发掘并行性，对不规则代码适应性强</td>
+<td style="text-align: left;">在编译时发掘并行性，对规则的、可预测的代码效果好</td>
+</tr>
+</tbody>
+</table>
+<h3 id="基于静态调度的多发射技术-Multi-issue-technology-based-on-static-scheduling-page-47">基于静态调度的多发射技术<span><span class="heti-spacing"> </span>(Multi-issue technology based on static scheduling) (page 47)</span><a class="headerlink" href="#基于静态调度的多发射技术-Multi-issue-technology-based-on-static-scheduling-page-47" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li>在典型的超标量处理器中，每个时钟周期可以发射<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>到<span class="heti-skip"><span class="heti-spacing"> </span>8<span class="heti-spacing"> </span></span>条指令。</li>
+<li>指令按序流出，并在流出时进行冲突检测。</li>
+<li>在当前指令序列中，没有数据冲突或紧密冲突。</li>
+<li><span>MIPS<span class="heti-spacing"> </span></span>处理器如何实现超标量<span><span class="heti-spacing"> </span>(page 48-51):</span><ul>
+<li>假设：每个时钟周期流出两条指令：一条整数指令<span class="heti-skip"><span class="heti-spacing"> </span>+<span class="heti-spacing"> </span></span>一条浮点操作指令。</li>
+<li>加载、存储和分支指令被归类为整数指令。</li>
+<li>处理步骤<span><span class="heti-spacing"> </span>(page 49):</span><ul>
+<li>同时获取并解码两条指令（<span>64<span class="heti-spacing"> </span></span>位<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>确定哪些指令可以流出（<span>0~2<span class="heti-spacing"> </span></span>条<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>将它们发送到对应的功能单元。</li>
+</ul>
+</li>
+<li>执行过程：所有浮点指令被假定为加法指令，执行时间为<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>个时钟周期。为简化起见，整数指令总是放在浮点指令之前。</li>
+<li>优点<span><span class="heti-spacing"> </span>(page 51):</span><ul>
+<li>“<span>1<span class="heti-spacing"> </span></span>条整数指令<span class="heti-skip"><span class="heti-spacing"> </span>+ 1<span class="heti-spacing"> </span></span>条浮点指令”的并行流出方式，所需的硬件增加量较小。</li>
+<li>浮点加载或存储指令会使用整数部分，这会增加对浮点寄存器的访问冲突，因此需要为浮点寄存器增加读<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>写端口。</li>
+<li>由于流水线中的指令数量翻倍，方向路径（Forwarding Path）也必须增加。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<details class="note" open="open">
+<summary>基于动态调度的多发射技术<span><span class="heti-spacing"> </span>(page 52)</span></summary>
+<ul>
+<li><strong>扩展的<span class="heti-skip"><span class="heti-spacing"> </span>Tomasulo<span class="heti-spacing"> </span></span>算法</strong><span>:<span class="heti-spacing"> </span></span>支持双路超标量（Two-way Superscalar<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。<ul>
+<li>每个时钟周期发射两条指令：一条整数指令和一条浮点指令。</li>
+</ul>
+</li>
+<li><strong>相对简单的方法<span><span class="heti-spacing"> </span>(Relatively simple method)</span></strong> (page 52):<ul>
+<li>指令按序流向保留站，否则程序语义将被破坏。</li>
+<li>将整数的功能单元表和浮点功能单元表分离，独立处理。这样，一条浮点指令和一条整数指令可以同时发送到各自的保留站。</li>
+</ul>
+</li>
+</ul>
+</details>
+<h3 id="RISC-V-循环执行示例-RISC-V-loop-execution-example-page-53-58"><strong><span>RISC-V<span class="heti-spacing"> </span></span>循环执行示例<span><span class="heti-spacing"> </span>(RISC-V loop execution example)</span></strong> (page 53-58)<a class="headerlink" href="#RISC-V-循环执行示例-RISC-V-loop-execution-example-page-53-58" title="Permanent link">¶</a></h3>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1"></a><a href="#__codelineno-13-1"><span class="linenos" data-linenos="1 "></span></a>Loop:   LD X2, 0 (X1) // X2=array element 
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2"></a><a href="#__codelineno-13-2"><span class="linenos" data-linenos="2 "></span></a>        ADDI X2, X2, 1 // increment X2
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3"></a><a href="#__codelineno-13-3"><span class="linenos" data-linenos="3 "></span></a>        SD X2, 0 (X1) // store result
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4"></a><a href="#__codelineno-13-4"><span class="linenos" data-linenos="4 "></span></a>        ADDI X1, X1, 8 // increment pointer by 8 
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5"></a><a href="#__codelineno-13-5"><span class="linenos" data-linenos="5 "></span></a>                        // (each data occupies 8 bytes)
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6"></a><a href="#__codelineno-13-6"><span class="linenos" data-linenos="6 "></span></a>        BNE X2, X3, Loop // branch if not last
+</span></code></pre></div>
+<ul>
+<li><strong>假设<span><span class="heti-spacing"> </span>(Assumptions)</span></strong> (page 54):<ul>
+<li>每个时钟周期可以流出一条整数指令和一条浮点指令，即使它们相关。</li>
+<li>有独立的整数<span class="heti-skip"><span class="heti-spacing"> </span>ALU<span class="heti-spacing"> </span></span>操作和地址计算组件，以及独立的浮点操作流水线功能组件。</li>
+<li>指令流和写入结果各占用一个时钟周期。</li>
+<li>有动态分支预测组件和独立的用于计算分支条件的组件。</li>
+<li>分支指令独立流出，不使用延迟分支，且分支预测完美。在分支指令完成之前，其后续指令只能被获取和流出，但不能执行。</li>
+</ul>
+</li>
+<li><strong>执行延迟<span><span class="heti-spacing"> </span>(Delay in generating the result)</span></strong> (page 55):<ul>
+<li>写入结果占用一个时钟周期。</li>
+<li>整数操作：<span>1<span class="heti-spacing"> </span></span>个周期。</li>
+<li>加载：<span>2<span class="heti-spacing"> </span></span>个周期。</li>
+<li>浮点加法：<span>3<span class="heti-spacing"> </span></span>个周期。</li>
+</ul>
+</li>
+<li><strong>结果对比</strong>:<ul>
+<li><strong>不带推测<span><span class="heti-spacing"> </span>(page 56)</span></strong><span>: 15<span class="heti-spacing"> </span></span>条指令执行了<span class="heti-skip"><span class="heti-spacing"> </span>19<span class="heti-spacing"> </span></span>个周期，IPC (Instructions Per Cycle) = 15/19 ≈ 0.79。性能瓶颈在于数据依赖和分支指令导致的停顿。</li>
+<li><strong>带硬件推测<span><span class="heti-spacing"> </span>(page 58)</span></strong><span>: 15<span class="heti-spacing"> </span></span>条指令执行了<span class="heti-skip"><span class="heti-spacing"> </span>14<span class="heti-spacing"> </span></span>个周期，IPC = 15/14 ≈ 1.07。推测执行显著减少了分支延迟带来的停顿，允许处理器更早地执行后续循环的指令，从而提高了并行度。</li>
+</ul>
+</li>
+</ul>
+<h3 id="超流水线处理器-Superpipelined-processor-page-68">超流水线处理器<span><span class="heti-spacing"> </span>(Superpipelined processor) (page 68)</span><a class="headerlink" href="#超流水线处理器-Superpipelined-processor-page-68" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>超流水线（Superpipelining）是一种通过进一步细分流水线阶段来提高吞吐量的技术。</p>
+<ul>
+<li>每个流水线阶段被进一步细分，使得多个指令可以在一个时钟周期内分时共享。这种处理器被称为超流水线处理器。</li>
+<li>对于一个每个时钟周期能流出 <code>n</code> 条指令的超流水线计算机，这 <code>n</code> 条指令并非同时流出，而是每条指令每 <code>1/n</code> 个时钟周期流出。</li>
+<li>实际上，超流水线计算机的流水线周期是正常流水线的 <code>1/n</code> 倍。</li>
+<li>附件中展示了一个每时钟周期分时发射两条指令的超流水线计算机的时空图<span><span class="heti-spacing"> </span>(page 69-70)</span>。</li>
+</ul>
+<h4 id="SGI-MIPS-R4000-处理器-page-71"><span>SGI MIPS R4000<span class="heti-spacing"> </span></span>处理器<span><span class="heti-spacing"> </span>(page 71)</span><a class="headerlink" href="#SGI-MIPS-R4000-处理器-page-71" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p><span>R4000<span class="heti-spacing"> </span></span>是一个典型的超流水线处理器，具有<span class="heti-skip"><span class="heti-spacing"> </span>8<span class="heti-spacing"> </span></span>个或更多指令流水线阶段。</p>
+<ul>
+<li><span>R4000<span class="heti-spacing"> </span></span>微处理器芯片包含<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>个缓存：指令缓存和数据缓存，容量均为<span><span class="heti-spacing"> </span>8 KB</span>，数据宽度为<span class="heti-skip"><span class="heti-spacing"> </span>64<span class="heti-spacing"> </span></span>位。</li>
+<li><span>R4000<span class="heti-spacing"> </span></span>的核心处理组件包括：<ul>
+<li>一个<span class="heti-skip"><span class="heti-spacing"> </span>32x32<span class="heti-spacing"> </span></span>位的通用寄存器组。</li>
+<li>一个算术逻辑单元<span><span class="heti-spacing"> </span>(ALU)</span>。</li>
+<li>一个专用的乘<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>除单元。</li>
+</ul>
+</li>
+</ul>
+<h4 id="R4000-流水线结构-R4000-Pipeline-Structure-page-72-77"><span>R4000<span class="heti-spacing"> </span></span>流水线结构<span><span class="heti-spacing"> </span>(R4000 Pipeline Structure) (page 72-77)</span><a class="headerlink" href="#R4000-流水线结构-R4000-Pipeline-Structure-page-72-77" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p><span>R4000<span class="heti-spacing"> </span></span>的流水线有<span class="heti-skip"><span class="heti-spacing"> </span>8<span class="heti-spacing"> </span></span>个阶段，每个阶段都比传统<span class="heti-skip"><span class="heti-spacing"> </span>5<span class="heti-spacing"> </span></span>阶段流水线更精细：</p>
+<ul>
+<li><strong>IF (Instruction Fetch)</strong><span>:<span class="heti-spacing"> </span></span>指令获取前半部分；在此阶段进行程序计数器<span class="heti-skip"><span class="heti-spacing"> </span>(PC)<span class="heti-spacing"> </span></span>选择，并启动指令缓存访问。</li>
+<li><strong>IS (Instruction Stage)</strong><span>:<span class="heti-spacing"> </span></span>指令获取后半部分；完成指令缓存访问。</li>
+<li><strong>RF (Register Fetch)</strong><span>:<span class="heti-spacing"> </span></span>指令解码和寄存器获取；冒险检查，并检测指令缓存命中。</li>
+<li><strong>EX (Execution)</strong><span>:<span class="heti-spacing"> </span></span>执行阶段；包括有效地址计算、<span>ALU<span class="heti-spacing"> </span></span>操作，以及分支目标计算和条件评估。</li>
+<li><strong>DF (Data Fetch)</strong><span>:<span class="heti-spacing"> </span></span>数据获取前半部分；数据缓存访问前半部分。</li>
+<li><strong>DS (Data Stage)</strong><span>:<span class="heti-spacing"> </span></span>数据获取后半部分；完成数据缓存访问。</li>
+<li><strong>TC (Tag Check)</strong><span>:<span class="heti-spacing"> </span></span>标签检查；确定数据缓存访问是否命中。</li>
+<li><strong>WB (Write Back)</strong><span>:<span class="heti-spacing"> </span></span>写回阶段；用于加载指令和寄存器<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>寄存器操作的写回。</li>
+</ul>
+<p><span>(page 78)<span class="heti-spacing"> </span></span>图示了<span class="heti-skip"><span class="heti-spacing"> </span>R4000<span class="heti-spacing"> </span></span>流水线中指令的重叠执行，展示了其<span class="heti-skip"><span class="heti-spacing"> </span>8<span class="heti-spacing"> </span></span>阶段的并行性。</p>
+<p><span>(page 79)<span class="heti-spacing"> </span></span>图中展示了加载指令 <code>LD R1</code> 之后，<code>DADD.D R2, R1</code> 需要等待 <code>R1</code> 的值。由于<span class="heti-skip"><span class="heti-spacing"> </span>LD<span class="heti-spacing"> </span></span>操作需要两个时钟周期（数据缓存访问<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，即使有转发，也需要等待数据从缓存中取出，从而导致后续指令的延迟。</p>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年9月20日 18:33:45 CST">2025年9月20日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年6月14日 00:21:22 CST">2025年6月14日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: 计算机系统基础" class="md-footer__link md-footer__link--prev" href="../1-Fundamentals/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                计算机系统基础
+              </div>
+</div>
+</a>
+<a aria-label="下一页: 计算机系统 III：存储层次结构 (Memory Hierarchy)" class="md-footer__link md-footer__link--next" href="../3-Cache/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                计算机系统 III：存储层次结构 (Memory Hierarchy)
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

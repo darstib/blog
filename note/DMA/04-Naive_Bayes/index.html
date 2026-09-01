@@ -1,0 +1,2734 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/note/DMA/04-Naive_Bayes/" rel="canonical"/>
+<link href="../03-KNN/" rel="prev"/>
+<link href="../05-Decision_Tree/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>04 Naive Bayes - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#问题的提出-page-2-2">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              04 Naive Bayes
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Note
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs188/">
+<span class="md-ellipsis">
+    
+  
+    cs188
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../physics/">
+<span class="md-ellipsis">
+    
+  
+    physics
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-II/">
+<span class="md-ellipsis">
+    
+  
+    CSys-II
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-III/">
+<span class="md-ellipsis">
+    
+  
+    CSys-III
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DEM/">
+<span class="md-ellipsis">
+    
+  
+    DEM
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3_7" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    DMA
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_7_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    DMA
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../01-Intro/">
+<span class="md-ellipsis">
+    
+  
+    01 Intro
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../02-Perceptron/">
+<span class="md-ellipsis">
+    
+  
+    02 Perceptron
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../03-KNN/">
+<span class="md-ellipsis">
+    
+  
+    03 KNN
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    04 Naive Bayes
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    04 Naive Bayes
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#问题的提出-page-2-2">
+<span class="md-ellipsis">
+      
+        问题的提出 (page 2-2)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#贝叶斯-page-3-4">
+<span class="md-ellipsis">
+      
+        贝叶斯 (page 3-4)
+      
+    </span>
+</a>
+<nav aria-label="贝叶斯 (page 3-4)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#托马斯贝叶斯-Thomas-Bayes-page-3-3">
+<span class="md-ellipsis">
+      
+        托马斯·贝叶斯 (Thomas Bayes) (page 3-3)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#贝叶斯决策理论-page-4-4">
+<span class="md-ellipsis">
+      
+        贝叶斯决策理论 (page 4-4)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#贝叶斯估计的应用-page-5-6">
+<span class="md-ellipsis">
+      
+        贝叶斯估计的应用 (page 5-6)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#概率回顾-page-7-8">
+<span class="md-ellipsis">
+      
+        概率(回顾) (page 7-8)
+      
+    </span>
+</a>
+<nav aria-label="概率(回顾) (page 7-8)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#样本空间的划分-page-7-7">
+<span class="md-ellipsis">
+      
+        样本空间的划分 (page 7-7)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#全概率公式-page-8-8">
+<span class="md-ellipsis">
+      
+        全概率公式 (page 8-8)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#极大似然估计法回顾-page-9-13">
+<span class="md-ellipsis">
+      
+        极大似然估计法(回顾) (page 9-13)
+      
+    </span>
+</a>
+<nav aria-label="极大似然估计法(回顾) (page 9-13)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#极大似然估计的原理介绍-page-9-11">
+<span class="md-ellipsis">
+      
+        极大似然估计的原理介绍 (page 9-11)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#似然函数-Likelihood-Function-page-11-12">
+<span class="md-ellipsis">
+      
+        似然函数 (Likelihood Function) (page 11-12)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#极大似然估计的求解-page-13">
+<span class="md-ellipsis">
+      
+        极大似然估计的求解 (page 13)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#极大似然估计例题">
+<span class="md-ellipsis">
+      
+        极大似然估计例题
+      
+    </span>
+</a>
+<nav aria-label="极大似然估计例题" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例14-page-14-15">
+<span class="md-ellipsis">
+      
+        例1.4 (page 14-15)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例15-page-16-19">
+<span class="md-ellipsis">
+      
+        例1.5 (page 16-19)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例16-page-20-22">
+<span class="md-ellipsis">
+      
+        例1.6 (page 20-22)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#朴素贝叶斯-Naïve-Bayes-page-23-27">
+<span class="md-ellipsis">
+      
+        朴素贝叶斯 (Naïve Bayes) (page 23-27)
+      
+    </span>
+</a>
+<nav aria-label="朴素贝叶斯 (Naïve Bayes) (page 23-27)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#训练数据集-page-23-23">
+<span class="md-ellipsis">
+      
+        训练数据集 (page 23-23)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#朴素贝叶斯学习过程-page-23-23">
+<span class="md-ellipsis">
+      
+        朴素贝叶斯学习过程 (page 23-23)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#条件独立性假设-page-24-24">
+<span class="md-ellipsis">
+      
+        条件独立性假设 (page 24-24)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#贝叶斯定理与朴素贝叶斯分类器-page-24-25">
+<span class="md-ellipsis">
+      
+        贝叶斯定理与朴素贝叶斯分类器 (page 24-25)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#后验概率最大化的含义-page-26-27">
+<span class="md-ellipsis">
+      
+        后验概率最大化的含义 (page 26-27)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#朴素贝叶斯法的参数估计-page-28-31">
+<span class="md-ellipsis">
+      
+        朴素贝叶斯法的参数估计 (page 28-31)
+      
+    </span>
+</a>
+<nav aria-label="朴素贝叶斯法的参数估计 (page 28-31)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#极大似然估计法估计相应的概率-page-28-28">
+<span class="md-ellipsis">
+      
+        极大似然估计法估计相应的概率 (page 28-28)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#朴素贝叶斯法算法-page-29-31">
+<span class="md-ellipsis">
+      
+        朴素贝叶斯法算法 (page 29-31)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#朴素贝叶斯例题-page-32-34">
+<span class="md-ellipsis">
+      
+        朴素贝叶斯例题 (page 32-34)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#贝叶斯估计-Bayesian-Estimation-page-35-39">
+<span class="md-ellipsis">
+      
+        贝叶斯估计 (Bayesian Estimation) (page 35-39)
+      
+    </span>
+</a>
+<nav aria-label="贝叶斯估计 (Bayesian Estimation) (page 35-39)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#零概率问题-page-35-35">
+<span class="md-ellipsis">
+      
+        零概率问题 (page 35-35)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#条件概率的贝叶斯估计-page-35-36">
+<span class="md-ellipsis">
+      
+        条件概率的贝叶斯估计 (page 35-36)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#先验概率的贝叶斯估计-page-36">
+<span class="md-ellipsis">
+      
+        先验概率的贝叶斯估计 (page 36)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#贝叶斯估计例题-page-37-39">
+<span class="md-ellipsis">
+      
+        贝叶斯估计例题 (page 37-39)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#朴素贝叶斯的优缺点-page-40-42">
+<span class="md-ellipsis">
+      
+        朴素贝叶斯的优缺点 (page 40-42)
+      
+    </span>
+</a>
+<nav aria-label="朴素贝叶斯的优缺点 (page 40-42)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#优点-page-40-40">
+<span class="md-ellipsis">
+      
+        优点 (page 40-40)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#缺点-page-40-42">
+<span class="md-ellipsis">
+      
+        缺点 (page 40-42)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#朴素贝叶斯分类器的改进算法-page-43考试不涉及">
+<span class="md-ellipsis">
+      
+        朴素贝叶斯分类器的改进算法 (page 43，考试不涉及)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#习题">
+<span class="md-ellipsis">
+      
+        习题
+      
+    </span>
+</a>
+<nav aria-label="习题" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#习题-41">
+<span class="md-ellipsis">
+      
+        习题 4.1
+      
+    </span>
+</a>
+<nav aria-label="习题 4.1" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#48">
+<span class="md-ellipsis">
+      
+        4.8
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#49">
+<span class="md-ellipsis">
+      
+        4.9
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#习题-42">
+<span class="md-ellipsis">
+      
+        习题 4.2
+      
+    </span>
+</a>
+<nav aria-label="习题 4.2" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#410">
+<span class="md-ellipsis">
+      
+        4.10
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#411">
+<span class="md-ellipsis">
+      
+        4.11
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../05-Decision_Tree/">
+<span class="md-ellipsis">
+    
+  
+    05 Decision Tree
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../06-logistic/">
+<span class="md-ellipsis">
+    
+  
+    06 logistic
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../07-SVM/">
+<span class="md-ellipsis">
+    
+  
+    07 SVM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../08-Adaboost/">
+<span class="md-ellipsis">
+    
+  
+    08 Adaboost
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../09-Expect_Max/">
+<span class="md-ellipsis">
+    
+  
+    09 Expect Max
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../14-Cluster_Methods/">
+<span class="md-ellipsis">
+    
+  
+    14 Cluster Methods
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../15-SVD/">
+<span class="md-ellipsis">
+    
+  
+    15 SVD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../16-PCA/">
+<span class="md-ellipsis">
+    
+  
+    16 PCA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../19-MCMC/">
+<span class="md-ellipsis">
+    
+  
+    19 MCMC
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../21-PageRank/">
+<span class="md-ellipsis">
+    
+  
+    21 PageRank
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../appendix-UML/">
+<span class="md-ellipsis">
+    
+  
+    appendix UML
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../appendix-grad/">
+<span class="md-ellipsis">
+    
+  
+    Appendix grad
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../appendix-martirx_derivation/">
+<span class="md-ellipsis">
+    
+  
+    矩阵求导术（上/下）
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs70/">
+<span class="md-ellipsis">
+    
+  
+    cs70
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../other/">
+<span class="md-ellipsis">
+    
+  
+    other
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#问题的提出-page-2-2">
+<span class="md-ellipsis">
+      
+        问题的提出 (page 2-2)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#贝叶斯-page-3-4">
+<span class="md-ellipsis">
+      
+        贝叶斯 (page 3-4)
+      
+    </span>
+</a>
+<nav aria-label="贝叶斯 (page 3-4)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#托马斯贝叶斯-Thomas-Bayes-page-3-3">
+<span class="md-ellipsis">
+      
+        托马斯·贝叶斯 (Thomas Bayes) (page 3-3)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#贝叶斯决策理论-page-4-4">
+<span class="md-ellipsis">
+      
+        贝叶斯决策理论 (page 4-4)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#贝叶斯估计的应用-page-5-6">
+<span class="md-ellipsis">
+      
+        贝叶斯估计的应用 (page 5-6)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#概率回顾-page-7-8">
+<span class="md-ellipsis">
+      
+        概率(回顾) (page 7-8)
+      
+    </span>
+</a>
+<nav aria-label="概率(回顾) (page 7-8)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#样本空间的划分-page-7-7">
+<span class="md-ellipsis">
+      
+        样本空间的划分 (page 7-7)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#全概率公式-page-8-8">
+<span class="md-ellipsis">
+      
+        全概率公式 (page 8-8)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#极大似然估计法回顾-page-9-13">
+<span class="md-ellipsis">
+      
+        极大似然估计法(回顾) (page 9-13)
+      
+    </span>
+</a>
+<nav aria-label="极大似然估计法(回顾) (page 9-13)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#极大似然估计的原理介绍-page-9-11">
+<span class="md-ellipsis">
+      
+        极大似然估计的原理介绍 (page 9-11)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#似然函数-Likelihood-Function-page-11-12">
+<span class="md-ellipsis">
+      
+        似然函数 (Likelihood Function) (page 11-12)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#极大似然估计的求解-page-13">
+<span class="md-ellipsis">
+      
+        极大似然估计的求解 (page 13)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#极大似然估计例题">
+<span class="md-ellipsis">
+      
+        极大似然估计例题
+      
+    </span>
+</a>
+<nav aria-label="极大似然估计例题" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例14-page-14-15">
+<span class="md-ellipsis">
+      
+        例1.4 (page 14-15)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例15-page-16-19">
+<span class="md-ellipsis">
+      
+        例1.5 (page 16-19)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例16-page-20-22">
+<span class="md-ellipsis">
+      
+        例1.6 (page 20-22)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#朴素贝叶斯-Naïve-Bayes-page-23-27">
+<span class="md-ellipsis">
+      
+        朴素贝叶斯 (Naïve Bayes) (page 23-27)
+      
+    </span>
+</a>
+<nav aria-label="朴素贝叶斯 (Naïve Bayes) (page 23-27)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#训练数据集-page-23-23">
+<span class="md-ellipsis">
+      
+        训练数据集 (page 23-23)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#朴素贝叶斯学习过程-page-23-23">
+<span class="md-ellipsis">
+      
+        朴素贝叶斯学习过程 (page 23-23)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#条件独立性假设-page-24-24">
+<span class="md-ellipsis">
+      
+        条件独立性假设 (page 24-24)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#贝叶斯定理与朴素贝叶斯分类器-page-24-25">
+<span class="md-ellipsis">
+      
+        贝叶斯定理与朴素贝叶斯分类器 (page 24-25)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#后验概率最大化的含义-page-26-27">
+<span class="md-ellipsis">
+      
+        后验概率最大化的含义 (page 26-27)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#朴素贝叶斯法的参数估计-page-28-31">
+<span class="md-ellipsis">
+      
+        朴素贝叶斯法的参数估计 (page 28-31)
+      
+    </span>
+</a>
+<nav aria-label="朴素贝叶斯法的参数估计 (page 28-31)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#极大似然估计法估计相应的概率-page-28-28">
+<span class="md-ellipsis">
+      
+        极大似然估计法估计相应的概率 (page 28-28)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#朴素贝叶斯法算法-page-29-31">
+<span class="md-ellipsis">
+      
+        朴素贝叶斯法算法 (page 29-31)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#朴素贝叶斯例题-page-32-34">
+<span class="md-ellipsis">
+      
+        朴素贝叶斯例题 (page 32-34)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#贝叶斯估计-Bayesian-Estimation-page-35-39">
+<span class="md-ellipsis">
+      
+        贝叶斯估计 (Bayesian Estimation) (page 35-39)
+      
+    </span>
+</a>
+<nav aria-label="贝叶斯估计 (Bayesian Estimation) (page 35-39)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#零概率问题-page-35-35">
+<span class="md-ellipsis">
+      
+        零概率问题 (page 35-35)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#条件概率的贝叶斯估计-page-35-36">
+<span class="md-ellipsis">
+      
+        条件概率的贝叶斯估计 (page 35-36)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#先验概率的贝叶斯估计-page-36">
+<span class="md-ellipsis">
+      
+        先验概率的贝叶斯估计 (page 36)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#贝叶斯估计例题-page-37-39">
+<span class="md-ellipsis">
+      
+        贝叶斯估计例题 (page 37-39)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#朴素贝叶斯的优缺点-page-40-42">
+<span class="md-ellipsis">
+      
+        朴素贝叶斯的优缺点 (page 40-42)
+      
+    </span>
+</a>
+<nav aria-label="朴素贝叶斯的优缺点 (page 40-42)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#优点-page-40-40">
+<span class="md-ellipsis">
+      
+        优点 (page 40-40)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#缺点-page-40-42">
+<span class="md-ellipsis">
+      
+        缺点 (page 40-42)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#朴素贝叶斯分类器的改进算法-page-43考试不涉及">
+<span class="md-ellipsis">
+      
+        朴素贝叶斯分类器的改进算法 (page 43，考试不涉及)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#习题">
+<span class="md-ellipsis">
+      
+        习题
+      
+    </span>
+</a>
+<nav aria-label="习题" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#习题-41">
+<span class="md-ellipsis">
+      
+        习题 4.1
+      
+    </span>
+</a>
+<nav aria-label="习题 4.1" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#48">
+<span class="md-ellipsis">
+      
+        4.8
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#49">
+<span class="md-ellipsis">
+      
+        4.9
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#习题-42">
+<span class="md-ellipsis">
+      
+        习题 4.2
+      
+    </span>
+</a>
+<nav aria-label="习题 4.2" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#410">
+<span class="md-ellipsis">
+      
+        4.10
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#411">
+<span class="md-ellipsis">
+      
+        4.11
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Note
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    DMA
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:notes">notes</a>
+</nav>
+<h1>04 Naive Bayes</h1>
+<h2 id="问题的提出-page-2-2">问题的提出<span><span class="heti-spacing"> </span>(page 2-2)</span><a class="headerlink" href="#问题的提出-page-2-2" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>在机器学习领域，分类问题是一个核心任务。给定一个数据集，我们希望学习一个模型，能够将新的、未见过的数据点归类到预定义的类别中。对于下图所示的这种具有明显类别区分的数据，我们可能会考虑多种分类算法，例如：</p>
+<ul>
+<li><strong><span>K<span class="heti-spacing"> </span></span>近邻<span><span class="heti-spacing"> </span>(K-Nearest Neighbors, KNN)</span></strong><sup id="fnref:1"><a class="footnote-ref" href="#fn:1">3</a></sup>：一种基于实例的学习方法，通过查找训练集中与新数据点最接近的<span class="heti-skip"><span class="heti-spacing"> </span>K<span class="heti-spacing"> </span></span>个数据点的类别来决定新数据点的类别。</li>
+<li><strong>决策树<span><span class="heti-spacing"> </span>(Decision Tree)</span></strong><sup id="fnref:2"><a class="footnote-ref" href="#fn:2">4</a></sup>：一种树形结构的分类器，通过一系列基于特征的判断将数据逐步划分到不同的类别。</li>
+<li><strong>概率方法<span><span class="heti-spacing"> </span>(Probabilistic Methods)</span></strong>：这类方法通过学习数据背后的概率分布来执行分类，朴素贝叶斯就是其中一种。</li>
+</ul>
+<p>朴素贝叶斯分类器是一种基于贝叶斯定理的简单而有效的概率分类器。</p>
+<h2 id="贝叶斯-page-3-4">贝叶斯<span><span class="heti-spacing"> </span>(page 3-4)</span><a class="headerlink" href="#贝叶斯-page-3-4" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="托马斯贝叶斯-Thomas-Bayes-page-3-3">托马斯<span class="heti-skip"><span class="heti-spacing"> </span>·<span class="heti-spacing"> </span></span>贝叶斯<span><span class="heti-spacing"> </span>(Thomas Bayes) (page 3-3)</span><a class="headerlink" href="#托马斯贝叶斯-Thomas-Bayes-page-3-3" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>托马斯<span class="heti-skip"><span class="heti-spacing"> </span>·<span class="heti-spacing"> </span></span>贝叶斯（Thomas Bayes，约<span><span class="heti-spacing"> </span>1701-1761</span>）是一位英国数学家，出生于伦敦。他于<span class="heti-skip"><span class="heti-spacing"> </span>1742<span class="heti-spacing"> </span></span>年成为英国皇家学会会员。贝叶斯在数学方面主要研究概率论，他的突出贡献在于首次将<strong>归纳推理法</strong><sup id="fnref:3"><a class="footnote-ref" href="#fn:3"><span>1<span class="heti-spacing"> </span></span></a></sup>应用于概率论的基础理论，并创立了贝叶斯统计理论。</p>
+<details class="definition" open="open">
+<summary>归纳推理法</summary>
+<p>归纳推理是一种由个别事实引出普遍结论的推理方式。在统计学中，这意味着从有限的样本数据中推断出关于总体分布或参数的信息。贝叶斯方法通过更新先验信念来整合新的证据，从而进行归纳推理。</p>
+</details>
+<p>他的工作对统计决策函数、统计推断以及统计估算等领域产生了深远影响。<span>1763<span class="heti-spacing"> </span></span>年，理查德<span class="heti-skip"><span class="heti-spacing"> </span>·<span class="heti-spacing"> </span></span>普莱斯（Richard Price）整理并发表了贝叶斯的著作《机会问题的解法<heti-adjacent class="heti-adjacent-half">》</heti-adjacent>（An essay towards solving a problem in the doctrine of chances<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，这对于现代概率论和数理统计的发展具有重要的历史意义。</p>
+<h3 id="贝叶斯决策理论-page-4-4">贝叶斯决策理论<span><span class="heti-spacing"> </span>(page 4-4)</span><a class="headerlink" href="#贝叶斯决策理论-page-4-4" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>贝叶斯决策理论是统计模型决策中的一个基本方法，其核心思想是在<strong>不完全信息</strong>下做出最优决策。具体步骤如下：</p>
+<ol>
+<li><strong>主观概率估计与修正</strong>：当部分状态未知时，首先对这些未知状态进行主观概率估计。然后，利用贝叶斯公式对这些估计的发生概率进行修正，使其更符合实际观察到的数据。</li>
+<li><strong>期望值与修正概率决策</strong>：最终，结合修正后的概率和<strong>期望值</strong><sup id="fnref:4"><a class="footnote-ref" href="#fn:4">5</a></sup>，做出最优决策。</li>
+</ol>
+<details class="definition" open="open">
+<summary>期望值</summary>
+<p>期望值（Expected Value）是概率论中的一个重要概念，表示随机变量所有可能取值与其对应概率乘积之和。在决策理论中，期望值常用于衡量某个决策可能带来的平均收益或损失。</p>
+</details>
+<p>贝叶斯决策理论的基本思想可以概括为：</p>
+<ol>
+<li><strong>已知类条件概率密度参数表达式和先验概率</strong>：这是进行贝叶斯决策的前提，我们需要知道每个类别的先验概率以及在给定类别下，数据特征的条件概率分布。</li>
+<li><strong>利用贝叶斯公式转换成后验概率</strong>：这是贝叶斯决策的核心。通过贝叶斯公式，我们将先验概率和类条件概率结合起来，计算出在给定观测数据下，数据属于某个类别的后验概率。</li>
+<li><strong>根据后验概率大小进行决策分类</strong>：对于一个给定的新数据点，计算其属于每个类别的后验概率，选择后验概率最大的那个类别作为最终的分类结果。</li>
+</ol>
+<h2 id="贝叶斯估计的应用-page-5-6">贝叶斯估计的应用<span><span class="heti-spacing"> </span>(page 5-6)</span><a class="headerlink" href="#贝叶斯估计的应用-page-5-6" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>贝叶斯估计及其派生方法在人工智能和实际应用中扮演了重要角色：</p>
+<ul>
+<li><strong>医学诊断系统</strong>：<ul>
+<li><strong><span>PathFinder<span class="heti-spacing"> </span></span>系统</strong>：这是最早基于贝叶斯网络的医学诊断系统之一，能够诊断淋巴疾病，涉及<span class="heti-skip"><span class="heti-spacing"> </span>60<span class="heti-spacing"> </span></span>多种疾病和<span class="heti-skip"><span class="heti-spacing"> </span>100<span class="heti-spacing"> </span></span>多种症状。</li>
+<li><strong><span>Internist-I<span class="heti-spacing"> </span></span>系统</strong>：<span>PathFinder<span class="heti-spacing"> </span></span>的发展版本，也是一种医学诊断系统，能够诊断多达<span class="heti-skip"><span class="heti-spacing"> </span>600<span class="heti-spacing"> </span></span>多种常见疾病。</li>
+</ul>
+</li>
+<li><strong>专家系统</strong>：<ul>
+<li><strong><span>OnParent<span class="heti-spacing"> </span></span>网站</strong>：<span>1995<span class="heti-spacing"> </span></span>年，微软推出了第一个基于贝叶斯网络的专家系统——OnParent (www.onparenting.msn.com)，它是一个用于幼儿保健的网站，旨在帮助父母自行诊断幼儿可能遇到的健康问题。</li>
+</ul>
+</li>
+<li><strong>一般应用领域</strong> (page 6-6)：<ol>
+<li><strong>故障诊断<span><span class="heti-spacing"> </span>(diagnose)</span></strong>：识别系统或设备出现问题的根源。</li>
+<li><strong>专家系统<span><span class="heti-spacing"> </span>(expert system)</span></strong>：模拟人类专家的知识和推理过程来解决复杂问题。</li>
+<li><strong>规划<span><span class="heti-spacing"> </span>(planning)</span></strong>：在不确定环境中制定行动计划。</li>
+<li><strong>学习<span><span class="heti-spacing"> </span>(learning)</span></strong>：从数据中学习模式和知识。</li>
+<li><strong>分类<span><span class="heti-spacing"> </span>(classifying)</span></strong>：将数据点分配到预定义的类别。</li>
+</ol>
+</li>
+</ul>
+<h2 id="概率回顾-page-7-8">概率<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>回顾<span><span class="heti-spacing"> </span>) (page 7-8)</span><a class="headerlink" href="#概率回顾-page-7-8" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="样本空间的划分-page-7-7">样本空间的划分<span><span class="heti-spacing"> </span>(page 7-7)</span><a class="headerlink" href="#样本空间的划分-page-7-7" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="definition" open="open">
+<summary>样本空间的划分</summary>
+<p>设<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\Omega\)</span><span class="heti-spacing"> </span></span>为试验<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(E\)</span><span class="heti-spacing"> </span></span>的样本空间，<span><span class="arithmatex">\(B_1, B_2, \dots, B_n\)</span><span class="heti-spacing"> </span></span>为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(E\)</span><span class="heti-spacing"> </span></span>的一组事件。如果满足以下两个条件，则称<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(B_1, B_2, \dots, B_n\)</span><span class="heti-spacing"> </span></span>为样本空间<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\Omega\)</span><span class="heti-spacing"> </span></span>的一个划分：</p>
+<ol>
+<li><strong>互不相交</strong>：<span><span class="arithmatex">\(B_i B_j = \emptyset\)</span>, for <span class="arithmatex">\(i, j = 1, 2, \dots, n\)</span><span class="heti-spacing"> </span></span>且<span><span class="heti-spacing"> </span><span class="arithmatex">\(i \neq j\)</span></span>。这表示任何两个不同的事件<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(B_i\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(B_j\)</span><span class="heti-spacing"> </span></span>之间没有共同的结果。</li>
+<li><strong>并集为全空间</strong>：<span class="arithmatex">\(B_1 \cup B_2 \cup \dots \cup B_n = \Omega\)</span>。这表示所有事件的并集构成了整个样本空间，即任何可能的结果都包含在这些事件中的某一个中。</li>
+</ol>
+<p>简而言之，样本空间的划分就是将整个样本空间分成若干个互不重叠的部分，并且这些部分合起来就是整个样本空间。</p>
+</details>
+<h3 id="全概率公式-page-8-8">全概率公式<span><span class="heti-spacing"> </span>(page 8-8)</span><a class="headerlink" href="#全概率公式-page-8-8" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="definition" open="open">
+<summary>全概率公式</summary>
+<p>设<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\Omega\)</span><span class="heti-spacing"> </span></span>为试验<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(E\)</span><span class="heti-spacing"> </span></span>的样本空间，<span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(E\)</span><span class="heti-spacing"> </span></span>的事件，<span><span class="arithmatex">\(B_1, B_2, \dots, B_n\)</span><span class="heti-spacing"> </span></span>为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\Omega\)</span><span class="heti-spacing"> </span></span>的一个划分，且<span><span class="heti-spacing"> </span><span class="arithmatex">\(P(B_i) &gt; 0\)</span></span>（<span class="arithmatex">\(i = 1, 2, \dots, n\)</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，则事件<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>的概率<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(P(A)\)</span><span class="heti-spacing"> </span></span>可以通过全概率公式计算：</p>
+<div class="arithmatex">\[
+P(A) = P(A|B_1)P(B_1) + P(A|B_2)P(B_2) + \dots + P(A|B_n)P(B_n)
+\]</div>
+<p>也可以写成求和形式：</p>
+<div class="arithmatex">\[
+P(A) = \sum_{i=1}^n P(A|B_i)P(B_i)
+\]</div>
+<p>全概率公式的意义在于，当事件<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>的发生依赖于一些互斥的先验事件<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(B_i\)</span><span class="heti-spacing"> </span></span>时，我们可以通过计算在每个<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(B_i\)</span><span class="heti-spacing"> </span></span>发生的条件下<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>发生的概率，并结合<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(B_i\)</span><span class="heti-spacing"> </span></span>发生的概率，来得到<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>发生的总概率。</p>
+</details>
+<h2 id="极大似然估计法回顾-page-9-13">极大似然估计法<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>回顾<span><span class="heti-spacing"> </span>) (page 9-13)</span><a class="headerlink" href="#极大似然估计法回顾-page-9-13" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>极大似然估计（Maximum Likelihood Estimation, MLE）是统计学中一种重要的参数估计方法。它的核心思想是：<strong>已知样本数据，反推最有可能产生这些样本数据的模型参数</strong>。</p>
+<h3 id="极大似然估计的原理介绍-page-9-11">极大似然估计的原理介绍<span><span class="heti-spacing"> </span>(page 9-11)</span><a class="headerlink" href="#极大似然估计的原理介绍-page-9-11" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>假设我们有一个模型，其行为由一组未知参数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\theta\)</span><span class="heti-spacing"> </span></span>决定。我们通过观测得到了一组数据<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_1, x_2, \dots, x_n\)</span></span>。极大似然估计的目标就是找到那个参数值<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{\theta}\)</span></span>，使得在给定该参数值的情况下，观测到这组数据的概率（或概率密度）最大。</p>
+<p><strong>例子</strong> (page 9-10)：
+假设在一个罐中放着许多白球和黑球，我们已知两种球的数目之比是 1:3，但不知道是白球多还是黑球多。现在用放回抽样方法从罐中取出 5 个球，观察结果为：黑、白、黑、黑、黑。我们希望估计取到黑球的概率 <span class="arithmatex">\(p\)</span>。</p>
+<p>如果黑球和白球的比例是<span><span class="heti-spacing"> </span>1:3</span>，那么黑球的概率<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p\)</span><span class="heti-spacing"> </span></span>可能是<span><span class="heti-spacing"> </span><span class="arithmatex">\(1/4\)</span></span>（如果白球多）或<span><span class="heti-spacing"> </span><span class="arithmatex">\(3/4\)</span></span>（如果黑球多<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<ul>
+<li><strong>情况一：当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p = 1/4\)</span><span class="heti-spacing"> </span></span>时</strong>
+    观察到“黑、白、黑、黑、黑”的概率为：取到 4 个黑球和 1 个白球。
+    $$
+    P(\text{观测结果}|p=1/4) = \left(\frac{1}{4}\right)^4 \left(\frac{3}{4}\right)^1 = \frac{1 \cdot 3}{256 \cdot 4} = \frac{3}{1024}
+    $$</li>
+<li><strong>情况二：当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p = 3/4\)</span><span class="heti-spacing"> </span></span>时</strong>
+    观察到“黑、白、黑、黑、黑”的概率为：取到 4 个黑球和 1 个白球。
+    $$
+    P(\text{观测结果}|p=3/4) = \left(\frac{3}{4}\right)^4 \left(\frac{1}{4}\right)^1 = \frac{81 \cdot 1}{256 \cdot 4} = \frac{81}{1024}
+    $$</li>
+</ul>
+<p>比较两种情况的概率：由于<span><span class="heti-spacing"> </span><span class="arithmatex">\(81/1024 &gt; 3/1024\)</span></span>，因此我们认为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p=3/4\)</span><span class="heti-spacing"> </span></span>比<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p=1/4\)</span><span class="heti-spacing"> </span></span>更有可能产生当前的观察结果。所以，<strong><span><span class="arithmatex">\(\hat{p} = 3/4\)</span><span class="heti-spacing"> </span></span>更合理</strong>，它就是极大似然估计值。</p>
+<h3 id="似然函数-Likelihood-Function-page-11-12">似然函数<span><span class="heti-spacing"> </span>(Likelihood Function) (page 11-12)</span><a class="headerlink" href="#似然函数-Likelihood-Function-page-11-12" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>一般地，设总体<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>服从概率分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(p(x;\theta)\)</span></span>（对于离散型随机变量）或概率密度函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(f(x;\theta)\)</span></span>（对于连续型随机变量<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\theta \in \Theta\)</span><span class="heti-spacing"> </span></span>是未知参数。</p>
+<p>从总体<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>中抽取一个样本<span><span class="heti-spacing"> </span><span class="arithmatex">\(X_1, X_2, \dots, X_n\)</span></span>，其观测值为<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_1, x_2, \dots, x_n\)</span></span>。</p>
+<ul>
+<li>
+<p><strong>对于离散型总体</strong>：</p>
+<p>事件<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\{X_1 = x_1, \dots, X_n = x_n\}\)</span><span class="heti-spacing"> </span></span>发生的概率，称为<strong>似然函数</strong> <span class="arithmatex">\(L(\theta)\)</span>：
+$$
+L(\theta) = P{X_1 = x_1, \dots, X_n = x_n} = p(x_1;\theta) \dots p(x_n;\theta) = \prod_{i=1}^n p(x_i;\theta)
+$$
+- <strong>对于连续型总体</strong>：
+似然函数 <span class="arithmatex">\(L(\theta)\)</span> 定义为样本观测值的联合概率密度函数：
+$$
+L(\theta) = f(x_1;\theta) \dots f(x_n;\theta) = \prod_{i=1}^n f(x_i;\theta)
+$$</p>
+</li>
+</ul>
+<p><strong>极大似然原理</strong>：
+极大似然估计就是找到参数 <span class="arithmatex">\(\theta\)</span> 的值 <span class="arithmatex">\(\hat{\theta}\)</span>，使得似然函数 <span class="arithmatex">\(L(\theta)\)</span> 达到最大值。
+$$
+\hat{\theta}(x_1, \dots, x_n) = \arg \max_{\theta \in \Theta} L(\theta)
+$$
+<span class="arithmatex">\(\hat{\theta}(x_1, \dots, x_n)\)</span> 称为 <span class="arithmatex">\(\theta\)</span> 的极大似然估计值，相应的统计量 <span class="arithmatex">\(\hat{\theta}(X_1, \dots, X_n)\)</span> 称为 <span class="arithmatex">\(\theta\)</span> 的<strong>极大似然估计量<span><span class="heti-spacing"> </span>(MLE)</span></strong>。</p>
+<details class="extra" open="open">
+<summary>参数<span><span class="heti-spacing"> </span><span class="arithmatex">\(\theta\)</span></span></summary>
+<p>未知参数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\theta\)</span><span class="heti-spacing"> </span></span>可以是一个单一的参数，也可以是一个包含多个参数的向量，例如<span><span class="heti-spacing"> </span><span class="arithmatex">\(\theta = (\theta_1, \theta_2, \dots, \theta_k)\)</span></span>。</p>
+</details>
+<h3 id="极大似然估计的求解-page-13">极大似然估计的求解<span><span class="heti-spacing"> </span>(page 13)</span><a class="headerlink" href="#极大似然估计的求解-page-13" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>求解极大似然估计通常通过以下步骤进行：</p>
+<ol>
+<li>
+<p><strong>对数似然函数<span><span class="heti-spacing"> </span>(Log-Likelihood Function)</span></strong>：</p>
+<p>由于似然函数通常是多个概率（或概率密度）的乘积，直接求导可能比较复杂。因此，我们常常考虑其对数形式，即<strong>对数似然函数</strong> <span class="arithmatex">\(l(\theta) = \ln L(\theta)\)</span>。
+注意到 <span class="arithmatex">\(L(\theta)\)</span> 和 <span class="arithmatex">\(\ln L(\theta)\)</span> 在相同的 <span class="arithmatex">\(\theta\)</span> 值处取得最大值（因为 <span class="arithmatex">\(\ln\)</span> 函数是单调递增的），所以最大化 <span class="arithmatex">\(L(\theta)\)</span> 等价于最大化 <span class="arithmatex">\(l(\theta)\)</span>。</p>
+</li>
+<li>
+<p><strong>求导并令导数为零</strong>：
+    对于参数 <span class="arithmatex">\(\theta_i\)</span>（如果 <span class="arithmatex">\(\theta\)</span> 是向量，则对每个分量 <span class="arithmatex">\(\theta_i\)</span>），计算对数似然函数对 <span class="arithmatex">\(\theta_i\)</span> 的偏导数，并令其为零，解方程组得到 <span class="arithmatex">\(\hat{\theta}_i\)</span>：
+    $$
+    \frac{\partial l(\theta)}{\partial \theta_i} = 0, \quad i = 1, 2, \dots, k
+    $$
+    解得的 <span class="arithmatex">\(\hat{\theta}_i\)</span> 即为极大似然估计值。</p>
+</li>
+</ol>
+<details class="attention" open="open">
+<summary></summary>
+<p>上述方法适用于似然函数可微且在定义域内部达到最大值的情况。对于某些分布（如均匀分布<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，最大值可能在边界上，此时需要结合图形分析或边界检查来确定最大值。</p>
+</details>
+<ol start="3">
+<li><strong>不变性原理<span><span class="heti-spacing"> </span>(Invariance Property)</span></strong>：
+    若 <span class="arithmatex">\(\hat{\theta}(X_1, \dots, X_n)\)</span> 是 <span class="arithmatex">\(\theta\)</span> 的极大似然估计量，则对于任何函数 <span class="arithmatex">\(g(\theta)\)</span>，其极大似然估计量为 <span class="arithmatex">\(g(\hat{\theta}(X_1, \dots, X_n))\)</span>。这被称为极大似然估计量的不变性原理。</li>
+</ol>
+<h3 id="极大似然估计例题">极大似然估计例题<a class="headerlink" href="#极大似然估计例题" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<h4 id="例14-page-14-15">例<span><span class="heti-spacing"> </span>1.4 (page 14-15)</span><a class="headerlink" href="#例14-page-14-15" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>设总体<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>的概率密度函数为：</p>
+<p>$$
+f(x) = \begin{cases}
+\sqrt{\theta} x^{\sqrt{\theta}-1} &amp; 0 \le x \le 1 \
+0 &amp; \text{其他}
+\end{cases}
+$$
+其中 <span class="arithmatex">\(\theta\)</span> 是未知参数。<span class="arithmatex">\(X_1, \dots, X_n\)</span> 是总体 <span class="arithmatex">\(X\)</span> 的样本。若已获得 <span class="arithmatex">\(n=10\)</span> 的样本值如下：
+0.43, 0.01, 0.30, 0.04, 0.54, 0.14, 0.99, 0.18, 0.98, 0.02</p>
+<p>求解<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\theta\)</span><span class="heti-spacing"> </span></span>的极大似然估计值。</p>
+<p><strong>解</strong>：</p>
+<p>似然函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L(\theta)\)</span><span class="heti-spacing"> </span></span>为：
+$$
+L(\theta) = \prod_{i=1}^n f(x_i; \theta) = \prod_{i=1}^n \left(\sqrt{\theta} x_i^{\sqrt{\theta}-1}\right)
+$$
+$$
+= (\sqrt{\theta})^n \prod_{i=1}^n x_i^{\sqrt{\theta}-1} = \theta^{n/2} \left(\prod_{i=1}^n x_i\right)^{\sqrt{\theta}-1}
+$$
+取对数似然函数 <span class="arithmatex">\(l(\theta) = \ln L(\theta)\)</span>：
+$$
+l(\theta) = \ln \left(\theta^{n/2} \left(\prod_{i=1}^n x_i\right)^{\sqrt{\theta}-1}\right)
+$$
+$$
+= \frac{n}{2} \ln \theta + (\sqrt{\theta}-1) \sum_{i=1}^n \ln x_i
+$$
+对 <span class="arithmatex">\(l(\theta)\)</span> 求关于 <span class="arithmatex">\(\theta\)</span> 的导数，并令其为 0：
+$$
+\frac{dl(\theta)}{d\theta} = \frac{n}{2} \cdot \frac{1}{\theta} + \frac{1}{2\sqrt{\theta}} \sum_{i=1}^n \ln x_i = 0
+$$
+解这个方程：
+$$
+\frac{n}{2\theta} = -\frac{1}{2\sqrt{\theta}} \sum_{i=1}^n \ln x_i
+$$
+$$
+\frac{n}{\sqrt{\theta}} = -\sum_{i=1}^n \ln x_i
+$$
+$$
+\sqrt{\hat{\theta}} = \frac{-n}{\sum_{i=1}^n \ln x_i}
+$$
+$$
+\hat{\theta} = \left(\frac{-n}{\sum_{i=1}^n \ln x_i}\right)^2 = \frac{n^2}{\left(\sum_{i=1}^n \ln x_i\right)^2}
+$$
+根据给定的样本值，计算 <span class="arithmatex">\(\sum_{i=1}^n \ln x_i\)</span>:</p>
+<ul>
+<li><span class="arithmatex">\(\ln(0.43) \approx -0.841\)</span></li>
+<li><span class="arithmatex">\(\ln(0.01) \approx -4.605\)</span></li>
+<li><span class="arithmatex">\(\ln(0.30) \approx -1.204\)</span></li>
+<li><span class="arithmatex">\(\ln(0.04) \approx -3.219\)</span></li>
+<li><span class="arithmatex">\(\ln(0.54) \approx -0.616\)</span></li>
+<li><span class="arithmatex">\(\ln(0.14) \approx -1.966\)</span></li>
+<li><span class="arithmatex">\(\ln(0.99) \approx -0.010\)</span></li>
+<li><span class="arithmatex">\(\ln(0.18) \approx -1.715\)</span></li>
+<li><span class="arithmatex">\(\ln(0.98) \approx -0.020\)</span></li>
+<li><span class="arithmatex">\(\ln(0.02) \approx -3.912\)</span></li>
+<li><span class="arithmatex">\(\sum_{i=1}^{10} \ln x_i \approx -0.841 - 4.605 - 1.204 - 3.219 - 0.616 - 1.966 - 0.010 - 1.715 - 0.020 - 3.912 = -18.128\)</span></li>
+</ul>
+<p>因此，<span><span class="arithmatex">\(\hat{\theta}\)</span><span class="heti-spacing"> </span></span>的极大似然估计值为：
+$$
+\hat{\theta} = \frac{10^2}{(-18.128)^2} = \frac{100}{328.62} \approx 0.3043
+$$
+所以，<span class="arithmatex">\(\hat{\theta} \approx 0.305\)</span>。</p>
+<h4 id="例15-page-16-19">例<span><span class="heti-spacing"> </span>1.5 (page 16-19)</span><a class="headerlink" href="#例15-page-16-19" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>设总体<span><span class="heti-spacing"> </span><span class="arithmatex">\(X \sim N(\mu, \sigma^2)\)</span></span>，即服从正态分布，其概率密度函数为<span><span class="heti-spacing"> </span><span class="arithmatex">\(f(x; \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}\)</span></span>。<span><span class="arithmatex">\(X_1, \dots, X_n\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>的样本。求下列情况下未知参数的极大似然估计。</p>
+<p><strong>解</strong>：
+似然函数 <span class="arithmatex">\(L(\mu, \sigma^2)\)</span> 为：
+$$
+L(\mu, \sigma^2) = \prod_{i=1}^n \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x_i-\mu)^2}{2\sigma^2}} = \left(\frac{1}{2\pi\sigma^2}\right)^{n/2} e^{-\sum_{i=1}^n \frac{(x_i-\mu)^2}{2\sigma^2}}
+$$
+对数似然函数 <span class="arithmatex">\(l(\mu, \sigma^2) = \ln L(\mu, \sigma^2)\)</span> 为：
+$$
+l(\mu, \sigma^2) = -\frac{n}{2} \ln(2\pi) - \frac{n}{2} \ln(\sigma^2) - \frac{1}{2\sigma^2} \sum_{i=1}^n (x_i-\mu)^2
+$$</p>
+<p><strong><span>(1) <span class="arithmatex">\(\mu\)</span><span class="heti-spacing"> </span></span>未知<span><span class="heti-spacing"> </span>, <span class="arithmatex">\(\sigma^2 = 1\)</span></span></strong></p>
+<p>此时，我们需要估计<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mu\)</span></span>。将<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\sigma^2=1\)</span><span class="heti-spacing"> </span></span>代入对数似然函数：
+$$
+l(\mu) = -\frac{n}{2} \ln(2\pi) - \frac{n}{2} \ln(1) - \frac{1}{2 \cdot 1} \sum_{i=1}^n (x_i-\mu)^2
+$$
+$$
+l(\mu) = -\frac{n}{2} \ln(2\pi) - \frac{1}{2} \sum_{i=1}^n (x_i-\mu)^2
+$$
+对 <span class="arithmatex">\(\mu\)</span> 求偏导并令其为 0：
+$$
+\frac{\partial l(\mu)}{\partial \mu} = -\frac{1}{2} \sum_{i=1}^n 2(x_i-\mu)(-1) = \sum_{i=1}^n (x_i-\mu) = 0
+$$
+$$
+\sum_{i=1}^n x_i - n\mu = 0
+$$
+$$
+\hat{\mu} = \frac{1}{n} \sum_{i=1}^n x_i = \bar{X}
+$$
+所以，<span class="arithmatex">\(\mu\)</span> 的极大似然估计量为样本均值 <span class="arithmatex">\(\bar{X}\)</span>。</p>
+<p><strong><span>(2) <span class="arithmatex">\(\mu = 1, \sigma^2\)</span><span class="heti-spacing"> </span></span>未知</strong></p>
+<p>此时，我们需要估计<span><span class="heti-spacing"> </span><span class="arithmatex">\(\sigma^2\)</span></span>。将<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mu=1\)</span><span class="heti-spacing"> </span></span>代入对数似然函数：
+$$
+l(\sigma^2) = -\frac{n}{2} \ln(2\pi) - \frac{n}{2} \ln(\sigma^2) - \frac{1}{2\sigma^2} \sum_{i=1}^n (x_i-1)^2
+$$
+对 <span class="arithmatex">\(\sigma^2\)</span> 求偏导并令其为 0。令 <span class="arithmatex">\(v = \sigma^2\)</span>，则 <span class="arithmatex">\(l(v) = -\frac{n}{2} \ln(2\pi) - \frac{n}{2} \ln(v) - \frac{1}{2v} \sum_{i=1}^n (x_i-1)^2\)</span>。
+$$
+\frac{\partial l(v)}{\partial v} = -\frac{n}{2v} - \frac{1}{2} \left(-\frac{1}{v^2}\right) \sum_{i=1}^n (x_i-1)^2 = -\frac{n}{2v} + \frac{1}{2v^2} \sum_{i=1}^n (x_i-1)^2 = 0
+$$
+$$
+\frac{n}{2v} = \frac{1}{2v^2} \sum_{i=1}^n (x_i-1)^2
+$$
+$$
+nv = \sum_{i=1}^n (x_i-1)^2
+$$
+$$
+\hat{\sigma}^2 = \hat{v} = \frac{1}{n} \sum_{i=1}^n (x_i-1)^2
+$$
+所以，<span class="arithmatex">\(\sigma^2\)</span> 的极大似然估计量为 <span class="arithmatex">\(\frac{1}{n} \sum_{i=1}^n (X_i-1)^2\)</span>。</p>
+<p><strong><span>(3) <span class="arithmatex">\(\mu, \sigma^2\)</span><span class="heti-spacing"> </span></span>均未知</strong></p>
+<p>此时，我们需要同时估计<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mu\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(\sigma^2\)</span></span>。对数似然函数为：
+$$
+l(\mu, \sigma^2) = -\frac{n}{2} \ln(2\pi) - \frac{n}{2} \ln(\sigma^2) - \frac{1}{2\sigma^2} \sum_{i=1}^n (x_i-\mu)^2
+$$
+分别对 <span class="arithmatex">\(\mu\)</span> 和 <span class="arithmatex">\(\sigma^2\)</span> 求偏导并令其为 0：</p>
+<ul>
+<li>
+<p><strong>对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mu\)</span><span class="heti-spacing"> </span></span>求偏导：</strong>
+$$
+\frac{\partial l(\mu, \sigma^2)}{\partial \mu} = -\frac{1}{2\sigma^2} \sum_{i=1}^n 2(x_i-\mu)(-1) = \frac{1}{\sigma^2} \sum_{i=1}^n (x_i-\mu) = 0
+$$
+由于 <span class="arithmatex">\(\sigma^2 \neq 0\)</span>，所以 <span class="arithmatex">\(\sum_{i=1}^n (x_i-\mu) = 0\)</span>，得到 <span class="arithmatex">\(\hat{\mu} = \bar{X}\)</span>。</p>
+</li>
+<li>
+<p><strong>对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\sigma^2\)</span><span class="heti-spacing"> </span></span>求偏导：</strong>
+$$
+\frac{\partial l(\mu, \sigma^2)}{\partial \sigma^2} = -\frac{n}{2\sigma^2} - \frac{1}{2} \left(-\frac{1}{(\sigma^2)^2}\right) \sum_{i=1}^n (x_i-\mu)^2 = -\frac{n}{2\sigma^2} + \frac{1}{2(\sigma^2)^2} \sum_{i=1}^n (x_i-\mu)^2 = 0
+$$
+$$
+\frac{n}{2\sigma^2} = \frac{1}{2(\sigma^2)^2} \sum_{i=1}^n (x_i-\mu)^2
+$$
+$$
+n\sigma^2 = \sum_{i=1}^n (x_i-\mu)^2
+$$
+将 <span class="arithmatex">\(\hat{\mu} = \bar{X}\)</span> 代入上式，得到 <span class="arithmatex">\(\hat{\sigma}^2\)</span>：
+$$
+\hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^n (x_i-\bar{X})^2
+$$
+所以，<span class="arithmatex">\(\mu\)</span> 和 <span class="arithmatex">\(\sigma^2\)</span> 的极大似然估计量分别为样本均值 <span class="arithmatex">\(\bar{X}\)</span> 和样本方差 <span class="arithmatex">\(\frac{1}{n} \sum_{i=1}^n (X_i-\bar{X})^2\)</span>。</p>
+</li>
+</ul>
+<h4 id="例16-page-20-22">例<span><span class="heti-spacing"> </span>1.6 (page 20-22)</span><a class="headerlink" href="#例16-page-20-22" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>设总体<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>服从均匀分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(U(a, b)\)</span></span>，其概率密度函数为：
+$$
+f(x; a, b) = \begin{cases}
+\frac{1}{b-a} &amp; a \le x \le b \
+0 &amp; \text{其他}
+\end{cases}
+$$
+其中 <span class="arithmatex">\(a\)</span> 和 <span class="arithmatex">\(b\)</span> 是未知参数。<span class="arithmatex">\(X_1, \dots, X_n\)</span> 是 <span class="arithmatex">\(X\)</span> 的样本。</p>
+<p><strong><span>(1)<span class="heti-spacing"> </span></span>求<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(a\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(b\)</span><span class="heti-spacing"> </span></span>的极大似然估计</strong></p>
+<p><strong>解</strong>：</p>
+<p>似然函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L(a, b)\)</span><span class="heti-spacing"> </span></span>为：
+$$
+L(a, b) = \prod_{i=1}^n f(x_i; a, b) = \begin{cases}
+\left(\frac{1}{b-a}\right)^n &amp; a \le x_i \le b, \text{ for all } i=1, \dots, n \
+0 &amp; \text{其他}
+\end{cases}
+$$
+为了使 <span class="arithmatex">\(L(a, b) &gt; 0\)</span>，必须满足对于所有的样本 <span class="arithmatex">\(x_i\)</span>，都有 <span class="arithmatex">\(a \le x_i \le b\)</span>。
+这意味着 <span class="arithmatex">\(a\)</span> 必须小于或等于所有样本中的最小值，即 <span class="arithmatex">\(a \le \min\{x_1, \dots, x_n\}\)</span>。
+同时，<span class="arithmatex">\(b\)</span> 必须大于或等于所有样本中的最大值，即 <span class="arithmatex">\(b \ge \max\{x_1, \dots, x_n\}\)</span>。</p>
+<p>我们注意到，似然函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(L(a, b) = \frac{1}{(b-a)^n}\)</span></span>。为了最大化<span><span class="heti-spacing"> </span><span class="arithmatex">\(L(a, b)\)</span></span>，我们需要最小化分母<span><span class="heti-spacing"> </span><span class="arithmatex">\((b-a)^n\)</span></span>，也就是最小化<span><span class="heti-spacing"> </span><span class="arithmatex">\((b-a)\)</span></span>。</p>
+<p>为了最小化<span><span class="heti-spacing"> </span><span class="arithmatex">\((b-a)\)</span></span>，同时满足<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(a \le \min\{x_i\}\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(b \ge \max\{x_i\}\)</span></span>，我们应该使<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(a\)</span><span class="heti-spacing"> </span></span>取尽可能大的值，使<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(b\)</span><span class="heti-spacing"> </span></span>取尽可能小的值。
+因此，当 <span class="arithmatex">\(a = \min\{x_1, \dots, x_n\}\)</span> 和 <span class="arithmatex">\(b = \max\{x_1, \dots, x_n\}\)</span> 时，<span class="arithmatex">\(b-a\)</span> 达到最小值，从而 <span class="arithmatex">\(L(a,b)\)</span> 达到最大值。</p>
+<p>所以，<span><span class="arithmatex">\(a\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(b\)</span><span class="heti-spacing"> </span></span>的极大似然估计量分别为：
+$$
+\hat{a} = \min{X_1, \dots, X_n} = X_{(1)}
+$$
+$$
+\hat{b} = \max{X_1, \dots, X_n} = X_{(n)}
+$$
+其中 <span class="arithmatex">\(X_{(1)}\)</span> 是样本最小值， <span class="arithmatex">\(X_{(n)}\)</span> 是样本最大值。</p>
+<p><strong><span>(2)<span class="heti-spacing"> </span></span>求<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(E(X)\)</span><span class="heti-spacing"> </span></span>的极大似然估计</strong></p>
+<p>对于均匀分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(U(a, b)\)</span></span>，其期望值<span><span class="heti-spacing"> </span><span class="arithmatex">\(E(X) = \frac{a+b}{2}\)</span></span>。根据极大似然估计的不变性原理， <span><span class="arithmatex">\(E(X)\)</span><span class="heti-spacing"> </span></span>的极大似然估计量为<span><span class="heti-spacing"> </span><span class="arithmatex">\(g(\hat{a}, \hat{b}) = \frac{\hat{a}+\hat{b}}{2}\)</span></span>。
+$$
+\hat{E(X)} = \frac{\hat{a}+\hat{b}}{2} = \frac{X_{(1)} + X_{(n)}}{2}
+$$</p>
+<h2 id="朴素贝叶斯-Naïve-Bayes-page-23-27">朴素贝叶斯<span><span class="heti-spacing"> </span>(Naïve Bayes) (page 23-27)</span><a class="headerlink" href="#朴素贝叶斯-Naïve-Bayes-page-23-27" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>朴素贝叶斯分类器是基于贝叶斯定理和<strong>特征条件独立性假设</strong>的分类方法。</p>
+<h3 id="训练数据集-page-23-23">训练数据集<span><span class="heti-spacing"> </span>(page 23-23)</span><a class="headerlink" href="#训练数据集-page-23-23" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>假设给定训练数据集<span><span class="heti-spacing"> </span><span class="arithmatex">\(T = \{(x_1, y_1), (x_2, y_2), \dots, (x_N, y_N)\}\)</span></span>，其中：
+- <span class="arithmatex">\(x_i\)</span> 是第 <span class="arithmatex">\(i\)</span> 个样本的特征向量，可以表示为 <span class="arithmatex">\(x_i = (x_i^{(1)}, x_i^{(2)}, \dots, x_i^{(n)})^T\)</span>。这里 <span class="arithmatex">\(x_i^{(j)}\)</span> 表示第 <span class="arithmatex">\(i\)</span> 个样本的第 <span class="arithmatex">\(j\)</span> 个特征。
+- <span class="arithmatex">\(y_i\)</span> 是第 <span class="arithmatex">\(i\)</span> 个样本的类别标记，它属于有限的类别集合 <span class="arithmatex">\(Y \in \{c_1, c_2, \dots, c_K\}\)</span>。</p>
+<p>我们假设<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((X, Y)\)</span><span class="heti-spacing"> </span></span>服从<strong>独立同分布</strong><sup id="fnref:5"><a class="footnote-ref" href="#fn:5"><span>2<span class="heti-spacing"> </span></span></a></sup>的联合概率分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(P(X, Y)\)</span></span>。</p>
+<details class="definition">
+<summary>独立同分布<span><span class="heti-spacing"> </span>(i.i.d.)</span></summary>
+<p>独立同分布（Independent and Identically Distributed, i.i.d.）是指在概率论和统计学中，一组随机变量具有相同的概率分布，并且它们之间相互独立。这个假设在许多机器学习模型中是常见的，它简化了概率计算和模型训练过程。</p>
+</details>
+<h3 id="朴素贝叶斯学习过程-page-23-23">朴素贝叶斯学习过程<span><span class="heti-spacing"> </span>(page 23-23)</span><a class="headerlink" href="#朴素贝叶斯学习过程-page-23-23" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>朴素贝叶斯分类器通过训练数据集学习联合概率分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(P(X, Y)\)</span></span>。这包括学习：</p>
+<ol>
+<li><strong>先验概率分布<span><span class="heti-spacing"> </span>(Prior Probability)</span></strong>：
+    即 <span class="arithmatex">\(P(Y = c_k)\)</span>，表示在没有任何特征信息的情况下，一个样本属于类别 <span class="arithmatex">\(c_k\)</span> 的概率。其中 <span class="arithmatex">\(k = 1, 2, \dots, K\)</span>。</li>
+<li><strong>条件概率分布<span><span class="heti-spacing"> </span>(Conditional Probability)</span></strong>：
+    即 <span class="arithmatex">\(P(X = x|Y = c_k)\)</span>，表示在已知样本属于类别 <span class="arithmatex">\(c_k\)</span> 的情况下，其特征向量为 <span class="arithmatex">\(x\)</span> 的概率。
+    $$
+    P(X = x|Y = c_k) = P(X^{(1)} = x^{(1)}, X^{(2)} = x^{(2)}, \dots, X^{(n)} = x^{(n)}|Y = c_k)
+    $$
+    其中 <span class="arithmatex">\(x^{(j)}\)</span> 是特征向量 <span class="arithmatex">\(x\)</span> 的第 <span class="arithmatex">\(j\)</span> 个特征值。</li>
+</ol>
+<details class="attention" open="open">
+<summary>参数数量问题</summary>
+<p>如果不加任何限制，直接估计条件概率<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(P(X = x|Y = c_k)\)</span><span class="heti-spacing"> </span></span>是非常困难的。假设每个特征<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x^{(j)}\)</span><span class="heti-spacing"> </span></span>可能取<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(S_j\)</span><span class="heti-spacing"> </span></span>个值，那么特征向量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>可能的取值组合多达<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\prod_{j=1}^n S_j\)</span><span class="heti-spacing"> </span></span>种。这意味着条件概率的参数数量会是<strong>指数级别</strong>的，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(K \prod_{j=1}^n S_j\)</span></span>，这在特征维度<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>较大或特征取值较多时是不可行的。</p>
+</details>
+<h3 id="条件独立性假设-page-24-24">条件独立性假设<span><span class="heti-spacing"> </span>(page 24-24)</span><a class="headerlink" href="#条件独立性假设-page-24-24" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>为了解决上述参数数量过多的问题，朴素贝叶斯分类器引入了一个关键的<strong>条件独立性假设</strong>：
+<strong>假设各个特征之间在给定类别<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Y\)</span><span class="heti-spacing"> </span></span>的条件下是相互独立的。</strong>
+即：</p>
+<div class="arithmatex">\[
+P(X = x | Y = c_{k}) = P(X^{(1)} = x^{(1)}, \dots, X^{(n)} = x^{(n)}|Y = c_k) = \prod_{j=1}^n P(X^{(j)} = x^{(j)}|Y = c_k)
+\]</div>
+<p>这个假设是“朴素”（Naïve）的来源，因为它通常在现实中不成立（特征之间往往存在相关性<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，但它极大地简化了模型的复杂性，使得模型易于训练和计算且依旧有不错的效果。</p>
+<h3 id="贝叶斯定理与朴素贝叶斯分类器-page-24-25">贝叶斯定理与朴素贝叶斯分类器<span><span class="heti-spacing"> </span>(page 24-25)</span><a class="headerlink" href="#贝叶斯定理与朴素贝叶斯分类器-page-24-25" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>根据贝叶斯定理，给定一个特征向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span></span>，样本属于类别<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(c_k\)</span><span class="heti-spacing"> </span></span>的后验概率为：
+$$
+P(Y = c_k|X = x) = \frac{P(X = x|Y = c_k)P(Y = c_k)}{P(X = x)}
+$$
+其中 <span class="arithmatex">\(P(X = x)\)</span> 是边际概率，可以通过全概率公式计算：
+$$
+P(X = x) = \sum_{k=1}^K P(X = x|Y = c_k)P(Y = c_k)
+$$
+将条件独立性假设代入贝叶斯定理，得到朴素贝叶斯分类器计算后验概率的公式：
+$$
+P(Y = c_k|X = x) = \frac{P(Y = c_k) \prod_{j=1}^n P(X^{(j)} = x^{(j)}|Y = c_k)}{\sum_{k=1}^K P(Y = c_k) \prod_{j=1}^n P(X^{(j)} = x^{(j)}|Y = c_k)}
+$$</p>
+<p>对于给定的输入实例<span><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span></span>，朴素贝叶斯分类器预测其类别为后验概率最大的那个类别。这就是<strong>朴素贝叶斯分类器</strong>的决策规则：
+$$
+y = f(x) = \arg \max_{c_k \in Y} P(Y = c_k|X = x)
+$$
+由于分母 <span class="arithmatex">\(\sum_{k=1}^K P(Y = c_k) \prod_{j=1}^n P(X^{(j)} = x^{(j)}|Y = c_k)\)</span> 对于所有的类别 <span class="arithmatex">\(c_k\)</span> 都是相同的常数，因此在进行最大化时可以省略分母。
+所以，朴素贝叶斯分类器最终的决策规则可以简化为：
+$$
+y = \arg \max_{c_k \in Y} P(Y = c_k) \prod_{j=1}^n P(X^{(j)} = x^{(j)}|Y = c_k)
+$$</p>
+<h3 id="后验概率最大化的含义-page-26-27">后验概率最大化的含义<span><span class="heti-spacing"> </span>(page 26-27)</span><a class="headerlink" href="#后验概率最大化的含义-page-26-27" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>朴素贝叶斯法将实例分到后验概率（贝叶斯估计）最大的类中，这等价于<strong>期望风险最小化</strong>。</p>
+<details class="definition" open="open">
+<summary><span>0-1<span class="heti-spacing"> </span></span>损失函数</summary>
+<p>假设我们选择一个<strong><span>0-1<span class="heti-spacing"> </span></span>损失函数</strong> <span><span class="arithmatex">\(L(Y, f(X))\)</span><span class="heti-spacing"> </span></span>作为分类的度量：</p>
+<div class="arithmatex">\[
+L(Y, f(X)) = \begin{cases}
+1 &amp; Y \neq f(X) \\
+0 &amp; Y = f(X)
+\end{cases}
+\]</div>
+<p>这里<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f(X)\)</span><span class="heti-spacing"> </span></span>是决策函数，表示模型给出的预测类别。当预测错误时损失为<span><span class="heti-spacing"> </span>1</span>，预测正确时损失为<span><span class="heti-spacing"> </span>0</span>。</p>
+</details>
+<p><strong>期望风险函数</strong> <span><span class="arithmatex">\(R_{\exp}(f)\)</span><span class="heti-spacing"> </span></span>定义为损失函数的期望值：
+$$
+R_{\exp}(f) = E[L(Y, f(X))]
+$$
+根据期望值的定义，我们可以取条件期望：
+$$
+R_{\exp}(f) = E_X [E_{Y|X}[L(Y, f(X))]]
+$$
+展开内部的条件期望：
+$$
+E_{Y|X}[L(Y, f(X))] = \sum_{k=1}^K L(c_k, f(X)) P(Y = c_k|X)
+$$
+所以，期望风险可以表示为：
+$$
+R_{\exp}(f) = E_X \left[ \sum_{k=1}^K L(c_k, f(X)) P(Y = c_k|X) \right]
+$$
+为了最小化期望风险 <span class="arithmatex">\(R_{\exp}(f)\)</span>，我们只需要对每个给定的实例 <span class="arithmatex">\(x\)</span>（即对 <span class="arithmatex">\(X=x\)</span> 逐个进行极小化），使得内部的求和项最小。
+$$
+f(x) = \arg \min_{y \in Y} \sum_{k=1}^K L(c_k, y) P(Y = c_k|X = x)
+$$
+将 0-1 损失函数代入：
+$$
+f(x) = \arg \min_{y \in Y} \sum_{k=1}^K I(y \neq c_k) P(Y = c_k|X = x)
+$$
+其中 <span class="arithmatex">\(I(\cdot)\)</span> 是指示函数。当 <span class="arithmatex">\(y = c_k\)</span> 时，指示函数为 0；当 <span class="arithmatex">\(y \neq c_k\)</span> 时，指示函数为 1。
+因此，这个求和可以简化为：
+$$
+f(x) = \arg \min_{y \in Y} \left( \sum_{c_k \neq y} P(Y = c_k|X = x) \right)
+$$
+我们知道 <span class="arithmatex">\(\sum_{k=1}^K P(Y = c_k|X = x) = 1\)</span>。
+所以，<span class="arithmatex">\(\sum_{c_k \neq y} P(Y = c_k|X = x) = 1 - P(Y = y|X = x)\)</span>。
+因此，我们的目标是：
+$$
+f(x) = \arg \min_{y \in Y} (1 - P(Y = y|X = x))
+$$
+最小化 <span class="arithmatex">\(1 - P(Y = y|X = x)\)</span> 等价于最大化 <span class="arithmatex">\(P(Y = y|X = x)\)</span>。
+所以，<strong>推导出后验概率最大化准则</strong>：
+$$
+f(x) = \arg \max_{c_k \in Y} P(Y = c_k|X = x)
+$$
+这意味着朴素贝叶斯分类器通过最大化后验概率来选择类别，其决策规则是统计学上最优的，因为它在 0-1 损失函数下最小化了期望风险。</p>
+<h2 id="朴素贝叶斯法的参数估计-page-28-31">朴素贝叶斯法的参数估计<span><span class="heti-spacing"> </span>(page 28-31)</span><a class="headerlink" href="#朴素贝叶斯法的参数估计-page-28-31" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>在朴素贝叶斯算法中，我们需要估计先验概率<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(P(Y = c_k)\)</span><span class="heti-spacing"> </span></span>和条件概率<span><span class="heti-spacing"> </span><span class="arithmatex">\(P(X^{(j)} = a_{jl}|Y = c_k)\)</span></span>。这些概率通常使用<strong>极大似然估计法</strong>来估计。</p>
+<h3 id="极大似然估计法估计相应的概率-page-28-28">极大似然估计法估计相应的概率<span><span class="heti-spacing"> </span>(page 28-28)</span><a class="headerlink" href="#极大似然估计法估计相应的概率-page-28-28" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li>
+<p><strong>先验概率<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(P(Y = c_k)\)</span><span class="heti-spacing"> </span></span>的极大似然估计</strong>：
+    $$
+    P(Y = c_k) = \frac{\sum_{i=1}^N I(y_i = c_k)}{N}, \quad k = 1, 2, \dots, K
+    $$
+    其中 <span class="arithmatex">\(N\)</span> 是训练样本的总数，<span class="arithmatex">\(I(\cdot)\)</span> 是指示函数，当 <span class="arithmatex">\(y_i = c_k\)</span> 时为 1，否则为 0。这个估计值就是类别 <span class="arithmatex">\(c_k\)</span> 在训练集中出现的频率。</p>
+</li>
+<li>
+<p><strong>条件概率<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(P(X^{(j)} = a_{jl}|Y = c_k)\)</span><span class="heti-spacing"> </span></span>的极大似然估计</strong>：
+    设第 <span class="arithmatex">\(j\)</span> 个特征 <span class="arithmatex">\(X^{(j)}\)</span> 可能取值的集合为 <span class="arithmatex">\(\{a_{j1}, a_{j2}, \dots, a_{jS_j}\}\)</span>，其中 <span class="arithmatex">\(S_j\)</span> 是第 <span class="arithmatex">\(j\)</span> 个特征可能取值的数量。
+    $$
+    P(X^{(j)} = a_{jl}|Y = c_k) = \frac{\sum_{i=1}^N I(x_i^{(j)} = a_{jl}, y_i = c_k)}{\sum_{i=1}^N I(y_i = c_k)}
+    $$
+    其中 <span class="arithmatex">\(j = 1, 2, \dots, n\)</span>（特征数量），<span class="arithmatex">\(l = 1, 2, \dots, S_j\)</span>（第 <span class="arithmatex">\(j\)</span> 个特征的取值），<span class="arithmatex">\(k = 1, 2, \dots, K\)</span>（类别数量）。这个估计值表示在类别 <span class="arithmatex">\(c_k\)</span> 的样本中，特征 <span class="arithmatex">\(X^{(j)}\)</span> 取值为 <span class="arithmatex">\(a_{jl}\)</span> 的频率。</p>
+</li>
+</ul>
+<h3 id="朴素贝叶斯法算法-page-29-31">朴素贝叶斯法算法<span><span class="heti-spacing"> </span>(page 29-31)</span><a class="headerlink" href="#朴素贝叶斯法算法-page-29-31" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><strong>输入</strong>：</p>
+<ul>
+<li>训练数据集<span><span class="heti-spacing"> </span><span class="arithmatex">\(T = \{(x_1, y_1), (x_2, y_2), \dots, (x_N, y_N)\}\)</span></span><ul>
+<li>其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_i = (x_i^{(1)}, x_i^{(2)}, \dots, x_i^{(n)})^T\)</span><span class="heti-spacing"> </span></span>是第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>个样本的特征向量。</li>
+<li><span><span class="arithmatex">\(y_i \in \{c_1, c_2, \dots, c_K\}\)</span><span class="heti-spacing"> </span></span>是第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>个样本的类别标记。</li>
+<li><span><span class="arithmatex">\(x_i^{(j)}\)</span><span class="heti-spacing"> </span></span>表示第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>个样本的第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(j\)</span><span class="heti-spacing"> </span></span>个特征值，其取值属于第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(j\)</span><span class="heti-spacing"> </span></span>个特征可能取值的集合<span><span class="heti-spacing"> </span><span class="arithmatex">\(\{a_{j1}, a_{j2}, \dots, a_{jS_j}\}\)</span></span>。</li>
+</ul>
+</li>
+<li>新实例<span><span class="heti-spacing"> </span><span class="arithmatex">\(x = (x^{(1)}, x^{(2)}, \dots, x^{(n)})^T\)</span></span>。</li>
+</ul>
+<p><strong>输出</strong>：新实例<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>的分类类别<span><span class="heti-spacing"> </span><span class="arithmatex">\(y\)</span></span>。</p>
+<p><strong>步骤</strong>：</p>
+<ol>
+<li><strong>计算先验概率及条件概率</strong> (page 30-30)
+    根据训练数据集 <span class="arithmatex">\(T\)</span>，计算各个类别的先验概率和每个特征在每个类别下的条件概率：<ul>
+<li><strong>先验概率</strong>：
+$$
+P(Y = c_k) = \frac{\sum_{i=1}^N I(y_i = c_k)}{N}, \quad k = 1,2,\dots,K
+$$</li>
+<li><strong>条件概率</strong>：
+$$
+P(X^{(j)} = a_{jl}|Y = c_k) = \frac{\sum_{i=1}^N I(x_i^{(j)} = a_{jl}, y_i = c_k)}{\sum_{i=1}^N I(y_i = c_k)}
+$$
+    这里，<span class="arithmatex">\(j=1,2,\dots,n\)</span>；<span class="arithmatex">\(l=1,2,\dots,S_j\)</span>；<span class="arithmatex">\(k=1,2,\dots,K\)</span>。</li>
+</ul>
+</li>
+<li><strong>对于给定的实例<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x = (x^{(1)}, x^{(2)}, \dots, x^{(n)})^T\)</span>,<span class="heti-spacing"> </span></span>计算联合概率</strong>
+    对于每个类别 <span class="arithmatex">\(c_k\)</span>，计算 <span class="arithmatex">\(P(Y = c_k) \prod_{j=1}^n P(X^{(j)} = x^{(j)}|Y = c_k)\)</span>：
+$$
+P(Y = c_k) \prod_{j=1}^n P(X^{(j)} = x^{(j)}|Y = c_k), \quad k = 1,2,\dots,K
+$$</li>
+<li><strong>确定新实例<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>的类别</strong>
+    选择步骤(2)中计算出的联合概率值最大的类别作为新实例 <span class="arithmatex">\(x\)</span> 的分类结果：
+$$
+y = \arg \max_{c_k \in Y} \left( P(Y = c_k) \prod_{j=1}^n P(X^{(j)} = x^{(j)}|Y = c_k) \right)
+$$</li>
+</ol>
+<h3 id="朴素贝叶斯例题-page-32-34">朴素贝叶斯例题<span><span class="heti-spacing"> </span>(page 32-34)</span><a class="headerlink" href="#朴素贝叶斯例题-page-32-34" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="example">
+<summary><strong>例<span><span class="heti-spacing"> </span>4.1</span></strong>：试由表<span class="heti-skip"><span class="heti-spacing"> </span>4.1<span class="heti-spacing"> </span></span>的训练数据学习一个朴素贝叶斯分类器并确定<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x = (2, S)^T\)</span><span class="heti-spacing"> </span></span>的类标记<span><span class="heti-spacing"> </span><span class="arithmatex">\(y\)</span></span>。</summary>
+<p>表中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X^{(1)}, X^{(2)}\)</span><span class="heti-spacing"> </span></span>为特征，取值的集合分别为<span><span class="heti-spacing"> </span><span class="arithmatex">\(A_1 = \{1, 2, 3\}\)</span>, <span class="arithmatex">\(A_2 = \{S, M, L\}\)</span></span>。<span><span class="arithmatex">\(Y\)</span><span class="heti-spacing"> </span></span>为类标记， <span class="arithmatex">\(Y \in C = \{1, -1\}\)</span>。</p>
+</details>
+<p><strong>表<span class="heti-skip"><span class="heti-spacing"> </span>4.1<span class="heti-spacing"> </span></span>训练数据</strong></p>
+<table>
+<thead>
+<tr>
+<th>样本</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(X^{(1)}\)</span></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(X^{(2)}\)</span></td>
+<td>S</td>
+<td>M</td>
+<td>M</td>
+<td>S</td>
+<td>S</td>
+<td>S</td>
+<td>M</td>
+<td>M</td>
+<td>L</td>
+<td>L</td>
+<td>L</td>
+<td>M</td>
+<td>M</td>
+<td>L</td>
+<td>L</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>-1</td>
+<td>-1</td>
+<td>1</td>
+<td>1</td>
+<td>-1</td>
+<td>-1</td>
+<td>-1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>-1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>解</strong>：
+首先，计算先验概率 <span class="arithmatex">\(P(Y=c_k)\)</span>：
+总样本数 <span class="arithmatex">\(N = 15\)</span>。
+类别 <span class="arithmatex">\(Y=1\)</span> 的样本数有 9 个 (样本3, 4, 8, 9, 10, 11, 12, 13, 14)。
+类别 <span class="arithmatex">\(Y=-1\)</span> 的样本数有 6 个 (样本1, 2, 5, 6, 7, 15)。</p>
+<div class="arithmatex">\[
+P(Y = 1) = \frac{9}{15},\quad
+P(Y = -1) = \frac{6}{15}
+\]</div>
+<p>接下来，计算条件概率<span><span class="heti-spacing"> </span><span class="arithmatex">\(P(X^{(j)} = x^{(j)}|Y = c_k)\)</span></span>：</p>
+<p><strong>当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Y=1\)</span><span class="heti-spacing"> </span></span>时<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>共<span class="heti-skip"><span class="heti-spacing"> </span>9<span class="heti-spacing"> </span></span>个样本<span><span class="heti-spacing"> </span>)</span></strong>：
+- <span class="arithmatex">\(X^{(1)}\)</span> 的条件概率：
+    - <span class="arithmatex">\(X^{(1)}=1\)</span>: 2个 (样本3, 4)
+    - <span class="arithmatex">\(X^{(1)}=2\)</span>: 5个 (样本8, 9, 10)
+    - <span class="arithmatex">\(X^{(1)}=3\)</span>: 4个 (样本11, 12, 13, 14)</p>
+<div class="arithmatex">\[
+P(X^{(1)} = 1|Y = 1) = \frac{2}{9}, \quad
+P(X^{(1)} = 2|Y = 1) = \frac{3}{9}, \quad
+P(X^{(1)} = 3|Y = 1) = \frac{4}{9}
+$$
+- $X^{(2)}$ 的条件概率：
+    - $X^{(2)}=S$: 1个 (样本4)
+    - $X^{(2)}=M$: 4个 (样本3, 8, 12, 13)
+    - $X^{(2)}=L$: 4个 (样本9, 10, 11, 14)
+    $$
+    P(X^{(2)} = S|Y = 1) = \frac{1}{9},\quad
+    P(X^{(2)} = M|Y = 1) = \frac{4}{9},\quad 
+    P(X^{(2)} = L|Y = 1) = \frac{4}{9}
+    \]</div>
+<p><strong>当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Y=-1\)</span><span class="heti-spacing"> </span></span>时<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>共<span class="heti-skip"><span class="heti-spacing"> </span>6<span class="heti-spacing"> </span></span>个样本<span><span class="heti-spacing"> </span>)</span></strong>：</p>
+<ul>
+<li><span><span class="arithmatex">\(X^{(1)}\)</span><span class="heti-spacing"> </span></span>的条件概率：<ul>
+<li><span><span class="arithmatex">\(X^{(1)}=1\)</span>: 3<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>样本<span><span class="heti-spacing"> </span>1, 2, 5)</span></li>
+<li><span><span class="arithmatex">\(X^{(1)}=2\)</span>: 2<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>样本<span><span class="heti-spacing"> </span>6, 7)</span></li>
+<li><span><span class="arithmatex">\(X^{(1)}=3\)</span>: 1<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>样本<span><span class="heti-spacing"> </span>15)</span>
+$$
+P(X^{(1)} = 1|Y = -1) = \frac{3}{6},\quad 
+P(X^{(1)} = 2|Y = -1) = \frac{2}{6},\quad 
+P(X^{(1)} = 3|Y = -1) = \frac{1}{6}
+$$</li>
+</ul>
+</li>
+<li><span><span class="arithmatex">\(X^{(2)}\)</span><span class="heti-spacing"> </span></span>的条件概率：<ul>
+<li><span><span class="arithmatex">\(X^{(2)}=S\)</span>: 3<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>样本<span><span class="heti-spacing"> </span>1, 5, 6)</span></li>
+<li><span><span class="arithmatex">\(X^{(2)}=M\)</span>: 2<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>样本<span><span class="heti-spacing"> </span>2, 7)</span></li>
+<li><span><span class="arithmatex">\(X^{(2)}=L\)</span>: 1<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>样本<span><span class="heti-spacing"> </span>15)</span>
+$$
+P(X^{(2)} = S|Y = -1) = \frac{3}{6}，\quad 
+P(X^{(2)} = M|Y = -1) = \frac{2}{6}，\quad 
+P(X^{(2)} = L|Y = -1) = \frac{1}{6}
+$$</li>
+</ul>
+</li>
+</ul>
+<p>现在，对于给定的新实例<span><span class="heti-spacing"> </span><span class="arithmatex">\(x = (2, S)^T\)</span></span>，我们计算其属于每个类别的联合概率：</p>
+<p><strong>计算<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(P(Y=1|X=(2, S)^T)\)</span><span class="heti-spacing"> </span></span>相关的项：</strong></p>
+<p>我们需要<span><span class="heti-spacing"> </span><span class="arithmatex">\(P(Y=1)\)</span>, <span class="arithmatex">\(P(X^{(1)}=2|Y=1)\)</span>, <span class="arithmatex">\(P(X^{(2)}=S|Y=1)\)</span></span>，
+$$
+P(Y = 1) P(X^{(1)} = 2|Y = 1) P(X^{(2)} = S|Y = 1) = \frac{9}{15} \cdot \frac{3}{9} \cdot \frac{1}{9} = \frac{27}{1215} = \frac{1}{45} \approx 0.0222
+$$</p>
+<p><strong>计算<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(P(Y=-1|X=(2, S)^T)\)</span><span class="heti-spacing"> </span></span>相关的项：</strong></p>
+<p>我们需要<span><span class="heti-spacing"> </span><span class="arithmatex">\(P(Y=-1)\)</span>, <span class="arithmatex">\(P(X^{(1)}=2|Y=-1)\)</span>, <span class="arithmatex">\(P(X^{(2)}=S|Y=-1)\)</span></span>，
+$$
+P(Y = -1) P(X^{(1)} = 2|Y = -1) P(X^{(2)} = S|Y = -1) = \frac{6}{15} \cdot \frac{2}{6} \cdot \frac{3}{6} = \frac{36}{540} = \frac{1}{15} \approx 0.0667
+$$</p>
+<p>比较两个值：<span class="arithmatex">\(0.0222 &lt; 0.0667\)</span>；由于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(P(Y = -1) P(X^{(1)} = 2|Y = -1) P(X^{(2)} = S|Y = -1)\)</span><span class="heti-spacing"> </span></span>的值更大，因此新实例<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x = (2, S)^T\)</span><span class="heti-spacing"> </span></span>的类标记<span><span class="heti-spacing"> </span><span class="arithmatex">\(y = -1\)</span></span>。</p>
+<h2 id="贝叶斯估计-Bayesian-Estimation-page-35-39">贝叶斯估计<span><span class="heti-spacing"> </span>(Bayesian Estimation) (page 35-39)</span><a class="headerlink" href="#贝叶斯估计-Bayesian-Estimation-page-35-39" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="零概率问题-page-35-35">零概率问题<span><span class="heti-spacing"> </span>(page 35-35)</span><a class="headerlink" href="#零概率问题-page-35-35" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>使用极大似然估计法估计概率时，可能会出现一个问题：如果某个特征值在某个特定类别下从未在训练数据中出现过，那么它的条件概率估计值将为<span><span class="heti-spacing"> </span>0</span>。
+$$
+P(X^{(j)} = a_{jl}|Y = c_k) = \frac{\sum_{i=1}^N I(x_i^{(j)} = a_{jl}, y_i = c_k)}{\sum_{i=1}^N I(y_i = c_k)} = 0
+$$
+一旦某个条件概率为 0，那么在朴素贝叶斯分类器的乘积计算中，任何包含这一项的后验概率都会变为 0，无论其他特征的概率有多大。这会导致分类结果出现偏差，甚至无法进行分类。</p>
+<p>为了解决这个问题，通常采用<strong>贝叶斯估计</strong>，其中最常见的方法是<strong>拉普拉斯平滑<span><span class="heti-spacing"> </span>(Laplacian smoothing)</span></strong>。</p>
+<h3 id="条件概率的贝叶斯估计-page-35-36">条件概率的贝叶斯估计<span><span class="heti-spacing"> </span>(page 35-36)</span><a class="headerlink" href="#条件概率的贝叶斯估计-page-35-36" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>条件概率的贝叶斯估计是对原始极大似然估计的一种平滑处理，通过在分子和分母中添加一个小的正数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\lambda\)</span><span class="heti-spacing"> </span></span>来避免零概率问题。
+$$
+P_\lambda(X^{(j)} = a_{jl}|Y = c_k) = \frac{\sum_{i=1}^N I(x_i^{(j)} = a_{jl}, y_i = c_k) + \lambda}{\sum_{i=1}^N I(y_i = c_k) + S_j \lambda}
+$$
+其中：
+- <span class="arithmatex">\(\lambda \ge 0\)</span> 是一个平滑参数。
+- <span class="arithmatex">\(\sum_{i=1}^N I(x_i^{(j)} = a_{jl}, y_i = c_k)\)</span> 是特征 <span class="arithmatex">\(X^{(j)}\)</span> 在类别 <span class="arithmatex">\(c_k\)</span> 下取值 <span class="arithmatex">\(a_{jl}\)</span> 的样本计数。
+- <span class="arithmatex">\(\sum_{i=1}^N I(y_i = c_k)\)</span> 是类别 <span class="arithmatex">\(c_k\)</span> 的样本总数。
+- <span class="arithmatex">\(S_j\)</span> 是特征 <span class="arithmatex">\(X^{(j)}\)</span> 可能取值的总数。</p>
+<details class="note" open="open">
+<summary>平滑参数<span><span class="heti-spacing"> </span><span class="arithmatex">\(\lambda\)</span></span></summary>
+<ul>
+<li>当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\lambda = 0\)</span><span class="heti-spacing"> </span></span>时，贝叶斯估计退化为传统的<strong>极大似然估计</strong>。</li>
+<li>当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\lambda = 1\)</span><span class="heti-spacing"> </span></span>时，这被称为<strong>拉普拉斯平滑<span><span class="heti-spacing"> </span>(Laplacian smoothing)</span></strong>。它等价于在样本中为每种情况都添加一个样本，确保了即使某个特征值在某个类别下从未出现，其概率也不会为零。</li>
+</ul>
+</details>
+<p>贝叶斯估计保证了对任何<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(l=1,2,\dots,S_j\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(k=1,2,\dots,K\)</span></span>，条件概率<span><span class="heti-spacing"> </span><span class="arithmatex">\(P_\lambda(X^{(j)} = a_{jl}|Y = c_k) &gt; 0\)</span></span>。
+并且，对于给定类别 <span class="arithmatex">\(c_k\)</span> 和特征 <span class="arithmatex">\(X^{(j)}\)</span>，所有可能的取值 <span class="arithmatex">\(a_{jl}\)</span> 的条件概率之和仍然为 1：
+$$
+\sum_{l=1}^{S_j} P_\lambda(X^{(j)} = a_{jl}|Y = c_k) = 1
+$$</p>
+<h3 id="先验概率的贝叶斯估计-page-36">先验概率的贝叶斯估计<span><span class="heti-spacing"> </span>(page 36)</span><a class="headerlink" href="#先验概率的贝叶斯估计-page-36" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>先验概率也可以进行贝叶斯平滑：
+$$
+P_\lambda(Y = c_k) = \frac{\sum_{i=1}^N I(y_i = c_k) + \lambda}{N + K\lambda}
+$$
+其中 <span class="arithmatex">\(K\)</span> 是类别的总数。</p>
+<h3 id="贝叶斯估计例题-page-37-39">贝叶斯估计例题<span><span class="heti-spacing"> </span>(page 37-39)</span><a class="headerlink" href="#贝叶斯估计例题-page-37-39" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition example">
+<p class="admonition-title"><strong>例<span><span class="heti-spacing"> </span>4.2</span></strong>：问题同例<span><span class="heti-spacing"> </span>4.1</span>，按照拉普拉斯平滑估计概率，即取<span><span class="heti-spacing"> </span><span class="arithmatex">\(\lambda = 1\)</span></span>。然后确定<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x = (2, S)^T\)</span><span class="heti-spacing"> </span></span>的类标记<span><span class="heti-spacing"> </span><span class="arithmatex">\(y\)</span></span>。</p>
+</div>
+<p><strong>解</strong>：</p>
+<p>我们使用<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\lambda = 1\)</span><span class="heti-spacing"> </span></span>进行平滑。</p>
+<p><strong><span>1.<span class="heti-spacing"> </span></span>计算先验概率<span><span class="heti-spacing"> </span><span class="arithmatex">\(P_\lambda(Y=c_k)\)</span></span>：</strong>
+<span class="arithmatex">\(N=15\)</span>，<span class="arithmatex">\(K=2\)</span> (类别为 1 和 -1)。
+类别 <span class="arithmatex">\(Y=1\)</span> 的样本数：9。
+类别 <span class="arithmatex">\(Y=-1\)</span> 的样本数：6。</p>
+<div class="arithmatex">\[
+P_\lambda(Y = 1) = \frac{9 + 1}{15 + 2 \cdot 1} = \frac{10}{17}\quad
+P_\lambda(Y = -1) = \frac{6 + 1}{15 + 2 \cdot 1} = \frac{7}{17}
+\]</div>
+<p><strong><span>2.<span class="heti-spacing"> </span></span>计算条件概率<span><span class="heti-spacing"> </span><span class="arithmatex">\(P_\lambda(X^{(j)} = a_{jl}|Y = c_k)\)</span></span>：</strong></p>
+<p><strong>当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Y=1\)</span><span class="heti-spacing"> </span></span>时<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="arithmatex">\(N_1 = 9\)</span><span class="heti-spacing"> </span></span>个样本，分母为<span><span class="heti-spacing"> </span><span class="arithmatex">\(N_1 + S_j\lambda = 9 + S_j \cdot 1\)</span>)</span>：</strong></p>
+<ul>
+<li><span><span class="arithmatex">\(X^{(1)}\)</span> (<span class="heti-spacing"> </span></span>特征<span><span class="heti-spacing"> </span>1</span>，取值<span><span class="heti-spacing"> </span><span class="arithmatex">\(A_1 = \{1,2,3\}\)</span></span>，所以<span><span class="heti-spacing"> </span><span class="arithmatex">\(S_1=3\)</span>)</span>：<ul>
+<li><span><span class="arithmatex">\(X^{(1)}=1\)</span>: 2<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>样本<span><span class="heti-spacing"> </span>3, 4)</span></li>
+<li><span><span class="arithmatex">\(X^{(1)}=2\)</span>: 3<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>样本<span><span class="heti-spacing"> </span>8, 9, 10)</span></li>
+<li><span><span class="arithmatex">\(X^{(1)}=3\)</span>: 4<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>样本<span><span class="heti-spacing"> </span>11, 12, 13, 14)</span>
+$$
+P_\lambda(X^{(1)} = 1|Y = 1) = \frac{2 + 1}{9 + 3 \cdot 1} = \frac{3}{12}
+$$
+$$
+P_\lambda(X^{(1)} = 2|Y = 1) = \frac{3 + 1}{9 + 3 \cdot 1} = \frac{4}{12}
+$$
+$$
+P_\lambda(X^{(1)} = 3|Y = 1) = \frac{4 + 1}{9 + 3 \cdot 1} = \frac{5}{12}
+$$</li>
+</ul>
+</li>
+<li><span><span class="arithmatex">\(X^{(2)}\)</span> (<span class="heti-spacing"> </span></span>特征<span><span class="heti-spacing"> </span>2</span>，取值<span><span class="heti-spacing"> </span><span class="arithmatex">\(A_2 = \{S,M,L\}\)</span></span>，所以<span><span class="heti-spacing"> </span><span class="arithmatex">\(S_2=3\)</span>)</span>：<ul>
+<li><span><span class="arithmatex">\(X^{(2)}=S\)</span>: 1<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>样本<span><span class="heti-spacing"> </span>4)</span></li>
+<li><span><span class="arithmatex">\(X^{(2)}=M\)</span>: 4<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>样本<span><span class="heti-spacing"> </span>3, 8, 12, 13)</span></li>
+<li><span><span class="arithmatex">\(X^{(2)}=L\)</span>: 4<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>样本<span><span class="heti-spacing"> </span>9, 10, 11, 14)</span>
+$$
+P_\lambda(X^{(2)} = S|Y = 1) = \frac{1 + 1}{9 + 3 \cdot 1} = \frac{2}{12}
+$$
+$$
+P_\lambda(X^{(2)} = M|Y = 1) = \frac{4 + 1}{9 + 3 \cdot 1} = \frac{5}{12}
+$$
+$$
+P_\lambda(X^{(2)} = L|Y = 1) = \frac{4 + 1}{9 + 3 \cdot 1} = \frac{5}{12}
+$$</li>
+</ul>
+</li>
+</ul>
+<p><strong>当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Y=-1\)</span><span class="heti-spacing"> </span></span>时<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="arithmatex">\(N_{-1} = 6\)</span><span class="heti-spacing"> </span></span>个样本，分母为<span><span class="heti-spacing"> </span><span class="arithmatex">\(N_{-1} + S_j\lambda = 6 + S_j \cdot 1\)</span>)</span>：</strong></p>
+<ul>
+<li><span><span class="arithmatex">\(X^{(1)}\)</span> (<span class="heti-spacing"> </span></span>特征<span><span class="heti-spacing"> </span>1</span>，<span class="arithmatex">\(S_1=3\)</span>)：<ul>
+<li><span><span class="arithmatex">\(X^{(1)}=1\)</span>: 3<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>样本<span><span class="heti-spacing"> </span>1, 2, 5)</span></li>
+<li><span><span class="arithmatex">\(X^{(1)}=2\)</span>: 2<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>样本<span><span class="heti-spacing"> </span>6, 7)</span></li>
+<li><span><span class="arithmatex">\(X^{(1)}=3\)</span>: 1<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>样本<span><span class="heti-spacing"> </span>15)</span>
+$$
+P_\lambda(X^{(1)} = 1|Y = -1) = \frac{3 + 1}{6 + 3 \cdot 1} = \frac{4}{9}
+$$
+$$
+P_\lambda(X^{(1)} = 2|Y = -1) = \frac{2 + 1}{6 + 3 \cdot 1} = \frac{3}{9}
+$$
+$$
+P_\lambda(X^{(1)} = 3|Y = -1) = \frac{1 + 1}{6 + 3 \cdot 1} = \frac{2}{9}
+$$</li>
+</ul>
+</li>
+<li><span><span class="arithmatex">\(X^{(2)}\)</span> (<span class="heti-spacing"> </span></span>特征<span><span class="heti-spacing"> </span>2</span>，<span class="arithmatex">\(S_2=3\)</span>)：<ul>
+<li><span><span class="arithmatex">\(X^{(2)}=S\)</span>: 3<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>样本<span><span class="heti-spacing"> </span>1, 5, 6)</span></li>
+<li><span><span class="arithmatex">\(X^{(2)}=M\)</span>: 2<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>样本<span><span class="heti-spacing"> </span>2, 7)</span></li>
+<li><span><span class="arithmatex">\(X^{(2)}=L\)</span>: 1<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>样本<span><span class="heti-spacing"> </span>15)</span>
+$$
+P_\lambda(X^{(2)} = S|Y = -1) = \frac{3 + 1}{6 + 3 \cdot 1} = \frac{4}{9}
+$$
+$$
+P_\lambda(X^{(2)} = M|Y = -1) = \frac{2 + 1}{6 + 3 \cdot 1} = \frac{3}{9}
+$$
+$$
+P_\lambda(X^{(2)} = L|Y = -1) = \frac{1 + 1}{6 + 3 \cdot 1} = \frac{2}{9}
+$$</li>
+</ul>
+</li>
+</ul>
+<p><strong><span>3.<span class="heti-spacing"> </span></span>对于给定的新实例<span><span class="heti-spacing"> </span><span class="arithmatex">\(x = (2, S)^T\)</span></span>，计算联合概率：</strong></p>
+<p><strong>计算<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(P_\lambda(Y=1|X=(2, S)^T)\)</span><span class="heti-spacing"> </span></span>相关的项：</strong>
+$$
+P_\lambda(Y = 1) P_\lambda(X^{(1)} = 2|Y = 1) P_\lambda(X^{(2)} = S|Y = 1) = \frac{10}{17} \cdot \frac{4}{12} \cdot \frac{2}{12} = \frac{80}{2448} \approx 0.0327
+$$</p>
+<p><strong>计算<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(P_\lambda(Y=-1|X=(2, S)^T)\)</span><span class="heti-spacing"> </span></span>相关的项：</strong>
+$$
+P_\lambda(Y = -1) P_\lambda(X^{(1)} = 2|Y = -1) P_\lambda(X^{(2)} = S|Y = -1) = \frac{7}{17} \cdot \frac{3}{9} \cdot \frac{4}{9} = \frac{84}{1377} \approx 0.0610
+$$</p>
+<p>比较两个值：<span class="arithmatex">\(0.0327 &lt; 0.0610\)</span>。
+由于 <span class="arithmatex">\(P_\lambda(Y = -1) P_\lambda(X^{(1)} = 2|Y = -1) P_\lambda(X^{(2)} = S|Y = -1)\)</span> 的值更大，因此新实例 <span class="arithmatex">\(x = (2, S)^T\)</span> 的类标记 <span class="arithmatex">\(y = -1\)</span>。</p>
+<p>在这个例子中，拉普拉斯平滑对最终结果没有改变，但它确保了所有概率都不会为零，从而增强了模型的鲁棒性。</p>
+<h2 id="朴素贝叶斯的优缺点-page-40-42">朴素贝叶斯的优缺点<span><span class="heti-spacing"> </span>(page 40-42)</span><a class="headerlink" href="#朴素贝叶斯的优缺点-page-40-42" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="优点-page-40-40">优点<span><span class="heti-spacing"> </span>(page 40-40)</span><a class="headerlink" href="#优点-page-40-40" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>算法逻辑简单，易于实现</strong>：朴素贝叶斯分类器基于简单的概率计算，没有复杂的优化过程，因此其理论理解和代码实现都相对容易。</li>
+<li><strong>算法较为稳定</strong>：由于它直接计算概率，对输入数据的顺序不敏感，在小样本量下也表现出一定的稳定性。</li>
+<li><strong>属性之间的关系相对独立时，算法效果较好</strong>：当特征满足条件独立性假设时，朴素贝叶斯分类器的性能理论上是最优的。</li>
+</ul>
+<h3 id="缺点-page-40-42">缺点<span><span class="heti-spacing"> </span>(page 40-42)</span><a class="headerlink" href="#缺点-page-40-42" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>属性个数较多或者属性之间相关性较大时，分类效果不好</strong>：
+    这是朴素贝叶斯最大的局限性，其“朴素”的条件独立性假设在许多实际问题中很难完全成立。如果特征之间存在强烈的依赖关系，模型性能会受到严重影响。</li>
+<li>
+<p><strong>条件概率的谬论<span><span class="heti-spacing"> </span>(Conditional Probability Fallacy)</span></strong>：
+    朴素贝叶斯假设了给定类别的特征之间是独立的，但在现实中，特征之间可能存在复杂的依赖关系。例如，在医学诊断中，我们通常会考虑 <span class="arithmatex">\(P(\text{疾病}|\text{症状})\)</span>，但有时人们会错误地将其近似为 <span class="arithmatex">\(P(\text{症状}|\text{疾病})\)</span>，这可能导致谬误。</p>
+<p><strong>例子</strong> (page 42)：
+假设某种疾病（d）的患病率为 1% (<span class="arithmatex">\(P(\text{disease}) = 0.01\)</span>)，未患病（well）的概率为 99% (<span class="arithmatex">\(P(\text{well}) = 0.99\)</span>)。
+现在有一种检测方法，其准确性如下：
+- 患病者检测呈阳性 (positive) 的概率为 99% (<span class="arithmatex">\(P(\text{positive}|\text{disease}) = 0.99\)</span>)。
+- 患病者检测呈阴性 (negative) 的概率为 1% (<span class="arithmatex">\(P(\text{negative}|\text{disease}) = 0.01\)</span>)。
+- 未患病者检测呈阳性的概率为 1% (<span class="arithmatex">\(P(\text{positive}|\text{well}) = 0.01\)</span>)（即假阳性率）。
+- 未患病者检测呈阴性的概率为 99% (<span class="arithmatex">\(P(\text{negative}|\text{well}) = 0.99\)</span>)。</p>
+<p>我们关心的问题是：如果一个人检测结果呈阳性，他真正患病的概率是多少？即求<span><span class="heti-spacing"> </span><span class="arithmatex">\(P(\text{disease}|\text{positive})\)</span></span>。</p>
+<p>根据贝叶斯公式：
+$$
+P(\text{disease}|\text{positive}) = \frac{P(\text{positive}|\text{disease})P(\text{disease})}{P(\text{positive})}
+$$
+其中，<span class="arithmatex">\(P(\text{positive})\)</span> 可以通过全概率公式计算：
+$$
+P(\text{positive}) = P(\text{positive}|\text{disease})P(\text{disease}) + P(\text{positive}|\text{well})P(\text{well})
+$$
+代入数值：
+$$
+P(\text{positive}) = (0.99 \cdot 0.01) + (0.01 \cdot 0.99) = 0.0099 + 0.0099 = 0.0198
+$$
+所以，
+$$
+P(\text{disease}|\text{positive}) = \frac{0.99 \cdot 0.01}{0.0198} = \frac{0.0099}{0.0198} = 0.5
+$$
+这个结果意味着，即使检测结果呈阳性，患者真正患病的概率也只有 50%。这与我们直观上认为检测准确率很高（99%）的感受可能不符，这就是条件概率的“谬论”或者说反直觉之处。它强调了先验概率在决策中的重要性。朴素贝叶斯模型的准确性依赖于对这些概率的准确估计。</p>
+</li>
+</ul>
+<h2 id="朴素贝叶斯分类器的改进算法-page-43考试不涉及">朴素贝叶斯分类器的改进算法<span><span class="heti-spacing"> </span>(page 43</span>，考试不涉及<span><span class="heti-spacing"> </span>)</span><a class="headerlink" href="#朴素贝叶斯分类器的改进算法-page-43考试不涉及" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>为了克服朴素贝叶斯分类器中条件独立性假设过于严格的缺点，研究者们提出了许多改进算法：</p>
+<ul>
+<li><strong>半朴素贝叶斯分类器<span><span class="heti-spacing"> </span>(Semi-Naive Bayesian Classifier, SNBC)</span></strong>：
+    放松了完全独立性假设，允许部分特征之间存在依赖关系，通常通过考虑部分特征间的二阶或更高阶关系来改进模型。</li>
+<li><strong>选择贝叶斯分类器<span><span class="heti-spacing"> </span>(Selective Bayesian Classifier, SBC)</span></strong>：
+    尝试选择最能预测类别的特征子集，从而避免无关或冗余特征对模型性能的影响，并可能间接缓解条件独立性假设带来的问题。</li>
+<li><strong>树增广朴素贝叶斯网络分类器<span><span class="heti-spacing"> </span>(Tree Augmented Naive Bayes, TAN)</span></strong>：
+    这是一种介于朴素贝叶斯和贝叶斯网络之间的模型。它仍然保留了朴素贝叶斯的主要结构（特征都直接依赖于类别），但允许特征之间存在至多一条边（树结构），以捕获特征间的局部依赖关系。</li>
+<li><strong>平均一依赖估测器<span><span class="heti-spacing"> </span>(Averaged One Dependence Estimators, AODE)</span></strong>：
+    AODE 是一种集成学习方法，它通过对所有可能的单依赖分类器（即每个分类器都假设所有其他特征都依赖于一个特定的“主”特征）的预测进行平均来提高性能，从而缓解了朴素贝叶斯的独立性假设。</li>
+<li><strong>加权平均一依赖估测器<span><span class="heti-spacing"> </span>(Weightily Averaged One Dependence Estimators, WAODE)</span></strong>：
+    WAODE 是 AODE 的一个变体，它为每个单依赖分类器分配不同的权重，权重通常根据分类器的性能来确定，以进一步提高分类准确性。</li>
+<li><strong>无约束贝叶斯网络分类器<span><span class="heti-spacing"> </span>(General Bayes Network, GBN)</span></strong>：
+    GBN 不再限制特征之间的依赖关系，而是尝试学习一个更通用的贝叶斯网络结构来表示特征和类别之间的条件依赖关系。这通常比朴素贝叶斯更复杂，但理论上可以更准确地捕获数据中的真实依赖。</li>
+<li><strong>隐藏扩展的朴素贝叶斯算法<span><span class="heti-spacing"> </span>(Hidden Augmented Naive Bayes, HANB)</span></strong>：
+    这类方法引入了隐藏变量来建模特征之间的复杂依赖关系，从而在一定程度上弥补了朴素贝叶斯独立性假设的不足。</li>
+</ul>
+<hr/>
+<h2 id="习题">习题<a class="headerlink" href="#习题" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="习题-41">习题<span><span class="heti-spacing"> </span>4.1</span><a class="headerlink" href="#习题-41" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="question" open="open">
+<summary></summary>
+<p>用极大似然估计法推出朴素贝叶斯法中的概率估计公式<span class="heti-skip"><span class="heti-spacing"> </span>(4.8)<span class="heti-spacing"> </span></span>及公式<span><span class="heti-spacing"> </span>(4.9)</span> 。</p>
+<details class="theorem" open="open">
+<summary><span>4.8<span class="heti-spacing"> </span></span>先验概率<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(P(Y=c_{k})\)</span><span class="heti-spacing"> </span></span>的极大似然估计是：</summary>
+<p><span class="arithmatex">\(\mathbf{P}(\mathbf{Y}=\mathbf{c}_{\mathbf{k}})=\frac{\sum_{\mathbf{i}=1}^{\mathbf{N}}\mathbf{I}(\mathbf{y}_{\mathrm{i}}=\mathbf{c}_{\mathrm{k}})}{\mathbf{N}},\quad\mathbf{k}=\mathbf{1},\mathbf{2},\ldots,\mathbf{K}\)</span></p>
+</details>
+<details class="theorem" open="open">
+<summary><span>4.9<span class="heti-spacing"> </span></span>条件概率<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(P(X^{(j)}=a_{jl}| Y=c_{k})\)</span><span class="heti-spacing"> </span></span>的极大似然估计是：</summary>
+<p><span class="arithmatex">\(\mathbf{P}(\mathbf{X}^{(j)}=\mathbf{a}_{ji}|\mathbf{Y}=\mathbf{c}_{k})=\frac{\sum_{i=1}^{N}\mathbf{I}(x_{i}^{(j)}=a_{j1},y_{i}=c_{k})}{\sum_{i=1}^{N}I(y_{i}=c_{k})},\quad\mathbf{j}=1,2,\ldots,n;\mathbf{l}=1,2,\ldots,\mathbf{S}_{j};\mathbf{k}=1,2,\ldots,\mathbf{K}\)</span></p>
+</details>
+</details>
+<p>假设数据集：<span class="arithmatex">\(T=\{(x_1,y_1),(x_2,y_2),\ldots,(x_N,y_N)\}\)</span> 。</p>
+<h4 id="48">4.8<a class="headerlink" href="#48" title="Permanent link">¶</a></h4>
+<p>令<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p = P(Y=c_{k}), c_{k}\)</span><span class="heti-spacing"> </span></span>在随机变量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Y\)</span><span class="heti-spacing"> </span></span>中出现<span><span class="heti-spacing"> </span><span class="arithmatex">\(m=\sum_{i=1}^N I(y_{i}=c_{k})\)</span></span>，似然函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(L(p)=C_{N}^m p^m (1-p)^{N-m}\)</span></span>。</p>
+<p>上式对数并对<span class="heti-skip"><span class="heti-spacing"> </span>p<span class="heti-spacing"> </span></span>求导并令其为<span><span class="heti-spacing"> </span>0</span>，即似然方程<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial \ln L(p)}{\partial p} = \frac{m}{p} - \frac{N-m}{1-p} = 0\)</span></span> ，解方程得到<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{p} = \frac{m}{N}\)</span></span>，即<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p = P(Y=c_{k})\)</span><span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>p<span class="heti-spacing"> </span></span>的最大似然估计 </p>
+<div class="arithmatex">\[\hat{p}= \frac{\sum^N_{i=1}I(y_{i}=c_{k})}{N}\]</div>
+<h4 id="49">4.9<a class="headerlink" href="#49" title="Permanent link">¶</a></h4>
+<p>令<span><span class="heti-spacing"> </span><span class="arithmatex">\(p=P(X^{(j)}=a_{jl}|Y=c_{k}), m=\sum_{i=1}^N I(y_{i}=c_{k}), q= \sum_{i=1}^N I(x_{i}^{(j)}=a_{jl}, y_{i}=c_{k})\)</span></span>，则似然方程<span><span class="heti-spacing"> </span><span class="arithmatex">\(L(p)=C_m^qp^q(1-p)^{m-q}\)</span></span> 。</p>
+<p>上式对数并对<span class="heti-skip"><span class="heti-spacing"> </span>p<span class="heti-spacing"> </span></span>求导并令其为<span><span class="heti-spacing"> </span>0</span>，即似然方程<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial\ln L(p)}{\partial p}=\frac{q}{p}-\frac{m-q}{1-q}=0\)</span></span> ，解方程得到<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{p}= \frac{q}{m}\)</span></span>，即该条件概率的极大似然估计为：</p>
+<div class="arithmatex">\[P(X^{(j)}=a_{jl}|Y=c_k)=\hat{p}=\frac{\sum_{i=1}^NI(x_i^{(j)}=a_{jl},y_i=c_k)}{\sum_{i=1}^NI(y_i=c_k)}\]</div>
+<h3 id="习题-42">习题<span><span class="heti-spacing"> </span>4.2</span><a class="headerlink" href="#习题-42" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>用贝叶斯估计法推出朴素贝叶斯法中的概率估计公式<span class="heti-skip"><span class="heti-spacing"> </span>(4.10)<span class="heti-spacing"> </span></span>及公式<span><span class="heti-spacing"> </span>(4.11)</span> 。</p>
+<details class="theorem" open="open">
+<summary><span>4.10<span class="heti-spacing"> </span></span>条件概率的贝叶斯估计</summary>
+<p><span class="arithmatex">\(P_{\lambda}(X^{(j)}=a_{jl}|Y=c_{k})=\frac{\sum_{i=1}^{N}I(x_{i}^{(j)}=a_{jl},y_{i}=c_{k})+\lambda}{\sum_{i=1}^{N}I(y_{i}=c_{k})+S_{j}\lambda}\)</span></p>
+</details>
+<details class="theorem" open="open">
+<summary><span>4.11<span class="heti-spacing"> </span></span>先验概率的贝叶斯估计</summary>
+<p><span class="arithmatex">\(P_{\lambda}(Y=c_{k})=\frac{\sum_{i=1}^{N}I(y_{i}=c_{k})+\lambda}{N+K\lambda}\)</span></p>
+</details>
+</div>
+<p>当取值拉普拉斯平滑<span class="heti-skip"><span class="heti-spacing"> </span>λ=1 ,<span class="heti-spacing"> </span></span>先验概率狄利克雷分布<span><span class="heti-spacing"> </span>(</span><em>Dirichlet</em><span>)<span class="heti-spacing"> </span></span>降为均匀分布<span><span class="heti-spacing"> </span>(</span><em>Uniform</em>)，即有方程：</p>
+<div class="arithmatex">\[\hat{p}*K - 1 = 0\]</div>
+<h4 id="410">4.10<a class="headerlink" href="#410" title="Permanent link">¶</a></h4>
+<p>同时由公式（4.9<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，我们得到<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{p}*\sum_{i=1}^NI(y_i=c_k)=\sum_{i=1}^NI(x_i^{(j)}=a_{jl},y_i=c_k)\)</span></span>，采用拉格朗日乘数法得到</p>
+<div class="arithmatex">\[0 = (\hat{p}*K - 1) * \lambda + \hat{p}*\sum_{i=1}^NI(y_i=c_k)-\sum_{i=1}^NI(x_i^{(j)}=a_{jl},y_i=c_k)\]</div>
+<p>求解即可以得到<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{p} = P_{\lambda}(X^{(j)}=a_{jl}|Y=c_{k})=\frac{\sum_{i=1}^{N}I(x_{i}^{(j)}=a_{jl},y_{i}=c_{k})+\lambda}{\sum_{i=1}^{N}I(y_{i}=c_{k})+S_{j}\lambda}\)</span></span> 。</p>
+<h4 id="411">4.11<a class="headerlink" href="#411" title="Permanent link">¶</a></h4>
+<p>同时由公式（4.8）可以得<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{p}*N - \sum_{i=1}^N I(y_{i}=c_{k}) = 0\)</span></span>，同样采用拉格朗日乘数法得到 </p>
+<div class="arithmatex">\[0 = (\hat{p}*K - 1) * \lambda + \hat{p}*N - \sum_{i=1}^N I(y_{i}=c_{k}) \]</div>
+<p>求解得到： <span class="arithmatex">\(\hat{p}=P_{\lambda}(Y=c_k)=\frac{\sum_{i=1}^N I(y_i=c_k)+\lambda}{N+\lambda K}\)</span> 。</p>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn:3">
+<p>归纳推理法：从特殊到一般的推理方法。在统计学中，指根据部分观测数据推断总体特征或规律。 <a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn:5">
+<p>独立同分布：指一组随机变量，它们彼此独立，并且具有相同的概率分布。 <a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 2 in the text">↩</a></p>
+</li>
+<li id="fn:1">
+<p><span>K<span class="heti-spacing"> </span></span>近邻<span><span class="heti-spacing"> </span>(K-Nearest Neighbors, KNN)</span>：一种非参数的分类算法，它不显式地学习一个模型，而是直接根据训练样本的距离来对新样本进行分类。 <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 3 in the text">↩</a></p>
+</li>
+<li id="fn:2">
+<p>决策树<span><span class="heti-spacing"> </span>(Decision Tree)</span>：一种监督学习算法，它使用树状模型来决策。每个内部节点代表一个特征上的测试，每个分支代表一个测试结果，每个叶节点代表一个类标签。 <a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 4 in the text">↩</a></p>
+</li>
+<li id="fn:4">
+<p>期望值：在概率论中，随机变量的期望值是其所有可能取值与其对应概率的乘积之和，代表了随机变量的平均值。 <a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 5 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年10月12日 23:48:09 CST">2025年10月12日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年6月17日 10:27:55 CST">2025年6月17日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: 03 KNN" class="md-footer__link md-footer__link--prev" href="../03-KNN/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                03 KNN
+              </div>
+</div>
+</a>
+<a aria-label="下一页: 05 Decision Tree" class="md-footer__link md-footer__link--next" href="../05-Decision_Tree/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                05 Decision Tree
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

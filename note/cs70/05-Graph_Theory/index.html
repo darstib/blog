@@ -1,0 +1,1834 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/note/cs70/05-Graph_Theory/" rel="canonical"/>
+<link href="../04-The_Stable_Matching_Problem/" rel="prev"/>
+<link href="../06-Modular_Arithmetic/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>05 Graph Theory - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#I-Introduction">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              05 Graph Theory
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Note
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs188/">
+<span class="md-ellipsis">
+    
+  
+    cs188
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../physics/">
+<span class="md-ellipsis">
+    
+  
+    physics
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-II/">
+<span class="md-ellipsis">
+    
+  
+    CSys-II
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-III/">
+<span class="md-ellipsis">
+    
+  
+    CSys-III
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DEM/">
+<span class="md-ellipsis">
+    
+  
+    DEM
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DMA/">
+<span class="md-ellipsis">
+    
+  
+    DMA
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3_8" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    cs70
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_8_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_8">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    cs70
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../01-Propositional_Logic/">
+<span class="md-ellipsis">
+    
+  
+    01 Propositional Logic
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../02-Proof/">
+<span class="md-ellipsis">
+    
+  
+    02 Proof
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../03-Mathematical_Induction/">
+<span class="md-ellipsis">
+    
+  
+    03 Mathematical Induction
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../04-The_Stable_Matching_Problem/">
+<span class="md-ellipsis">
+    
+  
+    04 The Stable Matching Problem
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    05 Graph Theory
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    05 Graph Theory
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I-Introduction">
+<span class="md-ellipsis">
+      
+        I Introduction
+      
+    </span>
+</a>
+<nav aria-label="I Introduction" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I1-formal-definitons">
+<span class="md-ellipsis">
+      
+        I.1 formal definitons
+      
+    </span>
+</a>
+<nav aria-label="I.1 formal definitons" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I11-undirecteddirected-graph">
+<span class="md-ellipsis">
+      
+        I.1.1 undirected/directed graph
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I12-degree">
+<span class="md-ellipsis">
+      
+        I.1.2 degree
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I13-Simple-Paths-walks-and-cycles">
+<span class="md-ellipsis">
+      
+        I.1.3 (Simple) Paths, walks, and cycles
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I2-Definition-supplement">
+<span class="md-ellipsis">
+      
+        I.2 Definition supplement
+      
+    </span>
+</a>
+<nav aria-label="I.2 Definition supplement" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I21-拟路径">
+<span class="md-ellipsis">
+      
+        I.2.1 拟路径
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I22-subgraph">
+<span class="md-ellipsis">
+      
+        I.2.2 subgraph
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I23-complement-graph">
+<span class="md-ellipsis">
+      
+        I.2.3 complement graph
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I24-isomorphic">
+<span class="md-ellipsis">
+      
+        I.2.4 isomorphic
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I25-Directed-Acyclic-GraphDAG">
+<span class="md-ellipsis">
+      
+        I.2.5 Directed Acyclic Graph(DAG)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I26-Topological-sorting">
+<span class="md-ellipsis">
+      
+        I.2.6 Topological sorting
+      
+    </span>
+</a>
+<nav aria-label="I.2.6 Topological sorting" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I261-Activity-On-Vertex-Network-AOV-网">
+<span class="md-ellipsis">
+      
+        I.2.6.1 Activity On Vertex Network (AOV 网)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I262-Activity-On-Edge-Network-AOE-网">
+<span class="md-ellipsis">
+      
+        I.2.6.2 Activity On Edge Network (AOE 网)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I263-Kahn-algorithm">
+<span class="md-ellipsis">
+      
+        I.2.6.3 Kahn algorithm
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I27-Adjacency-Matrix--Adjency-link">
+<span class="md-ellipsis">
+      
+        I.2.7 Adjacency Matrix &amp; Adjency link
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II-Revisiting-the-Seven-Bridges-of-Koenigsberg-Eulerian-Tours">
+<span class="md-ellipsis">
+      
+        II Revisiting the Seven Bridges of Koenigsberg: Eulerian Tours
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III-Planarity-Eulers-Formula-Coloring">
+<span class="md-ellipsis">
+      
+        III Planarity, Euler’s Formula, Coloring.
+      
+    </span>
+</a>
+<nav aria-label="III Planarity, Euler’s Formula, Coloring." class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III1-Tree">
+<span class="md-ellipsis">
+      
+        III.1 Tree
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III2-Planar-Graphs">
+<span class="md-ellipsis">
+      
+        III.2 Planar Graphs
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV-Important-classes-of-graphs">
+<span class="md-ellipsis">
+      
+        IV Important classes of graphs
+      
+    </span>
+</a>
+<nav aria-label="IV Important classes of graphs" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV1-Complete-graphs">
+<span class="md-ellipsis">
+      
+        IV.1 Complete graphs
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV2-Trees">
+<span class="md-ellipsis">
+      
+        IV.2 Trees
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV3-Hypercubes">
+<span class="md-ellipsis">
+      
+        IV.3 Hypercubes
+      
+    </span>
+</a>
+<nav aria-label="IV.3 Hypercubes" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV31-definition">
+<span class="md-ellipsis">
+      
+        IV.3.1 definition
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV32-de-Bruijn-sequence">
+<span class="md-ellipsis">
+      
+        IV.3.2 de Bruijn sequence
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../06-Modular_Arithmetic/">
+<span class="md-ellipsis">
+    
+  
+    06 Modular Arithmetic
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../07-Public_Key_Cryptography/">
+<span class="md-ellipsis">
+    
+  
+    07 Public Key Cryptography
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../08-Polynomials/">
+<span class="md-ellipsis">
+    
+  
+    08 Polynomials
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../09-Error_Correcting_Codes/">
+<span class="md-ellipsis">
+    
+  
+    09 Error Correcting Codes
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../10-Counting/">
+<span class="md-ellipsis">
+    
+  
+    10 Counting
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../11-Countability/">
+<span class="md-ellipsis">
+    
+  
+    11 Countability
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../12-Self_Reference_and_Computability/">
+<span class="md-ellipsis">
+    
+  
+    12 Self Reference and Computability
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../13-Introduction_of_Discrete_Probability/">
+<span class="md-ellipsis">
+    
+  
+    13 Introduction of Discrete Probability
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../14-Conditional_Probability/">
+<span class="md-ellipsis">
+    
+  
+    14 Conditional Probability
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../15-Distribution_and_Expectation/">
+<span class="md-ellipsis">
+    
+  
+    15 Distribution and Expectation
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../16-Variance/">
+<span class="md-ellipsis">
+    
+  
+    16 Variance
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../17-Concentration_Inequalities_and_the_Laws_of_Large_Numbers/">
+<span class="md-ellipsis">
+    
+  
+    17 Concentration Inequalities and the Laws of Large Numbers
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../18-Misc/">
+<span class="md-ellipsis">
+    
+  
+    18 Misc
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../other/">
+<span class="md-ellipsis">
+    
+  
+    other
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I-Introduction">
+<span class="md-ellipsis">
+      
+        I Introduction
+      
+    </span>
+</a>
+<nav aria-label="I Introduction" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I1-formal-definitons">
+<span class="md-ellipsis">
+      
+        I.1 formal definitons
+      
+    </span>
+</a>
+<nav aria-label="I.1 formal definitons" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I11-undirecteddirected-graph">
+<span class="md-ellipsis">
+      
+        I.1.1 undirected/directed graph
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I12-degree">
+<span class="md-ellipsis">
+      
+        I.1.2 degree
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I13-Simple-Paths-walks-and-cycles">
+<span class="md-ellipsis">
+      
+        I.1.3 (Simple) Paths, walks, and cycles
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I2-Definition-supplement">
+<span class="md-ellipsis">
+      
+        I.2 Definition supplement
+      
+    </span>
+</a>
+<nav aria-label="I.2 Definition supplement" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I21-拟路径">
+<span class="md-ellipsis">
+      
+        I.2.1 拟路径
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I22-subgraph">
+<span class="md-ellipsis">
+      
+        I.2.2 subgraph
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I23-complement-graph">
+<span class="md-ellipsis">
+      
+        I.2.3 complement graph
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I24-isomorphic">
+<span class="md-ellipsis">
+      
+        I.2.4 isomorphic
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I25-Directed-Acyclic-GraphDAG">
+<span class="md-ellipsis">
+      
+        I.2.5 Directed Acyclic Graph(DAG)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I26-Topological-sorting">
+<span class="md-ellipsis">
+      
+        I.2.6 Topological sorting
+      
+    </span>
+</a>
+<nav aria-label="I.2.6 Topological sorting" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I261-Activity-On-Vertex-Network-AOV-网">
+<span class="md-ellipsis">
+      
+        I.2.6.1 Activity On Vertex Network (AOV 网)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I262-Activity-On-Edge-Network-AOE-网">
+<span class="md-ellipsis">
+      
+        I.2.6.2 Activity On Edge Network (AOE 网)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I263-Kahn-algorithm">
+<span class="md-ellipsis">
+      
+        I.2.6.3 Kahn algorithm
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I27-Adjacency-Matrix--Adjency-link">
+<span class="md-ellipsis">
+      
+        I.2.7 Adjacency Matrix &amp; Adjency link
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II-Revisiting-the-Seven-Bridges-of-Koenigsberg-Eulerian-Tours">
+<span class="md-ellipsis">
+      
+        II Revisiting the Seven Bridges of Koenigsberg: Eulerian Tours
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III-Planarity-Eulers-Formula-Coloring">
+<span class="md-ellipsis">
+      
+        III Planarity, Euler’s Formula, Coloring.
+      
+    </span>
+</a>
+<nav aria-label="III Planarity, Euler’s Formula, Coloring." class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III1-Tree">
+<span class="md-ellipsis">
+      
+        III.1 Tree
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III2-Planar-Graphs">
+<span class="md-ellipsis">
+      
+        III.2 Planar Graphs
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV-Important-classes-of-graphs">
+<span class="md-ellipsis">
+      
+        IV Important classes of graphs
+      
+    </span>
+</a>
+<nav aria-label="IV Important classes of graphs" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV1-Complete-graphs">
+<span class="md-ellipsis">
+      
+        IV.1 Complete graphs
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV2-Trees">
+<span class="md-ellipsis">
+      
+        IV.2 Trees
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV3-Hypercubes">
+<span class="md-ellipsis">
+      
+        IV.3 Hypercubes
+      
+    </span>
+</a>
+<nav aria-label="IV.3 Hypercubes" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV31-definition">
+<span class="md-ellipsis">
+      
+        IV.3.1 definition
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV32-de-Bruijn-sequence">
+<span class="md-ellipsis">
+      
+        IV.3.2 de Bruijn sequence
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Note
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    cs70
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:dmpt">DMPT</a>
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:notes">notes</a>
+</nav>
+<h1>05 Graph Theory</h1>
+<h2 id="I-Introduction">I Introduction<a class="headerlink" href="#I-Introduction" title="Permanent link">¶</a></h2>
+<blockquote>
+<p><em><strong>Seven Bridges Problem</strong></em></p>
+<p>For more information you can see:<a href="https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg">Seven Bridges Problem</a></p>
+</blockquote>
+<h3 id="I1-formal-definitons">I.1 formal definitons<a class="headerlink" href="#I1-formal-definitons" title="Permanent link">¶</a></h3>
+<h4 id="I11-undirecteddirected-graph">I.1.1 undirected/directed graph<a class="headerlink" href="#I11-undirecteddirected-graph" title="Permanent link">¶</a></h4>
+<details class="definition">
+<summary>Undirected graph</summary>
+<p>Formally, <strong>a (undirected) graph</strong> is defined by <strong>a set of vertices V and a set of edges E</strong>. The vertices correspond to the little circles in Figure 1 above, and the edges correspond to the line segments between the vertices. In Figure 1, V = {A,B,C,D} and E = {{A,B},{A,B},{A,C},{B,C},{B,D},{B,D},{C,D}}. However, note that here <strong>E is a multiset (a set where an element can appear multiple times).</strong> This is because in the Königsberg example there are multiple bridges between a pair of banks. We will generally not consider such a situation of multiple edges between a single pair of vertices, so <strong>in our definition, we require E to be a set, not a multi-set. What this means is that between any pair of vertices there is either 0 or 1 edge. If there are multiple edges between a pair of vertices, then we collapse them into a single edge.</strong>
+More generally, we can also define a <strong>directed graph</strong>. If an edge in an undirected graph represents a street, then an edge in a directed graph represents a one-way street. To make this formal, let V be a set denoting the vertices of a graph G.</p>
+<p>For example, we can have V = {1,2,3,4}. Then, the set of (directed) edges E is a subset of V ×V, i.e. E ⊆ V ×V. (Recall here that U ×V denotes the Cartesian product of sets U and V, defined as U ×V = {(u, v) : u ∈ U and v ∈V}.) Continuing with our example, let E = {(1,2),(1,3),(1,4)}. Then, the corresponding graph is given below.
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/05-Graph-Theory-1.png"><img alt="|600" src="../attachments/05-Graph-Theory-1.png"/></a></p>
+<p>We conclude that <strong>a graph is thus formally specified as an ordered pair G = (V,E)</strong> , where V is the vertex set and E is the edge set.</p>
+</details>
+<h4 id="I12-degree">I.1.2 degree<a class="headerlink" href="#I12-degree" title="Permanent link">¶</a></h4>
+<ul>
+<li>If G is <strong>undirected</strong>, then the degree of vertex u ∈ V is the number of edges incident to u, i.e., <strong>degree(v)/d(v) = |{v ∈ V : {u, v} ∈ E}|</strong>. A vertex u whose degree is 0 is called an isolated vertex, since there is no edge which connects u to the rest of the graph.</li>
+<li>A <strong>directed graph</strong>, on the other hand, has two different notions of degree due to the directions on the edges. Specifically, the <strong>in-degree</strong> d-(v) of a vertex u is the number of edges from other vertices to u, and the <strong>out-degree</strong> d+(v) of u is the number of edges from u to other vertices.</li>
+<li>if d(v) == 1, we name this node "pendant node".</li>
+<li>if : for every v ∈ V, d(v) is same to others, then we call this graph "regular graph".</li>
+</ul>
+<blockquote>
+<p>for example, G 2 (shown above) is a regular graph.</p>
+</blockquote>
+<h4 id="I13-Simple-Paths-walks-and-cycles">I.1.3 (Simple) Paths, walks, and cycles<a class="headerlink" href="#I13-Simple-Paths-walks-and-cycles" title="Permanent link">¶</a></h4>
+<p><strong>(simple) paths:</strong> Let G = (V,E) be an undirected graph. A path in G is a sequence of edges {v1, v2},{v2, v3},...,{vn−2, vn−1},{vn−1, vn}. In this case we say that there is a path between v1 and vn.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/05-Graph-Theory-2.png"><img alt="|201" src="../attachments/05-Graph-Theory-2.png"/></a></p>
+<p><strong>cycles:</strong> In this class, we assume a path is simple, meaning v1,..., vn are distinct. if you wanted drive from house 1 to 3 via house 2, why would you visit house 2 more than once? A cycle (or circuit) is a sequence of edges {v1, v2},{v2, v3},...,{vn−2, vn−1},{vn−1, vn},{vn, v1}, where v1,..., vn are <strong>distinct</strong>.</p>
+<p><strong>walk:</strong> Suppose now that your aim is not to go from 1 to 3 as quickly as possible, but to take a leisurely stroll from 1 to 3 via the sequence {1,2},{2,1},{1,4},{4,3}. A sequence of edges with possibly repeated vertices, such as this one, is called a walk from 1 to 3.</p>
+<p>Analogous to the relationship between paths and cycles, <strong>a tour</strong> is a walk which starts and ends at the same vertex. For example, {1,2},{2,3},{3,1} is a tour.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/05-Graph-Theory-3.png"><img alt="" src="../attachments/05-Graph-Theory-3.png"/></a></p>
+<p>just understand them and you don't have to remember the concepts of them.</p>
+<p><strong>Connectivity:</strong> A graph is said to be connected if there is a path between any two distinct vertices.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/05-Graph-Theory-4.png"><img alt="|600" src="../attachments/05-Graph-Theory-4.png"/></a></p>
+<p>Note that any graph (even a disconnected one) always consists of a collection of connected components, i.e., sets V1,...,Vk of vertices, such that all vertices in a set Vi are connected. For example, the graph above is not connected, but nevertheless consists of three <strong>connected components</strong> : V1 = {1,2,3}, V2 = {4}, and V3 = {5,6,7}.</p>
+<h3 id="I2-Definition-supplement">I.2 Definition supplement<a class="headerlink" href="#I2-Definition-supplement" title="Permanent link">¶</a></h3>
+<h4 id="I21-拟路径"><span>I.2.1<span class="heti-spacing"> </span></span>拟路径<a class="headerlink" href="#I21-拟路径" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>顶点<span class="heti-skip"><span class="heti-spacing"> </span>v1<span class="heti-spacing"> </span></span>到<span class="heti-skip"><span class="heti-spacing"> </span>vm<span class="heti-spacing"> </span></span>的<span><span class="heti-spacing"> </span></span><strong>拟路径</strong>：<span class="arithmatex">\(v_1,e_1,v_2,e_2,v_3,\ldots,v_{m-1},e_{m-1},v_m\)</span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(e_i=&lt;v_i,v_{i+1}&gt;\)</span><span class="heti-spacing"> </span></span>或<span><span class="heti-spacing"> </span><span class="arithmatex">\(e_i=\{v_i,v_{i+1}\}\text{。}\)</span></span></p>
+<p>拟路径的边数称为拟路径的 <strong>长度</strong> 。</p>
+<blockquote>
+<p>课程笔记中缺少了一些会在数据结构<span class="heti-skip"><span class="heti-spacing"> </span>(Data Structure)<span class="heti-spacing"> </span></span>中使用到的定义，根据课程<span class="heti-skip"><span class="heti-spacing"> </span>PPT<span class="heti-spacing"> </span></span>补充。</p>
+</blockquote>
+<h4 id="I22-subgraph">I.2.2 subgraph<a class="headerlink" href="#I22-subgraph" title="Permanent link">¶</a></h4>
+<ul>
+<li>G1=<v1,e1>，G2=<v2,e2></v2,e2></v1,e1></li>
+<li>V1⊆V2，E1⊆E2，称<span class="heti-skip"><span class="heti-spacing"> </span>G1<span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span>G2<span class="heti-spacing"> </span></span>的 <strong>子图</strong> (subgraph)</li>
+<li>如果<span class="heti-skip"><span class="heti-spacing"> </span>G1<span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span>G2<span class="heti-spacing"> </span></span>的子图，且<span><span class="heti-spacing"> </span>G1</span>≠G2，则<span class="heti-skip"><span class="heti-spacing"> </span>G1<span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span>G2<span class="heti-spacing"> </span></span>的 <strong>真子图</strong> </li>
+<li>如果<span class="heti-skip"><span class="heti-spacing"> </span>G1<span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span>G2<span class="heti-spacing"> </span></span>的子图，且<span><span class="heti-spacing"> </span>V1=V2</span>，则<span class="heti-skip"><span class="heti-spacing"> </span>G1<span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span>G2<span class="heti-spacing"> </span></span>的 <strong>生成子图</strong> (spanning subgraph)</li>
+</ul>
+<p>例如，下方<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>为<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>的生成子图，<span>3<span class="heti-spacing"> </span></span>为<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>的真子图</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/1587405722942-ae0ef63c-376d-48ec-8c8f-2866b206c76b.webp"><img alt="" src="../attachments/1587405722942-ae0ef63c-376d-48ec-8c8f-2866b206c76b.webp"/></a></p>
+<h4 id="I23-complement-graph">I.2.3 complement graph<a class="headerlink" href="#I23-complement-graph" title="Permanent link">¶</a></h4>
+<ul>
+<li>G1=<v1,e1>，G2=<v2,e2></v2,e2></v1,e1></li>
+<li>V1=V2，E1∩E2=∅， <v1,e1∪e2> 是完全图，则称<span class="heti-skip"><span class="heti-spacing"> </span>G1, G2<span class="heti-spacing"> </span></span>互为补图</v1,e1∪e2></li>
+</ul>
+<p>例如，<span>1<span class="heti-spacing"> </span></span>为完全图， 2、<span>3<span class="heti-spacing"> </span></span>互为补图</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/1587405868678-e9e2bafd-4c7f-41b7-a2bc-e14f045dc12d.webp"><img alt="" src="../attachments/1587405868678-e9e2bafd-4c7f-41b7-a2bc-e14f045dc12d.webp"/></a></p>
+<h4 id="I24-isomorphic">I.2.4 isomorphic<a class="headerlink" href="#I24-isomorphic" title="Permanent link">¶</a></h4>
+<p>设<span><span class="heti-spacing"> </span>G1=</span><v1,e1>，G2=<v2,e2>，如果<span><span class="heti-spacing"> </span>|V1|=|V2|</span>，|E1|=|E2| ，且可以将<span class="heti-skip"><span class="heti-spacing"> </span>G1<span class="heti-spacing"> </span></span>中<span class="heti-skip"><span class="heti-spacing"> </span>V1<span class="heti-spacing"> </span></span>中所有的结点一一对应地置换为<span class="heti-skip"><span class="heti-spacing"> </span>V2<span class="heti-spacing"> </span></span>中的结点名后得到的图等于<span><span class="heti-spacing"> </span>G2</span>，则称<span><span class="heti-spacing"> </span>G1, G2</span> <strong>同构</strong> (isomorphic)</v2,e2></v1,e1></p>
+<p>例如，下面两个图同构</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/1587406084487-59d99f91-924a-4a76-bfd6-25242ce872e9.webp"><img alt="" src="../attachments/1587406084487-59d99f91-924a-4a76-bfd6-25242ce872e9.webp"/></a></p>
+<h4 id="I25-Directed-Acyclic-GraphDAG">I.2.5 Directed Acyclic Graph(DAG)<a class="headerlink" href="#I25-Directed-Acyclic-GraphDAG" title="Permanent link">¶</a></h4>
+<p>有向无环图<span class="heti-skip"><span class="heti-spacing"> </span>(DAG)<span class="heti-spacing"> </span></span>是一种特殊的有向图，它在图中没有环，即从任意顶点出发，不可能经过若干条边回到该顶点。这样的图形结构具有以下特点：</p>
+<ol>
+<li>
+<p><strong>有向</strong>：图中的每条边都有一个方向，从一个顶点指向另一个顶点。</p>
+</li>
+<li>
+<p><strong>无环</strong>：图中没有形成闭环的路径，也就是说，从任意顶点开始，不可能通过一系列边回到该顶点。</p>
+</li>
+<li>
+<p><strong>顶点排序</strong>：由于没有环，<span>DAG<span class="heti-spacing"> </span></span>中的顶点可以有一种特殊的排序，称为<a href="https://oi-wiki.org/graph/topo/">拓扑排序</a>。在这种排序中，对于每一条有向边<span><span class="heti-spacing"> </span>uv</span>，顶点<span class="heti-skip"><span class="heti-spacing"> </span>u<span class="heti-spacing"> </span></span>在排序中都位于顶点<span class="heti-skip"><span class="heti-spacing"> </span>v<span class="heti-spacing"> </span></span>之前。</p>
+</li>
+</ol>
+<h4 id="I26-Topological-sorting">I.2.6 Topological sorting<a class="headerlink" href="#I26-Topological-sorting" title="Permanent link">¶</a></h4>
+<div class="admonition definition">
+<p class="admonition-title">从<a href="https://oi-wiki.org/graph/topo/"><span class="heti-skip"><span class="heti-spacing"> </span>oi-wiki<span class="heti-spacing"> </span></span></a>上的摘录的关于拓扑排序的笔记</p>
+<p>A <em>topological order</em> is a linear ordering of the vertices of a graph such that, for any two vertices, i , j , if i is a predecessor of j in the network then i precedes j in the linear ordering.</p>
+</div>
+<p>在一个<span><span class="heti-spacing"> </span></span><a href="https://oi-wiki.org/graph/dag/"><span><span class="heti-spacing"> </span>DAG</span>（有向无环图）</a><span><span class="heti-spacing"> </span></span>中，我们将图中的顶点以线性方式进行排序，使得对于任何的顶点<span class="heti-skip"><span class="heti-spacing"> </span>u<span class="heti-spacing"> </span></span>到<span class="heti-skip"><span class="heti-spacing"> </span>v<span class="heti-spacing"> </span></span>的有向边 <u,v> ，都可以有<span class="heti-skip"><span class="heti-spacing"> </span>u<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>v<span class="heti-spacing"> </span></span>的前面，这样一个过程我们可以看作是拓扑排序：</u,v></p>
+<ol>
+<li>
+<p>从图中选择一个入度为零的点</p>
+</li>
+<li>
+<p>输出该顶点，从图中删除此顶点及其所有的出边</p>
+</li>
+<li>
+<p>重复上面两步，直到所有顶点都输出，拓扑排序完成</p>
+</li>
+</ol>
+<p>如果某一时刻图中不存在入度为零的点，此时说明图是有环图，拓扑排序无法完成；因此“能拓扑排序的图<span class="heti-skip"><span class="heti-spacing"> </span>==<span class="heti-spacing"> </span></span>有向无环图”。</p>
+<h5 id="I261-Activity-On-Vertex-Network-AOV-网"><span>I.2.6.1 Activity On Vertex Network (AOV<span class="heti-spacing"> </span></span>网<span><span class="heti-spacing"> </span>)</span><a class="headerlink" href="#I261-Activity-On-Vertex-Network-AOV-网" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h5>
+<p>在<span class="heti-skip"><span class="heti-spacing"> </span>AOV<span class="heti-spacing"> </span></span>网中， <u>顶点表示活动，弧表示活动间的优先关系</u> 。<span>AOV<span class="heti-spacing"> </span></span>网中不应该出现环，这样就能够找到一个顶点序列，使得每个顶点代表的活动的前驱活动都排在该顶点的前面，这样的序列称为拓扑序列（一个<span class="heti-skip"><span class="heti-spacing"> </span>AOV<span class="heti-spacing"> </span></span>网的拓扑序列不是唯一的<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，由<span class="heti-skip"><span class="heti-spacing"> </span>AOV<span class="heti-spacing"> </span></span>网构造拓扑序列的过程称为拓扑排序。</p>
+<ul>
+<li>
+<p>前驱活动：有向边起点的活动称为终点的前驱活动（只有当一个活动的前驱全部都完成后，这个活动才能进行<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+</li>
+<li>
+<p>后继活动：有向边终点的活动称为起点的后继活动。</p>
+</li>
+</ul>
+<details class="tip">
+<summary>Tip</summary>
+<p>检测<span class="heti-skip"><span class="heti-spacing"> </span>AOV<span class="heti-spacing"> </span></span>网中是否带环的方式是构造拓扑序列，看是否包含所有顶点</p>
+</details>
+<h5 id="I262-Activity-On-Edge-Network-AOE-网"><span>I.2.6.2 Activity On Edge Network (AOE<span class="heti-spacing"> </span></span>网<span><span class="heti-spacing"> </span>)</span><a class="headerlink" href="#I262-Activity-On-Edge-Network-AOE-网" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h5>
+<p><span>AOE<span class="heti-spacing"> </span></span>网是一个 <strong>带权</strong> 的有向无环图，其中， <u>顶点表示事件，弧表示活动持续的时间</u> 。</p>
+<p>通常，<span>AOE<span class="heti-spacing"> </span></span>网可以用来估算工程的完成时间。<span>AOE<span class="heti-spacing"> </span></span>网应该是无环的，且存在唯一入度为零的起始顶点（源点<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，以及唯一出度为零的完成顶点（汇点<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<h6 id="I2621-AOE-网相关概念"><span>I.2.6.2.1 AOE<span class="heti-spacing"> </span></span>网相关概念<a class="headerlink" href="#I2621-AOE-网相关概念" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h6>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/05-Graph-Theory-15.png"><img alt="" src="../attachments/05-Graph-Theory-15.png"/></a></p>
+<h6 id="I2622-求解关键路径"><span>I.2.6.2.2<span class="heti-spacing"> </span></span>求解关键路径<a class="headerlink" href="#I2622-求解关键路径" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h6>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/05-Graph-Theory-16.png"><img alt="" src="../attachments/05-Graph-Theory-16.png"/></a></p>
+<h5 id="I263-Kahn-algorithm">I.2.6.3 Kahn algorithm<a class="headerlink" href="#I263-Kahn-algorithm" title="Permanent link">¶</a></h5>
+<p>先来自<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><a href="https://en.wikipedia.org/wiki/Topological_sorting#Kahn's_algorithm"><span class="heti-skip"><span class="heti-spacing"> </span>Wikipedia<span class="heti-spacing"> </span></span></a><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>的伪代码</p>
+<div class="highlight"><span class="filename">C</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="n">L</span><span class="w"> </span><span class="err">←</span><span class="w"> </span><span class="n">Empty</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">contain</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">sorted</span><span class="w"> </span><span class="n">elements</span><span class="w"> </span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="n">S</span><span class="w"> </span><span class="err">←</span><span class="w"> </span><span class="n">Set</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="n">nodes</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="n">incoming</span><span class="w"> </span><span class="n">edges</span><span class="w"> </span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><a href="#__codelineno-0-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="k">while</span><span class="w"> </span><span class="n">S</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="n">empty</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><a href="#__codelineno-0-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">    </span><span class="n">remove</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">S</span><span class="w"> </span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><a href="#__codelineno-0-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">    </span><span class="n">insert</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="n">into</span><span class="w"> </span><span class="n">L</span><span class="w"> </span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><a href="#__codelineno-0-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">each</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><a href="#__codelineno-0-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">        </span><span class="n">remove</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">graph</span><span class="w"> </span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><a href="#__codelineno-0-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="n">incoming</span><span class="w"> </span><span class="n">edges</span><span class="w"> </span><span class="n">then</span><span class="w"> </span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a><a href="#__codelineno-0-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">            </span><span class="n">insert</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="n">into</span><span class="w"> </span><span class="n">S</span><span class="w"> </span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><a href="#__codelineno-0-10"><span class="linenos" data-linenos="10 "></span></a><span class="k">if</span><span class="w"> </span><span class="n">graph</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">edges</span><span class="w"> </span><span class="n">then</span><span class="w"> </span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a><a href="#__codelineno-0-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="p">(</span><span class="n">graph</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">least</span><span class="w"> </span><span class="n">one</span><span class="w"> </span><span class="n">cycle</span><span class="p">)</span><span class="w"> </span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a><a href="#__codelineno-0-12"><span class="linenos" data-linenos="12 "></span></a><span class="k">else</span><span class="w"> </span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a><a href="#__codelineno-0-13"><span class="linenos" data-linenos="13 "></span></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">L</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="n">topologically</span><span class="w"> </span><span class="n">sorted</span><span class="w"> </span><span class="n">order</span><span class="p">)</span>
+</span></code></pre></div>
+<p>也就是说，从一个图中，我们准备两个空集合<span><span class="heti-spacing"> </span>S &amp; L</span></p>
+<ol>
+<li>取入度为<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>的所有顶点放入<span class="heti-skip"><span class="heti-spacing"> </span>S<span class="heti-spacing"> </span></span>中</li>
+<li>在<span class="heti-skip"><span class="heti-spacing"> </span>S<span class="heti-spacing"> </span></span>不为空的情况下，任取一个顶点<span class="heti-skip"><span class="heti-spacing"> </span>v<span class="heti-spacing"> </span></span>放入<span class="heti-skip"><span class="heti-spacing"> </span>L<span class="heti-spacing"> </span></span>中，并断开与<span class="heti-skip"><span class="heti-spacing"> </span>v<span class="heti-spacing"> </span></span>相连的所有边，重复步骤<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>直到<span class="heti-skip"><span class="heti-spacing"> </span>S<span class="heti-spacing"> </span></span>依旧为空</li>
+<li>
+<p>当<span class="heti-skip"><span class="heti-spacing"> </span>S<span class="heti-spacing"> </span></span>为空时，结束</p>
+<ul>
+<li>若图中任然有边，说明原图不是<span><span class="heti-spacing"> </span>DAG</span>；</li>
+<li>若图中无边，<span>L<span class="heti-spacing"> </span></span>就是拓扑排序的结果。</li>
+</ul>
+</li>
+</ol>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/05-Graph-Theory-17.png"><img alt="" src="../attachments/05-Graph-Theory-17.png"/></a></p>
+<h6 id="I2631-implement-of-kahn-algorithm">I.2.6.3.1 implement of kahn algorithm<a class="headerlink" href="#I2631-implement-of-kahn-algorithm" title="Permanent link">¶</a></h6>
+<p>实现部分使用了<span><span class="heti-spacing"> </span>C++</span>，读者自行阅读 <a href="https://oi-wiki.org/graph/topo/#%E5%AE%9E%E7%8E%B0">实现</a>；<del>如果有时间写一个<span class="heti-skip"><span class="heti-spacing"> </span>C<span class="heti-spacing"> </span></span>版本的放在这。</del></p>
+<h4 id="I27-Adjacency-Matrix--Adjency-link">I.2.7 Adjacency Matrix &amp; Adjency link<a class="headerlink" href="#I27-Adjacency-Matrix--Adjency-link" title="Permanent link">¶</a></h4>
+<p><strong>邻接矩阵（Adjacency Matrix）</strong> 是一种表示图的方法。</p>
+<p>对于一个有<span class="heti-skip"><span class="heti-spacing"> </span>n<span class="heti-spacing"> </span></span>个顶点的图，其邻接矩阵是一个<span class="heti-skip"><span class="heti-spacing"> </span>n×n<span class="heti-spacing"> </span></span>的矩阵<span><span class="heti-spacing"> </span>A</span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A[i][j]\)</span><span class="heti-spacing"> </span></span>的值表示顶点<span class="heti-skip"><span class="heti-spacing"> </span>i<span class="heti-spacing"> </span></span>和顶点<span class="heti-skip"><span class="heti-spacing"> </span>j<span class="heti-spacing"> </span></span>之间的连接情况，即</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/05-Graph-Theory-12.png"><img alt="" src="../attachments/05-Graph-Theory-12.png"/></a></p>
+<p>（图片截图于<a href="https://www.foreverhyx.top/2024/03/06/fundamental-of-data-structure-note/#6-Graph"><span class="heti-skip"><span class="heti-spacing"> </span>Pipipi<span class="heti-spacing"> </span></span>の<span><span class="heti-spacing"> </span>blog</span></a>）</p>
+<ul>
+<li>对于无向图<ul>
+<li>如果顶点<span class="heti-skip"><span class="heti-spacing"> </span>i<span class="heti-spacing"> </span></span>和顶点<span class="heti-skip"><span class="heti-spacing"> </span>j<span class="heti-spacing"> </span></span>之间有一条边，则<span><span class="heti-spacing"> </span><span class="arithmatex">\(A[i][j] = A[j][i] = 1\)</span></span></li>
+<li>如果没有直接连接，则为<span><span class="heti-spacing"> </span>0</span></li>
+<li>由于是无向图，邻接矩阵是 <u>对称</u> 的</li>
+</ul>
+</li>
+<li>对于有向图<ul>
+<li>如果从顶点<span class="heti-skip"><span class="heti-spacing"> </span>i<span class="heti-spacing"> </span></span>到顶点<span class="heti-skip"><span class="heti-spacing"> </span>j<span class="heti-spacing"> </span></span>有一条弧，则<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A[i][j]\)</span><span class="heti-spacing"> </span></span>为<span><span class="heti-spacing"> </span>1</span></li>
+<li>如果不存在这样的弧，则为<span><span class="heti-spacing"> </span>0</span></li>
+<li>在有向图中，邻接矩阵可能不对称</li>
+</ul>
+</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>邻接矩阵可以用于各种图算法中，例如深度优先搜索（DFS<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、广度优先搜索（BFS<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、<span>Dijkstra<span class="heti-spacing"> </span></span>算法和<span class="heti-skip"><span class="heti-spacing"> </span>Floyd-Warshall<span class="heti-spacing"> </span></span>算法等。它提供了一个简单的方式来检查两个顶点之间是否有一条边，以及获取一个顶点的所有邻接点</p>
+</div>
+<p>不难得知空间复杂度为<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(N^{2})\)</span></span>，在数据较大时难以接受，可能更适合使用邻接表</p>
+<p><strong>邻接列表（Adjacency List）</strong> 是图的一种常见表示方法</p>
+<p>实现：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/05-Graph-Theory-14.png"><img alt="" src="../attachments/05-Graph-Theory-14.png"/></a></p>
+<ul>
+<li><strong>顶点数组</strong>：一个数组，用于存储图中的所有顶点。</li>
+<li><strong>邻接列表</strong>：对于每个顶点，都有一个列表（通常是一个链表或数组<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，存储了所有与该顶点直接相连的其他顶点。在无向图中，如果顶点<span class="heti-skip"><span class="heti-spacing"> </span>A<span class="heti-spacing"> </span></span>与顶点<span class="heti-skip"><span class="heti-spacing"> </span>B<span class="heti-spacing"> </span></span>相连，那么<span class="heti-skip"><span class="heti-spacing"> </span>A<span class="heti-spacing"> </span></span>的邻接列表将包含<span><span class="heti-spacing"> </span>B</span>，同时<span class="heti-skip"><span class="heti-spacing"> </span>B<span class="heti-spacing"> </span></span>的邻接列表也将包含<span><span class="heti-spacing"> </span>A</span>。在有向图中，如果存在从<span class="heti-skip"><span class="heti-spacing"> </span>A<span class="heti-spacing"> </span></span>到<span class="heti-skip"><span class="heti-spacing"> </span>B<span class="heti-spacing"> </span></span>的边，则<span class="heti-skip"><span class="heti-spacing"> </span>A<span class="heti-spacing"> </span></span>的邻接列表将包含<span><span class="heti-spacing"> </span>B</span>，但不一定意味着<span class="heti-skip"><span class="heti-spacing"> </span>B<span class="heti-spacing"> </span></span>的邻接列表包含<span><span class="heti-spacing"> </span>A</span>。</li>
+</ul>
+<p>邻接列表的优势在于它的空间效率。</p>
+<p>对于有<span class="heti-skip"><span class="heti-spacing"> </span>V<span class="heti-spacing"> </span></span>个顶点和<span class="heti-skip"><span class="heti-spacing"> </span>E<span class="heti-spacing"> </span></span>条边的图，邻接列表只需要<span class="heti-skip"><span class="heti-spacing"> </span>O(V+2E)<span class="heti-spacing"> </span></span>的空间，这在<span class="heti-skip"><span class="heti-spacing"> </span>E<span class="heti-spacing"> </span></span>远小于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(V^{2}\)</span><span class="heti-spacing"> </span></span>的情况下比邻接矩阵更节省空间。邻接列表也便于快速地访问一个顶点的所有邻接点，这对于图的遍历算法（如深度优先搜索或广度优先搜索）特别有用。</p>
+<blockquote>
+<p>邻接列表的缺点是查找两个顶点之间是否存在边的时间复杂度较高，为<span><span class="heti-spacing"> </span>O(V)</span>。如果需要频繁地进行这种查找操作，可能需要使用其他数据结构，如邻接矩阵或哈希表。</p>
+</blockquote>
+<h2 id="II-Revisiting-the-Seven-Bridges-of-Koenigsberg-Eulerian-Tours">II Revisiting the Seven Bridges of Koenigsberg: Eulerian Tours<a class="headerlink" href="#II-Revisiting-the-Seven-Bridges-of-Koenigsberg-Eulerian-Tours" title="Permanent link">¶</a></h2>
+<p>Given a graph G(namely Seven Bridges Problem), is there a walk in G that uses each edge exactly once? We call any such walk in a graph an <strong>Eulerian walk</strong>. (In contrast, by definition a walk can normally visit each edge or vertex as many times as desired.)</p>
+<p>Moreover, if an Eulerian walk is closed, i.e., it ends at its starting point, then it is called an <strong>Eulerian tour</strong>.</p>
+<p>For this, define an <strong>even degree graph</strong> as a graph in which all vertices have even degree.</p>
+<div class="admonition theorem">
+<p class="admonition-title">THEOREM 5.1 <em>Euler’s Theorem</em> (1736)</p>
+<p>An undirected graph G = (V,E) has an Eulerian tour iff G is even degree, and connected (except possibly for isolated vertices).</p>
+<details class="proof">
+<summary>proof</summary>
+<p>其实很简单，根据题意，我们每条边都要走且只走一遍</p>
+<ul>
+<li>
+<p><span>Only if :<span class="heti-spacing"> </span></span>如果某个端点（非起点）有奇数条边，那总会有那么一个时刻进去了出不来；对于起点，那就是有一个时刻出去了没法进来；总之反证法可得</p>
+</li>
+<li>
+<p><span>if :<span class="heti-spacing"> </span></span>我们可以改为证明 <strong>FindTour(G, s)</strong></p>
+</li>
+</ul>
+<blockquote>
+<p>FINDTOUR is very simple: In even degree graph, it just starts walking from a vertex s ∈ V, at each step choosing any untraversed edge incident to the current vertex, until it gets stuck because there is no more adjacent untraversed edge.</p>
+</blockquote>
+<p>证明同样简单，如果卡在<span class="heti-skip"><span class="heti-spacing"> </span>t != s<span class="heti-spacing"> </span></span>处，那么说明进出<span class="heti-skip"><span class="heti-spacing"> </span>t<span class="heti-spacing"> </span></span>的次数是奇数，这与<span class="heti-skip"><span class="heti-spacing"> </span>even degree graph<span class="heti-spacing"> </span></span>定义相矛盾，故<span><span class="heti-spacing"> </span>t == s</span>，也就是说一定会返回原点。</p>
+</details>
+</div>
+<p>For more information such as algorithm EULER(G, s), you can visit <a href="https://en.wikipedia.org/wiki/Eulerian_path#Fleury's_algorithm">Fleury's algorithm &amp; Hierholzer's algorithm</a></p>
+<h2 id="III-Planarity-Eulers-Formula-Coloring">III Planarity, Euler’s Formula, Coloring.<a class="headerlink" href="#III-Planarity-Eulers-Formula-Coloring" title="Permanent link">¶</a></h2>
+<h3 id="III1-Tree">III.1 Tree<a class="headerlink" href="#III1-Tree" title="Permanent link">¶</a></h3>
+<p>Just like what we learn in Data Struct, so we pass it.</p>
+<h3 id="III2-Planar-Graphs">III.2 Planar Graphs<a class="headerlink" href="#III2-Planar-Graphs" title="Permanent link">¶</a></h3>
+<p>A graph is planar if it <strong>can</strong> be drawn on the plane <u>without crossings</u>.</p>
+<p>Just understand what "can" stands for since the first and second graphs below are the same, but drawn differently; the second drawing has crossings, the graph is still considered planar since it is <strong>possible</strong> to draw it without crossings.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/05-Graph-Theory-5.png"><img alt="|600" src="../attachments/05-Graph-Theory-5.png"/></a></p>
+<p>The first one of them is the infamous “three houses-three wells graph,” also called K3,3, (This notation says there are two sets of vertices, each of size three and all edges between the two sets of vertices are present.) The second is the “complete” graph (every edge is present) with five nodes, or K5. The third is the four-dimensional cube. We shall soon see how to prove that all three graphs are non-planar.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/05-Graph-Theory-6.png"><img alt="|600" src="../attachments/05-Graph-Theory-6.png"/></a></p>
+<p>If we define graph's vertices (their number will be denoted v here) and edges (their number is e), the faces of the graph (more precisely, of the drawing). The faces are the regions into which the graph subdivides the plane, then goes Euler's formula:</p>
+<div class="admonition theorem">
+<p class="admonition-title">THEOREM 5.2 <em>Euler's formula</em></p>
+<p>For every connected planar graph, v+ f = e+2</p>
+<details class="proof">
+<summary>Proof by induction on e</summary>
+<p>It certainly holds when e = 0, and v = f = 1. Now take any connected planar graph. Two cases: </p>
+<p>• If it is a tree, then f = 1 (drawing a tree on the plane does not subdivide the plane), and e = v − 1 (check homework). </p>
+<p>• If it is not a tree, find a cycle and delete any edge of the cycle. This amounts to reducing both e and f by one. By induction the formula is true in the smaller graph, and so it must be true in the original one.</p>
+</details>
+</div>
+<p>If we define  <span class="arithmatex">\(s_i\)</span>  as the number  of edges of face_i, then we get that:</p>
+<div class="arithmatex">\[
+\sum_{i=1}^f  s_i  = 2e
+\]</div>
+<p>It is easy to learn that  <span class="arithmatex">\(s_i \geq 3\)</span>,  solving for f and plugging into Euler’s formula we get <strong>e ≤ 3v−6</strong>.</p>
+<p>This is an important fact, which helps us to konw that  <span class="arithmatex">\(K_{5}\)</span>  is not planar.</p>
+<p>What about  <span class="arithmatex">\(K_{3,3}\)</span>  ?</p>
+<p>As we can see in  <span class="arithmatex">\(K_{3,3}\)</span> , there is no triangle so  <span class="arithmatex">\(s_i \geq 4\)</span> , which turns out to be that: <span class="arithmatex">\(e ≤ 2v−4\)</span>, so  <span class="arithmatex">\(K_{3,3}\)</span>  is not planar.</p>
+<p>This is made precise in the following famous result, due to the Polish mathematician Kuratowski (this is what “K” stands for)</p>
+<div class="admonition theorem">
+<p class="admonition-title">THEOREM 5.3</p>
+<p>A graph is non-planar iff it contains  <span class="arithmatex">\(K_{5}\)</span>  or  <span class="arithmatex">\(K_{3,3}\)</span> .</p>
+<details class="proof">
+<summary><strong>Proof</strong> </summary>
+<p>for a short proof you may want to type “proof of Kuratowski’s theorem” in your favorite search engine</p>
+</details>
+</div>
+<h2 id="IV-Important-classes-of-graphs">IV Important classes of graphs<a class="headerlink" href="#IV-Important-classes-of-graphs" title="Permanent link">¶</a></h2>
+<p>就像互联网一样，我们希望任何一个节点都能够访问到其余任何一个节点，这就要求我们的图是彼此连接的。但是连接太少（如<span class="heti-skip"><span class="heti-spacing"> </span>Trees<span class="heti-spacing"> </span></span>或者<span><span class="heti-spacing"> </span>link</span>）会导致一处连接中断而大片失联；连接过多（如每一个节点都直接连接其他所有节点，即<span><span class="heti-spacing"> </span>Complete graphs</span>）又在成本和复杂度上不切实际；因此，我们需要一个很好地结合双方特点的图形结构，即超立方体<span><span class="heti-spacing"> </span>(hypercubes)</span>。</p>
+<p>下面我们将介绍三者，以<span class="heti-skip"><span class="heti-spacing"> </span>hypercubes<span class="heti-spacing"> </span></span>为主。</p>
+<h3 id="IV1-Complete-graphs">IV.1 Complete graphs<a class="headerlink" href="#IV1-Complete-graphs" title="Permanent link">¶</a></h3>
+<p>As we can see, complete graphs contain the maximum number of edges possible.</p>
+<p>Here, the notation Kn denotes the unique complete graph on n vertices.</p>
+<p>Formally, we can write Kn = (V,E) for |V| = n and E = {{vi , vj} | vi ̸= vj and vi , vj ∈ V} in undirected graphs.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/05-Graph-Theory-7.png"><img alt="|600" src="../attachments/05-Graph-Theory-7.png"/></a></p>
+<p>Finally, we can also discuss complete graphs for <strong>directed graphs</strong>, which are defined as you might expect: For any pair of vertices u and v, <strong>both (u, v),(v,u) ∈ E</strong>.</p>
+<h3 id="IV2-Trees">IV.2 Trees<a class="headerlink" href="#IV2-Trees" title="Permanent link">¶</a></h3>
+<p>Formally, there are a number of equivalent definitions of when a graph G = (V,E) is a tree, including:</p>
+<ol>
+<li>G is connected and contains no cycles.</li>
+<li>G is connected and has n−1 edges (where n = |V|).</li>
+<li>G is connected, and the removal of any single edge disconnects G.</li>
+<li>G has no cycles, and the addition of any single edge creates a cycle.</li>
+</ol>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/05-Graph-Theory-8.png"><img alt="|600" src="../attachments/05-Graph-Theory-8.png"/></a></p>
+<p>In a rooted tree, there is a designated node called the root, which we think of as sitting at the top of the tree. The bottom-most nodes are called leaves, and the intermediate nodes are called internal nodes.</p>
+<p>Note that in a rooted tree, a root is never a leaf. In particular, this differs from an unrooted tree; in an unrooted tree, leaves are any vertex of degree 1.</p>
+<p>Then goes the same as what we learn in Data Struct, so we pass it.</p>
+<h3 id="IV3-Hypercubes">IV.3 Hypercubes<a class="headerlink" href="#IV3-Hypercubes" title="Permanent link">¶</a></h3>
+<h4 id="IV31-definition">IV.3.1 definition<a class="headerlink" href="#IV31-definition" title="Permanent link">¶</a></h4>
+<details class="definition">
+<summary>direct  definitions</summary>
+<p>The vertex set of the n-dimensional hypercube G = (V,E) is given by V = <span class="arithmatex">\(\{0,1\}^{n}\)</span> , where recall <span class="arithmatex">\(\{0,1\}^{n}\)</span> denotes the set of all n-bit strings. In other words, each vertex is labeled by a unique n-bit string, such as 00110···0100. The edge set E is defined as follows: Two vertices x and y are connected by edge {x, y} if and only if x and y differ in exactly one bit position. </p>
+<p>For example, x = 0000 and y = 1000 are neighbors, but x = 0000 and y = 0011 are not.
+ More formally, x = x1x2 ... xn and y = y1y2 ... yn are neighbors if and only if there is an i ∈ {1,...,n} such that <span class="arithmatex">\(x_{j} = y_{j}\)</span> for all <span class="arithmatex">\(j \neq i\)</span>, and <span class="arithmatex">\(x_{i} \neq y_{i}\)</span> . </p>
+</details>
+<p>To help you visualize the hypercube, we depict the 1-, 2-, and 3-dimensional hypercubes below.</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/05-Graph-Theory-9.png"><img alt="|600" src="../attachments/05-Graph-Theory-9.png"/></a></p>
+<p>This kind of struct is useful in  <a href="https://en.wikipedia.org/wiki/Karnaugh_map">Karnaugh map</a> .</p>
+<details class="definition">
+<summary>recursive definition</summary>
+<p>Define the 0-subcube (respectively, 1-subcube) as the (n−1)-dimensional hypercube with vertices labeled by 0x for x ∈ {0,1} n−1 (respectively, 1x for x ∈ {0,1} n−1 ). Then, the n-dimensional hypercube is obtained by placing an edge between each pair of vertices 0x in the 0-subcube and 1x in the 1-subcube.</p>
+<p>我们通过上面的图一到图二来理解：</p>
+<p>在图一中有两个节点：<strong><span>0<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>1</span></strong>，这其实就是上面所谓的<span><span class="heti-spacing"> </span>x</span>，我们在前面一一分别加上<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>1</span>，也就上面所谓的 <strong>0 x、1 x</strong> ，一共会出现了<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>个节点：<strong>00、01；10、11</strong> 。且我们应该将<span class="heti-skip"><span class="heti-spacing"> </span>0 x<span class="heti-spacing"> </span></span>与对应的<span class="heti-skip"><span class="heti-spacing"> </span>1x<span class="heti-spacing"> </span></span>之间加上边，这样构成了图二</p>
+<p>同理由图二构成图三，递归定义</p>
+</details>
+<p>We began this section by singing praises for the hypercube in terms of its connectivity properties; we now investigate these claims formally. Let us begin by giving two proofs of a simple property of the hypercube. ^^Each proof relies on one of our two equivalent (namely, direct and recursive) definitions of the hypercube.^^</p>
+<div class="admonition lemma">
+<p class="admonition-title">Lemma 5.1</p>
+<p>The total number of edges in an n-dimensional hypercube is <span class="arithmatex">\(n*2^{n-1}\)</span> .
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/05-Graph-Theory-10.png"><img alt="|600" src="../attachments/05-Graph-Theory-10.png"/></a></p>
+<p>proof 2 can be got by induction</p>
+</div>
+<div class="admonition theorem">
+<p class="admonition-title">THEOREM 5.4</p>
+<p>Let S ⊆ V be such that |S| ≤ |V −S| (i.e., that |S| ≤ 2*n−1 ), and let ES denote the set of edges connecting S to V −S, i.e., <span class="arithmatex">\(<span class="arithmatex">\(E_{S} := \{\{u, v\} ∈ E | u ∈ S \land v ∈ V −S\}\)</span>\)
+ Then, it holds that | <span class="arithmatex">\(E_{S}\)</span> | ≥ |S|.</p>
+<details class="proof">
+<summary><strong>Proof</strong>  (<del>I haven't got it yet</del>)</summary>
+<p>We proceed by induction on n. Base case (n = 1): The 1-dimensional hypercube graph has two vertices 0 and 1, and one edge {0,1}. We also have the assumption <span class="arithmatex">\(|S| ≤ 2^1−1 = 1\)</span>, so there are two possibilities. First, if |S| = 0, then the claim trivially holds. Otherwise, if |S| = 1, then S = {0} and V −S = {1}, or vice versa. In either case we have ES = {0,1}, so |ES| = 1 = |S|. Inductive hypothesis: Assume the claim holds for 1 ≤ n ≤ k. Inductive step: We prove the claim for n = k + 1. Recall that we have the assumption <span class="arithmatex">\(|S| ≤ 2^k\)</span> . Let S0 (respectively, S1) be the vertices from the 0-subcube (respectively, 1-subcube) in S. We have two cases to examine: Either S has a fairly equal intersection size with the 0- and 1-subcubes, or it does not. </p>
+<ul>
+<li>Case 1: <span class="arithmatex">\(|S_{0}| ≤ 2^{k-1}\)</span> and <span class="arithmatex">\(|S_{1}| ≤ 2^{k-1}\)</span> .</li>
+</ul>
+<p>In this case, we can apply the induction hypothesis separately to the 0- and 1-subcubes. This says that restricted to the 0-subcube itself, there are at least |S0| edges between |S0| and its complement (in the 0-subcube), and similarly there are at least |S1| edges between |S1| and its complement (in the 1-subcube). Thus, the total number of edges between S and V −S is at least |S0|+|S1| = |S|, as desired. 2. </p>
+<ul>
+<li>Case 2: <span class="arithmatex">\(|S_{0}| &gt; 2^{k-1}\)</span> </li>
+</ul>
+<p>In this case, S0 is unfortunately too large for the induction hypothesis to apply. However, note that since |S| ≤ 2 k , we have |S1| = |S|−|S0| ≤ 2 k−1 , so we can apply the hypothesis to S1. As in Case 1, this allows us to conclude that there are at least |S1| edges in the 1-subcube crossing between S and V −S. What about the 0-subcube? Here, we cannot apply the induction hypothesis directly, but there is a way to apply it after a little massaging. Consider the set V0 −S0, where V0 is the set of vertices in the 0-subcube. Note that |V0| = 2 k and <span class="arithmatex">\(|V_{0} −S_{0}| = |V_{0}|−|S_0| = 2^k −|S_{0}| &lt; 2^k −2^{k−1} = 2^{k−1}\)</span> . Thus, we can apply the inductive hypothesis to the set V0 − S0. This yields that the number of edges between S0 and V0 −S0 is at least 2k − |S0|. Adding our totals for the 0-subcube and the 1-subcube so far, we conclude there are at least 2k − |S0|+|S1| crossing edges between S and V −S. However, recall our goal was to show that the number of crossing edges is at least |S|; thus, we are still short of where we wish to be. But there are a still edges we have not accounted for — namely, those in ES which cross between the 0- and 1-subcubes. Since there is an edge between every vertex of the form 0x and the corresponding vertex 1x, we conclude there are at least |S0| − |S1| edges in ES that cross between the two subcubes. Thus, the total number of edges crossing is at least <span class="arithmatex">\(2^k −|S0|+|S1|+|S0| −|S1| = 2^k ≥ |S|\)</span>, as desired.</p>
+</details>
+</div>
+<h4 id="IV32-de-Bruijn-sequence">IV.3.2 de Bruijn sequence<a class="headerlink" href="#IV32-de-Bruijn-sequence" title="Permanent link">¶</a></h4>
+<p>A <strong>de Bruijn sequence</strong> is a 2n -bit circular sequence such that every string of length n occurs as a contiguous substring of the sequence exactly once.</p>
+<p>For example, the following is a de Bruijn sequence for the case n = 3:</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/05-Graph-Theory-11.png"><img alt="" src="../attachments/05-Graph-Theory-11.png"/></a></p>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月7日 11:19:33 CST">2025年3月7日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2024年9月4日 01:29:36 CST">2024年9月4日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: 04 The Stable Matching Problem" class="md-footer__link md-footer__link--prev" href="../04-The_Stable_Matching_Problem/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                04 The Stable Matching Problem
+              </div>
+</div>
+</a>
+<a aria-label="下一页: 06 Modular Arithmetic" class="md-footer__link md-footer__link--next" href="../06-Modular_Arithmetic/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                06 Modular Arithmetic
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

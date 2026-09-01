@@ -1,0 +1,58 @@
+- "2025":
+    - "04-22":
+        - refactor: 网站基准从知识库 (database, db) 转变为知识图谱 (knowledge graph, kg)，意为不将内容进行整合重构而是链接整合。
+    - "03-12":
+        - newpage:
+            text: Tutorial > skill_learn
+            href: /tutorial/skill_learn/
+    - "02-16":
+        - function: 引入 https://github.com/TonyCrane/mkdocs-toolchain/tree/master/mkdocs-toc-plugin 并进行修改，美化了目录样式。
+    - "02-13":
+        - function: 修改了亮色模式下的的配色样式；对 callous 块进行了美化（参考、修改自 https://github.com/IsshikiHugh/notebook/blob/main/docs/_css/extra.css ）。
+        
+- "2024":
+    - "11-27":
+        - newpage:
+            text: tutorial > python_learn
+            href: /tutorial/python_learn
+    - "10-27":
+        - newpage:
+            text: CTF/ZJUCTF2024
+            href: /CTF/ZJUCTF2024
+    - "10-09":
+        - newpage:
+            text: CTF
+            href: /CTF/
+            
+    - "09-09":
+        - newpage:
+            text: Tutorial
+            href: /turorial/
+    - "09-02":
+        - newpage:
+            text: Note > cs188  (updating)
+            href: /note/cs188/
+    - "08-26":
+        - newpage:
+            text: Collection > Teachyourselfcs
+            href: /collection/teachyourselfcs/
+        - function: 增添了 gitcus 功能，欢迎留言交流/指正！！！
+        - newpage:
+            text: Just connect me if necessary.
+            href: /connect_me/
+    - "08-13":
+        - refactor: 将原 Obsidian 的笔记迁移到了 https://note-darstibs-projects.vercel.app/ ，以便更好地在网页上阅读。
+    - "08-03":
+        - pageupdate:
+            text: 对文章的 tags 进行了整理，更加方便找系列内容。
+            href: /tags/
+    - "08-01":
+        - pageupdate:
+            text: Collection > Tools 进行了分类、增添。
+            href: /collection/Tools/
+    - "07-22":
+        - refactor: 将网站内容结构进行调整，文件夹均增添初始界面介绍文件内容，便于寻找。
+    - "06-29":
+        - function: 引入了鹤翔万里的 `mkdocs-changlog-plugins` ，以及部分样式，其余更新小记待补充。
+    - "03-15":
+        - refactor: 博客初步搭建成功，也是费了一番功夫😇。

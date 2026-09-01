@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/tutorial/begin/Typst_begin/" rel="canonical"/>
+<link href="../Requirements_begin/" rel="prev"/>
+<link href="../Url_begin/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>Typst begin - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#使用学习">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Typst begin
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../note/">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../note/">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Tutorial
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../python_learn/crypto/">
+<span class="md-ellipsis">
+    
+  
+    python_learn
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_5_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    Begin
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_5_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Begin
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Emmet_begin/">
+<span class="md-ellipsis">
+    
+  
+    Emmet begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Mkdocs_begin/">
+<span class="md-ellipsis">
+    
+  
+    Mkdocs begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Obsidian_begin/">
+<span class="md-ellipsis">
+    
+  
+    Obsidian begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Python_begin/">
+<span class="md-ellipsis">
+    
+  
+    Python begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Requirements_begin/">
+<span class="md-ellipsis">
+    
+  
+    Requirements begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    Typst begin
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    Typst begin
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#使用学习">
+<span class="md-ellipsis">
+      
+        使用学习
+      
+    </span>
+</a>
+<nav aria-label="使用学习" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#基本介绍">
+<span class="md-ellipsis">
+      
+        基本介绍
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#在线环境">
+<span class="md-ellipsis">
+      
+        在线环境
+      
+    </span>
+</a>
+<nav aria-label="在线环境" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#引入模板">
+<span class="md-ellipsis">
+      
+        引入模板
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#本地环境配置">
+<span class="md-ellipsis">
+      
+        本地环境配置
+      
+    </span>
+</a>
+<nav aria-label="本地环境配置" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#vscode-配置">
+<span class="md-ellipsis">
+      
+        vscode 配置
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#typst-cli-安装">
+<span class="md-ellipsis">
+      
+        typst-cli 安装
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#模板导入">
+<span class="md-ellipsis">
+      
+        模板导入
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#开始使用">
+<span class="md-ellipsis">
+      
+        开始使用
+      
+    </span>
+</a>
+<nav aria-label="开始使用" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#语法模式">
+<span class="md-ellipsis">
+      
+        语法模式
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#推荐资料">
+<span class="md-ellipsis">
+      
+        推荐资料
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#参考资料">
+<span class="md-ellipsis">
+      
+        参考资料
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Url_begin/">
+<span class="md-ellipsis">
+    
+  
+    Url begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Utools_begin/">
+<span class="md-ellipsis">
+    
+  
+    Utools begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../chrome_begin/">
+<span class="md-ellipsis">
+    
+  
+    Chrome begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../logisim_begin/">
+<span class="md-ellipsis">
+    
+  
+    Logisim begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../vim_begin/">
+<span class="md-ellipsis">
+    
+  
+    Vim begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../zsh_begin/">
+<span class="md-ellipsis">
+    
+  
+    Zsh begin
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../skill_learn/">
+<span class="md-ellipsis">
+    
+  
+    Skill_learn
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#使用学习">
+<span class="md-ellipsis">
+      
+        使用学习
+      
+    </span>
+</a>
+<nav aria-label="使用学习" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#基本介绍">
+<span class="md-ellipsis">
+      
+        基本介绍
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#在线环境">
+<span class="md-ellipsis">
+      
+        在线环境
+      
+    </span>
+</a>
+<nav aria-label="在线环境" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#引入模板">
+<span class="md-ellipsis">
+      
+        引入模板
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#本地环境配置">
+<span class="md-ellipsis">
+      
+        本地环境配置
+      
+    </span>
+</a>
+<nav aria-label="本地环境配置" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#vscode-配置">
+<span class="md-ellipsis">
+      
+        vscode 配置
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#typst-cli-安装">
+<span class="md-ellipsis">
+      
+        typst-cli 安装
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#模板导入">
+<span class="md-ellipsis">
+      
+        模板导入
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#开始使用">
+<span class="md-ellipsis">
+      
+        开始使用
+      
+    </span>
+</a>
+<nav aria-label="开始使用" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#语法模式">
+<span class="md-ellipsis">
+      
+        语法模式
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#推荐资料">
+<span class="md-ellipsis">
+      
+        推荐资料
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#参考资料">
+<span class="md-ellipsis">
+      
+        参考资料
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Tutorial
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    Begin
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:begin">begin</a>
+</nav>
+<h1>Typst begin</h1>
+<details class="summary">
+<summary>Summary</summary>
+<p><span>Typst<span class="heti-spacing"> </span></span>是一款轻量级的标记语言排版系统，可以用来替代<span class="heti-skip"><span class="heti-spacing"> </span>LaTeX<span class="heti-spacing"> </span></span>或<span class="heti-skip"><span class="heti-spacing"> </span>Word<span class="heti-spacing"> </span></span>等工具。</p>
+<ul>
+<li><strong>基本使用：</strong> <span>Typst<span class="heti-spacing"> </span></span>提供了在线编辑器和本地编辑器，支持实时渲染和模板使用。</li>
+<li><strong>环境配置：</strong> 在<span class="heti-skip"><span class="heti-spacing"> </span>VScode + Ubuntu<span class="heti-spacing"> </span></span>环境下，完成安装<span class="heti-skip"><span class="heti-spacing"> </span>Typst<span class="heti-spacing"> </span></span>插件和<span class="heti-skip"><span class="heti-spacing"> </span>typst-cli<span class="heti-spacing"> </span></span>工具，并进行模板导入。</li>
+<li><strong>参考文档：</strong> 文章提供了<span class="heti-skip"><span class="heti-spacing"> </span>Typst<span class="heti-spacing"> </span></span>官方文档、教程和相关资源的链接。</li>
+</ul>
+</details>
+<!-- more -->
+<h2 id="使用学习">使用学习<a class="headerlink" href="#使用学习" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="基本介绍">基本介绍<a class="headerlink" href="#基本介绍" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition introduction">
+<p class="admonition-title"><a href="https://typst.app/docs">概述</a></p>
+<p>Typst is a new markup-based typesetting system for the sciences. It is designed to be an alternative both to advanced tools like LaTeX and simpler tools like Word and Google Docs. Our goal with Typst is to build a typesetting tool that is highly capable and a pleasure to use.</p>
+<p><span>Typst<span class="heti-spacing"> </span></span>是为科学写作而诞生的基于标记的排版系统。它被设计之初就是作为一种替代品，用于替代像<span class="heti-skip"><span class="heti-spacing"> </span>LaTeX<span class="heti-spacing"> </span></span>这样的高级工具，又或者是像<span class="heti-skip"><span class="heti-spacing"> </span>Word<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>Google Docs<span class="heti-spacing"> </span></span>这样的简单工具。我们对<span class="heti-skip"><span class="heti-spacing"> </span>Typst<span class="heti-spacing"> </span></span>的目标是构建一个功能强大的排版工具，并且让用户可以愉快地使用它。</p>
+<details class="quote" open="open">
+<summary><a href="https://typst.app/legal/brand/">Typst - Brand</a></summary>
+<p>If you use the Typst name in prose, always capitalize it as Typst. Pronounce Typst as /taɪpst/, i.e. 'Ty' like in <strong>Ty</strong>pesetting and 'pst' like in Hi<strong>pst</strong>er.</p>
+</details>
+<details class="question">
+<summary>即生<span><span class="heti-spacing"> </span>LaTeX</span>，何生<span><span class="heti-spacing"> </span>Typst?</span></summary>
+<p>关于<span class="heti-skip"><span class="heti-spacing"> </span>Typst<span class="heti-spacing"> </span></span>的优势等详细了解，有兴趣可以查看<a href="https://forum.typst.app/t/a-wikipedia-article-about-typst/444"><span class="heti-skip"><span class="heti-spacing"> </span>A Wikipedia article about Typst<span class="heti-spacing"> </span></span></a>处的链接</p>
+</details>
+</div>
+<p>相比于<span><span class="heti-spacing"> </span>LaTeX</span>，<span>typst<span class="heti-spacing"> </span></span>最大的特点就是<strong>轻量和增量编译</strong>，这也导致了<span class="heti-skip"><span class="heti-spacing"> </span>typst<span class="heti-spacing"> </span></span>支持较为频繁地实时渲染。</p>
+<details class="wiki">
+<summary><a href="https://en.wikipedia.org/wiki/Incremental_compiler"><span>Incremental compiler<span class="heti-spacing"> </span></span>增量编译器</a></summary>
+<p>An <strong>incremental compiler</strong> is a kind of <a href="https://en.wikipedia.org/wiki/Incremental_computation" title="Incremental computation">incremental computation</a> applied to the field of <a href="https://en.wikipedia.org/wiki/Compiler" title="Compiler">compilation</a>. Quite naturally, whereas ordinary compilers make a so-called <strong>clean build</strong>, that is, (re)build all program modules, an incremental compiler recompiles only modified portions of a program.  </p>
+<p>增量编译器是一种应用于编译领域的增量计算。很自然地，普通编译器进行所谓的干净构建，即（重新）构建所有程序模块，而增量编译器仅重新编译程序中已修改的部分。</p>
+</details>
+<h2 id="在线环境">在线环境<a class="headerlink" href="#在线环境" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>在最开始，我们可以在<span class="heti-skip"><span class="heti-spacing"> </span>typst<span class="heti-spacing"> </span></span>的<a href="https://typst.app/">官方网站</a>直接使用它，和<a href="https://overleaf.com"><span class="heti-skip"><span class="heti-spacing"> </span>overleaf<span class="heti-spacing"> </span></span></a>是类似的；注册登入，看到下面的界面：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Make%20pdf%20with%20typst.png"><img alt="" src="../attachments/Make%20pdf%20with%20typst.png"/></a></p>
+<p>点击 <code>Empty document</code> ，设置一个名字，创建后到达下面的界面：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Make%20pdf%20with%20typst-1.png"><img alt="" src="../attachments/Make%20pdf%20with%20typst-1.png"/></a></p>
+<p>在左侧简单输入几个字符作为测试，待加载完成（√ 处可以看见加载的动图）后右侧就出现了文字：很简单，左侧编辑，右侧看效果。</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Make%20pdf%20with%20typst-2.png"><img alt="" src="../attachments/Make%20pdf%20with%20typst-2.png"/></a></p>
+<p>当然，这只是写文本，我们需要在样式上优化，这需要读者自行阅读<a href="https://typst-doc-cn.github.io/docs/tutorial/">教程</a>，不是我三言两语讲的完的。完成后，点击右上角的下载图标即可导出<span class="heti-skip"><span class="heti-spacing"> </span>pdf<span class="heti-spacing"> </span></span>或者是其他格式。</p>
+<h3 id="引入模板">引入模板<a class="headerlink" href="#引入模板" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>很多时候我们并不想要所有的样式都自己写，这个时候 <strong>模板</strong> 就很重要了，我们可以在 <a href="https://typst.app/">主页面</a>左下角的星球图标<a href="https://typst.app/universe"><span class="heti-skip"><span class="heti-spacing"> </span>typst universe<span class="heti-spacing"> </span></span></a>的<a href="https://typst.app/universe/search/?kind=templates"><span class="heti-skip"><span class="heti-spacing"> </span>templates<span class="heti-spacing"> </span></span></a>看到许多模板。点进一个作为示例：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Make%20pdf%20with%20typst-3.png"><img alt="|600" src="../attachments/Make%20pdf%20with%20typst-3.png"/></a></p>
+<p>点击图片我们可以预览样式，右侧的 <code>create project in app</code> 可以将模板导入到我们的主页面中<heti-adjacent class="heti-adjacent-half">：</heti-adjacent>（下面在右侧自命名后创建即可）</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Make%20pdf%20with%20typst-4.png"><img alt="|600" src="../attachments/Make%20pdf%20with%20typst-4.png"/></a></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Make%20pdf%20with%20typst-6.png"><img alt="|600" src="../attachments/Make%20pdf%20with%20typst-6.png"/></a></p>
+<p>点击右侧需要修改的部分就会自动定位到左侧对应的编辑部分，然后修改即可；左侧图标第一个是文件夹。注意，对于图片等考虑 <strong>路径</strong> 的编辑还请仔细阅读文档相关部分，了解 <strong>路径</strong> 这一概念。</p>
+<h2 id="本地环境配置">本地环境配置<a class="headerlink" href="#本地环境配置" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>如果你在意文件之间代码<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>图片的复用性，希望自己设计<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>调节模板<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>在本地编译运行，下面是在<span class="heti-skip"><span class="heti-spacing"> </span>VScode +<span class="heti-spacing"> </span></span>类<span class="heti-skip"><span class="heti-spacing"> </span>unix<span class="heti-spacing"> </span></span>环境上编辑<span class="heti-skip"><span class="heti-spacing"> </span>typst<span class="heti-spacing"> </span></span>的配置说明；现在<span class="heti-skip"><span class="heti-spacing"> </span>typst<span class="heti-spacing"> </span></span>也<a href="https://github.com/typst/typst/releases">开放了可执行程序下载</a>，但是我没使用过，留给读者探索。</p>
+<h3 id="vscode-配置"><span>vscode<span class="heti-spacing"> </span></span>配置<a class="headerlink" href="#vscode-配置" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>安装下面的插件（第一个比较重要，其余按需；使用可以自行搜索<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<ul>
+<li>Tinymist Typst</li>
+<li>Typst Sync</li>
+<li><del>Typst LSP</del></li>
+<li><del>Typst Preview</del></li>
+</ul>
+<h3 id="typst-cli-安装"><span>typst-cli<span class="heti-spacing"> </span></span>安装<a class="headerlink" href="#typst-cli-安装" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="attention" open="open">
+<summary>Attention</summary>
+<p>安装<span class="heti-skip"><span class="heti-spacing"> </span>typst-cli<span class="heti-spacing"> </span></span>是为了让我们能够像 <code>git clone</code> 一样能够拉取编辑材料至本地使用。注意我们上方 <code>模板使用</code>  部分的截图中有这么一行 <code>typst init @preview/bloated-neurips:0.2.1</code> ，这就是在<span class="heti-skip"><span class="heti-spacing"> </span>typst-cli<span class="heti-spacing"> </span></span>中使用的；当然，上面给出的那些插件本身会帮助我们将文件获取到 <code>~/.cache</code> 中，所以可以自己决定，并非必要内容。</p>
+</details>
+<details class="env" open="open">
+<summary>安装环境</summary>
+<p>演示使用了<span><span class="heti-spacing"> </span>wsl:ubuntu 22.04/Debian</span>；对于<span><span class="heti-spacing"> </span>macOS</span>，使用 <code>brew install typst</code> 应该就能够安装好。</p>
+</details>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos="1 "></span></a><span class="c1"># 如果没有安装过curl和cargo这两个工具，请自行搜索</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos" data-linenos="2 "></span></a><span class="c1"># 由于 typst 由 rust 编写，需要安装 rust 编译器</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><a href="#__codelineno-0-3"><span class="linenos" data-linenos="3 "></span></a><span class="c1"># 安装 Rust 环境并激活，之前安装过则不需要执行下面这两行</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><a href="#__codelineno-0-4"><span class="linenos" data-linenos="4 "></span></a>curl<span class="w"> </span>--proto<span class="w"> </span><span class="s1">'=https'</span><span class="w"> </span>--tlsv1.2<span class="w"> </span>-sSf<span class="w"> </span>https://sh.rustup.rs/<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh<span class="w"> </span>-s<span class="w"> </span>--<span class="w"> </span>-y
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><a href="#__codelineno-0-5"><span class="linenos" data-linenos="5 "></span></a><span class="nb">source</span><span class="w"> </span><span class="nv">$HOME</span>/.cargo/env
+</span></code></pre></div>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos" data-linenos="1 "></span></a><span class="c1"># 安装 Typst CLI</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><a href="#__codelineno-1-2"><span class="linenos" data-linenos="2 "></span></a>cargo<span class="w"> </span>install<span class="w"> </span>--git<span class="w"> </span>https://github.com/typst/typst.git<span class="w"> </span>typst-cli
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><a href="#__codelineno-1-3"><span class="linenos" data-linenos="3 "></span></a><span class="c1"># 键入检查是否安装成功</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><a href="#__codelineno-1-4"><span class="linenos" data-linenos="4 "></span></a>typst
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><a href="#__codelineno-1-5"><span class="linenos" data-linenos="5 "></span></a><span class="c1"># or</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a><a href="#__codelineno-1-6"><span class="linenos" data-linenos="6 "></span></a>typst<span class="w"> </span>--version
+</span></code></pre></div>
+<p>过程中出现问题 <code>failed to run custom build command for openssl-sys v0.9.60</code> 可以尝试以下几个命令，来自<a href="https://stackoverflow.com/questions/65553557/why-rust-is-failing-to-build-command-for-openssl-sys-v0-9-60-even-after-local-in"><span><span class="heti-spacing"> </span>StackOverflow</span></a>；您可以逐一尝试，我也不记得我是在尝试哪一个过后成功的了🥲。</p>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><a href="#__codelineno-2-1"><span class="linenos" data-linenos="1 "></span></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>pkg-config
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><a href="#__codelineno-2-2"><span class="linenos" data-linenos="2 "></span></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libudev-dev
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><a href="#__codelineno-2-3"><span class="linenos" data-linenos="3 "></span></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libssl-dev
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><a href="#__codelineno-2-4"><span class="linenos" data-linenos="4 "></span></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>librust-openssl-sys-dev
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><a href="#__codelineno-2-5"><span class="linenos" data-linenos="5 "></span></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>perl
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><a href="#__codelineno-2-6"><span class="linenos" data-linenos="6 "></span></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>build-essential
+</span></code></pre></div>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Make%20pdf%20with%20typst-7.png"><img alt="" src="../attachments/Make%20pdf%20with%20typst-7.png"/></a></p>
+<h3 id="模板导入">模板导入<a class="headerlink" href="#模板导入" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在命令行<span class="heti-skip"><span class="heti-spacing"> </span>(CLI)<span class="heti-spacing"> </span></span>中进入到合适位置，执行：</p>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><a href="#__codelineno-3-1"><span class="linenos" data-linenos="1 "></span></a>$<span class="w"> </span>typst<span class="w"> </span>init<span class="w"> </span>@preview/bloated-neurips:0.2.1
+</span></code></pre></div>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Make%20pdf%20with%20typst-8.png"><img alt="|600" src="../attachments/Make%20pdf%20with%20typst-8.png"/></a></p>
+<p>可以看到左侧已经可以出现了文件夹了，可以直接使用了，先预览看看：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Make%20pdf%20with%20typst-9.png"><img alt="|600" src="../attachments/Make%20pdf%20with%20typst-9.png"/></a></p>
+<p>如果出现红色报错等情况，对于模板而言很可能就是 <strong>路径</strong> 问题，时而需要自己修改，当然有可能是模板是在某一个大版本之前的内容，其中一些用法被抛弃了<sup id="fnref:1"><a class="footnote-ref" href="#fn:1"><span><span class="heti-spacing"> </span>1</span></a></sup>；对于我们自己写路径，相对路径是最好的，因为不知道什么时候我们可能就将文件夹修改了位置；随后我们移动时最好是整个移动，类似于在线环境</p>
+<h2 id="开始使用">开始使用<a class="headerlink" href="#开始使用" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>学习一个东西最好的办法就是阅读他的<a href="https://typst.app/docs/tutorial/">官方文档</a>。对于教程，如果您不喜英文，可以看看非官方维护的<a href="https://typst-doc-cn.github.io/docs/tutorial/">中文教程</a>。当然，有时候官方文档会较为晦涩；又或者过于详细，而我们不需要知道那么多。</p>
+<ul>
+<li>一个语法简单的介绍使用可见我使用<span class="heti-skip"><span class="heti-spacing"> </span>touyin<span class="heti-spacing"> </span></span>做的<a href="../../../static/typst_cheatsheet.pdf"><span><span class="heti-spacing"> </span>typst_cheatsheet</span></a>【<a href="../../../static/typst_cheatsheet.zip">源码</a>】 笔记，使用<a href="https://touying-typ.github.io/zh/"><span class="heti-skip"><span class="heti-spacing"> </span>touyin<span class="heti-spacing"> </span></span></a>模板；</li>
+<li><a href="https://sitandr.github.io/typst-examples-book/book/">Typst Examples Book</a> <ul>
+<li>也是一个很好的入门和进阶教程；</li>
+</ul>
+</li>
+<li><a href="http://ai-assets.404.net.cn/pdf/typst/typst-zh_CN-20230409.pdf">不太简短的<span class="heti-skip"><span class="heti-spacing"> </span>typst<span class="heti-spacing"> </span></span>教程</a><ul>
+<li>教程面向使用是很好的，但是如果没有一点基础可能看不太懂；</li>
+</ul>
+</li>
+<li><a href="https://qwinsi.github.io/tex2typst-webapp/"><span>tex2typst<span class="heti-spacing"> </span></span></a>一个在线转换工具，当然<a href="https://pandoc.org/try/"><span class="heti-skip"><span class="heti-spacing"> </span>pandoc<span class="heti-spacing"> </span></span></a>等也开始支持<span class="heti-skip"><span class="heti-spacing"> </span>Typst<span class="heti-spacing"> </span></span>的相关转换。</li>
+</ul>
+<h3 id="语法模式"><a href="https://typst.app/docs/reference/syntax/">语法模式</a><a class="headerlink" href="#语法模式" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>Typst<span class="heti-spacing"> </span></span>有三种语法模式：标记、数学和代码。标记模式是<span class="heti-skip"><span class="heti-spacing"> </span>Typst<span class="heti-spacing"> </span></span>文档的默认模式，数学模式允许编写数学公式，代码模式允许使用<span class="heti-skip"><span class="heti-spacing"> </span>Typst<span class="heti-spacing"> </span></span>的脚本功能。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">New mode</th>
+<th style="text-align: center;">Syntax</th>
+<th style="text-align: center;">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Markup</td>
+<td style="text-align: center;">Surround markup with <code>[..]</code></td>
+<td style="text-align: center;"><code>let name = [*Typst!*]</code></td>
+</tr>
+<tr>
+<td style="text-align: center;">Code</td>
+<td style="text-align: center;">Prefix the code with <code>#</code></td>
+<td style="text-align: center;">`Number: #(1 + 2)</td>
+</tr>
+<tr>
+<td style="text-align: center;">Math</td>
+<td style="text-align: center;">Surround equation with <code>$..$</code></td>
+<td style="text-align: center;"><code>$-x$ is the opposite of $x$</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>在默认情况下，我们处于<span class="heti-skip"><span class="heti-spacing"> </span>Markup<span class="heti-spacing"> </span></span>模式，这也是我们主要填充内容的部分。</li>
+<li>由于<span class="heti-skip"><span class="heti-spacing"> </span>Typst<span class="heti-spacing"> </span></span>的脚本语言与许多现代变成语言非常像（尤其<span><span class="heti-spacing"> </span>python</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，所以只要你学习过一两门编程语言，应该都能大概看懂每一行是在干什么（结合编译结果<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；<ul>
+<li>一旦使用<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>#</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>进入代码模式，除非在中间切换回标记或数学模式，否则不需要使用更多的井号；</li>
+<li>值得注意的是，代码模式下的 “函数” 往往有一个参数的类型为<span><span class="heti-spacing"> </span>content</span>，大多数情况下这个参数都可以放在函数调用后，形如 <code>#func()[content]</code>；而其他参数可设置默认值，如果不需要修改，那么 <code>()</code> 也可以省略，即 <code>#func[content]</code> 即可使用，这也是大多数<span class="heti-skip"><span class="heti-spacing"> </span>Markup<span class="heti-spacing"> </span></span>的调用形式；反过来想，<span>strong<span class="heti-spacing"> </span></span>等也是可以自己调整的，<a href="https://typst.app/docs/reference/model/strong/">查看介绍</a>；</li>
+<li>在 <code>[]</code> 包裹的内容也是<span class="heti-skip"><span class="heti-spacing"> </span>Markup<span class="heti-spacing"> </span></span>模式，所以我们在可以嵌套进入其他模式。</li>
+</ul>
+</li>
+<li><span>Typst<span class="heti-spacing"> </span></span>的数学模式中的符号标记与<span class="heti-skip"><span class="heti-spacing"> </span>LaTeX<span class="heti-spacing"> </span></span>并不一致；为了摆脱无穷无尽的 <code>\</code>，<span>Typst<span class="heti-spacing"> </span></span>的想法是：<ul>
+<li><code>$$</code> 包裹的内容中，如果左右两侧是紧靠着的，那么视为行内公式；如果两侧均有空格，那么视为行间公式；</li>
+<li>对于其中的字符，使用空格进行分隔，抛弃 <code>\</code>，如 <code>pi</code> 而非 <code>\pi</code> ；而对于诸如 <code>abandon</code> 等词，首先将其视为变量去寻找；如果没有定义过这个变量，则会报错。<ul>
+<li>那么我们该如何获得类似于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(area = \pi * radius^{2}\)</span><span class="heti-spacing"> </span></span>的公式呢？</li>
+<li>使用双引号包裹 <strong>两个字母以上的变量名</strong> <code>$"area" = pi * "radius"^(2)$</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<details class="quote">
+<summary><a href="https://typst.app/docs/reference/foundations/function/#note-on-function-purity">Note on function purity</a></summary>
+<p>In Typst, all functions are <em>pure.</em> This means that for the same arguments, they always return the same result. They cannot "remember" things to produce another value when they are called a second time.  </p>
+<p>在<span class="heti-skip"><span class="heti-spacing"> </span>Typst<span class="heti-spacing"> </span></span>中，所有函数都是纯函数。这意味着对于相同的参数，它们总是返回相同的结果。它们不能“记住”任何事情，在第二次调用时产生另一个值。</p>
+<p>The only exception are built-in methods like <a href="https://typst.app/docs/reference/foundations/array/#definitions-push"><code>array.push(value)</code></a>. These can modify the values they are called on.  </p>
+<p>唯一的例外是内置方法，如<span><span class="heti-spacing"> </span></span><code>array.push(value)</code><span><span class="heti-spacing"> </span></span>。这些方法可以修改它们被调用的值。</p>
+</details>
+<h2 id="推荐资料">推荐资料<a class="headerlink" href="#推荐资料" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<ul>
+<li><a href="https://typst-doc-cn.github.io/guide/"><span>Typst<span class="heti-spacing"> </span></span>中文社区导航</a></li>
+<li>
+<p><a href="https://typress-web.vercel.app/">图片识别</a></p>
+</li>
+<li>
+<p><a href="https://typst.app/universe/package/mitex/">mitex</a></p>
+<ul>
+<li>支持渲染<span class="heti-skip"><span class="heti-spacing"> </span>latex<span class="heti-spacing"> </span></span>语法</li>
+</ul>
+</li>
+<li>
+<p><a href="https://typst.app/universe/package/cmarker">cmaker</a></p>
+<ul>
+<li>支持渲染<span class="heti-skip"><span class="heti-spacing"> </span>markdown<span class="heti-spacing"> </span></span>语法</li>
+</ul>
+</li>
+<li>
+<p><a href="https://typst.app/universe/package/touying/">touyin</a></p>
+<ul>
+<li>使用<span class="heti-skip"><span class="heti-spacing"> </span>tpyst<span class="heti-spacing"> </span></span>制作简单的<span><span class="heti-spacing"> </span>ppt</span></li>
+</ul>
+</li>
+<li>
+<p><a href="https://typst.app/universe/package/cetz">cetz</a> <a href="https://cetz-package.github.io/">docs</a></p>
+<ul>
+<li>a library for drawing</li>
+</ul>
+</li>
+<li>
+<p><a href="https://typst.app/universe/package/badgery">badgery</a></p>
+<ul>
+<li>行内小色块</li>
+</ul>
+</li>
+<li><a href="https://typst.app/universe/package/gentle-clues">gentle-clues</a><ul>
+<li>mdbook-like callouts</li>
+</ul>
+</li>
+<li>
+<p><a href="https://typst.app/universe/package/colorful-boxes">colorful-boxes</a></p>
+<ul>
+<li>包裹式注释块</li>
+</ul>
+</li>
+<li>
+<p><a href="https://typst.app/universe/package/tablex/">tablex</a> or <a href="https://typst.app/universe/package/tablem">tablem</a></p>
+<ul>
+<li>花式表格</li>
+</ul>
+</li>
+<li><a href="https://typst.app/universe/package/algo">alog</a><ul>
+<li>带行号代码块、伪代码块</li>
+</ul>
+</li>
+<li><a href="https://typst.app/universe/package/cheq/">cheq</a><ul>
+<li>Markdown-like checklist</li>
+</ul>
+</li>
+<li>
+<p><a href="https://typst.app/universe/package/subpar/">subpar</a></p>
+<ul>
+<li>可引用的子图</li>
+</ul>
+</li>
+<li>
+<p>部分参考：<a href="https://sitandr.github.io/typst-examples-book/book/packages/index.html">Typst Examples Book - package</a></p>
+</li>
+</ul>
+<h2 id="参考资料">参考资料<a class="headerlink" href="#参考资料" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<ul>
+<li>https://typst.app/<ul>
+<li>https://forum.typst.app/</li>
+<li>https://typst.app/docs/tutorial/</li>
+<li>https://typst.app/universe/package/bloated-neurips</li>
+</ul>
+</li>
+<li>https://typst-doc-cn.github.io/guide/</li>
+<li>https://github.com/howardlau1999/sysu-thesis-typst</li>
+<li>https://stackoverflow.com/questions/65553557/why-rust-is-failing-to-build-command-for-openssl-sys-v0-9-60-even-after-local-in</li>
+<li>https://sitandr.github.io/typst-examples-book/book/</li>
+<li>http://ai-assets.404.net.cn/pdf/typst/typst-zh_CN-20230409.pdf</li>
+</ul>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn:1">
+<p>其实这种做法非常难绷，导致之前的模板很可能无法直接使用，此时还是选择<a href="https://typst.app/"><span class="heti-skip"><span class="heti-spacing"> </span>typst app<span class="heti-spacing"> </span></span></a>吧，可以修改编译器版本。 <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年10月21日 15:43:52 CST">2025年10月21日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2024年5月18日 19:39:15 CST">2024年5月18日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: Requirements begin" class="md-footer__link md-footer__link--prev" href="../Requirements_begin/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                Requirements begin
+              </div>
+</div>
+</a>
+<a aria-label="下一页: Url begin" class="md-footer__link md-footer__link--next" href="../Url_begin/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                Url begin
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

@@ -1,0 +1,2623 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/note/DMA/14-Cluster_Methods/" rel="canonical"/>
+<link href="../09-Expect_Max/" rel="prev"/>
+<link href="../15-SVD/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>14 Cluster Methods - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#聚类的基本概念">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              14 Cluster Methods
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Note
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs188/">
+<span class="md-ellipsis">
+    
+  
+    cs188
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../physics/">
+<span class="md-ellipsis">
+    
+  
+    physics
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-II/">
+<span class="md-ellipsis">
+    
+  
+    CSys-II
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-III/">
+<span class="md-ellipsis">
+    
+  
+    CSys-III
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DEM/">
+<span class="md-ellipsis">
+    
+  
+    DEM
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3_7" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    DMA
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_7_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    DMA
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../01-Intro/">
+<span class="md-ellipsis">
+    
+  
+    01 Intro
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../02-Perceptron/">
+<span class="md-ellipsis">
+    
+  
+    02 Perceptron
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../03-KNN/">
+<span class="md-ellipsis">
+    
+  
+    03 KNN
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../04-Naive_Bayes/">
+<span class="md-ellipsis">
+    
+  
+    04 Naive Bayes
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../05-Decision_Tree/">
+<span class="md-ellipsis">
+    
+  
+    05 Decision Tree
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../06-logistic/">
+<span class="md-ellipsis">
+    
+  
+    06 logistic
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../07-SVM/">
+<span class="md-ellipsis">
+    
+  
+    07 SVM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../08-Adaboost/">
+<span class="md-ellipsis">
+    
+  
+    08 Adaboost
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../09-Expect_Max/">
+<span class="md-ellipsis">
+    
+  
+    09 Expect Max
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    14 Cluster Methods
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    14 Cluster Methods
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#聚类的基本概念">
+<span class="md-ellipsis">
+      
+        聚类的基本概念
+      
+    </span>
+</a>
+<nav aria-label="聚类的基本概念" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#相似度或距离-page-3">
+<span class="md-ellipsis">
+      
+        相似度或距离 (page 3)
+      
+    </span>
+</a>
+<nav aria-label="相似度或距离 (page 3)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#闵可夫斯基距离-Minkowski-distance-page-4-5">
+<span class="md-ellipsis">
+      
+        闵可夫斯基距离 (Minkowski distance) (page 4-5)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#马哈拉诺比斯距离-Mahalanobis-distance-page-6">
+<span class="md-ellipsis">
+      
+        马哈拉诺比斯距离 (Mahalanobis distance) (page 6)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#相关系数-correlation-coefficient-page-7">
+<span class="md-ellipsis">
+      
+        相关系数 (correlation coefficient) (page 7)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#夹角余弦-cosine-similarity-page-8">
+<span class="md-ellipsis">
+      
+        夹角余弦 (cosine similarity) (page 8)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#类或簇-Class-or-Cluster-page-10-18">
+<span class="md-ellipsis">
+      
+        类或簇 (Class or Cluster) (page 10-18)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#类与类之间的距离-page-19-23">
+<span class="md-ellipsis">
+      
+        类与类之间的距离 (page 19-23)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#层次聚类-page-24">
+<span class="md-ellipsis">
+      
+        层次聚类 (page 24)
+      
+    </span>
+</a>
+<nav aria-label="层次聚类 (page 24)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#层次聚类基本概念-page-25">
+<span class="md-ellipsis">
+      
+        层次聚类基本概念 (page 25)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#聚合聚类的具体过程-page-26-27">
+<span class="md-ellipsis">
+      
+        聚合聚类的具体过程 (page 26-27)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#聚合聚类需要预先确定以下三要素-page-28">
+<span class="md-ellipsis">
+      
+        聚合聚类需要预先确定以下三要素 (page 28)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#聚合聚类算法-page-29">
+<span class="md-ellipsis">
+      
+        聚合聚类算法 (page 29)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#聚合聚类示例-page-30-34">
+<span class="md-ellipsis">
+      
+        聚合聚类示例 (page 30-34)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#K-均值聚类-page-35">
+<span class="md-ellipsis">
+      
+        K-均值聚类 (page 35)
+      
+    </span>
+</a>
+<nav aria-label="K-均值聚类 (page 35)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#K-均值聚类基本概念-page-36">
+<span class="md-ellipsis">
+      
+        K-均值聚类基本概念 (page 36)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#模型-page-37-38">
+<span class="md-ellipsis">
+      
+        模型 (page 37-38)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#策略-page-39-43">
+<span class="md-ellipsis">
+      
+        策略 (page 39-43)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#算法-page-44-47">
+<span class="md-ellipsis">
+      
+        算法 (page 44-47)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#K-均值聚类示例-page-48-50">
+<span class="md-ellipsis">
+      
+        K-均值聚类示例 (page 48-50)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#K-均值聚类算法特点-page-51">
+<span class="md-ellipsis">
+      
+        K-均值聚类算法特点 (page 51)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#K-均值聚类算法收敛性-page-52">
+<span class="md-ellipsis">
+      
+        K-均值聚类算法收敛性 (page 52)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#K-均值聚类算法初始类的选择-page-53">
+<span class="md-ellipsis">
+      
+        K-均值聚类算法：初始类的选择 (page 53)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#K-均值聚类算法k-的选择-page-54">
+<span class="md-ellipsis">
+      
+        K-均值聚类算法：k 的选择 (page 54)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#谱聚类-Spectral-Clustering-page-55">
+<span class="md-ellipsis">
+      
+        谱聚类 (Spectral Clustering) (page 55)
+      
+    </span>
+</a>
+<nav aria-label="谱聚类 (Spectral Clustering) (page 55)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#引言-page-56-58">
+<span class="md-ellipsis">
+      
+        引言 (page 56-58)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#图论基本概念-page-59-70">
+<span class="md-ellipsis">
+      
+        图论基本概念 (page 59-70)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#图切割-page-71-74">
+<span class="md-ellipsis">
+      
+        图切割 (page 71-74)
+      
+    </span>
+</a>
+<nav aria-label="图切割 (page 71-74)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#最小二分切割-Minimum-Bipartition-Cut-page-71-72">
+<span class="md-ellipsis">
+      
+        最小二分切割 (Minimum Bipartition Cut) (page 71-72)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#归一化最小二分切割-Normalized-Minimum-Bipartition-Cut-page-73-74">
+<span class="md-ellipsis">
+      
+        归一化最小二分切割 (Normalized Minimum Bipartition Cut) (page 73-74)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#K-切割-K-Cut-k--2-page-74">
+<span class="md-ellipsis">
+      
+        K-切割 (K-Cut) (\(k &gt; 2\)) (page 74)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#拉普拉斯矩阵的性质-page-75-80">
+<span class="md-ellipsis">
+      
+        拉普拉斯矩阵的性质 (page 75-80)
+      
+    </span>
+</a>
+<nav aria-label="拉普拉斯矩阵的性质 (page 75-80)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#基本性质-page-75">
+<span class="md-ellipsis">
+      
+        基本性质 (page 75)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#零特征值与图的连通性-page-75-77-79">
+<span class="md-ellipsis">
+      
+        零特征值与图的连通性 (page 75, 77-79)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#实际应用中的考虑-page-80">
+<span class="md-ellipsis">
+      
+        实际应用中的考虑 (page 80)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#谱聚类-page-81">
+<span class="md-ellipsis">
+      
+        谱聚类 (page 81)
+      
+    </span>
+</a>
+<nav aria-label="谱聚类 (page 81)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#谱聚类技术路线-page-82-83">
+<span class="md-ellipsis">
+      
+        谱聚类技术路线 (page 82-83)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#归一化图拉普拉斯-Normalized-Graph-Laplacian-page-84-86">
+<span class="md-ellipsis">
+      
+        归一化图拉普拉斯 (Normalized Graph Laplacian) (page 84-86)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#谱聚类算法流程-page-87-92">
+<span class="md-ellipsis">
+      
+        谱聚类算法流程 (page 87-92)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#算法细节与挑战-page-93">
+<span class="md-ellipsis">
+      
+        算法细节与挑战 (page 93)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../15-SVD/">
+<span class="md-ellipsis">
+    
+  
+    15 SVD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../16-PCA/">
+<span class="md-ellipsis">
+    
+  
+    16 PCA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../19-MCMC/">
+<span class="md-ellipsis">
+    
+  
+    19 MCMC
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../21-PageRank/">
+<span class="md-ellipsis">
+    
+  
+    21 PageRank
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../appendix-UML/">
+<span class="md-ellipsis">
+    
+  
+    appendix UML
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../appendix-grad/">
+<span class="md-ellipsis">
+    
+  
+    Appendix grad
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../appendix-martirx_derivation/">
+<span class="md-ellipsis">
+    
+  
+    矩阵求导术（上/下）
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs70/">
+<span class="md-ellipsis">
+    
+  
+    cs70
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../other/">
+<span class="md-ellipsis">
+    
+  
+    other
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#聚类的基本概念">
+<span class="md-ellipsis">
+      
+        聚类的基本概念
+      
+    </span>
+</a>
+<nav aria-label="聚类的基本概念" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#相似度或距离-page-3">
+<span class="md-ellipsis">
+      
+        相似度或距离 (page 3)
+      
+    </span>
+</a>
+<nav aria-label="相似度或距离 (page 3)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#闵可夫斯基距离-Minkowski-distance-page-4-5">
+<span class="md-ellipsis">
+      
+        闵可夫斯基距离 (Minkowski distance) (page 4-5)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#马哈拉诺比斯距离-Mahalanobis-distance-page-6">
+<span class="md-ellipsis">
+      
+        马哈拉诺比斯距离 (Mahalanobis distance) (page 6)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#相关系数-correlation-coefficient-page-7">
+<span class="md-ellipsis">
+      
+        相关系数 (correlation coefficient) (page 7)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#夹角余弦-cosine-similarity-page-8">
+<span class="md-ellipsis">
+      
+        夹角余弦 (cosine similarity) (page 8)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#类或簇-Class-or-Cluster-page-10-18">
+<span class="md-ellipsis">
+      
+        类或簇 (Class or Cluster) (page 10-18)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#类与类之间的距离-page-19-23">
+<span class="md-ellipsis">
+      
+        类与类之间的距离 (page 19-23)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#层次聚类-page-24">
+<span class="md-ellipsis">
+      
+        层次聚类 (page 24)
+      
+    </span>
+</a>
+<nav aria-label="层次聚类 (page 24)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#层次聚类基本概念-page-25">
+<span class="md-ellipsis">
+      
+        层次聚类基本概念 (page 25)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#聚合聚类的具体过程-page-26-27">
+<span class="md-ellipsis">
+      
+        聚合聚类的具体过程 (page 26-27)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#聚合聚类需要预先确定以下三要素-page-28">
+<span class="md-ellipsis">
+      
+        聚合聚类需要预先确定以下三要素 (page 28)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#聚合聚类算法-page-29">
+<span class="md-ellipsis">
+      
+        聚合聚类算法 (page 29)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#聚合聚类示例-page-30-34">
+<span class="md-ellipsis">
+      
+        聚合聚类示例 (page 30-34)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#K-均值聚类-page-35">
+<span class="md-ellipsis">
+      
+        K-均值聚类 (page 35)
+      
+    </span>
+</a>
+<nav aria-label="K-均值聚类 (page 35)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#K-均值聚类基本概念-page-36">
+<span class="md-ellipsis">
+      
+        K-均值聚类基本概念 (page 36)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#模型-page-37-38">
+<span class="md-ellipsis">
+      
+        模型 (page 37-38)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#策略-page-39-43">
+<span class="md-ellipsis">
+      
+        策略 (page 39-43)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#算法-page-44-47">
+<span class="md-ellipsis">
+      
+        算法 (page 44-47)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#K-均值聚类示例-page-48-50">
+<span class="md-ellipsis">
+      
+        K-均值聚类示例 (page 48-50)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#K-均值聚类算法特点-page-51">
+<span class="md-ellipsis">
+      
+        K-均值聚类算法特点 (page 51)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#K-均值聚类算法收敛性-page-52">
+<span class="md-ellipsis">
+      
+        K-均值聚类算法收敛性 (page 52)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#K-均值聚类算法初始类的选择-page-53">
+<span class="md-ellipsis">
+      
+        K-均值聚类算法：初始类的选择 (page 53)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#K-均值聚类算法k-的选择-page-54">
+<span class="md-ellipsis">
+      
+        K-均值聚类算法：k 的选择 (page 54)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#谱聚类-Spectral-Clustering-page-55">
+<span class="md-ellipsis">
+      
+        谱聚类 (Spectral Clustering) (page 55)
+      
+    </span>
+</a>
+<nav aria-label="谱聚类 (Spectral Clustering) (page 55)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#引言-page-56-58">
+<span class="md-ellipsis">
+      
+        引言 (page 56-58)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#图论基本概念-page-59-70">
+<span class="md-ellipsis">
+      
+        图论基本概念 (page 59-70)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#图切割-page-71-74">
+<span class="md-ellipsis">
+      
+        图切割 (page 71-74)
+      
+    </span>
+</a>
+<nav aria-label="图切割 (page 71-74)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#最小二分切割-Minimum-Bipartition-Cut-page-71-72">
+<span class="md-ellipsis">
+      
+        最小二分切割 (Minimum Bipartition Cut) (page 71-72)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#归一化最小二分切割-Normalized-Minimum-Bipartition-Cut-page-73-74">
+<span class="md-ellipsis">
+      
+        归一化最小二分切割 (Normalized Minimum Bipartition Cut) (page 73-74)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#K-切割-K-Cut-k--2-page-74">
+<span class="md-ellipsis">
+      
+        K-切割 (K-Cut) (\(k &gt; 2\)) (page 74)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#拉普拉斯矩阵的性质-page-75-80">
+<span class="md-ellipsis">
+      
+        拉普拉斯矩阵的性质 (page 75-80)
+      
+    </span>
+</a>
+<nav aria-label="拉普拉斯矩阵的性质 (page 75-80)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#基本性质-page-75">
+<span class="md-ellipsis">
+      
+        基本性质 (page 75)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#零特征值与图的连通性-page-75-77-79">
+<span class="md-ellipsis">
+      
+        零特征值与图的连通性 (page 75, 77-79)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#实际应用中的考虑-page-80">
+<span class="md-ellipsis">
+      
+        实际应用中的考虑 (page 80)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#谱聚类-page-81">
+<span class="md-ellipsis">
+      
+        谱聚类 (page 81)
+      
+    </span>
+</a>
+<nav aria-label="谱聚类 (page 81)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#谱聚类技术路线-page-82-83">
+<span class="md-ellipsis">
+      
+        谱聚类技术路线 (page 82-83)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#归一化图拉普拉斯-Normalized-Graph-Laplacian-page-84-86">
+<span class="md-ellipsis">
+      
+        归一化图拉普拉斯 (Normalized Graph Laplacian) (page 84-86)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#谱聚类算法流程-page-87-92">
+<span class="md-ellipsis">
+      
+        谱聚类算法流程 (page 87-92)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#算法细节与挑战-page-93">
+<span class="md-ellipsis">
+      
+        算法细节与挑战 (page 93)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Note
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    DMA
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:notes">notes</a>
+</nav>
+<h1>14 Cluster Methods</h1>
+<h2 id="聚类的基本概念">聚类的基本概念<a class="headerlink" href="#聚类的基本概念" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="相似度或距离-page-3">相似度或距离<span><span class="heti-spacing"> </span>(page 3)</span><a class="headerlink" href="#相似度或距离-page-3" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在聚类任务中，核心概念是<strong>相似度（similarity）</strong> 或 <strong>距离（distance）</strong>。数据样本集通常表示为一个矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span></span>，其中包含<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>个样本，每个样本由<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\)</span><span class="heti-spacing"> </span></span>个属性（特征）组成，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(X = [x_{ij}]_{m \times n}\)</span></span>。相似度的选择直接影响聚类的结果，因此它是聚类的根本问题。</p>
+<h4 id="闵可夫斯基距离-Minkowski-distance-page-4-5">闵可夫斯基距离<span><span class="heti-spacing"> </span>(Minkowski distance) (page 4-5)</span><a class="headerlink" href="#闵可夫斯基距离-Minkowski-distance-page-4-5" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>闵可夫斯基距离是一种常用的距离度量，定义如下：给定<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\)</span><span class="heti-spacing"> </span></span>维实数向量空间<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathbb{R}^m\)</span><span class="heti-spacing"> </span></span>中的两个样本<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_i = (x_{1i}, x_{2i}, \dots, x_{mi})^T\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_j = (x_{1j}, x_{2j}, \dots, x_{mj})^T\)</span></span>，它们之间的闵可夫斯基距离<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(d_{ij}\)</span><span class="heti-spacing"> </span></span>定义为：</p>
+<div class="arithmatex">\[
+d_{ij} = \left( \sum_{k=1}^m |x_{ki} - x_{kj}|^p \right)^{\frac{1}{p}} \quad (p \ge 1)
+\]</div>
+<p><strong>注：</strong> 闵可夫斯基距离越大，相似度越小；距离越小，相似度越大。</p>
+<p>根据参数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p\)</span><span class="heti-spacing"> </span></span>的不同取值，闵可夫斯基距离可以演变为几种常见的距离：</p>
+<ul>
+<li>
+<p>当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p = 2\)</span><span class="heti-spacing"> </span></span>时，称为<strong>欧氏距离<span><span class="heti-spacing"> </span>(Euclidean distance)</span></strong>：</p>
+<div class="arithmatex">\[
+d_{ij} = \left( \sum_{k=1}^m (x_{ki} - x_{kj})^2 \right)^{\frac{1}{2}}
+\]</div>
+<p>这是最常用的距离度量，几何意义是两点在多维空间中的直线距离。</p>
+</li>
+<li>
+<p>当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p = 1\)</span><span class="heti-spacing"> </span></span>时，称为<strong>曼哈顿距离<span><span class="heti-spacing"> </span>(Manhattan distance)</span></strong> 或城市街区距离：</p>
+<div class="arithmatex">\[
+d_{ij} = \sum_{k=1}^m |x_{ki} - x_{kj}|
+\]</div>
+<p>它表示两点在坐标轴方向上的距离之和，如同在城市网格中行走。</p>
+</li>
+<li>
+<p>当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p = \infty\)</span><span class="heti-spacing"> </span></span>时，称为<strong>切比雪夫距离<span><span class="heti-spacing"> </span>(Chebyshev distance)</span></strong>：</p>
+<div class="arithmatex">\[
+d_{ij} = \max_k |x_{ki} - x_{kj}|
+\]</div>
+<p>它表示两点在各个维度上的最大距离，常用于国际象棋中王（King）的移动。</p>
+</li>
+</ul>
+<h4 id="马哈拉诺比斯距离-Mahalanobis-distance-page-6">马哈拉诺比斯距离<span><span class="heti-spacing"> </span>(Mahalanobis distance) (page 6)</span><a class="headerlink" href="#马哈拉诺比斯距离-Mahalanobis-distance-page-6" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>马哈拉诺比斯距离，简称<strong>马氏距离</strong>，是另一种常用的相似度度量。它考虑了各个分量（特征）之间的相关性，并且与各个分量的尺度无关。给定样本集合<span><span class="heti-spacing"> </span><span class="arithmatex">\(X = [x_{ij}]_{m \times n}\)</span></span>，其协方差矩阵记作<span><span class="heti-spacing"> </span><span class="arithmatex">\(S\)</span></span>。样本<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_i\)</span><span class="heti-spacing"> </span></span>与样本<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_j\)</span><span class="heti-spacing"> </span></span>之间的马哈拉诺比斯距离<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(d_{ij}\)</span><span class="heti-spacing"> </span></span>定义为：</p>
+<div class="arithmatex">\[
+d_{ij} = \left[ (x_i - x_j)^T S^{-1} (x_i - x_j) \right]^{\frac{1}{2}}
+\]</div>
+<p><strong>注：</strong> 与闵可夫斯基距离类似，马哈拉诺比斯距离越大相似度越小，距离越小相似度越大。</p>
+<details class="note" open="open">
+<summary>协方差矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(S\)</span></span></summary>
+<p>协方差矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(S\)</span><span class="heti-spacing"> </span></span>衡量了多维随机变量中各个维度之间的相关性。对于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\)</span><span class="heti-spacing"> </span></span>维数据，它是一个<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m \times m\)</span><span class="heti-spacing"> </span></span>的对称矩阵，其中对角线元素是每个特征的方差，非对角线元素是不同特征之间的协方差。它的逆矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(S^{-1}\)</span><span class="heti-spacing"> </span></span>用于对数据进行“白化”处理，即去除特征间的相关性并进行尺度归一化。这使得马氏距离在处理不同尺度和相关性的数据时具有优势。</p>
+</details>
+<h4 id="相关系数-correlation-coefficient-page-7">相关系数<span><span class="heti-spacing"> </span>(correlation coefficient) (page 7)</span><a class="headerlink" href="#相关系数-correlation-coefficient-page-7" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>样本之间的相似度也可以用<strong>相关系数<span><span class="heti-spacing"> </span>(correlation coefficient)</span></strong> 来表示。样本<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_i\)</span><span class="heti-spacing"> </span></span>与样本<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_j\)</span><span class="heti-spacing"> </span></span>之间的相关系数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(r_{ij}\)</span><span class="heti-spacing"> </span></span>定义为：</p>
+<div class="arithmatex">\[
+r_{ij} = \frac{\sum_{k=1}^m (x_{ki} - \bar{x}_i)(x_{kj} - \bar{x}_j)}{\left[ \sum_{k=1}^m (x_{ki} - \bar{x}_i)^2 \sum_{k=1}^m (x_{kj} - \bar{x}_j)^2 \right]^{\frac{1}{2}}}
+\]</div>
+<p>其中，<span><span class="arithmatex">\(\bar{x}_i = \frac{1}{m} \sum_{k=1}^m x_{ki}\)</span><span class="heti-spacing"> </span></span>是样本<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_i\)</span><span class="heti-spacing"> </span></span>各属性的均值，<span><span class="arithmatex">\(\bar{x}_j = \frac{1}{m} \sum_{k=1}^m x_{kj}\)</span><span class="heti-spacing"> </span></span>是样本<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_j\)</span><span class="heti-spacing"> </span></span>各属性的均值。</p>
+<p><strong>注：</strong> 相关系数的绝对值越接近于<span><span class="heti-spacing"> </span>1</span>，表示样本越相似（正相关或负相关<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；越接近于<span><span class="heti-spacing"> </span>0</span>，表示样本越不相似（无线性相关<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<h4 id="夹角余弦-cosine-similarity-page-8">夹角余弦<span><span class="heti-spacing"> </span>(cosine similarity) (page 8)</span><a class="headerlink" href="#夹角余弦-cosine-similarity-page-8" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>样本之间的相似度也可以用<strong>夹角余弦<span><span class="heti-spacing"> </span>(cosine similarity)</span></strong> 来表示。样本<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_i\)</span><span class="heti-spacing"> </span></span>与样本<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_j\)</span><span class="heti-spacing"> </span></span>之间的夹角余弦<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(s_{ij}\)</span><span class="heti-spacing"> </span></span>定义为：</p>
+<div class="arithmatex">\[
+s_{ij} = \frac{\sum_{k=1}^m x_{ki}x_{kj}}{\left[ \sum_{k=1}^m x_{ki}^2 \sum_{k=1}^m x_{kj}^2 \right]^{\frac{1}{2}}}
+\]</div>
+<p><strong>注：</strong> 夹角余弦越接近于<span><span class="heti-spacing"> </span>1</span>，表示样本越相似（夹角越小<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；越接近于<span><span class="heti-spacing"> </span>0</span>，表示样本越不相似（夹角接近<span class="heti-skip"><span class="heti-spacing"> </span>90<span class="heti-spacing"> </span></span>度<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。它衡量的是两个向量在方向上的接近程度，而不关心它们的长度。</p>
+<details class="attention" open="open">
+<summary>不同相似度度量结果不一定一致<span><span class="heti-spacing"> </span>(page 9)</span></summary>
+<p><strong>重要提示：</strong> 不同相似度度量得到的结果并不一定一致。</p>
+<p>例如，在二维空间中，如果从距离的角度看，样本<span class="heti-skip"><span class="heti-spacing"> </span>A<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>B<span class="heti-spacing"> </span></span>比<span class="heti-skip"><span class="heti-spacing"> </span>A<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>C<span class="heti-spacing"> </span></span>更相似（因为<span class="heti-skip"><span class="heti-spacing"> </span>A<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>B<span class="heti-spacing"> </span></span>距离更近<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。但如果从相关系数或夹角余弦的角度看，样本<span class="heti-skip"><span class="heti-spacing"> </span>A<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>C<span class="heti-spacing"> </span></span>可能比<span class="heti-skip"><span class="heti-spacing"> </span>A<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>B<span class="heti-spacing"> </span></span>更相似（因为<span class="heti-skip"><span class="heti-spacing"> </span>A<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>C<span class="heti-spacing"> </span></span>在方向上更接近，即使距离较远<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。这强调了选择合适相似度度量的重要性。</p>
+</details>
+<h3 id="类或簇-Class-or-Cluster-page-10-18">类或簇<span><span class="heti-spacing"> </span>(Class or Cluster) (page 10-18)</span><a class="headerlink" href="#类或簇-Class-or-Cluster-page-10-18" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>通过聚类得到的类或簇，本质上是样本的子集。</p>
+<details class="definition" open="open">
+<summary>硬聚类<span class="heti-skip"><span class="heti-spacing"> </span>(hard clustering)<span class="heti-spacing"> </span></span>与软聚类<span><span class="heti-spacing"> </span>(soft clustering) (page 10)</span></summary>
+<ul>
+<li><strong>硬聚类：</strong> 如果一个聚类方法假定一个样本只能属于一个类，或者类的交集为空集，那么该方法称为硬聚类。大多数传统聚类算法（如<span class="heti-skip"><span class="heti-spacing"> </span>K-<span class="heti-spacing"> </span></span>均值、层次聚类）属于硬聚类。</li>
+<li><strong>软聚类：</strong> 如果一个样本可以属于多个类，或者类的交集不为空集，那么该方法称为软聚类。例如，模糊<span class="heti-skip"><span class="heti-spacing"> </span>C<span class="heti-spacing"> </span></span>均值（Fuzzy C-Means）允许样本以不同的隶属度属于多个簇。</li>
+</ul>
+</details>
+<p>用<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>表示类或簇，用<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_i, x_j\)</span><span class="heti-spacing"> </span></span>表示类中的样本，用<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n_G\)</span><span class="heti-spacing"> </span></span>表示<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>中样本的个数，用<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(d_{ij}\)</span><span class="heti-spacing"> </span></span>表示样本<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_i\)</span><span class="heti-spacing"> </span></span>与样本<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_j\)</span><span class="heti-spacing"> </span></span>之间的距离。</p>
+<details class="definition" open="open">
+<summary>类或簇的常见定义<span><span class="heti-spacing"> </span>(page 12-15)</span></summary>
+<ol>
+<li><strong>定义一：</strong> 设<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(T\)</span><span class="heti-spacing"> </span></span>为给定的正数，若集合<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>中任意两个样本<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_i, x_j\)</span><span class="heti-spacing"> </span></span>都有<span><span class="heti-spacing"> </span><span class="arithmatex">\(d_{ij} \le T\)</span></span>，则称<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>为一个类或簇。</li>
+<li><strong>定义二：</strong> 设<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(T\)</span><span class="heti-spacing"> </span></span>为给定的正数，若对集合<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>的任意样本<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_i\)</span></span>，一定存在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>中的另一个样本<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_j\)</span></span>，使得<span><span class="heti-spacing"> </span><span class="arithmatex">\(d_{ij} \le T\)</span></span>，则称<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>为一个类或簇。</li>
+<li><strong>定义三：</strong> 设<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(T\)</span><span class="heti-spacing"> </span></span>为给定的正数，若对集合<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>中任意一个样本<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_i\)</span></span>，存在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>中的另一个样本<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_j\)</span><span class="heti-spacing"> </span></span>满足<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{1}{n_G - 1} \sum_{x_j \in G} d_{ij} \le T\)</span></span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n_G\)</span><span class="heti-spacing"> </span></span>为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>中样本的个数，则称<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>为一个类或簇。</li>
+<li><strong>定义四：</strong> 设<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(T\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(V\)</span><span class="heti-spacing"> </span></span>为给定的两个正数，如果集合<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>中任意两个样本<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_i, x_j\)</span><span class="heti-spacing"> </span></span>的距离<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(d_{ij}\)</span><span class="heti-spacing"> </span></span>满足<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{1}{n_G(n_G - 1)} \sum_{x_i \in G} \sum_{x_j \in G, x_i \ne x_j} d_{ij} \le T\)</span><span class="heti-spacing"> </span></span>且<span><span class="heti-spacing"> </span><span class="arithmatex">\(d_{ij} \le V\)</span></span>，则称<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>为一个类或簇。</li>
+</ol>
+</details>
+<p>类的特征可以通过不同角度来刻画，常用的特征有：<strong>类的中心</strong>、<strong>类的直径</strong>、<strong>类的样本散布矩阵</strong>和<strong>样本协方差矩阵</strong>。</p>
+<ol>
+<li>
+<p><strong>类的均值<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\bar{x}_G\)</span> (<span class="heti-spacing"> </span></span>类的中心<span><span class="heti-spacing"> </span>) (page 16)</span></strong>：</p>
+<div class="arithmatex">\[
+\bar{x}_G = \frac{1}{n_G} \sum_{i=1}^{n_G} x_i
+\]</div>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n_G\)</span><span class="heti-spacing"> </span></span>是类<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>的样本个数。</p>
+</li>
+<li>
+<p><strong>类的直径<span><span class="heti-spacing"> </span>(diameter) <span class="arithmatex">\(D_G\)</span> (page 17)</span></strong>：</p>
+<p>类的直径<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D_G\)</span><span class="heti-spacing"> </span></span>是类中任意两个样本之间的最大距离，即：</p>
+<div class="arithmatex">\[
+D_G = \max_{x_i, x_j \in G} d_{ij}
+\]</div>
+</li>
+<li>
+<p><strong>类的样本散布矩阵<span class="heti-skip"><span class="heti-spacing"> </span>(scatter matrix) <span class="arithmatex">\(A_G\)</span><span class="heti-spacing"> </span></span>与样本协方差矩阵<span><span class="heti-spacing"> </span>(covariance matrix) <span class="arithmatex">\(S_G\)</span> (page 18)</span></strong>：</p>
+<p>类的样本散布矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A_G\)</span><span class="heti-spacing"> </span></span>为：</p>
+<div class="arithmatex">\[
+A_G = \sum_{i=1}^{n_G} (x_i - \bar{x}_G)(x_i - \bar{x}_G)^T
+\]</div>
+<p>样本协方差矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(S_G\)</span><span class="heti-spacing"> </span></span>为：</p>
+<div class="arithmatex">\[
+S_G = \frac{1}{m-1} A_G = \frac{1}{m-1} \sum_{i=1}^{n_G} (x_i - \bar{x}_G)(x_i - \bar{x}_G)^T
+\]</div>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\)</span><span class="heti-spacing"> </span></span>为样本的维数（样本属性的个数<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+</li>
+</ol>
+<h3 id="类与类之间的距离-page-19-23">类与类之间的距离<span><span class="heti-spacing"> </span>(page 19-23)</span><a class="headerlink" href="#类与类之间的距离-page-19-23" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在层次聚类等算法中，需要定义类与类之间的距离，也称为<strong>连接<span><span class="heti-spacing"> </span>(linkage)</span></strong>。设类<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G_p\)</span><span class="heti-spacing"> </span></span>包含<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n_p\)</span><span class="heti-spacing"> </span></span>个样本，类<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G_q\)</span><span class="heti-spacing"> </span></span>包含<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n_q\)</span><span class="heti-spacing"> </span></span>个样本，分别用<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\bar{x}_p\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\bar{x}_q\)</span><span class="heti-spacing"> </span></span>表示<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G_p\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G_q\)</span><span class="heti-spacing"> </span></span>的均值（即类的中心<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<ol>
+<li>
+<p><strong>最短距离或单连接<span><span class="heti-spacing"> </span>(single linkage) (page 20)</span></strong>：</p>
+<p>定义类<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G_p\)</span><span class="heti-spacing"> </span></span>的样本与<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G_q\)</span><span class="heti-spacing"> </span></span>的样本之间的最短距离为两类之间的距离：</p>
+<div class="arithmatex">\[
+D_{pq} = \min \{ d_{ij} | x_i \in G_p, x_j \in G_q \}
+\]</div>
+<p>这种连接方式倾向于形成“链状”簇，对噪声敏感。</p>
+</li>
+<li>
+<p><strong>最长距离或完全连接<span><span class="heti-spacing"> </span>(complete linkage) (page 21)</span></strong>：</p>
+<p>定义类<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G_p\)</span><span class="heti-spacing"> </span></span>的样本与<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G_q\)</span><span class="heti-spacing"> </span></span>的样本之间的最长距离为两类之间的距离：</p>
+<div class="arithmatex">\[
+D_{pq} = \max \{ d_{ij} | x_i \in G_p, x_j \in G_q \}
+\]</div>
+<p>这种连接方式倾向于形成“紧密”的簇，对噪声不那么敏感。</p>
+</li>
+<li>
+<p><strong>中心距离<span><span class="heti-spacing"> </span>(centroid distance) (page 22)</span></strong>：</p>
+<p>定义类<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G_p\)</span><span class="heti-spacing"> </span></span>与<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G_q\)</span><span class="heti-spacing"> </span></span>的中心<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\bar{x}_p\)</span><span class="heti-spacing"> </span></span>与<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\bar{x}_q\)</span><span class="heti-spacing"> </span></span>之间的距离为两类之间的距离：</p>
+<div class="arithmatex">\[
+D_{pq} = d_{\bar{x}_p \bar{x}_q}
+\]</div>
+</li>
+<li>
+<p><strong>平均距离<span><span class="heti-spacing"> </span>(average distance) (page 23)</span></strong>：</p>
+<p>定义类<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G_p\)</span><span class="heti-spacing"> </span></span>与<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G_q\)</span><span class="heti-spacing"> </span></span>任意两个样本之间距离的平均值为两类之间的距离：</p>
+<div class="arithmatex">\[
+D_{pq} = \frac{1}{n_p n_q} \sum_{x_i \in G_p} \sum_{x_j \in G_q} d_{ij}
+\]</div>
+</li>
+</ol>
+<h2 id="层次聚类-page-24">层次聚类<span><span class="heti-spacing"> </span>(page 24)</span><a class="headerlink" href="#层次聚类-page-24" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="层次聚类基本概念-page-25">层次聚类基本概念<span><span class="heti-spacing"> </span>(page 25)</span><a class="headerlink" href="#层次聚类基本概念-page-25" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>层次聚类假设类别之间存在层次结构，旨在将样本聚到层次化的类中。</p>
+<details class="note" open="open">
+<summary>层次聚类的两种主要方法<span><span class="heti-spacing"> </span>(page 25)</span></summary>
+<p>层次聚类主要有两种方法：
+- <strong>聚合聚类<span><span class="heti-spacing"> </span>(agglomerative)</span></strong>：也称<strong>自下而上<span><span class="heti-spacing"> </span>(bottom-up)</span></strong> 聚类，它将每个样本视为一个独立的簇，然后逐步合并最相似的簇，直到满足停止条件。
+- <strong>分裂聚类<span><span class="heti-spacing"> </span>(divisive)</span></strong>：也称<strong>自上而下<span><span class="heti-spacing"> </span>(top-down)</span></strong> 聚类，它开始将所有样本视为一个大簇，然后逐步分裂最不相似的子簇，直到满足停止条件。</p>
+<p>层次聚类中的每个样本只属于一个类，因此它属于<strong>硬聚类</strong>方法。</p>
+</details>
+<h3 id="聚合聚类的具体过程-page-26-27">聚合聚类的具体过程<span><span class="heti-spacing"> </span>(page 26-27)</span><a class="headerlink" href="#聚合聚类的具体过程-page-26-27" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><strong>聚合聚类</strong>的具体过程如下：</p>
+<ol>
+<li>开始时，将每个样本各自分到一个类，即每个样本是一个独立的簇。</li>
+<li>之后，按照一定的规则（例如类间距离最小<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，将相距最近的两个类进行合并，建立一个新的类。</li>
+<li>重复此操作，每次减少一个类，直到满足停止条件（例如所有样本聚为一类，或达到预设的簇数量<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>最终得到层次化的类别结构（通常以树状图<span class="heti-skip"><span class="heti-spacing"> </span>dendrogram<span class="heti-spacing"> </span></span><sup id="fnref:1"><a class="footnote-ref" href="#fn:1"><span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span></a></sup>表示<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+</ol>
+<p><strong>分裂聚类</strong>的具体过程类似，只是方向相反：</p>
+<ol>
+<li>开始时，将所有样本分到一个类。</li>
+<li>之后，将已有类中相距最远的样本分裂到两个新的类中。</li>
+<li>重复此操作直到满足停止条件。</li>
+<li>得到层次化的类别。</li>
+</ol>
+<h3 id="聚合聚类需要预先确定以下三要素-page-28">聚合聚类需要预先确定以下三要素<span><span class="heti-spacing"> </span>(page 28)</span><a class="headerlink" href="#聚合聚类需要预先确定以下三要素-page-28" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ol>
+<li><strong>距离或相似度</strong>：选择合适的度量来计算样本之间或簇之间的距离。常见的选择包括：<ul>
+<li>闵可夫斯基距离（欧氏距离、曼哈顿距离、切比雪夫距离）</li>
+<li>马哈拉诺比斯距离</li>
+<li>相关系数</li>
+<li>夹角余弦</li>
+</ul>
+</li>
+<li><strong>合并规则</strong>：确定如何计算两个簇之间的距离，以决定哪个簇应该被合并。常见的合并规则（即前面提到的“类与类之间的距离”）包括：<ul>
+<li>类间最短距离（单连接）</li>
+<li>类间最长距离（完全连接）</li>
+<li>中心距离</li>
+<li>平均距离</li>
+</ul>
+</li>
+<li><strong>停止条件</strong>：确定何时停止聚类过程。常见的停止条件包括：<ul>
+<li>类的个数达到阈值（极端情况是类的个数为<span><span class="heti-spacing"> </span>1</span>，即所有样本聚为一类<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>类的直径超过阈值。</li>
+</ul>
+</li>
+</ol>
+<h3 id="聚合聚类算法-page-29">聚合聚类算法<span><span class="heti-spacing"> </span>(page 29)</span><a class="headerlink" href="#聚合聚类算法-page-29" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><strong>输入：</strong> <span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>个样本组成的样本集合及样本之间的距离。
+<strong>输出：</strong> 对样本集合的一个层次化聚类。</p>
+<p><strong>步骤：</strong></p>
+<ol>
+<li>计算<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>个样本两两之间的欧氏距离<span><span class="heti-spacing"> </span><span class="arithmatex">\(\{d_{ij}\}\)</span></span>，记作矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(D = [d_{ij}]_{n \times n}\)</span></span>。</li>
+<li>构造<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>个类，每个类只包含一个样本。</li>
+<li>合并类间距离最小的两个类（其中类间距离的计算通常使用预设的合并规则，例如最短距离<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，构建一个新类。</li>
+<li>计算新类与当前各类的距离。若类的个数为<span><span class="heti-spacing"> </span>1</span>，终止计算；否则回到步<span><span class="heti-spacing"> </span>(3)</span>。</li>
+</ol>
+<details class="tip" open="open">
+<summary>算法复杂度<span><span class="heti-spacing"> </span>(page 29)</span></summary>
+<p>聚合层次聚类算法的复杂度是<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(n^3 m)\)</span></span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\)</span><span class="heti-spacing"> </span></span>是样本的维数，<span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>是样本个数。</p>
+<p><strong>注：</strong> 对于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\)</span><span class="heti-spacing"> </span></span>维的样本，计算两个样本之间的距离的时间复杂度为<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(m)\)</span></span>。每次迭代需要计算<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>个数据点之间的距离，时间复杂度为<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(m \cdot n^2)\)</span></span>。因此，整个过程因为有<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>步合并，所以总复杂度为<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(n^3 m)\)</span></span>。</p>
+</details>
+<h3 id="聚合聚类示例-page-30-34">聚合聚类示例<span><span class="heti-spacing"> </span>(page 30-34)</span><a class="headerlink" href="#聚合聚类示例-page-30-34" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><strong>给定<span class="heti-skip"><span class="heti-spacing"> </span>5<span class="heti-spacing"> </span></span>个样本的集合，样本之间的欧氏距离由如下矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D\)</span><span class="heti-spacing"> </span></span>表示：</strong></p>
+<div class="arithmatex">\[
+D = [d_{ij}]_{5 \times 5} = \begin{pmatrix}
+0 &amp; 7 &amp; 2 &amp; 9 &amp; 3 \\
+7 &amp; 0 &amp; 5 &amp; 4 &amp; 6 \\
+2 &amp; 5 &amp; 0 &amp; 8 &amp; 1 \\
+9 &amp; 4 &amp; 8 &amp; 0 &amp; 5 \\
+3 &amp; 6 &amp; 1 &amp; 5 &amp; 0
+\end{pmatrix}
+\]</div>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(d_{ij}\)</span><span class="heti-spacing"> </span></span>表示第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>个样本与第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(j\)</span><span class="heti-spacing"> </span></span>个样本之间的欧氏距离。显然<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D\)</span><span class="heti-spacing"> </span></span>为对称矩阵。我们将应用聚合层次聚类法对这<span class="heti-skip"><span class="heti-spacing"> </span>5<span class="heti-spacing"> </span></span>个样本进行聚类，采用<strong>最短距离（单连接）</strong>作为合并规则。</p>
+<p><strong>步骤：</strong></p>
+<ol>
+<li><strong>初始化：</strong> 首先用<span class="heti-skip"><span class="heti-spacing"> </span>5<span class="heti-spacing"> </span></span>个样本构建<span class="heti-skip"><span class="heti-spacing"> </span>5<span class="heti-spacing"> </span></span>个类，<span class="arithmatex">\(G_i = \{x_i\}\)</span>，其中<span><span class="heti-spacing"> </span><span class="arithmatex">\(i = 1, 2, \dots, 5\)</span></span>。这样，样本之间的距离就变成了类之间的距离，所以<span class="heti-skip"><span class="heti-spacing"> </span>5<span class="heti-spacing"> </span></span>个类之间的距离矩阵亦为<span><span class="heti-spacing"> </span><span class="arithmatex">\(D\)</span></span>。</li>
+</ol>
+<details class="example" open="open">
+<summary>当前聚类状态</summary>
+<p><span class="arithmatex">\(G_1=\{x_1\}\)</span>, <span class="arithmatex">\(G_2=\{x_2\}\)</span>, <span class="arithmatex">\(G_3=\{x_3\}\)</span>, <span class="arithmatex">\(G_4=\{x_4\}\)</span>, <span class="arithmatex">\(G_5=\{x_5\}\)</span></p>
+</details>
+<ol start="2">
+<li><strong>第一次合并：</strong> 由矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D\)</span><span class="heti-spacing"> </span></span>可以看出，最小的非对角线元素是<span><span class="heti-spacing"> </span><span class="arithmatex">\(D_{35} = D_{53} = 1\)</span></span>。因此，将<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G_3\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G_5\)</span><span class="heti-spacing"> </span></span>合并为一个新类，记作<span><span class="heti-spacing"> </span><span class="arithmatex">\(G_6 = \{x_3, x_5\}\)</span></span>。</li>
+</ol>
+<details class="example" open="open">
+<summary>合并结果</summary>
+<p><span class="arithmatex">\(G_1=\{x_1\}\)</span>, <span class="arithmatex">\(G_2=\{x_2\}\)</span>, <span class="arithmatex">\(G_4=\{x_4\}\)</span>, <span class="arithmatex">\(G_6=\{x_3, x_5\}\)</span></p>
+</details>
+<ol start="3">
+<li>
+<p><strong>第二次合并：</strong> 计算新类<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G_6\)</span><span class="heti-spacing"> </span></span>与其他现有类<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G_1, G_2, G_4\)</span><span class="heti-spacing"> </span></span>之间的最短距离。</p>
+<ul>
+<li><span class="arithmatex">\(D_{61} = \min(d_{31}, d_{51}) = \min(2, 3) = 2\)</span></li>
+<li><span class="arithmatex">\(D_{62} = \min(d_{32}, d_{52}) = \min(5, 6) = 5\)</span></li>
+<li><span class="arithmatex">\(D_{64} = \min(d_{34}, d_{54}) = \min(8, 5) = 5\)</span></li>
+</ul>
+<p>同时，其余两类之间的距离为：
+- <span class="arithmatex">\(D_{12} = 7\)</span>
+- <span class="arithmatex">\(D_{14} = 9\)</span>
+- <span class="arithmatex">\(D_{24} = 4\)</span></p>
+<p>显然，当前所有类间距离中最小的是<span><span class="heti-spacing"> </span><span class="arithmatex">\(D_{61} = 2\)</span></span>。所以将<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G_1\)</span><span class="heti-spacing"> </span></span>与<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G_6\)</span><span class="heti-spacing"> </span></span>合并成一个新类，记作<span><span class="heti-spacing"> </span><span class="arithmatex">\(G_7 = \{x_1, x_3, x_5\}\)</span></span>。</p>
+</li>
+</ol>
+<details class="example" open="open">
+<summary>合并结果</summary>
+<p><span class="arithmatex">\(G_2=\{x_2\}\)</span>, <span class="arithmatex">\(G_4=\{x_4\}\)</span>, <span class="arithmatex">\(G_7=\{x_1, x_3, x_5\}\)</span></p>
+</details>
+<ol start="4">
+<li>
+<p><strong>第三次合并：</strong> 计算新类<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G_7\)</span><span class="heti-spacing"> </span></span>与其他现有类<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G_2, G_4\)</span><span class="heti-spacing"> </span></span>之间的最短距离。</p>
+<ul>
+<li><span class="arithmatex">\(D_{72} = \min(d_{12}, d_{32}, d_{52}) = \min(7, 5, 6) = 5\)</span></li>
+<li><span class="arithmatex">\(D_{74} = \min(d_{14}, d_{34}, d_{54}) = \min(9, 8, 5) = 5\)</span></li>
+</ul>
+<p>同时，其余类之间的距离为：
+- <span class="arithmatex">\(D_{24} = 4\)</span></p>
+<p>显然，当前所有类间距离中最小的是<span><span class="heti-spacing"> </span><span class="arithmatex">\(D_{24} = 4\)</span></span>。所以将<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G_2\)</span><span class="heti-spacing"> </span></span>与<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G_4\)</span><span class="heti-spacing"> </span></span>合并成一个新类，记作<span><span class="heti-spacing"> </span><span class="arithmatex">\(G_8 = \{x_2, x_4\}\)</span></span>。</p>
+</li>
+</ol>
+<details class="example" open="open">
+<summary>合并结果</summary>
+<p><span class="arithmatex">\(G_7=\{x_1, x_3, x_5\}\)</span>, <span class="arithmatex">\(G_8=\{x_2, x_4\}\)</span></p>
+</details>
+<ol start="5">
+<li><strong>第四次合并：</strong> 将<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G_7\)</span><span class="heti-spacing"> </span></span>与<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G_8\)</span><span class="heti-spacing"> </span></span>合并成一个新类，记作<span><span class="heti-spacing"> </span><span class="arithmatex">\(G_9 = \{x_1, x_2, x_3, x_4, x_5\}\)</span></span>。此时，所有样本都聚成<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>类，聚类终止。</li>
+</ol>
+<details class="example" open="open">
+<summary>最终结果</summary>
+<p><span class="arithmatex">\(G_9 = \{x_1, x_2, x_3, x_4, x_5\}\)</span></p>
+</details>
+<h2 id="K-均值聚类-page-35"><span>K-<span class="heti-spacing"> </span></span>均值聚类<span><span class="heti-spacing"> </span>(page 35)</span><a class="headerlink" href="#K-均值聚类-page-35" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="K-均值聚类基本概念-page-36"><span>K-<span class="heti-spacing"> </span></span>均值聚类基本概念<span><span class="heti-spacing"> </span>(page 36)</span><a class="headerlink" href="#K-均值聚类基本概念-page-36" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>K-<span class="heti-spacing"> </span></span>均值<span class="heti-skip"><span class="heti-spacing"> </span>(K-means)<span class="heti-spacing"> </span></span>聚类是基于样本集合划分的聚类算法。它将样本集合划分为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>个子集，构成<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>个类，目标是使每个样本到其所属类的中心的距离最小。</p>
+<details class="note" open="open">
+<summary><span>K-<span class="heti-spacing"> </span></span>均值聚类是一种硬聚类方法<span><span class="heti-spacing"> </span>(page 36)</span></summary>
+<p>每个样本只能属于一个类，因此<span class="heti-skip"><span class="heti-spacing"> </span>K-<span class="heti-spacing"> </span></span>均值聚类是<strong>硬聚类</strong>。</p>
+</details>
+<h3 id="模型-page-37-38">模型<span><span class="heti-spacing"> </span>(page 37-38)</span><a class="headerlink" href="#模型-page-37-38" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>给定：</strong> <span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>个样本的集合<span><span class="heti-spacing"> </span><span class="arithmatex">\(X = \{x_1, x_2, \dots, x_n\}\)</span></span>。</li>
+<li><strong>特征：</strong> 每个样本<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_i\)</span><span class="heti-spacing"> </span></span>由一个<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\)</span><span class="heti-spacing"> </span></span>维特征向量表示。</li>
+<li><strong>目标：</strong> <span>K-<span class="heti-spacing"> </span></span>均值聚类的目标是将<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>个样本分到<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>个不同的类或簇中，这里假设<span><span class="heti-spacing"> </span><span class="arithmatex">\(k &lt; n\)</span></span>。</li>
+<li><strong>划分：</strong> <span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>个类<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G_1, G_2, \dots, G_k\)</span><span class="heti-spacing"> </span></span>形成对样本集合<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>的划分，满足：<ul>
+<li><span class="arithmatex">\(G_l \cap G_j = \emptyset\)</span> (for <span class="arithmatex">\(l \ne j\)</span>)，即不同类之间没有交集。</li>
+<li><span class="arithmatex">\(\bigcup_{l=1}^k G_l = X\)</span>，即所有类构成了完整的样本集合。</li>
+</ul>
+</li>
+<li><strong>聚类函数：</strong> 用<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(C\)</span><span class="heti-spacing"> </span></span>表示划分，一个划分对应着一个聚类结果。<span>K-<span class="heti-spacing"> </span></span>均值聚类的模型是一个从样本到类的函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(l = C(i)\)</span></span>，其中样本用一个整数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i \in \{1, 2, \dots, n\}\)</span><span class="heti-spacing"> </span></span>表示，类用一个整数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(l \in \{1, 2, \dots, k\}\)</span><span class="heti-spacing"> </span></span>表示。</li>
+</ul>
+<h3 id="策略-page-39-43">策略<span><span class="heti-spacing"> </span>(page 39-43)</span><a class="headerlink" href="#策略-page-39-43" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>K-<span class="heti-spacing"> </span></span>均值聚类归结为样本集合<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>的划分，或者从样本到类的函数的选择问题。<span>K-<span class="heti-spacing"> </span></span>均值聚类的策略是通过<strong>损失函数的最小化</strong>选取最优的划分或函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(C^*\)</span></span>。</p>
+<p>首先，采用<strong>欧氏距离平方<span><span class="heti-spacing"> </span>(squared Euclidean distance)</span></strong> 作为样本之间的距离度量：</p>
+<div class="arithmatex">\[
+d(x_i, x_j) = \sum_{k=1}^m (x_{ki} - x_{kj})^2 = \|x_i - x_j\|^2
+\]</div>
+<p>然后，定义样本与其所属类的中心之间的距离的总和为损失函数（也称为<strong>能量</strong> <span class="arithmatex">\(W(C)\)</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，表示相同类中的样本相似的程度：</p>
+<div class="arithmatex">\[
+W(C) = \sum_{l=1}^k \sum_{C(i)=l} \|x_i - \bar{x}_l\|^2
+\]</div>
+<p>其中，<span><span class="arithmatex">\(\bar{x}_l = (\bar{x}_{1l}, \bar{x}_{2l}, \dots, \bar{x}_{ml})^T\)</span><span class="heti-spacing"> </span></span>是第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(l\)</span><span class="heti-spacing"> </span></span>个类的均值或中心。<span><span class="arithmatex">\(\sum_{C(i)=l}\)</span><span class="heti-spacing"> </span></span>表示对所有被分配到类<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(l\)</span><span class="heti-spacing"> </span></span>的样本进行求和。</p>
+<details class="theorem" open="open">
+<summary><span>K-<span class="heti-spacing"> </span></span>均值聚类的优化问题<span><span class="heti-spacing"> </span>(page 42)</span></summary>
+<p><span>K-<span class="heti-spacing"> </span></span>均值聚类就是求解以下最优化问题：</p>
+<div class="arithmatex">\[
+C^* = \arg \min_C W(C) = \arg \min_C \sum_{l=1}^k \sum_{C(i)=l} \|x_i - \bar{x}_l\|^2
+\]</div>
+<p>这个目标函数旨在使相似的样本被聚到同类时，损失函数值最小，从而达到聚类的目的。</p>
+</details>
+<details class="attention" open="open">
+<summary><span>K-<span class="heti-spacing"> </span></span>均值聚类的复杂度<span><span class="heti-spacing"> </span>(page 43)</span></summary>
+<p><strong>这是一个组合优化问题：</strong> <span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>个样本分到<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>类，所有可能分法的数目是<strong>第二类斯特林数<span><span class="heti-spacing"> </span>(Stirling numbers of the second kind)</span></strong> <span class="arithmatex">\(S(n, k)\)</span>：</p>
+<div class="arithmatex">\[
+S(n, k) = \frac{1}{k!} \sum_{l=0}^k (-1)^l \binom{k}{l} (k-l)^n
+\]</div>
+<p>事实上，<span>K-<span class="heti-spacing"> </span></span>均值聚类的最优解求解问题是 <strong><span>NP<span class="heti-spacing"> </span></span>难问题</strong>。因此，在现实中通常采用<strong>迭代</strong>的方法求解，而不是寻找全局最优解。</p>
+</details>
+<h3 id="算法-page-44-47">算法<span><span class="heti-spacing"> </span>(page 44-47)</span><a class="headerlink" href="#算法-page-44-47" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>K-<span class="heti-spacing"> </span></span>均值聚类的算法是一个迭代的过程：</p>
+<ol>
+<li><strong>初始化：</strong> 首先选择<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>个类的中心（通常随机选择<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>个样本点作为初始中心<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>指派：</strong> 将每个样本逐个指派到与其最近的中心所在的类中，得到一个聚类结果。这一步可以表述为：对于给定的中心值<span><span class="heti-spacing"> </span><span class="arithmatex">\((m_1, m_2, \dots, m_k)\)</span></span>，求一个划分<span><span class="heti-spacing"> </span><span class="arithmatex">\(C\)</span></span>，使得目标函数极小化：
+    $$
+    \min_C \sum_{l=1}^k \sum_{C(i)=l} |x_i - m_l|^2
+    $$
+    也就是说，在类中心确定的情况下，将每个样本分到一个类中，使样本和其所属类的中心之间的距离总和最小。求解结果是，将每个样本指派到与其最近的中心 <span class="arithmatex">\(m_l\)</span> 的类 <span class="arithmatex">\(G_l\)</span> 中。</li>
+<li><strong>更新：</strong> 然后更新每个类的样本的均值，作为类的新的中心。这一步可以表述为：对于给定的划分<span><span class="heti-spacing"> </span><span class="arithmatex">\(C\)</span></span>，再求各个类的中心<span><span class="heti-spacing"> </span><span class="arithmatex">\((m_1, m_2, \dots, m_k)\)</span></span>，使得目标函数极小化：
+    $$
+    \min_{m_1, \dots, m_k} \sum_{l=1}^k \sum_{C(i)=l} |x_i - m_l|^2
+    $$
+    也就是说，在划分确定的情况下，使样本和其所属类的中心之间的距离总和最小。求解结果是，对于每个包含 <span class="arithmatex">\(n_l\)</span> 个样本的类 <span class="arithmatex">\(G_l\)</span>，更新其均值 <span class="arithmatex">\(m_l\)</span>:
+    $$
+    m_l = \frac{1}{n_l} \sum_{C(i)=l} x_i, \quad l = 1, \dots, k
+    $$</li>
+<li><strong>重复：</strong> 重复以上步骤（指派和更新<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，直到划分不再改变，或者达到预设的最大迭代次数，得到最终的聚类结果。</li>
+</ol>
+<details class="tip" open="open">
+<summary><span>K-<span class="heti-spacing"> </span></span>均值聚类算法<span><span class="heti-spacing"> </span>(page 47)</span></summary>
+<p><strong>输入：</strong> <span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>个样本的集合<span><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span></span>；类别个数<span><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span></span>。
+<strong>输出：</strong> 样本集合的聚类<span><span class="heti-spacing"> </span><span class="arithmatex">\(C^*\)</span></span>。</p>
+<ol>
+<li><strong>初始化：</strong> 令<span><span class="heti-spacing"> </span><span class="arithmatex">\(t=0\)</span></span>，随机选择<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>个样本点作为初始聚类中心<span><span class="heti-spacing"> </span><span class="arithmatex">\(m^{(0)} = (m_1^{(0)}, \dots, m_k^{(0)})\)</span>.</span></li>
+<li><strong>对样本进行聚类：</strong> 对固定的类中心<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m^{(t)} = (m_1^{(t)}, \dots, m_k^{(t)})\)</span>,<span class="heti-spacing"> </span></span>计算每个样本到类中心的距离，将每个样本指派到与其最近的中心所在的类中，构成聚类结果<span><span class="heti-spacing"> </span><span class="arithmatex">\(C^{(t)}\)</span></span>。</li>
+<li><strong>计算新的类中心：</strong> 对聚类结果<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(C^{(t)}\)</span>,<span class="heti-spacing"> </span></span>计算当前各个类中的样本的均值，作为新的类中心<span><span class="heti-spacing"> </span><span class="arithmatex">\(m^{(t+1)} = (m_1^{(t+1)}, \dots, m_k^{(t+1)})\)</span>.</span></li>
+<li><strong>收敛判断：</strong> 如果迭代收敛（即<span><span class="heti-spacing"> </span><span class="arithmatex">\(C^{(t+1)} = C^{(t)}\)</span></span>）或符合停止条件，输出<span><span class="heti-spacing"> </span><span class="arithmatex">\(C^* = C^{(t)}\)</span></span>。否则，令<span><span class="heti-spacing"> </span><span class="arithmatex">\(t = t+1\)</span></span>，返回步<span><span class="heti-spacing"> </span>(2)</span>。</li>
+</ol>
+<p><span>K-<span class="heti-spacing"> </span></span>均值聚类算法的复杂度是<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(mnk)\)</span></span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\)</span><span class="heti-spacing"> </span></span>是样本维数，<span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>是样本个数，<span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>是类别个数。</p>
+</details>
+<h3 id="K-均值聚类示例-page-48-50"><span>K-<span class="heti-spacing"> </span></span>均值聚类示例<span><span class="heti-spacing"> </span>(page 48-50)</span><a class="headerlink" href="#K-均值聚类示例-page-48-50" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><strong>给定含有<span class="heti-skip"><span class="heti-spacing"> </span>5<span class="heti-spacing"> </span></span>个样本的集合<span><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span></span>：</strong></p>
+<div class="arithmatex">\[
+X = \begin{pmatrix}
+0 &amp; 0 &amp; 1 &amp; 5 &amp; 5 \\
+2 &amp; 0 &amp; 0 &amp; 0 &amp; 2
+\end{pmatrix}
+\]</div>
+<p>试用<span class="heti-skip"><span class="heti-spacing"> </span>K-<span class="heti-spacing"> </span></span>均值聚类算法将样本聚到<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>个类中（即<span><span class="heti-spacing"> </span><span class="arithmatex">\(k=2\)</span></span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<p><strong>步骤：</strong></p>
+<ol>
+<li>
+<p><strong>初始化：</strong> 选择两个样本点作为类的中心。假设选择<span><span class="heti-spacing"> </span><span class="arithmatex">\(m_1^{(0)} = x_1 = (0, 2)^T\)</span>, <span class="arithmatex">\(m_2^{(0)} = x_2 = (0, 0)^T\)</span></span>。</p>
+</li>
+<li>
+<p><strong>第一次迭代<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>样本指派：</strong> 以<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m_1^{(0)}, m_2^{(0)}\)</span><span class="heti-spacing"> </span></span>为类<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G_1^{(0)}, G_2^{(0)}\)</span><span class="heti-spacing"> </span></span>的中心，计算所有样本到这两个中心的欧氏距离平方：</p>
+<ul>
+<li><span class="arithmatex">\(x_1=(0,2)^T\)</span>:<ul>
+<li><span class="arithmatex">\(d(x_1, m_1^{(0)}) = \|(0,2)^T - (0,2)^T\|^2 = 0\)</span></li>
+<li><span class="arithmatex">\(d(x_1, m_2^{(0)}) = \|(0,2)^T - (0,0)^T\|^2 = 0^2 + 2^2 = 4\)</span></li>
+<li><span><span class="arithmatex">\(x_1\)</span><span class="heti-spacing"> </span></span>离<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m_1^{(0)}\)</span><span class="heti-spacing"> </span></span>最近，所以<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_1 \in G_1^{(0)}\)</span></span>。</li>
+</ul>
+</li>
+<li><span class="arithmatex">\(x_2=(0,0)^T\)</span>:<ul>
+<li><span class="arithmatex">\(d(x_2, m_1^{(0)}) = \|(0,0)^T - (0,2)^T\|^2 = 0^2 + (-2)^2 = 4\)</span></li>
+<li><span class="arithmatex">\(d(x_2, m_2^{(0)}) = \|(0,0)^T - (0,0)^T\|^2 = 0\)</span></li>
+<li><span><span class="arithmatex">\(x_2\)</span><span class="heti-spacing"> </span></span>离<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m_2^{(0)}\)</span><span class="heti-spacing"> </span></span>最近，所以<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_2 \in G_2^{(0)}\)</span></span>。</li>
+</ul>
+</li>
+<li><span class="arithmatex">\(x_3=(1,0)^T\)</span>:<ul>
+<li><span class="arithmatex">\(d(x_3, m_1^{(0)}) = \|(1,0)^T - (0,2)^T\|^2 = (1-0)^2 + (0-2)^2 = 1^2 + (-2)^2 = 1+4=5\)</span></li>
+<li><span class="arithmatex">\(d(x_3, m_2^{(0)}) = \|(1,0)^T - (0,0)^T\|^2 = (1-0)^2 + (0-0)^2 = 1^2 + 0^2 = 1\)</span></li>
+<li><span><span class="arithmatex">\(x_3\)</span><span class="heti-spacing"> </span></span>离<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m_2^{(0)}\)</span><span class="heti-spacing"> </span></span>最近，所以<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_3 \in G_2^{(0)}\)</span></span>。</li>
+</ul>
+</li>
+<li><span class="arithmatex">\(x_4=(5,0)^T\)</span>:<ul>
+<li><span class="arithmatex">\(d(x_4, m_1^{(0)}) = \|(5,0)^T - (0,2)^T\|^2 = (5-0)^2 + (0-2)^2 = 5^2 + (-2)^2 = 25+4=29\)</span></li>
+<li><span class="arithmatex">\(d(x_4, m_2^{(0)}) = \|(5,0)^T - (0,0)^T\|^2 = (5-0)^2 + (0-0)^2 = 5^2 + 0^2 = 25\)</span></li>
+<li><span><span class="arithmatex">\(x_4\)</span><span class="heti-spacing"> </span></span>离<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m_2^{(0)}\)</span><span class="heti-spacing"> </span></span>最近，所以<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_4 \in G_2^{(0)}\)</span></span>。</li>
+</ul>
+</li>
+<li><span class="arithmatex">\(x_5=(5,2)^T\)</span>:<ul>
+<li><span class="arithmatex">\(d(x_5, m_1^{(0)}) = \|(5,2)^T - (0,2)^T\|^2 = (5-0)^2 + (2-2)^2 = 5^2 + 0^2 = 25\)</span></li>
+<li><span class="arithmatex">\(d(x_5, m_2^{(0)}) = \|(5,2)^T - (0,0)^T\|^2 = (5-0)^2 + (2-0)^2 = 5^2 + 2^2 = 25+4=29\)</span></li>
+<li><span><span class="arithmatex">\(x_5\)</span><span class="heti-spacing"> </span></span>离<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m_1^{(0)}\)</span><span class="heti-spacing"> </span></span>最近，所以<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_5 \in G_1^{(0)}\)</span></span>。</li>
+</ul>
+</li>
+</ul>
+<p><strong>第一次迭代聚类结果<span><span class="heti-spacing"> </span><span class="arithmatex">\(C^{(0)}\)</span></span>：</strong> <span class="arithmatex">\(G_1^{(0)} = \{x_1, x_5\}\)</span>, <span class="arithmatex">\(G_2^{(0)} = \{x_2, x_3, x_4\}\)</span>。</p>
+</li>
+<li>
+<p><strong>第一次迭代<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>中心更新：</strong></p>
+<ul>
+<li><span class="arithmatex">\(m_1^{(1)} = \frac{1}{2}(x_1 + x_5) = \frac{1}{2}((0,2)^T + (5,2)^T) = \frac{1}{2}(5,4)^T = (2.5, 2.0)^T\)</span></li>
+<li><span class="arithmatex">\(m_2^{(1)} = \frac{1}{3}(x_2 + x_3 + x_4) = \frac{1}{3}((0,0)^T + (1,0)^T + (5,0)^T) = \frac{1}{3}(6,0)^T = (2.0, 0.0)^T\)</span></li>
+</ul>
+</li>
+<li>
+<p><strong>第二次迭代<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>样本指派：</strong> 以<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m_1^{(1)}, m_2^{(1)}\)</span><span class="heti-spacing"> </span></span>为类<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G_1^{(1)}, G_2^{(1)}\)</span><span class="heti-spacing"> </span></span>的中心，计算所有样本到这两个中心的欧氏距离平方：</p>
+<ul>
+<li><span class="arithmatex">\(x_1=(0,2)^T\)</span>:<ul>
+<li><span class="arithmatex">\(d(x_1, m_1^{(1)}) = \|(0,2)^T - (2.5,2.0)^T\|^2 = (-2.5)^2 + 0^2 = 6.25\)</span></li>
+<li><span class="arithmatex">\(d(x_1, m_2^{(1)}) = \|(0,2)^T - (2.0,0.0)^T\|^2 = (-2.0)^2 + 2^2 = 4+4=8\)</span></li>
+<li><span><span class="arithmatex">\(x_1\)</span><span class="heti-spacing"> </span></span>离<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m_1^{(1)}\)</span><span class="heti-spacing"> </span></span>最近，所以<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_1 \in G_1^{(1)}\)</span></span>。</li>
+</ul>
+</li>
+<li><span class="arithmatex">\(x_2=(0,0)^T\)</span>:<ul>
+<li><span class="arithmatex">\(d(x_2, m_1^{(1)}) = \|(0,0)^T - (2.5,2.0)^T\|^2 = (-2.5)^2 + (-2.0)^2 = 6.25+4=10.25\)</span></li>
+<li><span class="arithmatex">\(d(x_2, m_2^{(1)}) = \|(0,0)^T - (2.0,0.0)^T\|^2 = (-2.0)^2 + 0^2 = 4\)</span></li>
+<li><span><span class="arithmatex">\(x_2\)</span><span class="heti-spacing"> </span></span>离<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m_2^{(1)}\)</span><span class="heti-spacing"> </span></span>最近，所以<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_2 \in G_2^{(1)}\)</span></span>。</li>
+</ul>
+</li>
+<li><span class="arithmatex">\(x_3=(1,0)^T\)</span>:<ul>
+<li><span class="arithmatex">\(d(x_3, m_1^{(1)}) = \|(1,0)^T - (2.5,2.0)^T\|^2 = (-1.5)^2 + (-2.0)^2 = 2.25+4=6.25\)</span></li>
+<li><span class="arithmatex">\(d(x_3, m_2^{(1)}) = \|(1,0)^T - (2.0,0.0)^T\|^2 = (-1.0)^2 + 0^2 = 1\)</span></li>
+<li><span><span class="arithmatex">\(x_3\)</span><span class="heti-spacing"> </span></span>离<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m_2^{(1)}\)</span><span class="heti-spacing"> </span></span>最近，所以<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_3 \in G_2^{(1)}\)</span></span>。</li>
+</ul>
+</li>
+<li><span class="arithmatex">\(x_4=(5,0)^T\)</span>:<ul>
+<li><span class="arithmatex">\(d(x_4, m_1^{(1)}) = \|(5,0)^T - (2.5,2.0)^T\|^2 = (2.5)^2 + (-2.0)^2 = 6.25+4=10.25\)</span></li>
+<li><span class="arithmatex">\(d(x_4, m_2^{(1)}) = \|(5,0)^T - (2.0,0.0)^T\|^2 = (3.0)^2 + 0^2 = 9\)</span></li>
+<li><span><span class="arithmatex">\(x_4\)</span><span class="heti-spacing"> </span></span>离<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m_2^{(1)}\)</span><span class="heti-spacing"> </span></span>最近，所以<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_4 \in G_2^{(1)}\)</span></span>。</li>
+</ul>
+</li>
+<li><span class="arithmatex">\(x_5=(5,2)^T\)</span>:<ul>
+<li><span class="arithmatex">\(d(x_5, m_1^{(1)}) = \|(5,2)^T - (2.5,2.0)^T\|^2 = (2.5)^2 + 0^2 = 6.25\)</span></li>
+<li><span class="arithmatex">\(d(x_5, m_2^{(1)}) = \|(5,2)^T - (2.0,0.0)^T\|^2 = (3.0)^2 + 2^2 = 9+4=13\)</span></li>
+<li><span><span class="arithmatex">\(x_5\)</span><span class="heti-spacing"> </span></span>离<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m_1^{(1)}\)</span><span class="heti-spacing"> </span></span>最近，所以<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_5 \in G_1^{(1)}\)</span></span>。</li>
+</ul>
+</li>
+</ul>
+<p><strong>第二次迭代聚类结果<span><span class="heti-spacing"> </span><span class="arithmatex">\(C^{(1)}\)</span></span>：</strong> <span class="arithmatex">\(G_1^{(1)} = \{x_1, x_5\}\)</span>, <span class="arithmatex">\(G_2^{(1)} = \{x_2, x_3, x_4\}\)</span>。</p>
+<p>由于得到的新的类没有改变（<span><span class="arithmatex">\(C^{(1)}\)</span><span class="heti-spacing"> </span></span>与<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(C^{(0)}\)</span><span class="heti-spacing"> </span></span>相同<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，聚类停止。</p>
+<p><strong>最终聚类结果：</strong> <span class="arithmatex">\(G_1^* = \{x_1, x_5\}\)</span>, <span class="arithmatex">\(G_2^* = \{x_2, x_3, x_4\}\)</span>。</p>
+</li>
+</ol>
+<h3 id="K-均值聚类算法特点-page-51"><span>K-<span class="heti-spacing"> </span></span>均值聚类算法特点<span><span class="heti-spacing"> </span>(page 51)</span><a class="headerlink" href="#K-均值聚类算法特点-page-51" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>基于划分的聚类方法：</strong> 将数据集划分为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>个不重叠的簇。</li>
+<li><strong>类别数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>事先指定：</strong> 聚类前需要确定希望得到的簇的数量。</li>
+<li><strong>距离度量：</strong> 通常以欧氏距离平方表示样本之间的距离，以中心或样本的均值表示类别。</li>
+<li><strong>目标函数：</strong> 以样本和其所属类的中心之间的距离的总和为最优化的目标函数。</li>
+<li><strong>结果特点：</strong> 得到的类别是平坦的、非层次化的。</li>
+<li><strong>迭代算法：</strong> 通过迭代指派和更新中心来逐步优化。</li>
+<li><strong>无法保证全局最优：</strong> <span>K-<span class="heti-spacing"> </span></span>均值属于启发式算法，可能会收敛到局部最优解，而不是全局最优解，其结果依赖于初始中心的选择。</li>
+</ul>
+<h3 id="K-均值聚类算法收敛性-page-52"><span>K-<span class="heti-spacing"> </span></span>均值聚类算法收敛性<span><span class="heti-spacing"> </span>(page 52)</span><a class="headerlink" href="#K-均值聚类算法收敛性-page-52" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>K-<span class="heti-spacing"> </span></span>均值聚类属于启发式方法，不能保证收敛到全局最优，初始中心的选择会直接影响聚类结果。尽管如此，类中心在聚类的过程中会发生移动，但往往不会移动太大，因为在每一步，样本都被分到与其最近的中心的类中，这个局部优化步骤限制了中心的剧烈变动。</p>
+<h3 id="K-均值聚类算法初始类的选择-page-53"><span>K-<span class="heti-spacing"> </span></span>均值聚类算法：初始类的选择<span><span class="heti-spacing"> </span>(page 53)</span><a class="headerlink" href="#K-均值聚类算法初始类的选择-page-53" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li>选择不同的初始中心，可能会得到不同的聚类结果。这是<span class="heti-skip"><span class="heti-spacing"> </span>K-<span class="heti-spacing"> </span></span>均值算法的一个关键挑战。</li>
+<li>一种常见的初始中心选择方法是：可以使用层次聚类对样本进行聚类，得到<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>个类时停止。然后从每个类中选取一个与中心距离最近的点作为<span class="heti-skip"><span class="heti-spacing"> </span>K-<span class="heti-spacing"> </span></span>均值算法的初始中心。</li>
+<li>其他更高级的初始化策略包括<span><span class="heti-spacing"> </span>K-means++</span>，旨在选择彼此之间距离较远的初始中心点。</li>
+</ul>
+<h3 id="K-均值聚类算法k-的选择-page-54"><span>K-<span class="heti-spacing"> </span></span>均值聚类算法：<span>k<span class="heti-spacing"> </span></span>的选择<span><span class="heti-spacing"> </span>(page 54)</span><a class="headerlink" href="#K-均值聚类算法k-的选择-page-54" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><span>K-<span class="heti-spacing"> </span></span>均值聚类中的类别数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>值需要预先指定，而在实际应用中，最优的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>值是不知道的。</li>
+<li>一种常用的方法是尝试用不同的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>值进行聚类，检验得到聚类结果的质量，从而推测最优的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>值。</li>
+<li>聚类结果的质量可以用类的平均直径来衡量：一般地，类别数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>变小时，平均直径会增加。类别数变大超过某个值以后，平均直径会不再发生显著变化，而这个值正是最优的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>值。这种方法被称为 <strong>“肘部法则” (Elbow Method)</strong> ，可以通过绘制平均直径随<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>值变化的曲线来观察“肘部”点。</li>
+<li>实验时，可以采用二分查找等方法，快速找到最优的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>值。</li>
+</ul>
+<h2 id="谱聚类-Spectral-Clustering-page-55">谱聚类<span><span class="heti-spacing"> </span>(Spectral Clustering) (page 55)</span><a class="headerlink" href="#谱聚类-Spectral-Clustering-page-55" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="引言-page-56-58">引言<span><span class="heti-spacing"> </span>(page 56-58)</span><a class="headerlink" href="#引言-page-56-58" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><strong>回忆<span class="heti-skip"><span class="heti-spacing"> </span>K-means<span class="heti-spacing"> </span></span>聚类：</strong> <span>K-means<span class="heti-spacing"> </span></span>算法简单高效，但其假设每个簇可以用一个中心点来表示，并且特别适合于单个簇符合高斯分布（或凸形）的情形。对于一些非凸、复杂的簇形状，<span>K-means<span class="heti-spacing"> </span></span>往往表现不佳，例如环形结构的数据，<span>K-means<span class="heti-spacing"> </span></span>可能会将其错误地分为多个簇，因为它在中心附近没有样本点。</p>
+<p><strong>对于其它分布情形：</strong> 谱聚类允许我们解决这些非凸、非球形或非线性可分的数据簇的聚类问题。</p>
+<details class="definition" open="open">
+<summary>谱学习方法<span><span class="heti-spacing"> </span>(Spectral Learning) (page 58)</span></summary>
+<p>广义上讲，任何在学习过程中应用到矩阵特征值分解（Eigenvalue Decomposition）的方法都可称为谱学习方法，比如主成分分析<span><span class="heti-spacing"> </span>(PCA)</span>、线性判别分析<span><span class="heti-spacing"> </span>(LDA)</span>、流形学习中的谱嵌入方法、以及本章重点讲解的谱聚类等等。</p>
+</details>
+<details class="definition" open="open">
+<summary>谱聚类<span><span class="heti-spacing"> </span>(Spectral Clustering) (page 58)</span></summary>
+<p>谱聚类算法建立在<strong>图论</strong>的<strong>谱图理论</strong>基础之上，其本质是将聚类问题转化为一个<strong>图上的关于顶点划分的最优问题</strong>。</p>
+<p>谱聚类算法建立在<strong>点对亲和性</strong>（即相似性）基础之上，理论上能够对任意分布形状的样本空间进行聚类，解决了<span class="heti-skip"><span class="heti-spacing"> </span>K-means<span class="heti-spacing"> </span></span>在处理非凸簇时的局限性。</p>
+<p><strong>历史发展：</strong> 最早关于谱聚类的研究始于<span class="heti-skip"><span class="heti-spacing"> </span>1973<span class="heti-spacing"> </span></span>年，主要用于计算机视觉<span class="heti-skip"><span class="heti-spacing"> </span>(Computer Vision)<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>VLSI<span class="heti-spacing"> </span></span>设计领域。从<span class="heti-skip"><span class="heti-spacing"> </span>2000<span class="heti-spacing"> </span></span>年开始，谱聚类逐渐成为机器学习领域中的一个研究热点。</p>
+</details>
+<h3 id="图论基本概念-page-59-70">图论基本概念<span><span class="heti-spacing"> </span>(page 59-70)</span><a class="headerlink" href="#图论基本概念-page-59-70" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>谱聚类算法的核心思想是将数据点视为图的顶点，数据点之间的相似度视为边的权重。因此，理解图论的基本概念是学习谱聚类的基础。</p>
+<ul>
+<li>
+<p><strong>图<span><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span> (Graph)</span></strong> (page 59)：</p>
+<ul>
+<li>由顶点集<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(V\)</span><span class="heti-spacing"> </span></span>和边集<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(E\)</span><span class="heti-spacing"> </span></span>所构成，记为<span><span class="heti-spacing"> </span><span class="arithmatex">\(G(V, E)\)</span></span>。</li>
+<li>根据边是否有向，可以分为<strong>无向图</strong>或者<strong>有向图</strong>。在谱聚类中，通常使用无向图。</li>
+</ul>
+</li>
+<li>
+<p><strong>图<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>的邻接矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(W\)</span> (Adjacency Matrix)</span></strong> (page 59)：</p>
+<ul>
+<li>是一个方阵，其行数和列数等于图中顶点的个数<span><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span></span>。</li>
+<li>矩阵元素<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(W_{ij}\)</span><span class="heti-spacing"> </span></span>表示顶点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>和顶点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(j\)</span><span class="heti-spacing"> </span></span>之间边的权重。</li>
+<li>对于未加权图，如果顶点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>和顶点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(j\)</span><span class="heti-spacing"> </span></span>之间有边相连，则<span><span class="heti-spacing"> </span><span class="arithmatex">\(W_{ij}=1\)</span></span>；如果没有边相连，则<span><span class="heti-spacing"> </span><span class="arithmatex">\(W_{ij}=0\)</span></span>。在谱聚类中，通常是加权图， <span><span class="arithmatex">\(W_{ij}\)</span><span class="heti-spacing"> </span></span>为相似度值。</li>
+<li>对于无向图，邻接矩阵是对称的，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(W_{ij} = W_{ji}\)</span></span>。</li>
+</ul>
+</li>
+<li>
+<p><strong>顶点的度<span><span class="heti-spacing"> </span>(Degree of a Vertex)</span></strong> (page 60, 65)：</p>
+<ul>
+<li>对于未加权图，一个顶点的度等于与该顶点相连接的边的条数。</li>
+<li>对于加权图，一个顶点的度<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(d_i\)</span><span class="heti-spacing"> </span></span>等于所有与该顶点相连接的边的权重之和：
+    $$
+    d_i = \sum_{j \in V} W_{ij}
+    $$
+    如果顶点 <span class="arithmatex">\(x_j\)</span> 不与 <span class="arithmatex">\(x_i\)</span> 相连接，则 <span class="arithmatex">\(W_{ij}=0\)</span>。</li>
+</ul>
+</li>
+<li>
+<p><strong>度矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(D\)</span> (Degree Matrix)</span></strong> (page 60)：</p>
+<ul>
+<li>是一个对角矩阵。将邻接矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(W\)</span><span class="heti-spacing"> </span></span>各行元素累加至对应的对角元素，即对角线元素<span><span class="heti-spacing"> </span><span class="arithmatex">\(D_{ii} = d_i = \sum_j W_{ij}\)</span></span>，非对角线元素为<span><span class="heti-spacing"> </span><span class="arithmatex">\(0\)</span></span>。</li>
+</ul>
+</li>
+<li>
+<p><strong>拉普拉斯矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(L\)</span> (Laplacian Matrix)</span></strong> (page 61, 66)：</p>
+<ul>
+<li>是描述图的一种矩阵，通常定义为<strong>度矩阵减去邻接矩阵</strong>：
+    $$
+    L = D - W
+    $$</li>
+<li>其中，<span><span class="arithmatex">\(D\)</span><span class="heti-spacing"> </span></span>是一个对角矩阵，主对角元素表示顶点的度；<span><span class="arithmatex">\(W\)</span><span class="heti-spacing"> </span></span>为亲和度矩阵（即邻接矩阵<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，其元素<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(W_{ij}\)</span><span class="heti-spacing"> </span></span>表示顶点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_i\)</span><span class="heti-spacing"> </span></span>与<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_j\)</span><span class="heti-spacing"> </span></span>之间的亲和程度（即相似度<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+</ul>
+</li>
+<li>
+<p><strong>基于数据集的图构造<span><span class="heti-spacing"> </span>(Graph Construction from Dataset)</span></strong> (page 62-64)：</p>
+<ul>
+<li>在谱聚类中，将每一个数据点视为图的一个顶点。</li>
+<li>顶点之间可以有边相连，每条边上加上一些权重，用来反映点对<strong>亲和性</strong>（即相似性<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>亲和性函数：</strong> 常用高斯函数计算点对亲和性：
+    $$
+    W_{ij} = \exp\left(-\frac{|x_i - x_j|^2}{2\sigma^2}\right)
+    $$
+    其中，<span class="arithmatex">\(\|x_i - x_j\|^2\)</span> 是欧氏距离平方，<span class="arithmatex">\(\sigma^2\)</span> 是一个尺度参数，控制相似度衰减的速度。</li>
+<li><strong>图的连接方式<span><span class="heti-spacing"> </span>(Connectivity Types)</span></strong> (page 64)：<ul>
+<li><strong>全连接图：</strong> 所有数据点之间都有边相连。</li>
+<li><strong>局部连接图：</strong> 只连接相近的数据点，通常基于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span> -<span class="heti-spacing"> </span></span>近邻或<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon\)</span> -<span class="heti-spacing"> </span></span>半径。<ul>
+<li><strong><span><span class="arithmatex">\(k\)</span> -<span class="heti-spacing"> </span></span>近邻<span><span class="heti-spacing"> </span>(<span class="arithmatex">\(k\)</span> -NN)</span>：</strong> 对每个数据点<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_i\)</span></span>，首先在所有样本中找出不包含<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_i\)</span><span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>个最邻近的样本点，然后<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_i\)</span><span class="heti-spacing"> </span></span>与每个邻近样本点之间均有一条边相连。为了保证<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(W\)</span><span class="heti-spacing"> </span></span>矩阵的对称性，可以令<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(W_{ij} = W_{ji} = (W_{ij}^T + W_{ji})/2\)</span> (<span class="heti-spacing"> </span></span>对于非对称的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span> -NN<span class="heti-spacing"> </span></span>图<span><span class="heti-spacing"> </span>)</span>。</li>
+<li><strong><span><span class="arithmatex">\(\epsilon\)</span> -<span class="heti-spacing"> </span></span>半径<span><span class="heti-spacing"> </span>(<span class="arithmatex">\(\epsilon\)</span> -ball)</span>：</strong> 连接所有距离小于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon\)</span><span class="heti-spacing"> </span></span>的数据点。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>相似度矩阵：</strong> 构造完成后，可以得到一个点对相似度矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(W\)</span></span>。</li>
+</ul>
+</li>
+<li>
+<p><strong>子图概念<span><span class="heti-spacing"> </span>(Subgraph Concepts)</span></strong> (page 67)：</p>
+<ul>
+<li><strong>子图<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A \subset V\)</span><span class="heti-spacing"> </span></span>的势<span><span class="heti-spacing"> </span><span class="arithmatex">\(|A|\)</span></span>：</strong> 等于其所包含的顶点个数。</li>
+<li><strong>子图<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A \subset V\)</span><span class="heti-spacing"> </span></span>的体积<span><span class="heti-spacing"> </span><span class="arithmatex">\(\text{vol}(A)\)</span></span>：</strong> 等于其中所有顶点的度之和，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(\text{vol}(A) = \sum_{i \in A} d_i\)</span></span>。</li>
+</ul>
+</li>
+<li>
+<p><strong>子图<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>的补图<span><span class="heti-spacing"> </span><span class="arithmatex">\(\bar{A}\)</span> (Complement of Subgraph A)</span></strong> (page 68)：</p>
+<ul>
+<li><span><span class="arithmatex">\(V\)</span><span class="heti-spacing"> </span></span>中去掉<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>的顶点所构成的子图<span><span class="heti-spacing"> </span><span class="arithmatex">\(\bar{A}\)</span></span>，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(\bar{A} = V - A\)</span></span>。</li>
+</ul>
+</li>
+<li>
+<p><strong>边割<span><span class="heti-spacing"> </span>(Edge Cut)</span></strong> (page 68)：</p>
+<ul>
+<li>指边的一个子集，去掉该子集中的边后，图就变成两个或多个连通子图。</li>
+</ul>
+</li>
+<li>
+<p><strong>图切割<span><span class="heti-spacing"> </span>(Graph Cut)</span></strong> (page 69)：</p>
+<ul>
+<li>设<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A_1, A_2, \dots, A_k\)</span><span class="heti-spacing"> </span></span>为顶点集合<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(V\)</span><span class="heti-spacing"> </span></span>的非空连通子集，如果<span><span class="heti-spacing"> </span><span class="arithmatex">\(A_i \cap A_j = \emptyset\)</span> (for <span class="arithmatex">\(i \ne j\)</span>)</span>，且<span><span class="heti-spacing"> </span><span class="arithmatex">\(A_1 \cup A_2 \cup \dots \cup A_k = V\)</span></span>，则称<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A_1, A_2, \dots, A_k\)</span><span class="heti-spacing"> </span></span>为图<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>的一个分割。</li>
+</ul>
+</li>
+<li>
+<p><strong>子图相似度<span><span class="heti-spacing"> </span><span class="arithmatex">\(W(A, B)\)</span> (Subgraph Similarity)</span></strong> (page 70)：</p>
+<ul>
+<li>子图<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>与子图<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(B\)</span><span class="heti-spacing"> </span></span>的相似度定义为连接两个子图所有边的权重之和：
+    $$
+    W(A, B) = \sum_{i \in A, j \in B} W_{ij}
+    $$</li>
+<li><strong>注：</strong> 如果两个顶点不相连，则权重为零。</li>
+</ul>
+</li>
+<li>
+<p><strong>子图之间的切割<span><span class="heti-spacing"> </span><span class="arithmatex">\(\text{cut}(A, B)\)</span> (Cut between Subgraphs)</span></strong> (page 70)：</p>
+<ul>
+<li>子图<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>与子图<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(B\)</span><span class="heti-spacing"> </span></span>的切割定义为：
+    $$
+    \text{cut}(A, B) = W(A, B) = \sum_{i \in A, j \in B} W_{ij}
+    $$
+    这表示切断两个簇所需的边的权重总和。</li>
+</ul>
+</li>
+</ul>
+<h3 id="图切割-page-71-74">图切割<span><span class="heti-spacing"> </span>(page 71-74)</span><a class="headerlink" href="#图切割-page-71-74" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>聚类从图切割的角度来看，就是要找到一种合理的分割图的方法，使得分割后能形成若干个子图，连接不同子图的边的权重尽可能小，而子图内部的边权重尽可能大。</p>
+<h4 id="最小二分切割-Minimum-Bipartition-Cut-page-71-72">最小二分切割<span><span class="heti-spacing"> </span>(Minimum Bipartition Cut) (page 71-72)</span><a class="headerlink" href="#最小二分切割-Minimum-Bipartition-Cut-page-71-72" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>在所有的图切割中，找一个最小代价的切割，将图分为两个不连通的子图。也就是说，切开之后，两个子图之间的相似性要最小。最优化问题如下：</p>
+<div class="arithmatex">\[
+\begin{align}
+&amp;\min_A \text{cut}(A, \bar{A}) := W(A, \bar{A}) = \sum_{i \in A, j \in \bar{A}} W_{ij} \\
+\text{s.t.}\quad &amp; A \ne \emptyset, \quad \bar{A} \ne \emptyset \\
+&amp; A \cap \bar{A} = \emptyset \\
+&amp; A \cup \bar{A} = V
+\end{align}
+\]</div>
+<p><strong>问题：</strong> 在实践中，上述目标函数通常会将一个点（比如野点<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>异常值）从其余各点中分离出来。从聚类的角度看，这并不是我们所期望的，因为这只会创建一个非常小的孤立簇。</p>
+<h4 id="归一化最小二分切割-Normalized-Minimum-Bipartition-Cut-page-73-74">归一化最小二分切割<span><span class="heti-spacing"> </span>(Normalized Minimum Bipartition Cut) (page 73-74)</span><a class="headerlink" href="#归一化最小二分切割-Normalized-Minimum-Bipartition-Cut-page-73-74" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>出现上述问题的原因在于对子图的规模没有加以限制。一个基本的假设是希望两个子图的<strong>规模不要相差太大</strong>。一个基本的做法是采用<strong>子图的势</strong>或者<strong>体积</strong>来对切割进行归一化，即定义如下目标函数：</p>
+<ul>
+<li>
+<p><strong>采用子图的势（RatioCut）</strong>：</p>
+<div class="arithmatex">\[
+\text{RatioCut}(A, \bar{A}) := \frac{1}{2} \left( \frac{\text{cut}(A, \bar{A})}{|A|} + \frac{\text{cut}(A, \bar{A})}{|\bar{A}|} \right)
+\]</div>
+<p><span>RatioCut<span class="heti-spacing"> </span></span>旨在平衡簇的大小，避免切割出过小的簇。</p>
+</li>
+<li>
+<p><strong>采用子图的体积（Ncut）</strong>：</p>
+<div class="arithmatex">\[
+\text{Ncut}(A, \bar{A}) := \frac{1}{2} \left( \frac{\text{cut}(A, \bar{A})}{\text{vol}(A)} + \frac{\text{cut}(A, \bar{A})}{\text{vol}(\bar{A})} \right)
+\]</div>
+<p>Ncut（Normalized Cut）是谱聚类中最常用的切割准则之一，它考虑了簇内部的连接强度。</p>
+</li>
+</ul>
+<h4 id="K-切割-K-Cut-k--2-page-74"><span>K-<span class="heti-spacing"> </span></span>切割<span><span class="heti-spacing"> </span>(K-Cut) (<span class="arithmatex">\(k &gt; 2\)</span>) (page 74)</span><a class="headerlink" href="#K-切割-K-Cut-k--2-page-74" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>考虑将图分成<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>个子图：<span class="arithmatex">\(A_1, A_2, \dots, A_k\)</span>。一种直观的方法是将图切割问题理解为多个二分切割问题的综合。</p>
+<ul>
+<li>
+<p><strong>未归一化切割目标函数：</strong></p>
+<div class="arithmatex">\[\text{cut}(A_1, A_2, \dots, A_k) := \frac{1}{2} \sum_{i=1}^k W(A_i, \bar{A}_i) = \frac{1}{2} \sum_{i=1}^k \text{cut}(A_i, \bar{A}_i)\]</div>
+</li>
+<li>
+<p><strong>比例切割目标函数<span><span class="heti-spacing"> </span>(RatioCut)</span>：</strong></p>
+<div class="arithmatex">\[\text{RatioCut}(A_1, A_2, \dots, A_k) := \frac{1}{2} \sum_{i=1}^k \frac{W(A_i, \bar{A}_i)}{|A_i|} = \sum_{i=1}^k \frac{\text{cut}(A_i, \bar{A}_i)}{|A_i|}\]</div>
+</li>
+<li>
+<p><strong>归一化切割目标函数<span><span class="heti-spacing"> </span>(Ncut)</span>：</strong></p>
+<div class="arithmatex">\[\text{Ncut}(A_1, A_2, \dots, A_k) := \frac{1}{2} \sum_{i=1}^k \frac{W(A_i, \bar{A}_i)}{\text{vol}(A_i)} = \sum_{i=1}^k \frac{\text{cut}(A_i, \bar{A}_i)}{\text{vol}(A_i)}\]</div>
+</li>
+</ul>
+<h3 id="拉普拉斯矩阵的性质-page-75-80">拉普拉斯矩阵的性质<span><span class="heti-spacing"> </span>(page 75-80)</span><a class="headerlink" href="#拉普拉斯矩阵的性质-page-75-80" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>拉普拉斯矩阵的性质与图的连通性和特征值密切相关，这些性质是谱聚类算法理论基础。</p>
+<h4 id="基本性质-page-75">基本性质<span><span class="heti-spacing"> </span>(page 75)</span><a class="headerlink" href="#基本性质-page-75" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<ul>
+<li>
+<p><strong><span>L<span class="heti-spacing"> </span></span>的行和为零：</strong>
+    由于 <span class="arithmatex">\(L = D - W\)</span>，且 <span class="arithmatex">\(D\)</span> 的对角元素是 <span class="arithmatex">\(W\)</span> 各行元素之和（即 <span class="arithmatex">\(d_i = \sum_j W_{ij}\)</span>），因此 <span class="arithmatex">\(L\)</span> 的任意行的元素和为 <span class="arithmatex">\(d_i - \sum_j W_{ij} = 0\)</span>。</p>
+</li>
+<li>
+<p><strong><span>L<span class="heti-spacing"> </span></span>是半正定矩阵<span><span class="heti-spacing"> </span>(Positive Semi-definite Matrix)</span>：</strong>
+    对于任意向量 <span class="arithmatex">\(f = [f_1, f_2, \dots, f_n]^T \in \mathbb{R}^n\)</span>，有：</p>
+<p>$$
+\begin{aligned}
+f^T Lf &amp;= f^T Df - f^T Wf \
+&amp;= \sum_{i=1}^n d_i f_i^2 - \sum_{i,j=1}^n f_i f_j W_{ij} \
+&amp;= \frac{1}{2} \left( \sum_{i=1}^n d_i f_i^2 - 2 \sum_{i,j=1}^n f_i f_j W_{ij} + \sum_{j=1}^n d_j f_j^2 \right) \
+&amp;= \frac{1}{2} \sum_{i,j=1}^n W_{ij} (f_i - f_j)^2 \ge 0
+\end{aligned}
+$$
+因为 <span class="arithmatex">\(W_{ij} \ge 0\)</span> 且 <span class="arithmatex">\((f_i - f_j)^2 \ge 0\)</span>，所以 <span class="arithmatex">\(f^T Lf \ge 0\)</span>，这证明了拉普拉斯矩阵是半正定矩阵。半正定矩阵的所有特征值都是非负的。</p>
+</li>
+<li>
+<p><strong><span>L<span class="heti-spacing"> </span></span>有<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>个非负的特征值：</strong> 由于拉普拉斯矩阵是半正定矩阵，其所有特征值都大于等于零。</p>
+</li>
+</ul>
+<h4 id="零特征值与图的连通性-page-75-77-79">零特征值与图的连通性<span><span class="heti-spacing"> </span>(page 75, 77-79)</span><a class="headerlink" href="#零特征值与图的连通性-page-75-77-79" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>这是一个重要的定理：</p>
+<details class="theorem" open="open">
+<summary>拉普拉斯矩阵的零特征值与图的连通分量<span><span class="heti-spacing"> </span>(page 77)</span></summary>
+<p>设<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>为一个具有非负连接权重的无向图，由图<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>导出的拉普拉斯矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L\)</span><span class="heti-spacing"> </span></span>的零特征值的重数（ multiplicity ）等于图<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>的连通分量的个数<span><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span></span>。</p>
+</details>
+<p><strong>证明：</strong></p>
+<ul>
+<li>
+<p><strong>若图<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>是连通的（即<span><span class="heti-spacing"> </span><span class="arithmatex">\(k=1\)</span></span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</strong></p>
+<ul>
+<li><span><span class="arithmatex">\(L\)</span><span class="heti-spacing"> </span></span>矩阵有一个特征值为<span><span class="heti-spacing"> </span><span class="arithmatex">\(0\)</span></span>。</li>
+<li>其对应的特征向量为一个元素全为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(1\)</span><span class="heti-spacing"> </span></span>的向量（例如<span><span class="heti-spacing"> </span><span class="arithmatex">\(e = [1, 1, \dots, 1]^T\)</span></span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>证明：由于<span><span class="heti-spacing"> </span><span class="arithmatex">\(L = D - W\)</span></span>，且<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D\)</span><span class="heti-spacing"> </span></span>的每一行和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(W\)</span><span class="heti-spacing"> </span></span>的每一行之和相等（都等于该顶点的度<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，因此<span><span class="heti-spacing"> </span><span class="arithmatex">\(L \cdot \mathbf{1} = (D - W) \mathbf{1} = D\mathbf{1} - W\mathbf{1} = d - d = \mathbf{0}\)</span></span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(d\)</span><span class="heti-spacing"> </span></span>是一个列向量，其元素为各个顶点的度。所以<span><span class="heti-spacing"> </span><span class="arithmatex">\(L \mathbf{1} = \mathbf{0}\)</span></span>，这意味着<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathbf{1}\)</span><span class="heti-spacing"> </span></span>是特征值<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(0\)</span><span class="heti-spacing"> </span></span>的特征向量。</li>
+<li>进一步，由<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f^T Lf = \frac{1}{2} \sum_{i,j=1}^n W_{ij} (f_i - f_j)^2 = 0\)</span><span class="heti-spacing"> </span></span>可推出<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(W_{ij} (f_i - f_j)^2 = 0\)</span><span class="heti-spacing"> </span></span>对任意<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i, j\)</span><span class="heti-spacing"> </span></span>成立。如果<span><span class="heti-spacing"> </span><span class="arithmatex">\(W_{ij} &gt; 0\)</span></span>（即<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(j\)</span><span class="heti-spacing"> </span></span>有边相连<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，则<span><span class="heti-spacing"> </span><span class="arithmatex">\(f_i - f_j = 0\)</span></span>，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(f_i = f_j\)</span></span>。</li>
+<li>因为图<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>是连通的，任意两个顶点之间都存在一条路径。这意味着通过路径上的连续连接，所有顶点的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f_i\)</span><span class="heti-spacing"> </span></span>值都必须相等。因此，对于连通图，特征值<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(0\)</span><span class="heti-spacing"> </span></span>对应的特征向量只能是所有分量相等的向量（例如<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathbf{1}\)</span><span class="heti-spacing"> </span></span>向量的任意常数倍<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。这说明特征值<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(0\)</span><span class="heti-spacing"> </span></span>的重数为<span><span class="heti-spacing"> </span><span class="arithmatex">\(1\)</span></span>。</li>
+</ul>
+</li>
+<li>
+<p><strong>若图<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>不连通（即<span><span class="heti-spacing"> </span><span class="arithmatex">\(k &gt; 1\)</span></span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</strong></p>
+<ul>
+<li>
+<p>不失一般性，假定样本点均按连通子图逐个排序。这样，由于连通子图之间不存在边相连，所以图<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>的拉普拉斯矩阵具有分块对角结构：</p>
+<div class="arithmatex">\[
+L = \begin{pmatrix}
+L_1 &amp; &amp; \\
+&amp; L_2 &amp; \\
+&amp; &amp; \ddots \\
+&amp; &amp; &amp; L_k
+\end{pmatrix}
+\]</div>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L_i\)</span><span class="heti-spacing"> </span></span>是第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>个连通子图的拉普拉斯矩阵。
+    - 每一个 <span class="arithmatex">\(L_i\)</span> 均为一个连通子图的拉普拉斯矩阵，因此每个 <span class="arithmatex">\(L_i\)</span> 都有一个特征值为 <span class="arithmatex">\(0\)</span>，且对应的特征向量是分量全为 <span class="arithmatex">\(1\)</span> 的向量。
+    - 我们可以构造 <span class="arithmatex">\(k\)</span> 个线性无关的特征向量，它们对应于特征值 <span class="arithmatex">\(0\)</span>。例如，对于第 <span class="arithmatex">\(s\)</span> 个连通分量 <span class="arithmatex">\(A_s\)</span>，我们可以构造一个指示向量 <span class="arithmatex">\(e_{A_s}\)</span>，其在 <span class="arithmatex">\(A_s\)</span> 对应的位置为 <span class="arithmatex">\(1\)</span>，在其他位置为 <span class="arithmatex">\(0\)</span>。那么 <span class="arithmatex">\(L e_{A_s} = \mathbf{0}\)</span>。
+    - 这些指示向量是线性无关的，因此特征值 <span class="arithmatex">\(0\)</span> 的重数就是 <span class="arithmatex">\(k\)</span>。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>这个定理告诉我们一个重要的结论：<strong>如果图<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>具有<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>个连通子图，若每个连通子图为一个聚类，那么采用其拉普拉斯矩阵的零特征值对应的特征向量可以将这些子图分离开来。</strong> 这是因为这些特征值对应的特征向量具有<strong>分块非零等值</strong>的结构，因此可以自然地将数据点分开。</p>
+<h4 id="实际应用中的考虑-page-80">实际应用中的考虑<span><span class="heti-spacing"> </span>(page 80)</span><a class="headerlink" href="#实际应用中的考虑-page-80" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>但是，实际应用中，数据簇之间并非是完全分离的（即图可能仍然是连通的，但连通性很弱<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。在此情形下，自然地，可以考察拉普拉斯矩阵<strong>最小的几个特征值</strong>对应的特征向量，并由这些特征向量组成新的特征空间。</p>
+<h3 id="谱聚类-page-81">谱聚类<span><span class="heti-spacing"> </span>(page 81)</span><a class="headerlink" href="#谱聚类-page-81" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<h4 id="谱聚类技术路线-page-82-83">谱聚类技术路线<span><span class="heti-spacing"> </span>(page 82-83)</span><a class="headerlink" href="#谱聚类技术路线-page-82-83" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>谱聚类算法的核心技术路线是：</p>
+<ol>
+<li><strong>构造图</strong>：基于数据点之间的相似性，构建一个加权无向图，形成亲和度矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(W\)</span></span>。这是至关重要的一步，因为拉普拉斯矩阵的构造本质上取决于对数据图的描述。</li>
+<li><strong>构建拉普拉斯矩阵</strong>：根据亲和度矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(W\)</span><span class="heti-spacing"> </span></span>和度矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D\)</span><span class="heti-spacing"> </span></span>构造拉普拉斯矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(L = D - W\)</span></span>。</li>
+<li><strong>特征值分解</strong>：对拉普拉斯矩阵进行特征值分解，求出其最小的几个特征值及其对应的特征向量。</li>
+<li><strong>降维与聚类</strong>：将这些特征向量的每一行视为一个新的数据点，形成一个低维特征空间。然后在这个新的特征空间上，使用传统的聚类算法（例如<span><span class="heti-spacing"> </span>K-means</span>）完成最终的聚类。</li>
+</ol>
+<h4 id="归一化图拉普拉斯-Normalized-Graph-Laplacian-page-84-86">归一化图拉普拉斯<span><span class="heti-spacing"> </span>(Normalized Graph Laplacian) (page 84-86)</span><a class="headerlink" href="#归一化图拉普拉斯-Normalized-Graph-Laplacian-page-84-86" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>为了解决非平衡切割问题（例如<span class="heti-skip"><span class="heti-spacing"> </span>RatioCut<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>Ncut</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，通常会使用归一化的拉普拉斯矩阵。有两种常见的归一化图拉普拉斯矩阵：</p>
+<ol>
+<li>
+<p><strong>对称归一化拉普拉斯<span><span class="heti-spacing"> </span>(Symmetric Normalized Laplacian)</span></strong>：
+    $$
+    L_{sym} = D^{-1/2} L D^{-1/2} = I - D^{-1/2} W D^{-1/2}
+    $$</p>
+</li>
+<li>
+<p><strong>随机游走归一化拉普拉斯<span><span class="heti-spacing"> </span>(Random Walk Normalized Laplacian)</span></strong>：
+    $$
+    L_{rw} = D^{-1} L = I - D^{-1} W
+    $$</p>
+</li>
+</ol>
+<details class="note" open="open">
+<summary>归一化拉普拉斯矩阵的性质<span><span class="heti-spacing"> </span>(page 85-86)</span></summary>
+<ul>
+<li><span><span class="arithmatex">\(L_{sym}\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L_{rw}\)</span><span class="heti-spacing"> </span></span>均为半正定矩阵，特征值非负，且至少有一个为零。</li>
+<li>对于任意向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(f = [f_1, f_2, \dots, f_n]^T \in \mathbb{R}^n\)</span></span>，有：
+   $$
+   f^T L_{sym} f = \frac{1}{2} \sum_{i,j=1}^n W_{ij} \left( \frac{f_i}{\sqrt{d_i}} - \frac{f_j}{\sqrt{d_j}} \right)^2
+   $$</li>
+<li><span><span class="arithmatex">\(L_{rw}\)</span><span class="heti-spacing"> </span></span>有一个零特征值且对应的特征向量分量全为<span><span class="heti-spacing"> </span><span class="arithmatex">\(1\)</span></span>（即<span><span class="heti-spacing"> </span><span class="arithmatex">\(e = [1, \dots, 1]^T\)</span></span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><span><span class="arithmatex">\(L_{sym}\)</span><span class="heti-spacing"> </span></span>也有一个零特征值且对应的特征向量为<span><span class="heti-spacing"> </span><span class="arithmatex">\(D^{1/2}e\)</span></span>。</li>
+<li><strong>零特征值的重数与连通分量：</strong> 设<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>为一个具有非负连接权重的无向图，由图<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>导出的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L_{sym}\)</span><span class="heti-spacing"> </span></span>及<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L_{rw}\)</span><span class="heti-spacing"> </span></span>的零特征值的重数等于图<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>的连通分量的个数<span><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span></span>。</li>
+<li><strong>指示向量与特征向量：</strong> 设<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A_1, A_2, \dots, A_k\)</span><span class="heti-spacing"> </span></span>为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>个连通成分，设<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(e_{A_i}\)</span><span class="heti-spacing"> </span></span>为对应于子图<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A_i\)</span><span class="heti-spacing"> </span></span>的指示向量，则<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(e_{A_i}\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L_{rw}\)</span><span class="heti-spacing"> </span></span>零特征值对应的特征向量，<span><span class="arithmatex">\(D^{1/2}e_{A_i}\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L_{sym}\)</span><span class="heti-spacing"> </span></span>的一个特征向量。</li>
+<li><strong>广义特征值分解：</strong> <span><span class="arithmatex">\(L_{rw}\)</span><span class="heti-spacing"> </span></span>的特征值分解问题<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L_{rw} u = \lambda u\)</span><span class="heti-spacing"> </span></span>等价于<span><span class="heti-spacing"> </span><span class="arithmatex">\(Lu = \lambda Du\)</span></span>，这是一个广义特征值问题。</li>
+</ul>
+</details>
+<h4 id="谱聚类算法流程-page-87-92">谱聚类算法流程<span><span class="heti-spacing"> </span>(page 87-92)</span><a class="headerlink" href="#谱聚类算法流程-page-87-92" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>根据不同的图拉普拉斯构造方法，可以得到不同的谱聚类算法形式。但是，这些算法的核心步骤都是相同的：</p>
+<ol>
+<li><strong>构建亲和度矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(W\)</span></span>：</strong> 利用点对之间的相似性。</li>
+<li><strong>构建拉普拉斯矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L\)</span> (<span class="heti-spacing"> </span></span>或其归一化形式<span><span class="heti-spacing"> </span>)</span>：</strong> 根据<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(W\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D\)</span><span class="heti-spacing"> </span></span>计算。</li>
+<li><strong>特征值分解：</strong> 求解拉普拉斯矩阵最小的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>个特征值对应的特征向量（通常舍弃零特征所对应的分量全相等的特征向量，因为它们对应的是整个图的连通信息而非簇的划分信息<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>降维与<span class="heti-skip"><span class="heti-spacing"> </span>K-means<span class="heti-spacing"> </span></span>聚类：</strong> 由这些特征向量构成样本点的新特征，采用<span class="heti-skip"><span class="heti-spacing"> </span>K-means<span class="heti-spacing"> </span></span>等传统聚类方法完成最后的聚类。</li>
+</ol>
+<p><strong>三个经典谱聚类算法概述：</strong></p>
+<ol>
+<li>
+<p><strong><span>Un-normalized (classical) Spectral Clustering (<span class="heti-spacing"> </span></span>非归一化谱聚类<span><span class="heti-spacing"> </span>) - Algorithm 1 (page 88)</span></strong></p>
+<ul>
+<li><strong>输入：</strong> 相似度矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(W\)</span></span>，簇的数量<span><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span></span>。</li>
+<li><strong>步骤：</strong><ol>
+<li>计算非归一化拉普拉斯矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(L = D - W\)</span></span>。</li>
+<li>计算<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L\)</span><span class="heti-spacing"> </span></span>的前<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>个特征向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(u_1, u_2, \dots, u_k\)</span></span>（对应最小的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>个特征值<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>构建矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(U \in \mathbb{R}^{n \times k}\)</span></span>，其列为<span><span class="heti-spacing"> </span><span class="arithmatex">\(u_1, u_2, \dots, u_k\)</span></span>。</li>
+<li>对于<span><span class="heti-spacing"> </span><span class="arithmatex">\(i=1, 2, \dots, n\)</span></span>，令<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(y_i \in \mathbb{R}^k\)</span><span class="heti-spacing"> </span></span>为矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(U\)</span><span class="heti-spacing"> </span></span>的第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>行。</li>
+<li>使用<span class="heti-skip"><span class="heti-spacing"> </span>K-means<span class="heti-spacing"> </span></span>算法对点集<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\{y_i\}_{i=1,\dots,n}\)</span><span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathbb{R}^k\)</span><span class="heti-spacing"> </span></span>空间中进行聚类，得到簇<span><span class="heti-spacing"> </span><span class="arithmatex">\(A_1, A_2, \dots, A_k\)</span></span>。</li>
+<li>输出<span><span class="heti-spacing"> </span><span class="arithmatex">\(A_1, A_2, \dots, A_k\)</span></span>。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><span>Normalized Spectral Clustering (Shi<span class="heti-spacing"> </span></span>算法<span><span class="heti-spacing"> </span>) - Algorithm 2 (page 89)</span></strong></p>
+<ul>
+<li><span>Shi<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>Malik<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>2000<span class="heti-spacing"> </span></span>年提出，基于<span class="heti-skip"><span class="heti-spacing"> </span>Ncut<span class="heti-spacing"> </span></span>准则的近似解法。</li>
+<li><strong>输入：</strong> 相似度矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(W\)</span></span>，簇的数量<span><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span></span>。</li>
+<li><strong>步骤：</strong><ol>
+<li>计算非归一化拉普拉斯矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(L = D - W\)</span></span>。</li>
+<li>计算广义特征值问题<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Lu = \lambda Du\)</span><span class="heti-spacing"> </span></span>的前<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>个广义特征向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(u_1, u_2, \dots, u_k\)</span></span>（对应最小的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>个特征值<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>构建矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(U \in \mathbb{R}^{n \times k}\)</span></span>，其列为<span><span class="heti-spacing"> </span><span class="arithmatex">\(u_1, u_2, \dots, u_k\)</span></span>。</li>
+<li>对于<span><span class="heti-spacing"> </span><span class="arithmatex">\(i=1, 2, \dots, n\)</span></span>，令<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(y_i \in \mathbb{R}^k\)</span><span class="heti-spacing"> </span></span>为矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(U\)</span><span class="heti-spacing"> </span></span>的第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>行。</li>
+<li>使用<span class="heti-skip"><span class="heti-spacing"> </span>K-means<span class="heti-spacing"> </span></span>算法对点集<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\{y_i\}_{i=1,\dots,n}\)</span><span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathbb{R}^k\)</span><span class="heti-spacing"> </span></span>空间中进行聚类，得到簇<span><span class="heti-spacing"> </span><span class="arithmatex">\(A_1, A_2, \dots, A_k\)</span></span>。</li>
+<li>输出<span><span class="heti-spacing"> </span><span class="arithmatex">\(A_1, A_2, \dots, A_k\)</span></span>。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><span>Normalized Spectral Clustering (Ng<span class="heti-spacing"> </span></span>算法<span><span class="heti-spacing"> </span>) - Algorithm 3 (page 90)</span></strong></p>
+<ul>
+<li><span>Ng, Jordan<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>Weiss<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>2002<span class="heti-spacing"> </span></span>年提出，基于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L_{sym}\)</span><span class="heti-spacing"> </span></span>的方法。</li>
+<li><strong>输入：</strong> 相似度矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(W\)</span></span>，簇的数量<span><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span></span>。</li>
+<li><strong>步骤：</strong><ol>
+<li>计算对称归一化拉普拉斯矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(L_{sym} = D^{-1/2} L D^{-1/2}\)</span></span>。</li>
+<li>计算<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L_{sym}\)</span><span class="heti-spacing"> </span></span>的前<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>个特征向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(u_1, u_2, \dots, u_k\)</span></span>（对应最小的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>个特征值<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>构建矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(U \in \mathbb{R}^{n \times k}\)</span></span>，其列为<span><span class="heti-spacing"> </span><span class="arithmatex">\(u_1, u_2, \dots, u_k\)</span></span>。</li>
+<li>将<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(U\)</span><span class="heti-spacing"> </span></span>的每一行进行归一化，使其范数为<span><span class="heti-spacing"> </span><span class="arithmatex">\(1\)</span></span>，得到矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(T \in \mathbb{R}^{n \times k}\)</span></span>，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(t_{ij} = u_{ij} / (\sum_{m=1}^k u_{im}^2)^{1/2}\)</span></span>。</li>
+<li>对于<span><span class="heti-spacing"> </span><span class="arithmatex">\(i=1, 2, \dots, n\)</span></span>，令<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(y_i \in \mathbb{R}^k\)</span><span class="heti-spacing"> </span></span>为矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(T\)</span><span class="heti-spacing"> </span></span>的第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>行。</li>
+<li>使用<span class="heti-skip"><span class="heti-spacing"> </span>K-means<span class="heti-spacing"> </span></span>算法对点集<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\{y_i\}_{i=1,\dots,n}\)</span><span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathbb{R}^k\)</span><span class="heti-spacing"> </span></span>空间中进行聚类，得到簇<span><span class="heti-spacing"> </span><span class="arithmatex">\(A_1, A_2, \dots, A_k\)</span></span>。</li>
+<li>输出<span><span class="heti-spacing"> </span><span class="arithmatex">\(A_1, A_2, \dots, A_k\)</span></span>。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<details class="note" open="open">
+<summary>算法解释<span><span class="heti-spacing"> </span>(page 91-92)</span></summary>
+<ul>
+<li>算法<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>中的广义特征值分解<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Lu = \lambda Du\)</span><span class="heti-spacing"> </span></span>与<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L_{rw}\)</span><span class="heti-spacing"> </span></span>的特征值分解所得特征向量空间相同。</li>
+<li>上述三个算法的核心都是将原始的数据点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_i\)</span><span class="heti-spacing"> </span></span>转换为在特征空间中的数据点<span><span class="heti-spacing"> </span><span class="arithmatex">\(y_i\)</span></span>，在新的空间对原始数据进行描述。这个新的特征空间通常能够使得原本非线性可分的数据变得线性可分，从而可以使用<span class="heti-skip"><span class="heti-spacing"> </span>K-means<span class="heti-spacing"> </span></span>这种简单的线性聚类算法。</li>
+<li>通常来讲，<strong>归一化谱聚类算法<span class="heti-skip"><span class="heti-spacing"> </span>(Normalized Spectral Clustering Algorithms)<span class="heti-spacing"> </span></span>优于非归一化谱聚类算法<span><span class="heti-spacing"> </span>(Unnormalized Spectral Clustering Algorithms)</span></strong>，因为它们更能处理不同密度的簇。</li>
+<li>这些算法的核心是求解一个类似的学习模型，可以表示为优化迹<span class="heti-skip"><span class="heti-spacing"> </span>(trace)<span class="heti-spacing"> </span></span>的问题，例如：</li>
+<li><strong>算法<span><span class="heti-spacing"> </span>1 (classical):</span></strong> <span class="arithmatex">\(\min_{H \in \mathbb{R}^{n \times k}} \text{tr}(H^T L H), \quad \text{s.t.} \quad H^T H = I\)</span></li>
+<li><strong>算法<span><span class="heti-spacing"> </span>2 (Ncut):</span></strong> <span class="arithmatex">\(\min_{T \in \mathbb{R}^{n \times k}} \text{tr}(T^T D^{1/2} L_{sym} D^{1/2} T), \quad \text{s.t.} \quad T^T T = I\)</span> （这里<span><span class="heti-spacing"> </span><span class="arithmatex">\(H = D^{1/2} T\)</span></span>）</li>
+<li><strong>算法<span><span class="heti-spacing"> </span>3 (Ng's Algorithm):</span></strong> <span class="arithmatex">\(\min_{H \in \mathbb{R}^{n \times k}} \text{tr}(H^T D^{-1/2} L D^{-1/2} H), \quad \text{s.t.} \quad H^T H = I\)</span></li>
+</ul>
+</details>
+<h4 id="算法细节与挑战-page-93">算法细节与挑战<span><span class="heti-spacing"> </span>(page 93)</span><a class="headerlink" href="#算法细节与挑战-page-93" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<ol>
+<li><strong>核心问题是图构造：</strong><ul>
+<li><strong>局部连接<span class="heti-skip"><span class="heti-spacing"> </span>(k-<span class="heti-spacing"> </span></span>近邻或<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon\)</span> -<span class="heti-spacing"> </span></span>半径<span class="heti-skip"><span class="heti-spacing"> </span>)<span class="heti-spacing"> </span></span>取多大？</strong> 这个参数的选择对结果有很大影响。</li>
+<li><strong>点对权值如何计算？</strong> 高斯核函数中的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\sigma\)</span><span class="heti-spacing"> </span></span>参数的选择也很关键。</li>
+</ul>
+</li>
+<li><strong>特征值分解问题：</strong> 对于超大型矩阵，计算特征值和特征向量仍然不稳定，可能会引起结果很差。这在处理大规模数据集时是一个挑战。</li>
+<li><strong><span>K-means<span class="heti-spacing"> </span></span>聚类问题：</strong> 最后采用<span class="heti-skip"><span class="heti-spacing"> </span>K-means<span class="heti-spacing"> </span></span>聚类问题，也可能会影响聚类结果，因为<span class="heti-skip"><span class="heti-spacing"> </span>K-means<span class="heti-spacing"> </span></span>本身可能收敛到局部最优，且对初始值敏感。</li>
+<li><strong>聚类数目的选择：</strong> 当然，聚类数目的多少<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="arithmatex">\(k\)</span>)<span class="heti-spacing"> </span></span>仍然是一个 <strong>open problem</strong>（开放问题<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，需要根据具体应用和数据特性进行选择或评估。</li>
+</ol>
+<details class="example" open="open">
+<summary>谱聚类示例<span><span class="heti-spacing"> </span>(page 94-96)</span></summary>
+<p>谱聚类在图像分割等任务中表现出色。例如，可以采用谱聚类将图像的前景目标分割出来。其基本思想是：</p>
+<ul>
+<li>将图像中的每个像素视为一个顶点。</li>
+<li>以<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(3 \times 3\)</span><span class="heti-spacing"> </span></span>等为一个基本邻域，连接相邻像素，构建一个图。边的权重可以是像素之间的颜色相似度、空间距离等。</li>
+<li>然后应用谱聚类算法，将相似的像素点聚为一类，从而实现图像分割。</li>
+</ul>
+</details>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn:1">
+<p>树状图（Dendrogram）是一种图表，用于展示层次聚类算法中簇的合并（聚合）或分裂（分裂）过程。树状图的水平轴表示样本或簇，垂直轴表示距离或相似度。 <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年1月8日 20:14:52 CST">2026年1月8日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年6月17日 10:27:55 CST">2025年6月17日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: 09 Expect Max" class="md-footer__link md-footer__link--prev" href="../09-Expect_Max/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                09 Expect Max
+              </div>
+</div>
+</a>
+<a aria-label="下一页: 15 SVD" class="md-footer__link md-footer__link--next" href="../15-SVD/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                15 SVD
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

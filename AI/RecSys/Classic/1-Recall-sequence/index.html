@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/AI/RecSys/Classic/1-Recall-sequence/" rel="canonical"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>1 Recall sequence - Darstib's KG!</title>
+<link href="../../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#LastN">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              1 Recall sequence
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../note/">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../../note/">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#LastN">
+<span class="md-ellipsis">
+      
+        LastN
+      
+    </span>
+</a>
+<nav aria-label="LastN" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Deep-Interest-Network-DIN">
+<span class="md-ellipsis">
+      
+        Deep Interest Network (DIN)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Search-based-user-Interest-Modeling-SIM">
+<span class="md-ellipsis">
+      
+        Search-based user Interest Modeling (SIM)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Tree-based-Deep-Model-TDM">
+<span class="md-ellipsis">
+      
+        Tree-based Deep Model (TDM)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#高效检索">
+<span class="md-ellipsis">
+      
+        高效检索
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#兴趣建模">
+<span class="md-ellipsis">
+      
+        兴趣建模
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Multi-Interest-Network-with-Dynamic-routing-MIND">
+<span class="md-ellipsis">
+      
+        Multi-Interest Network with Dynamic routing (MIND)
+      
+    </span>
+</a>
+<nav aria-label="Multi-Interest Network with Dynamic routing (MIND)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#胶囊神经元和动态路由">
+<span class="md-ellipsis">
+      
+        胶囊神经元和动态路由
+      
+    </span>
+</a>
+<nav aria-label="胶囊神经元和动态路由" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#胶囊神经元-Capsule-neuron">
+<span class="md-ellipsis">
+      
+        胶囊神经元 (Capsule neuron)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#动态路由-Dynamic-routing">
+<span class="md-ellipsis">
+      
+        动态路由 (Dynamic routing)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#MIND架构概览">
+<span class="md-ellipsis">
+      
+        MIND架构概览
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#嵌入层和池化层-Embedding--Pooling-Layer">
+<span class="md-ellipsis">
+      
+        嵌入层和池化层 (Embedding &amp; Pooling Layer)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#多兴趣提取层-Multi-Interest-Extractor-Layer">
+<span class="md-ellipsis">
+      
+        多兴趣提取层 (Multi-Interest Extractor Layer)
+      
+    </span>
+</a>
+<nav aria-label="多兴趣提取层 (Multi-Interest Extractor Layer)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#动态路由再探">
+<span class="md-ellipsis">
+      
+        动态路由再探
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#行为到兴趣-Behavior-to-Interest-B2I-动态路由">
+<span class="md-ellipsis">
+      
+        行为到兴趣 (Behavior to Interest, B2I) 动态路由
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#训练和服务">
+<span class="md-ellipsis">
+      
+        训练和服务
+      
+    </span>
+</a>
+<nav aria-label="训练和服务" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#训练">
+<span class="md-ellipsis">
+      
+        训练
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#服务">
+<span class="md-ellipsis">
+      
+        服务
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Sequential-Deep-Matching-model-SDM">
+<span class="md-ellipsis">
+      
+        Sequential Deep Matching model (SDM)
+      
+    </span>
+</a>
+<nav aria-label="Sequential Deep Matching model (SDM)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#架构概览">
+<span class="md-ellipsis">
+      
+        架构概览
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#短期会话循环层">
+<span class="md-ellipsis">
+      
+        短期会话：循环层
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#长期会话注意力机制">
+<span class="md-ellipsis">
+      
+        长期会话：注意力机制
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#门控网络行为融合">
+<span class="md-ellipsis">
+      
+        门控网络：行为融合
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../../tags/#tag:notes">notes</a>
+</nav>
+<h1>1 Recall sequence</h1>
+<p>基于序列的召回。</p>
+<h2 id="LastN">LastN<a class="headerlink" href="#LastN" title="Permanent link">¶</a></h2>
+<p><span>LastN<span class="heti-spacing"> </span></span>即关注用户最后交互的<span class="heti-skip"><span class="heti-spacing"> </span>N<span class="heti-spacing"> </span></span>的物品，作为一个新的用户特征。最简单的思路是，将用户最后交互（点击、点赞、转发）的物品进行嵌入（依据物品<span><span class="heti-spacing"> </span>ID</span>，也可以结合物品本身属性）得到嵌入向量。最简单的，对这<span class="heti-skip"><span class="heti-spacing"> </span>N<span class="heti-spacing"> </span></span>个嵌入向量求平均得到新的用户特征向量。</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-205238.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-205238.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-205238.png"/></a>
+<br/>
+<figcaption>Average LastN</figcaption>
+</figure>
+<p>但这无疑丢失了用户<span class="heti-skip"><span class="heti-spacing"> </span>LastN<span class="heti-spacing"> </span></span>中的“序列”信息，我们期望通过用户的历史行为序列去学习用户的特征和兴趣。</p>
+<p>基于<span class="heti-skip"><span class="heti-spacing"> </span>Word2vec/Item2vec<span class="heti-spacing"> </span></span>的思路，我们将推荐问题转变为序列预测问题，就像语言模型预测下一个词一样；如果序列过长，基于注意力机制<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>长短期分离<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>多兴趣表征都是较好的优化手段。</p>
+<div class="admonition attention">
+<p class="admonition-title"><span>DIN<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>SIM<span class="heti-spacing"> </span></span>适合排序而非召回，只是暂时先放在这里。</p>
+</div>
+<h3 id="Deep-Interest-Network-DIN">Deep Interest Network (DIN)<a class="headerlink" href="#Deep-Interest-Network-DIN" title="Permanent link">¶</a></h3>
+<p><span>DIN<span class="heti-spacing"> </span></span>用加权平均（注意力机制）代替平均求和；权重（注意力）取决于<strong>候选物品</strong>与用户<span class="heti-skip"><span class="heti-spacing"> </span>LastN<span class="heti-spacing"> </span></span>物品的相似度。</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-205541.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-205541.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-205541.png"/></a>
+<br/>
+<figcaption>DIN LastN</figcaption>
+</figure>
+<p>其本质参考了注意力机制（<span>DIN<span class="heti-spacing"> </span></span>由阿里在<span class="heti-skip"><span class="heti-spacing"> </span>2018<span class="heti-spacing"> </span></span>年提出）</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-205615.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-205615.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-205615.png"/></a>
+<br/>
+<figcaption>Attention-like</figcaption>
+</figure>
+<p><span>DIN<span class="heti-spacing"> </span></span>需要能够在处理用户特征时看到物品特征，所以不适合召回（双塔模型）和粗排（三塔模型<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，适合在精排阶段使用。</p>
+<details class="note" open="open">
+<summary>缺点</summary>
+<ul>
+<li>注意力层的计算与<span class="heti-skip"><span class="heti-spacing"> </span>N<span class="heti-spacing"> </span></span>成正比，不适合处理太长的用户行为序列</li>
+<li>只能够关注短期兴趣，遗忘长期兴趣</li>
+</ul>
+<p>改进思路：如果<span class="heti-skip"><span class="heti-spacing"> </span>LastN<span class="heti-spacing"> </span></span>中的物品与候选物品差异很大，权重接近于<span><span class="heti-spacing"> </span>0</span>，那么将其舍弃也不会有太大影响。</p>
+</details>
+<h3 id="Search-based-user-Interest-Modeling-SIM">Search-based user Interest Modeling (SIM)<a class="headerlink" href="#Search-based-user-Interest-Modeling-SIM" title="Permanent link">¶</a></h3>
+<p>基于我们之前讨论过的最近邻向量查找（在此称为<span><span class="heti-spacing"> </span>Soft Search</span>；也可以简单地依据类别等标签进行查找，称为<span><span class="heti-spacing"> </span>Hard Search</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，我们可以在<span class="heti-skip"><span class="heti-spacing"> </span>LastN<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>N<span class="heti-spacing"> </span></span>个物品中找到<span class="heti-skip"><span class="heti-spacing"> </span>TopK<span class="heti-spacing"> </span></span>与候选物品相似的物品，保留了长期兴趣的同时减少了模型计算量。</p>
+<p>在使用注意力机制时，<span>SIM<span class="heti-spacing"> </span></span>为了表征序列信息（保留长序列交互信息<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，将用户与物品最后一次交互的时间距<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\delta\)</span><span class="heti-spacing"> </span></span>也嵌入为向量并与物品向量拼接。实验结果表明效果确实更佳。</p>
+<h3 id="Tree-based-Deep-Model-TDM">Tree-based Deep Model (TDM)<a class="headerlink" href="#Tree-based-Deep-Model-TDM" title="Permanent link">¶</a></h3>
+<p>深度树模型<span class="heti-skip"><span class="heti-spacing"> </span>(TDM)<span class="heti-spacing"> </span></span>是基于树结构、将对全量商品检索复杂度<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(O(N) \rightarrow O(\log N)\)</span><span class="heti-spacing"> </span></span>的一个模型。树的基本结构是：叶子节点表示一个商品<span><span class="heti-spacing"> </span>item</span>，非叶子节点表示<span class="heti-skip"><span class="heti-spacing"> </span>item<span class="heti-spacing"> </span></span>集合，其子节点是该节点的子集。</p>
+<p>整体架构如下（可以发现和<span class="heti-skip"><span class="heti-spacing"> </span>DIN<span class="heti-spacing"> </span></span>中的非常像，主要区别在于右下角<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/06_250906-221450.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/06_250906-221450.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/06_250906-221450.png"/></a>
+<br/>
+<figcaption>arch of tdm</figcaption>
+</figure>
+<h3 id="高效检索">高效检索<a class="headerlink" href="#高效检索" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>算法上通常采用<span><span class="heti-spacing"> </span>Beam-Search</span>，即依次对每层节点选出<span class="heti-skip"><span class="heti-spacing"> </span>TopK<span class="heti-spacing"> </span></span>作为下一层的候选集，当前层的<span class="heti-skip"><span class="heti-spacing"> </span>TopK<span class="heti-spacing"> </span></span>一定属于上一层的<span><span class="heti-spacing"> </span>TopK</span>，最后到叶节点（<span><span class="arithmatex">\(p^{(j)}(n \mid u)\)</span><span class="heti-spacing"> </span></span>表示用户<span class="heti-skip"><span class="heti-spacing"> </span>u<span class="heti-spacing"> </span></span>对<span class="heti-skip"><span class="heti-spacing"> </span>j<span class="heti-spacing"> </span></span>层节点<span class="heti-skip"><span class="heti-spacing"> </span>n<span class="heti-spacing"> </span></span>感兴趣的概率，<span><span class="arithmatex">\(\alpha^{j}\)</span><span class="heti-spacing"> </span></span>为归一化因子）</p>
+<div class="arithmatex">\[
+p^{(j)}(n|u)=\max_{n_c\in\{\text{n's children nodes in level }j+1\}}p^{(j+1)}(n_c|u) / \alpha^j
+\]</div>
+<h3 id="兴趣建模">兴趣建模<a class="headerlink" href="#兴趣建模" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>假设现在表现出对<span class="heti-skip"><span class="heti-spacing"> </span>13<span class="heti-spacing"> </span></span>号节点感兴趣（如上图右下角<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，那么沿着路径到根节点都可以认为感兴趣，路线上同城的兄弟节点可以认为作负样本。</p>
+<blockquote>
+<p>其他部分都较为常规，不再细写了。</p>
+</blockquote>
+<h2 id="Multi-Interest-Network-with-Dynamic-routing-MIND">Multi-Interest Network with Dynamic routing (MIND)<a class="headerlink" href="#Multi-Interest-Network-with-Dynamic-routing-MIND" title="Permanent link">¶</a></h2>
+<p><span>MIND<span class="heti-spacing"> </span></span>是<a href="https://dl.acm.org/doi/abs/10.1145/3357384.3357814"><span class="heti-skip"><span class="heti-spacing"> </span>CIKM'2019<span class="heti-spacing"> </span></span></a>上的阿里团队基于天猫平台、用于召回阶段的一个模型，旨在用多个向量表示用户的多种兴趣，以缓解<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>解决过去（如双塔模型）只用一个单向量模型难以表征用户广泛而相去甚远的多种兴趣。</p>
+<p>在天猫的推荐系统中，团队发现用户每天与多种物品发生交互，且交互物品往往不属于同一类别，可能在连续的交互序列中同时包括生活用品、健身器材、数码产品……过去的业内模型多为将用户所有信息拼接后经过网络变换，或是<span class="heti-skip"><span class="heti-spacing"> </span>Pooling<span class="heti-spacing"> </span></span>聚合的方式来融合用户的多种兴趣成为 <u>一个向量</u> ，这可能导致将用户兴趣表征为一个奇怪的区域。</p>
+<p>而召回阶段的目的正是检索用户可能感兴趣的物品，精确全面的用户兴趣表征有利于提高召回质量。</p>
+<h3 id="胶囊神经元和动态路由">胶囊神经元和动态路由<a class="headerlink" href="#胶囊神经元和动态路由" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>模型的核心是<strong>胶囊网络</strong>，该网络采用了<strong>动态路由算法</strong>能非常自然的将历史商品聚成多个集合，每个集合的历史行为进一步推断对应特定兴趣的用户表示向量。胶囊网络和动态路由出自计算机视觉领域<a href="https://arxiv.org/pdf/1710.09829"><span><span class="heti-spacing"> </span>Dynamic Routing Between Capsules</span></a>，可以看<a href="https://zhuanlan.zhihu.com/p/184928582">浅谈胶囊网络与动态路由算法</a> 省流。</p>
+<p>由于提出胶囊网络的论文和<span class="heti-skip"><span class="heti-spacing"> </span>MIND<span class="heti-spacing"> </span></span>论文使用的符号不完全一致（或者说几乎完全不一致……<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，所以下面谨用“<a href="https://arxiv.org/pdf/1710.09829">原论文</a>”表示提出胶囊网络的论文，否则默认为<span class="heti-skip"><span class="heti-spacing"> </span>MIND<span class="heti-spacing"> </span></span>论文。</p>
+<h4 id="胶囊神经元-Capsule-neuron">胶囊神经元<span><span class="heti-spacing"> </span>(Capsule neuron)</span><a class="headerlink" href="#胶囊神经元-Capsule-neuron" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<details class="wiki">
+<summary><a href="https://en.wikipedia.org/wiki/Capsule_neural_network">Capsule neural network - Wikipedia</a></summary>
+<p>A <strong>capsule neural network</strong> (<strong>CapsNet</strong>) is a machine learning system that is a type of <a href="https://en.wikipedia.org/wiki/Artificial_neural_network" title="Artificial neural network">artificial neural network</a> (ANN) that can be used to better model hierarchical relationships. The approach is an attempt to more closely mimic biological neural organization.</p>
+</details>
+<details class="info">
+<summary>人工神经元<span><span class="heti-spacing"> </span>(Artificial Neuron)</span></summary>
+<p>人工神经网络<span class="heti-skip"><span class="heti-spacing"> </span>(Artificial Neural Network, ANN)<span class="heti-spacing"> </span></span>是由人工神经元<span><span class="heti-spacing"> </span>(Artificial Neuron</span>，有时也称为节点<span class="heti-skip"><span class="heti-spacing"> </span>)<span class="heti-spacing"> </span></span>互相连接构成的网络。</p>
+<p>人工神经元一般具有以下结构：</p>
+<ul>
+<li><strong>输入<span><span class="heti-spacing"> </span>(Input, X)</span></strong> ：来自外部（包括上一个神经元）的多个输入信号，一般还要添加一个<strong>偏置<span><span class="heti-spacing"> </span>(Bias, b)</span></strong></li>
+<li><strong>权重<span><span class="heti-spacing"> </span>(Weight, W)</span></strong> ：输入的权重参数，对输入进行加权求和得到<span><span class="heti-spacing"> </span>S</span></li>
+<li><strong>激活<span><span class="heti-spacing"> </span>(Activation, f)</span></strong> ：对<span class="heti-skip"><span class="heti-spacing"> </span>S<span class="heti-spacing"> </span></span>进行激活（一般指非线性变换<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，得到<strong>输出<span><span class="heti-spacing"> </span>(Output, y)</span></strong></li>
+</ul>
+</details>
+<p>如下左图所示是一个传统的神经元，其输入是多个标量，输出是一个标量，所以论文中认为这是一种<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\text{scalar} \rightarrow \text{scalar}\)</span><span class="heti-spacing"> </span></span>模式。</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/06_1757121282859.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/06_1757121282859.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/06_1757121282859.png"/></a>
+<br/>
+<figcaption>traditional neuron vs. Capsule Neuron</figcaption>
+</figure>
+<p>而胶囊网络期望构建一种<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\text{vector} \rightarrow \text{vector}\)</span><span class="heti-spacing"> </span></span>模式，总体架构类似，具体如上右图。可以发现主要区别在于：</p>
+<ul>
+<li>输入的向量在进行加权前进行了一次线性变换</li>
+<li>将激活函数替换为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathrm{Squashing}\)</span><span class="heti-spacing"> </span></span>操作<ul>
+<li>左半部分依据输入的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L_{2}-\text{norm}\)</span><span class="heti-spacing"> </span></span>进行压缩</li>
+<li>右半部分进行向量归一化</li>
+</ul>
+</li>
+<li>需要注意的是，这里的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(W_{i}\)</span><span class="heti-spacing"> </span></span>是通过方向传播更新计算的；但是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(c_{i}\)</span><span class="heti-spacing"> </span></span>是依据动态路由机制计算，原论文称其为耦合系数<span><span class="heti-spacing"> </span>(coupling coef</span>ﬁcients) 。</li>
+</ul>
+<h4 id="动态路由-Dynamic-routing">动态路由<span><span class="heti-spacing"> </span>(Dynamic routing)</span><a class="headerlink" href="#动态路由-Dynamic-routing" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<details class="info">
+<summary><a href="https://www.zhihu.com/question/60751553">logits in NN</a></summary>
+<p><span>logit<span class="heti-spacing"> </span></span>源自 <strong>log</strong>istic un<strong>it</strong> ，原本是<span class="heti-skip"><span class="heti-spacing"> </span>sigmoid<span class="heti-spacing"> </span></span>函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\sigma(x) = 1 / (1 + e^x)\)</span><span class="heti-spacing"> </span></span>的反函数：</p>
+<div class="arithmatex">\[\mathrm{logit}(p)=\log \left( \frac{p}{1-p} \right)\]</div>
+<p>也即<span><span class="heti-spacing"> </span><span class="arithmatex">\(\sigma(\mathrm{logit(p)}) = p\)</span></span>，由于在神经网络中对最后一层全连接层的输出往往要经过非线性激活函数并认为输出的是“概率”估计，因而将最后一个全连接层的输出称为<span><span class="heti-spacing"> </span>logits</span> 。</p>
+</details>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/06_1757126077935.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/06_1757126077935.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/06_1757126077935.png"/></a>
+<br/>
+<figcaption>Dynamic routing</figcaption>
+</figure>
+<p>在动态路由机制中，<span><span class="arithmatex">\(c_{i}\)</span><span class="heti-spacing"> </span></span>是通过迭代得到的权重分布，满足<span><span class="heti-spacing"> </span><span class="arithmatex">\(\sum_{i} c_{i} = 1\)</span></span>；在原始论文中使用<span class="heti-skip"><span class="heti-spacing"> </span>softmax<span class="heti-spacing"> </span></span>对<span class="heti-skip"><span class="heti-spacing"> </span>logits <span class="arithmatex">\(b_{i}\)</span><span class="heti-spacing"> </span></span>进行激活得到，故而实际上对<span><span class="heti-spacing"> </span><span class="arithmatex">\(b_{i}\)</span></span> （原论文称其为路由逻辑值<span><span class="heti-spacing"> </span>(routing logit)</span>）进行更新迭代：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+b_{1}^{0}=&amp;0,b_{2}^{0}=0,b_{3}^{0}=0\\
+\text{For }&amp;r=1 \to T\text{ do}\\
+&amp;c_{1}^{r},c_{2}^{r},c_{3}^{r}=softmax(b_{1}^{r-1},b_{2}^{r-1},b_{3}^{r-1})\\
+&amp;s^{r}=\sum_{i} c_{i}u^{i}\\
+&amp;a^{r}=Squash(s^{r})\\
+&amp;b_{i}^{r}=b_{i}^{r-1}+a^{r}\cdot u^{i}\\
+\text{End} &amp; \text{ For}
+\end{aligned}
+\]</div>
+<p>直观上理解，在每一轮迭代得到<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(a^{r}\)</span><span class="heti-spacing"> </span></span>后，<span><span class="arithmatex">\(b_{i}\)</span><span class="heti-spacing"> </span></span>的提升程度为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(a^{r}\cdot u^{i}\)</span><span class="heti-spacing"> </span></span>即输出与输入的相似度；也就是说输出会朝着与它更加相近的输入靠近，而逐渐远离不相干的输入，实现了一个“动态选择”聚类，将那些暂时不相干的输入踢了出去。</p>
+<p>类似于<span class="heti-skip"><span class="heti-spacing"> </span>RNN<span class="heti-spacing"> </span></span>的迭代，整个胶囊网络的计算如下所示：</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/06_1757126426444.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/06_1757126426444.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/06_1757126426444.png"/></a>
+<br/>
+<figcaption>Capsule Neuron</figcaption>
+</figure>
+<h3 id="MIND架构概览"><span>MIND<span class="heti-spacing"> </span></span>架构概览<a class="headerlink" href="#MIND架构概览" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/06_1757137607887.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/06_1757137607887.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/06_1757137607887.png"/></a>
+<br/>
+<figcaption>arch of mind</figcaption>
+</figure>
+<p><span>MIND<span class="heti-spacing"> </span></span>网络架构如上图所示：</p>
+<ol>
+<li>输入：由三部分组成，用户特征<span><span class="heti-spacing"> </span>P</span>、物品特征<span><span class="heti-spacing"> </span>F</span>、用户行为历史序列特征<span><span class="heti-spacing"> </span>I</span></li>
+<li>Embedding Layer：将特征嵌入为向量</li>
+<li>Pooling Layer：对每组特征向量进行<a href="../1-Recall-graph/#聚合算法">池化操作</a> 各得到一个向量</li>
+<li>特征<span class="heti-skip"><span class="heti-spacing"> </span>I<span class="heti-spacing"> </span></span>经过一个<span class="heti-skip"><span class="heti-spacing"> </span>Multi-Interest Extractor Layer<span class="heti-spacing"> </span></span>提取多个兴趣胶囊</li>
+<li>特征<span class="heti-skip"><span class="heti-spacing"> </span>P<span class="heti-spacing"> </span></span>与兴趣胶囊拼接输入<span><span class="heti-spacing"> </span>DNN</span></li>
+</ol>
+<h3 id="嵌入层和池化层-Embedding--Pooling-Layer">嵌入层和池化层<span><span class="heti-spacing"> </span>(Embedding &amp; Pooling Layer)</span><a class="headerlink" href="#嵌入层和池化层-Embedding--Pooling-Layer" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>召回任务的目标是对于每一个用户<span><span class="heti-spacing"> </span><span class="arithmatex">\(u \in \mathcal{U}\)</span></span>，能够从所有物品池<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{I}\)</span><span class="heti-spacing"> </span></span>中检索与用户兴趣相关的数千个物品。在上面的架构图中，我们样本为一个三元组<span><span class="heti-spacing"> </span><span class="arithmatex">\((\mathcal{I}_{u}, \mathcal{P}_{u}, \mathcal{F}_{i})\)</span></span>：</p>
+<ul>
+<li><span><span class="arithmatex">\(\mathcal{F}_{i}\)</span>:<span class="heti-spacing"> </span></span>物品<span class="heti-skip"><span class="heti-spacing"> </span>i<span class="heti-spacing"> </span></span>的自身特征<ul>
+<li>通常包括分类<span class="heti-skip"><span class="heti-spacing"> </span>id<span class="heti-spacing"> </span></span>特征 （如店铺<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>品牌<span><span class="heti-spacing"> </span>id</span>）有利于冷启动</li>
+<li>采用平均池化，得到<span><span class="heti-spacing"> </span><span class="arithmatex">\(\vec{e}_{i}\)</span></span></li>
+</ul>
+</li>
+<li><span><span class="arithmatex">\(\mathcal{I}_{u}\)</span>:<span class="heti-spacing"> </span></span>用户<span class="heti-skip"><span class="heti-spacing"> </span>u<span class="heti-spacing"> </span></span>交互过的物品集合<ul>
+<li>获得所有交互过物品的表示集合<span><span class="heti-spacing"> </span><span class="arithmatex">\(E_{u} = \{\vec{e}_{j}\}_{j \in \mathcal{I}_{u}}\)</span></span></li>
+<li>有时也会额外包括分类<span class="heti-skip"><span class="heti-spacing"> </span>id<span class="heti-spacing"> </span></span>特征</li>
+</ul>
+</li>
+<li><span><span class="arithmatex">\(\mathcal{P}_{u}\)</span>:<span class="heti-spacing"> </span></span>用户<span class="heti-skip"><span class="heti-spacing"> </span>u<span class="heti-spacing"> </span></span>的自身特征<ul>
+<li>通常包括年龄、性别等</li>
+<li>采用向量拼接，得到<span><span class="heti-spacing"> </span><span class="arithmatex">\(\vec{P}_{u}\)</span></span></li>
+</ul>
+</li>
+</ul>
+<p><span>MIND<span class="heti-spacing"> </span></span>的 <u>核心任务在于学习一个从特征到向量<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>矩阵的用户表示映射</u> ：</p>
+<div class="arithmatex">\[
+V_{u} = f_{user}(\mathcal{I}_{u}, \mathcal{P}_{u}) = (\vec{v}_{u}^{k})_{k\in [K]} \in \mathbb{R}^{d \times k}
+\]</div>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>表示的是捕捉的用户兴趣数量，<span>d<span class="heti-spacing"> </span></span>是一个兴趣的嵌入维度。物品的表示映射表示为：<span class="arithmatex">\(\vec{e}_{i} = f_{item}(\mathcal{F}_{i}) \in \mathbb{R}^{d \times 1}\)</span></p>
+<p>而在最后评估用户与物品的相似情况时，采用的是最大化池：</p>
+<div class="arithmatex">\[
+f_{score}(V_{u}, \vec{e}_{i}) = \max_{1 \leq k \leq K} \vec{e}_{i}^{T}\vec{v}_{u}^{k}
+\]</div>
+<h3 id="多兴趣提取层-Multi-Interest-Extractor-Layer">多兴趣提取层<span><span class="heti-spacing"> </span>(Multi-Interest Extractor Layer)</span><a class="headerlink" href="#多兴趣提取层-Multi-Interest-Extractor-Layer" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<h4 id="动态路由再探">动态路由再探<a class="headerlink" href="#动态路由再探" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>即前文所提到的胶囊网络，只是论文中的表达有些不同（后面有几乎等价的映射表格，莫急<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。我们假设胶囊网络有两层，即：</p>
+<ul>
+<li>低阶胶囊<span><span class="heti-spacing"> </span><span class="arithmatex">\(\vec{c}_i^l\in\mathbb{R}^{N_l\times1},i\in\{1,\ldots,m\}\)</span></span><ul>
+<li><span><span class="arithmatex">\(N_{l}, m\)</span><span class="heti-spacing"> </span></span>分别为胶囊维度和个数</li>
+</ul>
+</li>
+<li>高阶胶囊<span><span class="heti-spacing"> </span><span class="arithmatex">\(\vec{c}_j^h\in\mathbb{R}^{N_h\times1},j\in\{1,\ldots,n\}\)</span></span><ul>
+<li><span><span class="arithmatex">\(N_{h}, n\)</span><span class="heti-spacing"> </span></span>分别为胶囊维度和个数</li>
+</ul>
+</li>
+</ul>
+<p>连接低阶胶囊<span class="heti-skip"><span class="heti-spacing"> </span>i<span class="heti-spacing"> </span></span>和高阶胶囊<span class="heti-skip"><span class="heti-spacing"> </span>j<span class="heti-spacing"> </span></span>的权重<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>耦合系数<span><span class="heti-spacing"> </span>(oupling coef</span>ﬁ<span>cients)<span class="heti-spacing"> </span></span>使用<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(w_{ij}\)</span><span class="heti-spacing"> </span></span>表示，且同样由<span class="heti-skip"><span class="heti-spacing"> </span>softmax<span class="heti-spacing"> </span></span>计算：</p>
+<div class="arithmatex">\[
+w_{ij} = \exp (b_{ij}) / \sum_{k = 1}^{m} \exp (b_{ik})
+\]</div>
+<p>所以我们同样是迭代更新路由逻辑值<span><span class="heti-spacing"> </span><span class="arithmatex">\(b_{ij}\)</span></span>，但是更新逻辑有些不同，使用</p>
+<div class="arithmatex">\[
+b_{ij}=\left(\vec{c}_j^h\right)^T\:\mathrm{S}_{ij}\vec{c}_i^l
+\]</div>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(S_{ij} \in \mathbb{R}^{N_{h} \times N_{l}}\)</span><span class="heti-spacing"> </span></span>是待学习的双线性映射矩阵（相当于原论文中的<span><span class="heti-spacing"> </span><span class="arithmatex">\(W_{i}\)</span></span>，转换矩阵<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，并计算<span class="heti-skip"><span class="heti-spacing"> </span>j<span class="heti-spacing"> </span></span>的候选向量：</p>
+<div class="arithmatex">\[
+\bar{z}_j^h=\sum_{i=1}^mw_{ij}S_{ij}\bar{c}_i^l
+\]</div>
+<p>进行非线性压缩变换得到高阶胶囊的向量表征：</p>
+<div class="arithmatex">\[
+\bar{c}_j^h=\mathrm{squash}\left(\bar{z}_j^h\right)=\frac{\left\|\bar{z}_j^h\right\|^2}{1+\left\|\bar{z}_j^h\right\|^2}\frac{\bar{z}_j^h}{\left\|\bar{z}_j^h\right\|}
+\]</div>
+<p>将公式类比不难发现（情况下为了针对从多个低阶到多个高阶而下标有区别<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">原论文</th>
+<th style="text-align: center;"><span class="arithmatex">\(b_{i}\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(v_{i}\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(W_{i}\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(u_{i}\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(s\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(c_{i}\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(a\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">本论文</td>
+<td style="text-align: center;"><span class="arithmatex">\(b_{ij}\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(\vec{c}_l^i\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(S_{ij}\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(S_{ij}\vec{c}_i^l\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(\vec{z}_{j}^{h}\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(w_{ij}\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(\vec{c}_i^h\)</span></td>
+</tr>
+</tbody>
+</table>
+<h4 id="行为到兴趣-Behavior-to-Interest-B2I-动态路由">行为到兴趣<span class="heti-skip"><span class="heti-spacing"> </span>(Behavior to Interest, B2I)<span class="heti-spacing"> </span></span>动态路由<a class="headerlink" href="#行为到兴趣-Behavior-to-Interest-B2I-动态路由" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>将行为序列嵌入为行为胶囊，希望学习“行为胶囊（低阶，<span class="arithmatex">\(\vec{e}_{i}\)</span>） <span>-&gt;<span class="heti-spacing"> </span></span>兴趣胶囊（高阶，<span class="arithmatex">\(\vec{u}_{j}\)</span>）” 的映射关系。相比经典的动态路由，<span>B2I<span class="heti-spacing"> </span></span>动态路由做出了以下改进：</p>
+<ol>
+<li>共享双向映射矩阵<span><span class="heti-spacing"> </span>S</span><ul>
+<li>用户行为序列长度可变，共享<span class="heti-skip"><span class="heti-spacing"> </span>S<span class="heti-spacing"> </span></span>更具普遍性</li>
+<li>我们希望兴趣胶囊映射在同一向量空间中，计算路由逻辑值<span><span class="heti-spacing"> </span><span class="arithmatex">\(b_{ij} = \vec{u}_{j}^{T}S \vec{e}_{i}\)</span></span></li>
+</ul>
+</li>
+<li>随机初始化<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(b_{ij}\)</span><span class="heti-spacing"> </span></span>而非初始化为<span><span class="heti-spacing"> </span>0</span><ul>
+<li>因为共享了<span><span class="heti-spacing"> </span>S</span>，改为通过高斯分布随机采样</li>
+</ul>
+</li>
+<li>动态调整兴趣数量<ul>
+<li>在前面我们提到兴趣本身是一个“聚类”思想，用户行为序列不同对应的聚类中心数量不同，也即兴趣数量不同，从<span class="heti-skip"><span class="heti-spacing"> </span>K<span class="heti-spacing"> </span></span>个自适应调整到<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(K_{u}'\)</span><span class="heti-spacing"> </span></span>个</li>
+<li><span class="arithmatex">\(K_u^{\prime}=\max\left(1,\min\left(K,\log_2\left(|\mathcal{I}_u|\right)\right)\right)\)</span></li>
+</ul>
+</li>
+</ol>
+<p>最后算法流程如下，如果还看不懂可能要再回顾一下前面的内容了。</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/06_1757149569121.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/06_1757149569121.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/06_1757149569121.png"/></a>
+<br/>
+<figcaption>algo of B2I dynamic routing</figcaption>
+</figure>
+<h3 id="训练和服务">训练和服务<a class="headerlink" href="#训练和服务" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<h4 id="训练">训练<a class="headerlink" href="#训练" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>训练时使用到标签感知注意层<span><span class="heti-spacing"> </span>(Label-aware Attention Layer)</span>，结合名称以及从框架图中我们可以看到标签感知注意层的输入为<span><span class="heti-spacing"> </span>K,V,Q</span> ，且：</p>
+<ul>
+<li>物品标签<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\vec{e}_{i}\)</span><span class="heti-spacing"> </span></span>作为查询<span><span class="heti-spacing"> </span>Q</span></li>
+<li>用户<span class="heti-skip"><span class="heti-spacing"> </span>u<span class="heti-spacing"> </span></span>多兴趣向量组合（矩阵）<span class="arithmatex">\(V_{u}\in \mathbb{R}^{k \times d}\)</span>，既是键<span class="heti-skip"><span class="heti-spacing"> </span>K<span class="heti-spacing"> </span></span>也是值<span><span class="heti-spacing"> </span>V</span><ul>
+<li><span>k<span class="heti-spacing"> </span></span>为兴趣数量，<span>d<span class="heti-spacing"> </span></span>为向量维度</li>
+</ul>
+</li>
+<li>超参数<span class="heti-skip"><span class="heti-spacing"> </span>p<span class="heti-spacing"> </span></span>用来调整注意力的分布<ul>
+<li>结合下面的公式可以发现<span class="heti-skip"><span class="heti-spacing"> </span>p<span class="heti-spacing"> </span></span>越小不同兴趣的间的注意力差距越小</li>
+<li><span>p = 0<span class="heti-spacing"> </span></span>时所有兴趣的注意力相同</li>
+</ul>
+</li>
+</ul>
+<p>显然（和<span class="heti-skip"><span class="heti-spacing"> </span>DIN<span class="heti-spacing"> </span></span>类似）基于缩放点积注意力机制<span><span class="heti-spacing"> </span>(<span class="arithmatex">\(\mathrm{Attention}(Q, K, V) = V \mathrm{softmax(QK^{T} / \sqrt{ d })}\)</span></span>，这里做了些小修改<span class="heti-skip"><span class="heti-spacing"> </span>)<span class="heti-spacing"> </span></span>有：</p>
+<div class="arithmatex">\[
+\overrightarrow{\boldsymbol{v}}_{u}=\text{Attention}\left(\overrightarrow{\boldsymbol{e}}_i,\mathrm{~V}_u,\mathrm{~V}_u\right)=\mathrm{V}_u\text{ softmax}\left(\mathrm{pow}\left(\mathrm{V}_u^\mathrm{T}\overrightarrow{\boldsymbol{e}}_i,p\right)\right)
+\]</div>
+<p>然后就是经典的计算概率，极大似然<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>极小负对数似然（论文中没有取负，但也只是说是目标函数，也许默认就是求解收敛最大值吧<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，<span>sampled softmax<span class="heti-spacing"> </span></span>学习到映射<span><span class="heti-spacing"> </span><span class="arithmatex">\(f_{user}\)</span></span></p>
+<div class="arithmatex">\[
+\Pr(i|u)=\Pr\left(\overrightarrow{e}_i|\overrightarrow{v}_u\right)=\frac{\exp\left(\overrightarrow{v}_u^\mathrm{T}\overrightarrow{e}_i\right)}{\sum_{j\in I}\exp\left(\overrightarrow{v}_u^\mathrm{T}\overrightarrow{e}_j\right)} \Rightarrow L=\sum_{(u,i)\in D}\log\Pr(i|u)
+\]</div>
+<h4 id="服务">服务<a class="headerlink" href="#服务" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>在线服务时不需要标签感知注意层，直接使用<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f_{user}\)</span><span class="heti-spacing"> </span></span>得到用户多兴趣向量，在物品池中使用<span class="heti-skip"><span class="heti-spacing"> </span>ANN<span class="heti-spacing"> </span></span>检索<span class="heti-skip"><span class="heti-spacing"> </span>topN<span class="heti-spacing"> </span></span>物品召回。</p>
+<h2 id="Sequential-Deep-Matching-model-SDM">Sequential Deep Matching model (SDM)<a class="headerlink" href="#Sequential-Deep-Matching-model-SDM" title="Permanent link">¶</a></h2>
+<p>我们知道了学习用户历史行为序列很重要， 那么假设序列很长呢？这时候直接用模型学习长序列之间的演进可能不是很好，因为很长的序列里面可能用户的兴趣发生过很大的转变，很多商品压根就没有啥关系，这样硬学，反而会导致越学越乱，就别提这个演进了。</p>
+<p><span>SDM<span class="heti-spacing"> </span></span>模型也是<span class="heti-skip"><span class="heti-spacing"> </span>CIKM'2019<span class="heti-spacing"> </span></span>上阿里团队的一篇<span class="heti-skip"><span class="heti-spacing"> </span>paper<span class="heti-spacing"> </span></span>中提出的，团队认为用户在短期的兴趣是比较集中的，交互的商品较为类似，比直接学习整个长序列更加靠谱。<span>SDM<span class="heti-spacing"> </span></span>将用户行为序列根据交互时间分为短期和长期会话<span><span class="heti-spacing"> </span>(session)</span>，并分别采取相应的措施去学习用户的短期兴趣和长期偏好，并设计了一个门控网络有选择地融合长短期兴趣，得到用户最终的兴趣向量。</p>
+<h3 id="架构概览">架构概览<a class="headerlink" href="#架构概览" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><strong>会话<span class="heti-skip"><span class="heti-spacing"> </span>(session)<span class="heti-spacing"> </span></span>划分</strong>：</p>
+<ul>
+<li>相同会话<span class="heti-skip"><span class="heti-spacing"> </span>id<span class="heti-spacing"> </span></span>的商品<span><span class="heti-spacing"> </span><span class="arithmatex">\(i \in \mathcal{I}\)</span></span></li>
+<li>交互时间间隔小于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t_{0}\)</span><span class="heti-spacing"> </span></span>的商品</li>
+<li>一个会话中商品数量不超过<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m_{0}\)</span><span class="heti-spacing"> </span></span>个，多余部分放入下一个会话</li>
+</ul>
+<p><strong>会话定义</strong>：</p>
+<ul>
+<li>最近一次会话为用户<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(u \in \mathcal{U}\)</span><span class="heti-spacing"> </span></span>的短期行为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{S}^{u} = [i_{1}^{u}, \dots, i_{t}^{u}, \dots, i_{m}^{u}]\)</span></span> ，编码在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(s_{t}^{u}\)</span><span class="heti-spacing"> </span></span>中</li>
+<li>长期对话用过去<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(T_{0}\)</span><span class="heti-spacing"> </span></span>时间内的 <u>其余会话</u>组成，使用<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{L}^{u}\)</span><span class="heti-spacing"> </span></span>表示，编码在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p^{u}\)</span><span class="heti-spacing"> </span></span>中</li>
+</ul>
+<p>经过门控神经网络得到用户行为预测向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(o_{t}^{u} \in \mathbb{R}^{d \times 1}\)</span></span>，剩下的部分就经典的训练和召回了。</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/06_1757153811740.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/06_1757153811740.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/06_1757153811740.png"/></a>
+<br/>
+<figcaption>arch of SDM</figcaption>
+</figure>
+<p>在<span class="heti-skip"><span class="heti-spacing"> </span>SDM<span class="heti-spacing"> </span></span>中的物品嵌入时应用到了辅助信息<span><span class="heti-spacing"> </span>(Side Information) <span class="arithmatex">\(\mathcal{F}\)</span></span>，具体而言使用了<span><span class="heti-spacing"> </span>leat category, fist level category, brand,shop</span>，包括物品本身共<span class="heti-skip"><span class="heti-spacing"> </span>5<span class="heti-spacing"> </span></span>项，分别嵌入（<span class="arithmatex">\(\boldsymbol{e}_i^f=\boldsymbol{W}^f\boldsymbol{x}_i^f\in\mathbb{R}^{d_f\times1}\)</span>）后进行拼接，有：</p>
+<div class="arithmatex">\[
+\boldsymbol{e}_{i_t^u}=\mathrm{concat}\left(\left\{\boldsymbol{e}_i^f\mid f\in\mathcal{F}\right\}\right)
+\]</div>
+<p>用户画像<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{P}\)</span><span class="heti-spacing"> </span></span>部分是类似地，特征分别嵌入（<span class="arithmatex">\(e_{u}^{p}\)</span>）后拼接：</p>
+<div class="arithmatex">\[
+\boldsymbol{e}_{u}=\mathrm{concat}\left(\left\{\boldsymbol{e}_u^p\mid p\in\mathcal{P}\right\}\right)
+\]</div>
+<p>现在就剩下<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{L}^{u} \rightarrow p^{u}, \mathcal{S}^{u}\rightarrow s_{t}^{u}, (p^{u}, s_{t}^{u})\rightarrow o_{t}^{u}\)</span><span class="heti-spacing"> </span></span>这三部分需要拆解，论文中一张图展示的较为清晰了：</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/06_1757165618678.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/06_1757165618678.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/06_1757165618678.png"/></a>
+<br/>
+<figcaption>Module Analysis</figcaption>
+</figure>
+<h3 id="短期会话循环层">短期会话：循环层<a class="headerlink" href="#短期会话循环层" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>为了捕捉并表征短期序列数据中的全局时间依赖性，采用长短期记忆（LSTM）网络作为循环单元。</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\boldsymbol{in}_t^u&amp;=\sigma\left(\boldsymbol{W}_{in}^1\boldsymbol{e}_{i_t^u}+\boldsymbol{W}_{in}^2\boldsymbol{h}_{t-1}^u+b_{in}\right)\\
+f_t^u&amp;=\sigma\left(\boldsymbol{W}_f^1\boldsymbol{e}_{i_t^u}+\boldsymbol{W}_f^2\boldsymbol{h}_{t-1}^u+b_f\right)\\
+\boldsymbol{o}_t^u&amp;=\sigma\left(\boldsymbol{W}_o^1\boldsymbol{e}_i^u+\boldsymbol{W}_o^2\boldsymbol{h}_{t-1}^u+b_o\right)\\
+\boldsymbol{c}_t^u&amp;=\boldsymbol{f}_t\boldsymbol{c}_{t-1}^u+\boldsymbol{i}\boldsymbol{n}_t^u\tanh\left(\boldsymbol{W}_c^1\boldsymbol{e}_{i_t^u}+\boldsymbol{W}_c^2\boldsymbol{h}_{t-1}^u+b_c\right)\\
+\boldsymbol{h}_t^u&amp;=\boldsymbol{o}_t^u\tanh\left(\boldsymbol{c}_t^u\right)\end{aligned}
+\]</div>
+<blockquote>
+<p>暂时没看<span class="heti-skip"><span class="heti-spacing"> </span>LSTM<span class="heti-spacing"> </span></span>和<a href="https://blog.csdn.net/wuzhongqiang/article/details/104414239">多头注意力</a>，先放着。</p>
+</blockquote>
+<h3 id="长期会话注意力机制">长期会话：注意力机制<a class="headerlink" href="#长期会话注意力机制" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>长期行为往往来自不同的特征：</p>
+<div class="arithmatex">\[
+\mathcal{L}^u=\{\mathcal{L}_f^u\mid f\in\mathcal{F}\}
+\]</div>
+<p>对每个<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f_{k}^{u} \in \mathcal{L}_{f}^{u}\)</span><span class="heti-spacing"> </span></span>通过<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(W^{f}\)</span><span class="heti-spacing"> </span></span>变换（其实就是从稀疏的独热码变为稠密嵌入向量）得到<span><span class="heti-spacing"> </span><span class="arithmatex">\(g_{k}^{u} = W^{f}f_{k}^{u} \in \mathbb{R}^{d\times 1}\)</span></span> 。基于点积注意力机制得到 </p>
+<div class="arithmatex">\[
+z_{f}^{u} = \sum_{k = 1}^{\lvert \mathcal{L}_{f}^{u} \rvert} g_{k}^{u} \mathrm{softmax}(g_{k}^{uT} e_{u})
+\]</div>
+<p>拼接（<span class="arithmatex">\(z^{u} = \mathrm{concat}(\{z_{f}^{u}\mid f \in \mathcal{F}\})\)</span>）后输入一个全连接层：</p>
+<div class="arithmatex">\[
+p^{u} = \tanh(W^{p}z^{u}+b) \in \mathbb{R}^{d\times 1}
+\]</div>
+<h3 id="门控网络行为融合">门控网络：行为融合<a class="headerlink" href="#门控网络行为融合" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>训练一个门控向量决定在时间<span class="heti-skip"><span class="heti-spacing"> </span>t<span class="heti-spacing"> </span></span>时短期和长期的贡献分配（其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\odot\)</span><span class="heti-spacing"> </span></span>表示哈达玛乘积，即逐元素相乘得到新的等维向量<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+G_{t}^{u} &amp;= \mathrm{sigmoid}(W^{1}e_{u}+W^{2}s_{t}^{u}+W^{3}p^{u}+b) \in \mathbb{R}^{d\times 1}\\
+o_{t}^{u} &amp;= (1-G^{u}_{t} \odot p^{u} + G_{t}^{u}\odot s_{t}^{u})
+\end{aligned}
+\]</div>
+<blockquote>
+<p>对于可能冲突的两个向量融合，我们不一定非得加权或拼接了，还可以通过门控机制让网络自己去学。</p>
+</blockquote>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月1日 22:41:59 CST">2026年7月1日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年9月10日 17:09:27 CST">2025年9月10日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../../js/katex.js"></script>
+<script src="../../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

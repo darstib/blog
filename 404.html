@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 · GitHub Pages</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+            color: #24292e;
+            background-color: #fff;
+            padding: 0;
+            margin: 0;
+            font-size: 16px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 32px 16px;
+            text-align: center;
+        }
+        
+        .octocat {
+            margin-top: 32px;
+            margin-bottom: 32px;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            color: #586069;
+        }
+        
+        .links {
+            margin-top: 24px;
+        }
+        
+        .button {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 0 8px 8px 0;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 20px;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            cursor: pointer;
+            border: 1px solid;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        
+        .button-primary {
+            color: #fff;
+            background-color: #2ea44f;
+            border-color: rgba(27, 31, 35, 0.15);
+        }
+        
+        .button-primary:hover {
+            background-color: #2c974b;
+        }
+        
+        .button-outline {
+            color: #0366d6;
+            background-color: #fff;
+            border-color: rgba(27, 31, 35, 0.15);
+        }
+        
+        .button-outline:hover {
+            color: #0366d6;
+            background-color: #f6f8fa;
+            border-color: rgba(27, 31, 35, 0.15);
+        }
+        
+        .footer {
+            margin-top: 40px;
+            font-size: 12px;
+            color: #6a737d;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 24px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <svg class="octocat" width="128" height="128" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" fill="#24292e"></path>
+        </svg>
+        
+        <h1>404 - page not found</h1>
+        <p>很抱歉，您尝试访问的页面不存在或被迁移</p>
+        <p>请尝试以下选项，在页面右上角使用搜索功能</p>
+        <!-- 注意下面的内容是自定义域名时使用 -->
+        <div class="links">
+            <a href="/" class="button button-primary">前往首页</a>
+            <a href="/changelog/" class="button button-primary">查看历史</a>
+            <a href="javascript:history.back()" class="button button-outline">返回上页</a>
+            <a href="/nav/" class="button button-outline">前往导航</a>
+        </div>
+        
+        <div class="footer">
+            <p>基于 GitHub Pages</p>
+        </div>
+    </div>
+</body>
+</html>

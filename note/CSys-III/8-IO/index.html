@@ -1,0 +1,2178 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/note/CSys-III/8-IO/" rel="canonical"/>
+<link href="../7-Disk/" rel="prev"/>
+<link href="../9-FS/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>I/O 系统 - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#IO-系统">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              I/O 系统
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Note
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs188/">
+<span class="md-ellipsis">
+    
+  
+    cs188
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../physics/">
+<span class="md-ellipsis">
+    
+  
+    physics
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-II/">
+<span class="md-ellipsis">
+    
+  
+    CSys-II
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3_5" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    CSys-III
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_5_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    CSys-III
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../0-hard_review/">
+<span class="md-ellipsis">
+    
+  
+    计算机体系结构课程回顾
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../0-soft_review/">
+<span class="md-ellipsis">
+    
+  
+    操作系统核心概念回顾
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../1-Fundamentals/">
+<span class="md-ellipsis">
+    
+  
+    计算机系统基础
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../2-ILP/">
+<span class="md-ellipsis">
+    
+  
+    指令级并行 (ILP)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../3-Cache/">
+<span class="md-ellipsis">
+    
+  
+    计算机系统 III：存储层次结构 (Memory Hierarchy)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../4-DLP_TLP/">
+<span class="md-ellipsis">
+    
+  
+    数据级到线程级并行
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../5-MM/">
+<span class="md-ellipsis">
+    
+  
+    主存储器
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../6-VM/">
+<span class="md-ellipsis">
+    
+  
+    虚拟内存 (Virtual Memory)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../7-Disk/">
+<span class="md-ellipsis">
+    
+  
+    大容量存储结构 (Mass-Storage Structure)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    I/O 系统
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    I/O 系统
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IO-系统概述-page-2-37">
+<span class="md-ellipsis">
+      
+        I/O 系统概述 (page 2-37)
+      
+    </span>
+</a>
+<nav aria-label="I/O 系统概述 (page 2-37)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IO-硬件-page-6-7">
+<span class="md-ellipsis">
+      
+        I/O 硬件 (page 6-7)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IO-硬件与-CPU-交互-page-8">
+<span class="md-ellipsis">
+      
+        I/O 硬件与 CPU 交互 (page 8)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#轮询-Polling-page-10">
+<span class="md-ellipsis">
+      
+        轮询 (Polling) (page 10)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#中断-Interrupts-page-11-17">
+<span class="md-ellipsis">
+      
+        中断 (Interrupts) (page 11-17)
+      
+    </span>
+</a>
+<nav aria-label="中断 (Interrupts) (page 11-17)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#中断在-CPU-架构中的实现-page-13-15">
+<span class="md-ellipsis">
+      
+        中断在 CPU 架构中的实现 (page 13-15)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#中断与异常-page-16">
+<span class="md-ellipsis">
+      
+        中断与异常 (page 16)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#多-CPU-系统中的中断-page-16-17">
+<span class="md-ellipsis">
+      
+        多 CPU 系统中的中断 (page 16-17)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#直接内存访问-Direct-Memory-Access-DMA-page-18-19">
+<span class="md-ellipsis">
+      
+        直接内存访问 (Direct Memory Access, DMA) (page 18-19)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#应用程序-IO-接口-page-20-22">
+<span class="md-ellipsis">
+      
+        应用程序 I/O 接口 (page 20-22)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IO-设备的特点-page-23-28">
+<span class="md-ellipsis">
+      
+        I/O 设备的特点 (page 23-28)
+      
+    </span>
+</a>
+<nav aria-label="I/O 设备的特点 (page 23-28)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#设备的分类维度-page-23">
+<span class="md-ellipsis">
+      
+        设备的分类维度 (page 23)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#操作系统对设备的分类-page-25">
+<span class="md-ellipsis">
+      
+        操作系统对设备的分类 (page 25)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#网络设备-Network-Devices-page-27">
+<span class="md-ellipsis">
+      
+        网络设备 (Network Devices) (page 27)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#时钟与定时器-Clocks-and-Timers-page-28">
+<span class="md-ellipsis">
+      
+        时钟与定时器 (Clocks and Timers) (page 28)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#同步异步-IO-SynchronousAsynchronous-IO-page-29-30">
+<span class="md-ellipsis">
+      
+        同步/异步 I/O (Synchronous/Asynchronous I/O) (page 29-30)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#内核-IO-子系统-Kernel-IO-Subsystem-page-31-32">
+<span class="md-ellipsis">
+      
+        内核 I/O 子系统 (Kernel I/O Subsystem) (page 31-32)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#错误处理-Error-Handling-page-33">
+<span class="md-ellipsis">
+      
+        错误处理 (Error Handling) (page 33)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IO-保护-IO-Protection-page-34-37">
+<span class="md-ellipsis">
+      
+        I/O 保护 (I/O Protection) (page 34-37)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IO-请求到硬件操作的转换-page-38-39">
+<span class="md-ellipsis">
+      
+        I/O 请求到硬件操作的转换 (page 38-39)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#性能-Performance-page-40-42">
+<span class="md-ellipsis">
+      
+        性能 (Performance) (page 40-42)
+      
+    </span>
+</a>
+<nav aria-label="性能 (Performance) (page 40-42)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#提高性能的策略-page-42">
+<span class="md-ellipsis">
+      
+        提高性能的策略 (page 42)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#示例Linux-tty-设备-page-43-46">
+<span class="md-ellipsis">
+      
+        示例：Linux tty 设备 (page 43-46)
+      
+    </span>
+</a>
+<nav aria-label="示例：Linux tty 设备 (page 43-46)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#设备初始化-devtty-page-43">
+<span class="md-ellipsis">
+      
+        设备初始化 (/dev/tty) (page 43)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#设备写入-write-系统调用-page-44">
+<span class="md-ellipsis">
+      
+        设备写入 (write 系统调用) (page 44)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Linux-ioctl-系统调用-page-45-46">
+<span class="md-ellipsis">
+      
+        Linux ioctl 系统调用 (page 45-46)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#总结-Takeaway-page-47">
+<span class="md-ellipsis">
+      
+        总结 (Takeaway) (page 47)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../9-FS/">
+<span class="md-ellipsis">
+    
+  
+    文件系统 (File System)
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DEM/">
+<span class="md-ellipsis">
+    
+  
+    DEM
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DMA/">
+<span class="md-ellipsis">
+    
+  
+    DMA
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs70/">
+<span class="md-ellipsis">
+    
+  
+    cs70
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../other/">
+<span class="md-ellipsis">
+    
+  
+    other
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IO-系统概述-page-2-37">
+<span class="md-ellipsis">
+      
+        I/O 系统概述 (page 2-37)
+      
+    </span>
+</a>
+<nav aria-label="I/O 系统概述 (page 2-37)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IO-硬件-page-6-7">
+<span class="md-ellipsis">
+      
+        I/O 硬件 (page 6-7)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IO-硬件与-CPU-交互-page-8">
+<span class="md-ellipsis">
+      
+        I/O 硬件与 CPU 交互 (page 8)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#轮询-Polling-page-10">
+<span class="md-ellipsis">
+      
+        轮询 (Polling) (page 10)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#中断-Interrupts-page-11-17">
+<span class="md-ellipsis">
+      
+        中断 (Interrupts) (page 11-17)
+      
+    </span>
+</a>
+<nav aria-label="中断 (Interrupts) (page 11-17)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#中断在-CPU-架构中的实现-page-13-15">
+<span class="md-ellipsis">
+      
+        中断在 CPU 架构中的实现 (page 13-15)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#中断与异常-page-16">
+<span class="md-ellipsis">
+      
+        中断与异常 (page 16)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#多-CPU-系统中的中断-page-16-17">
+<span class="md-ellipsis">
+      
+        多 CPU 系统中的中断 (page 16-17)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#直接内存访问-Direct-Memory-Access-DMA-page-18-19">
+<span class="md-ellipsis">
+      
+        直接内存访问 (Direct Memory Access, DMA) (page 18-19)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#应用程序-IO-接口-page-20-22">
+<span class="md-ellipsis">
+      
+        应用程序 I/O 接口 (page 20-22)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IO-设备的特点-page-23-28">
+<span class="md-ellipsis">
+      
+        I/O 设备的特点 (page 23-28)
+      
+    </span>
+</a>
+<nav aria-label="I/O 设备的特点 (page 23-28)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#设备的分类维度-page-23">
+<span class="md-ellipsis">
+      
+        设备的分类维度 (page 23)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#操作系统对设备的分类-page-25">
+<span class="md-ellipsis">
+      
+        操作系统对设备的分类 (page 25)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#网络设备-Network-Devices-page-27">
+<span class="md-ellipsis">
+      
+        网络设备 (Network Devices) (page 27)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#时钟与定时器-Clocks-and-Timers-page-28">
+<span class="md-ellipsis">
+      
+        时钟与定时器 (Clocks and Timers) (page 28)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#同步异步-IO-SynchronousAsynchronous-IO-page-29-30">
+<span class="md-ellipsis">
+      
+        同步/异步 I/O (Synchronous/Asynchronous I/O) (page 29-30)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#内核-IO-子系统-Kernel-IO-Subsystem-page-31-32">
+<span class="md-ellipsis">
+      
+        内核 I/O 子系统 (Kernel I/O Subsystem) (page 31-32)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#错误处理-Error-Handling-page-33">
+<span class="md-ellipsis">
+      
+        错误处理 (Error Handling) (page 33)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IO-保护-IO-Protection-page-34-37">
+<span class="md-ellipsis">
+      
+        I/O 保护 (I/O Protection) (page 34-37)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IO-请求到硬件操作的转换-page-38-39">
+<span class="md-ellipsis">
+      
+        I/O 请求到硬件操作的转换 (page 38-39)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#性能-Performance-page-40-42">
+<span class="md-ellipsis">
+      
+        性能 (Performance) (page 40-42)
+      
+    </span>
+</a>
+<nav aria-label="性能 (Performance) (page 40-42)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#提高性能的策略-page-42">
+<span class="md-ellipsis">
+      
+        提高性能的策略 (page 42)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#示例Linux-tty-设备-page-43-46">
+<span class="md-ellipsis">
+      
+        示例：Linux tty 设备 (page 43-46)
+      
+    </span>
+</a>
+<nav aria-label="示例：Linux tty 设备 (page 43-46)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#设备初始化-devtty-page-43">
+<span class="md-ellipsis">
+      
+        设备初始化 (/dev/tty) (page 43)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#设备写入-write-系统调用-page-44">
+<span class="md-ellipsis">
+      
+        设备写入 (write 系统调用) (page 44)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Linux-ioctl-系统调用-page-45-46">
+<span class="md-ellipsis">
+      
+        Linux ioctl 系统调用 (page 45-46)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#总结-Takeaway-page-47">
+<span class="md-ellipsis">
+      
+        总结 (Takeaway) (page 47)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Note
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    CSys-III
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:notes">notes</a>
+</nav>
+<h1 id="IO-系统"><span>I/O<span class="heti-spacing"> </span></span>系统<a class="headerlink" href="#IO-系统" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h1>
+<p>本文档综合讲解了计算机系统中的<span><span class="heti-spacing"> </span>I/O</span>（输入<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>输出）系统，涵盖了从硬件交互到软件接口、性能优化以及内核子系统的各个方面。</p>
+<h2 id="IO-系统概述-page-2-37"><span>I/O<span class="heti-spacing"> </span></span>系统概述<span><span class="heti-spacing"> </span>(page 2-37)</span><a class="headerlink" href="#IO-系统概述-page-2-37" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<details class="extra">
+<summary>磁盘系统回顾<span><span class="heti-spacing"> </span>(page 2-4)</span></summary>
+<p>在深入<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>系统之前，快速回顾了磁盘相关概念：</p>
+<ul>
+<li><strong>磁盘组成</strong><span>:<span class="heti-spacing"> </span></span>盘片（platter<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、磁道（track<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、扇区（sector<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、柱面（cylinder<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>定位时间</strong><span>:<span class="heti-spacing"> </span></span>寻道时间（seek time）<span>+<span class="heti-spacing"> </span></span>旋转延迟（rotational latency<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>磁盘结构与连接</strong><span>:<span class="heti-spacing"> </span></span>主机直连（host-<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、网络（network-<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、存储区域网络（storage area network, SAN<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>磁盘调度算法</strong><span>:<span class="heti-spacing"> </span></span>先来先服务（FCFS<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、最短寻道时间优先（SSTF<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、扫描算法（SCAN<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、循环扫描算法（C-SCAN<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、LOOK、C-LOOK。</li>
+<li><strong>磁盘管理</strong><span>:<span class="heti-spacing"> </span></span>物理格式化（physical formatting<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、分区（partition disk<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、逻辑格式化（logical formatting<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>RAID (Redundant Array of Inexpensive Disks)</strong>:<ul>
+<li><strong>RAID 0</strong><span>:<span class="heti-spacing"> </span></span>条带化（split<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，无冗余，提升性能。</li>
+<li><strong>RAID 1</strong><span>:<span class="heti-spacing"> </span></span>镜像（mirror<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，提供数据冗余。</li>
+<li><strong>RAID 4/5/6</strong><span>:<span class="heti-spacing"> </span></span>带奇偶校验的块级条带化（block with parity<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，提供数据冗余和性能平衡。</li>
+</ul>
+</li>
+</ul>
+</details>
+<p><span>I/O<span class="heti-spacing"> </span></span>管理是操作系统设计和运行中的一个重要组成部分。<span>I/O<span class="heti-spacing"> </span></span>设备是计算机与用户和其他系统进行交互的方式，其类型和控制方法多种多样，性能也差异巨大。设备驱动程序（Device Driver）封装了设备细节，并提供统一的接口。新型设备层出不穷，使得<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>管理成为一个持续演进的领域。</p>
+<h3 id="IO-硬件-page-6-7"><span>I/O<span class="heti-spacing"> </span></span>硬件<span><span class="heti-spacing"> </span>(page 6-7)</span><a class="headerlink" href="#IO-硬件-page-6-7" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>I/O<span class="heti-spacing"> </span></span>硬件种类繁多，包括存储设备（如磁盘<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、通信设备（如网卡）和人机交互设备（如键盘、鼠标<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。尽管种类繁多，但它们与计算机接口的信号有一些共同概念。</p>
+<ul>
+<li><strong>总线<span><span class="heti-spacing"> </span>(Bus)</span></strong><span>:<span class="heti-spacing"> </span></span>连接计算机各组件（包括<span><span class="heti-spacing"> </span>CPU</span>）的互连线路。</li>
+<li><strong>端口<span><span class="heti-spacing"> </span>(Port)</span></strong><span>:<span class="heti-spacing"> </span></span>设备的连接点。</li>
+<li><strong>控制器<span><span class="heti-spacing"> </span>(Controller)</span></strong><span>:<span class="heti-spacing"> </span></span>控制设备的组件。控制器可以集成在设备内部，也可以是单独的电路板。它们通常包含处理器、微代码（microcode<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、私有内存（private memory）和总线控制器等。</li>
+</ul>
+<p>计算机访问<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>设备的方式主要有两种：<strong>轮询（polling）</strong> 和 <strong>中断（interrupt）</strong>。</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/13_250613-141832.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/13_250613-141832.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/13_250613-141832.png" width="600"/></a>
+<br/>
+<figcaption>PC Bus Structure</figcaption>
+</figure>
+<h3 id="IO-硬件与-CPU-交互-page-8"><span>I/O<span class="heti-spacing"> </span></span>硬件与<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>交互<span><span class="heti-spacing"> </span>(page 8)</span><a class="headerlink" href="#IO-硬件与-CPU-交互-page-8" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>不同的<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>架构对<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>硬件的访问方式有所不同：</p>
+<ul>
+<li><strong>专用<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>指令<span><span class="heti-spacing"> </span>(Dedicated I/O Instructions)</span></strong><span>:<span class="heti-spacing"> </span></span>某些<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>架构（如<span class="heti-skip"><span class="heti-spacing"> </span>x86<span class="heti-spacing"> </span></span>的<code>in</code><span class="heti-skip"><span class="heti-spacing"> </span>,<span class="heti-spacing"> </span></span><code>out</code><span class="heti-skip"><span class="heti-spacing"> </span>,<span class="heti-spacing"> </span></span><code>ins</code><span class="heti-skip"><span class="heti-spacing"> </span>,<span class="heti-spacing"> </span></span><code>outs</code>指令）提供专门的<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>指令来访问设备。这些指令主要用于访问设备控制器中用于数据和控制的寄存器。<ul>
+<li>设备通常提供用于数据输入<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>输出（<code>data-in/data-out</code><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、状态（<code>status</code>）和控制<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>命令（<code>control/command</code>）的寄存器。</li>
+<li>设备驱动程序（device driver）会将命令或数据指针写入这些寄存器。</li>
+<li>这些寄存器通常只有<span class="heti-skip"><span class="heti-spacing"> </span>1-4<span class="heti-spacing"> </span></span>字节大小，或者作为<span><span class="heti-spacing"> </span>FIFO</span>（先入先出）缓冲区。</li>
+</ul>
+</li>
+<li><strong>内存映射<span><span class="heti-spacing"> </span>I/O (Memory-mapped I/O)</span></strong><span>:<span class="heti-spacing"> </span></span>许多设备将它们的寄存器或板载内存映射到<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>的内存地址空间中。这意味着<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>可以像访问普通内存一样，通过加载<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>存储指令来访问这些设备寄存器或内存。<ul>
+<li>这种方式常用于访问大容量的板载内存，如图形卡的显存。</li>
+</ul>
+</li>
+</ul>
+<details class="example" open="open">
+<summary><span>PC<span class="heti-spacing"> </span></span>上的<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>端口地址范围<span><span class="heti-spacing"> </span>(page 9)</span></summary>
+<p>在<span class="heti-skip"><span class="heti-spacing"> </span>PC<span class="heti-spacing"> </span></span>架构中，部分<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>端口的十六进制地址范围与对应设备示例如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><span>I/O<span class="heti-spacing"> </span></span>地址范围<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>十六进制<span><span class="heti-spacing"> </span>)</span></th>
+<th style="text-align: left;">设备</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">000-00F</td>
+<td style="text-align: left;"><span>DMA<span class="heti-spacing"> </span></span>控制器</td>
+</tr>
+<tr>
+<td style="text-align: left;">020-021</td>
+<td style="text-align: left;">中断控制器</td>
+</tr>
+<tr>
+<td style="text-align: left;">040-043</td>
+<td style="text-align: left;">定时器</td>
+</tr>
+<tr>
+<td style="text-align: left;">200-20F</td>
+<td style="text-align: left;">游戏控制器</td>
+</tr>
+<tr>
+<td style="text-align: left;">2F8-2FF</td>
+<td style="text-align: left;">串口<span><span class="heti-spacing"> </span>(secondary)</span></td>
+</tr>
+<tr>
+<td style="text-align: left;">320-32F</td>
+<td style="text-align: left;">硬盘控制器</td>
+</tr>
+<tr>
+<td style="text-align: left;">378-37F</td>
+<td style="text-align: left;">并口</td>
+</tr>
+<tr>
+<td style="text-align: left;">3D0-3DF</td>
+<td style="text-align: left;">显卡控制器</td>
+</tr>
+<tr>
+<td style="text-align: left;">3F0-3F7</td>
+<td style="text-align: left;">软盘驱动器控制器</td>
+</tr>
+<tr>
+<td style="text-align: left;">3F8-3FF</td>
+<td style="text-align: left;">串口<span><span class="heti-spacing"> </span>(primary)</span></td>
+</tr>
+</tbody>
+</table>
+</details>
+<h3 id="轮询-Polling-page-10">轮询<span><span class="heti-spacing"> </span>(Polling) (page 10)</span><a class="headerlink" href="#轮询-Polling-page-10" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>轮询是一种<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>访问机制，<span>CPU<span class="heti-spacing"> </span></span>会周期性地检查设备的状态寄存器，以确定设备是否准备好进行<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>操作或操作是否完成。</p>
+<ul>
+<li><strong>操作流程</strong>:<ol>
+<li>如果设备正忙（通过检查状态寄存器<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，<span>CPU<span class="heti-spacing"> </span></span>会进行忙等待（busy-wait<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>一旦设备空闲，设备驱动程序将命令发送到设备控制器（写入命令寄存器<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><span>CPU<span class="heti-spacing"> </span></span>持续读取状态寄存器，直到它指示命令已执行完成。</li>
+<li>读取执行状态，并可能重置设备状态。</li>
+</ol>
+</li>
+<li><strong>优缺点</strong>:<ul>
+<li><strong>优点</strong><span>:<span class="heti-spacing"> </span></span>简单易实现。</li>
+<li><strong>缺点</strong><span>:<span class="heti-spacing"> </span></span>需要忙等待，会浪费<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>资源。如果设备速度慢，效率会非常低下。仅当设备非常快时，轮询才比较合理。</li>
+</ul>
+</li>
+</ul>
+<h3 id="中断-Interrupts-page-11-17">中断<span><span class="heti-spacing"> </span>(Interrupts) (page 11-17)</span><a class="headerlink" href="#中断-Interrupts-page-11-17" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>中断是另一种<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>访问机制，旨在避免<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>的忙等待，提高<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>资源利用率。</p>
+<ul>
+<li><strong>基本原理</strong>:<ul>
+<li>设备驱动程序（作为操作系统的一部分）向控制器（或设备）发送命令后立即返回，<span>CPU<span class="heti-spacing"> </span></span>可以调度其他任务。</li>
+<li>当命令执行完成或发生特定事件时，设备会向处理器发出中断信号。</li>
+<li>操作系统通过中断处理程序（interrupt handler）来检索结果。</li>
+</ul>
+</li>
+<li><strong>上下文切换<span><span class="heti-spacing"> </span>(Context Switch)</span></strong><span>:<span class="heti-spacing"> </span></span>基于中断的<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>操作在开始和结束时都需要进行上下文切换。<ul>
+<li>当中断频率极高时，频繁的上下文切换会消耗大量<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>时间。</li>
+<li><strong>解决方案</strong><span>:<span class="heti-spacing"> </span></span>在高中断频率下，有时会选择使用轮询。例如，<span>Linux<span class="heti-spacing"> </span></span>的 <strong>NAPI（New API）</strong> 在高网络负载下会启用轮询，以减少中断和上下文切换的开销。</li>
+</ul>
+</li>
+</ul>
+<details class="note" open="open">
+<summary>中断驱动<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>周期<span><span class="heti-spacing"> </span>(page 12)</span></summary>
+<p>一个典型的中断驱动<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>周期流程如下：</p>
+<ol>
+<li><strong>设备驱动程序发起<span><span class="heti-spacing"> </span>I/O</span></strong><span>: CPU<span class="heti-spacing"> </span></span>上的设备驱动程序发起一个<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>操作。</li>
+<li><strong><span>I/O<span class="heti-spacing"> </span></span>控制器启动<span><span class="heti-spacing"> </span>I/O</span></strong><span>: I/O<span class="heti-spacing"> </span></span>控制器接收到命令，并启动<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>操作。</li>
+<li><strong>设备产生中断信号</strong><span>:<span class="heti-spacing"> </span></span>当<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>完成（输入数据准备好、输出完成或发生错误）时，设备生成中断信号。</li>
+<li><strong><span>CPU<span class="heti-spacing"> </span></span>接收中断并转移控制</strong><span>: CPU<span class="heti-spacing"> </span></span>在执行指令间隙检查中断。接收到中断后，<span>CPU<span class="heti-spacing"> </span></span>将控制权转移到中断处理程序。</li>
+<li><strong>中断处理程序处理数据</strong><span>:<span class="heti-spacing"> </span></span>中断处理程序处理数据。如果是输入操作，将数据存储到设备驱动程序缓冲区。</li>
+<li><strong>中断处理程序返回</strong><span>:<span class="heti-spacing"> </span></span>中断处理程序处理完毕后返回。</li>
+<li><strong><span>CPU<span class="heti-spacing"> </span></span>恢复被中断任务</strong><span>: CPU<span class="heti-spacing"> </span></span>恢复执行被中断的任务。</li>
+</ol>
+</details>
+<h4 id="中断在-CPU-架构中的实现-page-13-15">中断在<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>架构中的实现<span><span class="heti-spacing"> </span>(page 13-15)</span><a class="headerlink" href="#中断在-CPU-架构中的实现-page-13-15" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>操作系统会维护一个中断向量表（Interrupt Vector Table<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，其中包含了不同类型中断对应的处理程序入口地址。</p>
+<ul>
+<li><strong><span>Intel Pentium<span class="heti-spacing"> </span></span>中断向量表<span><span class="heti-spacing"> </span>(page 13)</span></strong>:<ul>
+<li><span>0-18:<span class="heti-spacing"> </span></span>预定义异常，如除法错误（0<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、调试异常（1<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、断点（3<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、页错误（14）等。</li>
+<li><span>19-31: Intel<span class="heti-spacing"> </span></span>保留。</li>
+<li><span>32-255:<span class="heti-spacing"> </span></span>可屏蔽中断（maskable interrupts<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，通常用于外部设备中断。</li>
+</ul>
+</li>
+<li><strong><span>Linux<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>ARM64<span class="heti-spacing"> </span></span>上的中断向量表<span><span class="heti-spacing"> </span>(page 14)</span></strong>:<ul>
+<li>展示了<span class="heti-skip"><span class="heti-spacing"> </span>ARM64<span class="heti-spacing"> </span></span>架构下<span class="heti-skip"><span class="heti-spacing"> </span>Linux<span class="heti-spacing"> </span></span>内核的异常向量表定义（<code>ENTRY(vectors)</code><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，包括同步异常（<code>sync</code><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、中断请求（<code>irq</code><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、快速中断请求（<code>fiq</code>）和错误（<code>error</code>）等，针对不同的异常级别（EL0, EL1h, EL1t）有不同的入口。</li>
+<li>代码片段显示了如何设置向量基地址寄存器 <code>vbar_el1</code>。</li>
+</ul>
+</li>
+<li><strong><span>Linux<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>RISC-V64<span class="heti-spacing"> </span></span>上的中断向量表<span><span class="heti-spacing"> </span>(page 15)</span></strong>:<ul>
+<li>展示了<span class="heti-skip"><span class="heti-spacing"> </span>RISC-V64<span class="heti-spacing"> </span></span>架构下<span class="heti-skip"><span class="heti-spacing"> </span>Linux<span class="heti-spacing"> </span></span>内核的异常向量表定义（<code>SYM_CODE_START(excp_vect_table)</code><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，包含了各种陷阱（trap）或异常的处理入口，如指令错位（<code>insn_misaligned</code><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、指令非法（<code>insn_illegal</code><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、断点（<code>break</code><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、页错误（<code>page_fault</code>）等。</li>
+<li><code>setup_trap_vector</code> 函数通过 <code>csrw CSR_TVEC, a0</code> 将异常处理函数的地址写入 <code>CSR_TVEC</code> 控制状态寄存器。</li>
+</ul>
+</li>
+</ul>
+<h4 id="中断与异常-page-16">中断与异常<span><span class="heti-spacing"> </span>(page 16)</span><a class="headerlink" href="#中断与异常-page-16" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>中断不仅用于<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>操作，也用于处理各种异常事件：</p>
+<ul>
+<li><strong>保护错误<span><span class="heti-spacing"> </span>(Protection Error)</span></strong><span>:<span class="heti-spacing"> </span></span>访问违规，如访问不允许的内存区域。</li>
+<li><strong>页错误<span><span class="heti-spacing"> </span>(Page Fault)</span></strong><span>:<span class="heti-spacing"> </span></span>内存访问错误，如访问未映射或不在物理内存中的页面。</li>
+<li><strong>系统调用<span><span class="heti-spacing"> </span>(System Calls)</span></strong><span>:<span class="heti-spacing"> </span></span>软件中断，应用程序通过系统调用请求操作系统服务。</li>
+</ul>
+<h4 id="多-CPU-系统中的中断-page-16-17">多<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>系统中的中断<span><span class="heti-spacing"> </span>(page 16-17)</span><a class="headerlink" href="#多-CPU-系统中的中断-page-16-17" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>在多核<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>系统（Multi-CPU systems）中，中断可以并行处理。</p>
+<ul>
+<li><strong><span>CPU<span class="heti-spacing"> </span></span>亲和性<span><span class="heti-spacing"> </span>(CPU Affinity)</span></strong>:<ul>
+<li>有时一个<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>可以专门用于处理中断，以优化中断处理性能。</li>
+<li>中断也可以被分配到特定的<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>上处理，这被称为 <strong>SMP IRQ Affinity</strong>。</li>
+<li>从<span class="heti-skip"><span class="heti-spacing"> </span>Linux 2.4<span class="heti-spacing"> </span></span>内核开始，系统管理员可以为特定的中断请求（IRQ）分配到特定的处理器或处理器组。</li>
+<li><strong>目的</strong><span>:<span class="heti-spacing"> </span></span>允许系统更高效地处理各种硬件事件，平衡工作负载。</li>
+<li><strong>应用示例</strong>:<ul>
+<li>在多处理器机器中，将不同的网卡（NIC）绑定到不同的<span><span class="heti-spacing"> </span>CPU</span>，可以更好地处理网络流量。</li>
+<li>数据库服务器或具有大量磁盘存储的服务器，可以专门分配一个<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>处理磁盘控制器，另一个<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>处理网卡，从而提高响应时间。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="直接内存访问-Direct-Memory-Access-DMA-page-18-19">直接内存访问<span><span class="heti-spacing"> </span>(Direct Memory Access, DMA) (page 18-19)</span><a class="headerlink" href="#直接内存访问-Direct-Memory-Access-DMA-page-18-19" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>DMA<span class="heti-spacing"> </span></span>是一种允许<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>设备和内存之间直接传输数据，而无需<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>干预的技术。</p>
+<details class="definition" open="open">
+<summary>DMA (page 18)</summary>
+<p><strong>DMA</strong> 允许<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>设备和内存之间直接传输数据，绕过<span><span class="heti-spacing"> </span>CPU</span>。这意味着<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>只需要发出命令，而数据传输本身由<span class="heti-skip"><span class="heti-spacing"> </span>DMA<span class="heti-spacing"> </span></span>控制器（DMA Controller）完成，从而减轻<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>的负担。</p>
+</details>
+<ul>
+<li><strong>优势</strong>:<ul>
+<li>数据传输绕过<span><span class="heti-spacing"> </span>CPU</span>，<span>CPU<span class="heti-spacing"> </span></span>可以执行其他任务。</li>
+<li>无需通过编程<span><span class="heti-spacing"> </span>I/O</span>（逐字节传输<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，数据可以以大块（large blocks）的形式传输，效率更高。</li>
+</ul>
+</li>
+<li><strong>组件</strong><span>:<span class="heti-spacing"> </span></span>需要设备或系统中存在<span class="heti-skip"><span class="heti-spacing"> </span>DMA<span class="heti-spacing"> </span></span>控制器。</li>
+<li><strong>操作流程</strong>:<ol>
+<li>操作系统向<span class="heti-skip"><span class="heti-spacing"> </span>DMA<span class="heti-spacing"> </span></span>控制器发出命令，命令中包含操作类型、数据在内存中的地址、要传输的字节数等信息。</li>
+<li>这些命令通常是指向命令的指针，写入<span class="heti-skip"><span class="heti-spacing"> </span>DMA<span class="heti-spacing"> </span></span>控制器的命令寄存器。</li>
+<li><span>DMA<span class="heti-spacing"> </span></span>控制器根据命令直接在<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>设备和内存之间传输数据。</li>
+<li>传输完成后，<span>DMA<span class="heti-spacing"> </span></span>设备会向<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>发出中断信号，通知<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>传输完成。</li>
+</ol>
+</li>
+</ul>
+<details class="example">
+<summary><span>DMA<span class="heti-spacing"> </span></span>传输步骤<span><span class="heti-spacing"> </span>(page 19)</span></summary>
+<p>假设设备驱动程序要将 <code>drive2</code> 中的数据传输到内存地址 <code>x</code> 处的缓冲区：</p>
+<ol>
+<li><strong>设备驱动程序请求传输</strong><span>:<span class="heti-spacing"> </span></span>设备驱动程序被告知将 <code>drive2</code> 的数据传输到内存地址 <code>x</code> 的缓冲区。</li>
+<li><strong>驱动程序指示控制器</strong><span>:<span class="heti-spacing"> </span></span>设备驱动程序告诉驱动器控制器将 <code>c</code> 字节数据传输到地址 <code>x</code> 的缓冲区。</li>
+<li><strong>驱动器控制器启动<span><span class="heti-spacing"> </span>DMA</span></strong><span>:<span class="heti-spacing"> </span></span>驱动器控制器（<span>SAS<span class="heti-spacing"> </span></span>驱动器控制器）发起<span class="heti-skip"><span class="heti-spacing"> </span>DMA<span class="heti-spacing"> </span></span>传输。</li>
+<li><strong><span>DMA<span class="heti-spacing"> </span></span>控制器传输数据</strong><span>: DMA<span class="heti-spacing"> </span></span>控制器直接将数据传输到内存中的缓冲区 <code>x</code>，同时内存地址递增，计数器 <code>c</code> 递减，直到 <code>c</code> 变为<span><span class="heti-spacing"> </span>0</span>。</li>
+<li><strong><span>DMA<span class="heti-spacing"> </span></span>完成中断<span><span class="heti-spacing"> </span>CPU</span></strong><span>:<span class="heti-spacing"> </span></span>当 <code>c</code> 变为<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>时，<span>DMA<span class="heti-spacing"> </span></span>控制器中断<span><span class="heti-spacing"> </span>CPU</span>，以信号通知传输完成。</li>
+</ol>
+</details>
+<h3 id="应用程序-IO-接口-page-20-22">应用程序<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>接口<span><span class="heti-spacing"> </span>(page 20-22)</span><a class="headerlink" href="#应用程序-IO-接口-page-20-22" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>应用程序通过<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>接口与<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>设备进行交互。操作系统通过系统调用（system calls）封装设备行为，提供通用接口。</p>
+<ul>
+<li><strong>设备作为文件</strong><span>:<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>Linux<span class="heti-spacing"> </span></span>中，设备可以像文件一样被访问，这大大简化了编程模型。</li>
+<li><strong><code>ioctl</code></strong><span>:<span class="heti-spacing"> </span></span>对于低层级的设备访问和控制，<span>Linux<span class="heti-spacing"> </span></span>提供 <code>ioctl</code> 系统调用。</li>
+</ul>
+<details class="example" open="open">
+<summary><span>Linux<span class="heti-spacing"> </span></span><code>/dev</code>目录列表<span><span class="heti-spacing"> </span>(page 21</span>，但下面的内容是我自己电脑上的<span><span class="heti-spacing"> </span>)</span></summary>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos=" 1 "></span></a>$<span class="w"> </span>ls<span class="w"> </span>-l
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos" data-linenos=" 2 "></span></a>total<span class="w"> </span><span class="m">0</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><a href="#__codelineno-0-3"><span class="linenos" data-linenos=" 3 "></span></a>crw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">     </span><span class="m">10</span>,<span class="w"> </span><span class="m">235</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="m">14</span>:38<span class="w"> </span>autofs
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><a href="#__codelineno-0-4"><span class="linenos" data-linenos=" 4 "></span></a>drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">         </span><span class="m">560</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="m">14</span>:38<span class="w"> </span>block
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><a href="#__codelineno-0-5"><span class="linenos" data-linenos=" 5 "></span></a>drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">          </span><span class="m">80</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="m">14</span>:38<span class="w"> </span>bsg
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><a href="#__codelineno-0-6"><span class="linenos" data-linenos=" 6 "></span></a>crw-rw----<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>disk<span class="w">     </span><span class="m">10</span>,<span class="w"> </span><span class="m">234</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="m">14</span>:38<span class="w"> </span>btrfs-control
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><a href="#__codelineno-0-7"><span class="linenos" data-linenos=" 7 "></span></a>drwxr-xr-x<span class="w"> </span><span class="m">3</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">          </span><span class="m">60</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="m">14</span>:38<span class="w"> </span>bus
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><a href="#__codelineno-0-8"><span class="linenos" data-linenos=" 8 "></span></a>drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">        </span><span class="m">2</span>.7K<span class="w"> </span>Jun<span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="m">14</span>:38<span class="w"> </span>char
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a><a href="#__codelineno-0-9"><span class="linenos" data-linenos=" 9 "></span></a>crw-------<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">      </span><span class="m">5</span>,<span class="w">   </span><span class="m">1</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">13</span><span class="w">  </span><span class="m">2025</span><span class="w"> </span>console
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><a href="#__codelineno-0-10"><span class="linenos" data-linenos="10 "></span></a>lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">          </span><span class="m">11</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="m">14</span>:38<span class="w"> </span>core<span class="w"> </span>-&gt;<span class="w"> </span>/proc/kcore
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a><a href="#__codelineno-0-11"><span class="linenos" data-linenos="11 "></span></a>crw-------<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">     </span><span class="m">10</span>,<span class="w"> </span><span class="m">125</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="m">14</span>:38<span class="w"> </span>cpu_dma_latency
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a><a href="#__codelineno-0-12"><span class="linenos" data-linenos="12 "></span></a>crw-------<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">     </span><span class="m">10</span>,<span class="w"> </span><span class="m">203</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="m">14</span>:38<span class="w"> </span>cuse
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a><a href="#__codelineno-0-13"><span class="linenos" data-linenos="13 "></span></a>drwxr-xr-x<span class="w"> </span><span class="m">6</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">         </span><span class="m">120</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="m">14</span>:38<span class="w"> </span>disk
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a><a href="#__codelineno-0-14"><span class="linenos" data-linenos="14 "></span></a>drwxr-xr-x<span class="w"> </span><span class="m">3</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">         </span><span class="m">100</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="m">14</span>:38<span class="w"> </span>dri
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a><a href="#__codelineno-0-15"><span class="linenos" data-linenos="15 "></span></a>crw-rw-rw-<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">     </span><span class="m">10</span>,<span class="w"> </span><span class="m">127</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="m">14</span>:38<span class="w"> </span>dxg
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a><a href="#__codelineno-0-16"><span class="linenos" data-linenos="16 "></span></a>lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">          </span><span class="m">13</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="m">14</span>:38<span class="w"> </span>fd<span class="w"> </span>-&gt;<span class="w"> </span>/proc/self/fd
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17"></a><a href="#__codelineno-0-17"><span class="linenos" data-linenos="17 "></span></a>crw-rw-rw-<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">      </span><span class="m">1</span>,<span class="w">   </span><span class="m">7</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="m">14</span>:38<span class="w"> </span>full
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18"></a><a href="#__codelineno-0-18"><span class="linenos" data-linenos="18 "></span></a>crw-rw-rw-<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">     </span><span class="m">10</span>,<span class="w"> </span><span class="m">229</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="m">14</span>:38<span class="w"> </span>fuse
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19"></a><a href="#__codelineno-0-19"><span class="linenos" data-linenos="19 "></span></a>drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">           </span><span class="m">0</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="m">14</span>:38<span class="w"> </span>hugepages
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20"></a><a href="#__codelineno-0-20"><span class="linenos" data-linenos="20 "></span></a>crw-------<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">    </span><span class="m">229</span>,<span class="w">   </span><span class="m">0</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="m">14</span>:38<span class="w"> </span>hvc0
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21"></a><a href="#__codelineno-0-21"><span class="linenos" data-linenos="21 "></span></a>crw--w----<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>tty<span class="w">     </span><span class="m">229</span>,<span class="w">   </span><span class="m">1</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="m">14</span>:38<span class="w"> </span>hvc1
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22"></a><a href="#__codelineno-0-22"><span class="linenos" data-linenos="22 "></span></a>...
+</span></code></pre></div>
+<p>输出中的每一行代表一个设备文件或目录，显示了其权限、所有者、组、大小、时间戳以及设备类型（例如 <code>c</code> 代表字符设备，<code>d</code> 代表目录，<code>b</code> 代表块设备，<code>l</code> 代表符号链接<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。<code>disk</code> 和 <code>tty</code> 是常见的设备文件，可以像普通文件一样进行读写操作。</p>
+</details>
+<ul>
+<li><strong>设备驱动层</strong><span>:<span class="heti-spacing"> </span></span>设备驱动层（device-driver layer）隐藏了不同<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>控制器之间的差异，为内核提供统一的接口。<ul>
+<li>每个操作系统都有自己的<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>子系统和设备驱动框架。</li>
+<li>新设备如果遵循已实现的协议，则无需额外的开发工作。</li>
+</ul>
+</li>
+</ul>
+<details class="note" open="open">
+<summary><span>I/O<span class="heti-spacing"> </span></span>结构<span><span class="heti-spacing"> </span>(page 22)</span></summary>
+<p>典型的<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>结构分为硬件层和软件层，并进一步细分：</p>
+<ul>
+<li><strong>软件层<span><span class="heti-spacing"> </span>(Software)</span></strong>:<ul>
+<li><strong>内核<span><span class="heti-spacing"> </span>(Kernel)</span></strong><span>:<span class="heti-spacing"> </span></span>操作系统的核心部分。</li>
+<li><strong>内核<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>子系统<span><span class="heti-spacing"> </span>(Kernel I/O subsystem)</span></strong><span>:<span class="heti-spacing"> </span></span>处理<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>请求的核心逻辑。</li>
+<li><strong>设备驱动程序<span><span class="heti-spacing"> </span>(Device Driver)</span></strong><span>:<span class="heti-spacing"> </span></span>针对特定设备（如<span><span class="heti-spacing"> </span>SCSI</span>、键盘、鼠标、<span>PCI<span class="heti-spacing"> </span></span>总线设备、软盘、<span>ATAPI<span class="heti-spacing"> </span></span>设备）提供接口。</li>
+</ul>
+</li>
+<li><strong>硬件层<span><span class="heti-spacing"> </span>(Hardware)</span></strong>:<ul>
+<li><strong>设备控制器<span><span class="heti-spacing"> </span>(Device Controller)</span></strong><span>:<span class="heti-spacing"> </span></span>控制实际硬件设备，例如<span class="heti-skip"><span class="heti-spacing"> </span>SCSI<span class="heti-spacing"> </span></span>设备控制器、键盘控制器、鼠标控制器、<span>PCI<span class="heti-spacing"> </span></span>总线设备控制器、软盘控制器、<span>ATAPI<span class="heti-spacing"> </span></span>设备控制器。</li>
+<li><strong>设备<span><span class="heti-spacing"> </span>(Devices)</span></strong><span>:<span class="heti-spacing"> </span></span>实际的物理<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>设备，如<span class="heti-skip"><span class="heti-spacing"> </span>SCSI<span class="heti-spacing"> </span></span>设备、键盘、鼠标、<span>PCI<span class="heti-spacing"> </span></span>总线、软盘驱动器、<span>ATAPI<span class="heti-spacing"> </span></span>设备（包括磁盘、磁带、驱动器<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+</ul>
+</li>
+</ul>
+<p>这种分层结构使得操作系统能够通过设备驱动程序与各种底层硬件进行交互，同时为应用程序提供统一的<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>接口。</p>
+</details>
+<h3 id="IO-设备的特点-page-23-28"><span>I/O<span class="heti-spacing"> </span></span>设备的特点<span><span class="heti-spacing"> </span>(page 23-28)</span><a class="headerlink" href="#IO-设备的特点-page-23-28" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>I/O<span class="heti-spacing"> </span></span>设备在多个维度上存在显著差异，这影响了它们的管理方式和性能。</p>
+<h4 id="设备的分类维度-page-23">设备的分类维度<span><span class="heti-spacing"> </span>(page 23)</span><a class="headerlink" href="#设备的分类维度-page-23" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<ul>
+<li><strong>数据传输模式</strong>:<ul>
+<li><strong>字符流<span><span class="heti-spacing"> </span>(character-stream)</span></strong><span>:<span class="heti-spacing"> </span></span>以字符为单位传输数据，如键盘、串口。</li>
+<li><strong>块<span><span class="heti-spacing"> </span>(block)</span></strong><span>:<span class="heti-spacing"> </span></span>以固定大小的块为单位传输数据，如磁盘。</li>
+</ul>
+</li>
+<li><strong>访问方法</strong>:<ul>
+<li><strong>顺序访问<span><span class="heti-spacing"> </span>(sequential-access)</span></strong><span>:<span class="heti-spacing"> </span></span>数据只能按顺序访问，如磁带。</li>
+<li><strong>随机访问<span><span class="heti-spacing"> </span>(random-access)</span></strong><span>:<span class="heti-spacing"> </span></span>数据可以随机访问，如磁盘、内存。</li>
+</ul>
+</li>
+<li><strong>同步性</strong>:<ul>
+<li><strong>同步<span><span class="heti-spacing"> </span>(synchronous)</span></strong><span>: I/O<span class="heti-spacing"> </span></span>操作完成后才返回，进程等待。</li>
+<li><strong>异步<span><span class="heti-spacing"> </span>(asynchronous)</span></strong><span>: I/O<span class="heti-spacing"> </span></span>操作在后台进行，进程不等待，通过信号或回调通知完成。</li>
+<li>或两者兼有。</li>
+</ul>
+</li>
+<li><strong>共享性</strong>:<ul>
+<li><strong>可共享<span><span class="heti-spacing"> </span>(sharable)</span></strong><span>:<span class="heti-spacing"> </span></span>多个进程可以同时访问，如文件系统。</li>
+<li><strong>专用<span><span class="heti-spacing"> </span>(dedicated)</span></strong><span>:<span class="heti-spacing"> </span></span>每次只能被一个进程独占访问，如打印机。</li>
+</ul>
+</li>
+<li><strong>操作速度</strong><span>:<span class="heti-spacing"> </span></span>设备速度差异巨大，从毫秒级到微秒级，甚至纳秒级。</li>
+<li><strong>读写能力</strong>:<ul>
+<li><strong>读写<span><span class="heti-spacing"> </span>(read-write)</span></strong><span>:<span class="heti-spacing"> </span></span>可读可写，如磁盘。</li>
+<li><strong>只读<span><span class="heti-spacing"> </span>(read only)</span></strong><span>:<span class="heti-spacing"> </span></span>只能读取，如<span><span class="heti-spacing"> </span>CD-ROM</span>。</li>
+<li><strong>只写<span><span class="heti-spacing"> </span>(write only)</span></strong><span>:<span class="heti-spacing"> </span></span>只能写入，如打印机。</li>
+</ul>
+</li>
+</ul>
+<details class="note" open="open">
+<summary><span>I/O<span class="heti-spacing"> </span></span>设备特性表<span><span class="heti-spacing"> </span>(page 24)</span></summary>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">特性<span><span class="heti-spacing"> </span>(aspect)</span></th>
+<th style="text-align: left;">变化<span><span class="heti-spacing"> </span>(variation)</span></th>
+<th style="text-align: left;">示例<span><span class="heti-spacing"> </span>(example)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">数据传输模式</td>
+<td style="text-align: left;">字符<span class="heti-skip"><span class="heti-spacing"> </span>(character),<span class="heti-spacing"> </span></span>块<span><span class="heti-spacing"> </span>(block)</span></td>
+<td style="text-align: left;">终端<span class="heti-skip"><span class="heti-spacing"> </span>(terminal),<span class="heti-spacing"> </span></span>磁盘<span><span class="heti-spacing"> </span>(disk)</span></td>
+</tr>
+<tr>
+<td style="text-align: left;">访问方法</td>
+<td style="text-align: left;">顺序<span class="heti-skip"><span class="heti-spacing"> </span>(sequential),<span class="heti-spacing"> </span></span>随机<span><span class="heti-spacing"> </span>(random)</span></td>
+<td style="text-align: left;">调制解调器<span><span class="heti-spacing"> </span>(modem), CD-ROM</span></td>
+</tr>
+<tr>
+<td style="text-align: left;">传输调度</td>
+<td style="text-align: left;">同步<span class="heti-skip"><span class="heti-spacing"> </span>(synchronous),<span class="heti-spacing"> </span></span>异步<span><span class="heti-spacing"> </span>(asynchronous)</span></td>
+<td style="text-align: left;">磁带<span class="heti-skip"><span class="heti-spacing"> </span>(tape),<span class="heti-spacing"> </span></span>键盘<span><span class="heti-spacing"> </span>(keyboard)</span></td>
+</tr>
+<tr>
+<td style="text-align: left;">共享</td>
+<td style="text-align: left;">专用<span class="heti-skip"><span class="heti-spacing"> </span>(dedicated),<span class="heti-spacing"> </span></span>可共享<span><span class="heti-spacing"> </span>(sharable)</span></td>
+<td style="text-align: left;">磁带<span class="heti-skip"><span class="heti-spacing"> </span>(tape),<span class="heti-spacing"> </span></span>键盘<span><span class="heti-spacing"> </span>(keyboard)</span></td>
+</tr>
+<tr>
+<td style="text-align: left;">设备速度</td>
+<td style="text-align: left;">延迟<span class="heti-skip"><span class="heti-spacing"> </span>(latency),<span class="heti-spacing"> </span></span>寻道时间<span class="heti-skip"><span class="heti-spacing"> </span>(seek time),<span class="heti-spacing"> </span></span>传输速率<span class="heti-skip"><span class="heti-spacing"> </span>(transfer rate),<span class="heti-spacing"> </span></span>操作间延迟<span><span class="heti-spacing"> </span>(delay between operations)</span></td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span>I/O<span class="heti-spacing"> </span></span>方向</td>
+<td style="text-align: left;">只读<span class="heti-skip"><span class="heti-spacing"> </span>(read only),<span class="heti-spacing"> </span></span>只写<span class="heti-skip"><span class="heti-spacing"> </span>(write only),<span class="heti-spacing"> </span></span>读写<span><span class="heti-spacing"> </span>(read-write)</span></td>
+<td style="text-align: left;"><span>CD-ROM,<span class="heti-spacing"> </span></span>显卡控制器<span class="heti-skip"><span class="heti-spacing"> </span>(graphics controller),<span class="heti-spacing"> </span></span>磁盘<span><span class="heti-spacing"> </span>(disk)</span></td>
+</tr>
+</tbody>
+</table>
+</details>
+<h4 id="操作系统对设备的分类-page-25">操作系统对设备的分类<span><span class="heti-spacing"> </span>(page 25)</span><a class="headerlink" href="#操作系统对设备的分类-page-25" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>操作系统通常将<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>设备大致分为以下几类：</p>
+<ul>
+<li><strong>块<span><span class="heti-spacing"> </span>I/O (Block I/O)</span></strong>:<ul>
+<li>数据以固定大小的块（block）进行访问。</li>
+<li>命令通常包括 <code>read</code>、<code>write</code>、<code>seek</code>。</li>
+<li>可以是原始<span><span class="heti-spacing"> </span>I/O</span>（raw I/O<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、直接<span><span class="heti-spacing"> </span>I/O</span>（direct I/O<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，或通过文件系统访问。</li>
+<li>支持内存映射文件访问（memory-mapped file access<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>通常使用<span class="heti-skip"><span class="heti-spacing"> </span>DMA<span class="heti-spacing"> </span></span>传输。</li>
+<li>示例：磁盘驱动器。</li>
+</ul>
+</li>
+<li><strong>字符<span><span class="heti-spacing"> </span>I/O (Character I/O)</span></strong>:<ul>
+<li>数据以字符流（stream）的形式访问。</li>
+<li>设备类型非常多样。</li>
+<li>示例：键盘、鼠标、串口。</li>
+</ul>
+</li>
+<li><strong>内存映射文件访问<span><span class="heti-spacing"> </span>(Memory-mapped File Access)</span></strong><span>:<span class="heti-spacing"> </span></span>将文件或设备映射到进程的内存空间，通过内存访问指令来读写文件或设备。</li>
+<li><strong>网络套接字<span><span class="heti-spacing"> </span>(Network Sockets)</span></strong><span>:<span class="heti-spacing"> </span></span>用于网络通信的抽象接口。</li>
+</ul>
+<p>操作系统通常会提供一个“后门”或“逃生口”机制，允许应用程序直接向设备发送特定的<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>命令。在<span class="heti-skip"><span class="heti-spacing"> </span>Linux<span class="heti-spacing"> </span></span>中，这通常是通过 <code>ioctl</code> 系统调用完成的。</p>
+<h4 id="网络设备-Network-Devices-page-27">网络设备<span><span class="heti-spacing"> </span>(Network Devices) (page 27)</span><a class="headerlink" href="#网络设备-Network-Devices-page-27" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>网络设备由于其数据传输的特殊性，通常拥有自己的接口，与块设备和字符设备有所不同。</p>
+<ul>
+<li>网络设备接口通常与管道（pipe）和邮箱（mailbox）等机制不同。</li>
+<li><strong>套接字接口<span><span class="heti-spacing"> </span>(Socket Interface)</span></strong> 是网络访问的流行接口。<ul>
+<li>它将网络协议的细节与底层的网络操作分离开来。</li>
+<li>有趣的是，一些非网络操作也被实现为套接字，例如<span class="heti-skip"><span class="heti-spacing"> </span>Unix<span class="heti-spacing"> </span></span>域套接字（Unix socket<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，用于同一主机上进程间的通信。</li>
+</ul>
+</li>
+</ul>
+<h4 id="时钟与定时器-Clocks-and-Timers-page-28">时钟与定时器<span><span class="heti-spacing"> </span>(Clocks and Timers) (page 28)</span><a class="headerlink" href="#时钟与定时器-Clocks-and-Timers-page-28" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>时钟和定时器在操作系统中也常被视为一种字符设备。</p>
+<ul>
+<li>它们提供当前时间、经过时间（elapsed time）和定时器功能，是系统中的关键设备。</li>
+<li>通常分辨率约为<span class="heti-skip"><span class="heti-spacing"> </span>1/60<span class="heti-spacing"> </span></span>秒，但有些操作系统也提供更高分辨率的时钟。</li>
+</ul>
+<h4 id="同步异步-IO-SynchronousAsynchronous-IO-page-29-30">同步<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>异步<span><span class="heti-spacing"> </span>I/O (Synchronous/Asynchronous I/O) (page 29-30)</span><a class="headerlink" href="#同步异步-IO-SynchronousAsynchronous-IO-page-29-30" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p><span>I/O<span class="heti-spacing"> </span></span>操作可以分为同步（Synchronous）和异步（Asynchronous）两大类。</p>
+<ul>
+<li><strong>同步<span><span class="heti-spacing"> </span>I/O (Synchronous I/O)</span></strong><span>:<span class="heti-spacing"> </span></span>应用程序在<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>操作完成之前会被阻塞。<ul>
+<li><strong>阻塞<span><span class="heti-spacing"> </span>I/O (Blocking I/O)</span></strong><span>:<span class="heti-spacing"> </span></span>进程被暂停，直到<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>完成。<ul>
+<li>易于使用和理解。</li>
+<li>但效率可能较低，因为进程必须等待。</li>
+<li>不适用于所有需求（例如，需要同时处理多个<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>或不希望进程长时间阻塞的场景<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+</ul>
+</li>
+<li><strong>非阻塞<span><span class="heti-spacing"> </span>I/O (Non-blocking I/O)</span></strong><span>: I/O<span class="heti-spacing"> </span></span>调用会立即返回，返回尽可能多的可用数据。<ul>
+<li>进程不会被阻塞，会立即返回。</li>
+<li>通常需要使用 <code>select</code> 或 <code>poll</code> 等机制来检查数据是否准备好，然后才能进行读写传输。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>异步<span><span class="heti-spacing"> </span>I/O (Asynchronous I/O)</span></strong><span>:<span class="heti-spacing"> </span></span>进程在<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>操作执行时继续运行，<span>I/O<span class="heti-spacing"> </span></span>子系统通过信号（signal）或回调（callback）机制通知进程<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>完成。<ul>
+<li><strong>优点</strong><span>:<span class="heti-spacing"> </span></span>进程可以并发执行，效率非常高，<span>CPU<span class="heti-spacing"> </span></span>利用率高。</li>
+<li><strong>缺点</strong><span>:<span class="heti-spacing"> </span></span>使用起来相对复杂，需要更复杂的编程模型来处理完成通知。</li>
+</ul>
+</li>
+</ul>
+<details class="example" open="open">
+<summary>两种<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>方法对比<span><span class="heti-spacing"> </span>(page 30)</span></summary>
+<p>幻灯片<span class="heti-skip"><span class="heti-spacing"> </span>30<span class="heti-spacing"> </span></span>展示了两种<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>方法的时间线图：</p>
+<ul>
+<li><strong><span>(a)<span class="heti-spacing"> </span></span>阻塞<span><span class="heti-spacing"> </span>I/O</span></strong>:<ul>
+<li>用户态进程发起<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>请求。</li>
+<li>陷入内核（<code>trap to kernel</code><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，执行系统调用（<code>system call</code><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>设备驱动程序发起<span><span class="heti-spacing"> </span>I/O</span>，此时请求进程进入等待状态（<code>---waiting---</code><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，无法执行其他任务。</li>
+<li>硬件进行数据传输。</li>
+<li>中断处理程序接收中断，处理数据，并返回。</li>
+<li>系统调用返回到用户态，请求进程恢复执行。</li>
+</ul>
+</li>
+<li><strong><span>(b)<span class="heti-spacing"> </span></span>非阻塞<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>异步<span><span class="heti-spacing"> </span>I/O</span></strong>:<ul>
+<li>用户态进程发起<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>请求。</li>
+<li>陷入内核，执行系统调用。</li>
+<li>设备驱动程序发起<span><span class="heti-spacing"> </span>I/O</span>，但系统调用立即返回到用户态（<code>return to calling thread</code><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。请求进程可以继续执行其他任务，不必等待<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>完成。</li>
+<li>硬件进行数据传输。</li>
+<li>中断处理程序接收中断，处理数据，并可能通过信号或其他机制通知请求进程<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>完成。</li>
+</ul>
+</li>
+</ul>
+<p>阻塞<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>的优点是流程直观，易于理解和编程，但会占用<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>等待<span><span class="heti-spacing"> </span>I/O</span>。非阻塞<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>异步<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>则能让<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>进行的同时处理其他任务，从而提高系统吞吐量，但程序设计复杂度增加。</p>
+</details>
+<h3 id="内核-IO-子系统-Kernel-IO-Subsystem-page-31-32">内核<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>子系统<span><span class="heti-spacing"> </span>(Kernel I/O Subsystem) (page 31-32)</span><a class="headerlink" href="#内核-IO-子系统-Kernel-IO-Subsystem-page-31-32" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>内核<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>子系统是操作系统中管理<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>的核心部分，它提供了一系列服务来优化和保护<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>操作。</p>
+<ul>
+<li><strong><span>I/O<span class="heti-spacing"> </span></span>调度<span><span class="heti-spacing"> </span>(I/O Scheduling)</span></strong>:<ul>
+<li>通过为每个设备维护一个<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>请求队列，对<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>请求进行排队。</li>
+<li>对<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>进行调度，以确保公平性（fairness）和提供服务质量（quality of service, QoS<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。常见的磁盘调度算法（如<span class="heti-skip"><span class="heti-spacing"> </span>FCFS, SSTF, SCAN<span class="heti-spacing"> </span></span>等）就属于<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>调度。</li>
+</ul>
+</li>
+<li><strong>缓冲<span><span class="heti-spacing"> </span>(Buffering)</span></strong>:<ul>
+<li>在设备之间传输数据时，将数据存储在内存中。</li>
+<li><strong>解决设备速度不匹配</strong><span>:<span class="heti-spacing"> </span></span>例如，从网络接收数据并写入<span class="heti-skip"><span class="heti-spacing"> </span>SSD<span class="heti-spacing"> </span></span>时，网络传输速度可能远快于<span class="heti-skip"><span class="heti-spacing"> </span>SSD<span class="heti-spacing"> </span></span>写入速度，需要缓冲区进行平滑。双缓冲（double buffering）是常见的实现方式。</li>
+<li><strong>解决设备传输大小不匹配</strong><span>:<span class="heti-spacing"> </span></span>例如，网络数据包可能需要重新组装成完整的消息。</li>
+<li><strong>维护“复制语义” (copy semantics)</strong><span>:<span class="heti-spacing"> </span></span>例如，<code>write()</code> 系统调用通常会先将用户数据复制到内核缓冲区，然后再写入设备，即使在 <code>write()</code> 调用返回后用户修改了原始数据，写入设备的数据也不会受到影响。</li>
+</ul>
+</li>
+<li><strong>缓存<span><span class="heti-spacing"> </span>(Caching)</span></strong>:<ul>
+<li>将数据的副本保存在内存中，以便快速访问。</li>
+<li>对性能至关重要。</li>
+<li>有时与缓冲结合使用。</li>
+<li>内存中的缓冲区也常被用作文件操作的缓存。</li>
+</ul>
+</li>
+<li><strong>假脱机<span><span class="heti-spacing"> </span>(Spooling)</span></strong>:<ul>
+<li>假脱机（spool）是一个缓冲区，用于保存设备的输出（或设备的输入<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，特别是当设备一次只能服务一个请求时。</li>
+<li>最常见的例子是打印：多个打印任务会先被发送到打印假脱机，然后由打印机按照顺序逐一处理。</li>
+</ul>
+</li>
+<li><strong>设备预留<span><span class="heti-spacing"> </span>(Device Reservation)</span></strong>:<ul>
+<li>为进程提供对设备的独占访问。</li>
+<li>通过系统调用进行设备的分配（allocation）和解除分配（de-allocation<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>在使用设备预留时需要注意避免死锁（deadlock）问题。</li>
+</ul>
+</li>
+</ul>
+<h3 id="错误处理-Error-Handling-page-33">错误处理<span><span class="heti-spacing"> </span>(Error Handling) (page 33)</span><a class="headerlink" href="#错误处理-Error-Handling-page-33" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>操作系统在处理<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>错误时通常有两种策略：</p>
+<ul>
+<li><strong>尝试从错误中恢复</strong>:<ul>
+<li>例如，设备暂时不可用、短暂的写入失败。</li>
+<li>有时通过重试读写操作来恢复。</li>
+<li>更高级的错误处理系统会跟踪错误频率，如果设备频繁出现错误，可能会停止使用该设备。</li>
+</ul>
+</li>
+<li><strong>返回错误码或错误号</strong>:<ul>
+<li>当<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>请求失败时，一些操作系统会直接返回一个错误号或错误码给调用者。</li>
+<li>系统错误日志（system error logs）会记录这些问题报告，供系统管理员或开发人员分析。</li>
+</ul>
+</li>
+</ul>
+<h3 id="IO-保护-IO-Protection-page-34-37"><span>I/O<span class="heti-spacing"> </span></span>保护<span><span class="heti-spacing"> </span>(I/O Protection) (page 34-37)</span><a class="headerlink" href="#IO-保护-IO-Protection-page-34-37" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>操作系统需要保护<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>设备，防止恶意或未经授权的访问。</p>
+<ul>
+<li><strong>保护必要性</strong>:<ul>
+<li>例如，键盘输入可能会被按键记录器（keylogger）窃取，如果键盘未受保护。</li>
+<li>必须始终假定用户可能试图非法获取<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>访问权限。</li>
+</ul>
+</li>
+<li><strong>保护措施</strong>:<ul>
+<li><strong>特权<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>指令</strong><span>:<span class="heti-spacing"> </span></span>将所有<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>指令定义为特权指令（privileged instructions<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，只有在内核模式下才能执行。</li>
+<li><strong>通过系统调用执行<span><span class="heti-spacing"> </span>I/O</span></strong><span>: I/O<span class="heti-spacing"> </span></span>操作必须通过系统调用（system calls）来完成。当用户态进程需要执行<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>时，它会发起一个系统调用，从而陷入内核模式，由内核执行<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>操作。</li>
+<li><strong>保护内存映射<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>端口</strong><span>:<span class="heti-spacing"> </span></span>内存映射<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>区域和<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>端口也必须受到保护，通常通过内存管理单元（MMU）或地址映射权限来实现。</li>
+</ul>
+</li>
+</ul>
+<details class="example">
+<summary>使用系统调用执行<span><span class="heti-spacing"> </span>I/O (page 35)</span></summary>
+<p>该图展示了用户态进程如何通过系统调用执行<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>操作：</p>
+<ol>
+<li><strong>陷阱到内核<span><span class="heti-spacing"> </span>(trap to kernel)</span></strong><span>:<span class="heti-spacing"> </span></span>用户态的请求进程发起一个系统调用（<code>system call n</code><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，这会触发一个陷阱（trap）或中断，使<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>从用户模式切换到内核模式。</li>
+<li><strong>执行<span><span class="heti-spacing"> </span>I/O (perform I/O)</span></strong><span>:<span class="heti-spacing"> </span></span>内核接收到系统调用请求后，会调度到对应的系统调用处理函数（<code>system call dispatch to n</code><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，然后由内核执行实际的<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>操作（例如 <code>read</code> 操作<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>返回到调用线程<span><span class="heti-spacing"> </span>(return to calling thread)</span></strong><span>: I/O<span class="heti-spacing"> </span></span>操作完成后，内核将控制权返回给用户态的调用线程。</li>
+</ol>
+</details>
+<ul>
+<li><strong>内核数据结构<span><span class="heti-spacing"> </span>(Kernel Data Structures)</span></strong>:<ul>
+<li>内核会维护<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>组件的状态信息，例如：<ul>
+<li>打开文件表（open file tables<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>网络连接（network connections<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>字符设备状态。</li>
+</ul>
+</li>
+<li>许多数据结构用于跟踪缓冲区、内存分配和“脏”块（dirty blocks<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，这些结构有时非常复杂。</li>
+<li>某些操作系统（如<span><span class="heti-spacing"> </span>Windows</span>）使用消息传递（message passing）来实现<span><span class="heti-spacing"> </span>I/O</span>。<span>I/O<span class="heti-spacing"> </span></span>信息以消息的形式从用户模式传递到内核，并在流经设备驱动程序并返回到进程时被修改。</li>
+</ul>
+</li>
+</ul>
+<details class="example" open="open">
+<summary><span>UNIX I/O<span class="heti-spacing"> </span></span>内核结构<span><span class="heti-spacing"> </span>(page 37)</span></summary>
+<p><span>UNIX<span class="heti-spacing"> </span></span>系统的<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>内核结构图展示了从用户进程到实际<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>设备的层级关系以及相关数据结构：</p>
+<ul>
+<li><strong>用户进程内存<span><span class="heti-spacing"> </span>(user-process memory)</span></strong><span>:<span class="heti-spacing"> </span></span>包含每个进程的<strong>文件描述符（file descriptor）</strong>。</li>
+<li><strong>每进程打开文件表<span><span class="heti-spacing"> </span>(per-process open-file table)</span></strong><span>:<span class="heti-spacing"> </span></span>每个文件描述符对应一个条目，指向系统范围的打开文件表中的记录。</li>
+<li><strong>系统范围打开文件表<span><span class="heti-spacing"> </span>(system-wide open-file table)</span></strong>:<ul>
+<li>包含<strong>文件系统记录<span><span class="heti-spacing"> </span>(file-system record)</span></strong><span>:<span class="heti-spacing"> </span></span>包括 <code>inode</code> 指针，以及指向读写、选择（<code>select</code><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、<code>ioctl</code> 和关闭（<code>close</code>）等功能的函数指针。</li>
+<li>包含<strong>网络（套接字）记录<span><span class="heti-spacing"> </span>(networking (socket) record)</span></strong><span>:<span class="heti-spacing"> </span></span>包括网络信息指针，以及指向读写、选择、<code>ioctl</code> 和关闭等功能的函数指针。</li>
+</ul>
+</li>
+<li><strong>活跃<span class="heti-skip"><span class="heti-spacing"> </span>inode<span class="heti-spacing"> </span></span>表<span><span class="heti-spacing"> </span>(active-inode table)</span></strong><span>:<span class="heti-spacing"> </span></span>记录当前正在使用的<span><span class="heti-spacing"> </span>inode</span>。</li>
+<li><strong>网络信息表<span><span class="heti-spacing"> </span>(network-information table)</span></strong><span>:<span class="heti-spacing"> </span></span>记录网络相关信息。</li>
+<li><strong>内核内存<span><span class="heti-spacing"> </span>(kernel memory)</span></strong><span>:<span class="heti-spacing"> </span></span>存储这些内核数据结构。</li>
+</ul>
+<p>这种结构允许不同的用户进程通过文件描述符共享文件系统记录或网络记录，实现了<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>的统一管理和资源共享。</p>
+</details>
+<h2 id="IO-请求到硬件操作的转换-page-38-39"><span>I/O<span class="heti-spacing"> </span></span>请求到硬件操作的转换<span><span class="heti-spacing"> </span>(page 38-39)</span><a class="headerlink" href="#IO-请求到硬件操作的转换-page-38-39" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>系统资源的访问需要映射到具体的硬件操作。</p>
+<ul>
+<li><strong>读取文件为例</strong>:<ol>
+<li><strong>确定设备</strong><span>:<span class="heti-spacing"> </span></span>确定哪个设备（例如磁盘）持有该文件。</li>
+<li><strong>名称转换</strong><span>:<span class="heti-spacing"> </span></span>将文件名转换为设备表示形式（例如在<span class="heti-skip"><span class="heti-spacing"> </span>FAT<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>UNIX<span class="heti-spacing"> </span></span>中，通常是主设备号<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>次设备号<heti-adjacent class="heti-adjacent-half">，</heti-adjacent><code>major/minor</code><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>物理读取</strong><span>:<span class="heti-spacing"> </span></span>从磁盘物理读取数据到缓冲区。</li>
+<li><strong>数据可用</strong><span>:<span class="heti-spacing"> </span></span>将数据提供给请求进程。</li>
+<li><strong>控制返回</strong><span>:<span class="heti-spacing"> </span></span>将控制权返回给请求进程。</li>
+</ol>
+</li>
+</ul>
+<details class="example" open="open">
+<summary><span>I/O<span class="heti-spacing"> </span></span>请求的生命周期<span><span class="heti-spacing"> </span>(page 39)</span></summary>
+<figure markdown="span">
+</figure></details>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/13_250613-150923.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/13_250613-150923.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/13_250613-150923.png" width="600"/></a>
+<br/>
+<figcaption>Life cycle of I/O request</figcaption></p>
+<blockquote>
+<p>该图详细展示了一个<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>请求从用户态到硬件的完整生命周期：</p>
+<ol>
+<li><strong>用户态请求<span><span class="heti-spacing"> </span>I/O</span></strong><span>:<span class="heti-spacing"> </span></span>用户进程发起<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>请求。</li>
+<li><strong>系统调用</strong><span>:<span class="heti-spacing"> </span></span>请求通过系统调用进入内核。</li>
+<li><strong>内核<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>子系统检查</strong>:<ul>
+<li>如果内核<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>子系统已经能够满足请求（例如数据已在缓存中<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，则直接将数据放置在返回值或进程空间中，并返回给用户态。</li>
+<li>如果不能满足，则继续下一步。</li>
+</ul>
+</li>
+<li><strong>发送请求到设备驱动</strong><span>:<span class="heti-spacing"> </span></span>内核将请求发送到设备驱动程序，如果需要则阻塞请求进程。</li>
+<li><strong>设备驱动处理</strong><span>:<span class="heti-spacing"> </span></span>设备驱动程序处理请求，向控制器发出命令，并配置控制器使其阻塞直到中断。</li>
+<li><strong>设备控制器执行命令</strong><span>:<span class="heti-spacing"> </span></span>设备控制器执行命令并监控设备状态。</li>
+<li><strong><span>I/O<span class="heti-spacing"> </span></span>完成，生成中断</strong><span>: I/O<span class="heti-spacing"> </span></span>完成后，设备控制器生成中断信号。</li>
+<li><strong>中断处理程序</strong>:<ul>
+<li>接收中断，如果是输入操作，将数据存储在设备驱动程序的缓冲区中。</li>
+<li>发送信号以解除阻塞设备驱动程序。</li>
+</ul>
+</li>
+<li><strong>设备驱动程序更新状态</strong><span>:<span class="heti-spacing"> </span></span>设备驱动程序确定哪个<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>已完成，并指示<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>子系统状态已更改。</li>
+<li><strong>内核<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>子系统放置数据</strong><span>:<span class="heti-spacing"> </span></span>内核<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>子系统将数据放置在返回值或进程空间中。</li>
+<li><strong>系统调用返回</strong><span>:<span class="heti-spacing"> </span></span>系统调用返回，<span>I/O<span class="heti-spacing"> </span></span>操作完成，输入数据可用或输出完成。</li>
+</ol>
+</blockquote>
+<h2 id="性能-Performance-page-40-42">性能<span><span class="heti-spacing"> </span>(Performance) (page 40-42)</span><a class="headerlink" href="#性能-Performance-page-40-42" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p><span>I/O<span class="heti-spacing"> </span></span>是影响系统性能的一个主要因素。</p>
+<ul>
+<li><strong>影响性能的因素</strong>:<ul>
+<li><strong><span>CPU<span class="heti-spacing"> </span></span>开销</strong><span>: CPU<span class="heti-spacing"> </span></span>需要执行设备驱动程序和内核<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>代码。</li>
+<li><strong>上下文切换</strong><span>:<span class="heti-spacing"> </span></span>中断导致的频繁上下文切换。</li>
+<li><strong>数据缓冲和复制</strong><span>:<span class="heti-spacing"> </span></span>数据在用户空间、内核空间、设备缓冲区之间进行复制，增加开销。</li>
+<li><strong>网络流量</strong><span>:<span class="heti-spacing"> </span></span>处理网络流量尤其带来压力，因为它通常涉及大量小包和高中断频率。</li>
+</ul>
+</li>
+</ul>
+<details class="example" open="open">
+<summary>网络通信：高上下文切换<span><span class="heti-spacing"> </span>(page 41)</span></summary>
+<p>该图展示了远程登录时每个字符传输导致的频繁上下文切换：</p>
+<p><strong>发送系统<span><span class="heti-spacing"> </span>(Sending System)</span></strong>:</p>
+<ol>
+<li>用户在键盘上键入字符。</li>
+<li>键盘生成中断。</li>
+<li><span>CPU<span class="heti-spacing"> </span></span>保存状态，进入内核，接收中断。</li>
+<li>中断处理程序执行。</li>
+<li>设备驱动程序处理数据。</li>
+<li><strong>上下文切换</strong><span>:<span class="heti-spacing"> </span></span>从内核模式切换回用户模式（如果中断处理完毕<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>字符被发送，用户进程向网络适配器发送字符，并通过系统调用返回。</li>
+<li>网络适配器发送数据包。</li>
+</ol>
+<p><strong>接收系统<span><span class="heti-spacing"> </span>(Receiving System)</span></strong>:</p>
+<ol start="9">
+<li>网络适配器接收数据包。</li>
+<li>网络适配器生成中断。</li>
+<li><span>CPU<span class="heti-spacing"> </span></span>保存状态，进入内核，接收中断。</li>
+<li>中断处理程序执行。</li>
+<li>设备驱动程序处理数据。</li>
+<li><strong>上下文切换</strong><span>:<span class="heti-spacing"> </span></span>从内核模式切换回用户模式。</li>
+<li>网络守护进程（network daemon）或用户进程接收数据包。</li>
+</ol>
+<p>每一个字符的传输都可能导致发送和接收系统上发生多次上下文切换，从而显著降低性能。</p>
+</details>
+<h3 id="提高性能的策略-page-42">提高性能的策略<span><span class="heti-spacing"> </span>(page 42)</span><a class="headerlink" href="#提高性能的策略-page-42" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>减少上下文切换次数</strong><span>:<span class="heti-spacing"> </span></span>避免频繁的内核<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>用户模式切换。</li>
+<li><strong>减少数据复制</strong><span>:<span class="heti-spacing"> </span></span>优化数据路径，避免不必要的数据在内存中的复制。</li>
+<li><strong>通过大传输、智能控制器和轮询来减少中断</strong>:<ul>
+<li>使用更大的传输块，减少中断频率。</li>
+<li>使用具备更强处理能力的智能控制器，自主完成更多任务。</li>
+<li>在特定场景下（如高负载<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，使用轮询来代替中断。</li>
+</ul>
+</li>
+<li><strong>使用<span><span class="heti-spacing"> </span>DMA (Direct Memory Access)</span></strong><span>:<span class="heti-spacing"> </span></span>允许数据直接在设备和内存之间传输，减轻<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>负担。</li>
+<li><strong>使用更智能的硬件设备</strong><span>:<span class="heti-spacing"> </span></span>采用具有更高性能和更强功能的新型<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>设备。</li>
+<li><strong>平衡<span><span class="heti-spacing"> </span>CPU</span>、内存、总线和<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>性能</strong><span>:<span class="heti-spacing"> </span></span>确保系统各组件之间的性能平衡，以实现最高吞吐量。</li>
+<li><strong>将用户模式进程<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>守护进程移到内核线程</strong><span>:<span class="heti-spacing"> </span></span>对于某些关键任务，将其在内核线程中运行可以减少上下文切换的开销，提高效率，但这会增加内核的复杂性和潜在的风险。</li>
+</ul>
+<h2 id="示例Linux-tty-设备-page-43-46">示例：<span>Linux<span class="heti-spacing"> </span></span><code>tty</code>设备<span><span class="heti-spacing"> </span>(page 43-46)</span><a class="headerlink" href="#示例Linux-tty-设备-page-43-46" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>以<span class="heti-skip"><span class="heti-spacing"> </span>Linux<span class="heti-spacing"> </span></span>的 <code>tty</code>（Teletypewriter，终端设备）为例，展示<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>设备的初始化和写操作流程。</p>
+<h3 id="设备初始化-devtty-page-43">设备初始化<span><span class="heti-spacing"> </span>(</span><code>/dev/tty</code><span><span class="heti-spacing"> </span>) (page 43)</span><a class="headerlink" href="#设备初始化-devtty-page-43" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><code>tty_init</code> 函数负责 <code>tty</code> 设备的初始化。</li>
+<li>该函数会创建 <code>/dev/tty</code> 文件，使其可以通过文件系统接口访问。</li>
+</ul>
+<details class="example" open="open">
+<summary><code>tty_init</code> 代码片段<span><span class="heti-spacing"> </span>(page 43)</span></summary>
+<div class="highlight"><span class="filename">C</span><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="kt">int</span><span class="w"> </span><span class="n">_init</span><span class="w"> </span><span class="nf">tty_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><a href="#__codelineno-1-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="p">{</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><a href="#__codelineno-1-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="c1">// 注册 sysctl 接口，用于管理 dev/tty 相关的参数</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><a href="#__codelineno-1-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">    </span><span class="n">register_sysctl_init</span><span class="p">(</span><span class="s">"dev/tty"</span><span class="p">,</span><span class="w"> </span><span class="n">tty_table</span><span class="p">);</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><a href="#__codelineno-1-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">    </span><span class="c1">// 初始化字符设备结构</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a><a href="#__codelineno-1-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">    </span><span class="n">cdev_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tty_cdev</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">tty_fops</span><span class="p">);</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a><a href="#__codelineno-1-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">    </span><span class="c1">// 添加字符设备到系统并注册设备号区域</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a><a href="#__codelineno-1-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cdev_add</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tty_cdev</span><span class="p">,</span><span class="w"> </span><span class="n">MKDEV</span><span class="p">(</span><span class="n">TTYAUX_MAJOR</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">||</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a><a href="#__codelineno-1-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">        </span><span class="n">register_chrdev_region</span><span class="p">(</span><span class="n">MKDEV</span><span class="p">(</span><span class="n">TTYAUX_MAJOR</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">"/dev/tty"</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a><a href="#__codelineno-1-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">        </span><span class="n">panic</span><span class="p">(</span><span class="s">"Couldn't register /dev/tty driver</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11"></a><a href="#__codelineno-1-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">    </span><span class="c1">// 创建/dev/tty 设备文件</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12"></a><a href="#__codelineno-1-12"><span class="linenos" data-linenos="12 "></span></a><span class="w">    </span><span class="n">device_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tty_class</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">MKDEV</span><span class="p">(</span><span class="n">TTYAUX_MAJOR</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="s">"tty"</span><span class="p">);</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13"></a><a href="#__codelineno-1-13"><span class="linenos" data-linenos="13 "></span></a><span class="p">}</span>
+</span></code></pre></div>
+<p>这段代码展示了 <code>tty</code> 驱动在<span class="heti-skip"><span class="heti-spacing"> </span>Linux<span class="heti-spacing"> </span></span>内核中的初始化过程，包括注册系统控制接口、初始化字符设备结构、添加设备到系统并创建设备文件。</p>
+</details>
+<h3 id="设备写入-write-系统调用-page-44">设备写入<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span><code>write</code>系统调用<span><span class="heti-spacing"> </span>) (page 44)</span><a class="headerlink" href="#设备写入-write-系统调用-page-44" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>当应用程序向 <code>/dev/tty</code> 写入数据（例如 <code>echo</code> 命令）时，数据会经过一系列函数调用最终到达 <code>tty_write</code> 函数。</p>
+<details class="example" open="open">
+<summary><code>vfs_write</code> 到 <code>tty_write</code> 的调用链<span><span class="heti-spacing"> </span>(page 44)</span></summary>
+<p>当一个 <code>write</code> 系统调用发生时，数据流经以下路径：</p>
+<ol>
+<li><code>ssize_t vfs_write(struct file *file, const char __user *buf, size_t count, ...)</code><span>:<span class="heti-spacing"> </span></span>这是文件系统层面的通用写入函数。它会检查文件权限和可写性。</li>
+<li><code>if (file-&gt;f_op-&gt;write)</code><span>:<span class="heti-spacing"> </span></span><code>vfs_write</code>会通过文件对象的 <code>f_op</code>（文件操作结构体）中的 <code>write</code> 或 <code>write_iter</code> 函数指针进行间接调用。</li>
+<li><code>tty_fops</code> 结构体：
+    <div class="highlight"><span class="filename">C</span><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><a href="#__codelineno-2-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">file_operations</span><span class="w"> </span><span class="n">tty_fops</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><a href="#__codelineno-2-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="w">    </span><span class="p">.</span><span class="n">llseek</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">no_llseek</span><span class="p">,</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><a href="#__codelineno-2-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="p">.</span><span class="n">read_iter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tty_read</span><span class="p">,</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><a href="#__codelineno-2-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">    </span><span class="p">.</span><span class="n">write_iter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tty_write</span><span class="p">,</span><span class="w"> </span><span class="c1">// &lt;-- 这里被调用</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><a href="#__codelineno-2-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">    </span><span class="p">.</span><span class="n">splice_read</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">copy_splice_read</span><span class="p">,</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><a href="#__codelineno-2-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">    </span><span class="p">.</span><span class="n">splice_write</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iter_file_splice_write</span><span class="p">,</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a><a href="#__codelineno-2-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">    </span><span class="p">.</span><span class="n">poll</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tty_poll</span><span class="p">,</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a><a href="#__codelineno-2-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">    </span><span class="p">.</span><span class="n">unlocked_ioctl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tty_ioctl</span><span class="p">,</span><span class="w"> </span><span class="c1">// &lt;-- ioctl 系统调用会到这里</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a><a href="#__codelineno-2-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">    </span><span class="p">.</span><span class="n">compat_ioctl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tty_compat_ioctl</span><span class="p">,</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a><a href="#__codelineno-2-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">    </span><span class="p">.</span><span class="n">open</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tty_open</span><span class="p">,</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a><a href="#__codelineno-2-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">    </span><span class="p">.</span><span class="n">release</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tty_release</span><span class="p">,</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12"></a><a href="#__codelineno-2-12"><span class="linenos" data-linenos="12 "></span></a><span class="w">    </span><span class="p">.</span><span class="n">fasync</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tty_fasync</span><span class="p">,</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13"></a><a href="#__codelineno-2-13"><span class="linenos" data-linenos="13 "></span></a><span class="w">    </span><span class="p">.</span><span class="n">show_fdinfo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tty_show_fdinfo</span><span class="p">,</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14"></a><a href="#__codelineno-2-14"><span class="linenos" data-linenos="14 "></span></a><span class="p">};</span>
+</span></code></pre></div>
+    从 <code>tty_fops</code> 定义可以看出，<code>write_iter</code> 成员指向 <code>tty_write</code> 函数。因此，<code>vfs_write</code> 最终会调用 <code>tty_write</code> 来处理 <code>tty</code> 设备的写入操作。</li>
+</ol>
+</details>
+<h3 id="Linux-ioctl-系统调用-page-45-46"><span>Linux<span class="heti-spacing"> </span></span><code>ioctl</code>系统调用<span><span class="heti-spacing"> </span>(page 45-46)</span><a class="headerlink" href="#Linux-ioctl-系统调用-page-45-46" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><code>ioctl</code> <span>(Input/Output Control)<span class="heti-spacing"> </span></span>系统调用是一个通用的设备控制接口，用于操纵底层设备的参数。</p>
+<details class="definition" open="open">
+<summary><code>ioctl</code> (page 45)</summary>
+<p><code>ioctl()</code> 系统调用用于操作特殊文件的底层设备参数。它允许应用程序发送设备特定的命令，以控制设备的各种特性，例如终端设备的行规程、波特率等。参数 <code>fd</code> 必须是一个打开的文件描述符。</p>
+</details>
+<ul>
+<li><strong>函数原型</strong>: <code>int ioctl(int fd, unsigned long request, ...);</code><ul>
+<li><code>fd</code><span>:<span class="heti-spacing"> </span></span>打开的文件描述符。</li>
+<li><code>request</code><span>:<span class="heti-spacing"> </span></span>特定于设备的命令码。</li>
+<li><code>...</code><span>:<span class="heti-spacing"> </span></span>可变参数，通常是指向数据结构的指针，用于传递命令所需的参数或返回结果。</li>
+</ul>
+</li>
+<li><strong>实现</strong><span>:<span class="heti-spacing"> </span></span><code>ioctl</code>系统调用最终会通过文件操作结构体（<code>file_operations</code>）中的 <code>unlocked_ioctl</code> 函数指针进行间接调用，对于 <code>tty</code> 设备而言，就是调用 <code>tty_ioctl</code>。</li>
+</ul>
+<details class="example" open="open">
+<summary><code>ioctl</code> 系统调用实现<span><span class="heti-spacing"> </span>(page 46)</span></summary>
+<p><code>ioctl</code> 系统调用在<span class="heti-skip"><span class="heti-spacing"> </span>Linux<span class="heti-spacing"> </span></span>内核中的处理路径是：</p>
+<p><code>ioctl syscall</code> <span>-&gt;<span class="heti-spacing"> </span></span><code>vfs_ioctl</code><span>-&gt;<span class="heti-spacing"> </span></span>间接调用<code>filp-&gt;f_op-&gt;unlocked_ioctl</code><span><span class="heti-spacing"> </span>-&gt;</span> <code>tty_ioctl</code></p>
+<p><code>vfs_ioctl</code> 是内核中处理 <code>ioctl</code> 系统调用的通用函数：</p>
+<div class="highlight"><span class="filename">C</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><a href="#__codelineno-3-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="kt">long</span><span class="w"> </span><span class="nf">vfs_ioctl</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">file</span><span class="w"> </span><span class="o">*</span><span class="n">filp</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">cmd</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">arg</span><span class="p">)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><a href="#__codelineno-3-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="p">{</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><a href="#__codelineno-3-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">ENOTTY</span><span class="p">;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a><a href="#__codelineno-3-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">    </span><span class="c1">// 检查文件操作结构中是否存在 unlocked_ioctl 函数指针</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a><a href="#__codelineno-3-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">filp</span><span class="o">-&gt;</span><span class="n">f_op</span><span class="o">-&gt;</span><span class="n">unlocked_ioctl</span><span class="p">)</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a><a href="#__codelineno-3-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">out</span><span class="p">;</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a><a href="#__codelineno-3-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">    </span><span class="c1">// 通过函数指针进行间接调用</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a><a href="#__codelineno-3-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">    </span><span class="n">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">filp</span><span class="o">-&gt;</span><span class="n">f_op</span><span class="o">-&gt;</span><span class="n">unlocked_ioctl</span><span class="p">(</span><span class="n">filp</span><span class="p">,</span><span class="w"> </span><span class="n">cmd</span><span class="p">,</span><span class="w"> </span><span class="n">arg</span><span class="p">);</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9"></a><a href="#__codelineno-3-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">    </span><span class="c1">// 处理可能的错误码</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10"></a><a href="#__codelineno-3-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">error</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">-</span><span class="n">ENOIOCTLCMD</span><span class="p">)</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11"></a><a href="#__codelineno-3-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">        </span><span class="n">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">ENOTTY</span><span class="p">;</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12"></a><a href="#__codelineno-3-12"><span class="linenos" data-linenos="12 "></span></a><span class="nl">out</span><span class="p">:</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13"></a><a href="#__codelineno-3-13"><span class="linenos" data-linenos="13 "></span></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">error</span><span class="p">;</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14"></a><a href="#__codelineno-3-14"><span class="linenos" data-linenos="14 "></span></a><span class="p">}</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15"></a><a href="#__codelineno-3-15"><span class="linenos" data-linenos="15 "></span></a><span class="n">EXPORT_SYMBOL</span><span class="p">(</span><span class="n">vfs_ioctl</span><span class="p">);</span>
+</span></code></pre></div>
+<p>这里的 <code>filp-&gt;f_op-&gt;unlocked_ioctl</code> 对于 <code>tty</code> 设备而言，就是指向 <code>tty_fops</code> 结构体中的 <code>.unlocked_ioctl = tty_ioctl</code>。</p>
+<p><code>ioctl</code> 提供了强大的设备控制能力，但也因为其底层和灵活性，历史上曾导致许多安全问题，因为它允许用户态程序直接操纵设备参数，如果使用不当，可能被利用进行权限提升或其他恶意行为。</p>
+</details>
+<h2 id="总结-Takeaway-page-47">总结<span><span class="heti-spacing"> </span>(Takeaway) (page 47)</span><a class="headerlink" href="#总结-Takeaway-page-47" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>本系列讲解的核心要点：</p>
+<ul>
+<li><strong><span>I/O<span class="heti-spacing"> </span></span>硬件</strong><span>:<span class="heti-spacing"> </span></span>了解<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>设备的基本组成（总线、端口、控制器）和与<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>的交互方式（专用<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>指令、内存映射<span><span class="heti-spacing"> </span>I/O</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong><span>I/O<span class="heti-spacing"> </span></span>访问</strong><span>:<span class="heti-spacing"> </span></span>掌握轮询和中断两种<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>访问机制的原理、优缺点及其在多<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>系统中的应用（如<span><span class="heti-spacing"> </span>SMP IRQ affinity</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。理解<span class="heti-skip"><span class="heti-spacing"> </span>DMA<span class="heti-spacing"> </span></span>如何提高<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>效率。</li>
+<li><strong>设备类型</strong><span>:<span class="heti-spacing"> </span></span>区分<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>设备的多种特性，如数据传输模式、访问方法、同步性、共享性、速度和读写能力。理解操作系统如何将设备分类为块设备、字符设备、网络设备等。</li>
+<li><strong>应用程序<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>接口</strong><span>:<span class="heti-spacing"> </span></span>了解应用程序如何通过系统调用（如<code>read</code><span><span class="heti-spacing"> </span>,</span><code>write</code><span><span class="heti-spacing"> </span>,</span> <code>ioctl</code>）与<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>设备交互，以及设备在<span class="heti-skip"><span class="heti-spacing"> </span>Linux<span class="heti-spacing"> </span></span>中如何被抽象为文件。</li>
+<li><strong>内核<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>子系统</strong><span>:<span class="heti-spacing"> </span></span>认识内核<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>子系统在管理<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>中的作用，包括<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>调度、缓冲、缓存、假脱机和设备预留。理解<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>请求的生命周期和性能优化策略。</li>
+</ul>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年9月20日 18:33:45 CST">2025年9月20日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年6月14日 00:21:22 CST">2025年6月14日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: 大容量存储结构 (Mass-Storage Structure)" class="md-footer__link md-footer__link--prev" href="../7-Disk/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                大容量存储结构 (Mass-Storage Structure)
+              </div>
+</div>
+</a>
+<a aria-label="下一页: 文件系统 (File System)" class="md-footer__link md-footer__link--next" href="../9-FS/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                文件系统 (File System)
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

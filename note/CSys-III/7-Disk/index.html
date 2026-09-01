@@ -1,0 +1,2172 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/note/CSys-III/7-Disk/" rel="canonical"/>
+<link href="../6-VM/" rel="prev"/>
+<link href="../8-IO/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>大容量存储结构 (Mass-Storage Structure) - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#大容量存储结构-Mass-Storage-Structure">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              大容量存储结构 (Mass-Storage Structure)
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Note
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs188/">
+<span class="md-ellipsis">
+    
+  
+    cs188
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../physics/">
+<span class="md-ellipsis">
+    
+  
+    physics
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-II/">
+<span class="md-ellipsis">
+    
+  
+    CSys-II
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3_5" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    CSys-III
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_5_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    CSys-III
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../0-hard_review/">
+<span class="md-ellipsis">
+    
+  
+    计算机体系结构课程回顾
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../0-soft_review/">
+<span class="md-ellipsis">
+    
+  
+    操作系统核心概念回顾
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../1-Fundamentals/">
+<span class="md-ellipsis">
+    
+  
+    计算机系统基础
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../2-ILP/">
+<span class="md-ellipsis">
+    
+  
+    指令级并行 (ILP)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../3-Cache/">
+<span class="md-ellipsis">
+    
+  
+    计算机系统 III：存储层次结构 (Memory Hierarchy)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../4-DLP_TLP/">
+<span class="md-ellipsis">
+    
+  
+    数据级到线程级并行
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../5-MM/">
+<span class="md-ellipsis">
+    
+  
+    主存储器
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../6-VM/">
+<span class="md-ellipsis">
+    
+  
+    虚拟内存 (Virtual Memory)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    大容量存储结构 (Mass-Storage Structure)
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    大容量存储结构 (Mass-Storage Structure)
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#概述-Overview-page-3-4">
+<span class="md-ellipsis">
+      
+        概述 (Overview) (page 3-4)
+      
+    </span>
+</a>
+<nav aria-label="概述 (Overview) (page 3-4)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#磁性磁盘-Magnetic-Disks-page-3">
+<span class="md-ellipsis">
+      
+        磁性磁盘 (Magnetic Disks) (page 3)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#首个商用磁盘驱动器-The-First-Commercial-Disk-Drive-page-4">
+<span class="md-ellipsis">
+      
+        首个商用磁盘驱动器 (The First Commercial Disk Drive) (page 4)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#磁盘结构-Disk-Structure-page-5-9">
+<span class="md-ellipsis">
+      
+        磁盘结构 (Disk Structure) (page 5-9)
+      
+    </span>
+</a>
+<nav aria-label="磁盘结构 (Disk Structure) (page 5-9)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#移动磁头磁性磁盘结构-Moving-head-Magnetic-Disk-Structure-page-6">
+<span class="md-ellipsis">
+      
+        移动磁头磁性磁盘结构 (Moving-head Magnetic Disk Structure) (page 6)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#逻辑块寻址-Logical-Block-Addressing-LBA-page-5">
+<span class="md-ellipsis">
+      
+        逻辑块寻址 (Logical Block Addressing, LBA) (page 5)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#磁盘访问时间与性能-Disk-Access-Time-and-Performance-page-8-9">
+<span class="md-ellipsis">
+      
+        磁盘访问时间与性能 (Disk Access Time and Performance) (page 8-9)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#磁盘调度-Disk-Scheduling-page-10-18">
+<span class="md-ellipsis">
+      
+        磁盘调度 (Disk Scheduling) (page 10-18)
+      
+    </span>
+</a>
+<nav aria-label="磁盘调度 (Disk Scheduling) (page 10-18)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#目标与挑战-Goals-and-Challenges-page-10">
+<span class="md-ellipsis">
+      
+        目标与挑战 (Goals and Challenges) (page 10)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#请求队列与责任-Request-Queue-and-Responsibility-page-11">
+<span class="md-ellipsis">
+      
+        请求队列与责任 (Request Queue and Responsibility) (page 11)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#磁盘调度算法-Disk-Scheduling-Algorithms-page-12">
+<span class="md-ellipsis">
+      
+        磁盘调度算法 (Disk Scheduling Algorithms) (page 12)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#磁盘调度算法选择-Selecting-Disk-Scheduling-Algorithm-page-18">
+<span class="md-ellipsis">
+      
+        磁盘调度算法选择 (Selecting Disk-Scheduling Algorithm) (page 18)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#非易失性存储设备-Nonvolatile-Memory-Devices-page-19-22">
+<span class="md-ellipsis">
+      
+        非易失性存储设备 (Nonvolatile Memory Devices) (page 19-22)
+      
+    </span>
+</a>
+<nav aria-label="非易失性存储设备 (Nonvolatile Memory Devices) (page 19-22)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#固态硬盘-Solid-State-Disks-SSDs-page-19-21">
+<span class="md-ellipsis">
+      
+        固态硬盘 (Solid-State Disks, SSDs) (page 19-21)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#磁带-Magnetic-Tape-page-22">
+<span class="md-ellipsis">
+      
+        磁带 (Magnetic Tape) (page 22)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#磁盘管理-Disk-Management-page-23-27">
+<span class="md-ellipsis">
+      
+        磁盘管理 (Disk Management) (page 23-27)
+      
+    </span>
+</a>
+<nav aria-label="磁盘管理 (Disk Management) (page 23-27)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#物理格式化-Physical-Formatting-page-23">
+<span class="md-ellipsis">
+      
+        物理格式化 (Physical Formatting) (page 23)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#逻辑格式化-Logical-Formatting-page-23">
+<span class="md-ellipsis">
+      
+        逻辑格式化 (Logical Formatting) (page 23)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#设备名称-Device-Names-page-24">
+<span class="md-ellipsis">
+      
+        设备名称 (Device Names) (page 24)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#磁盘分区-Disk-Partition-page-25">
+<span class="md-ellipsis">
+      
+        磁盘分区 (Disk Partition) (page 25)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#引导过程与管理-Booting-Process-and-Management-page-26-27">
+<span class="md-ellipsis">
+      
+        引导过程与管理 (Booting Process and Management) (page 26-27)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#交换空间管理-Swap-Space-Management-page-28">
+<span class="md-ellipsis">
+      
+        交换空间管理 (Swap-Space Management) (page 28)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#磁盘连接方式-Disk-Attachment-page-29-33">
+<span class="md-ellipsis">
+      
+        磁盘连接方式 (Disk Attachment) (page 29-33)
+      
+    </span>
+</a>
+<nav aria-label="磁盘连接方式 (Disk Attachment) (page 29-33)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-主机连接存储-Host-Attached-Storage-page-29-31">
+<span class="md-ellipsis">
+      
+        1. 主机连接存储 (Host-Attached Storage) (page 29-31)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-网络连接存储-Network-Attached-Storage-NAS-page-29-32">
+<span class="md-ellipsis">
+      
+        2. 网络连接存储 (Network-Attached Storage, NAS) (page 29, 32)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-存储区域网络-Storage-Area-Network-SAN-page-29-33">
+<span class="md-ellipsis">
+      
+        3. 存储区域网络 (Storage Area Network, SAN) (page 29, 33)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#磁盘成本趋势-Disk-Cost-Trends-page-34">
+<span class="md-ellipsis">
+      
+        磁盘成本趋势 (Disk Cost Trends) (page 34)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#RAID-结构-RAID-Structure-page-35-47">
+<span class="md-ellipsis">
+      
+        RAID 结构 (RAID Structure) (page 35-47)
+      
+    </span>
+</a>
+<nav aria-label="RAID 结构 (RAID Structure) (page 35-47)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#RAID-核心技术-Core-RAID-Techniques-page-36">
+<span class="md-ellipsis">
+      
+        RAID 核心技术 (Core RAID Techniques) (page 36)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#RAID-级别-RAID-Levels-page-37">
+<span class="md-ellipsis">
+      
+        RAID 级别 (RAID Levels) (page 37)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#RAID-与文件系统-RAID-and-File-Systems-page-45-47">
+<span class="md-ellipsis">
+      
+        RAID 与文件系统 (RAID and File Systems) (page 45-47)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#总结-Takeaway-page-48">
+<span class="md-ellipsis">
+      
+        总结 (Takeaway) (page 48)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../8-IO/">
+<span class="md-ellipsis">
+    
+  
+    I/O 系统
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../9-FS/">
+<span class="md-ellipsis">
+    
+  
+    文件系统 (File System)
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DEM/">
+<span class="md-ellipsis">
+    
+  
+    DEM
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DMA/">
+<span class="md-ellipsis">
+    
+  
+    DMA
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs70/">
+<span class="md-ellipsis">
+    
+  
+    cs70
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../other/">
+<span class="md-ellipsis">
+    
+  
+    other
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#概述-Overview-page-3-4">
+<span class="md-ellipsis">
+      
+        概述 (Overview) (page 3-4)
+      
+    </span>
+</a>
+<nav aria-label="概述 (Overview) (page 3-4)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#磁性磁盘-Magnetic-Disks-page-3">
+<span class="md-ellipsis">
+      
+        磁性磁盘 (Magnetic Disks) (page 3)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#首个商用磁盘驱动器-The-First-Commercial-Disk-Drive-page-4">
+<span class="md-ellipsis">
+      
+        首个商用磁盘驱动器 (The First Commercial Disk Drive) (page 4)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#磁盘结构-Disk-Structure-page-5-9">
+<span class="md-ellipsis">
+      
+        磁盘结构 (Disk Structure) (page 5-9)
+      
+    </span>
+</a>
+<nav aria-label="磁盘结构 (Disk Structure) (page 5-9)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#移动磁头磁性磁盘结构-Moving-head-Magnetic-Disk-Structure-page-6">
+<span class="md-ellipsis">
+      
+        移动磁头磁性磁盘结构 (Moving-head Magnetic Disk Structure) (page 6)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#逻辑块寻址-Logical-Block-Addressing-LBA-page-5">
+<span class="md-ellipsis">
+      
+        逻辑块寻址 (Logical Block Addressing, LBA) (page 5)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#磁盘访问时间与性能-Disk-Access-Time-and-Performance-page-8-9">
+<span class="md-ellipsis">
+      
+        磁盘访问时间与性能 (Disk Access Time and Performance) (page 8-9)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#磁盘调度-Disk-Scheduling-page-10-18">
+<span class="md-ellipsis">
+      
+        磁盘调度 (Disk Scheduling) (page 10-18)
+      
+    </span>
+</a>
+<nav aria-label="磁盘调度 (Disk Scheduling) (page 10-18)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#目标与挑战-Goals-and-Challenges-page-10">
+<span class="md-ellipsis">
+      
+        目标与挑战 (Goals and Challenges) (page 10)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#请求队列与责任-Request-Queue-and-Responsibility-page-11">
+<span class="md-ellipsis">
+      
+        请求队列与责任 (Request Queue and Responsibility) (page 11)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#磁盘调度算法-Disk-Scheduling-Algorithms-page-12">
+<span class="md-ellipsis">
+      
+        磁盘调度算法 (Disk Scheduling Algorithms) (page 12)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#磁盘调度算法选择-Selecting-Disk-Scheduling-Algorithm-page-18">
+<span class="md-ellipsis">
+      
+        磁盘调度算法选择 (Selecting Disk-Scheduling Algorithm) (page 18)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#非易失性存储设备-Nonvolatile-Memory-Devices-page-19-22">
+<span class="md-ellipsis">
+      
+        非易失性存储设备 (Nonvolatile Memory Devices) (page 19-22)
+      
+    </span>
+</a>
+<nav aria-label="非易失性存储设备 (Nonvolatile Memory Devices) (page 19-22)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#固态硬盘-Solid-State-Disks-SSDs-page-19-21">
+<span class="md-ellipsis">
+      
+        固态硬盘 (Solid-State Disks, SSDs) (page 19-21)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#磁带-Magnetic-Tape-page-22">
+<span class="md-ellipsis">
+      
+        磁带 (Magnetic Tape) (page 22)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#磁盘管理-Disk-Management-page-23-27">
+<span class="md-ellipsis">
+      
+        磁盘管理 (Disk Management) (page 23-27)
+      
+    </span>
+</a>
+<nav aria-label="磁盘管理 (Disk Management) (page 23-27)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#物理格式化-Physical-Formatting-page-23">
+<span class="md-ellipsis">
+      
+        物理格式化 (Physical Formatting) (page 23)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#逻辑格式化-Logical-Formatting-page-23">
+<span class="md-ellipsis">
+      
+        逻辑格式化 (Logical Formatting) (page 23)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#设备名称-Device-Names-page-24">
+<span class="md-ellipsis">
+      
+        设备名称 (Device Names) (page 24)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#磁盘分区-Disk-Partition-page-25">
+<span class="md-ellipsis">
+      
+        磁盘分区 (Disk Partition) (page 25)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#引导过程与管理-Booting-Process-and-Management-page-26-27">
+<span class="md-ellipsis">
+      
+        引导过程与管理 (Booting Process and Management) (page 26-27)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#交换空间管理-Swap-Space-Management-page-28">
+<span class="md-ellipsis">
+      
+        交换空间管理 (Swap-Space Management) (page 28)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#磁盘连接方式-Disk-Attachment-page-29-33">
+<span class="md-ellipsis">
+      
+        磁盘连接方式 (Disk Attachment) (page 29-33)
+      
+    </span>
+</a>
+<nav aria-label="磁盘连接方式 (Disk Attachment) (page 29-33)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-主机连接存储-Host-Attached-Storage-page-29-31">
+<span class="md-ellipsis">
+      
+        1. 主机连接存储 (Host-Attached Storage) (page 29-31)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-网络连接存储-Network-Attached-Storage-NAS-page-29-32">
+<span class="md-ellipsis">
+      
+        2. 网络连接存储 (Network-Attached Storage, NAS) (page 29, 32)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-存储区域网络-Storage-Area-Network-SAN-page-29-33">
+<span class="md-ellipsis">
+      
+        3. 存储区域网络 (Storage Area Network, SAN) (page 29, 33)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#磁盘成本趋势-Disk-Cost-Trends-page-34">
+<span class="md-ellipsis">
+      
+        磁盘成本趋势 (Disk Cost Trends) (page 34)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#RAID-结构-RAID-Structure-page-35-47">
+<span class="md-ellipsis">
+      
+        RAID 结构 (RAID Structure) (page 35-47)
+      
+    </span>
+</a>
+<nav aria-label="RAID 结构 (RAID Structure) (page 35-47)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#RAID-核心技术-Core-RAID-Techniques-page-36">
+<span class="md-ellipsis">
+      
+        RAID 核心技术 (Core RAID Techniques) (page 36)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#RAID-级别-RAID-Levels-page-37">
+<span class="md-ellipsis">
+      
+        RAID 级别 (RAID Levels) (page 37)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#RAID-与文件系统-RAID-and-File-Systems-page-45-47">
+<span class="md-ellipsis">
+      
+        RAID 与文件系统 (RAID and File Systems) (page 45-47)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#总结-Takeaway-page-48">
+<span class="md-ellipsis">
+      
+        总结 (Takeaway) (page 48)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Note
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    CSys-III
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:notes">notes</a>
+</nav>
+<h1 id="大容量存储结构-Mass-Storage-Structure">大容量存储结构<span><span class="heti-spacing"> </span>(Mass-Storage Structure)</span><a class="headerlink" href="#大容量存储结构-Mass-Storage-Structure" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h1>
+<p>本篇文档旨在详细讲解计算机系统中的大容量存储结构，涵盖从传统机械硬盘到现代固态硬盘的工作原理、性能考量、管理策略以及数据冗余技术。我们将深入探讨磁盘调度算法、文件系统如何与底层存储交互，以及<span class="heti-skip"><span class="heti-spacing"> </span>RAID<span class="heti-spacing"> </span></span>技术在提升存储可靠性和性能方面的作用。</p>
+<h2 id="概述-Overview-page-3-4">概述<span><span class="heti-spacing"> </span>(Overview) (page 3-4)</span><a class="headerlink" href="#概述-Overview-page-3-4" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="磁性磁盘-Magnetic-Disks-page-3">磁性磁盘<span><span class="heti-spacing"> </span>(Magnetic Disks) (page 3)</span><a class="headerlink" href="#磁性磁盘-Magnetic-Disks-page-3" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>磁性磁盘是计算机系统中二次存储（secondary storage）的主要组成部分。</p>
+<ul>
+<li><strong>硬盘驱动器<span><span class="heti-spacing"> </span>(Hard Disk Drive, HDD)</span></strong>：是最常见<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>流行的磁性磁盘类型，部分磁性磁盘也可是可移动的。</li>
+<li><strong>连接方式</strong>：驱动器通过各种<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>总线（如<span class="heti-skip"><span class="heti-spacing"> </span>USB, SCSI, EIDE, SATA<span class="heti-spacing"> </span></span>等）连接到计算机。</li>
+<li><strong>转速</strong>：驱动器通常以每秒<span class="heti-skip"><span class="heti-spacing"> </span>60<span class="heti-spacing"> </span></span>到<span class="heti-skip"><span class="heti-spacing"> </span>250<span class="heti-spacing"> </span></span>次的速度旋转，例如<span><span class="heti-spacing"> </span>7200 RPM</span>（每分钟转数）相当于<span><span class="heti-spacing"> </span>120 RPS</span>（每秒转数<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>盘片<span><span class="heti-spacing"> </span>(Platters)</span></strong>：磁性磁盘由一个或多个盘片组成。历史上盘片尺寸从<span class="heti-skip"><span class="heti-spacing"> </span>0.85<span class="heti-spacing"> </span></span>英寸到<span class="heti-skip"><span class="heti-spacing"> </span>14<span class="heti-spacing"> </span></span>英寸不等，如今常见的尺寸有<span class="heti-skip"><span class="heti-spacing"> </span>3.5<span class="heti-spacing"> </span></span>英寸、<span>2.5<span class="heti-spacing"> </span></span>英寸和<span class="heti-skip"><span class="heti-spacing"> </span>1.8<span class="heti-spacing"> </span></span>英寸。</li>
+<li><strong>容量<span><span class="heti-spacing"> </span>(Capacity)</span></strong>：单个驱动器的容量范围从<span class="heti-skip"><span class="heti-spacing"> </span>30GB<span class="heti-spacing"> </span></span>到<span><span class="heti-spacing"> </span>3TB</span>，甚至更大。</li>
+</ul>
+<h3 id="首个商用磁盘驱动器-The-First-Commercial-Disk-Drive-page-4">首个商用磁盘驱动器<span><span class="heti-spacing"> </span>(The First Commercial Disk Drive) (page 4)</span><a class="headerlink" href="#首个商用磁盘驱动器-The-First-Commercial-Disk-Drive-page-4" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>历史上首个商用磁盘驱动器是<span class="heti-skip"><span class="heti-spacing"> </span>1956<span class="heti-spacing"> </span></span>年<span class="heti-skip"><span class="heti-spacing"> </span>IBM RAMDAC<span class="heti-spacing"> </span></span>计算机的一部分，即 <strong><span>IBM Model 350<span class="heti-spacing"> </span></span>磁盘存储系统</strong>。</p>
+<ul>
+<li><strong>容量</strong>：存储<span><span class="heti-spacing"> </span>5M</span>（<span>7<span class="heti-spacing"> </span></span>比特）字符。</li>
+<li><strong>盘片数量与尺寸</strong>：包含<span class="heti-skip"><span class="heti-spacing"> </span>50<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>24<span class="heti-spacing"> </span></span>英寸的巨大盘片。</li>
+<li><strong>访问时间</strong>：小于<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>秒。</li>
+</ul>
+<h2 id="磁盘结构-Disk-Structure-page-5-9">磁盘结构<span><span class="heti-spacing"> </span>(Disk Structure) (page 5-9)</span><a class="headerlink" href="#磁盘结构-Disk-Structure-page-5-9" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="移动磁头磁性磁盘结构-Moving-head-Magnetic-Disk-Structure-page-6">移动磁头磁性磁盘结构<span><span class="heti-spacing"> </span>(Moving-head Magnetic Disk Structure) (page 6)</span><a class="headerlink" href="#移动磁头磁性磁盘结构-Moving-head-Magnetic-Disk-Structure-page-6" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>磁性磁盘由以下核心组件构成：</p>
+<ul>
+<li><strong>主轴<span><span class="heti-spacing"> </span>(Spindle)</span></strong>：所有盘片安装在主轴上，并由其驱动旋转。</li>
+<li><strong>盘片<span><span class="heti-spacing"> </span>(Platters)</span></strong>：圆形金属盘片，表面涂有磁性材料，用于存储数据。</li>
+<li><strong>读写头<span><span class="heti-spacing"> </span>(Read-write Head)</span></strong>：用于在盘片表面读写数据的微型电磁头。</li>
+<li><strong>磁臂<span><span class="heti-spacing"> </span>(Arm)</span></strong>：读写头固定在磁臂的末端。</li>
+<li><strong>磁臂组件<span><span class="heti-spacing"> </span>(Arm Assembly)</span></strong>：包含所有磁臂，能够同时移动，使得所有读写头始终位于相同编号的磁道上。</li>
+<li><strong>磁道<span><span class="heti-spacing"> </span>(Track)</span></strong>：盘片上的一系列同心圆，数据存储在这些圆环上。</li>
+<li><strong>扇区<span><span class="heti-spacing"> </span>(Sector)</span></strong>：每个磁道被划分为若干个扇区，是磁盘上可寻址的最小物理存储单元。</li>
+<li><strong>柱面<span><span class="heti-spacing"> </span>(Cylinder)</span></strong>：所有盘片上相同编号的磁道集合。例如，所有盘片上最外层磁道的集合构成了第一个柱面。</li>
+</ul>
+<h3 id="逻辑块寻址-Logical-Block-Addressing-LBA-page-5">逻辑块寻址<span><span class="heti-spacing"> </span>(Logical Block Addressing, LBA) (page 5)</span><a class="headerlink" href="#逻辑块寻址-Logical-Block-Addressing-LBA-page-5" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="definition" open="open">
+<summary>逻辑块寻址<span><span class="heti-spacing"> </span>(Logical Block Addressing, LBA)</span></summary>
+<p>磁盘驱动器被操作系统视为一个一维的逻辑块数组。逻辑块是磁盘上的最小传输单元。</p>
+</details>
+<ul>
+<li><strong>映射机制</strong>：逻辑块被顺序地映射到磁盘的物理扇区（sectors<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。<ul>
+<li><strong>扇区<span><span class="heti-spacing"> </span>0</span></strong>：是位于最外层柱面（outermost cylinder）的第一个磁道（track）的第一个扇区。</li>
+<li><strong>映射顺序</strong>：<ol>
+<li>首先遍历当前磁道<span class="heti-skip"><span class="heti-spacing"> </span>(trace)<span class="heti-spacing"> </span></span>上的所有扇区。</li>
+<li>然后遍历当前柱面<span class="heti-skip"><span class="heti-spacing"> </span>(cylinder)<span class="heti-spacing"> </span></span>上的其余所有磁道。</li>
+<li>最后从最外层柱面开始，向最内层柱面依次遍历所有柱面。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>这种映射使得逻辑地址到物理地址的转换变得相对容易，除了需要处理坏扇区（bad sectors）的情况。</li>
+</ul>
+<h3 id="磁盘访问时间与性能-Disk-Access-Time-and-Performance-page-8-9">磁盘访问时间与性能<span><span class="heti-spacing"> </span>(Disk Access Time and Performance) (page 8-9)</span><a class="headerlink" href="#磁盘访问时间与性能-Disk-Access-Time-and-Performance-page-8-9" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="definition" open="open">
+<summary>定位时间<span><span class="heti-spacing"> </span>(Positioning Time)</span></summary>
+<p>定位时间是指将磁盘臂移动到所需扇区所需的时间，它包括寻道时间（Seek Time）和旋转延迟（Rotational Latency<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。定位时间也称为随机访问时间（Random-Access Time<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+</details>
+<ul>
+<li><strong>寻道时间<span><span class="heti-spacing"> </span>(Seek Time)</span></strong>：将磁盘臂移动到目标柱面所需的时间。</li>
+<li><strong>旋转延迟<span><span class="heti-spacing"> </span>(Rotational Latency)</span></strong>：等待目标扇区旋转到读写头下方所需的时间。<ul>
+<li>计算公式：<code>1 / RPM * 60</code> 秒（其中<span class="heti-skip"><span class="heti-spacing"> </span>RPM<span class="heti-spacing"> </span></span>是每分钟转数<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>平均旋转延迟通常假设为最大旋转延迟的<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{1}{2}\)</span></span><ul>
+<li>所以一般<span><span class="heti-spacing"> </span><span class="arithmatex">\(RPM * Average\_latency = 60* \frac{1}{2}\)</span></span> ，其中平均延迟的单位为秒<span><span class="heti-spacing"> </span>(s)</span> 。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<details class="definition" open="open">
+<summary>传输速率<span><span class="heti-spacing"> </span>(Transfer Rate)</span></summary>
+<p>传输速率是数据在驱动器与计算机之间流动的速率。理论传输速率可达<span><span class="heti-spacing"> </span>6 GB/s</span>，实际有效速率约<span><span class="heti-spacing"> </span>1 GB/s</span>。</p>
+</details>
+<ul>
+<li><strong>平均访问时间<span><span class="heti-spacing"> </span>(Average Access Time)</span></strong>：<ul>
+<li><code>平均访问时间 = 平均寻道时间 + 平均旋转延迟</code></li>
+<li>例如，对于最快的磁盘：3ms（寻道）+ 2ms（旋转）= 5ms。</li>
+<li>对于较慢的磁盘：9ms（寻道）+ 5.56ms（旋转）= 14.56ms。</li>
+</ul>
+</li>
+</ul>
+<details class="example" open="open">
+<summary>平均<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>时间计算<span><span class="heti-spacing"> </span>(Average I/O Time Calculation) (page 9)</span></summary>
+<p>平均<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>时间是指完成一个<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>请求的总时间，包括访问时间和数据传输时间。</p>
+<p><code>平均I/O时间 = 平均访问时间 + (要传输的数据量 / 传输速率) + 控制器开销</code></p>
+<p><strong>示例</strong>：
+假设要传输一个 4KB 的块，使用 7200 RPM 的磁盘，平均寻道时间为 5ms，传输速率为 1GB/s，控制器开销为 0.1ms。</p>
+<ol>
+<li>计算平均旋转延迟：
+    7200 RPM 对应的平均延迟约为 4.17ms（根据 page 8 的表格）。</li>
+<li>计算平均访问时间：
+    平均访问时间 = 5ms (寻道) + 4.17ms (旋转延迟) = 9.17ms。</li>
+<li>计算数据传输时间：
+    数据传输时间 <span class="arithmatex">\(= 4KB / (1 GB/s)
+    = 4 * 1024 bytes / (1 * 1024 * 1024 * 1024 bytes/s)
+    = 4 / 1024 / 1024 s = 4 * 10^{-6} s = 0.004 ms\)</span>。</li>
+<li>计算平均<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>时间：
+    平均 I/O 时间 = 5ms + 4.17ms + (4KB / 1GB/s) + 0.1ms
+    = 5ms + 4.17ms + 0.004ms + 0.1ms
+    ≈ 9.274ms。</li>
+</ol>
+<p><strong>注意</strong>：幻灯片中直接给出 <code>5ms + 4.17ms + 4KB / 1gb/sec + 0.1ms</code>，其中 <code>4.17</code> 再次明确是平均延迟。</p>
+</details>
+<h2 id="磁盘调度-Disk-Scheduling-page-10-18">磁盘调度<span><span class="heti-spacing"> </span>(Disk Scheduling) (page 10-18)</span><a class="headerlink" href="#磁盘调度-Disk-Scheduling-page-10-18" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<details class="definition" open="open">
+<summary>磁盘调度<span><span class="heti-spacing"> </span>(Disk Scheduling)</span></summary>
+<p>磁盘调度是操作系统为高效利用硬件而选择下一个要服务的挂起磁盘<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>请求的过程。其目标是最大化磁盘带宽并最小化访问时间。</p>
+</details>
+<h3 id="目标与挑战-Goals-and-Challenges-page-10">目标与挑战<span><span class="heti-spacing"> </span>(Goals and Challenges) (page 10)</span><a class="headerlink" href="#目标与挑战-Goals-and-Challenges-page-10" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong><span>OS<span class="heti-spacing"> </span></span>职责</strong>：操作系统负责高效利用硬件。</li>
+<li><strong>磁盘驱动器目标</strong>：实现更快的访问时间和更高的磁盘带宽。<ul>
+<li><strong>访问时间<span><span class="heti-spacing"> </span>(Access Time)</span></strong>：寻道时间（大致与寻道距离线性相关）<span>+<span class="heti-spacing"> </span></span>旋转延迟。</li>
+<li><strong>旋转延迟的计算难度</strong>：操作系统很难精确计算旋转延迟，因为它取决于磁盘的当前旋转状态和读写头的位置。</li>
+<li><strong>磁盘带宽<span><span class="heti-spacing"> </span>(Disk Bandwidth)</span></strong>：数据传输速度，定义为 <code>总传输字节数 / 总时间</code>。这里的总时间是从第一个请求开始到最后一个传输完成之间的时间。</li>
+</ul>
+</li>
+</ul>
+<h3 id="请求队列与责任-Request-Queue-and-Responsibility-page-11">请求队列与责任<span><span class="heti-spacing"> </span>(Request Queue and Responsibility) (page 11)</span><a class="headerlink" href="#请求队列与责任-Request-Queue-and-Responsibility-page-11" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>并发<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>请求源</strong>：包括操作系统本身、系统进程和用户进程。</li>
+<li><strong>请求队列</strong>：如果磁盘处于空闲状态，可以立即处理请求；否则，操作系统会将请求排队。</li>
+<li><strong>请求内容</strong>：每个<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>请求通常包含<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>模式（读<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>写<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、磁盘地址、内存地址和扇区数量。</li>
+<li><strong><span>OS<span class="heti-spacing"> </span></span>维护</strong>：操作系统为每个磁盘或设备维护一个请求队列。</li>
+<li><strong>优化</strong>：只有当存在请求队列时，优化算法才有意义。</li>
+<li><strong>职责演变</strong>：<ul>
+<li><strong>过去</strong>：操作系统负责队列管理和磁盘驱动器磁头调度。</li>
+<li><strong>现在</strong>：许多调度算法已内置到存储设备或控制器（固件）中。操作系统只需提供<span><span class="heti-spacing"> </span>LBA</span>（逻辑块寻址<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，控制器负责请求的排序。</li>
+</ul>
+</li>
+</ul>
+<h3 id="磁盘调度算法-Disk-Scheduling-Algorithms-page-12">磁盘调度算法<span><span class="heti-spacing"> </span>(Disk Scheduling Algorithms) (page 12)</span><a class="headerlink" href="#磁盘调度算法-Disk-Scheduling-Algorithms-page-12" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>磁盘调度通常尝试最小化寻道时间。我们将使用以下请求队列和初始磁头位置作为示例：</p>
+<ul>
+<li><strong>请求队列</strong>：<code>98, 183, 37, 122, 14, 124, 65, 67</code></li>
+<li><strong>柱面范围</strong>：<code>[0, 199]</code></li>
+<li><strong>初始磁头位置</strong>：<code>53</code></li>
+</ul>
+<details class="example" open="open">
+<summary>FCFS (First-Come, First-Served) (page 13)</summary>
+<p><strong>原理</strong>：最简单的调度算法，按照请求到达的顺序进行服务。</p>
+<p><strong>磁头移动路径</strong>：<code>53 -&gt; 98 -&gt; 183 -&gt; 37 -&gt; 122 -&gt; 14 -&gt; 124 -&gt; 65 -&gt; 67</code></p>
+<p><strong>总磁头移动距离计算</strong>：
+<code>|98 - 53| + |183 - 98| + |37 - 183| + |122 - 37| + |14 - 122| + |124 - 14| + |65 - 124| + |67 - 65|</code>
+<code>= 45 + 85 + 146 + 85 + 108 + 110 + 59 + 2</code>
+<code>= 640 个柱面</code></p>
+<p><strong>优点</strong>：
+- 每个请求都有公平的机会。
+- 不会出现无限期推迟（indefinite postponement）。</p>
+<p><strong>缺点</strong>：
+- 不尝试优化寻道时间。
+- 可能无法提供最佳服务。</p>
+</details>
+<details class="example" open="open">
+<summary>SSTF (Shortest-Seek-Time-First) (page 14)</summary>
+<p><strong>原理</strong>：选择与当前磁头位置寻道时间最短的请求进行服务。它是<span><span class="heti-spacing"> </span>SJF</span>（Shortest Job First）调度的一种形式。</p>
+<p><strong>磁头移动路径</strong>：
+初始位置：<code>53</code>
+- <code>53</code> 最近的是 <code>65</code> (距离12) 或 <code>67</code> (距离14)。选择 <code>65</code>。
+<code>53 -&gt; 65</code> (距离 12)
+- 当前在 <code>65</code>，未处理请求：<code>98, 183, 37, 122, 14, 124, 67</code>
+- <code>65</code> 最近的是 <code>67</code> (距离 2)。
+<code>65 -&gt; 67</code> (距离 2)
+- 当前在 <code>67</code>，未处理请求：<code>98, 183, 37, 122, 14, 124</code>
+- <code>67</code> 最近的是 <code>37</code> (距离 30)。
+<code>67 -&gt; 37</code> (距离 30)
+- 当前在 <code>37</code>，未处理请求：<code>98, 183, 122, 14, 124</code>
+- <code>37</code> 最近的是 <code>14</code> (距离 23)。
+<code>37 -&gt; 14</code> (距离 23)
+- 当前在 <code>14</code>，未处理请求：<code>98, 183, 122, 124</code>
+- <code>14</code> 最近的是 <code>98</code> (距离 84)。
+<code>14 -&gt; 98</code> (距离 84)
+- 当前在 <code>98</code>，未处理请求：<code>183, 122, 124</code>
+- <code>98</code> 最近的是 <code>122</code> (距离 24)。
+<code>98 -&gt; 122</code> (距离 24)
+- 当前在 <code>122</code>，未处理请求：<code>183, 124</code>
+- <code>122</code> 最近的是 <code>124</code> (距离 2)。
+<code>122 -&gt; 124</code> (距离 2)
+- 当前在 <code>124</code>，未处理请求：<code>183</code>
+- <code>124</code> 最近的是 <code>183</code> (距离 59)。
+<code>124 -&gt; 183</code> (距离 59)</p>
+<p><strong>最终顺序</strong>：<code>53 -&gt; 65 -&gt; 67 -&gt; 37 -&gt; 14 -&gt; 98 -&gt; 122 -&gt; 124 -&gt; 183</code></p>
+<p><strong>总磁头移动距离计算</strong>：
+<code>12 + 2 + 30 + 23 + 84 + 24 + 2 + 59</code>
+<code>= 236 个柱面</code></p>
+<p><strong>优点</strong>：
+- 降低平均响应时间。
+- 提高吞吐量。</p>
+<p><strong>缺点</strong>：
+- 需要提前计算寻道时间，增加开销。
+- 可能导致饥饿（Starvation）：如果不断有新请求在磁头附近到达，远离磁头的请求可能永远无法被服务。
+- 响应时间方差大，因为它倾向于优先处理某些请求。</p>
+</details>
+<details class="example" open="open">
+<summary>SCAN (Elevator Algorithm) (page 15)</summary>
+<p><strong>原理</strong>：磁盘臂从磁盘的一端开始移动，沿途服务请求，直到到达另一端。然后，磁头移动方向反转，并继续服务请求。</p>
+<p><strong>磁头移动路径</strong>（假设磁头最初向<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>方向移动，因为<span class="heti-skip"><span class="heti-spacing"> </span>53<span class="heti-spacing"> </span></span>离<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>比<span class="heti-skip"><span class="heti-spacing"> </span>199<span class="heti-spacing"> </span></span>近<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：
+初始位置：<code>53</code>
+- 向 <code>0</code> 方向移动，服务 <code>37, 14</code>：
+<code>53 -&gt; 37 -&gt; 14 -&gt; 0</code> (到达一端)
+- 然后反向向 <code>199</code> 移动，服务 <code>65, 67, 98, 122, 124, 183</code>：
+<code>0 -&gt; 65 -&gt; 67 -&gt; 98 -&gt; 122 -&gt; 124 -&gt; 183 -&gt; 199</code> (到达另一端)</p>
+<p><strong>总磁头移动距离计算</strong>：
+<code>|53 - 14| + |14 - 0| + |0 - 183| + |183 - 199|</code>
+<code>= 39 + 14 + 183 + 16</code>
+<code>= 252 个柱面</code></p>
+<p><strong>优点</strong>：
+- 高吞吐量。
+- 响应时间方差低。
+- 平均响应时间较好。</p>
+<p><strong>缺点</strong>：
+- 磁盘臂刚刚访问过的位置的请求可能需要等待很长时间，因为它必须先移动到另一端再返回。</p>
+</details>
+<details class="example" open="open">
+<summary>C-SCAN (Circular-SCAN) (page 16)</summary>
+<p><strong>原理</strong>：循环扫描算法旨在提供更均匀的等待时间。磁头从一端向另一端移动，沿途服务请求。当磁头到达一端时，它立即返回到另一端（例如，从<span class="heti-skip"><span class="heti-spacing"> </span>199<span class="heti-spacing"> </span></span>返回到<span><span class="heti-spacing"> </span>0</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，但在返回途中不服务任何请求。它本质上将柱面视为一个循环列表。</p>
+<p><strong>磁头移动路径</strong>（假设磁头最初向<span class="heti-skip"><span class="heti-spacing"> </span>199<span class="heti-spacing"> </span></span>方向移动<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：
+初始位置：<code>53</code>
+- 向 <code>199</code> 方向移动，服务 <code>65, 67, 98, 122, 124, 183</code>：
+<code>53 -&gt; 65 -&gt; 67 -&gt; 98 -&gt; 122 -&gt; 124 -&gt; 183 -&gt; 199</code> (到达一端)
+- 然后立即返回 <code>0</code>，不服务任何请求：
+<code>199 -&gt; 0</code> (返回起始端)
+- 再从 <code>0</code> 开始向 <code>199</code> 方向移动，服务 <code>14, 37</code>：
+<code>0 -&gt; 14 -&gt; 37</code> (如果还有请求在当前方向，会继续服务)</p>
+<p><strong>总磁头移动距离计算</strong>：
+<code>|199 - 53| + |199 - 0| + |37 - 0|</code>
+<code>= 146 + 199 + 37</code>
+<code>= 382 个柱面</code></p>
+<p><strong>优点</strong>：
+- 相比 SCAN 提供更均匀的等待时间。</p>
+</details>
+<details class="example" open="open">
+<summary>LOOK / C-LOOK (page 17)</summary>
+<p><strong>原理</strong>：<span>SCAN<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>C-SCAN<span class="heti-spacing"> </span></span>算法的改进版本。在实际实现中，磁头只移动到当前方向上最远的请求，而不是一直移动到磁盘的物理末端。</p>
+<ul>
+<li><strong>LOOK</strong> 是<span class="heti-skip"><span class="heti-spacing"> </span>SCAN<span class="heti-spacing"> </span></span>的一个版本，它在当前方向上没有更多请求时反转方向。</li>
+<li><strong>C-LOOK</strong> 是<span class="heti-skip"><span class="heti-spacing"> </span>C-SCAN<span class="heti-spacing"> </span></span>的一个版本，它在当前方向上没有更多请求时直接返回到另一端最远的请求位置，而不是物理末端。</li>
+</ul>
+<p><strong>磁头移动路径</strong>（C-LOOK，假设向<span class="heti-skip"><span class="heti-spacing"> </span>199<span class="heti-spacing"> </span></span>方向移动<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：
+初始位置：<code>53</code>
+- 向 <code>199</code> 方向移动，服务 <code>65, 67, 98, 122, 124, 183</code>：
+<code>53 -&gt; 65 -&gt; 67 -&gt; 98 -&gt; 122 -&gt; 124 -&gt; 183</code> (到达当前方向最远请求)
+- 然后立即返回到 <code>14</code>（当前方向上最靠近 0 的请求），不服务任何请求：
+<code>183 -&gt; 14</code> (返回到另一端的最远请求)
+- 再从 <code>14</code> 开始向 <code>183</code> 方向移动，服务 <code>37</code>：
+<code>14 -&gt; 37</code></p>
+<p><strong>总磁头移动距离计算</strong>：
+<code>|183 - 53| + |183 - 14| + |37 - 14|</code>
+<code>= 130 + 169 + 23</code>
+<code>= 322 个柱面</code></p>
+<p><strong>优点</strong>：
+- 避免了不必要的磁头移动到磁盘末端，从而减少了额外延迟。</p>
+</details>
+<h3 id="磁盘调度算法选择-Selecting-Disk-Scheduling-Algorithm-page-18">磁盘调度算法选择<span><span class="heti-spacing"> </span>(Selecting Disk-Scheduling Algorithm) (page 18)</span><a class="headerlink" href="#磁盘调度算法选择-Selecting-Disk-Scheduling-Algorithm-page-18" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>性能影响因素</strong>：磁盘调度性能取决于请求的数量和类型。</li>
+<li><strong>模块化设计</strong>：磁盘调度功能应作为独立的、可替换的模块编写。</li>
+<li><strong>常见选择</strong>：<ul>
+<li><strong>SSTF</strong>：通常是默认算法的合理选择。</li>
+<li><strong><span>LOOK<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>C-LOOK</span></strong>：在<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>负载较重的系统上表现更好。</li>
+</ul>
+</li>
+<li><strong>文件系统影响</strong>：文件分配和元数据布局也会影响磁盘性能。<ul>
+<li><strong>空间局部性<span><span class="heti-spacing"> </span>(Spatial Locality)</span></strong>：文件系统会投入大量精力来增加空间局部性，以便将相关数据存储在磁盘上彼此靠近的位置，从而减少寻道时间。</li>
+</ul>
+</li>
+</ul>
+<h2 id="非易失性存储设备-Nonvolatile-Memory-Devices-page-19-22">非易失性存储设备<span><span class="heti-spacing"> </span>(Nonvolatile Memory Devices) (page 19-22)</span><a class="headerlink" href="#非易失性存储设备-Nonvolatile-Memory-Devices-page-19-22" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>除了传统的磁性磁盘，非易失性存储设备在现代计算机系统中扮演着越来越重要的角色。</p>
+<h3 id="固态硬盘-Solid-State-Disks-SSDs-page-19-21">固态硬盘<span><span class="heti-spacing"> </span>(Solid-State Disks, SSDs) (page 19-21)</span><a class="headerlink" href="#固态硬盘-Solid-State-Disks-SSDs-page-19-21" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="definition" open="open">
+<summary>固态硬盘<span><span class="heti-spacing"> </span>(Solid-State Drive, SSD)</span></summary>
+<p>固态硬盘是一种使用固态<span class="heti-skip"><span class="heti-spacing"> </span>NAND<span class="heti-spacing"> </span></span>闪存或<span class="heti-skip"><span class="heti-spacing"> </span>DRAM<span class="heti-spacing"> </span></span>芯片作为永久性数据存储器的存储设备，与传统<span class="heti-skip"><span class="heti-spacing"> </span>HDD<span class="heti-spacing"> </span></span>相比，它没有可移动部件。</p>
+</details>
+<ul>
+<li><strong>形式</strong>：<ul>
+<li>类似磁盘驱动器。</li>
+<li>其他形式包括<span class="heti-skip"><span class="heti-spacing"> </span>USB<span class="heti-spacing"> </span></span>驱动器（<span>U<span class="heti-spacing"> </span></span>盘、闪存盘<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、<span>DRAM<span class="heti-spacing"> </span></span>磁盘替代品、以及主板上表面贴装的芯片。</li>
+</ul>
+</li>
+<li><strong>优点</strong>：<ul>
+<li>比<span class="heti-skip"><span class="heti-spacing"> </span>HDD<span class="heti-spacing"> </span></span>更可靠（无机械部件<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>速度更快（显著降低访问延迟<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>由于没有寻道时间和旋转延迟，因此<span><span class="heti-spacing"> </span>FCFS</span>（先进先出）调度算法对其性能表现良好。</li>
+</ul>
+</li>
+<li><strong>缺点<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>挑战</strong>：<ul>
+<li>每<span class="heti-skip"><span class="heti-spacing"> </span>MB<span class="heti-spacing"> </span></span>成本更高。</li>
+<li>可能寿命较短，需要仔细管理。</li>
+<li>容量相对较小。</li>
+<li>现有总线（如<span><span class="heti-spacing"> </span>SATA</span>）可能成为性能瓶颈，因此一些高性能<span class="heti-skip"><span class="heti-spacing"> </span>SSD<span class="heti-spacing"> </span></span>直接连接到<span class="heti-skip"><span class="heti-spacing"> </span>PCI Express (PCIe)<span class="heti-spacing"> </span></span>总线。</li>
+</ul>
+</li>
+</ul>
+<details class="extra" open="open">
+<summary><span>SSD<span class="heti-spacing"> </span></span>的写入特性与挑战<span><span class="heti-spacing"> </span>(SSD Write Characteristics and Challenges) (page 20)</span></summary>
+<p><span>SSD<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>NAND<span class="heti-spacing"> </span></span>闪存具有独特的操作特性，带来了一些管理挑战：</p>
+<ul>
+<li><strong>页面<span class="heti-skip"><span class="heti-spacing"> </span>(Page)<span class="heti-spacing"> </span></span>写入</strong>：数据以“页面”为单位进行读取和写入（类似于<span class="heti-skip"><span class="heti-spacing"> </span>HDD<span class="heti-spacing"> </span></span>的扇区，通常为<span><span class="heti-spacing"> </span>4KB</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>无法原地覆盖<span><span class="heti-spacing"> </span>(Cannot Overwrite in Place)</span></strong>：与<span class="heti-skip"><span class="heti-spacing"> </span>HDD<span class="heti-spacing"> </span></span>不同，<span>SSD<span class="heti-spacing"> </span></span>不能直接覆盖已存在数据的页面。</li>
+<li><strong>块<span class="heti-skip"><span class="heti-spacing"> </span>(Block)<span class="heti-spacing"> </span></span>擦除</strong>：要写入一个已包含数据的页面，必须先擦除该页面所属的整个“块”（block<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。块通常由多个页面组成，例如<span class="heti-skip"><span class="heti-spacing"> </span>64KB<span class="heti-spacing"> </span></span>的块可能包含<span class="heti-skip"><span class="heti-spacing"> </span>16<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>4KB<span class="heti-spacing"> </span></span>的页面。擦除操作发生在块级别，而非页面级别。</li>
+<li><strong>擦除次数限制<span><span class="heti-spacing"> </span>(Limited Erase Cycles)</span></strong>：每个闪存块只能被擦除有限次数（例如约<span class="heti-skip"><span class="heti-spacing"> </span>100,000<span class="heti-spacing"> </span></span>次）就会磨损。</li>
+<li><strong>驱动器写入每日次数<span><span class="heti-spacing"> </span>(Drive Writes Per Day, DWPD)</span></strong>：<span>SSD<span class="heti-spacing"> </span></span>的寿命通常用<span class="heti-skip"><span class="heti-spacing"> </span>DWPD<span class="heti-spacing"> </span></span>来衡量。例如，一个<span class="heti-skip"><span class="heti-spacing"> </span>1TB<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>NAND<span class="heti-spacing"> </span></span>驱动器，如果其<span class="heti-skip"><span class="heti-spacing"> </span>DWPD<span class="heti-spacing"> </span></span>评级为<span><span class="heti-spacing"> </span>5</span>，则意味着在保修期内，它每天可以写入<span class="heti-skip"><span class="heti-spacing"> </span>5TB<span class="heti-spacing"> </span></span>的数据而不会出现故障。</li>
+</ul>
+</details>
+<details class="definition" open="open">
+<summary><span>NAND<span class="heti-spacing"> </span></span>闪存控制器算法<span><span class="heti-spacing"> </span>(NAND Flash Controller Algorithms) (page 21)</span></summary>
+<p>为了应对<span class="heti-skip"><span class="heti-spacing"> </span>SSD<span class="heti-spacing"> </span></span>的写入特性和寿命限制，<span>NAND<span class="heti-spacing"> </span></span>闪存控制器内置了复杂的算法：</p>
+<ul>
+<li><strong>闪存转换层<span><span class="heti-spacing"> </span>(Flash Translation Layer, FTL)</span></strong>：由于页面不能原地覆盖，有效页面和无效页面会混合存在于闪存块中。<span>FTL<span class="heti-spacing"> </span></span>维护一个逻辑块到物理块的映射表，以跟踪哪些逻辑块是有效的。</li>
+<li><strong>垃圾回收<span><span class="heti-spacing"> </span>(Garbage Collection, GC)</span></strong>：为了释放无效页面空间，控制器会执行垃圾回收。当一个块中大部分页面变为无效后，控制器会将其中的所有有效页面复制到预留的“过量配置（over-provisioning）”区域，然后擦除整个块，使其可用于后续写入。</li>
+<li><strong>过量配置<span><span class="heti-spacing"> </span>(Over-provisioning)</span></strong>：控制器会分配一部分闪存容量作为工作空间，用于垃圾回收和磨损均衡等操作。</li>
+<li><strong>磨损均衡<span><span class="heti-spacing"> </span>(Wear Leveling)</span></strong>：为了延长<span class="heti-skip"><span class="heti-spacing"> </span>SSD<span class="heti-spacing"> </span></span>的寿命，控制器需要确保数据均匀地写入到所有闪存单元中，避免某些块被过度擦写而提前磨损。</li>
+</ul>
+</details>
+<h3 id="磁带-Magnetic-Tape-page-22">磁带<span><span class="heti-spacing"> </span>(Magnetic Tape) (page 22)</span><a class="headerlink" href="#磁带-Magnetic-Tape-page-22" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>早期存储</strong>：磁带是早期的一种二次存储设备，现在主要用于备份（backup）和归档。</li>
+<li><strong>大容量</strong>：容量通常较大，从<span class="heti-skip"><span class="heti-spacing"> </span>200GB<span class="heti-spacing"> </span></span>到<span class="heti-skip"><span class="heti-spacing"> </span>1.5TB<span class="heti-spacing"> </span></span>甚至更高。</li>
+<li><strong>访问速度慢</strong>：尤其是随机访问时速度非常慢，寻道时间远高于磁盘。随机访问需要磁带的卷绕和倒带操作。</li>
+<li><strong>传输速率</strong>：一旦数据位于磁头下方，传输速率可与磁盘媲美（例如<span><span class="heti-spacing"> </span>140 MB/s</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>数据持久性</strong>：存储在磁带上的数据相对永久。</li>
+</ul>
+<h2 id="磁盘管理-Disk-Management-page-23-27">磁盘管理<span><span class="heti-spacing"> </span>(Disk Management) (page 23-27)</span><a class="headerlink" href="#磁盘管理-Disk-Management-page-23-27" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="物理格式化-Physical-Formatting-page-23">物理格式化<span><span class="heti-spacing"> </span>(Physical Formatting) (page 23)</span><a class="headerlink" href="#物理格式化-Physical-Formatting-page-23" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="definition" open="open">
+<summary>物理格式化<span class="heti-skip"><span class="heti-spacing"> </span>(Physical Formatting) /<span class="heti-spacing"> </span></span>低级格式化<span><span class="heti-spacing"> </span>(Low-level Formatting)</span></summary>
+<p>物理格式化是将磁盘划分为控制器可读写的扇区的过程。</p>
+</details>
+<ul>
+<li>每个扇区包含：<ul>
+<li><strong>扇区头信息<span><span class="heti-spacing"> </span>(Header information)</span></strong>：用于识别扇区。</li>
+<li><strong>数据区<span><span class="heti-spacing"> </span>(Data)</span></strong>：通常为<span class="heti-skip"><span class="heti-spacing"> </span>512<span class="heti-spacing"> </span></span>字节，但也可能是可选择的其他大小。</li>
+<li><strong>错误纠正码<span><span class="heti-spacing"> </span>(Error Correction Code, ECC)</span></strong>：用于检测和纠正数据传输中的错误。</li>
+</ul>
+</li>
+</ul>
+<h3 id="逻辑格式化-Logical-Formatting-page-23">逻辑格式化<span><span class="heti-spacing"> </span>(Logical Formatting) (page 23)</span><a class="headerlink" href="#逻辑格式化-Logical-Formatting-page-23" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="definition" open="open">
+<summary>逻辑格式化<span class="heti-skip"><span class="heti-spacing"> </span>(Logical Formatting) /<span class="heti-spacing"> </span></span>高级格式化<span><span class="heti-spacing"> </span>(High-level Formatting)</span></summary>
+<p>逻辑格式化是操作系统在磁盘上建立自己的数据结构的过程，通常包括创建文件系统（file system<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+</details>
+<ul>
+<li><strong>分区<span><span class="heti-spacing"> </span>(Partition)</span></strong>：磁盘可以被划分为若干个柱面组，每个柱面组被视为一个逻辑磁盘。</li>
+<li><strong>文件系统<span><span class="heti-spacing"> </span>(File System)</span></strong>：在逻辑分区上创建文件系统。<ul>
+<li>某些文件系统会预留备用扇区来处理坏块（bad blocks<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>文件系统可以进一步将块（blocks）组合成簇（clusters）以提高性能。<ul>
+<li>磁盘<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>通常以块为单位进行。</li>
+<li>文件<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>通常以簇为单位进行。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>引导扇区<span><span class="heti-spacing"> </span>(Boot Sector)</span></strong>：如果分区包含操作系统镜像，则需要初始化引导扇区，其中包含启动操作系统的代码。</li>
+</ul>
+<h3 id="设备名称-Device-Names-page-24">设备名称<span><span class="heti-spacing"> </span>(Device Names) (page 24)</span><a class="headerlink" href="#设备名称-Device-Names-page-24" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在<span class="heti-skip"><span class="heti-spacing"> </span>Linux<span class="heti-spacing"> </span></span>系统中，磁盘设备通常遵循一定的命名约定：</p>
+<ul>
+<li><strong><span>IDE (Integrated Drive Electronics)<span class="heti-spacing"> </span></span>驱动器</strong>：<ul>
+<li>通常命名为 <code>/dev/hda</code> 到 <code>/dev/hdd</code>。</li>
+<li>例如，<code>/dev/hda</code> 是第一个硬盘驱动器。</li>
+<li><code>/dev/hdc</code> 是第三个硬盘驱动器。</li>
+</ul>
+</li>
+<li><strong><span>SCSI (Small Computer System Interface)<span class="heti-spacing"> </span></span>驱动器</strong>：<ul>
+<li>遵循类似的模式，但使用 <code>sd</code> 而非 <code>hd</code>。</li>
+<li>例如，<code>/dev/sda</code> 是第一个<span class="heti-skip"><span class="heti-spacing"> </span>SCSI<span class="heti-spacing"> </span></span>驱动器。</li>
+<li><strong>分区命名</strong>：分区从<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>开始编号，例如 <code>/dev/sda1</code> 或 <code>/dev/hda1</code>。</li>
+<li>因此，第二个<span class="heti-skip"><span class="heti-spacing"> </span>SCSI<span class="heti-spacing"> </span></span>驱动器的第一个分区将是 <code>/dev/sdb1</code>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="磁盘分区-Disk-Partition-page-25">磁盘分区<span><span class="heti-spacing"> </span>(Disk Partition) (page 25)</span><a class="headerlink" href="#磁盘分区-Disk-Partition-page-25" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>主分区<span><span class="heti-spacing"> </span>(Primary Partitions)</span></strong>：一个磁盘最多可以有<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>个主分区。</li>
+<li><strong>逻辑分区<span><span class="heti-spacing"> </span>(Logical Partitions)</span></strong>：如果需要超过<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>个分区，则必须使用逻辑分区。逻辑分区的编号通常从<span class="heti-skip"><span class="heti-spacing"> </span>5<span class="heti-spacing"> </span></span>开始。<ul>
+<li>逻辑分区存在于一个扩展分区（Extended Partition）中，扩展分区本身是一个主分区。</li>
+</ul>
+</li>
+</ul>
+<h3 id="引导过程与管理-Booting-Process-and-Management-page-26-27">引导过程与管理<span><span class="heti-spacing"> </span>(Booting Process and Management) (page 26-27)</span><a class="headerlink" href="#引导过程与管理-Booting-Process-and-Management-page-26-27" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>根分区<span><span class="heti-spacing"> </span>(Root Partition)</span></strong>：包含操作系统（OS<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。其他分区可以存放其他操作系统、其他文件系统或作为原始（raw）分区使用。<ul>
+<li>根分区在启动时被挂载（Mounted<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>其他分区可以自动或手动挂载。</li>
+<li>挂载时，文件系统会检查一致性。<ul>
+<li>如果元数据不正确，会尝试修复。</li>
+<li>如果正确，则添加到挂载表并允许访问。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>引导块<span><span class="heti-spacing"> </span>(Boot Block)</span></strong>：<ul>
+<li>引导块指向引导卷（boot volume）或包含足够代码来从文件系统加载内核的引导加载程序（boot loader）块集。</li>
+<li>也可以指向用于多操作系统引导的引导管理程序。</li>
+</ul>
+</li>
+<li><strong>系统初始化</strong>：引导块初始化系统。<ul>
+<li><strong>引导程序<span><span class="heti-spacing"> </span>(Bootstrap)</span></strong>：存储在<span><span class="heti-spacing"> </span>ROM</span>（只读存储器）固件中。</li>
+<li><strong>引导加载程序<span><span class="heti-spacing"> </span>(Bootstrap loader)</span></strong>：一个程序，存储在引导分区的引导块中。</li>
+</ul>
+</li>
+<li><strong>主引导记录<span><span class="heti-spacing"> </span>(Master Boot Record, MBR)</span></strong> (page 27):<ul>
+<li>位于磁盘的第一个扇区。</li>
+<li>包含引导代码（boot code）和分区表（partition table<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>引导代码负责查找活动分区，并加载其引导加载程序。</li>
+</ul>
+</li>
+<li><strong>原始磁盘访问<span><span class="heti-spacing"> </span>(Raw Disk Access)</span></strong>：<ul>
+<li>某些应用程序（如数据库）可能希望自己管理块，从而绕过操作系统的块管理。</li>
+</ul>
+</li>
+<li><strong>扇区备用<span><span class="heti-spacing"> </span>(Sector Sparing)</span></strong>：<ul>
+<li>一种处理坏扇区的方法，当检测到坏扇区时，会将其映射到备用扇区。</li>
+</ul>
+</li>
+</ul>
+<h2 id="交换空间管理-Swap-Space-Management-page-28">交换空间管理<span><span class="heti-spacing"> </span>(Swap-Space Management) (page 28)</span><a class="headerlink" href="#交换空间管理-Swap-Space-Management-page-28" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<details class="definition" open="open">
+<summary>交换空间<span><span class="heti-spacing"> </span>(Swap Space)</span></summary>
+<p>交换空间是磁盘上的一块区域，用于在<span><span class="heti-spacing"> </span>DRAM</span>（主内存）不足以容纳所有进程时，将整个进程（交换，swapping）或内存页面（分页，paging）从<span class="heti-skip"><span class="heti-spacing"> </span>DRAM<span class="heti-spacing"> </span></span>移到辅助存储器。</p>
+</details>
+<ul>
+<li><strong>目的</strong>：当<span class="heti-skip"><span class="heti-spacing"> </span>DRAM<span class="heti-spacing"> </span></span>不足时，提供额外的虚拟内存。</li>
+<li><strong>优化</strong>：由于辅助存储器比<span class="heti-skip"><span class="heti-spacing"> </span>DRAM<span class="heti-spacing"> </span></span>慢得多，因此优化交换空间性能至关重要。</li>
+<li><strong>多交换空间</strong>：系统可以有多个交换空间，以减少单个设备的<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>负载。</li>
+<li><strong>专用设备</strong>：最好有专用的设备用于交换空间。</li>
+<li><strong>位置</strong>：交换空间可以是一个单独的分区，也可以是文件系统中的一个文件（方便添加<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong><span>Linux<span class="heti-spacing"> </span></span>系统中的交换数据结构</strong>：<ul>
+<li>交换映射（swap map）中的“0”表示该页面未使用。</li>
+<li>交换映射中的“3”表示该页面映射到进程号为<span class="heti-skip"><span class="heti-spacing"> </span>3<span class="heti-spacing"> </span></span>的进程。</li>
+</ul>
+</li>
+</ul>
+<h2 id="磁盘连接方式-Disk-Attachment-page-29-33">磁盘连接方式<span><span class="heti-spacing"> </span>(Disk Attachment) (page 29-33)</span><a class="headerlink" href="#磁盘连接方式-Disk-Attachment-page-29-33" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>磁盘可以连接到计算机的方式主要有三种：</p>
+<h3 id="1-主机连接存储-Host-Attached-Storage-page-29-31"><span>1.<span class="heti-spacing"> </span></span>主机连接存储<span><span class="heti-spacing"> </span>(Host-Attached Storage) (page 29-31)</span><a class="headerlink" href="#1-主机连接存储-Host-Attached-Storage-page-29-31" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="definition" open="open">
+<summary>主机连接存储<span><span class="heti-spacing"> </span>(Host-Attached Storage)</span></summary>
+<p>磁盘直接通过<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>总线连接到计算机，通常是为单个主机提供存储服务。</p>
+</details>
+<ul>
+<li>
+<p><strong>常见接口示例</strong>：</p>
+<ul>
+<li><strong>SCSI (Small Computer System Interface)</strong>：<ul>
+<li>是一种总线架构，一条电缆上最多可以连接<span class="heti-skip"><span class="heti-spacing"> </span>16<span class="heti-spacing"> </span></span>个设备。</li>
+<li><span>SCSI<span class="heti-spacing"> </span></span>发起者（initiator）请求操作，<span>SCSI<span class="heti-spacing"> </span></span>目标设备（targets，例如磁盘）执行任务。每个目标设备最多可以有<span class="heti-skip"><span class="heti-spacing"> </span>8<span class="heti-spacing"> </span></span>个逻辑单元（logical units<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>在<span class="heti-skip"><span class="heti-spacing"> </span>Linux<span class="heti-spacing"> </span></span>中，<span>SCSI<span class="heti-spacing"> </span></span>磁盘驱动器通常表示为 <code>/dev/sda</code>。<code>sd</code> 代表<span class="heti-skip"><span class="heti-spacing"> </span>SCSI<span class="heti-spacing"> </span></span>磁盘。</li>
+</ul>
+</li>
+<li><strong><span>IDE (Integrated Drive Electronics)<span class="heti-spacing"> </span></span>接口</strong>：<ul>
+<li>在<span class="heti-skip"><span class="heti-spacing"> </span>Linux<span class="heti-spacing"> </span></span>中，<span>IDE<span class="heti-spacing"> </span></span>磁盘驱动器通常表示为 <code>/dev/hda</code>。</li>
+</ul>
+</li>
+<li><strong>光纤通道<span><span class="heti-spacing"> </span>(Fiber Channel)</span></strong>：<ul>
+<li>是一种高速串行总线。</li>
+<li>可以是交换式光纤（switched fabric<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，具有<span class="heti-skip"><span class="heti-spacing"> </span>24<span class="heti-spacing"> </span></span>位地址空间。</li>
+<li>是最常见的存储区域网络（SAN）互连方式。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>典型<span class="heti-skip"><span class="heti-spacing"> </span>PC<span class="heti-spacing"> </span></span>总线结构</strong>：一张图示（page 31）展示了处理器、内存、显卡控制器、<span>SCSI<span class="heti-spacing"> </span></span>控制器、<span>IDE<span class="heti-spacing"> </span></span>磁盘控制器等如何通过<span class="heti-skip"><span class="heti-spacing"> </span>PCI<span class="heti-spacing"> </span></span>总线连接，以及扩展总线接口连接键盘、并行端口、串行端口等。</p>
+</li>
+</ul>
+<h3 id="2-网络连接存储-Network-Attached-Storage-NAS-page-29-32"><span>2.<span class="heti-spacing"> </span></span>网络连接存储<span><span class="heti-spacing"> </span>(Network-Attached Storage, NAS) (page 29, 32)</span><a class="headerlink" href="#2-网络连接存储-Network-Attached-Storage-NAS-page-29-32" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="definition" open="open">
+<summary>网络连接存储<span><span class="heti-spacing"> </span>(Network-Attached Storage, NAS)</span></summary>
+<p><span>NAS<span class="heti-spacing"> </span></span>是通过网络而非本地总线提供存储的服务。它通常由一个或多个存储设备组成，通过标准网络协议（如以太网）连接到局域网。</p>
+</details>
+<ul>
+<li><strong>工作方式</strong>：客户端可以通过网络远程访问服务器上的文件系统。</li>
+<li><strong>常见协议</strong>：NFS (Network File System)、<span>CIFS (Common Internet File System)<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>iSCSI (Internet Small Computer System Interface)<span class="heti-spacing"> </span></span>是常用的协议。</li>
+<li><strong>实现</strong>：通常通过远程过程调用（RPCs）实现，并通过<span class="heti-skip"><span class="heti-spacing"> </span>TCP<span class="heti-spacing"> </span></span>或<span class="heti-skip"><span class="heti-spacing"> </span>UDP<span class="heti-spacing"> </span></span>协议在<span class="heti-skip"><span class="heti-spacing"> </span>IP<span class="heti-spacing"> </span></span>网络上运行。</li>
+<li><strong><span>iSCSI<span class="heti-spacing"> </span></span>协议</strong>：专门设计用于在<span class="heti-skip"><span class="heti-spacing"> </span>IP<span class="heti-spacing"> </span></span>网络上承载<span class="heti-skip"><span class="heti-spacing"> </span>SCSI<span class="heti-spacing"> </span></span>协议命令，使得基于<span class="heti-skip"><span class="heti-spacing"> </span>IP<span class="heti-spacing"> </span></span>的网络可以像<span class="heti-skip"><span class="heti-spacing"> </span>SCSI<span class="heti-spacing"> </span></span>总线一样连接存储设备。</li>
+</ul>
+<h3 id="3-存储区域网络-Storage-Area-Network-SAN-page-29-33"><span>3.<span class="heti-spacing"> </span></span>存储区域网络<span><span class="heti-spacing"> </span>(Storage Area Network, SAN) (page 29, 33)</span><a class="headerlink" href="#3-存储区域网络-Storage-Area-Network-SAN-page-29-33" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="definition" open="open">
+<summary>存储区域网络<span><span class="heti-spacing"> </span>(Storage Area Network, SAN)</span></summary>
+<p><span>SAN<span class="heti-spacing"> </span></span>是一个私有网络，专门用于连接服务器和存储单元，提供块级别（block-level）的数据访问。</p>
+</details>
+<ul>
+<li><strong>带宽消耗</strong>：<span>SAN<span class="heti-spacing"> </span></span>在数据网络上消耗大量带宽，因此通常需要将存储流量与普通数据流量分离。</li>
+<li><strong><span>TCP/IP<span class="heti-spacing"> </span></span>效率</strong>：<span>TCP/IP<span class="heti-spacing"> </span></span>协议栈对于存储访问来说效率较低。</li>
+<li><strong>高速互连与高效协议</strong>：<span>SAN<span class="heti-spacing"> </span></span>使用高速互连技术和高效的协议，例如光纤通道（FC<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，通常与<span class="heti-skip"><span class="heti-spacing"> </span>InfiniBand<span class="heti-spacing"> </span></span>协议结合使用，是<span class="heti-skip"><span class="heti-spacing"> </span>SAN<span class="heti-spacing"> </span></span>最常见的互连方式。</li>
+<li><strong>共享存储</strong>：多个主机和存储阵列可以连接到同一个<span><span class="heti-spacing"> </span>SAN</span>。</li>
+<li><strong>动态分配</strong>：存储可以动态地分配给主机。</li>
+<li><strong>集群共享</strong>：服务器集群可以共享相同的存储资源。</li>
+</ul>
+<h2 id="磁盘成本趋势-Disk-Cost-Trends-page-34">磁盘成本趋势<span><span class="heti-spacing"> </span>(Disk Cost Trends) (page 34)</span><a class="headerlink" href="#磁盘成本趋势-Disk-Cost-Trends-page-34" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>通过对硬盘（HDD）和固态硬盘（SSD）每<span class="heti-skip"><span class="heti-spacing"> </span>GB<span class="heti-spacing"> </span></span>价格的历史数据分析，可以观察到：</p>
+<ul>
+<li><strong><span>HDD<span class="heti-spacing"> </span></span>价格持续下降</strong>：<span>HDD<span class="heti-spacing"> </span></span>的每<span class="heti-skip"><span class="heti-spacing"> </span>GB<span class="heti-spacing"> </span></span>成本在过去几十年中持续下降，但速度相对平缓。</li>
+<li><strong><span>SSD<span class="heti-spacing"> </span></span>价格快速下降</strong>：<span>SSD<span class="heti-spacing"> </span></span>的每<span class="heti-skip"><span class="heti-spacing"> </span>GB<span class="heti-spacing"> </span></span>成本在初期较高，但随着技术发展和市场扩大，其价格呈现出更快速的下降趋势。</li>
+<li><strong>未来预测</strong>：根据数据源（Mkomo.com, Gartner, Pingdom，截至<span class="heti-skip"><span class="heti-spacing"> </span>2011<span class="heti-spacing"> </span></span>年<span class="heti-skip"><span class="heti-spacing"> </span>12<span class="heti-spacing"> </span></span>月<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，<span>SSD<span class="heti-spacing"> </span></span>的每<span class="heti-skip"><span class="heti-spacing"> </span>GB<span class="heti-spacing"> </span></span>价格预计将继续快速下降，逐渐接近<span class="heti-skip"><span class="heti-spacing"> </span>HDD<span class="heti-spacing"> </span></span>的水平，使得<span class="heti-skip"><span class="heti-spacing"> </span>SSD<span class="heti-spacing"> </span></span>在更广泛的应用中具备成本效益。</li>
+</ul>
+<h2 id="RAID-结构-RAID-Structure-page-35-47"><span>RAID<span class="heti-spacing"> </span></span>结构<span><span class="heti-spacing"> </span>(RAID Structure) (page 35-47)</span><a class="headerlink" href="#RAID-结构-RAID-Structure-page-35-47" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<details class="definition" open="open">
+<summary>RAID (Redundant Array of Independent Disks)</summary>
+<p>磁盘本身是不可靠、速度慢但价格便宜的设备。<span>RAID<span class="heti-spacing"> </span></span>的核心思想是利用多块廉价磁盘的冗余组合，以提高存储的可靠性（即使一块磁盘故障也能继续工作）和性能（通过并行读写<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+</details>
+<p><span>RAID<span class="heti-spacing"> </span></span>的实现方式有多种：</p>
+<ul>
+<li><strong>操作系统（OS）实现</strong>：通过多个主机连接的磁盘在软件层面实现。</li>
+<li><strong>硬件<span class="heti-skip"><span class="heti-spacing"> </span>RAID<span class="heti-spacing"> </span></span>控制器</strong>：专用的硬件控制器负责<span class="heti-skip"><span class="heti-spacing"> </span>RAID<span class="heti-spacing"> </span></span>的逻辑管理。</li>
+<li><strong>“<span>RAID<span class="heti-spacing"> </span></span>阵列”独立设备</strong>：作为独立的存储盒子，内置<span class="heti-skip"><span class="heti-spacing"> </span>RAID<span class="heti-spacing"> </span></span>控制器和多块磁盘。</li>
+</ul>
+<h3 id="RAID-核心技术-Core-RAID-Techniques-page-36"><span>RAID<span class="heti-spacing"> </span></span>核心技术<span><span class="heti-spacing"> </span>(Core RAID Techniques) (page 36)</span><a class="headerlink" href="#RAID-核心技术-Core-RAID-Techniques-page-36" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>RAID<span class="heti-spacing"> </span></span>技术主要结合以下三种方法：</p>
+<ul>
+<li><strong>数据镜像<span><span class="heti-spacing"> </span>(Data Mirroring)</span></strong>：<ul>
+<li>在多个磁盘上保存相同的数据副本。</li>
+<li>每次写入操作都需要写入到所有镜像副本，这会增加写入时间。</li>
+</ul>
+</li>
+<li><strong>数据条带化<span><span class="heti-spacing"> </span>(Data Striping)</span></strong>：<ul>
+<li>将数据分成小块，并分散存储在多个磁盘上。</li>
+<li>允许并行读取，从而提高读取性能。例如，从<span class="heti-skip"><span class="heti-spacing"> </span>8<span class="heti-spacing"> </span></span>个磁盘读取一个字节的比特位。</li>
+</ul>
+</li>
+<li><strong>纠错码<span class="heti-skip"><span class="heti-spacing"> </span>(Error-Code Correcting, ECC) -<span class="heti-spacing"> </span></span>奇偶校验位<span><span class="heti-spacing"> </span>(Parity Bits)</span></strong>：<ul>
+<li>存储额外的信息（奇偶校验位<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，以便在驱动器故障时重建丢失的数据。</li>
+</ul>
+</li>
+</ul>
+<p>这些技术可以根据需要进行组合，形成不同的<span class="heti-skip"><span class="heti-spacing"> </span>RAID<span class="heti-spacing"> </span></span>级别。</p>
+<h3 id="RAID-级别-RAID-Levels-page-37"><span>RAID<span class="heti-spacing"> </span></span>级别<span><span class="heti-spacing"> </span>(RAID Levels) (page 37)</span><a class="headerlink" href="#RAID-级别-RAID-Levels-page-37" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>RAID<span class="heti-spacing"> </span></span>技术的不同组合被称为“级别”（更像是一种市场营销工具<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。常用的<span class="heti-skip"><span class="heti-spacing"> </span>RAID<span class="heti-spacing"> </span></span>级别包括：RAID 0, 1, 1+0 (10), 5, 5+0 (50), 6, 6+0 (60)。</p>
+<p><strong>注意</strong>：<span>RAID 2<span class="heti-spacing"> </span></span>级在实践中并不常用。</p>
+<details class="example" open="open">
+<summary><span>RAID 0 (<span class="heti-spacing"> </span></span>非冗余条带化<span><span class="heti-spacing"> </span>, Non-redundant Striping) (page 38-39)</span></summary>
+<p><strong>原理</strong>：将数据均匀地分散（条带化）到两个或更多磁盘上，不包含任何奇偶校验位或其他冗余信息。</p>
+<p><strong>特点</strong>：
+- <strong>无冗余</strong>：不提供数据冗余，因此不可靠。如果任何一个磁盘发生故障，整个阵列的数据将丢失。
+- <strong>性能提升</strong>：通过并行读写，提供更高的带宽，使得读写文件时速度更快。
+- <strong>逻辑大磁盘</strong>：给用户一种更大、更快的磁盘错觉。
+- <strong>单条带访问</strong>：访问单个条带（strip）并不会更快。
+- <strong>应用场景</strong>：适用于对性能要求极高，但对数据可靠性要求不高的场景，例如临时文件存储或高性能计算的中间结果。</p>
+<p><strong>示例</strong>（<span>4<span class="heti-spacing"> </span></span>个磁盘，固定条带大小，<span>5<span class="heti-spacing"> </span></span>个不同大小的文件<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：
+- 数据被拆分成条带，交替写入到四个磁盘中，充分利用了多个磁盘的并行 I/O 能力。</p>
+</details>
+<details class="example" open="open">
+<summary><span>RAID 1 (<span class="heti-spacing"> </span></span>镜像<span><span class="heti-spacing"> </span>, Mirroring) (page 40-41)</span></summary>
+<p><strong>原理</strong>：为一套数据在两个磁盘上保存一个完全相同的副本（也称为<strong>影子拷贝，shadowing</strong><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<p><strong>特点</strong>：
+- <strong>高可靠性</strong>：除非发生极其罕见的同步故障，否则数据可靠性得到保证。
+- <strong>磁盘利用率</strong>：需要两倍于<span class="heti-skip"><span class="heti-spacing"> </span>RAID 0<span class="heti-spacing"> </span></span>的磁盘数量来存储相同的数据量，因为数据被复制了一份。
+- <strong>写入性能</strong>：每次写入操作都必须写入到两个磁盘，写入性能可能受到限制。
+- <strong>读取性能</strong>：可以通过从寻道时间最快的磁盘（即磁臂距离目标柱面最近的磁盘）读取数据来提升读取性能。</p>
+<p><strong>示例</strong>（<span>4<span class="heti-spacing"> </span></span>个磁盘，<span>5<span class="heti-spacing"> </span></span>个不同大小的文件<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：
+- 每个文件的数据都被复制到两个磁盘上，例如文件 1 数据在磁盘 1 和磁盘 2 上各有一份，文件 2 数据在磁盘 3 和磁盘 4 上各有一份。</p>
+</details>
+<details class="note" open="open">
+<summary><span>RAID 2 (<span class="heti-spacing"> </span></span>位交错奇偶校验<span><span class="heti-spacing"> </span>, Bit-interleaved Parity) (page 42)</span></summary>
+<p><strong>原理</strong>：以位级别进行数据条带化，并使用 <strong>汉明码<span><span class="heti-spacing"> </span>(Hamming code)</span></strong> 进行错误纠正。</p>
+<p><strong>特点</strong>：
+- 汉明码（例如，4 位数据+3 位奇偶校验）允许使用 7 个磁盘（其中 3 个用于奇偶校验）。
+- <strong>当前不常用</strong>：在实际应用中几乎没有使用。</p>
+</details>
+<details class="example" open="open">
+<summary><span>RAID 3 (<span class="heti-spacing"> </span></span>位交错奇偶校验<span><span class="heti-spacing"> </span>, Bit-interleaved Parity) (page 43)</span></summary>
+<p><strong>原理</strong>：数据以位级别条带化到多个磁盘上，并使用 <strong>一个专用的奇偶校验磁盘</strong> 来存储所有数据磁盘的奇偶校验信息。</p>
+<p><strong>特点</strong>：
+- <strong>写入操作</strong>：每次写入都会涉及所有数据磁盘，每个数据磁盘存储一个比特位，并计算并存储一个奇偶校验位。
+- <strong>数据恢复</strong>：奇偶校验位用于数据恢复。</p>
+<p><strong>数据恢复示例</strong>（<span>4<span class="heti-spacing"> </span></span>个数据磁盘，<span>1<span class="heti-spacing"> </span></span>个奇偶校验磁盘<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：
+- <strong>存储比特</strong>：假设在<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>个磁盘上存储比特 <code>0 1 1 0</code>。
+- <strong>奇偶校验位计算</strong>：奇偶校验位为 <code>((0 XOR 1) XOR 1) XOR 0 = 0</code>。
+- <strong>丢失一个比特</strong>：假设丢失了第二个比特，数据变为 <code>0 ? 1 0</code>。
+    - 可以通过将剩余比特和奇偶校验位进行异或运算来恢复丢失的比特：<code>((0 XOR 0) XOR 1) XOR 0 = 1</code>。因此丢失的比特是 <code>1</code>。
+- <strong>恢复机制</strong>：即使丢失了不同的比特（例如 <code>0 1 1 ?</code><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，异或运算仍然有效，可以恢复丢失的比特。
+- <strong>性能</strong>：位级别条带化增加了性能。
+- <strong><span>XOR<span class="heti-spacing"> </span></span>开销</strong>：每次写入都有奇偶校验的<span class="heti-skip"><span class="heti-spacing"> </span>XOR<span class="heti-spacing"> </span></span>计算开销（通常由硬件完成<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。
+- <strong>恢复时间</strong>：恢复时间相对较长，因为它需要对大量比特进行<span class="heti-skip"><span class="heti-spacing"> </span>XOR<span class="heti-spacing"> </span></span>运算。</p>
+</details>
+<details class="example" open="open">
+<summary><span>RAID 4 (<span class="heti-spacing"> </span></span>块交错奇偶校验<span><span class="heti-spacing"> </span>, Block-interleaved Parity) (page 44)</span></summary>
+<p><strong>原理</strong>：与<span class="heti-skip"><span class="heti-spacing"> </span>RAID 3<span class="heti-spacing"> </span></span>类似，但以块（strips/blocks）级别而不是位级别进行数据条带化。仍使用一个专用的奇偶校验磁盘。</p>
+<p><strong>特点</strong>：
+- <strong>读取</strong>：小的读取请求通常只涉及一个磁盘，提高了小文件读取的性能。
+- <strong>写入瓶颈</strong>：由于所有写入操作都必须更新同一个奇偶校验磁盘，这个专用奇偶校验磁盘会成为写入性能的瓶颈。</p>
+</details>
+<details class="example" open="open">
+<summary><span>RAID 5 (<span class="heti-spacing"> </span></span>块交错分布式奇偶校验<span><span class="heti-spacing"> </span>, Block-interleaved Distributed Parity) (page 44)</span></summary>
+<p><strong>原理</strong>：与<span class="heti-skip"><span class="heti-spacing"> </span>RAID 4<span class="heti-spacing"> </span></span>类似，但奇偶校验信息分散（分布）到所有磁盘上，而不是集中在一个专用磁盘上。</p>
+<p><strong>特点</strong>：
+- <strong>无写入瓶颈</strong>：通过将奇偶校验块分布在所有磁盘上，消除了<span class="heti-skip"><span class="heti-spacing"> </span>RAID 4<span class="heti-spacing"> </span></span>中专用奇偶校验磁盘的写入瓶颈，显著提高了写入性能。
+- <strong>平衡负载</strong>：读写负载更均匀地分布在所有磁盘上。
+- <strong>容错</strong>：可以容忍一个磁盘故障。</p>
+</details>
+<details class="example" open="open">
+<summary><span>RAID 6 (P+Q<span class="heti-spacing"> </span></span>冗余<span><span class="heti-spacing"> </span>, P+Q Redundancy) (page 44)</span></summary>
+<p><strong>原理</strong>：在<span class="heti-skip"><span class="heti-spacing"> </span>RAID 5<span class="heti-spacing"> </span></span>的基础上进行了扩展，增加了额外的第二个奇偶校验块。它使用两种独立的奇偶校验计算方法（通常是异或和<span class="heti-skip"><span class="heti-spacing"> </span>Reed-Solomon<span class="heti-spacing"> </span></span>编码<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，并将它们分布到所有磁盘上。</p>
+<p><strong>特点</strong>：
+- <strong>更高容错</strong>：可以容忍同时发生两个磁盘故障。
+- <strong>开销</strong>：需要更多的磁盘用于冗余，并且写入操作的计算开销更大。</p>
+</details>
+<h3 id="RAID-与文件系统-RAID-and-File-Systems-page-45-47"><span>RAID<span class="heti-spacing"> </span></span>与文件系统<span><span class="heti-spacing"> </span>(RAID and File Systems) (page 45-47)</span><a class="headerlink" href="#RAID-与文件系统-RAID-and-File-Systems-page-45-47" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong><span>RAID<span class="heti-spacing"> </span></span>的局限性</strong>：<span>RAID<span class="heti-spacing"> </span></span>只能检测和恢复磁盘故障，但 <strong>不能防止或检测数据损坏<span><span class="heti-spacing"> </span>(data corruption)</span></strong> 或其他非物理性的错误。</li>
+<li><strong><span>Solaris ZFS<span class="heti-spacing"> </span></span>文件系统</strong>：像<span><span class="heti-spacing"> </span>Solaris ZFS</span>（Zettabyte File System）这样的现代文件系统增加了额外的检查来检测错误：<ul>
+<li><strong><span>Checksums (<span class="heti-spacing"> </span></span>校验和<span><span class="heti-spacing"> </span>)</span></strong>：<span>ZFS<span class="heti-spacing"> </span></span>为所有文件系统数据和元数据添加校验和。<ul>
+<li>校验和与指向数据<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>元数据的指针共同定位。</li>
+<li>能够检测和纠正数据和元数据的损坏。</li>
+</ul>
+</li>
+<li><strong>存储池<span><span class="heti-spacing"> </span>(Storage Pools)</span></strong>：<span>ZFS<span class="heti-spacing"> </span></span>将磁盘分配到存储池中，而不是传统的卷（volumes）或分区（partitions<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。<ul>
+<li>存储池内的文件系统共享该池的容量，并可以从池中分配<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>释放空间。</li>
+<li>这种<strong>池化存储<span><span class="heti-spacing"> </span>(Pooled Storage)</span></strong> 提供了更大的灵活性和简化的管理。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<details class="note" open="open">
+<summary>传统卷与池化存储对比<span><span class="heti-spacing"> </span>(Traditional vs. Pooled Storage) (page 47)</span></summary>
+<ul>
+<li><strong>传统卷和文件系统</strong>：每个文件系统（FS）都建立在一个独立的卷（volume）上，而卷又对应于一个或多个物理磁盘。这种方式灵活性较低，管理复杂。</li>
+<li><strong><span>ZFS<span class="heti-spacing"> </span></span>和池化存储</strong>：多个文件系统可以共享同一个存储池（storage pool<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，该存储池由一个或多个物理磁盘组成。这种设计使得存储资源的分配和管理更加动态和高效。</li>
+</ul>
+</details>
+<h2 id="总结-Takeaway-page-48">总结<span><span class="heti-spacing"> </span>(Takeaway) (page 48)</span><a class="headerlink" href="#总结-Takeaway-page-48" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>本篇文档详细探讨了大容量存储的关键概念：</p>
+<ul>
+<li><strong>磁盘结构</strong>：了解磁盘的物理和逻辑组成，以及数据如何存储和寻址。</li>
+<li><strong>磁盘调度</strong>：掌握包括<span><span class="heti-spacing"> </span>FCFS</span>、SSTF、SCAN、C-SCAN、<span>LOOK<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>C-LOOK<span class="heti-spacing"> </span></span>在内的各种调度算法及其优缺点，以及它们如何优化磁盘<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>性能。</li>
+<li><strong>RAID</strong>：理解<span class="heti-skip"><span class="heti-spacing"> </span>RAID<span class="heti-spacing"> </span></span>技术如何通过数据条带化、镜像和奇偶校验来提高存储的性能和可靠性，并详细了解<span class="heti-skip"><span class="heti-spacing"> </span>RAID 0<span class="heti-spacing"> </span></span>到<span class="heti-skip"><span class="heti-spacing"> </span>RAID 6<span class="heti-spacing"> </span></span>的各个级别及其特性。此外，还探讨了<span class="heti-skip"><span class="heti-spacing"> </span>ZFS<span class="heti-spacing"> </span></span>等文件系统如何与<span class="heti-skip"><span class="heti-spacing"> </span>RAID<span class="heti-spacing"> </span></span>协同工作以提供更全面的数据保护。</li>
+</ul>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年9月20日 18:33:45 CST">2025年9月20日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年6月14日 00:21:22 CST">2025年6月14日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: 虚拟内存 (Virtual Memory)" class="md-footer__link md-footer__link--prev" href="../6-VM/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                虚拟内存 (Virtual Memory)
+              </div>
+</div>
+</a>
+<a aria-label="下一页: I/O 系统" class="md-footer__link md-footer__link--next" href="../8-IO/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                I/O 系统
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

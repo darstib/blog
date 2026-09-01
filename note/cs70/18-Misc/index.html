@@ -1,0 +1,2251 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/note/cs70/18-Misc/" rel="canonical"/>
+<link href="../17-Concentration_Inequalities_and_the_Laws_of_Large_Numbers/" rel="prev"/>
+<link href="../../other/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>18 Misc - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#离散数学">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              18 Misc
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Note
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs188/">
+<span class="md-ellipsis">
+    
+  
+    cs188
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../physics/">
+<span class="md-ellipsis">
+    
+  
+    physics
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-II/">
+<span class="md-ellipsis">
+    
+  
+    CSys-II
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-III/">
+<span class="md-ellipsis">
+    
+  
+    CSys-III
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DEM/">
+<span class="md-ellipsis">
+    
+  
+    DEM
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DMA/">
+<span class="md-ellipsis">
+    
+  
+    DMA
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3_8" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    cs70
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_8_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_8">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    cs70
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../01-Propositional_Logic/">
+<span class="md-ellipsis">
+    
+  
+    01 Propositional Logic
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../02-Proof/">
+<span class="md-ellipsis">
+    
+  
+    02 Proof
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../03-Mathematical_Induction/">
+<span class="md-ellipsis">
+    
+  
+    03 Mathematical Induction
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../04-The_Stable_Matching_Problem/">
+<span class="md-ellipsis">
+    
+  
+    04 The Stable Matching Problem
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../05-Graph_Theory/">
+<span class="md-ellipsis">
+    
+  
+    05 Graph Theory
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../06-Modular_Arithmetic/">
+<span class="md-ellipsis">
+    
+  
+    06 Modular Arithmetic
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../07-Public_Key_Cryptography/">
+<span class="md-ellipsis">
+    
+  
+    07 Public Key Cryptography
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../08-Polynomials/">
+<span class="md-ellipsis">
+    
+  
+    08 Polynomials
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../09-Error_Correcting_Codes/">
+<span class="md-ellipsis">
+    
+  
+    09 Error Correcting Codes
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../10-Counting/">
+<span class="md-ellipsis">
+    
+  
+    10 Counting
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../11-Countability/">
+<span class="md-ellipsis">
+    
+  
+    11 Countability
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../12-Self_Reference_and_Computability/">
+<span class="md-ellipsis">
+    
+  
+    12 Self Reference and Computability
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../13-Introduction_of_Discrete_Probability/">
+<span class="md-ellipsis">
+    
+  
+    13 Introduction of Discrete Probability
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../14-Conditional_Probability/">
+<span class="md-ellipsis">
+    
+  
+    14 Conditional Probability
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../15-Distribution_and_Expectation/">
+<span class="md-ellipsis">
+    
+  
+    15 Distribution and Expectation
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../16-Variance/">
+<span class="md-ellipsis">
+    
+  
+    16 Variance
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../17-Concentration_Inequalities_and_the_Laws_of_Large_Numbers/">
+<span class="md-ellipsis">
+    
+  
+    17 Concentration Inequalities and the Laws of Large Numbers
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    18 Misc
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    18 Misc
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#离散数学">
+<span class="md-ellipsis">
+      
+        离散数学
+      
+    </span>
+</a>
+<nav aria-label="离散数学" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Mathematical-logic数理逻辑">
+<span class="md-ellipsis">
+      
+        Mathematical logic（数理逻辑）
+      
+    </span>
+</a>
+<nav aria-label="Mathematical logic（数理逻辑）" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ways-to-proof">
+<span class="md-ellipsis">
+      
+        ways to proof
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#priority-of-operations">
+<span class="md-ellipsis">
+      
+        priority of operations
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#集合论第十课-PPT">
+<span class="md-ellipsis">
+      
+        集合论（第十课 PPT）
+      
+    </span>
+</a>
+<nav aria-label="集合论（第十课 PPT）" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#集合的基本运算">
+<span class="md-ellipsis">
+      
+        集合的基本运算
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#关系">
+<span class="md-ellipsis">
+      
+        关系
+      
+    </span>
+</a>
+<nav aria-label="关系" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#等价关系">
+<span class="md-ellipsis">
+      
+        等价关系
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#序关系">
+<span class="md-ellipsis">
+      
+        序关系
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#哈斯图元">
+<span class="md-ellipsis">
+      
+        哈斯图——元
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#运算">
+<span class="md-ellipsis">
+      
+        运算
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#图论第十二课-PPT">
+<span class="md-ellipsis">
+      
+        图论（第十二课 PPT）
+      
+    </span>
+</a>
+<nav aria-label="图论（第十二课 PPT）" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#欧拉图欧拉路径">
+<span class="md-ellipsis">
+      
+        欧拉图&amp;欧拉路径
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#哈密顿通路">
+<span class="md-ellipsis">
+      
+        哈密顿通路
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#邻接矩阵">
+<span class="md-ellipsis">
+      
+        邻接矩阵
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#路径矩阵">
+<span class="md-ellipsis">
+      
+        路径矩阵
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#二分图">
+<span class="md-ellipsis">
+      
+        二分图
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#平面图">
+<span class="md-ellipsis">
+      
+        平面图
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#子图生成子图">
+<span class="md-ellipsis">
+      
+        子图&amp;生成子图
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#树">
+<span class="md-ellipsis">
+      
+        树
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#代数系统第十三课-PPT">
+<span class="md-ellipsis">
+      
+        代数系统（第十三课 PPT）
+      
+    </span>
+</a>
+<nav aria-label="代数系统（第十三课 PPT）" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#代数结构的类型">
+<span class="md-ellipsis">
+      
+        代数结构的类型
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#同构">
+<span class="md-ellipsis">
+      
+        同构
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#同态映射homomorphism">
+<span class="md-ellipsis">
+      
+        同态映射(homomorphism)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#同余关系">
+<span class="md-ellipsis">
+      
+        同余关系
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#形式系统第十三四课-PPT">
+<span class="md-ellipsis">
+      
+        形式系统（第十三、四课 PPT）
+      
+    </span>
+</a>
+<nav aria-label="形式系统（第十三、四课 PPT）" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#机器同余--商机器quotient-machine">
+<span class="md-ellipsis">
+      
+        机器同余 =&gt; 商机器(quotient machine)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#相融关系-R-的迭代算法">
+<span class="md-ellipsis">
+      
+        相融关系 R 的迭代算法
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#形式语言">
+<span class="md-ellipsis">
+      
+        形式语言
+      
+    </span>
+</a>
+<nav aria-label="形式语言" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#短语结构语法Phrase-Structure-Grammar-PSG">
+<span class="md-ellipsis">
+      
+        短语结构语法（Phrase Structure Grammar, PSG）
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#图灵机">
+<span class="md-ellipsis">
+      
+        图灵机
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#识别枚举和判定">
+<span class="md-ellipsis">
+      
+        识别、枚举和判定
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#哥德尔编码Gödel-Numbering">
+<span class="md-ellipsis">
+      
+        哥德尔编码（Gödel Numbering）
+      
+    </span>
+</a>
+<nav aria-label="哥德尔编码（Gödel Numbering）" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#编码过程">
+<span class="md-ellipsis">
+      
+        编码过程
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#通用图灵机">
+<span class="md-ellipsis">
+      
+        通用图灵机
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#停机问题">
+<span class="md-ellipsis">
+      
+        停机问题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#哥德尔不完备定理">
+<span class="md-ellipsis">
+      
+        哥德尔不完备定理
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#概率论">
+<span class="md-ellipsis">
+      
+        概率论
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../other/">
+<span class="md-ellipsis">
+    
+  
+    other
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#离散数学">
+<span class="md-ellipsis">
+      
+        离散数学
+      
+    </span>
+</a>
+<nav aria-label="离散数学" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Mathematical-logic数理逻辑">
+<span class="md-ellipsis">
+      
+        Mathematical logic（数理逻辑）
+      
+    </span>
+</a>
+<nav aria-label="Mathematical logic（数理逻辑）" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ways-to-proof">
+<span class="md-ellipsis">
+      
+        ways to proof
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#priority-of-operations">
+<span class="md-ellipsis">
+      
+        priority of operations
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#集合论第十课-PPT">
+<span class="md-ellipsis">
+      
+        集合论（第十课 PPT）
+      
+    </span>
+</a>
+<nav aria-label="集合论（第十课 PPT）" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#集合的基本运算">
+<span class="md-ellipsis">
+      
+        集合的基本运算
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#关系">
+<span class="md-ellipsis">
+      
+        关系
+      
+    </span>
+</a>
+<nav aria-label="关系" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#等价关系">
+<span class="md-ellipsis">
+      
+        等价关系
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#序关系">
+<span class="md-ellipsis">
+      
+        序关系
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#哈斯图元">
+<span class="md-ellipsis">
+      
+        哈斯图——元
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#运算">
+<span class="md-ellipsis">
+      
+        运算
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#图论第十二课-PPT">
+<span class="md-ellipsis">
+      
+        图论（第十二课 PPT）
+      
+    </span>
+</a>
+<nav aria-label="图论（第十二课 PPT）" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#欧拉图欧拉路径">
+<span class="md-ellipsis">
+      
+        欧拉图&amp;欧拉路径
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#哈密顿通路">
+<span class="md-ellipsis">
+      
+        哈密顿通路
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#邻接矩阵">
+<span class="md-ellipsis">
+      
+        邻接矩阵
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#路径矩阵">
+<span class="md-ellipsis">
+      
+        路径矩阵
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#二分图">
+<span class="md-ellipsis">
+      
+        二分图
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#平面图">
+<span class="md-ellipsis">
+      
+        平面图
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#子图生成子图">
+<span class="md-ellipsis">
+      
+        子图&amp;生成子图
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#树">
+<span class="md-ellipsis">
+      
+        树
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#代数系统第十三课-PPT">
+<span class="md-ellipsis">
+      
+        代数系统（第十三课 PPT）
+      
+    </span>
+</a>
+<nav aria-label="代数系统（第十三课 PPT）" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#代数结构的类型">
+<span class="md-ellipsis">
+      
+        代数结构的类型
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#同构">
+<span class="md-ellipsis">
+      
+        同构
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#同态映射homomorphism">
+<span class="md-ellipsis">
+      
+        同态映射(homomorphism)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#同余关系">
+<span class="md-ellipsis">
+      
+        同余关系
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#形式系统第十三四课-PPT">
+<span class="md-ellipsis">
+      
+        形式系统（第十三、四课 PPT）
+      
+    </span>
+</a>
+<nav aria-label="形式系统（第十三、四课 PPT）" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#机器同余--商机器quotient-machine">
+<span class="md-ellipsis">
+      
+        机器同余 =&gt; 商机器(quotient machine)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#相融关系-R-的迭代算法">
+<span class="md-ellipsis">
+      
+        相融关系 R 的迭代算法
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#形式语言">
+<span class="md-ellipsis">
+      
+        形式语言
+      
+    </span>
+</a>
+<nav aria-label="形式语言" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#短语结构语法Phrase-Structure-Grammar-PSG">
+<span class="md-ellipsis">
+      
+        短语结构语法（Phrase Structure Grammar, PSG）
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#图灵机">
+<span class="md-ellipsis">
+      
+        图灵机
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#识别枚举和判定">
+<span class="md-ellipsis">
+      
+        识别、枚举和判定
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#哥德尔编码Gödel-Numbering">
+<span class="md-ellipsis">
+      
+        哥德尔编码（Gödel Numbering）
+      
+    </span>
+</a>
+<nav aria-label="哥德尔编码（Gödel Numbering）" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#编码过程">
+<span class="md-ellipsis">
+      
+        编码过程
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#通用图灵机">
+<span class="md-ellipsis">
+      
+        通用图灵机
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#停机问题">
+<span class="md-ellipsis">
+      
+        停机问题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#哥德尔不完备定理">
+<span class="md-ellipsis">
+      
+        哥德尔不完备定理
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#概率论">
+<span class="md-ellipsis">
+      
+        概率论
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Note
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    cs70
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:dmpt">DMPT</a>
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:notes">notes</a>
+</nav>
+<h1>18 Misc</h1>
+<p>真到了期末周，感觉还是要看看课内的笔记。</p>
+<blockquote>
+<p>这里放一些信安原中讲到的的零碎知识点，包括：</p>
+<ul>
+<li>
+<p>最开始学习时没有听明白的</p>
+</li>
+<li>
+<p>相比于<a href="https://www.yuque.com/xianyuxuan/coding/crs-csmath"><span class="heti-skip"><span class="heti-spacing"> </span>xyx<span class="heti-spacing"> </span></span>学长笔记</a>有所不同<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>增添的 </p>
+</li>
+</ul>
+<p>如果后续系统学习了再搬去各个章节；标题代表<span class="heti-skip"><span class="heti-spacing"> </span>PPT<span class="heti-spacing"> </span></span>出处。</p>
+</blockquote>
+<h2 id="离散数学">离散数学<a class="headerlink" href="#离散数学" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<hr/>
+<h3 id="Mathematical-logic数理逻辑">Mathematical logic（数理逻辑）<a class="headerlink" href="#Mathematical-logic数理逻辑" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>命题是数理逻辑中最基本的概念。对确定的对象做出判断的陈述句称为命题（proposition<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+</blockquote>
+<ul>
+<li>
+<p>识别要点：<strong>陈述句，判断，确定的对象</strong>。</p>
+</li>
+<li>
+<p><u>悖论（自相矛盾）不能作为命题</u> 。</p>
+</li>
+</ul>
+<p>如果这个判断是正确的，称命题为真（true<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，否则称命题为假（false<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<p>真、假是命题的属性，称为真值。</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-55.png"><img alt="" src="../attachments/18-Misc-55.png"/></a></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/01-Propositional-Logic-8.png"><img alt="|475" src="../attachments/01-Propositional-Logic-8.png"/></a></p>
+<h4 id="ways-to-proof">ways to proof<a class="headerlink" href="#ways-to-proof" title="Permanent link">¶</a></h4>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/01-Propositional-Logic-9.png"><img alt="|475" src="../attachments/01-Propositional-Logic-9.png"/></a></p>
+<h4 id="priority-of-operations">priority of operations<a class="headerlink" href="#priority-of-operations" title="Permanent link">¶</a></h4>
+<p>1. <strong>括号<span><span class="heti-spacing"> </span>()</span></strong>：无论在哪个领域，括号始终具有最高的优先级，用于改变默认的优先级顺序。</p>
+<p>2. <strong>非<span><span class="heti-spacing"> </span>~  !</span></strong>：在逻辑运算中，否定（逻辑非、位非）通常具有较高的优先级。</p>
+<p>3. <strong>与<span><span class="heti-spacing"> </span></span>∧</strong>：这包括逻辑与（AND<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、位与（&amp;<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。在没有括号改变顺序的情况下，它们通常在否定之后立即评估。</p>
+<p>4. <strong>异或<span><span class="heti-spacing"> </span></span>⊕</strong>：在某些情况下，需要考虑异或运算（XOR<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，它可能在与运算和或运算之间。</p>
+<p>5. <strong>或<span><span class="heti-spacing"> </span></span>∨</strong>：这包括逻辑或（OR<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、位或（|<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。它们在逻辑与之后进行评估。</p>
+<p>6. <strong>条件<span><span class="heti-spacing"> </span></span>→</strong>：如蕴含（→）通常优先级较低。</p>
+<p>7. <strong>双条件↔</strong>：双条件（↔）通常具有最低的优先级</p>
+<h3 id="集合论第十课-PPT">集合论（第十课<span><span class="heti-spacing"> </span>PPT</span>）<a class="headerlink" href="#集合论第十课-PPT" title="Permanent link">¶</a></h3>
+<h4 id="集合的基本运算">集合的基本运算<a class="headerlink" href="#集合的基本运算" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-56.png"><img alt="" src="../attachments/18-Misc-56.png"/></a></p>
+</div>
+<h4 id="关系">关系<a class="headerlink" href="#关系" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<blockquote>
+<p>对于关系的判定从图论的角度来看可能会更加好理解</p>
+</blockquote>
+<p>如何理解下面红框中的两个推论：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Misc-1.png"><img alt="" src="../attachments/Misc-1.png"/></a></p>
+<p>首先理解下面两组定义：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Misc-2.png"><img alt="" src="../attachments/Misc-2.png"/></a></p>
+<ul>
+<li>由逻辑蕴涵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(P\to Q\)</span><span class="heti-spacing"> </span></span>当且仅当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(P=1  \land Q= 0\)</span><span class="heti-spacing"> </span></span>时为假<span class="heti-skip"><span class="heti-spacing"> </span>=&gt; A<span class="heti-spacing"> </span></span>为空时，<span><span class="arithmatex">\(x \in A\)</span><span class="heti-spacing"> </span></span>恒为假，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(P=0\)</span></span> ，故（反）对称关系中推导式恒为真，故自反且反自反</li>
+</ul>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Misc.png"><img alt="" src="../attachments/Misc.png"/></a></p>
+<ul>
+<li>对于<span><span class="heti-spacing"> </span><span class="arithmatex">\(E_{A}\)</span></span> ，只有指向自己的边，任意两个节点之间都没有边！那当然是对称和反对称都满足了</li>
+</ul>
+<hr/>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Misc-8.png"><img alt="" src="../attachments/Misc-8.png"/></a></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Misc-9.png"><img alt="" src="../attachments/Misc-9.png"/></a></p>
+<hr/>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Misc-5.png"><img alt="" src="../attachments/Misc-5.png"/></a></p>
+<hr/>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Misc-6.png"><img alt="" src="../attachments/Misc-6.png"/></a></p>
+<p>结合传递关系的定义：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Misc-7.png"><img alt="" src="../attachments/Misc-7.png"/></a></p>
+<ul>
+<li>
+<p><span><span class="arithmatex">\(x,y,z \in A\)</span><span class="heti-spacing"> </span></span>本身为假，故该式恒真，故传递</p>
+</li>
+<li>
+<p>在<span class="heti-skip"><span class="heti-spacing"> </span>R<span class="heti-spacing"> </span></span>中<span><span class="heti-spacing"> </span><span class="arithmatex">\(1\to2 ,1\to 3\)</span></span> ，确实找不到不符合传递的两个节点，故传递</p>
+</li>
+<li>
+<p>这些充要条件可以记忆</p>
+</li>
+</ul>
+<hr/>
+<h5 id="等价关系">等价关系<a class="headerlink" href="#等价关系" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h5>
+<p>如果<span class="heti-skip"><span class="heti-spacing"> </span>A<span class="heti-spacing"> </span></span>上的一个二元关系具有自反、对称、传递性，则称它是一个 <strong>等价关系</strong>（equivalent relation）</p>
+<p>例如：</p>
+<ul>
+<li>三角形的相似、全等</li>
+<li>亲戚关系</li>
+<li><span class="arithmatex">\(x\equiv y \operatorname{mod} k\)</span></li>
+</ul>
+<h5 id="序关系">序关系<a class="headerlink" href="#序关系" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h5>
+<p>如果<span class="heti-skip"><span class="heti-spacing"> </span>A<span class="heti-spacing"> </span></span>上的一个二元关系具有反自反、反对称、传递性，则称其为一个 <strong>序关系</strong> (ordered relation)。</p>
+<p>例如：</p>
+<ul>
+<li>自然数集<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathbb{N}\)</span><span class="heti-spacing"> </span></span>上的“小于或等于”关系是序关系，有序集记作<span><span class="heti-spacing"> </span>&lt; <span class="arithmatex">\(\mathbb{N}\)</span>,</span> ≤&gt;。</li>
+<li>集合<span class="heti-skip"><span class="heti-spacing"> </span>A<span class="heti-spacing"> </span></span>的幂集<span class="heti-skip"><span class="heti-spacing"> </span>ρ(A)<span class="heti-spacing"> </span></span>上的“包含”关系是序关系，有序集记作<span><span class="heti-spacing"> </span>&lt;ρ(A), <span class="arithmatex">\(\subseteq\)</span> &gt;</span>。</li>
+<li>正整数集合<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathbb{Z^+}\)</span><span class="heti-spacing"> </span></span>上的“整除”关系是序关系，有序集记作<span><span class="heti-spacing"> </span>&lt; <span class="arithmatex">\(\mathbb{Z^+}\)</span>, |&gt;</span>。</li>
+</ul>
+<hr/>
+<h4 id="哈斯图元">哈斯图——元<a class="headerlink" href="#哈斯图元" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/00-Misc.png"><img alt="" src="../attachments/00-Misc.png"/></a></p>
+<p>最小（大）元与极小（大）元的区别是：</p>
+<ul>
+<li>
+<p><strong>最</strong> 要求所有元素均可以比较即均可表述为 <u>小于或等于</u> </p>
+</li>
+<li>
+<p><strong>极</strong> 则只需要那些可以比较的都符合 <u>小于或等于</u> 即可</p>
+</li>
+</ul>
+<blockquote>
+<p>如果一个集合中所有元素两两不可比较，那我们可以说所有元素都是极小（大）元</p>
+</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>
+<p><span>B<span class="heti-spacing"> </span></span>的最大（小）元必为<span class="heti-skip"><span class="heti-spacing"> </span>B<span class="heti-spacing"> </span></span>的极大（小）元</p>
+</li>
+<li>
+<p><span>B<span class="heti-spacing"> </span></span>不一定存在最大（小）元，但存在则是唯一的</p>
+</li>
+<li>
+<p>如果<span class="heti-skip"><span class="heti-spacing"> </span>B<span class="heti-spacing"> </span></span>是有限集，则<span class="heti-skip"><span class="heti-spacing"> </span>B<span class="heti-spacing"> </span></span>必存在极大（小）元，但未必唯一</p>
+</li>
+</ul>
+</div>
+<hr/>
+<h4 id="运算">运算<a class="headerlink" href="#运算" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>我们通过有向图不仅可以描述关系，还可以描述运算<span><span class="heti-spacing"> </span>A&amp;B</span>（<span>&amp;<span class="heti-spacing"> </span></span>表示某一运算符；A、<span>B<span class="heti-spacing"> </span></span>具有相同的顶点，<span>U<span class="heti-spacing"> </span></span>表示对应完全图；毕竟图本身就可以用集合来描述<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<ul>
+<li>
+<p>并运算：<span>A<span class="heti-spacing"> </span></span>添加<span class="heti-skip"><span class="heti-spacing"> </span>A<span class="heti-spacing"> </span></span>中没有但是<span class="heti-skip"><span class="heti-spacing"> </span>B<span class="heti-spacing"> </span></span>中有的边</p>
+</li>
+<li>
+<p>差运算：<span>A<span class="heti-spacing"> </span></span>删减<span class="heti-skip"><span class="heti-spacing"> </span>AB<span class="heti-spacing"> </span></span>中都含有的边</p>
+</li>
+<li>
+<p>交运算：保留<span class="heti-skip"><span class="heti-spacing"> </span>AB<span class="heti-spacing"> </span></span>中都含有的边</p>
+</li>
+<li>
+<p>补运算：相当于<span><span class="heti-spacing"> </span>U - A</span></p>
+</li>
+<li>
+<p>逆运算：相当于把有向图的边全部反过来</p>
+</li>
+</ul>
+</div>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Misc-10.png"><img alt="" src="../attachments/Misc-10.png"/></a>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Misc-11.png"><img alt="" src="../attachments/Misc-11.png"/></a>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Misc-12.png"><img alt="" src="../attachments/Misc-12.png"/></a>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Misc-13.png"><img alt="" src="../attachments/Misc-13.png"/></a></p>
+<ul>
+<li>
+<p>在一个每一个节点都有环的图中添加若干条边，每个节点依旧有环</p>
+</li>
+<li>
+<p>在一个每一个节点都没有环的图中删去若干条边，依旧没有环</p>
+</li>
+<li>
+<p>只要知道<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\neg y \overline{R}x \equiv yRx\)</span><span class="heti-spacing"> </span></span>就没啥问题了</p>
+</li>
+<li>
+<p>两个图中节点都至多只指向自己，取它们的相同边，自然也只有指向节点自己的边</p>
+</li>
+<li>
+<p>不难得证</p>
+</li>
+</ul>
+<hr/>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/00-Misc-2.png"><img alt="" src="../attachments/00-Misc-2.png"/></a></p>
+<p>一层划分为一个单元，不难验证</p>
+<hr/>
+<h3 id="图论第十二课-PPT">图论（第十二课<span><span class="heti-spacing"> </span>PPT</span>）<a class="headerlink" href="#图论第十二课-PPT" title="Permanent link">¶</a></h3>
+<h4 id="欧拉图欧拉路径">欧拉图<span class="heti-skip"><span class="heti-spacing"> </span>&amp;<span class="heti-spacing"> </span></span>欧拉路径<a class="headerlink" href="#欧拉图欧拉路径" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-1.png"><img alt="" src="../attachments/18-Misc-1.png"/></a></p>
+<hr/>
+<h4 id="哈密顿通路">哈密顿通路<a class="headerlink" href="#哈密顿通路" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-57.png"><img alt="" src="../attachments/18-Misc-57.png"/></a></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-2.png"><img alt="" src="../attachments/18-Misc-2.png"/></a></p>
+<hr/>
+<h4 id="邻接矩阵">邻接矩阵<a class="headerlink" href="#邻接矩阵" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-58.png"><img alt="" src="../attachments/18-Misc-58.png"/></a></p>
+<hr/>
+<h4 id="路径矩阵">路径矩阵<a class="headerlink" href="#路径矩阵" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<blockquote>
+<p>我们用析取<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\land\)</span><span class="heti-spacing"> </span></span>表示矩阵相乘，合取<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\lor\)</span><span class="heti-spacing"> </span></span>表示矩阵相加</p>
+</blockquote>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-3.png"><img alt="" src="../attachments/18-Misc-3.png"/></a></p>
+<hr/>
+<h4 id="二分图">二分图<a class="headerlink" href="#二分图" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<blockquote>
+<p>二分图可以将所有顶点分为两个集合，集合内部的顶点之间不存在边</p>
+</blockquote>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc.png"><img alt="" src="../attachments/18-Misc.png"/></a></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-4.png"><img alt="" src="../attachments/18-Misc-4.png"/></a></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-5.png"><img alt="" src="../attachments/18-Misc-5.png"/></a></p>
+<blockquote>
+<p><span>oi-wiki<span class="heti-spacing"> </span></span>中有更加具体的讲解，单看<span class="heti-skip"><span class="heti-spacing"> </span>PPT<span class="heti-spacing"> </span></span>上的讲解应该是难以理解的</p>
+</blockquote>
+<hr/>
+<h4 id="平面图">平面图<a class="headerlink" href="#平面图" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-59.png"><img alt="" src="../attachments/18-Misc-59.png"/></a></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-6.png"><img alt="" src="../attachments/18-Misc-6.png"/></a></p>
+<hr/>
+<h4 id="子图生成子图">子图<span class="heti-skip"><span class="heti-spacing"> </span>&amp;<span class="heti-spacing"> </span></span>生成子图<a class="headerlink" href="#子图生成子图" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-39.png"><img alt="" src="../attachments/18-Misc-39.png"/></a></p>
+<hr/>
+<h4 id="树">树<a class="headerlink" href="#树" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-7.png"><img alt="" src="../attachments/18-Misc-7.png"/></a></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-8.png"><img alt="" src="../attachments/18-Misc-8.png"/></a></p>
+<h3 id="代数系统第十三课-PPT">代数系统（第十三课<span><span class="heti-spacing"> </span>PPT</span>）<a class="headerlink" href="#代数系统第十三课-PPT" title="Permanent link">¶</a></h3>
+<h4 id="代数结构的类型">代数结构的类型<a class="headerlink" href="#代数结构的类型" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<ul>
+<li>运算满足结合律的代数结构称为 <strong>半群（semigroup）</strong></li>
+<li>含有幺元的半群称为 <strong>独异点（monoid）</strong></li>
+<li>每个元素都有逆元（即，一定没有零元）的独异点称为 <strong>群（group）</strong></li>
+<li>
+<p>满足交换律的群称为 <strong>交换群</strong> 或 <strong>阿贝尔群（Abel group）</strong></p>
+</li>
+<li>
+<p>代数结构 <r, +,="" \*=""> 是一个 <strong>环（ring）</strong>，如果它满足：</r,></p>
+</li>
+<li>
+<p><r, +=""> 是阿贝尔群</r,></p>
+</li>
+<li><r, \*=""> 是半群</r,></li>
+<li>
+<ul>
+<li>对<span class="heti-skip"><span class="heti-spacing"> </span>+<span class="heti-spacing"> </span></span>可分配：a*(b+c) = (a*b)+(a*c)，(b+c)*a = (b*a)+(c*a)</li>
+</ul>
+</li>
+<li>
+<p>代数结构 <f, *="" +,=""> 是一个 <strong>域（field）</strong>，如果它满足：</f,></p>
+</li>
+<li>
+<p><f, *="" +,=""> 是环</f,></p>
+</li>
+<li><f-{0}, *=""> 是阿贝尔群</f-{0},></li>
+</ul>
+<h4 id="同构">同构<a class="headerlink" href="#同构" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-9.png"><img alt="" src="../attachments/18-Misc-9.png"/></a></p>
+<h4 id="同态映射homomorphism">同态映射<span><span class="heti-spacing"> </span>(homomorphism)</span><a class="headerlink" href="#同态映射homomorphism" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-10.png"><img alt="" src="../attachments/18-Misc-10.png"/></a></p>
+<ul>
+<li>
+<p><strong>单一同态</strong>：如对于 <r,+> 和 <r, \*=""> ，存在单一同态映射<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f(x)=2^{x}\)</span><span class="heti-spacing"> </span></span>有<span><span class="heti-spacing"> </span><span class="arithmatex">\(f(x+y)=2^{x+y}=2^x*2^y=f(x)*f(y)\)</span></span>；如果后者改为<span><span class="heti-spacing"> </span><span class="arithmatex">\(&lt;R^{+},*&gt;\)</span></span> ，则为同构映射，两个代数结构是同构的</r,></r,+></p>
+</li>
+<li>
+<p><strong>满同态</strong> ：如计算字符串长度的<span class="heti-skip"><span class="heti-spacing"> </span>strlen<span class="heti-spacing"> </span></span>函数</p>
+</li>
+</ul>
+<hr/>
+<h4 id="同余关系">同余关系<a class="headerlink" href="#同余关系" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-11.png"><img alt="" src="../attachments/18-Misc-11.png"/></a></p>
+<hr/>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>判断一个代数结构是什么（期末必考）</p>
+</div>
+<p>^11f963</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-12.png"><img alt="" src="../attachments/18-Misc-12.png"/></a> <a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-13.png"><img alt="" src="../attachments/18-Misc-13.png"/></a></p>
+<h3 id="形式系统第十三四课-PPT">形式系统（第十三、四课<span><span class="heti-spacing"> </span>PPT</span>）<a class="headerlink" href="#形式系统第十三四课-PPT" title="Permanent link">¶</a></h3>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-14.png"><img alt="" src="../attachments/18-Misc-14.png"/></a>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-16.png"><img alt="" src="../attachments/18-Misc-16.png"/></a></p>
+<hr/>
+<p>递归定义：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-15.png"><img alt="" src="../attachments/18-Misc-15.png"/></a></p>
+<hr/>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-17.png"><img alt="" src="../attachments/18-Misc-17.png"/></a></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-18.png"><img alt="" src="../attachments/18-Misc-18.png"/></a></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-19.png"><img alt="" src="../attachments/18-Misc-19.png"/></a></p>
+<hr/>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>语法分类</strong></p>
+<blockquote>
+<p>若：<span>A<span class="heti-spacing"> </span></span>为非终结符，<span>abc<span class="heti-spacing"> </span></span>为任意字符串且<span class="heti-skip"><span class="heti-spacing"> </span>c<span class="heti-spacing"> </span></span>不为空串</p>
+</blockquote>
+<ul>
+<li>
+<p><em><span>0<span class="heti-spacing"> </span></span>型语言</em> ：对产生式没有任何约束（无限制）</p>
+<ul>
+<li>PSG：Phrase Structure Grammar</li>
+<li>产生递归可枚举语言</li>
+<li>被图灵机识别</li>
+</ul>
+</li>
+<li>
+<p><em><span>1<span class="heti-spacing"> </span></span>型语言</em> ：所有产生式形如 <code>aAb ⊢ acb</code> （<span>A<span class="heti-spacing"> </span></span>是非终结符，a，b，<span>c<span class="heti-spacing"> </span></span>是任意串，但<span class="heti-skip"><span class="heti-spacing"> </span>c<span class="heti-spacing"> </span></span>不能为空串）</p>
+<ul>
+<li>CSG：Context Sensitive Grammar</li>
+<li>产生上下文相关语言</li>
+<li>被线性有界自动机识别</li>
+</ul>
+</li>
+<li>
+<p><em><span>2<span class="heti-spacing"> </span></span>型语言</em> ：所有产生式左部是一个非终结符，形如 <code>A ⊢ b</code></p>
+<ul>
+<li>CFG：Context Free Grammar</li>
+<li>产生上下文无关语言</li>
+<li>被下推自动机识别</li>
+<li>为大多数程序设计语言的语法提供理论基础</li>
+</ul>
+</li>
+<li>
+<p><em><span>3<span class="heti-spacing"> </span></span>型语言</em> ：所有产生式左部是一个非终结符，右部最多一个非终结符，且只能在最右端</p>
+<ul>
+<li>RG：Regular Grammar</li>
+<li>产生正则语言</li>
+<li>被有限状态自动机识别</li>
+<li>可以用正则表达式表示</li>
+<li><em><span>Kleen<span class="heti-spacing"> </span></span>定理</em>：字母表<span class="heti-skip"><span class="heti-spacing"> </span>A<span class="heti-spacing"> </span></span>上的形式语言<span class="heti-skip"><span class="heti-spacing"> </span>L<span class="heti-spacing"> </span></span>是正则的当且仅当存在一个有限状态机<span class="heti-skip"><span class="heti-spacing"> </span>M<span class="heti-spacing"> </span></span>使得<span><span class="heti-spacing"> </span>L=L(M)</span></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>满足：<strong>L3 ⊂ L2 ⊂ L1 ⊂ L0</strong></p>
+</blockquote>
+</div>
+<p>^c97dab</p>
+<hr/>
+<p>上面所提到的 <code>识别</code> 就是：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-20.png"><img alt="" src="../attachments/18-Misc-20.png"/></a></p>
+<hr/>
+<p><strong>BNF（Backus-Naur Form）范式</strong> :</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-21.png"><img alt="" src="../attachments/18-Misc-21.png"/></a>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-22.png"><img alt="" src="../attachments/18-Misc-22.png"/></a></p>
+<hr/>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-23.png"><img alt="" src="../attachments/18-Misc-23.png"/></a></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-24.png"><img alt="" src="../attachments/18-Misc-24.png"/></a></p>
+<hr/>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-25.png"><img alt="" src="../attachments/18-Misc-25.png"/></a> <a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-26.png"><img alt="" src="../attachments/18-Misc-26.png"/></a></p>
+<p>下面是一些例子：
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-27.png"><img alt="" src="../attachments/18-Misc-27.png"/></a></p>
+<hr/>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-29.png"><img alt="" src="../attachments/18-Misc-29.png"/></a>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-28.png"><img alt="" src="../attachments/18-Misc-28.png"/></a>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-30.png"><img alt="" src="../attachments/18-Misc-30.png"/></a></p>
+<blockquote>
+<p>状态转移就是根据当前状态和当前输入决定下一状态，我们在<span class="heti-skip"><span class="heti-spacing"> </span>sys1<span class="heti-spacing"> </span></span>中完成了有限状态自动机<span><span class="heti-spacing"> </span>(FSM)</span>，应该是能够比较好理解的；但是暂时还没有做笔记，那里能够帮我们更好地去学习，等后面来补齐（ <del>挖坑</del> ）</p>
+</blockquote>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-31.png"><img alt="" src="../attachments/18-Misc-31.png"/></a>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-32.png"><img alt="" src="../attachments/18-Misc-32.png"/></a></p>
+<hr/>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-33.png"><img alt="" src="../attachments/18-Misc-33.png"/></a>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-34.png"><img alt="" src="../attachments/18-Misc-34.png"/></a></p>
+<hr/>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-35.png"><img alt="" src="../attachments/18-Misc-35.png"/></a></p>
+<hr/>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-36.png"><img alt="" src="../attachments/18-Misc-36.png"/></a>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-37.png"><img alt="" src="../attachments/18-Misc-37.png"/></a></p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p><span>M<span class="heti-spacing"> </span></span>表示六元组有限状态机，而在状态<span class="heti-skip"><span class="heti-spacing"> </span>(state)<span class="heti-spacing"> </span></span>集合中，<span>c<span class="heti-spacing"> </span></span>表示<span><span class="heti-spacing"> </span>carry</span>（执行，或者可以认为是进位<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，<span>n<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>s<span class="heti-spacing"> </span></span>很好理解，图中红色字表示对应的输出</p>
+</div>
+<hr/>
+<h4 id="机器同余--商机器quotient-machine">机器同余<span class="heti-skip"><span class="heti-spacing"> </span>=&gt;<span class="heti-spacing"> </span></span>商机器<span><span class="heti-spacing"> </span>(quotient machine)</span><a class="headerlink" href="#机器同余--商机器quotient-machine" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-40.png"><img alt="" src="../attachments/18-Misc-40.png"/></a></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-41.png"><img alt="|475" src="../attachments/18-Misc-41.png"/></a></p>
+<div class="admonition help">
+<p class="admonition-title">Help</p>
+<p>回想代数系统中的同余关系 ，有限状态机中的<span><span class="heti-spacing"> </span>Equivalent State</span>；机器同余作为等价关系
+R，自然利用了等价状态将一部分状态合并了；在有向图中，就好比图的节点和边减少了（所以商机器比原机器简单）</p>
+<p>这一过程被认为<span><span class="heti-spacing"> </span><span class="arithmatex">\(S' = \frac{S}{R}\)</span></span> （节点减少<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，<span class="arithmatex">\(F'=\{&lt;[s],[F(x,s)]&gt;|s\in S,x\in A\}\)</span> （边减少<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，重新生成的机器就叫做商机器</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-42.png"><img alt="" src="../attachments/18-Misc-42.png"/></a></p>
+</div>
+<h4 id="相融关系-R-的迭代算法">相融关系<span class="heti-skip"><span class="heti-spacing"> </span>R<span class="heti-spacing"> </span></span>的迭代算法<a class="headerlink" href="#相融关系-R-的迭代算法" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-43.png"><img alt="" src="../attachments/18-Misc-43.png"/></a></p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-44.png"><img alt="" src="../attachments/18-Misc-44.png"/></a></p>
+<p>重复上述步骤直到不能划分，即为商机器；图中的样例机器用于判断一个二进制数能否被<span class="heti-skip"><span class="heti-spacing"> </span>3<span class="heti-spacing"> </span></span>整除</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-45.png"><img alt="" src="../attachments/18-Misc-45.png"/></a></p>
+</div>
+<hr/>
+<h4 id="形式语言">形式语言<a class="headerlink" href="#形式语言" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<h5 id="短语结构语法Phrase-Structure-Grammar-PSG">短语结构语法（Phrase Structure Grammar, PSG）<a class="headerlink" href="#短语结构语法Phrase-Structure-Grammar-PSG" title="Permanent link">¶</a></h5>
+<ol>
+<li>
+<p><strong>四元组<span><span class="heti-spacing"> </span>G=</span><v, s,="" v0,="" ⊢=""></v,></strong>：</p>
+<ul>
+<li><span>G<span class="heti-spacing"> </span></span>代表一个短语结构语法系统。</li>
+<li><span>V<span class="heti-spacing"> </span></span>是字符集，包含了所有在语法中使用的符号，包括终结符和非终结符。</li>
+<li><span>S<span class="heti-spacing"> </span></span>是终结符集合，是<span class="heti-skip"><span class="heti-spacing"> </span>V<span class="heti-spacing"> </span></span>的一个子集，通常表示词汇项，如单词。</li>
+<li><span>N=V-S<span class="heti-spacing"> </span></span>是非终结符集合，表示语法中的构造块，如短语或句子成分。</li>
+<li>
+<p>⊢是产生式关系，表示符号之间可以进行的替换规则。
+2. <strong>产生式关系（⊢）</strong>：</p>
+</li>
+<li>
+<p>产生式是短语结构语法中的基本规则，形式为<span><span class="heti-spacing"> </span>w</span> ⊢ w′，其中<span class="heti-skip"><span class="heti-spacing"> </span>w<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>w</span>′是符号串。</p>
+</li>
+<li><span>w<span class="heti-spacing"> </span></span>称为产生式的左部，w′称为右部。</li>
+<li>
+<p>这个关系表明，左部的符号串可以被右部的符号串替换。
+3. <strong>初始符<span><span class="heti-spacing"> </span>v0</span></strong>：</p>
+</li>
+<li>
+<p><span>v0<span class="heti-spacing"> </span></span>属于非终结符集合<span><span class="heti-spacing"> </span>N</span>，是语法中的一个特定符号，通常用作语法推导的起点。</p>
+</li>
+<li>它代表了一个完整的句子或更大的语言单位。</li>
+</ul>
+</li>
+</ol>
+<hr/>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-46.png"><img alt="|500" src="../attachments/18-Misc-46.png"/></a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><span>0/1/2<span class="heti-spacing"> </span></span>型形式语言见 <a href="#^c97dab">语法分类</a></p>
+</div>
+<h4 id="图灵机">图灵机<a class="headerlink" href="#图灵机" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-47.png"><img alt="|500" src="../attachments/18-Misc-47.png"/></a></p>
+<blockquote>
+<p>我们用纸袋移动来模仿读写头移动</p>
+</blockquote>
+<p><strong>状态转移函数——规则</strong></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>计算规则的限制：</strong>
+- 规则数量有限
+- 确保动作确定性，即任意两条规则前两项不能完全相同
+- 任何规则的第一项不能为 <span class="arithmatex">\(S_{H}/S_{Y}/S_{N}\)</span>，因为这三个状态时应该停机</p>
+</div>
+<hr/>
+<h4 id="识别枚举和判定">识别、枚举和判定<a class="headerlink" href="#识别枚举和判定" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-49.png"><img alt="|500" src="../attachments/18-Misc-49.png"/></a> <a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-50.png"><img alt="|500" src="../attachments/18-Misc-50.png"/></a></p>
+<hr/>
+<h4 id="哥德尔编码Gödel-Numbering">哥德尔编码（Gödel Numbering）<a class="headerlink" href="#哥德尔编码Gödel-Numbering" title="Permanent link">¶</a></h4>
+<ul>
+<li>
+<p>将任何形式语言<span class="heti-skip"><span class="heti-spacing"> </span>L<span class="heti-spacing"> </span></span>编码为自然数的集合</p>
+</li>
+<li>
+<p>将语言上的运算变换为自然数的运算</p>
+</li>
+<li>
+<p>形式系统的问题变换为数论问题</p>
+</li>
+</ul>
+<h5 id="编码过程">编码过程<a class="headerlink" href="#编码过程" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h5>
+<blockquote>
+<p>我们在<a href="../02-Proof/"><span class="heti-skip"><span class="heti-spacing"> </span>02-Proof<span class="heti-spacing"> </span></span></a>的矛盾证明中，证明过素数有无穷多个，任意正整数可唯一分解为若干个素数。</p>
+</blockquote>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-51.png"><img alt="|500" src="../attachments/18-Misc-51.png"/></a></p>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span>p (i)<span class="heti-spacing"> </span></span>表示从小到大的第<span class="heti-skip"><span class="heti-spacing"> </span>i<span class="heti-spacing"> </span></span>个素数（由于素数的个数是无限的，所以对于任意长的字符串都<span><span class="heti-spacing"> </span>ok</span>）</p>
+<p><strong>重要结论</strong>：如果字母表<span class="heti-skip"><span class="heti-spacing"> </span>A<span class="heti-spacing"> </span></span>是可数的（可以对应自然数的子集<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，则<span class="heti-skip"><span class="heti-spacing"> </span>A<span class="heti-spacing"> </span></span>上的所有形式语言<span class="heti-skip"><span class="heti-spacing"> </span>L<span class="heti-spacing"> </span></span>都是可数的</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-52.png"><img alt="|500" src="../attachments/18-Misc-52.png"/></a></p>
+</div>
+<p>由于任意整数分解为素数的方式是唯一的，也就是说，对于固定的字符集<span><span class="heti-spacing"> </span>A</span>，字符串<span class="heti-skip"><span class="heti-spacing"> </span>w<span class="heti-spacing"> </span></span>与哥德尔编码<span class="heti-skip"><span class="heti-spacing"> </span>G<span class="heti-spacing"> </span></span>是 <strong>一一对应</strong> 的</p>
+<hr/>
+<h4 id="通用图灵机">通用图灵机<a class="headerlink" href="#通用图灵机" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-53.png"><img alt="|500" src="../attachments/18-Misc-53.png"/></a></p>
+<p>而图灵机的功能无非就是对输入进行处理以输出，<strong>通用图灵机是存在的</strong></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-54.png"><img alt="|500" src="../attachments/18-Misc-54.png"/></a></p>
+<h4 id="停机问题">停机问题<a class="headerlink" href="#停机问题" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>是否有算法能够判定某个图灵机<span class="heti-skip"><span class="heti-spacing"> </span>M<span class="heti-spacing"> </span></span>在输入<span class="heti-skip"><span class="heti-spacing"> </span>I<span class="heti-spacing"> </span></span>下是否停机？</p>
+</div>
+<p>否，停机问题是不可计算问题</p>
+<hr/>
+<h4 id="哥德尔不完备定理">哥德尔不完备定理<a class="headerlink" href="#哥德尔不完备定理" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<blockquote>
+<p>[!THEOREM ]</p>
+<p><em>Gödel Incomplete Theorem</em> </p>
+<p>任何包含自然数定义的形式系统都是不完全的，也就是存在不能证明为真也不能证明为假的命题</p>
+</blockquote>
+<h2 id="概率论">概率论<a class="headerlink" href="#概率论" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<blockquote>
+<p>一个很好的 <a href="https://www.yuque.com/xianyuxuan/coding/uifky8">偷懒方法</a></p>
+</blockquote>
+<p>下面是一些看课件过程中的小笔记：</p>
+<p><strong>证明概率独立性</strong></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-60.png"><img alt="|500" src="../attachments/18-Misc-60.png"/></a></p>
+<p><strong>建立概率模型</strong></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-61.png"><img alt="|500" src="../attachments/18-Misc-61.png"/></a></p>
+<div class="admonition solution">
+<p class="admonition-title">Solution</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-62.png"><img alt="|500" src="../attachments/18-Misc-62.png"/></a></p>
+</div>
+<p><strong>离散概率下的<span class="heti-skip"><span class="heti-spacing"> </span>CDF<span class="heti-spacing"> </span></span>图形</strong></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/18-Misc-63.png"><img alt="|475" src="../attachments/18-Misc-63.png"/></a></p>
+<p><strong>和的期望<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>方差</strong></p>
+<p><span class="arithmatex">\(\mathbb{E}\left[W_n\right]=\mathbb{E}\left[X_1\right]+\mathbb{E}\left[X_2\right]+\cdots+\mathbb{E}\left[X_n\right].\)</span></p>
+<div class="arithmatex">\[
+Var[W_n]=\sum_{i=1}^nVar[X_i]+2\sum_{i=1}^{n-1}\sum_{j=i+1}^nCov[X_i,X_j]=\sum_{i=1}^n\sum_{j=1}^nCov[X_i,X_j]
+\]</div>
+<p>如果<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X_{i}\)</span><span class="heti-spacing"> </span></span>互不相关，则有<span><span class="heti-spacing"> </span><span class="arithmatex">\(Cov[X_{i}, X_{j}] = 0\)</span></span>，结果就变成线性替换了；但是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X_{i}\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X_i\)</span><span class="heti-spacing"> </span></span>本身肯定相关，不用担心。</p>
+<hr/>
+<p>Central Limit Theorem</p>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月7日 11:19:33 CST">2025年3月7日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2024年9月4日 01:29:36 CST">2024年9月4日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: 17 Concentration Inequalities and the Laws of Large Numbers" class="md-footer__link md-footer__link--prev" href="../17-Concentration_Inequalities_and_the_Laws_of_Large_Numbers/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                17 Concentration Inequalities and the Laws of Large Numbers
+              </div>
+</div>
+</a>
+<a aria-label="下一页: Other" class="md-footer__link md-footer__link--next" href="../../other/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                Other
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

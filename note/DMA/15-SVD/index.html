@@ -1,0 +1,1720 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/note/DMA/15-SVD/" rel="canonical"/>
+<link href="../14-Cluster_Methods/" rel="prev"/>
+<link href="../16-PCA/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>15 SVD - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#特征分解谱分解-page-3-5">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              15 SVD
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Note
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs188/">
+<span class="md-ellipsis">
+    
+  
+    cs188
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../physics/">
+<span class="md-ellipsis">
+    
+  
+    physics
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-II/">
+<span class="md-ellipsis">
+    
+  
+    CSys-II
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-III/">
+<span class="md-ellipsis">
+    
+  
+    CSys-III
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DEM/">
+<span class="md-ellipsis">
+    
+  
+    DEM
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3_7" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    DMA
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_7_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    DMA
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../01-Intro/">
+<span class="md-ellipsis">
+    
+  
+    01 Intro
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../02-Perceptron/">
+<span class="md-ellipsis">
+    
+  
+    02 Perceptron
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../03-KNN/">
+<span class="md-ellipsis">
+    
+  
+    03 KNN
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../04-Naive_Bayes/">
+<span class="md-ellipsis">
+    
+  
+    04 Naive Bayes
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../05-Decision_Tree/">
+<span class="md-ellipsis">
+    
+  
+    05 Decision Tree
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../06-logistic/">
+<span class="md-ellipsis">
+    
+  
+    06 logistic
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../07-SVM/">
+<span class="md-ellipsis">
+    
+  
+    07 SVM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../08-Adaboost/">
+<span class="md-ellipsis">
+    
+  
+    08 Adaboost
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../09-Expect_Max/">
+<span class="md-ellipsis">
+    
+  
+    09 Expect Max
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../14-Cluster_Methods/">
+<span class="md-ellipsis">
+    
+  
+    14 Cluster Methods
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    15 SVD
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    15 SVD
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#特征分解谱分解-page-3-5">
+<span class="md-ellipsis">
+      
+        特征分解/谱分解 (page 3-5)
+      
+    </span>
+</a>
+<nav aria-label="特征分解/谱分解 (page 3-5)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#特征值与特征向量-page-3">
+<span class="md-ellipsis">
+      
+        特征值与特征向量 (page 3)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#特征分解-page-4">
+<span class="md-ellipsis">
+      
+        特征分解 (page 4)
+      
+    </span>
+</a>
+<nav aria-label="特征分解 (page 4)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#示例-page-5">
+<span class="md-ellipsis">
+      
+        示例 (page 5)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#奇异值分解的定义与性质-page-6-12">
+<span class="md-ellipsis">
+      
+        奇异值分解的定义与性质 (page 6-12)
+      
+    </span>
+</a>
+<nav aria-label="奇异值分解的定义与性质 (page 6-12)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#定义-page-6-7">
+<span class="md-ellipsis">
+      
+        定义 (page 6-7)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#示例-page-8-11">
+<span class="md-ellipsis">
+      
+        示例 (page 8-11)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#奇异值分解基本定理-page-12">
+<span class="md-ellipsis">
+      
+        奇异值分解基本定理 (page 12)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#奇异值分解的计算-page-13-24--41-53">
+<span class="md-ellipsis">
+      
+        奇异值分解的计算 (page 13-24 &amp; 41-53)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#紧奇异值分解与截断奇异值分解-page-25-30">
+<span class="md-ellipsis">
+      
+        紧奇异值分解与截断奇异值分解 (page 25-30)
+      
+    </span>
+</a>
+<nav aria-label="紧奇异值分解与截断奇异值分解 (page 25-30)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#紧奇异值分解-Compact-SVD-page-26">
+<span class="md-ellipsis">
+      
+        紧奇异值分解 (Compact SVD) (page 26)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#截断奇异值分解-Truncated-SVD-page-28">
+<span class="md-ellipsis">
+      
+        截断奇异值分解 (Truncated SVD) (page 28)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#几何解释-page-31-36">
+<span class="md-ellipsis">
+      
+        几何解释 (page 31-36)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#奇异值分解与矩阵近似-page-54-69">
+<span class="md-ellipsis">
+      
+        奇异值分解与矩阵近似 (page 54-69)
+      
+    </span>
+</a>
+<nav aria-label="奇异值分解与矩阵近似 (page 54-69)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#弗罗贝尼乌斯范数-Frobenius-norm-page-55">
+<span class="md-ellipsis">
+      
+        弗罗贝尼乌斯范数 (Frobenius norm) (page 55)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#矩阵的最优近似-Eckart-Young-Mirsky-定理-page-58">
+<span class="md-ellipsis">
+      
+        矩阵的最优近似 (Eckart-Young-Mirsky 定理) (page 58)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#矩阵的外积展开式-page-67">
+<span class="md-ellipsis">
+      
+        矩阵的外积展开式 (page 67)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#总结-page-72-75">
+<span class="md-ellipsis">
+      
+        总结 (page 72-75)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../16-PCA/">
+<span class="md-ellipsis">
+    
+  
+    16 PCA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../19-MCMC/">
+<span class="md-ellipsis">
+    
+  
+    19 MCMC
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../21-PageRank/">
+<span class="md-ellipsis">
+    
+  
+    21 PageRank
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../appendix-UML/">
+<span class="md-ellipsis">
+    
+  
+    appendix UML
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../appendix-grad/">
+<span class="md-ellipsis">
+    
+  
+    Appendix grad
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../appendix-martirx_derivation/">
+<span class="md-ellipsis">
+    
+  
+    矩阵求导术（上/下）
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs70/">
+<span class="md-ellipsis">
+    
+  
+    cs70
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../other/">
+<span class="md-ellipsis">
+    
+  
+    other
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#特征分解谱分解-page-3-5">
+<span class="md-ellipsis">
+      
+        特征分解/谱分解 (page 3-5)
+      
+    </span>
+</a>
+<nav aria-label="特征分解/谱分解 (page 3-5)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#特征值与特征向量-page-3">
+<span class="md-ellipsis">
+      
+        特征值与特征向量 (page 3)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#特征分解-page-4">
+<span class="md-ellipsis">
+      
+        特征分解 (page 4)
+      
+    </span>
+</a>
+<nav aria-label="特征分解 (page 4)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#示例-page-5">
+<span class="md-ellipsis">
+      
+        示例 (page 5)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#奇异值分解的定义与性质-page-6-12">
+<span class="md-ellipsis">
+      
+        奇异值分解的定义与性质 (page 6-12)
+      
+    </span>
+</a>
+<nav aria-label="奇异值分解的定义与性质 (page 6-12)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#定义-page-6-7">
+<span class="md-ellipsis">
+      
+        定义 (page 6-7)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#示例-page-8-11">
+<span class="md-ellipsis">
+      
+        示例 (page 8-11)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#奇异值分解基本定理-page-12">
+<span class="md-ellipsis">
+      
+        奇异值分解基本定理 (page 12)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#奇异值分解的计算-page-13-24--41-53">
+<span class="md-ellipsis">
+      
+        奇异值分解的计算 (page 13-24 &amp; 41-53)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#紧奇异值分解与截断奇异值分解-page-25-30">
+<span class="md-ellipsis">
+      
+        紧奇异值分解与截断奇异值分解 (page 25-30)
+      
+    </span>
+</a>
+<nav aria-label="紧奇异值分解与截断奇异值分解 (page 25-30)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#紧奇异值分解-Compact-SVD-page-26">
+<span class="md-ellipsis">
+      
+        紧奇异值分解 (Compact SVD) (page 26)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#截断奇异值分解-Truncated-SVD-page-28">
+<span class="md-ellipsis">
+      
+        截断奇异值分解 (Truncated SVD) (page 28)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#几何解释-page-31-36">
+<span class="md-ellipsis">
+      
+        几何解释 (page 31-36)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#奇异值分解与矩阵近似-page-54-69">
+<span class="md-ellipsis">
+      
+        奇异值分解与矩阵近似 (page 54-69)
+      
+    </span>
+</a>
+<nav aria-label="奇异值分解与矩阵近似 (page 54-69)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#弗罗贝尼乌斯范数-Frobenius-norm-page-55">
+<span class="md-ellipsis">
+      
+        弗罗贝尼乌斯范数 (Frobenius norm) (page 55)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#矩阵的最优近似-Eckart-Young-Mirsky-定理-page-58">
+<span class="md-ellipsis">
+      
+        矩阵的最优近似 (Eckart-Young-Mirsky 定理) (page 58)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#矩阵的外积展开式-page-67">
+<span class="md-ellipsis">
+      
+        矩阵的外积展开式 (page 67)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#总结-page-72-75">
+<span class="md-ellipsis">
+      
+        总结 (page 72-75)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Note
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    DMA
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:notes">notes</a>
+</nav>
+<h1>15 SVD</h1>
+<p>奇异值分解<span class="heti-skip"><span class="heti-spacing"> </span>(Singular Value Decomposition, SVD)<span class="heti-spacing"> </span></span>是线性代数中一种极其重要的矩阵分解方法，在机器学习、数据挖掘、信号处理和统计学等领域有着广泛的应用。它能将一个任意形状的实矩阵分解为三个具有特殊性质的矩阵的乘积。</p>
+<h2 id="特征分解谱分解-page-3-5">特征分解<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>谱分解<span><span class="heti-spacing"> </span>(page 3-5)</span><a class="headerlink" href="#特征分解谱分解-page-3-5" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>在深入了解奇异值分解之前，我们首先需要回顾一下<strong>特征分解</strong>（也称为<strong>谱分解</strong><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，因为<span class="heti-skip"><span class="heti-spacing"> </span>SVD<span class="heti-spacing"> </span></span>可以看作是特征分解在任意矩阵上的推广。</p>
+<h3 id="特征值与特征向量-page-3">特征值与特征向量<span><span class="heti-spacing"> </span>(page 3)</span><a class="headerlink" href="#特征值与特征向量-page-3" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="definition" open="open">
+<summary>定义：特征值与特征向量</summary>
+<p>对于一个给定的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(N \times N\)</span><span class="heti-spacing"> </span></span>方阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span></span>，如果存在一个标量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\lambda\)</span><span class="heti-spacing"> </span></span>和一个非零的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(N\)</span><span class="heti-spacing"> </span></span>维向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(v\)</span></span>，使得以下关系成立：</p>
+<div class="arithmatex">\[
+Av = \lambda v
+\]</div>
+<p>那么，我们称<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\lambda\)</span><span class="heti-spacing"> </span></span>为矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>的一个<strong>特征值</strong> (Eigenvalue)，称<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(v\)</span><span class="heti-spacing"> </span></span>为对应于特征值<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\lambda\)</span><span class="heti-spacing"> </span></span>的<strong>特征向量</strong> (Eigenvector)。</p>
+<hr/>
+<p><strong>几何意义</strong>：
+矩阵 <span class="arithmatex">\(A\)</span> 对其特征向量 <span class="arithmatex">\(v\)</span> 的线性变换，效果仅仅是对向量 <span class="arithmatex">\(v\)</span> 进行了一个标量 <span class="arithmatex">\(\lambda\)</span> 倍的缩放，而没有改变其方向。</p>
+</details>
+<p>为了求解特征值，我们可以将上式改写为<span><span class="heti-spacing"> </span><span class="arithmatex">\((A - \lambda I)v = 0\)</span></span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(I\)</span><span class="heti-spacing"> </span></span>是单位矩阵。由于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(v\)</span><span class="heti-spacing"> </span></span>是非零向量，这要求矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((A - \lambda I)\)</span><span class="heti-spacing"> </span></span>是奇异的，即它的行列式为<span><span class="heti-spacing"> </span>0</span>。</p>
+<div class="arithmatex">\[
+P(\lambda) = \det(A - \lambda I) = 0
+\]</div>
+<p>这个方程被称为矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>的<strong>特征多项式</strong> (Characteristic Polynomial)，它的解就是矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>的所有特征值。</p>
+<h3 id="特征分解-page-4">特征分解<span><span class="heti-spacing"> </span>(page 4)</span><a class="headerlink" href="#特征分解-page-4" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="theorem" open="open">
+<summary>定理：特征分解</summary>
+<p>如果一个<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(N \times N\)</span><span class="heti-spacing"> </span></span>的方阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>拥有<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(N\)</span><span class="heti-spacing"> </span></span>个线性无关的特征向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(q_i\)</span> (<span class="arithmatex">\(i = 1, \dots, N\)</span>)</span>，那么矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>是<strong>可对角化</strong>的，并且可以被分解为：</p>
+<div class="arithmatex">\[
+A = Q \Lambda Q^{-1}
+\]</div>
+<p>其中：
+- <span class="arithmatex">\(Q\)</span> 是一个 <span class="arithmatex">\(N \times N\)</span> 的方阵，其第 <span class="arithmatex">\(i\)</span> 列是 <span class="arithmatex">\(A\)</span> 的特征向量 <span class="arithmatex">\(q_i\)</span>。
+- <span class="arithmatex">\(\Lambda\)</span> 是一个对角矩阵，其对角线上的元素 <span class="arithmatex">\(\Lambda_{ii} = \lambda_i\)</span> 是与特征向量 <span class="arithmatex">\(q_i\)</span> 对应的特征值。</p>
+<hr/>
+<p><strong>特殊情况</strong>：
+如果 <span class="arithmatex">\(A\)</span> 是一个<strong>实对称矩阵</strong>，那么它的特征向量是相互正交的。此时，矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q\)</span><span class="heti-spacing"> </span></span>是一个<strong>正交矩阵</strong><sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>，满足<span><span class="heti-spacing"> </span><span class="arithmatex">\(Q^{-1} = Q^T\)</span></span>。分解形式变为：</p>
+<div class="arithmatex">\[
+A = Q \Lambda Q^T
+\]</div>
+</details>
+<details class="attention" open="open">
+<summary>Attention</summary>
+<p><strong>只有可对角化的矩阵才能进行特征分解</strong>。一个矩阵可对角化的充分必要条件是它有<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(N\)</span><span class="heti-spacing"> </span></span>个线性无关的特征向量。所有对称矩阵都可对角化，但并非所有方阵都可对角化。</p>
+</details>
+<h4 id="示例-page-5">示例<span><span class="heti-spacing"> </span>(page 5)</span><a class="headerlink" href="#示例-page-5" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<ul>
+<li>
+<p><strong>可对角化矩阵</strong>:
+    矩阵 <span class="arithmatex">\(A = \begin{bmatrix} 1 &amp; 0 \\ 1 &amp; 3 \end{bmatrix}\)</span> 是可对角化的。可以找到一个可逆矩阵（由其特征向量构成）来完成对角化。</p>
+</li>
+<li>
+<p><strong>不可对角化矩阵</strong>:
+    矩阵 <span class="arithmatex">\(\begin{bmatrix} 3 &amp; 1 \\ 0 &amp; 3 \end{bmatrix}\)</span> 是一个典型的不可对角化矩阵。它只有一个特征值 <span class="arithmatex">\(\lambda=3\)</span>，对应的特征向量空间维度仅为 1，找不到两个线性无关的特征向量。</p>
+</li>
+</ul>
+<h2 id="奇异值分解的定义与性质-page-6-12">奇异值分解的定义与性质<span><span class="heti-spacing"> </span>(page 6-12)</span><a class="headerlink" href="#奇异值分解的定义与性质-page-6-12" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>特征分解非常强大，但它有两大局限：</p>
+<ol>
+<li>必须作用于方阵。</li>
+<li>该方阵必须是可对角化的。</li>
+</ol>
+<p><strong>奇异值分解<span><span class="heti-spacing"> </span>(SVD)</span></strong> 则突破了这些限制，它可以对<strong>任何形状</strong>的矩阵（<span class="arithmatex">\(m \times n\)</span>）进行分解。</p>
+<h3 id="定义-page-6-7">定义<span><span class="heti-spacing"> </span>(page 6-7)</span><a class="headerlink" href="#定义-page-6-7" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="definition" open="open">
+<summary>定义<span><span class="heti-spacing"> </span>15.1</span>：奇异值分解<span><span class="heti-spacing"> </span>(SVD)</span></summary>
+<p>对于任意一个非零的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m \times n\)</span><span class="heti-spacing"> </span></span>实矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(A \in \mathbb{R}^{m \times n}\)</span></span>，它可以被分解为三个实矩阵的乘积：</p>
+<div class="arithmatex">\[
+A = U \Sigma V^T \quad (15.1)
+\]</div>
+<p>其中：</p>
+<ul>
+<li>是一个<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m \times m\)</span><span class="heti-spacing"> </span></span>的<strong>正交矩阵</strong> (<span class="arithmatex">\(U^T U = I_m\)</span>)。</li>
+<li><span><span class="arithmatex">\(V\)</span><span class="heti-spacing"> </span></span>是一个<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n \times n\)</span><span class="heti-spacing"> </span></span>的<strong>正交矩阵</strong> (<span class="arithmatex">\(V^T V = I_n\)</span>)。</li>
+<li><span><span class="arithmatex">\(\Sigma\)</span><span class="heti-spacing"> </span></span>是一个<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m \times n\)</span><span class="heti-spacing"> </span></span>的<strong>矩形对角矩阵</strong>，其对角线上的元素<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\sigma_i\)</span><span class="heti-spacing"> </span></span>称为<strong>奇异值</strong> (Singular Value)，它们非负且按降序排列：</li>
+</ul>
+<div class="arithmatex">\[
+\begin{align}
+&amp;\Sigma = \text{diag}(\sigma_1, \sigma_2, \dots, \sigma_p) \\
+&amp;\sigma_1 \ge \sigma_2 \ge \dots \ge \sigma_p \ge 0 \\
+&amp;p = \min(m, n)
+\end{align}
+\]</div>
+<hr/>
+<p><strong>核心术语</strong>：</p>
+<ul>
+<li><span class="arithmatex">\(U\Sigma V^T\)</span>：矩阵  的<strong>奇异值分解</strong>。</li>
+<li><span class="arithmatex">\(\sigma_i\)</span>：矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>的<strong>奇异值</strong>。</li>
+<li><span><span class="arithmatex">\(U\)</span><span class="heti-spacing"> </span></span>的列向量：<strong>左奇异向量</strong> (Left Singular Vectors)。</li>
+<li><span><span class="arithmatex">\(V\)</span><span class="heti-spacing"> </span></span>的列向量：<strong>右奇异向量</strong> (Right Singular Vectors)。</li>
+</ul>
+</details>
+<details class="note" open="open">
+<summary>推广</summary>
+<p><span>SVD<span class="heti-spacing"> </span></span>是特征分解对任意矩阵的推广。对于一个正定对称矩阵而言，其<span class="heti-skip"><span class="heti-spacing"> </span>SVD<span class="heti-spacing"> </span></span>和特征分解是相同的。对于其他矩阵，<span>SVD<span class="heti-spacing"> </span></span>和特征分解则有很大不同。</p>
+</details>
+<h3 id="示例-page-8-11">示例<span><span class="heti-spacing"> </span>(page 8-11)</span><a class="headerlink" href="#示例-page-8-11" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>给定一个<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(5 \times 4\)</span><span class="heti-spacing"> </span></span>矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span></span>：</p>
+<div class="arithmatex">\[
+A = \begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 4 \\
+0 &amp; 3 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 \\
+2 &amp; 0 &amp; 0 &amp; 0
+\end{bmatrix}
+\]</div>
+<p>它的奇异值分解<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A = U\Sigma V^T\)</span><span class="heti-spacing"> </span></span>由以下矩阵给出：</p>
+<div class="arithmatex">\[
+U = \begin{bmatrix}
+0 &amp; 0 &amp; \sqrt{0.2} &amp; 0 &amp; \sqrt{0.8} \\
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; \sqrt{0.8} &amp; 0 &amp; -\sqrt{0.2}
+\end{bmatrix}_{5 \times 5}
+\quad
+\Sigma = \begin{bmatrix}
+4 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 3 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; \sqrt{5} &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0
+\end{bmatrix}_{5 \times 4}
+\quad
+V^T = \begin{bmatrix}
+0 &amp; 0 &amp; 0 &amp; 1 \\
+0 &amp; 1 &amp; 0 &amp; 0 \\
+1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0
+\end{bmatrix}_{4 \times 4}
+\]</div>
+<ul>
+<li><strong>矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(\Sigma\)</span></span></strong> 是一个矩形对角矩阵，对角线元素<span class="heti-skip"><span class="heti-spacing"> </span>(4, 3, <span class="arithmatex">\(\sqrt{5}\)</span>, 0)<span class="heti-spacing"> </span></span>是非负且降序排列的奇异值。</li>
+<li><strong>矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(U\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(V\)</span></span></strong> 都是正交矩阵，满足<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(UU^T = I_5\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(VV^T = I_4\)</span></span>。</li>
+<li><strong><span>SVD<span class="heti-spacing"> </span></span>的不唯一性</strong>：奇异值<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\sigma_i\)</span><span class="heti-spacing"> </span></span>是唯一的，但左右奇异向量不是。例如，可以同时改变一对左右奇异向量的符号<span><span class="heti-spacing"> </span>(<span class="arithmatex">\(u_i \to -u_i\)</span>, <span class="arithmatex">\(v_i \to -v_i\)</span>)</span>，分解依然成立。或者，当有重复的奇异值时，对应的奇异向量可以在它们张成的子空间内任意旋转。</li>
+</ul>
+<h3 id="奇异值分解基本定理-page-12">奇异值分解基本定理<span><span class="heti-spacing"> </span>(page 12)</span><a class="headerlink" href="#奇异值分解基本定理-page-12" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="theorem" open="open">
+<summary><span>SVD<span class="heti-spacing"> </span></span>基本定理</summary>
+<p>若<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>为一<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m \times n\)</span><span class="heti-spacing"> </span></span>实矩阵<span><span class="heti-spacing"> </span>(<span class="arithmatex">\(A \in \mathbb{R}^{m \times n}\)</span>)</span>，则<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>的奇异值分解存在：</p>
+<div class="arithmatex">\[
+A = U\Sigma V^T
+\]</div>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(U\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\)</span><span class="heti-spacing"> </span></span>阶正交矩阵，<span><span class="arithmatex">\(V\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>阶正交矩阵，<span><span class="arithmatex">\(\Sigma\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m \times n\)</span><span class="heti-spacing"> </span></span>矩形对角矩阵，其对角线元素非负，且按降序排列。</p>
+</details>
+<h2 id="奇异值分解的计算-page-13-24--41-53">奇异值分解的计算<span><span class="heti-spacing"> </span>(page 13-24 &amp; 41-53)</span><a class="headerlink" href="#奇异值分解的计算-page-13-24--41-53" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>我们可以通过构造<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(U, \Sigma, V\)</span><span class="heti-spacing"> </span></span>的方式来证明<span class="heti-skip"><span class="heti-spacing"> </span>SVD<span class="heti-spacing"> </span></span>的存在性，这个过程本身也揭示了如何计算<span><span class="heti-spacing"> </span>SVD</span>。</p>
+<details class="tip" open="open">
+<summary><span>SVD<span class="heti-spacing"> </span></span>计算算法</summary>
+<p><strong>核心思想</strong>：将<span class="heti-skip"><span class="heti-spacing"> </span>SVD<span class="heti-spacing"> </span></span>与<strong>对称矩阵的特征分解</strong>联系起来。</p>
+<p>从<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A=U\Sigma V^T\)</span><span class="heti-spacing"> </span></span>出发，我们可以推导出：</p>
+<div class="arithmatex">\[
+A^T A = (V\Sigma^T U^T)(U\Sigma V^T) = V(\Sigma^T\Sigma)V^T
+\]</div>
+<div class="arithmatex">\[
+A A^T = (U\Sigma V^T)(V\Sigma^T U^T) = U(\Sigma\Sigma^T)U^T
+\]</div>
+<p>这两个式子是两个标准的<strong>特征分解</strong>！
+- <span class="arithmatex">\(A^T A\)</span> 是一个 <span class="arithmatex">\(n \times n\)</span> 的对称矩阵。它的特征向量构成了<strong>右奇异向量矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(V\)</span></span></strong>。
+- <span class="arithmatex">\(AA^T\)</span> 是一个 <span class="arithmatex">\(m \times m\)</span> 的对称矩阵。它的特征向量构成了<strong>左奇异向量矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(U\)</span></span></strong>。
+- <span class="arithmatex">\(A^T A\)</span> 和 <span class="arithmatex">\(AA^T\)</span> 的非零特征值是相同的，它们的平方根就是<strong>奇异值<span><span class="heti-spacing"> </span><span class="arithmatex">\(\sigma_i\)</span></span></strong>。</p>
+<p><strong>计算步骤概览<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>以<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A^T A\)</span><span class="heti-spacing"> </span></span>为例，假设<span><span class="heti-spacing"> </span><span class="arithmatex">\(m \geq n\)</span>):</span></strong></p>
+<ol>
+<li>
+<p><strong>构造<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(V\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(\Sigma\)</span></span></strong>:
+    a. 计算 <span class="arithmatex">\(n \times n\)</span> 对称矩阵 <span class="arithmatex">\(W = A^T A\)</span>。</p>
+<p><span>b.<span class="heti-spacing"> </span></span>求解<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(W\)</span><span class="heti-spacing"> </span></span>的特征值<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\lambda_1, \dots, \lambda_n\)</span><span class="heti-spacing"> </span></span>和对应的特征向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(v_1, \dots, v_n\)</span></span>。</p>
+<p><span>c.<span class="heti-spacing"> </span></span>特征值均为非负数<sup id="fnref:2"><a class="footnote-ref" href="#fn:2"><span><span class="heti-spacing"> </span>2</span></a></sup>。将它们降序排列：<span class="arithmatex">\(\lambda_1 \ge \lambda_2 \ge \dots \ge \lambda_n \ge 0\)</span>。</p>
+<p><span>d.<span class="heti-spacing"> </span></span>将单位化的特征向量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(v_i\)</span><span class="heti-spacing"> </span></span>作为列，构成正交矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(V = [v_1 \ v_2 \ \dots \ v_n]\)</span></span>。</p>
+<p><span>e.<span class="heti-spacing"> </span></span>计算奇异值<span><span class="heti-spacing"> </span><span class="arithmatex">\(\sigma_i = \sqrt{\lambda_i}\)</span></span>。用它们构成<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m \times n\)</span><span class="heti-spacing"> </span></span>矩形对角矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(\Sigma\)</span></span>。</p>
+</li>
+<li>
+<p><strong>构造<span><span class="heti-spacing"> </span><span class="arithmatex">\(U\)</span></span></strong>:
+    a. 对于前 <span class="arithmatex">\(r\)</span> 个正奇异值（其中 <span class="arithmatex">\(r=\text{rank}(A)\)</span>），计算对应的左奇异向量：</p>
+<p>$$
+   u_j = \frac{1}{\sigma_j}Av_j, \quad j=1, 2, \dots, r
+   $$</p>
+<p><span>b.<span class="heti-spacing"> </span></span>这<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(r\)</span><span class="heti-spacing"> </span></span>个向量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(u_j\)</span><span class="heti-spacing"> </span></span>构成了<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(U\)</span><span class="heti-spacing"> </span></span>的前<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(r\)</span><span class="heti-spacing"> </span></span>列<span><span class="heti-spacing"> </span><span class="arithmatex">\(U_1\)</span></span>。它们是标准正交的。
+c. 如果 <span class="arithmatex">\(m &gt; r\)</span>，则需要找到另外 <span class="arithmatex">\(m-r\)</span> 个标准正交向量来扩充 <span class="arithmatex">\(U_1\)</span>，使其成为一个完整的 <span class="arithmatex">\(m \times m\)</span> 正交矩阵 <span class="arithmatex">\(U\)</span>。这些补充的向量构成了 <span class="arithmatex">\(A^T\)</span> 的零空间 <span class="arithmatex">\(N(A^T)\)</span> 的一组标准正交基。</p>
+</li>
+<li>
+<p><strong>得到分解</strong>:
+    最终得到 <span class="arithmatex">\(A = U\Sigma V^T\)</span>。</p>
+</li>
+</ol>
+</details>
+<div class="admonition example">
+<p class="admonition-title">计算示例<span><span class="heti-spacing"> </span>(page 46-52)</span></p>
+</div>
+<p>我们来计算矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A = \begin{bmatrix} 1 &amp; 1 \\ 2 &amp; 2 \\ 0 &amp; 0 \end{bmatrix}\)</span><span class="heti-spacing"> </span></span>的<span><span class="heti-spacing"> </span>SVD</span>。</p>
+<ol>
+<li>
+<p><strong>求<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A^TA\)</span><span class="heti-spacing"> </span></span>的特征值和特征向量</strong>
+    $$
+    W = A^T A = \begin{bmatrix} 1 &amp; 2 &amp; 0 \ 1 &amp; 2 &amp; 0 \end{bmatrix} \begin{bmatrix} 1 &amp; 1 \ 2 &amp; 2 \ 0 &amp; 0 \end{bmatrix} = \begin{bmatrix} 5 &amp; 5 \ 5 &amp; 5 \end{bmatrix}
+    $$
+    特征方程为 <span class="arithmatex">\(\det(W - \lambda I) = (5-\lambda)^2 - 25 = \lambda^2 - 10\lambda = 0\)</span>，解得特征值 <span class="arithmatex">\(\lambda_1=10, \lambda_2=0\)</span>。</p>
+</li>
+<li>
+<p><strong>求正交矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(V\)</span></span></strong></p>
+<ul>
+<li>对于<span><span class="heti-spacing"> </span><span class="arithmatex">\(\lambda_1 = 10\)</span></span>，解<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((W - 10I)x=0\)</span><span class="heti-spacing"> </span></span>得特征向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(x = \begin{bmatrix} c \\ c \end{bmatrix}\)</span></span>。单位化后取<span><span class="heti-spacing"> </span><span class="arithmatex">\(v_1 = \begin{bmatrix} 1/\sqrt{2} \\ 1/\sqrt{2} \end{bmatrix}\)</span></span>。</li>
+<li>对于<span><span class="heti-spacing"> </span><span class="arithmatex">\(\lambda_2 = 0\)</span></span>，解<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((W - 0I)x=0\)</span><span class="heti-spacing"> </span></span>得特征向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(x = \begin{bmatrix} c \\ -c \end{bmatrix}\)</span></span>。单位化后取<span><span class="heti-spacing"> </span><span class="arithmatex">\(v_2 = \begin{bmatrix} 1/\sqrt{2} \\ -1/\sqrt{2} \end{bmatrix}\)</span></span>。</li>
+<li>因此，<span class="arithmatex">\(V = \begin{bmatrix} 1/\sqrt{2} &amp; 1/\sqrt{2} \\ 1/\sqrt{2} &amp; -1/\sqrt{2} \end{bmatrix}\)</span>。</li>
+</ul>
+</li>
+<li>
+<p><strong>求对角矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(\Sigma\)</span></span></strong>
+    奇异值为 <span class="arithmatex">\(\sigma_1 = \sqrt{\lambda_1} = \sqrt{10}\)</span>，<span class="arithmatex">\(\sigma_2 = \sqrt{\lambda_2} = 0\)</span>。
+    矩阵 <span class="arithmatex">\(A\)</span> 是 <span class="arithmatex">\(3 \times 2\)</span> 的，所以 <span class="arithmatex">\(\Sigma\)</span> 也是 <span class="arithmatex">\(3 \times 2\)</span> 的：
+    $$
+    \Sigma = \begin{bmatrix} \sqrt{10} &amp; 0 \ 0 &amp; 0 \ 0 &amp; 0 \end{bmatrix}
+    $$</p>
+</li>
+<li>
+<p><strong>求正交矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(U\)</span></span></strong>
+    矩阵的秩 <span class="arithmatex">\(r=1\)</span> (只有一个正奇异值)。</p>
+<ul>
+<li>计算<span><span class="heti-spacing"> </span><span class="arithmatex">\(u_1\)</span>:</span>
+    $$
+    u_1 = \frac{1}{\sigma_1} A v_1 = \frac{1}{\sqrt{10}} \begin{bmatrix} 1 &amp; 1 \ 2 &amp; 2 \ 0 &amp; 0 \end{bmatrix} \begin{bmatrix} 1/\sqrt{2} \ 1/\sqrt{2} \end{bmatrix} = \frac{1}{\sqrt{20}} \begin{bmatrix} 2 \ 4 \ 0 \end{bmatrix} = \begin{bmatrix} 1/\sqrt{5} \ 2/\sqrt{5} \ 0 \end{bmatrix}
+    $$</li>
+<li>我们需要再找两个与<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(u_1\)</span><span class="heti-spacing"> </span></span>正交的单位向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(u_2, u_3\)</span></span>。它们是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A^T\)</span><span class="heti-spacing"> </span></span>零空间<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(N(A^T)\)</span><span class="heti-spacing"> </span></span>的基。
+    求解 <span class="arithmatex">\(A^Tx=0\)</span>，即 <span class="arithmatex">\(\begin{bmatrix} 1 &amp; 2 &amp; 0 \\ 1 &amp; 2 &amp; 0 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = 0\)</span>，得到 <span class="arithmatex">\(x_1+2x_2=0\)</span>。
+    <span class="arithmatex">\(N(A^T)\)</span> 的一组基可以是 <span class="arithmatex">\(\begin{pmatrix}-2 \\ 1 \\ 0\end{pmatrix}\)</span> 和 <span class="arithmatex">\(\begin{pmatrix}0 \\ 0 \\ 1\end{pmatrix}\)</span>。
+    使用格拉姆-施密特方法正交化和单位化，得到：
+    <span class="arithmatex">\(u_2 = \begin{bmatrix} -2/\sqrt{5} \\ 1/\sqrt{5} \\ 0 \end{bmatrix}\)</span>, <span class="arithmatex">\(u_3 = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}\)</span>。</li>
+<li>因此，<span class="arithmatex">\(U = \begin{bmatrix} 1/\sqrt{5} &amp; -2/\sqrt{5} &amp; 0 \\ 2/\sqrt{5} &amp; 1/\sqrt{5} &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{bmatrix}\)</span>。</li>
+</ul>
+</li>
+<li>
+<p><strong>最终分解</strong>
+    $$
+    A = U\Sigma V^T =
+    \begin{bmatrix}
+    1/\sqrt{5} &amp; -2/\sqrt{5} &amp; 0 \
+    2/\sqrt{5} &amp; 1/\sqrt{5} &amp; 0 \
+    0 &amp; 0 &amp; 1
+    \end{bmatrix}
+    \begin{bmatrix}
+    \sqrt{10} &amp; 0 \
+    0 &amp; 0 \
+    0 &amp; 0
+    \end{bmatrix}
+    \begin{bmatrix}
+    1/\sqrt{2} &amp; 1/\sqrt{2} \
+    1/\sqrt{2} &amp; -1/\sqrt{2}
+    \end{bmatrix}
+    $$</p>
+</li>
+</ol>
+<h2 id="紧奇异值分解与截断奇异值分解-page-25-30">紧奇异值分解与截断奇异值分解<span><span class="heti-spacing"> </span>(page 25-30)</span><a class="headerlink" href="#紧奇异值分解与截断奇异值分解-page-25-30" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>上面介绍的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A=U_{m \times m} \Sigma_{m \times n} V_{n \times n}^T\)</span><span class="heti-spacing"> </span></span>称为<strong>完全奇异值分解<span><span class="heti-spacing"> </span>(Full SVD)</span></strong>。在实际应用中，我们常常使用其更紧凑的形式。</p>
+<h3 id="紧奇异值分解-Compact-SVD-page-26">紧奇异值分解<span><span class="heti-spacing"> </span>(Compact SVD) (page 26)</span><a class="headerlink" href="#紧奇异值分解-Compact-SVD-page-26" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在<span class="heti-skip"><span class="heti-spacing"> </span>SVD<span class="heti-spacing"> </span></span>中，很多奇异值为<span><span class="heti-spacing"> </span>0</span>，对应的左右奇异向量其实没有对矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>的构成做出贡献。我们可以把这些部分去掉，得到<strong>紧奇异值分解</strong>。</p>
+<details class="definition" open="open">
+<summary>定义：紧奇异值分解</summary>
+<p>设矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>的秩为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\text{rank}(A) = r\)</span> (<span class="arithmatex">\(r \le \min(m, n)\)</span>)</span>，则其紧<span class="heti-skip"><span class="heti-spacing"> </span>SVD<span class="heti-spacing"> </span></span>为：</p>
+<div class="arithmatex">\[
+A = U_r \Sigma_r V_r^T
+\]</div>
+<p>其中：
+- <span class="arithmatex">\(U_r\)</span> 是一个 <span class="arithmatex">\(m \times r\)</span> 矩阵，由 <span class="arithmatex">\(U\)</span> 的前 <span class="arithmatex">\(r\)</span> 列（对应 <span class="arithmatex">\(r\)</span> 个正奇异值）构成。
+- <span class="arithmatex">\(\Sigma_r\)</span> 是一个 <span class="arithmatex">\(r \times r\)</span> 的对角矩阵，由 <span class="arithmatex">\(r\)</span> 个正奇异值构成。
+- <span class="arithmatex">\(V_r\)</span> 是一个 <span class="arithmatex">\(n \times r\)</span> 矩阵，由 <span class="arithmatex">\(V\)</span> 的前 <span class="arithmatex">\(r\)</span> 列构成。</p>
+</details>
+<p>紧<span class="heti-skip"><span class="heti-spacing"> </span>SVD<span class="heti-spacing"> </span></span>的分解结果是<strong>精确的</strong>，它移除了所有不必要的信息，其分解矩阵的尺寸更小。</p>
+<h3 id="截断奇异值分解-Truncated-SVD-page-28">截断奇异值分解<span><span class="heti-spacing"> </span>(Truncated SVD) (page 28)</span><a class="headerlink" href="#截断奇异值分解-Truncated-SVD-page-28" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在很多应用中，我们不仅想去掉<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>奇异值，还想进一步丢弃那些<strong>非常小</strong>的奇异值，以达到数据压缩或降噪的目的。这就引出了<strong>截断奇异值分解</strong>。</p>
+<details class="definition" open="open">
+<summary>定义：截断奇异值分解<span><span class="heti-spacing"> </span>(TSVD)</span></summary>
+<p>在<span class="heti-skip"><span class="heti-spacing"> </span>SVD<span class="heti-spacing"> </span></span>中，只保留最大的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>个奇异值及其对应的左右奇异向量<span><span class="heti-spacing"> </span>(<span class="arithmatex">\(k &lt; r\)</span>)</span>，得到矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>的一个<strong>近似</strong>：</p>
+<div class="arithmatex">\[
+A \approx A_k = U_k \Sigma_k V_k^T \quad (15.19)
+\]</div>
+<p>其中：
+- <span class="arithmatex">\(U_k\)</span> 是 <span class="arithmatex">\(m \times k\)</span> 矩阵（<span class="arithmatex">\(U\)</span> 的前 <span class="arithmatex">\(k\)</span> 列）。
+- <span class="arithmatex">\(\Sigma_k\)</span> 是 <span class="arithmatex">\(k \times k\)</span> 对角矩阵（前 <span class="arithmatex">\(k\)</span> 个奇异值）。
+- <span class="arithmatex">\(V_k\)</span> 是 <span class="arithmatex">\(n \times k\)</span> 矩阵（<span class="arithmatex">\(V\)</span> 的前 <span class="arithmatex">\(k\)</span> 列）。</p>
+</details>
+<p><span><span class="arithmatex">\(A_k\)</span><span class="heti-spacing"> </span></span>是一个秩为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>的矩阵，它是所有秩不超过<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>的矩阵中，对原矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>的<strong>最佳近似</strong>（我们将在下一节详细讨论<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。这使得<span class="heti-skip"><span class="heti-spacing"> </span>TSVD<span class="heti-spacing"> </span></span>成为主成分分析<span><span class="heti-spacing"> </span>(PCA)</span>、推荐系统、图像压缩等技术的核心。</p>
+<h2 id="几何解释-page-31-36">几何解释<span><span class="heti-spacing"> </span>(page 31-36)</span><a class="headerlink" href="#几何解释-page-31-36" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p><span>SVD<span class="heti-spacing"> </span></span>有一个非常直观的几何解释。任何一个矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>所代表的线性变换<span><span class="heti-spacing"> </span><span class="arithmatex">\(T: \mathbb{R}^n \to \mathbb{R}^m\)</span> (<span class="arithmatex">\(x \mapsto Ax\)</span>)</span>，都可以被分解为三个基本操作：</p>
+<details class="extra" open="open">
+<summary><span>SVD<span class="heti-spacing"> </span></span>的几何变换</summary>
+<p>变换<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A = U\Sigma V^T\)</span><span class="heti-spacing"> </span></span>作用于一个向量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>的过程<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="arithmatex">\(Ax = U(\Sigma(V^T x))\)</span>)<span class="heti-spacing"> </span></span>如下：</p>
+<ol>
+<li><strong>一次旋转或反射<span><span class="heti-spacing"> </span>(<span class="arithmatex">\(V^T\)</span>)</span></strong>:
+    <span class="arithmatex">\(V\)</span> 是正交矩阵，它的列向量 <span class="arithmatex">\(\{v_i\}\)</span> 构成了 <span class="arithmatex">\(\mathbb{R}^n\)</span> 空间的一组新的标准正交基。<span class="arithmatex">\(V^T\)</span> 的作用是将输入向量 <span class="arithmatex">\(x\)</span> 从原始坐标系旋转到这个新的基坐标系下。</li>
+<li><strong>一次坐标轴缩放<span><span class="heti-spacing"> </span>(<span class="arithmatex">\(\Sigma\)</span>)</span></strong>:
+    <span class="arithmatex">\(\Sigma\)</span> 是一个矩形对角矩阵。它的作用是在新坐标系的各个轴向上进行缩放，第 <span class="arithmatex">\(i\)</span> 个轴向被缩放 <span class="arithmatex">\(\sigma_i\)</span> 倍。如果 <span class="arithmatex">\(m \ne n\)</span>，它还负责维度的改变。</li>
+<li><strong>另一次旋转或反射<span><span class="heti-spacing"> </span>(<span class="arithmatex">\(U\)</span>)</span></strong>:
+    <span class="arithmatex">\(U\)</span> 也是正交矩阵，它的列向量 <span class="arithmatex">\(\{u_i\}\)</span> 构成了 <span class="arithmatex">\(\mathbb{R}^m\)</span> 空间的一组标准正交基。它的作用是将经过缩放后的向量，从中间坐标系旋转到最终的目标空间坐标系下。</li>
+</ol>
+</details>
+<p>上图形象地展示了<span class="heti-skip"><span class="heti-spacing"> </span>SVD<span class="heti-spacing"> </span></span>的几何意义：一个单位圆（在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathbb{R}^2\)</span><span class="heti-spacing"> </span></span>中）首先经过<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(V^T\)</span><span class="heti-spacing"> </span></span>旋转，然后经过<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\Sigma\)</span><span class="heti-spacing"> </span></span>沿轴拉伸成一个椭圆，最后经过<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(U\)</span><span class="heti-spacing"> </span></span>再次旋转。</p>
+<h2 id="奇异值分解与矩阵近似-page-54-69">奇异值分解与矩阵近似<span><span class="heti-spacing"> </span>(page 54-69)</span><a class="headerlink" href="#奇异值分解与矩阵近似-page-54-69" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="弗罗贝尼乌斯范数-Frobenius-norm-page-55">弗罗贝尼乌斯范数<span><span class="heti-spacing"> </span>(Frobenius norm) (page 55)</span><a class="headerlink" href="#弗罗贝尼乌斯范数-Frobenius-norm-page-55" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>为了衡量一个矩阵对另一个矩阵的近似程度，我们需要一个度量标准。<strong>弗罗贝尼乌斯范数</strong>是常用的选择。</p>
+<details class="definition" open="open">
+<summary>定义：弗罗贝尼乌斯范数</summary>
+<p>对于矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(A = [a_{ij}]_{m \times n}\)</span></span>，其弗罗贝尼乌斯范数定义为：</p>
+<div class="arithmatex">\[
+||A||_F = \left( \sum_{i=1}^m \sum_{j=1}^n (a_{ij})^2 \right)^{\frac{1}{2}}
+\]</div>
+<p>这等价于将矩阵所有元素拉成一个长向量后计算其<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L_2\)</span><span class="heti-spacing"> </span></span>范数。在机器学习中，这对应于平方损失函数。</p>
+</details>
+<details class="lemma" open="open">
+<summary>引理<span><span class="heti-spacing"> </span>15.1 (page 56)</span></summary>
+<p>矩阵的弗罗贝尼乌斯范数也可以用其奇异值表示：</p>
+<div class="arithmatex">\[
+||A||_F = \left( \sigma_1^2 + \sigma_2^2 + \dots + \sigma_r^2 \right)^{\frac{1}{2}}
+\]</div>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(r\)</span><span class="heti-spacing"> </span></span>是矩阵的秩。</p>
+<p><strong>证明思路</strong>：弗罗贝尼乌斯范数在正交变换下保持不变，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(||UA||_F = ||AV||_F = ||A||_F\)</span></span>。因此<span><span class="heti-spacing"> </span><span class="arithmatex">\(||A||_F = ||U\Sigma V^T||_F = ||\Sigma||_F\)</span></span>。而<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(||\Sigma||_F\)</span><span class="heti-spacing"> </span></span>就是其对角线元素（奇异值）的平方和的平方根。</p>
+</details>
+<h3 id="矩阵的最优近似-Eckart-Young-Mirsky-定理-page-58">矩阵的最优近似<span class="heti-skip"><span class="heti-spacing"> </span>(Eckart-Young-Mirsky<span class="heti-spacing"> </span></span>定理<span><span class="heti-spacing"> </span>) (page 58)</span><a class="headerlink" href="#矩阵的最优近似-Eckart-Young-Mirsky-定理-page-58" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>这是<span class="heti-skip"><span class="heti-spacing"> </span>SVD<span class="heti-spacing"> </span></span>在应用中最为核心和强大的定理之一。</p>
+<details class="theorem" open="open">
+<summary>定理<span><span class="heti-spacing"> </span>15.2 &amp; 15.3 (Eckart-Young-Mirsky)</span></summary>
+<p>设矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A \in \mathbb{R}^{m \times n}\)</span><span class="heti-spacing"> </span></span>的秩为<span><span class="heti-spacing"> </span><span class="arithmatex">\(r\)</span></span>，其截断奇异值分解为<span><span class="heti-spacing"> </span><span class="arithmatex">\(A_k = U_k\Sigma_k V_k^T\)</span> (<span class="arithmatex">\(k &lt; r\)</span>)</span>。在所有秩不超过<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m \times n\)</span><span class="heti-spacing"> </span></span>矩阵的集合<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{M}\)</span><span class="heti-spacing"> </span></span>中，<span><span class="arithmatex">\(A_k\)</span><span class="heti-spacing"> </span></span>是在弗罗贝尼乌斯范数意义下对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>的<strong>最佳近似</strong>。</p>
+<p>即：</p>
+<div class="arithmatex">\[
+||A - A_k||_F = \min_{X \in \mathcal{M}, \text{rank}(X)\le k} ||A - X||_F
+\]</div>
+<p>并且，这个最小的近似误差为：</p>
+<div class="arithmatex">\[
+||A - A_k||_F = \left( \sigma_{k+1}^2 + \sigma_{k+2}^2 + \dots + \sigma_r^2 \right)^{\frac{1}{2}}
+\]</div>
+</details>
+<p>这个定理告诉我们，<strong>要想用一个低秩矩阵最好地逼近原始矩阵，截断<span class="heti-skip"><span class="heti-spacing"> </span>SVD<span class="heti-spacing"> </span></span>是最优的选择</strong>。我们丢弃的奇异值越小，近似的精度就越高。</p>
+<ul>
+<li><strong>紧<span><span class="heti-spacing"> </span>SVD</span></strong> 是在弗罗贝尼乌斯范数意义下的<strong>无损压缩</strong>。</li>
+<li><strong>截断<span><span class="heti-spacing"> </span>SVD</span></strong> 是在弗罗贝尼乌斯范数意义下的<strong>有损压缩</strong>，但它是最优的有损压缩。</li>
+</ul>
+<h3 id="矩阵的外积展开式-page-67">矩阵的外积展开式<span><span class="heti-spacing"> </span>(page 67)</span><a class="headerlink" href="#矩阵的外积展开式-page-67" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>SVD<span class="heti-spacing"> </span></span>还有另一种非常有用的表示形式，即<strong>外积展开</strong>。</p>
+<details class="note" open="open">
+<summary><span>SVD<span class="heti-spacing"> </span></span>外积展开</summary>
+<p>矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>可以表示为一系列秩为<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>的矩阵之和：</p>
+<div class="arithmatex">\[
+A = \sum_{i=1}^r \sigma_i u_i v_i^T = \sigma_1 u_1 v_1^T + \sigma_2 u_2 v_2^T + \dots + \sigma_r u_r v_r^T
+\]</div>
+<p>其中，<span><span class="arithmatex">\(u_i v_i^T\)</span><span class="heti-spacing"> </span></span>是一个<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m \times n\)</span><span class="heti-spacing"> </span></span>的秩一矩阵，由左奇异向量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(u_i\)</span><span class="heti-spacing"> </span></span>和右奇异向量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(v_i\)</span><span class="heti-spacing"> </span></span>的外积得到。</p>
+<hr/>
+<p><strong>与<span class="heti-skip"><span class="heti-spacing"> </span>TSVD<span class="heti-spacing"> </span></span>的关系</strong>：</p>
+<p>截断<span class="heti-skip"><span class="heti-spacing"> </span>SVD<span class="heti-spacing"> </span></span>得到的最佳低秩近似<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A_k\)</span><span class="heti-spacing"> </span></span>就是这个级数的前<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>项之和：</p>
+<div class="arithmatex">\[
+A_k = \sum_{i=1}^k \sigma_i u_i v_i^T
+\]</div>
+<p>因为奇异值<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\sigma_i\)</span><span class="heti-spacing"> </span></span>是递减的，所以每一项的“重要性”也在递减。这再次说明了为什么只取前几项就能很好地近似原矩阵。</p>
+</details>
+<h2 id="总结-page-72-75">总结<span><span class="heti-spacing"> </span>(page 72-75)</span><a class="headerlink" href="#总结-page-72-75" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<ol>
+<li><strong><span>SVD<span class="heti-spacing"> </span></span>定义</strong><span>:<span class="heti-spacing"> </span></span>任何<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m \times n\)</span><span class="heti-spacing"> </span></span>矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>可分解为<span><span class="heti-spacing"> </span><span class="arithmatex">\(A = U\Sigma V^T\)</span></span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(U, V\)</span><span class="heti-spacing"> </span></span>是正交矩阵，<span><span class="arithmatex">\(\Sigma\)</span><span class="heti-spacing"> </span></span>是对角元素非负递减的矩形对角矩阵。</li>
+<li><strong>存在性与唯一性</strong><span>: SVD<span class="heti-spacing"> </span></span>对任意实矩阵都存在，但<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(U, V\)</span><span class="heti-spacing"> </span></span>矩阵不唯一。</li>
+<li><strong>分解类型</strong><span>:<span class="heti-spacing"> </span></span>包括<strong>完全<span><span class="heti-spacing"> </span>SVD</span></strong>、<strong>紧<span><span class="heti-spacing"> </span>SVD</span></strong> <span>(<span class="heti-spacing"> </span></span>等秩，无损<span class="heti-skip"><span class="heti-spacing"> </span>)<span class="heti-spacing"> </span></span>和<strong>截断<span><span class="heti-spacing"> </span>SVD</span></strong> <span>(<span class="heti-spacing"> </span></span>低秩，最优有损近似<span><span class="heti-spacing"> </span>)</span>。</li>
+<li><strong>几何意义</strong><span>: SVD<span class="heti-spacing"> </span></span>将一个线性变换分解为“旋转<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>缩放<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>旋转”三个步骤。</li>
+<li><strong>与特征分解的关系</strong><span>: <span class="arithmatex">\(V\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A^TA\)</span><span class="heti-spacing"> </span></span>的特征向量矩阵，<span><span class="arithmatex">\(U\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(AA^T\)</span><span class="heti-spacing"> </span></span>的特征向量矩阵，奇异值是特征值的平方根。这是计算<span class="heti-skip"><span class="heti-spacing"> </span>SVD<span class="heti-spacing"> </span></span>的主要方法。</li>
+<li><strong>最优近似</strong><span>:<span class="heti-spacing"> </span></span>截断<span class="heti-skip"><span class="heti-spacing"> </span>SVD <span class="arithmatex">\(A_k\)</span><span class="heti-spacing"> </span></span>在弗罗贝尼乌斯范数下提供了对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>的最佳低秩近似，是数据压缩和降维的关键。</li>
+<li><strong>外积形式</strong><span>: <span class="arithmatex">\(A = \sum \sigma_i u_i v_i^T\)</span><span class="heti-spacing"> </span></span>提供了一种将矩阵看作多个“重要成分”叠加的视角。</li>
+</ol>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn:1">
+<p><strong>正交矩阵</strong> <span>(Orthogonal Matrix):<span class="heti-spacing"> </span></span>一个方阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(Q\)</span></span>，如果其转置等于其逆<span><span class="heti-spacing"> </span>(<span class="arithmatex">\(Q^T = Q^{-1}\)</span>)</span>，则称其为正交矩阵。它的所有列（或行）向量构成一组标准正交基。 <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn:2">
+<p><strong>半正定矩阵</strong> <span>(Positive Semi-definite Matrix):<span class="heti-spacing"> </span></span>对于一个对称矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(M\)</span></span>，如果对任意非零向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span></span>，都有<span><span class="heti-spacing"> </span><span class="arithmatex">\(x^T M x \ge 0\)</span></span>，则称<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(M\)</span><span class="heti-spacing"> </span></span>是半正定的。它的所有特征值都非负。<span><span class="arithmatex">\(A^TA\)</span><span class="heti-spacing"> </span></span>就是一个典型的半正定矩阵，因为<span><span class="heti-spacing"> </span><span class="arithmatex">\(x^T(A^TA)x = (Ax)^T(Ax) = ||Ax||^2 \ge 0\)</span></span>。 <a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年1月8日 20:14:52 CST">2026年1月8日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年6月17日 10:27:55 CST">2025年6月17日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: 14 Cluster Methods" class="md-footer__link md-footer__link--prev" href="../14-Cluster_Methods/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                14 Cluster Methods
+              </div>
+</div>
+</a>
+<a aria-label="下一页: 16 PCA" class="md-footer__link md-footer__link--next" href="../16-PCA/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                16 PCA
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

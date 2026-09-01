@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/tutorial/skill_learn/" rel="canonical"/>
+<link href="../begin/zsh_begin/" rel="prev"/>
+<link href="1-terminal/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>Skill_learn - Darstib's KG!</title>
+<link href="../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../css/timeline.css" rel="stylesheet"/>
+<link href="../../css/heti.css" rel="stylesheet"/>
+<link href="../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../css/flink.css" rel="stylesheet"/>
+<link href="../../css/apperance.css" rel="stylesheet"/>
+<link href="../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#Skill_learn">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Skill_learn
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../note/">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../note/">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Tutorial
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../python_learn/crypto/">
+<span class="md-ellipsis">
+    
+  
+    python_learn
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../begin/">
+<span class="md-ellipsis">
+    
+  
+    Begin
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_5_4" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    Skill_learn
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link md-nav__link--active" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_5_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Skill_learn
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="1-terminal/">
+<span class="md-ellipsis">
+    
+  
+    1 terminal
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="2-git/">
+<span class="md-ellipsis">
+    
+  
+    2 git
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="3-typesetools/">
+<span class="md-ellipsis">
+    
+  
+    3 typesetools
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="4-remote/">
+<span class="md-ellipsis">
+    
+  
+    4 remote
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="5-misc/">
+<span class="md-ellipsis">
+    
+  
+    5 misc
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#本期课程介绍">
+<span class="md-ellipsis">
+      
+        本期课程介绍
+      
+    </span>
+</a>
+<nav aria-label="本期课程介绍" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#课程安排">
+<span class="md-ellipsis">
+      
+        课程安排
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#课程声明">
+<span class="md-ellipsis">
+      
+        课程声明
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#关于课程展开">
+<span class="md-ellipsis">
+      
+        关于课程展开
+      
+    </span>
+</a>
+<nav aria-label="关于课程展开" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#关于课程反馈">
+<span class="md-ellipsis">
+      
+        关于课程反馈
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#关于问题提出">
+<span class="md-ellipsis">
+      
+        关于问题提出
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#关于一些读法">
+<span class="md-ellipsis">
+      
+        关于一些读法
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    Tutorial
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="./">
+<span class="md-ellipsis">
+    Skill_learn
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<h1 id="Skill_learn">Skill_learn<a class="headerlink" href="#Skill_learn" title="Permanent link">¶</a></h1>
+<h2 id="本期课程介绍">本期课程介绍<a class="headerlink" href="#本期课程介绍" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>这里是浙江大学<span class="heti-skip"><span class="heti-spacing"> </span>2024-2025<span class="heti-spacing"> </span></span>春夏学期计算机学院朋辈辅学<strong>技能拾遗</strong>课程主页，后续内容将在上课前更新。</p>
+<h3 id="课程安排">课程安排<a class="headerlink" href="#课程安排" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>考虑到夏学期尤其是接近期中<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>末时，大家（包括我自己）都非常忙，<del>大家也忙着补专业课的朋辈辅学<sup id="fnref:4"><a class="footnote-ref" href="#fn:4"><span><span class="heti-spacing"> </span>1</span></a></sup></del>，所以我计划时间安排如下（均在周五<span class="heti-skip"><span class="heti-spacing"> </span>18:30<span class="heti-spacing"> </span></span>开始，预计时长<span><span class="heti-spacing"> </span>90-120 mins</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">上课时间</th>
+<th style="text-align: center;">主题</th>
+<th style="text-align: center;">内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">3.21</td>
+<td style="text-align: center;"><a href="1-terminal/">终端使用</a></td>
+<td style="text-align: center;"><strong>Linux shell</strong> + Windows Terminal</td>
+</tr>
+<tr>
+<td style="text-align: center;">3.28</td>
+<td style="text-align: center;"><a href="2-git/">版本控制与简单开发</a></td>
+<td style="text-align: center;">Git + <strong>Github</strong> + Action[ + License]</td>
+</tr>
+<tr>
+<td style="text-align: center;">4.18<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">5</a></sup></td>
+<td style="text-align: center;"><a href="3-typesetools/">文档排版工具<span><span class="heti-spacing"> </span>1</span></a></td>
+<td style="text-align: center;"><strong>Markdown</strong> [  + Word] + <a href="https://overleaf.com/project/">LaTeX</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">4.25<sup id="fnref2:1"><a class="footnote-ref" href="#fn:1">5</a></sup></td>
+<td style="text-align: center;"><a href="3-typesetools/">文档排版工具<span><span class="heti-spacing"> </span>2</span></a></td>
+<td style="text-align: center;"><a href="https://typst.app/project/">Typst</a>[ + Visual Studio Code (vsc)]</td>
+</tr>
+<tr>
+<td style="text-align: center;">5.16</td>
+<td style="text-align: center;"><a href="4-remote/">远程连接与传输</a></td>
+<td style="text-align: center;"><strong>ssh</strong> + scp + sftp + rsync</td>
+</tr>
+<tr>
+<td style="text-align: center;">5.30</td>
+<td style="text-align: center;"><a href="5-misc/">奇怪知识串讲</a></td>
+<td style="text-align: center;">妙妙小工具<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>其他推荐了解知识？</td>
+</tr>
+</tbody>
+</table>
+<p>显然 <u>每一周的内容都很多</u> ，但是其中注意到我们的<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>月命途多舛（前有清明节，中有期中周，后有劳动节<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，我们在前面如果没能够讲完<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>讲清的部分，会在<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>月进行动态调整。</p>
+<details class="quote" open="open">
+<summary>下面是往期技能拾遗课程中推荐学习但本期未提及<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>细讲的相关内容</summary>
+<ul>
+<li><a href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/18_jnsy-sp24.png"><span>24-<span class="heti-spacing"> </span></span>春夏技能拾遗课程</a> （均在内部钉钉群）<ul>
+<li><a href="https://n.dingtalk.com/dingding/live-room/index.html?roomId=CUL5K7UaWcKkWNLv&amp;liveUuid=f2742c60-9a9e-4468-b151-d0523d90da73"><span>Docker<span class="heti-spacing"> </span></span>基础入门</a><span><span class="heti-spacing"> </span>by</span><a href="https://github.com/Foggy-whale"><span><span class="heti-spacing"> </span>@Foggy-whale</span></a><ul>
+<li><a href="https://blog.shiguang666.eu.org/2024/09/18/847c1ec4d4cd/"><span>Docker<span class="heti-spacing"> </span></span>快速通关</a></li>
+<li><a href="https://www.kelen.cc/dry/docker-hub-mirror"><span>docker<span class="heti-spacing"> </span></span>镜像源配置</a></li>
+</ul>
+</li>
+<li><a href="https://n.dingtalk.com/dingding/live-room/index.html?roomId=Ssm0CtL4q7lW1y5U&amp;liveUuid=1465a654-47ba-48af-91ba-d1b3d32e14ba"><span>makefile<span class="heti-spacing"> </span></span></a><span>by<span class="heti-spacing"> </span></span><a href="https://github.com/Foggy-whale"><span>@Foggy-whale<span class="heti-spacing"> </span></span></a><span>or<span class="heti-spacing"> </span></span><a href="https://siyuanblog.cn/archives/makefile"><span>Makefile<span class="heti-spacing"> </span></span>光速入门</a><span class="heti-skip"><span class="heti-spacing"> </span>or<span class="heti-spacing"> </span></span><a href="https://seisman.github.io/how-to-write-makefile/">跟我一起写<span><span class="heti-spacing"> </span>Makefile</span></a></li>
+<li><a href="https://n.dingtalk.com/dingding/live-room/index.html?roomId=iJaprRX0kVlR8bi6&amp;liveUuid=00fc196f-b10f-402d-a5a4-7c96549effb8">正则表达式</a><span><span class="heti-spacing"> </span>by</span><a href="https://github.com/Foggy-whale"><span><span class="heti-spacing"> </span>@Foggy-whale</span></a></li>
+<li><a href="https://n.dingtalk.com/dingding/live-room/index.html?roomId=DNzTTQFbGdVos1LD&amp;liveUuid=3b20f813-eb26-4f2f-9699-207d8bd17257">shell script</a> by <a href="https://github.com/Foggy-whale">@Foggy-whale</a></li>
+</ul>
+</li>
+<li><a href="https://slides.tonycrane.cc/PracticalSkillsTutorial/2023-fall-ckc/#/"><span>23-<span class="heti-spacing"> </span></span>秋冬技能拾遗课程</a><ul>
+<li><a href="https://slides.tonycrane.cc/PracticalSkillsTutorial/2023-fall-ckc/lec6/">lec6：网络<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>网站基础知识概述</a><span><span class="heti-spacing"> </span>by</span><a href="https://github.com/45gfg9"><span><span class="heti-spacing"> </span>@45gfg9</span></a></li>
+</ul>
+</li>
+<li><a href="https://slides.tonycrane.cc/PracticalSkillsTutorial/2023-spring-cs/#/"><span>23-<span class="heti-spacing"> </span></span>春夏技能拾遗课程</a><ul>
+<li><a href="https://slides.tonycrane.cc/PracticalSkillsTutorial/2023-spring-cs/lec2/">lec2：<span>Git/GitHub<span class="heti-spacing"> </span></span>基础介绍</a><span><span class="heti-spacing"> </span>|</span><a href="https://www.bilibili.com/video/BV1og4y1u7XU/"><span><span class="heti-spacing"> </span>BV1og4y1u7XU</span></a></li>
+<li><a href="https://slides.tonycrane.cc/PracticalSkillsTutorial/2023-spring-cs/lec4/">lec4：<span>LaTeX<span class="heti-spacing"> </span></span>排版简要介绍</a><span><span class="heti-spacing"> </span>|</span><a href="https://www.bilibili.com/video/BV12k4y1s7Y3/"><span><span class="heti-spacing"> </span>BV12k4y1s7Y3</span></a></li>
+</ul>
+</li>
+<li><a href="https://101.lug.ustc.edu.cn/">《Linux101》</a><ul>
+<li>（乱入）中国科学技术大学<span class="heti-skip"><span class="heti-spacing"> </span>Linux<span class="heti-spacing"> </span></span>用户协会出品</li>
+</ul>
+</li>
+</ul>
+<details class="extra">
+<summary>reveal-md 2 slide</summary>
+<p>如果你对上述<span class="heti-skip"><span class="heti-spacing"> </span>23<span class="heti-spacing"> </span></span>年拾遗课程使用的在线<span class="heti-skip"><span class="heti-spacing"> </span>slide<span class="heti-spacing"> </span></span>感兴趣，可以在<a href="https://note.isshikih.top/others/reveal-md2Slides/"><span class="heti-skip"><span class="heti-spacing"> </span>reveal-md to sildes<span class="heti-spacing"> </span></span></a>进行了解，在<a href="https://github.com/TonyCrane/slide-template"><span class="heti-skip"><span class="heti-spacing"> </span>slide-template<span class="heti-spacing"> </span></span></a>获得模板。</p>
+</details>
+</details>
+<p><del>较为系统</del> 学习后，我们大概率还是会在使用的时候忘记一些操作<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>命令等，所以推荐大家可以寻找一些备忘单<span class="heti-skip"><span class="heti-spacing"> </span>(cheatsheet)<span class="heti-spacing"> </span></span><sup id="fnref:5"><a class="footnote-ref" href="#fn:5"><span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span></a></sup>例如在<a href="https://cheatsheets.zip/"><span class="heti-skip"><span class="heti-spacing"> </span>cheatsheet.zip<span class="heti-spacing"> </span></span></a><span class="heti-skip"><span class="heti-spacing"> </span>or<span class="heti-spacing"> </span></span><a href="https://wangchujiang.com/reference/">中文翻译版</a> 或者是<a href="https://learnxinyminutes.com/"><span class="heti-skip"><span class="heti-spacing"> </span>learn x in y minutes<span class="heti-spacing"> </span></span></a>中就有不错的内容。</p>
+<h3 id="课程声明">课程声明<a class="headerlink" href="#课程声明" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>出于个人风格并考虑<strong>大家的需求</strong>（有需求请大胆提出，评论区与钉钉均可<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，请容许我简单浪费大家几分钟提出几点建议和声明：</p>
+<details class="info">
+<summary>本期课程原则</summary>
+<details class="quote">
+<summary>君子生非异也，善假于物也</summary>
+<p>精通一些工具不仅可以帮助大家更快的使用工具完成任务，并且可以帮助解决在之前看来似乎无比复杂的问题；但是我本人其实主张根据需求找合适的工具，而本期技能拾遗的目的是指导那些大家都应该掌握的工具的基本使用，同时简单介绍大家以后很可能会使用到的工具以及相关的作用。</p>
+</details>
+<details class="quote">
+<summary>精工巧具之大观也，前人之述备矣</summary>
+<p>这门课叫 “技能拾遗”，但前人似乎已经帮大家捡的差不多了，我该帮大家捡点什么呢？我不认为我能够讲得比前人更好，所以对于<span class="heti-skip"><span class="heti-spacing"> </span>pbfx<span class="heti-spacing"> </span></span>前面几期课程已经讲解得非常详细的内容，我打算以<span class="heti-skip"><span class="heti-spacing"> </span>cheatsheet+demo<span class="heti-spacing"> </span></span>的形式讲解，<strong>以本科阶段够用为主</strong>，<strong>不会深入</strong>，并尽量留下我认为的“前人之述”；同时横向比较多个工具，由同学们自己选择最后使用什么、掌握什么。</p>
+</details>
+<details class="quote">
+<summary>常用者求专精，备预者取通广</summary>
+<p>根据需求寻找效果类似的工具时，我主张：</p>
+<ul>
+<li>常用的工具找最喜欢的</li>
+<li>不常用工具找最泛用的</li>
+</ul>
+</details>
+<details class="quote">
+<summary><a href="https://scp-wiki-cn.wikidot.com/transcription-malfunctioned-hub">转录异常，难免故障</a></summary>
+<p>意思是我不过将知识技能整理、搬运，没有多少自己的产出，且知识转移转移过程中难免小问题，请多担待。</p>
+</details>
+<details class="wiki">
+<summary><a href="https://en.wikipedia.org/wiki/Curse_of_knowledge">知识诅咒</a></summary>
+<p>The curse of knowledge, also called the curse of expertise or expert's curse, is a cognitive bias that occurs when a person who has specialized knowledge assumes that others share in that knowledge.</p>
+<p>意思是当一个人拥有专门知识时，会假设他人也共享这种知识；很有可能我在讲解时假设大家掌握了一些知识，或者有了一些思维（例如如果对<span class="heti-skip"><span class="heti-spacing"> </span>html+css<span class="heti-spacing"> </span></span>较为了解，其他文本标记语言上手也是非常快的<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，我会尽量使用 <code>prerequisite</code> 进行声明，并尽快更新在对应内容前方。</p>
+<div class="admonition prerequisite">
+<p class="admonition-title">Prerequisite</p>
+</div>
+</details>
+</details>
+<p>总之，我不希望重复造轮子；或者说我希望能够覆盖到更浅但更多的内容供同学们学习，希望对此不能接受的同学能够尽早降低预期以免浪费您宝贵的时间；同时能力有限，可能有误或者不如意，希望不会被挂<span><span class="heti-spacing"> </span>98</span> 😭。</p>
+<h2 id="关于课程展开">关于课程展开<a class="headerlink" href="#关于课程展开" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="关于课程反馈">关于课程反馈<a class="headerlink" href="#关于课程反馈" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li>有<strong>不理解之处可在直播时提出</strong>，在一块内容讲解完成后再统一解释<sup id="fnref:2"><a class="footnote-ref" href="#fn:2"><span><span class="heti-spacing"> </span>4</span></a></sup>；</li>
+<li>有<strong>建议请在钉钉群提出</strong>，可以反映出总体对这个建议的支持度；</li>
+<li>有<strong>意见<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>明显讲错的地方请钉钉私聊</strong>，如确实存在我会在群内对讲解进行纠正；</li>
+<li>有错字或<strong>其他任何理由可在对应内容下方评论区留言</strong>，感谢大家的支持！</li>
+</ul>
+<h3 id="关于问题提出">关于问题提出<a class="headerlink" href="#关于问题提出" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>一些同学可能在安装工具<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>配置环境时会遇到这样那样的问题，理论上来说我们这门课不提供相关支持，但是我不反对对相关问题进行<strong>尝试性</strong>的私下解答；但是期望先按照下面顺序进行：<strong>将有效信息在浏览器查询<span class="heti-skip"><span class="heti-spacing"> </span>&gt;<span class="heti-spacing"> </span></span>将有效信息询问<span class="heti-skip"><span class="heti-spacing"> </span>LLM &gt;<span class="heti-spacing"> </span></span>查询官方相关文档<span class="heti-skip"><span class="heti-spacing"> </span>/issues &gt;<span class="heti-spacing"> </span></span>将有效信息向我展示</strong><sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup>。询问浏览器<span class="heti-skip"><span class="heti-spacing"> </span>/LLM<span class="heti-spacing"> </span></span>其实本身就应该和询问人一样的提供足够的信息，<a href="https://arxiv.org/abs/2402.14531">一项研究</a> 表明，对<span class="heti-skip"><span class="heti-spacing"> </span>LLM<span class="heti-spacing"> </span></span>礼貌其实也一定程度上影响了回答的质量，询问人获得的回答质量受到影响当然是更大的。</p>
+<details class="question">
+<summary>什么是有效信息？</summary>
+<p>我认为也不必搬出老生常谈的<a href="https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way">提问的智慧</a>了，一个简单的学习方式是看那些<a href="https://github.com/freeCodeCamp/freeCodeCamp/tree/main/.github/ISSUE_TEMPLATE">大型项目的<span class="heti-skip"><span class="heti-spacing"> </span>issue<span class="heti-spacing"> </span></span>模板</a>是怎样的；当然不必那么死板，重要的是 <strong>“问题描述<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>操作复现”+“出现的报错信息”</strong>，可能还需要环境版本等；我也许可以从你的截图中推断出，所以截图建议全面，但同时将重点标出。</p>
+</details>
+<h3 id="关于一些读法">关于一些读法<a class="headerlink" href="#关于一些读法" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在搜索引擎中搜索<span class="heti-skip"><span class="heti-spacing"> </span>"pronunciation of xxx"<span class="heti-spacing"> </span></span>或者在<a href="https://forvo.com/"><span><span class="heti-spacing"> </span>forvo</span></a>、<a href="https://en.wiktionary.org/wiki/Wiktionary:Main_Page"><span>wiktionary<span class="heti-spacing"> </span></span></a>等网站搜索。</p>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn:4">
+<p>根据往期数据，期末复习的观看量是前瞻的<span class="heti-skip"><span class="heti-spacing"> </span>3-4<span class="heti-spacing"> </span></span>倍🤔。 <a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn:5">
+<p>感觉暂时没有特别好的中文能够翻译这个词，我姑且叫做吧。 <a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 2 in the text">↩</a></p>
+</li>
+<li id="fn:3">
+<p>实话说，按照这个过程，也到不了最后一步；真到了最后一步，问题能被我解决的可能性也大大降低。 <a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">↩</a></p>
+</li>
+<li id="fn:2">
+<p>基于直播延迟和课程流畅性，不太可能看到了就进行解释。 <a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 4 in the text">↩</a></p>
+</li>
+<li id="fn:1">
+<p>作为动态调整部分。 <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 5 in the text">↩</a><a class="footnote-backref" href="#fnref2:1" title="Jump back to footnote 5 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月6日 18:42:40 CST">2026年7月6日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2024年10月6日 10:38:35 CST">2024年10月6日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: Zsh begin" class="md-footer__link md-footer__link--prev" href="../begin/zsh_begin/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                Zsh begin
+              </div>
+</div>
+</a>
+<a aria-label="下一页: 1 terminal" class="md-footer__link md-footer__link--next" href="1-terminal/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                1 terminal
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../js/katex.js"></script>
+<script src="../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

@@ -1,0 +1,2212 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/note/DEM/Lec03/" rel="canonical"/>
+<link href="../Lec02/" rel="prev"/>
+<link href="../Lec04/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>第三讲：非合作博弈论基础（一） - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#第三讲非合作博弈论基础一">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              第三讲：非合作博弈论基础（一）
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Note
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs188/">
+<span class="md-ellipsis">
+    
+  
+    cs188
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../physics/">
+<span class="md-ellipsis">
+    
+  
+    physics
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-II/">
+<span class="md-ellipsis">
+    
+  
+    CSys-II
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-III/">
+<span class="md-ellipsis">
+    
+  
+    CSys-III
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3_6" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    DEM
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    DEM
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec01/">
+<span class="md-ellipsis">
+    
+  
+    第一讲 数据要素市场简介
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec02/">
+<span class="md-ellipsis">
+    
+  
+    第二讲：数据合规与安全
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    第三讲：非合作博弈论基础（一）
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    第三讲：非合作博弈论基础（一）
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I-微观经济学基础-page-3-35">
+<span class="md-ellipsis">
+      
+        I 微观经济学基础 (page 3-35)
+      
+    </span>
+</a>
+<nav aria-label="I 微观经济学基础 (page 3-35)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I1-偏好与效用-page-4-7">
+<span class="md-ellipsis">
+      
+        I.1 偏好与效用 (page 4-7)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I2-几类重要的效用函数-page-9-11">
+<span class="md-ellipsis">
+      
+        I.2 几类重要的效用函数 (page 9-11)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I3-边际效用递减规律-page-12">
+<span class="md-ellipsis">
+      
+        I.3 边际效用递减规律 (page 12)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I4-效用最大化与市场均衡-page-13-19">
+<span class="md-ellipsis">
+      
+        I.4 效用最大化与市场均衡 (page 13-19)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I5-社会福利与看不见的手-page-20-23">
+<span class="md-ellipsis">
+      
+        I.5 社会福利与看不见的手 (page 20-23)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I6-市场失灵-page-24-30">
+<span class="md-ellipsis">
+      
+        I.6 市场失灵 (page 24-30)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I7-数据的经济学特性与定价挑战-page-31-35">
+<span class="md-ellipsis">
+      
+        I.7 数据的经济学特性与定价挑战 (page 31-35)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II-博弈论引入与基本概念-page-36-52">
+<span class="md-ellipsis">
+      
+        II 博弈论：引入与基本概念 (page 36-52)
+      
+    </span>
+</a>
+<nav aria-label="II 博弈论：引入与基本概念 (page 36-52)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II1-博弈的规范式表达-page-46-48">
+<span class="md-ellipsis">
+      
+        II.1 博弈的规范式表达 (page 46-48)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II2-博弈的分类-page-52">
+<span class="md-ellipsis">
+      
+        II.2 博弈的分类 (page 52)
+      
+    </span>
+</a>
+<nav aria-label="II.2 博弈的分类 (page 52)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II21-合作博弈">
+<span class="md-ellipsis">
+      
+        II.2.1 合作博弈
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II22-非合作博弈">
+<span class="md-ellipsis">
+      
+        II.2.2 非合作博弈
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III-占优策略均衡-page-53-65">
+<span class="md-ellipsis">
+      
+        III 占优策略均衡 (page 53-65)
+      
+    </span>
+</a>
+<nav aria-label="III 占优策略均衡 (page 53-65)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III1-囚徒困境与严格占优-page-54-55">
+<span class="md-ellipsis">
+      
+        III.1 囚徒困境与严格占优 (page 54-55)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III2-重复剔除严格劣策略-IESDS-page-57-61">
+<span class="md-ellipsis">
+      
+        III.2 重复剔除严格劣策略 (IESDS) (page 57-61)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III3-弱占优与问题-page-62-65">
+<span class="md-ellipsis">
+      
+        III.3 弱占优与问题 (page 62-65)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV-纳什均衡-page-66-81">
+<span class="md-ellipsis">
+      
+        IV 纳什均衡 (page 66-81)
+      
+    </span>
+</a>
+<nav aria-label="IV 纳什均衡 (page 66-81)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV1-纳什均衡的引入-page-67-68">
+<span class="md-ellipsis">
+      
+        IV.1 纳什均衡的引入 (page 67-68)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV2-最佳应对与纳什均衡的定义-page-69-71">
+<span class="md-ellipsis">
+      
+        IV.2 最佳应对与纳什均衡的定义 (page 69-71)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV3-求解纳什均衡">
+<span class="md-ellipsis">
+      
+        IV.3 求解纳什均衡
+      
+    </span>
+</a>
+<nav aria-label="IV.3 求解纳什均衡" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV31-离散策略博弈-page-73">
+<span class="md-ellipsis">
+      
+        IV.3.1 离散策略博弈 (page 73)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV32-连续策略博弈古诺竞争-page-74-79">
+<span class="md-ellipsis">
+      
+        IV.3.2 连续策略博弈：古诺竞争 (page 74-79)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV4-纳什均衡的意义与挑战协调博弈-page-80-81">
+<span class="md-ellipsis">
+      
+        IV.4 纳什均衡的意义与挑战：协调博弈 (page 80-81)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec04/">
+<span class="md-ellipsis">
+    
+  
+    第四讲：非合作博弈论基础 (二)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec05/">
+<span class="md-ellipsis">
+    
+  
+    第五讲：合作博弈与数据估值
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec06/">
+<span class="md-ellipsis">
+    
+  
+    第六讲：多臂老虎机算法基础与应用
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec07/">
+<span class="md-ellipsis">
+    
+  
+    第七讲：拍卖与机制设计基础
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec08/">
+<span class="md-ellipsis">
+    
+  
+    第八讲：最优机制
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec09/">
+<span class="md-ellipsis">
+    
+  
+    第九讲：数据交易定价
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec10/">
+<span class="md-ellipsis">
+    
+  
+    第十讲：贝叶斯劝说
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DMA/">
+<span class="md-ellipsis">
+    
+  
+    DMA
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs70/">
+<span class="md-ellipsis">
+    
+  
+    cs70
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../other/">
+<span class="md-ellipsis">
+    
+  
+    other
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I-微观经济学基础-page-3-35">
+<span class="md-ellipsis">
+      
+        I 微观经济学基础 (page 3-35)
+      
+    </span>
+</a>
+<nav aria-label="I 微观经济学基础 (page 3-35)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I1-偏好与效用-page-4-7">
+<span class="md-ellipsis">
+      
+        I.1 偏好与效用 (page 4-7)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I2-几类重要的效用函数-page-9-11">
+<span class="md-ellipsis">
+      
+        I.2 几类重要的效用函数 (page 9-11)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I3-边际效用递减规律-page-12">
+<span class="md-ellipsis">
+      
+        I.3 边际效用递减规律 (page 12)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I4-效用最大化与市场均衡-page-13-19">
+<span class="md-ellipsis">
+      
+        I.4 效用最大化与市场均衡 (page 13-19)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I5-社会福利与看不见的手-page-20-23">
+<span class="md-ellipsis">
+      
+        I.5 社会福利与看不见的手 (page 20-23)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I6-市场失灵-page-24-30">
+<span class="md-ellipsis">
+      
+        I.6 市场失灵 (page 24-30)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I7-数据的经济学特性与定价挑战-page-31-35">
+<span class="md-ellipsis">
+      
+        I.7 数据的经济学特性与定价挑战 (page 31-35)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II-博弈论引入与基本概念-page-36-52">
+<span class="md-ellipsis">
+      
+        II 博弈论：引入与基本概念 (page 36-52)
+      
+    </span>
+</a>
+<nav aria-label="II 博弈论：引入与基本概念 (page 36-52)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II1-博弈的规范式表达-page-46-48">
+<span class="md-ellipsis">
+      
+        II.1 博弈的规范式表达 (page 46-48)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II2-博弈的分类-page-52">
+<span class="md-ellipsis">
+      
+        II.2 博弈的分类 (page 52)
+      
+    </span>
+</a>
+<nav aria-label="II.2 博弈的分类 (page 52)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II21-合作博弈">
+<span class="md-ellipsis">
+      
+        II.2.1 合作博弈
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II22-非合作博弈">
+<span class="md-ellipsis">
+      
+        II.2.2 非合作博弈
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III-占优策略均衡-page-53-65">
+<span class="md-ellipsis">
+      
+        III 占优策略均衡 (page 53-65)
+      
+    </span>
+</a>
+<nav aria-label="III 占优策略均衡 (page 53-65)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III1-囚徒困境与严格占优-page-54-55">
+<span class="md-ellipsis">
+      
+        III.1 囚徒困境与严格占优 (page 54-55)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III2-重复剔除严格劣策略-IESDS-page-57-61">
+<span class="md-ellipsis">
+      
+        III.2 重复剔除严格劣策略 (IESDS) (page 57-61)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III3-弱占优与问题-page-62-65">
+<span class="md-ellipsis">
+      
+        III.3 弱占优与问题 (page 62-65)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV-纳什均衡-page-66-81">
+<span class="md-ellipsis">
+      
+        IV 纳什均衡 (page 66-81)
+      
+    </span>
+</a>
+<nav aria-label="IV 纳什均衡 (page 66-81)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV1-纳什均衡的引入-page-67-68">
+<span class="md-ellipsis">
+      
+        IV.1 纳什均衡的引入 (page 67-68)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV2-最佳应对与纳什均衡的定义-page-69-71">
+<span class="md-ellipsis">
+      
+        IV.2 最佳应对与纳什均衡的定义 (page 69-71)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV3-求解纳什均衡">
+<span class="md-ellipsis">
+      
+        IV.3 求解纳什均衡
+      
+    </span>
+</a>
+<nav aria-label="IV.3 求解纳什均衡" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV31-离散策略博弈-page-73">
+<span class="md-ellipsis">
+      
+        IV.3.1 离散策略博弈 (page 73)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV32-连续策略博弈古诺竞争-page-74-79">
+<span class="md-ellipsis">
+      
+        IV.3.2 连续策略博弈：古诺竞争 (page 74-79)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV4-纳什均衡的意义与挑战协调博弈-page-80-81">
+<span class="md-ellipsis">
+      
+        IV.4 纳什均衡的意义与挑战：协调博弈 (page 80-81)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Note
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    DEM
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:notes">notes</a>
+</nav>
+<h1 id="第三讲非合作博弈论基础一">第三讲：非合作博弈论基础（一）<a class="headerlink" href="#第三讲非合作博弈论基础一" title="Permanent link">¶</a></h1>
+<h2 id="I-微观经济学基础-page-3-35"><span>I<span class="heti-spacing"> </span></span>微观经济学基础<span><span class="heti-spacing"> </span>(page 3-35)</span><a class="headerlink" href="#I-微观经济学基础-page-3-35" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>在深入研究多个决策者如何互动之前，我们首先需要理解单个决策者的行为模式。微观经济学为我们提供了分析个人和厂商在市场中如何做出最优选择的基础框架。这对于理解数据定价、交易策略等复杂问题至关重要。</p>
+<h3 id="I1-偏好与效用-page-4-7"><span>I.1<span class="heti-spacing"> </span></span>偏好与效用<span><span class="heti-spacing"> </span>(page 4-7)</span><a class="headerlink" href="#I1-偏好与效用-page-4-7" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在经济学中，我们分析消费者行为的起点是<strong>偏好<span><span class="heti-spacing"> </span>(preference)</span></strong>。偏好描述了消费者对不同商品组合的喜爱程度。例如，在“<span>15<span class="heti-spacing"> </span></span>个钥匙扣和<span class="heti-skip"><span class="heti-spacing"> </span>10<span class="heti-spacing"> </span></span>个本子”与“<span>10<span class="heti-spacing"> </span></span>个钥匙扣和<span class="heti-skip"><span class="heti-spacing"> </span>15<span class="heti-spacing"> </span></span>个本子”之间，消费者能够判断出自己更喜欢哪一个，或者认为两者没有差别。</p>
+<p>为了将这种主观的偏好进行量化分析，经济学家引入了<strong>效用<span><span class="heti-spacing"> </span>(utility)</span></strong> 的概念。</p>
+<details class="definition" open="open">
+<summary>效用<span><span class="heti-spacing"> </span>(Utility)</span></summary>
+<p>效用是一个数值，用于表示消费者从一个消费组合（也称消费束<span><span class="heti-spacing"> </span>, consumer bundle</span>）中获得的满意程度。一个消费束通常表示为向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{x} = (x_1, x_2, \ldots, x_n)\)</span></span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_i\)</span><span class="heti-spacing"> </span></span>是商品<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>的数量。</p>
+<p><strong>效用函数<span><span class="heti-spacing"> </span>(utility function)</span></strong> 是一个将消费束映射到代表满意程度的实数的函数：</p>
+<p><span class="arithmatex">\(u: \mathbb{R}^n \rightarrow \mathbb{R}\)</span></p>
+<p>效用函数的关键性质是：如果消费者认为消费束<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{x}\)</span><span class="heti-spacing"> </span></span>优于<span><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{y}\)</span></span>，那么<span><span class="heti-spacing"> </span><span class="arithmatex">\(u(\boldsymbol{x}) &gt; u(\boldsymbol{y})\)</span></span>。</p>
+</details>
+<p>例如，<span><span class="arithmatex">\(u(1 \text{斤苹果}, -6 \text{元钱}) = 0\)</span><span class="heti-spacing"> </span></span>表示消费者认为获得<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>斤苹果所带来的满足感，正好与花费<span class="heti-skip"><span class="heti-spacing"> </span>6<span class="heti-spacing"> </span></span>元钱所带来的不满足感相抵消。换言之，他愿意为<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>斤苹果支付<span class="heti-skip"><span class="heti-spacing"> </span>6<span class="heti-spacing"> </span></span>元钱。</p>
+<p>这一理论框架建立在一个核心假设之上：<strong>理性人假设<span><span class="heti-spacing"> </span>(rational agent hypothesis)</span></strong>。该假设认为，<u>经济活动中的每个参与者（无论是消费者还是厂商）都会在面临选择时，采取行动以最大化自身的效用（或利润）</u> 。虽然这一假设在现实中备受争议（行为经济学就是研究非理性行为的学科<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，但它构成了经典经济学和博弈论分析的基石。</p>
+<h3 id="I2-几类重要的效用函数-page-9-11"><span>I.2<span class="heti-spacing"> </span></span>几类重要的效用函数<span><span class="heti-spacing"> </span>(page 9-11)</span><a class="headerlink" href="#I2-几类重要的效用函数-page-9-11" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>根据商品特性和分析场景的不同，经济学中会使用不同形式的效用函数。</p>
+<ol>
+<li><strong>柯布<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>道格拉斯效用函数<span><span class="heti-spacing"> </span>(Cobb-Douglas Utility Function)</span></strong>:
+    形式为 <span class="arithmatex">\(u(x_1, x_2) = x_1^\alpha x_2^{1-\alpha}\)</span>，其中 <span class="arithmatex">\(\alpha \in (0, 1)\)</span>。<ul>
+<li><span><span class="arithmatex">\(\alpha\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(1-\alpha\)</span><span class="heti-spacing"> </span></span>分别代表消费者对商品<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>和商品<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>的偏好权重。</li>
+<li>这个函数形式体现了“多多益善”的特点，即增加任何一种商品的消费量都会提高总效用。</li>
+<li>它还隐含了<strong>边际效用递减</strong>的特性，我们稍后会详细解释。</li>
+<li>在宏观经济学中，这种函数形式也常被用作生产函数，表示资本和劳动力投入与总产出之间的关系。</li>
+</ul>
+</li>
+<li><strong>冯<span class="heti-skip"><span class="heti-spacing"> </span>·<span class="heti-spacing"> </span></span>诺依曼<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>摩根斯坦效用<span><span class="heti-spacing"> </span>(von Neumann-Morgenstern Utility)</span></strong>:
+    用于处理不确定性下的选择。假设一个“彩票” <span class="arithmatex">\(L\)</span> 有 <span class="arithmatex">\(p\)</span> 的概率得到结果 <span class="arithmatex">\(x\)</span>，有 <span class="arithmatex">\(1-p\)</span> 的概率得到结果 <span class="arithmatex">\(y\)</span>。其期望效用为：
+    <span class="arithmatex">\(u(L) = p \cdot u(x) + (1-p) \cdot u(y)\)</span><ul>
+<li>这里的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(u(\cdot)\)</span><span class="heti-spacing"> </span></span>是指对确定性结果的效用。</li>
+<li>这个理论框架可以用来分析个体对风险的态度：<ul>
+<li><strong>风险厌恶<span><span class="heti-spacing"> </span>(Risk Averse)</span></strong><span>:<span class="heti-spacing"> </span></span>如果效用函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(u\)</span><span class="heti-spacing"> </span></span>是严格凹函数，个体更喜欢确定的平均收益，而不是有风险的收益。</li>
+<li><strong>风险偏好<span><span class="heti-spacing"> </span>(Risk Seeking)</span></strong><span>:<span class="heti-spacing"> </span></span>如果<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(u\)</span><span class="heti-spacing"> </span></span>是严格凸函数，个体更喜欢有风险的赌博。</li>
+<li><strong>风险中性<span><span class="heti-spacing"> </span>(Risk Neutral)</span></strong><span>:<span class="heti-spacing"> </span></span>如果<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(u\)</span><span class="heti-spacing"> </span></span>是线性函数，个体只关心期望收益，对风险无所谓。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>拟线性效用函数<span><span class="heti-spacing"> </span>(Quasi-linear Utility Function)</span></strong>:
+    形式为 <span class="arithmatex">\(u(x, p) = v(x) - p\)</span>。<ul>
+<li>它将消费束<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>的效用<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(v(x)\)</span><span class="heti-spacing"> </span></span>和为之支付的价格<span><span class="heti-spacing"> </span><span class="arithmatex">\(p\)</span></span>（即金钱）分离开来。</li>
+<li>这里隐含了一个简化的假设：货币的边际效用是恒定的（通常设为<span><span class="heti-spacing"> </span>1</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>这种形式在机制设计和拍卖理论中非常常用，因为它简化了分析，让我们能更专注于商品本身的估值。</li>
+</ul>
+</li>
+</ol>
+<h3 id="I3-边际效用递减规律-page-12"><span>I.3<span class="heti-spacing"> </span></span>边际效用递减规律<span><span class="heti-spacing"> </span>(page 12)</span><a class="headerlink" href="#I3-边际效用递减规律-page-12" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>这是一个非常核心的经济学概念。</p>
+<details class="definition" open="open">
+<summary>边际效用<span><span class="heti-spacing"> </span>(Marginal Utility)</span></summary>
+<p>边际效用是指在其他商品消费量保持不变的情况下，消费者每增加一单位某种商品的消费所带来的<strong>额外</strong>满足程度。</p>
+</details>
+<p><strong>边际效用递减规律<span><span class="heti-spacing"> </span>(Law of Diminishing Marginal Utility)</span></strong> 指出，在一定时期内，随着消费者对某种商品消费量的不断增加，其总效用虽然在增加，但边际效用（即总效用的增速）是递减的。当总效用达到最大值时，边际效用为零；如果继续消费，总效用反而会下降，边际效用变为负数。</p>
+<details class="example" open="open">
+<summary>冰激凌的效用</summary>
+<p>假设吃冰激凌的效用如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">数量</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">5</th>
+<th style="text-align: center;">6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>总效用</strong></td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">10</td>
+</tr>
+</tbody>
+</table>
+<p>我们可以计算出对应的边际效用：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">消费第几个</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">5</th>
+<th style="text-align: center;">6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>边际效用</strong></td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">-3</td>
+<td style="text-align: center;">-5</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>第<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>个冰激凌带来了<span class="heti-skip"><span class="heti-spacing"> </span>7<span class="heti-spacing"> </span></span>个单位的效用。</li>
+<li>第<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>个带来了<span class="heti-skip"><span class="heti-spacing"> </span>5<span class="heti-spacing"> </span></span>个单位的<strong>额外</strong>效用（总效用从<span class="heti-skip"><span class="heti-spacing"> </span>7<span class="heti-spacing"> </span></span>增加到<span><span class="heti-spacing"> </span>12</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>到第<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>个时，总效用达到顶峰<span><span class="heti-spacing"> </span>18</span>。</li>
+<li>吃第<span class="heti-skip"><span class="heti-spacing"> </span>5<span class="heti-spacing"> </span></span>个时，总效用反而下降到<span><span class="heti-spacing"> </span>15</span>，说明边际效用为<span><span class="heti-spacing"> </span>-3</span>，已经吃腻了。</li>
+</ul>
+</details>
+<h3 id="I4-效用最大化与市场均衡-page-13-19"><span>I.4<span class="heti-spacing"> </span></span>效用最大化与市场均衡<span><span class="heti-spacing"> </span>(page 13-19)</span><a class="headerlink" href="#I4-效用最大化与市场均衡-page-13-19" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>理性消费者在<strong>预算约束<span><span class="heti-spacing"> </span>(budget constraint)</span></strong> 下会追求效用最大化。假设有两种商品，价格分别为<span><span class="heti-spacing"> </span><span class="arithmatex">\(p_1, p_2\)</span></span>，消费者收入为<span><span class="heti-spacing"> </span><span class="arithmatex">\(p\)</span></span>，其决策问题可以形式化为：
+$$
+\begin{aligned}
+\max_{x_1, x_2} \quad &amp; u(x_1, x_2) \
+\text{s.t.} \quad &amp; p_1 x_1 + p_2 x_2 \le p
+\end{aligned}
+$$
+由于我们通常假设效用函数是递增的（多多益善），所以在最优点上，预算约束会取等号，即钱会花完。</p>
+<details class="example" open="open">
+<summary>柯布<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>道格拉斯效用最大化<span><span class="heti-spacing"> </span>(page 14-15)</span></summary>
+<p><strong>问题</strong><span>:<span class="heti-spacing"> </span></span>设效用函数为<span><span class="heti-spacing"> </span><span class="arithmatex">\(u(x_1, x_2) = x_1^\alpha x_2^\beta\)</span></span>，价格为<span><span class="heti-spacing"> </span><span class="arithmatex">\(p_1, p_2\)</span></span>，收入为<span><span class="heti-spacing"> </span><span class="arithmatex">\(p\)</span></span>。求消费者的需求函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_1(p_1, p_2, p)\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_2(p_1, p_2, p)\)</span></span>。</p>
+<p><strong>求解</strong>:
+1. <strong>建立优化问题</strong>:
+    $$
+    \begin{aligned}
+    \max_{x_1, x_2} \quad &amp; x_1^\alpha x_2^\beta \
+    \text{s.t.} \quad &amp; p_1 x_1 + p_2 x_2 = p
+    \end{aligned}
+    $$
+2. <strong>求解方法</strong><span>:<span class="heti-spacing"> </span></span>可以使用拉格朗日乘数法，或者将约束代入目标函数，转化为单变量求极值问题。这里我们使用后者。
+    由约束得 <span class="arithmatex">\(x_2 = (p - p_1 x_1) / p_2\)</span>。代入效用函数，问题变为最大化 <span class="arithmatex">\(f(x_1) = x_1^\alpha \left(\frac{p - p_1 x_1}{p_2}\right)^\beta\)</span>。
+3. <strong>求导</strong><span>:<span class="heti-spacing"> </span></span>对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_1\)</span><span class="heti-spacing"> </span></span>求导并令其为<span><span class="heti-spacing"> </span>0</span>（求解过程略<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，可以得到最优解。
+4. <strong>结果</strong>:
+    $$
+    x_1^<em> = \frac{\alpha}{\alpha + \beta} \cdot \frac{p}{p_1} \quad ; \quad x_2^</em> = \frac{\beta}{\alpha + \beta} \cdot \frac{p}{p_2}
+    $$
+<strong>结论</strong><span>:<span class="heti-spacing"> </span></span>从结果可以看出，某种商品的需求量与其自身价格成反比，与消费者的收入成正比。</p>
+</details>
+<p>这符合<strong>需求定律<span><span class="heti-spacing"> </span>(Law of Demand)</span></strong>：在其他条件不变时，价格上涨，需求量减少；价格下降，需求量增加。</p>
+<p>与需求定律相对应的是<strong>供给定律<span><span class="heti-spacing"> </span>(Law of Supply)</span></strong>，它描述了厂商的行为：价格越高，厂商越愿意生产和销售，供给量越大。</p>
+<p>当市场上的需求和供给相遇时，它们会通过价格机制达到一个平衡点，这个点被称为<strong>市场出清<span><span class="heti-spacing"> </span>(market clearing)</span></strong> 或<strong>竞争均衡<span><span class="heti-spacing"> </span>(competitive equilibrium)</span></strong>。在此均衡点（下图中的<span class="heti-skip"><span class="heti-spacing"> </span>E<span class="heti-spacing"> </span></span>点<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，供给量等于需求量（<span class="arithmatex">\(Q_E\)</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，价格为均衡价格（<span class="arithmatex">\(P_E\)</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<h3 id="I5-社会福利与看不见的手-page-20-23"><span>I.5<span class="heti-spacing"> </span></span>社会福利与看不见的手<span><span class="heti-spacing"> </span>(page 20-23)</span><a class="headerlink" href="#I5-社会福利与看不见的手-page-20-23" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>一个自然的问题是：竞争均衡是“好”的吗？为了衡量市场的“好坏”，我们引入<strong>社会福利<span><span class="heti-spacing"> </span>(social welfare)</span></strong> 的概念。</p>
+<ul>
+<li><strong>消费者剩余<span><span class="heti-spacing"> </span>(Consumer Surplus)</span></strong><span>:<span class="heti-spacing"> </span></span>消费者愿意支付的最高价格与实际支付价格之间的差额总和。它代表了消费者在交易中获得的净收益。在图形上是需求曲线以下、价格线以上的区域。<ul>
+<li>消费者剩余<span class="heti-skip"><span class="heti-spacing"> </span>=<span class="heti-spacing"> </span></span>买到的商品效用<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>支付</li>
+</ul>
+</li>
+<li><strong>厂商剩余<span><span class="heti-spacing"> </span>(Producer Surplus)</span></strong><span>:<span class="heti-spacing"> </span></span>厂商的销售收入与生产成本之间的差额总和。它代表了厂商在交易中获得的净利润。在图形上是价格线以上、供给曲线以下的区域。<ul>
+<li>厂商剩余<span class="heti-skip"><span class="heti-spacing"> </span>=<span class="heti-spacing"> </span></span>出售的收益<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>成本</li>
+</ul>
+</li>
+</ul>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Lec03-1.png"><img alt="|600" src="../attachments/Lec03-1.png"/></a></p>
+<p><strong>社会福利<span class="heti-skip"><span class="heti-spacing"> </span>=<span class="heti-spacing"> </span></span>消费者剩余<span class="heti-skip"><span class="heti-spacing"> </span>+<span class="heti-spacing"> </span></span>厂商剩余</strong> <span>=<span class="heti-spacing"> </span></span>商品效用<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>成本（因为一般认为“支付<span class="heti-skip"><span class="heti-spacing"> </span>=<span class="heti-spacing"> </span></span>收益”<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。它衡量了市场交易为整个社会带来的总价值。</p>
+<details class="summary" open="open">
+<summary>福利经济学第一定理</summary>
+<p>在完全竞争市场中（包含一系列理想化假设<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，市场自发达到的均衡状态能够实现社会福利的最大化。</p>
+</details>
+<p>这个定理为亚当<span class="heti-skip"><span class="heti-spacing"> </span>·<span class="heti-spacing"> </span></span>斯密的<strong>看不见的手<span><span class="heti-spacing"> </span>(invisible hand)</span></strong> 提供了现代数学的诠释：竞争均衡建立在市场上每个消费者都追求自身效用最大化，并且每个厂商都追求利润最大化的基础上，是 <u>所有人自私的行为结合在一起得到的均衡，最终却实现了有效率的分配</u> 。</p>
+<h3 id="I6-市场失灵-page-24-30"><span>I.6<span class="heti-spacing"> </span></span>市场失灵<span><span class="heti-spacing"> </span>(page 24-30)</span><a class="headerlink" href="#I6-市场失灵-page-24-30" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>“看不见的手”并非万能，因为其所依赖的理想化假设（完全竞争、完全信息、无交易成本、无外部性、无规模经济等）在现实中往往不成立。当市场无法有效配置资源，导致社会福利未能最大化时，就出现了<strong>市场失灵<span><span class="heti-spacing"> </span>(market failure)</span></strong>。</p>
+<ol>
+<li><strong>垄断<span><span class="heti-spacing"> </span>(Monopoly)</span></strong> <span>(page 25):<span class="heti-spacing"> </span></span>当市场上只有一个生产者时，该厂商就拥有<strong>市场势力<span><span class="heti-spacing"> </span>(market power)</span></strong>，可以通过提高价格来攫取更多的消费者剩余，导致产量低于社会最优水平，产生<strong>无谓损失<span><span class="heti-spacing"> </span>(deadweight loss)</span></strong>，损害了社会总福利。<ul>
+<li>垄断厂商会通过提高价格攫取更多的消费者剩余。</li>
+</ul>
+</li>
+<li><strong>外部性<span><span class="heti-spacing"> </span>(Externalities)</span></strong> <span>(page 26):<span class="heti-spacing"> </span></span>外部性指一个人或一群人的行动和决策使另一个人或一群人受损或受益的情况，即社会成员从事经济活动时其成本与后果不完全由该行为人承担；<ul>
+<li><strong>负外部性</strong><span>:<span class="heti-spacing"> </span></span>如工厂排污影响下游渔场，其生产成本未包含对环境的破坏。</li>
+<li><strong>正外部性</strong><span>:<span class="heti-spacing"> </span></span>如植树造林美化环境，其收益（清新的空气）未完全由植树者获得。</li>
+<li><strong>公共物品<span><span class="heti-spacing"> </span>(Public Goods)</span></strong><span>:<span class="heti-spacing"> </span></span>具有<strong>非排他性</strong>（无法阻止未付费者使用）和<strong>非竞争性</strong>（一人使用不影响他人使用）的物品，如国防、路灯。它们通常带来巨大的正外部性，但由于难以收费，私人市场往往供给不足，产生“搭便车”问题。</li>
+</ul>
+</li>
+<li><strong>信息不对称<span><span class="heti-spacing"> </span>(Asymmetric Information)</span></strong> <span>(page 27-30):<span class="heti-spacing"> </span></span>指交易中的一方比另一方拥有更多、更重要的信息。
+    这会导致两种主要问题：<ul>
+<li><strong>逆向选择<span><span class="heti-spacing"> </span>(Adverse Selection)</span></strong><span>:<span class="heti-spacing"> </span></span>发生在签约前。拥有信息优势的一方可能会做出损害另一方的选择，导致市场上的商品质量劣于平均水平。</li>
+<li><strong>道德风险<span><span class="heti-spacing"> </span>(Moral Hazard)</span></strong><span>:<span class="heti-spacing"> </span></span>发生在签约后。拥有信息优势的一方可能会采取不被观察到的、损害对方利益的行动。</li>
+</ul>
+</li>
+</ol>
+<details class="example" open="open">
+<summary>柠檬市场<span><span class="heti-spacing"> </span>(The Market for Lemons) (page 29-30)</span></summary>
+<p>这是乔治<span class="heti-skip"><span class="heti-spacing"> </span>·<span class="heti-spacing"> </span></span>阿克洛夫提出的经典模型，用于说明信息不对称如何摧毁市场。
+- <strong>背景</strong><span>:<span class="heti-spacing"> </span></span>二手车市场有<span class="heti-skip"><span class="heti-spacing"> </span>50<span class="heti-spacing"> </span></span>辆好车（卖家要价<span><span class="heti-spacing"> </span><span class="arithmatex">\(3000，买家愿付\)</span>3600</span>）和<span class="heti-skip"><span class="heti-spacing"> </span>50<span class="heti-spacing"> </span></span>辆次品（“柠檬”，卖家要价<span><span class="heti-spacing"> </span><span class="arithmatex">\(2000，买家愿付\)</span>2400</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。
+- <strong>信息不对称</strong><span>:<span class="heti-spacing"> </span></span>只有卖家知道车的真实质量，买家不知道。
+- <strong>买家决策</strong><span>:<span class="heti-spacing"> </span></span>由于无法区分，买家只愿意支付基于平均质量的期望价格。市场上一半好车一半次品，所以买家的最高支付意愿是<span><span class="heti-spacing"> </span><span class="arithmatex">\(0.5 \times \$3600 + 0.5 \times \$2400 = \$3000\)</span></span>。
+- <strong>市场崩溃</strong>:
+    - 在这个价格（<span class="arithmatex">\(3000）下，好车的卖家（心理价位也是\)</span>3000）即使卖出也无利可图，甚至可能选择退出市场。
+    - 一旦好车卖家退出，市场上只剩下“柠檬”，买家会意识到这一点，并将出价降至$2400。
+    - 最终，好车被完全挤出市场，只有次品在交易，这就是所谓的<strong>“劣币驱逐良币”</strong>。整个市场的效率和社会福利都大大降低了。
+- <strong>解决方案</strong><span>:<span class="heti-spacing"> </span></span>类似问题的解决方案通常依赖于<strong>信号传递<span><span class="heti-spacing"> </span>(signaling)</span></strong>（如好车卖家提供质保）或<strong>信息甄别<span><span class="heti-spacing"> </span>(screening)</span></strong>（如买家雇佣独立技师检测<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+</details>
+<h3 id="I7-数据的经济学特性与定价挑战-page-31-35"><span>I.7<span class="heti-spacing"> </span></span>数据的经济学特性与定价挑战<span><span class="heti-spacing"> </span>(page 31-35)</span><a class="headerlink" href="#I7-数据的经济学特性与定价挑战-page-31-35" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>数据作为一种特殊的商品，其特性完美地体现了市场失灵的各种挑战，使得为其合理定价变得异常复杂。</p>
+<ol>
+<li><strong>卖家垄断</strong><span>:<span class="heti-spacing"> </span></span>大型平台（如<span><span class="heti-spacing"> </span>Google, Meta</span>）拥有独特的用户数据，形成事实上的垄断。</li>
+<li><strong>零成本复制性</strong><span>:<span class="heti-spacing"> </span></span>数据一旦产生，复制和分发的边际成本几乎为零。这使得传统基于成本的供给曲线失效。</li>
+<li><strong>外部性</strong><span>:<span class="heti-spacing"> </span></span>一家公司购买数据提升了自身竞争力，可能会损害其竞争对手的利润，即便后者并未参与交易。</li>
+<li><strong>公共物品属性</strong><span>:<span class="heti-spacing"> </span></span>数据的使用具有非竞争性，零成本复制又使其难以排他。这引发了关于数据产权的复杂问题。</li>
+<li><strong>效用不确定性<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>信息不对称<span><span class="heti-spacing"> </span>)</span></strong>:<ul>
+<li><strong>买家确定，卖家不确定</strong><span>:<span class="heti-spacing"> </span></span>卖家不知道买家将数据用于何种下游任务，因此不确定数据对买家的真实价值。</li>
+<li><strong>卖家确定，买家不确定</strong><span>:<span class="heti-spacing"> </span></span>买家在购买前无法看到数据内容，不确定其质量和效用。需要免费试用、声誉或广告（如贝叶斯劝说）等机制来解决。</li>
+<li><strong>双方都不确定</strong><span>:<span class="heti-spacing"> </span></span>这是最复杂的情况。</li>
+</ul>
+</li>
+</ol>
+<p>这些特性使得数据市场天然地与<strong>价格歧视<span><span class="heti-spacing"> </span>(price discrimination)</span></strong> 相联系。</p>
+<ul>
+<li><strong>一级价格歧视<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>完全价格歧视<span><span class="heti-spacing"> </span>)</span></strong><span>:<span class="heti-spacing"> </span></span>卖家完全了解每个买家的支付意愿，并据此定价，榨干所有消费者剩余。这在理论上是可能的，如果数据卖家能完美分析用户偏好。</li>
+<li><strong>三级价格歧视</strong><span>:<span class="heti-spacing"> </span></span>根据可观察的群体特征（如年龄、地区）进行定价，例如“大数据杀熟”<heti-adjacent class="heti-adjacent-quarter">、</heti-adjacent>“学生半价”。</li>
+<li><strong>二级价格歧视</strong><span>:<span class="heti-spacing"> </span></span>卖家设计不同的产品<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>价格套餐，让消费者“自我选择”，从而实现信息甄别。例如，提供不同数量或质量的数据包，或者像软件的“家庭版”和“专业版”一样进行<strong>版本化<span><span class="heti-spacing"> </span>(versioning)</span></strong>。</li>
+</ul>
+<p>所有这些挑战都指向一个结论：简单的供需模型不足以分析数据市场。我们需要一个能够处理战略互动、信息不对称和复杂决策的框架，这就是<strong>博弈论</strong>。</p>
+<h2 id="II-博弈论引入与基本概念-page-36-52"><span>II<span class="heti-spacing"> </span></span>博弈论：引入与基本概念<span><span class="heti-spacing"> </span>(page 36-52)</span><a class="headerlink" href="#II-博弈论引入与基本概念-page-36-52" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>微观经济学主要研究单人决策问题（<span class="arithmatex">\(\max u(x)\)</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，而现实世界中，一个决策者的最优选择往往依赖于其他人的选择。博弈论正是研究这种<strong>交互式决策<span><span class="heti-spacing"> </span>(interactive decision-making)</span></strong> 的数学工具。</p>
+<p>从数学上看，问题从单人最优化<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\max_{x \in X} u(x)\)</span><span class="heti-spacing"> </span></span>变为了多人关联的最优化：
+$$
+\max_{x_i \in X_i} u_i(x_i, \boldsymbol{x}_{-i})
+$$
+其中，<span class="arithmatex">\(x_i\)</span> 是参与人 <span class="arithmatex">\(i\)</span> 的决策，而 <span class="arithmatex">\(\boldsymbol{x}_{-i}\)</span> 代表<strong>所有其他</strong>参与人的决策组合。<span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>的效用<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(u_i\)</span><span class="heti-spacing"> </span></span>不仅取决于自己的行为<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_i\)</span></span>，还取决于别人做了什么<span><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{x}_{-i}\)</span></span>。</p>
+<details class="example" open="open">
+<summary>书店定价</summary>
+<ol>
+<li>
+<p><strong>垄断<span><span class="heti-spacing"> </span>(Monopoly)</span></strong><span>:<span class="heti-spacing"> </span></span>镇上只有你一家书店，书的成本<span class="heti-skip"><span class="heti-spacing"> </span>20<span class="heti-spacing"> </span></span>元，顾客最多愿意付<span class="heti-skip"><span class="heti-spacing"> </span>200<span class="heti-spacing"> </span></span>元。你的最优决策是什么？很简单，定价<span class="heti-skip"><span class="heti-spacing"> </span>200<span class="heti-spacing"> </span></span>元，赚取最大利润<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(200 - 20 = 180\)</span><span class="heti-spacing"> </span></span>元。这时你只需要考虑消费者，不需要考虑其他竞争者。</p>
+</li>
+<li>
+<p><strong>寡头<span><span class="heti-spacing"> </span>(Oligopoly)</span></strong><span>:<span class="heti-spacing"> </span></span>镇上新开了一家书店，成本也是<span class="heti-skip"><span class="heti-spacing"> </span>20<span class="heti-spacing"> </span></span>元。现在你们的决策是什么？这就进入了博弈的范畴。</p>
+<ul>
+<li>这被称为<strong>伯川德竞争<span><span class="heti-spacing"> </span>(Bertrand Competition)</span></strong>，是一种价格竞争。如果你定价高于对手，没人会买你的书。如果你定价低于对手，你将赢得所有顾客。</li>
+<li>这种“削价”的逻辑会一直持续下去，直到价格被压到边际成本。如果你定价<span class="heti-skip"><span class="heti-spacing"> </span>20.01<span class="heti-spacing"> </span></span>元，对手可以定价<span class="heti-skip"><span class="heti-spacing"> </span>20<span class="heti-spacing"> </span></span>元来抢走所有生意。唯一的稳定结果是，<strong>双方都定价<span class="heti-skip"><span class="heti-spacing"> </span>20<span class="heti-spacing"> </span></span>元</strong>，利润都为<span><span class="heti-spacing"> </span>0</span>。</li>
+</ul>
+</li>
+<li>
+<p><strong>合作与串谋</strong><span>:<span class="heti-spacing"> </span></span>利润为<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>的结果对双方都很糟糕。你们可能会私下达成协议，共同把价格提高（例如都定价<span class="heti-skip"><span class="heti-spacing"> </span>200<span class="heti-spacing"> </span></span>元<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，形成一个<strong>卡特尔<span><span class="heti-spacing"> </span>(cartel)</span></strong>。但这通常是违法的（反垄断法<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，而且这种协议本身也不稳定（双方都有偷偷降价来抢占市场的动机<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+</li>
+<li>
+<p><strong>信息与成本变化</strong><span>:<span class="heti-spacing"> </span></span>如果你的好朋友开了印刷厂，让你的成本降到<span class="heti-skip"><span class="heti-spacing"> </span>15<span class="heti-spacing"> </span></span>元，而对手成本仍是<span class="heti-skip"><span class="heti-spacing"> </span>20<span class="heti-spacing"> </span></span>元。现在你可以定价<span class="heti-skip"><span class="heti-spacing"> </span>19.99<span class="heti-spacing"> </span></span>元，既能把对手挤出市场，又能获得<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(19.99 - 15 = 4.99\)</span><span class="heti-spacing"> </span></span>的利润。</p>
+</li>
+</ol>
+<p>这个例子清晰地展示了从单人决策到多人战略互动的转变，以及参与者、策略、信息、收益等因素如何让问题变得复杂。</p>
+</details>
+<h3 id="II1-博弈的规范式表达-page-46-48"><span>II.1<span class="heti-spacing"> </span></span>博弈的规范式表达<span><span class="heti-spacing"> </span>(page 46-48)</span><a class="headerlink" href="#II1-博弈的规范式表达-page-46-48" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>为了系统地分析博弈，我们需要一个标准化的表达方式。</p>
+<details class="definition" open="open">
+<summary>策略式博弈<span><span class="heti-spacing"> </span>(Strategic Game)</span></summary>
+<p>一个策略式博弈由一个三元组<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G = (N, \{S_i\}_{i \in N}, \{u_i\}_{i \in N})\)</span><span class="heti-spacing"> </span></span>定义，其中：
+- <strong>参与人<span><span class="heti-spacing"> </span>(Players)</span></strong><span>: <span class="arithmatex">\(N = \{1, 2, \ldots, n\}\)</span><span class="heti-spacing"> </span></span>是参与者的集合。
+- <strong>策略空间<span><span class="heti-spacing"> </span>(Strategy Spaces)</span></strong><span>: <span class="arithmatex">\(S_i\)</span><span class="heti-spacing"> </span></span>是参与人<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>所有可选策略的集合。一个<strong>策略组合<span><span class="heti-spacing"> </span>(strategy profile)</span></strong> 是所有参与者策略的向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(s = (s_1, \ldots, s_n)\)</span></span>，其中<span><span class="heti-spacing"> </span><span class="arithmatex">\(s_i \in S_i\)</span></span>。
+- <strong>报酬函数<span><span class="heti-spacing"> </span>(Payoff Functions)</span></strong><span>: <span class="arithmatex">\(u_i: S_1 \times \ldots \times S_n \rightarrow \mathbb{R}\)</span><span class="heti-spacing"> </span></span>是参与人<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>的效用函数，它为每一个可能的策略组合都指定一个收益值。</p>
+</details>
+<details class="note" open="open">
+<summary>理性与智能的假设<span><span class="heti-spacing"> </span>(page 48)</span></summary>
+<ul>
+<li><strong>理性<span><span class="heti-spacing"> </span>(Rationality)</span></strong><span>:<span class="heti-spacing"> </span></span>每个参与者都追求自身效用最大化。</li>
+<li><strong>智能<span><span class="heti-spacing"> </span>(Intelligence)</span></strong><span>:<span class="heti-spacing"> </span></span>每个参与者都了解博弈的全部规则（即上述三元组<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，并且有能力进行完美的逻辑推演。</li>
+<li><strong>共同知识<span><span class="heti-spacing"> </span>(Common Knowledge)</span></strong><span>: "<span class="heti-spacing"> </span></span>每个参与者都是理性且智能的<span class="heti-skip"><span class="heti-spacing"> </span>"<span class="heti-spacing"> </span></span>这一事实，本身也是所有参与者都知道的。并且<span class="heti-skip"><span class="heti-spacing"> </span>"<span class="heti-spacing"> </span></span>所有人都知道所有人都知道<span><span class="heti-spacing"> </span>..."</span>，以此类推，直至无穷。这是博弈论分析的一个非常强的假设。</li>
+</ul>
+</details>
+<h3 id="II2-博弈的分类-page-52"><span>II.2<span class="heti-spacing"> </span></span>博弈的分类<span><span class="heti-spacing"> </span>(page 52)</span><a class="headerlink" href="#II2-博弈的分类-page-52" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>博弈论是一个庞大的领域，可以从不同维度进行分类：</p>
+<h4 id="II21-合作博弈"><span>II.2.1<span class="heti-spacing"> </span></span>合作博弈<a class="headerlink" href="#II21-合作博弈" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p><strong>合作博弈</strong>：关注参与者形成联盟后，如何分配合作所产生的联合效用。重点在于“分蛋糕”，而不是个体的策略选择。</p>
+<h4 id="II22-非合作博弈"><span>II.2.2<span class="heti-spacing"> </span></span>非合作博弈<a class="headerlink" href="#II22-非合作博弈" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p><strong>非合作博弈<span><span class="heti-spacing"> </span>(Non-cooperative Game)</span></strong><span>:<span class="heti-spacing"> </span></span>研究个体如何在无法达成有约束力的协议的情况下做出最优决策。即使参与者可以交流，任何口头协议都没有强制执行力。本课程主要关注此类博弈。</p>
+<ol>
+<li><strong>信息完备性</strong>:<ul>
+<li><strong>完全信息博弈<span><span class="heti-spacing"> </span>(Complete Information Game)</span></strong><span>:<span class="heti-spacing"> </span></span>每个参与者都了解所有其他参与者的报酬函数（即知道别人的喜好<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>不完全信息博弈<span><span class="heti-spacing"> </span>(Incomplete Information Game)</span></strong><span>:<span class="heti-spacing"> </span></span>至少有一个参与者不完全了解其他某个参与者的报酬函数（例如，在拍卖中，你不知道对手对拍卖品的真实估价<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+</ul>
+</li>
+<li><strong>行动顺序</strong>:<ul>
+<li><strong>静态博弈<span><span class="heti-spacing"> </span>(Static Game)</span></strong><span>:<span class="heti-spacing"> </span></span>参与者同时做出决策，或者虽有先后但后行动者不知道先行动者的具体选择。囚徒困境、石头剪刀布都是静态博弈。</li>
+<li><strong>动态博弈<span><span class="heti-spacing"> </span>(Dynamic Game)</span></strong><span>:<span class="heti-spacing"> </span></span>参与者的行动有先后顺序，后行动者可以观察到先行动者的选择。象棋、围棋是典型的动态博弈。</li>
+</ul>
+</li>
+</ol>
+<p>这两个维度可以组合成四大类基础博弈，例如囚徒困境是“完全信息静态博弈”，而扑克牌是“不完全信息动态博弈”。</p>
+<h2 id="III-占优策略均衡-page-53-65"><span>III<span class="heti-spacing"> </span></span>占优策略均衡<span><span class="heti-spacing"> </span>(page 53-65)</span><a class="headerlink" href="#III-占优策略均衡-page-53-65" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>在有了一个博弈模型后，我们的核心任务是预测博弈的结果。这需要<strong>解概念<span><span class="heti-spacing"> </span>(solution concept)</span></strong>。最简单、最强的解概念是占优策略均衡。</p>
+<h3 id="III1-囚徒困境与严格占优-page-54-55"><span>III.1<span class="heti-spacing"> </span></span>囚徒困境与严格占优<span><span class="heti-spacing"> </span>(page 54-55)</span><a class="headerlink" href="#III1-囚徒困境与严格占优-page-54-55" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="example" open="open">
+<summary>囚徒困境<span><span class="heti-spacing"> </span>(Prisoner's Dilemma)</span></summary>
+<p>两名罪犯（<span>1<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>2</span>）被分开关押审问。他们面临的选择是“承认”罪行还是“不承认”。收益（以刑期年数的负数表示）如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>罪犯<span><span class="heti-spacing"> </span>1</span></strong>/<strong>罪犯<span><span class="heti-spacing"> </span>2</span></strong></th>
+<th style="text-align: center;"><strong>不承认</strong></th>
+<th style="text-align: center;"><strong>承认</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>不承认</strong></td>
+<td style="text-align: center;">-1, -1</td>
+<td style="text-align: center;">-15, 0</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>承认</strong></td>
+<td style="text-align: center;">0, -15</td>
+<td style="text-align: center;">-5, -5</td>
+</tr>
+</tbody>
+</table>
+<p><strong>理性分析</strong>:
+- <strong>罪犯<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>的思考</strong>:
+    - “如果罪犯 2<strong>不承认</strong>，我选择<strong>承认</strong>（获释，收益<span><span class="heti-spacing"> </span>0</span>）比选择<strong>不承认</strong>（判<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>年，收益<span><span class="heti-spacing"> </span>-1</span>）更好<heti-adjacent class="heti-adjacent-quarter">。</heti-adjacent>”
+    - “如果罪犯 2<strong>承认</strong>，我选择<strong>承认</strong>（判<span class="heti-skip"><span class="heti-spacing"> </span>5<span class="heti-spacing"> </span></span>年，收益<span><span class="heti-spacing"> </span>-5</span>）比选择<strong>不承认</strong>（判<span class="heti-skip"><span class="heti-spacing"> </span>15<span class="heti-spacing"> </span></span>年，收益<span><span class="heti-spacing"> </span>-15</span>）更好<heti-adjacent class="heti-adjacent-quarter">。</heti-adjacent>”
+- <strong>结论</strong><span>:<span class="heti-spacing"> </span></span>无论罪犯<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>做什么，对罪犯<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>来说<heti-adjacent class="heti-adjacent-quarter">，</heti-adjacent>“承认”都是最优选择。</p>
+<p>罪犯<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>的逻辑完全对称。因此，两个理性的参与者最终都会选择（承认，承认<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，各自判刑<span class="heti-skip"><span class="heti-spacing"> </span>5<span class="heti-spacing"> </span></span>年。</p>
+</details>
+<p>这个例子引出了<strong>严格占优</strong>和<strong>严格劣势</strong>策略的定义。</p>
+<details class="definition" open="open">
+<summary>严格劣策略与严格占优策略<span><span class="heti-spacing"> </span>(page 55)</span></summary>
+<p>对于参与人<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>来说，策略<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(s_i \in S_i\)</span><span class="heti-spacing"> </span></span>是一个<strong>严格劣策略<span><span class="heti-spacing"> </span>(strictly dominated strategy)</span></strong>，如果存在另一个策略<span><span class="heti-spacing"> </span><span class="arithmatex">\(t_i \in S_i\)</span></span>，使得<strong>无论其他参与者选择什么策略组合<span><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{s}_{-i}\)</span></span></strong>，都有：
+$$
+u_i(t_i, \boldsymbol{s}<em -i="-i">{-i}) &gt; u_i(s_i, \boldsymbol{s}</em>)
+$$
+在这种情况下，我们说策略 <span class="arithmatex">\(t_i\)</span> <strong>严格占优于<span><span class="heti-spacing"> </span>(strictly dominates)</span></strong> 策略<span><span class="heti-spacing"> </span><span class="arithmatex">\(s_i\)</span></span>。</p>
+</details>
+<p>理性人假设的一个直接推论是：<strong>一个理性的参与者永远不会选择一个严格劣策略</strong>。</p>
+<p>在囚徒困境中<heti-adjacent class="heti-adjacent-quarter">，</heti-adjacent>“不承认”就是一个严格劣策略，因为它被“承认”严格占优。双方都剔除这个劣策略后，唯一剩下的选择就是（承认，承认<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。这个结果被称为<strong>占优策略均衡<span><span class="heti-spacing"> </span>(Dominant Strategy Equilibrium)</span></strong>。</p>
+<details class="note" open="open">
+<summary>囚徒困境的启示<span><span class="heti-spacing"> </span>(page 56)</span></summary>
+<p>囚徒困境揭示了一个深刻的矛盾：<strong>个体理性可能导致集体非理性</strong>。对每个囚犯来说最理性的选择（承认<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，却让他们陷入了比双方合作（都不承认）更糟糕的境地（-5, -5 vs -1, -1<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<p>现实世界中，从军备竞赛、价格战到小组作业拖延（“内卷”<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，许多困境都具有囚徒困境的结构。解决方案通常依赖于博弈之外的因素，如引入强制力（法律<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、建立长期关系（重复博弈<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、或改变支付结构（机制设计<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+</details>
+<h3 id="III2-重复剔除严格劣策略-IESDS-page-57-61"><span>III.2<span class="heti-spacing"> </span></span>重复剔除严格劣策略<span><span class="heti-spacing"> </span>(IESDS) (page 57-61)</span><a class="headerlink" href="#III2-重复剔除严格劣策略-IESDS-page-57-61" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>当博弈中没有一个策略能“通吃”所有情况（即没有占优策略）时，我们仍然可以利用剔除劣策略的思想来简化博弈。</p>
+<details class="example" open="open">
+<summary><span>IESDS<span class="heti-spacing"> </span></span>流程<span><span class="heti-spacing"> </span>(page 57-61)</span></summary>
+<p>考虑以下博弈：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>参与人<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>参与人<span><span class="heti-spacing"> </span>2</span></strong></th>
+<th style="text-align: center;">L</th>
+<th style="text-align: center;">M</th>
+<th style="text-align: center;">R</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>T</strong></td>
+<td style="text-align: center;">1, 0</td>
+<td style="text-align: center;">1, 2</td>
+<td style="text-align: center;">0, 1</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>B</strong></td>
+<td style="text-align: center;">0, 3</td>
+<td style="text-align: center;">0, 1</td>
+<td style="text-align: center;">2, 0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>求解步骤</strong>:
+1. <strong>分析参与人<span><span class="heti-spacing"> </span>2</span></strong>:
+    - 比较策略 R 和 M。如果 1 选 T，2 选 M(2)优于 R(1)。如果 1 选 B，2 选 M(1)优于 R(0)。因此，对 2 来说，<strong><span>M<span class="heti-spacing"> </span></span>严格占优于<span><span class="heti-spacing"> </span>R</span></strong>。
+    - 理性的参与人 2 绝不会选择 R。我们可以<strong>剔除<span class="heti-skip"><span class="heti-spacing"> </span>R<span class="heti-spacing"> </span></span>列</strong>，得到一个简化的新博弈：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>参与人<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>参与人<span><span class="heti-spacing"> </span>2</span></strong></th>
+<th style="text-align: center;">L</th>
+<th style="text-align: center;">M</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>T</strong></td>
+<td style="text-align: center;">1, 0</td>
+<td style="text-align: center;">1, 2</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>B</strong></td>
+<td style="text-align: center;">0, 3</td>
+<td style="text-align: center;">0, 1</td>
+</tr>
+</tbody>
+</table>
+<ol start="2">
+<li><strong>分析参与人<span class="heti-skip"><span class="heti-spacing"> </span>1 (<span class="heti-spacing"> </span></span>在新博弈中<span><span class="heti-spacing"> </span>)</span></strong>:<ul>
+<li>比较策略<span class="heti-skip"><span class="heti-spacing"> </span>T<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>B</span>。如果<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>选<span><span class="heti-spacing"> </span>L</span>，<span>1<span class="heti-spacing"> </span></span>选<span class="heti-skip"><span class="heti-spacing"> </span>T(1)<span class="heti-spacing"> </span></span>优于<span><span class="heti-spacing"> </span>B(0)</span>。如果<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>选<span><span class="heti-spacing"> </span>M</span>，<span>1<span class="heti-spacing"> </span></span>选<span class="heti-skip"><span class="heti-spacing"> </span>T(1)<span class="heti-spacing"> </span></span>优于<span><span class="heti-spacing"> </span>B(0)</span>。因此，在新博弈中，对<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>来说，<strong><span>T<span class="heti-spacing"> </span></span>严格占优于<span><span class="heti-spacing"> </span>B</span></strong>。</li>
+<li>理性的参与人<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>绝不会选择<span><span class="heti-spacing"> </span>B</span>。我们<strong>剔除<span class="heti-skip"><span class="heti-spacing"> </span>B<span class="heti-spacing"> </span></span>行</strong>，博弈进一步简化：</li>
+</ul>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>参与人<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>参与人<span><span class="heti-spacing"> </span>2</span></strong></th>
+<th style="text-align: center;">L</th>
+<th style="text-align: center;">M</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>T</strong></td>
+<td style="text-align: center;">1, 0</td>
+<td style="text-align: center;">1, 2</td>
+</tr>
+</tbody>
+</table>
+<ol start="3">
+<li><strong>再次分析参与人<span class="heti-skip"><span class="heti-spacing"> </span>2 (<span class="heti-spacing"> </span></span>在最终博弈中<span><span class="heti-spacing"> </span>)</span></strong>:<ul>
+<li>现在参与人<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>只可能选择<span><span class="heti-spacing"> </span>T</span>。参与人<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>只需要比较在<span class="heti-skip"><span class="heti-spacing"> </span>T<span class="heti-spacing"> </span></span>行下<span class="heti-skip"><span class="heti-spacing"> </span>L<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>M<span class="heti-spacing"> </span></span>的收益。选择<span class="heti-skip"><span class="heti-spacing"> </span>M(2)<span class="heti-spacing"> </span></span>优于选择<span><span class="heti-spacing"> </span>L(0)</span>。因此，<strong><span>M<span class="heti-spacing"> </span></span>严格占优于<span><span class="heti-spacing"> </span>L</span></strong>。</li>
+<li>剔除<span class="heti-skip"><span class="heti-spacing"> </span>L<span class="heti-spacing"> </span></span>列后，只剩下唯一的结果。</li>
+</ul>
+</li>
+</ol>
+<p><strong>最终解</strong>: (T, M)。这个过程被称为<strong>重复剔除严格劣策略<span><span class="heti-spacing"> </span>(Iterated Elimination of Strictly Dominated Strategies, IESDS)</span></strong>。</p>
+</details>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>一个重要的性质是，只要每次剔除的都是<strong>严格</strong>劣策略，最终得到的结果是<strong>唯一</strong>的，与剔除的顺序无关。</p>
+</div>
+<h3 id="III3-弱占优与问题-page-62-65"><span>III.3<span class="heti-spacing"> </span></span>弱占优与问题<span><span class="heti-spacing"> </span>(page 62-65)</span><a class="headerlink" href="#III3-弱占优与问题-page-62-65" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>有时，一个策略并不比另一个“严格地”好，而只是“至少一样好，且有时更好”。</p>
+<details class="definition" open="open">
+<summary>弱劣策略与弱占优策略<span><span class="heti-spacing"> </span>(page 64)</span></summary>
+<p>对于参与人<span><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span></span>，策略<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(s_i\)</span><span class="heti-spacing"> </span></span>是一个<strong>弱劣策略<span><span class="heti-spacing"> </span>(weakly dominated strategy)</span></strong>，如果存在另一个策略<span><span class="heti-spacing"> </span><span class="arithmatex">\(t_i\)</span></span>，满足：</p>
+<ol>
+<li>对于<strong>所有</strong>的<span><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{s}_{-i}\)</span></span>，都有<span><span class="heti-spacing"> </span><span class="arithmatex">\(u_i(t_i, \boldsymbol{s}_{-i}) \ge u_i(s_i, \boldsymbol{s}_{-i})\)</span></span><heti-adjacent class="heti-adjacent-half">。</heti-adjacent>（至少一样好）</li>
+<li><strong>至少存在一个</strong> <span class="arithmatex">\(\boldsymbol{s}_{-i}\)</span>，使得<span><span class="heti-spacing"> </span><span class="arithmatex">\(u_i(t_i, \boldsymbol{s}_{-i}) &gt; u_i(s_i, \boldsymbol{s}_{-i})\)</span></span><heti-adjacent class="heti-adjacent-half">。</heti-adjacent>（有时更好）</li>
+</ol>
+<p>此时，我们说<span><span class="heti-spacing"> </span><span class="arithmatex">\(t_i\)</span></span> <strong>弱占优于<span><span class="heti-spacing"> </span>(weakly dominates)</span></strong> <span class="arithmatex">\(s_i\)</span>。</p>
+</details>
+<p>例如，在下图中，对于参与人<span><span class="heti-spacing"> </span>1</span>，策略<span class="heti-skip"><span class="heti-spacing"> </span>B<span class="heti-spacing"> </span></span>弱占优于<span><span class="heti-spacing"> </span>T</span>，因为当参与人<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>选择<span class="heti-skip"><span class="heti-spacing"> </span>L<span class="heti-spacing"> </span></span>时，<span>B(2)<span class="heti-spacing"> </span></span>优于<span><span class="heti-spacing"> </span>T(1)</span>；当参与人<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>选择<span class="heti-skip"><span class="heti-spacing"> </span>R<span class="heti-spacing"> </span></span>时，<span>B(2)<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>T(2)<span class="heti-spacing"> </span></span>无差别。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>1  2</strong></th>
+<th style="text-align: center;">L</th>
+<th style="text-align: center;">R</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>T</strong></td>
+<td style="text-align: center;">1, 2</td>
+<td style="text-align: center;"><strong>2</strong>, 3</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>B</strong></td>
+<td style="text-align: center;"><strong>2</strong>, 2</td>
+<td style="text-align: center;"><strong>2</strong>, 0</td>
+</tr>
+</tbody>
+</table>
+<p>剔除弱劣策略似乎也是合理的（如基于“颤抖的手”原则<sup id="fnref:1"><a class="footnote-ref" href="#fn:1"><span><span class="heti-spacing"> </span>1</span></a></sup><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，但它存在一个严重问题：<strong>剔除弱劣策略的顺序可能会影响最终结果</strong>。</p>
+<details class="example" open="open">
+<summary>弱劣策略剔除顺序问题：详细分析<span><span class="heti-spacing"> </span>(page 65)</span></summary>
+<p>下面的例子旨在说明，不同的弱劣策略剔除顺序，会导致不同的预测结果。</p>
+<p><strong>博弈矩阵<span><span class="heti-spacing"> </span>:</span></strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>参与人<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>参与人<span><span class="heti-spacing"> </span>2</span></strong></th>
+<th style="text-align: center;">L</th>
+<th style="text-align: center;">C</th>
+<th style="text-align: center;">R</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>T</strong></td>
+<td style="text-align: center;">1, 2</td>
+<td style="text-align: center;">2, 3</td>
+<td style="text-align: center;">0, 3</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>M</strong></td>
+<td style="text-align: center;">2, 2</td>
+<td style="text-align: center;">2, 1</td>
+<td style="text-align: center;">3, 2</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>B</strong></td>
+<td style="text-align: center;">2, 1</td>
+<td style="text-align: center;">0, 0</td>
+<td style="text-align: center;">1, 0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>路径一：从参与人<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>开始剔除</strong></p>
+<ol>
+<li>
+<p><strong>第一步<span><span class="heti-spacing"> </span>(P1):</span></strong> 检查参与人<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>的策略。</p>
+<ul>
+<li>比较策略<span class="heti-skip"><span class="heti-spacing"> </span>M<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>B</span>。当<span class="heti-skip"><span class="heti-spacing"> </span>P2<span class="heti-spacing"> </span></span>选<span class="heti-skip"><span class="heti-spacing"> </span>L<span class="heti-spacing"> </span></span>时<span class="heti-skip"><span class="heti-spacing"> </span>, P1<span class="heti-spacing"> </span></span>的收益都是<span><span class="heti-spacing"> </span>2 (</span><code>2=2</code><span><span class="heti-spacing"> </span>)</span>。当<span class="heti-skip"><span class="heti-spacing"> </span>P2<span class="heti-spacing"> </span></span>选<span class="heti-skip"><span class="heti-spacing"> </span>C<span class="heti-spacing"> </span></span>时<span><span class="heti-spacing"> </span>, M(2) &gt; B(0)</span>。当<span class="heti-skip"><span class="heti-spacing"> </span>P2<span class="heti-spacing"> </span></span>选<span class="heti-skip"><span class="heti-spacing"> </span>R<span class="heti-spacing"> </span></span>时<span><span class="heti-spacing"> </span>, M(3) &gt; B(1)</span>。</li>
+<li>因此，<strong><span>M<span class="heti-spacing"> </span></span>弱占优于<span><span class="heti-spacing"> </span>B</span></strong>。我们剔除策略<span><span class="heti-spacing"> </span>B</span>。</li>
+</ul>
+</li>
+<li>
+<p><strong>第二步<span><span class="heti-spacing"> </span>(P2):</span></strong> 博弈简化为<span class="heti-skip"><span class="heti-spacing"> </span>2x3<span class="heti-spacing"> </span></span>矩阵<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>行<span class="heti-skip"><span class="heti-spacing"> </span>T, M vs<span class="heti-spacing"> </span></span>列<span><span class="heti-spacing"> </span>L, C, R)</span>。现在检查参与人<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>的策略。</p>
+<ul>
+<li>比较策略<span class="heti-skip"><span class="heti-spacing"> </span>L<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>R</span>。当<span class="heti-skip"><span class="heti-spacing"> </span>P1<span class="heti-spacing"> </span></span>选<span class="heti-skip"><span class="heti-spacing"> </span>T<span class="heti-spacing"> </span></span>时<span><span class="heti-spacing"> </span>, R(3) &gt; L(2)</span>。当<span class="heti-skip"><span class="heti-spacing"> </span>P1<span class="heti-spacing"> </span></span>选<span class="heti-skip"><span class="heti-spacing"> </span>M<span class="heti-spacing"> </span></span>时<span><span class="heti-spacing"> </span>, L(2) = R(2)</span>。</li>
+<li>因此，在新博弈中，<strong><span>R<span class="heti-spacing"> </span></span>弱占优于<span><span class="heti-spacing"> </span>L</span></strong>。我们剔除策略<span><span class="heti-spacing"> </span>L</span>。</li>
+</ul>
+</li>
+<li>
+<p><strong>第三步<span><span class="heti-spacing"> </span>(P1):</span></strong> 博弈简化为<span class="heti-skip"><span class="heti-spacing"> </span>2x2<span class="heti-spacing"> </span></span>矩阵<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>行<span class="heti-skip"><span class="heti-spacing"> </span>T, M vs<span class="heti-spacing"> </span></span>列<span><span class="heti-spacing"> </span>C, R)</span>。现在检查参与人<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>的策略。</p>
+<ul>
+<li>比较策略<span class="heti-skip"><span class="heti-spacing"> </span>T<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>M</span>。当<span class="heti-skip"><span class="heti-spacing"> </span>P2<span class="heti-spacing"> </span></span>选<span class="heti-skip"><span class="heti-spacing"> </span>C<span class="heti-spacing"> </span></span>时<span><span class="heti-spacing"> </span>, T(2) = M(2)</span>。当<span class="heti-skip"><span class="heti-spacing"> </span>P2<span class="heti-spacing"> </span></span>选<span class="heti-skip"><span class="heti-spacing"> </span>R<span class="heti-spacing"> </span></span>时<span><span class="heti-spacing"> </span>, M(3) &gt; T(0)</span>。</li>
+<li>因此，在新博弈中，<strong><span>M<span class="heti-spacing"> </span></span>弱占优于<span><span class="heti-spacing"> </span>T</span></strong>。我们剔除策略<span><span class="heti-spacing"> </span>T</span>。</li>
+</ul>
+</li>
+<li>
+<p><strong>第四步<span><span class="heti-spacing"> </span>(P2):</span></strong> 博弈简化为<span class="heti-skip"><span class="heti-spacing"> </span>1x2<span class="heti-spacing"> </span></span>矩阵<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>行<span class="heti-skip"><span class="heti-spacing"> </span>M vs<span class="heti-spacing"> </span></span>列<span><span class="heti-spacing"> </span>C, R)</span>。</p>
+<ul>
+<li>参与人<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>只能选择<span><span class="heti-spacing"> </span>M</span>。此时，参与人<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>C (<span class="heti-spacing"> </span></span>收益<span class="heti-skip"><span class="heti-spacing"> </span>1)<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>R (<span class="heti-spacing"> </span></span>收益<span class="heti-skip"><span class="heti-spacing"> </span>2)<span class="heti-spacing"> </span></span>之间选择。</li>
+<li>理性的参与人<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>会选择<span><span class="heti-spacing"> </span>R</span>。</li>
+</ul>
+</li>
+</ol>
+<p><strong>此路径的最终解为<span><span class="heti-spacing"> </span>(M, R)</span>。</strong></p>
+<hr/>
+<p><strong>路径二：从参与人<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>开始剔除</strong></p>
+<ol start="5">
+<li>
+<p><strong>第一步<span><span class="heti-spacing"> </span>(P2):</span></strong> 检查参与人<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>的策略。</p>
+<ul>
+<li>比较策略<span class="heti-skip"><span class="heti-spacing"> </span>C<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>R</span>。当<span class="heti-skip"><span class="heti-spacing"> </span>P1<span class="heti-spacing"> </span></span>选<span class="heti-skip"><span class="heti-spacing"> </span>T<span class="heti-spacing"> </span></span>时<span><span class="heti-spacing"> </span>, C(3) = R(3)</span>。当<span class="heti-skip"><span class="heti-spacing"> </span>P1<span class="heti-spacing"> </span></span>选<span class="heti-skip"><span class="heti-spacing"> </span>M<span class="heti-spacing"> </span></span>时<span><span class="heti-spacing"> </span>, R(2) &gt; C(1)</span>。当<span class="heti-skip"><span class="heti-spacing"> </span>P1<span class="heti-spacing"> </span></span>选<span class="heti-skip"><span class="heti-spacing"> </span>B<span class="heti-spacing"> </span></span>时<span><span class="heti-spacing"> </span>, C(0) = R(0)</span>。</li>
+<li>因此，<strong><span>R<span class="heti-spacing"> </span></span>弱占优于<span><span class="heti-spacing"> </span>C</span></strong>。我们剔除策略<span><span class="heti-spacing"> </span>C</span>。</li>
+</ul>
+</li>
+<li>
+<p><strong>第二步<span><span class="heti-spacing"> </span>(P1):</span></strong> 博弈简化为<span class="heti-skip"><span class="heti-spacing"> </span>3x2<span class="heti-spacing"> </span></span>矩阵<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>行<span class="heti-skip"><span class="heti-spacing"> </span>T, M, B vs<span class="heti-spacing"> </span></span>列<span><span class="heti-spacing"> </span>L, R)</span>。现在检查参与人<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>的策略。</p>
+<ul>
+<li>比较策略<span class="heti-skip"><span class="heti-spacing"> </span>T<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>M</span>。当<span class="heti-skip"><span class="heti-spacing"> </span>P2<span class="heti-spacing"> </span></span>选<span class="heti-skip"><span class="heti-spacing"> </span>L<span class="heti-spacing"> </span></span>时<span><span class="heti-spacing"> </span>, M(2) &gt; T(1)</span>。当<span class="heti-skip"><span class="heti-spacing"> </span>P2<span class="heti-spacing"> </span></span>选<span class="heti-skip"><span class="heti-spacing"> </span>R<span class="heti-spacing"> </span></span>时<span><span class="heti-spacing"> </span>, M(3) &gt; T(0)</span>。</li>
+<li>因此，在新博弈中，<strong><span>M<span class="heti-spacing"> </span></span>严格占优于<span><span class="heti-spacing"> </span>T</span></strong>。我们剔除策略<span><span class="heti-spacing"> </span>T</span>。</li>
+</ul>
+</li>
+<li>
+<p><strong>第三步<span><span class="heti-spacing"> </span>(P1):</span></strong> 博弈简化为<span class="heti-skip"><span class="heti-spacing"> </span>2x2<span class="heti-spacing"> </span></span>矩阵<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>行<span class="heti-skip"><span class="heti-spacing"> </span>M, B vs<span class="heti-spacing"> </span></span>列<span><span class="heti-spacing"> </span>L, R)</span>。再次检查参与人<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>的策略。</p>
+<ul>
+<li>比较策略<span class="heti-skip"><span class="heti-spacing"> </span>M<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>B</span>。当<span class="heti-skip"><span class="heti-spacing"> </span>P2<span class="heti-spacing"> </span></span>选<span class="heti-skip"><span class="heti-spacing"> </span>L<span class="heti-spacing"> </span></span>时<span><span class="heti-spacing"> </span>, M(2) = B(2)</span>。当<span class="heti-skip"><span class="heti-spacing"> </span>P2<span class="heti-spacing"> </span></span>选<span class="heti-skip"><span class="heti-spacing"> </span>R<span class="heti-spacing"> </span></span>时<span><span class="heti-spacing"> </span>, M(3) &gt; B(1)</span>。</li>
+<li>因此，在新博弈中，<strong><span>M<span class="heti-spacing"> </span></span>弱占优于<span><span class="heti-spacing"> </span>B</span></strong>。我们剔除策略<span><span class="heti-spacing"> </span>B</span>。</li>
+</ul>
+</li>
+<li>
+<p><strong>第四步<span><span class="heti-spacing"> </span>(P2):</span></strong> 博弈简化为<span class="heti-skip"><span class="heti-spacing"> </span>1x2<span class="heti-spacing"> </span></span>矩阵<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>行<span class="heti-skip"><span class="heti-spacing"> </span>M vs<span class="heti-spacing"> </span></span>列<span><span class="heti-spacing"> </span>L, R)</span>。</p>
+<ul>
+<li>参与人<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>只能选择<span><span class="heti-spacing"> </span>M</span>。此时，参与人<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>L (<span class="heti-spacing"> </span></span>收益<span class="heti-skip"><span class="heti-spacing"> </span>2)<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>R (<span class="heti-spacing"> </span></span>收益<span class="heti-skip"><span class="heti-spacing"> </span>2)<span class="heti-spacing"> </span></span>之间选择。</li>
+<li>参与人<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>对<span class="heti-skip"><span class="heti-spacing"> </span>L<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>R</span> <strong>无差异</strong>。</li>
+</ul>
+</li>
+</ol>
+<p><strong>此路径的最终解集为<span><span class="heti-spacing"> </span>{(M, L), (M, R)}</span>。</strong></p>
+<p><strong>结论</strong></p>
+<p>路径一得出的唯一解是 <strong>(M, R)</strong>，而路径二得出的解集是 <strong>{(M, L), (M, R)}</strong><heti-adjacent class="heti-adjacent-half">。</heti-adjacent>（当然不止这两个）由于 <code>{(M,R)} ≠ {(M,L), (M,R)}</code>，这两个结果是不同的。这清晰地证明了，在重复剔除弱劣策略的过程中，剔除的顺序可以改变最终的预测结果，从而削弱了这一解概念的预测能力。这也是为什么在博弈论分析中，纳什均衡是比占优策略均衡更常用、更核心的概念。</p>
+</details>
+<h2 id="IV-纳什均衡-page-66-81"><span>IV<span class="heti-spacing"> </span></span>纳什均衡<span><span class="heti-spacing"> </span>(page 66-81)</span><a class="headerlink" href="#IV-纳什均衡-page-66-81" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>当博弈中不存在（严格或弱）劣策略时，我们需要一种新的思维方式。</p>
+<h3 id="IV1-纳什均衡的引入-page-67-68"><span>IV.1<span class="heti-spacing"> </span></span>纳什均衡的引入<span><span class="heti-spacing"> </span>(page 67-68)</span><a class="headerlink" href="#IV1-纳什均衡的引入-page-67-68" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>思路的转换：与其寻找一个在所有情况下都好的“万能”策略，不如去寻找一个<strong>稳定的策略组合</strong>。稳定意味着，一旦博弈达到了这个状态，<strong>没有任何一个参与者有动机单方面地改变自己的策略</strong>。</p>
+<details class="example" open="open">
+<summary>寻找稳定点<span><span class="heti-spacing"> </span>(page 67)</span></summary>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>1  2</strong></th>
+<th style="text-align: center;">L</th>
+<th style="text-align: center;">R</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>T</strong></td>
+<td style="text-align: center;">2, 1</td>
+<td style="text-align: center;">2, -20</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>M</strong></td>
+<td style="text-align: center;">3, 0</td>
+<td style="text-align: center;">-10, 1</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>B</strong></td>
+<td style="text-align: center;">-100, 2</td>
+<td style="text-align: center;"><strong>3, 3</strong></td>
+</tr>
+</tbody>
+</table>
+<p>在这个博弈中，没有任何占优或劣势策略。但我们来考察策略组合<span><span class="heti-spacing"> </span>(B, R)</span>：
+- <strong>从参与人<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>的角度</strong><span>:<span class="heti-spacing"> </span></span>假如<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>已经选择了<span><span class="heti-spacing"> </span>R</span>。那么<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>的选择是在<span class="heti-skip"><span class="heti-spacing"> </span>T(2), M(-10)<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>B(3)<span class="heti-spacing"> </span></span>之间。他的最优选择是<span><span class="heti-spacing"> </span>B</span>。所以，他<strong>不想</strong>偏离。
+- <strong>从参与人<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>的角度</strong><span>:<span class="heti-spacing"> </span></span>假如<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>已经选择了<span><span class="heti-spacing"> </span>B</span>。那么<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>的选择是在<span class="heti-skip"><span class="heti-spacing"> </span>L(2)<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>R(3)<span class="heti-spacing"> </span></span>之间。他的最优选择是<span><span class="heti-spacing"> </span>R</span>。所以，他也<strong>不想</strong>偏离。</p>
+<p>因为在<span class="heti-skip"><span class="heti-spacing"> </span>(B, R)<span class="heti-spacing"> </span></span>这个组合下，双方都觉得自己的选择是<strong>针对对方选择的最佳应对</strong>，所以这个组合是稳定的。这就是纳什均衡的核心思想。</p>
+</details>
+<h3 id="IV2-最佳应对与纳什均衡的定义-page-69-71"><span>IV.2<span class="heti-spacing"> </span></span>最佳应对与纳什均衡的定义<span><span class="heti-spacing"> </span>(page 69-71)</span><a class="headerlink" href="#IV2-最佳应对与纳什均衡的定义-page-69-71" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="definition" open="open">
+<summary>最佳应对<span><span class="heti-spacing"> </span>(Best Response)</span></summary>
+<p>给定其他参与者的策略组合<span><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{s}_{-i}\)</span></span>，参与人<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>的一个策略<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(s_i^*\)</span><span class="heti-spacing"> </span></span>被称为对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{s}_{-i}\)</span><span class="heti-spacing"> </span></span>的<strong>最佳应对</strong>，如果它能够最大化参与人<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>的效用：
+$$
+u_i(s_i^*, \boldsymbol{s}<em _in="\in" s_i="S_i">{-i}) = \max</em>)
+$$} u_i(s_i, \boldsymbol{s}_{-i</p>
+</details>
+<p>基于最佳应对，我们可以给出纳什均衡的正式定义。</p>
+<details class="definition" open="open">
+<summary>纳什均衡<span><span class="heti-spacing"> </span>(Nash Equilibrium)</span></summary>
+<p>一个策略组合<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{s}^* = (s_1^*, s_2^*, \ldots, s_n^*)\)</span><span class="heti-spacing"> </span></span>被称为一个<strong>纳什均衡</strong>，如果对于<strong>每一个</strong>参与人<span><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span></span>，<span><span class="arithmatex">\(s_i^*\)</span><span class="heti-spacing"> </span></span>都是对其他参与者均衡策略组合<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{s}_{-i}^*\)</span><span class="heti-spacing"> </span></span>的最佳应对。</p>
+</details>
+<p>换言之，在纳什均衡状态下，<strong>没有人可以通过单方面改变策略而获得更高的收益</strong>。这提供了另一种等价但更直观的定义：</p>
+<details class="definition" open="open">
+<summary>纳什均衡<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>等价定义<span><span class="heti-spacing"> </span>) (page 71)</span></summary>
+<p>一个策略组合<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{s}^*\)</span><span class="heti-spacing"> </span></span>是一个纳什均衡，如果对于每一个参与人<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>和他的任意一个其他策略<span><span class="heti-spacing"> </span><span class="arithmatex">\(s_i \in S_i\)</span></span>，都满足：
+$$
+u_i(\boldsymbol{s}^<em>) \ge u_i(s_i, \boldsymbol{s}_{-i}^</em>)
+$$</p>
+</details>
+<details class="extra">
+<summary>约翰<span class="heti-skip"><span class="heti-spacing"> </span>·<span class="heti-spacing"> </span></span>纳什的贡献<span><span class="heti-spacing"> </span>(page 72)</span></summary>
+<p>约翰<span class="heti-skip"><span class="heti-spacing"> </span>·<span class="heti-spacing"> </span></span>纳什<span class="heti-skip"><span class="heti-spacing"> </span>(John Nash)<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>1950<span class="heti-spacing"> </span></span>年仅<span class="heti-skip"><span class="heti-spacing"> </span>27<span class="heti-spacing"> </span></span>页的博士论文中提出了这个概念，并证明了在非常广泛的条件下（任何有限参与人、有限策略的博弈）至少存在一个（可能涉及混合策略的）纳什均衡。这项工作彻底改变了经济学及其他社会科学的研究范式，使博弈论成为分析战略互动的核心工具。尽管当时被冯<span class="heti-skip"><span class="heti-spacing"> </span>·<span class="heti-spacing"> </span></span>诺依曼评价为“只是又一个不动点定理”，但其深远影响为纳什在<span class="heti-skip"><span class="heti-spacing"> </span>1994<span class="heti-spacing"> </span></span>年赢得了诺贝尔经济学奖。电影《美丽心灵》讲述了他传奇的一生。</p>
+</details>
+<h3 id="IV3-求解纳什均衡"><span>IV.3<span class="heti-spacing"> </span></span>求解纳什均衡<a class="headerlink" href="#IV3-求解纳什均衡" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<h4 id="IV31-离散策略博弈-page-73"><span>IV.3.1<span class="heti-spacing"> </span></span>离散策略博弈<span><span class="heti-spacing"> </span>(page 73)</span><a class="headerlink" href="#IV31-离散策略博弈-page-73" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>对于<span class="heti-skip"><span class="heti-spacing"> </span>payoff<span class="heti-spacing"> </span></span>矩阵给出的离散博弈，求解纳什均衡最直观的方法是 <strong>“划线法”</strong>（当然也可以是画圈法，本质是找到每个参与者最佳应对的交集<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，即找出每个参与者对他人所有可能策略的最佳应对。</p>
+<details class="example" open="open">
+<summary>划线法求解纳什均衡<span><span class="heti-spacing"> </span>(page 73)</span></summary>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>1  2</strong></th>
+<th style="text-align: center;">L</th>
+<th style="text-align: center;">C</th>
+<th style="text-align: center;">R</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>T</strong></td>
+<td style="text-align: center;">1, 2</td>
+<td style="text-align: center;">2, 3</td>
+<td style="text-align: center;">0, 3</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>M</strong></td>
+<td style="text-align: center;">2, 2</td>
+<td style="text-align: center;">2, 1</td>
+<td style="text-align: center;">3, 2</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>B</strong></td>
+<td style="text-align: center;">2, 1</td>
+<td style="text-align: center;">0, 0</td>
+<td style="text-align: center;">1, 0</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><strong>固定参与人<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>的策略，找参与人<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>的最佳应对</strong> <span>(<span class="heti-spacing"> </span></span>在每列中找第一位数字的最大值并划线<span><span class="heti-spacing"> </span>):</span><ul>
+<li>若<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>选<span><span class="heti-spacing"> </span>L</span>，<span>1<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>(1, 2, 2)<span class="heti-spacing"> </span></span>中选，<span>M<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>B<span class="heti-spacing"> </span></span>都是最佳应对。<u>划线<span class="heti-skip"><span class="heti-spacing"> </span>M<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>B<span class="heti-spacing"> </span></span>的第一位数字</u>。</li>
+<li>若<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>选<span><span class="heti-spacing"> </span>C</span>，<span>1<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>(2, 2, 0)<span class="heti-spacing"> </span></span>中选，<span>T<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>M<span class="heti-spacing"> </span></span>都是最佳应对。<u>划线<span class="heti-skip"><span class="heti-spacing"> </span>T<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>M<span class="heti-spacing"> </span></span>的第一位数字</u>。</li>
+<li>若<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>选<span><span class="heti-spacing"> </span>R</span>，<span>1<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>(0, 3, 1)<span class="heti-spacing"> </span></span>中选，<span>M<span class="heti-spacing"> </span></span>是最佳应对。<u>划线<span class="heti-skip"><span class="heti-spacing"> </span>M<span class="heti-spacing"> </span></span>的第一位数字</u>。</li>
+</ul>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>1  2</strong></th>
+<th style="text-align: center;">L</th>
+<th style="text-align: center;">C</th>
+<th style="text-align: center;">R</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>T</strong></td>
+<td style="text-align: center;">1, 2</td>
+<td style="text-align: center;"><u><strong>2</strong></u>, 3</td>
+<td style="text-align: center;">0, 3</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>M</strong></td>
+<td style="text-align: center;"><u><strong>2</strong></u>, 2</td>
+<td style="text-align: center;"><u><strong>2</strong></u>, 1</td>
+<td style="text-align: center;"><u><strong>3</strong></u>, 2</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>B</strong></td>
+<td style="text-align: center;"><u><strong>2</strong></u>, 1</td>
+<td style="text-align: center;">0, 0</td>
+<td style="text-align: center;">1, 0</td>
+</tr>
+</tbody>
+</table>
+<ol start="2">
+<li><strong>固定参与人<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>的策略，找参与人<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>的最佳应对</strong> <span>(<span class="heti-spacing"> </span></span>在每行中找第二位数字的最大值并划线<span><span class="heti-spacing"> </span>):</span><ul>
+<li>若<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>选<span><span class="heti-spacing"> </span>T</span>，<span>2<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>(2, 3, 3)<span class="heti-spacing"> </span></span>中选，<span>C<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>R<span class="heti-spacing"> </span></span>都是最佳应对。<u>划线<span class="heti-skip"><span class="heti-spacing"> </span>C<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>R<span class="heti-spacing"> </span></span>的第二位数字</u>。</li>
+<li>若<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>选<span><span class="heti-spacing"> </span>M</span>，<span>2<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>(2, 1, 2)<span class="heti-spacing"> </span></span>中选，<span>L<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>R<span class="heti-spacing"> </span></span>都是最佳应对。<u>划线<span class="heti-skip"><span class="heti-spacing"> </span>L<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>R<span class="heti-spacing"> </span></span>的第二位数字</u>。</li>
+<li>若<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>选<span><span class="heti-spacing"> </span>B</span>，<span>2<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>(1, 0, 0)<span class="heti-spacing"> </span></span>中选，<span>L<span class="heti-spacing"> </span></span>是最佳应对。<u>划线<span class="heti-skip"><span class="heti-spacing"> </span>L<span class="heti-spacing"> </span></span>的第二位数字</u>。</li>
+</ul>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>1  2</strong></th>
+<th style="text-align: center;">L</th>
+<th style="text-align: center;">C</th>
+<th style="text-align: center;">R</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>T</strong></td>
+<td style="text-align: center;">1, 2</td>
+<td style="text-align: center;">2, <u><strong>3</strong></u></td>
+<td style="text-align: center;">0, <u><strong>3</strong></u></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>M</strong></td>
+<td style="text-align: center;">2, <u><strong>2</strong></u></td>
+<td style="text-align: center;">2, 1</td>
+<td style="text-align: center;">3, <u><strong>2</strong></u></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>B</strong></td>
+<td style="text-align: center;">2, <u><strong>1</strong></u></td>
+<td style="text-align: center;">0, 0</td>
+<td style="text-align: center;">1, 0</td>
+</tr>
+</tbody>
+</table>
+<ol start="3">
+<li><strong>寻找两个数字都被划线的格子</strong><span>:<span class="heti-spacing"> </span></span>两个格子<span class="heti-skip"><span class="heti-spacing"> </span>(M, L), (M, R), (T, C), (B, L)<span class="heti-spacing"> </span></span>都被划线了。</li>
+</ol>
+<p><strong>结论</strong><span>:<span class="heti-spacing"> </span></span>该博弈有<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>个纯策略纳什均衡。</p>
+</details>
+<h4 id="IV32-连续策略博弈古诺竞争-page-74-79"><span>IV.3.2<span class="heti-spacing"> </span></span>连续策略博弈：古诺竞争<span><span class="heti-spacing"> </span>(page 74-79)</span><a class="headerlink" href="#IV32-连续策略博弈古诺竞争-page-74-79" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>当策略空间是连续的（如产量、价格<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，我们通常通过求解最佳应对函数（也称反应函数）的交点来找到纳什均衡。</p>
+<details class="example" open="open">
+<summary>古诺产量竞争<span><span class="heti-spacing"> </span>(Cournot Competition)</span></summary>
+<p><strong>设定</strong>:
+- 两个厂商 1 和 2 生产同质产品，同时决定各自的产量 <span class="arithmatex">\(q_1, q_2\)</span>。
+- 市场总产量 <span class="arithmatex">\(Q = q_1 + q_2\)</span>。
+- 市场价格由需求决定：<span class="arithmatex">\(P(Q) = 2 - Q = 2 - q_1 - q_2\)</span>。
+- 两厂商的单位生产成本分别为 <span class="arithmatex">\(c_1, c_2\)</span>。</p>
+<p><strong>求解步骤</strong>:
+1. <strong>写出利润函数<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>效用函数<span><span class="heti-spacing"> </span>)</span></strong>:
+    - 厂商 1 的利润: <span class="arithmatex">\(\pi_1(q_1, q_2) = P(Q) \cdot q_1 - c_1 q_1 = (2 - q_1 - q_2)q_1 - c_1 q_1\)</span>
+    - 厂商 2 的利润: <span class="arithmatex">\(\pi_2(q_1, q_2) = P(Q) \cdot q_2 - c_2 q_2 = (2 - q_1 - q_2)q_2 - c_2 q_2\)</span></p>
+<ol start="2">
+<li>
+<p><strong>求解厂商<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>的最佳应对函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(R_1(q_2)\)</span></span></strong>:</p>
+<ul>
+<li>给定<span><span class="heti-spacing"> </span><span class="arithmatex">\(q_2\)</span></span>，厂商<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>选择<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(q_1\)</span><span class="heti-spacing"> </span></span>来最大化自己的利润<span><span class="heti-spacing"> </span><span class="arithmatex">\(\pi_1\)</span></span>。</li>
+<li>求导并令其为<span><span class="heti-spacing"> </span>0: <span class="arithmatex">\(\frac{\partial \pi_1}{\partial q_1} = (2 - 2q_1 - q_2) - c_1 = 0\)</span></span></li>
+<li>解出<span><span class="heti-spacing"> </span><span class="arithmatex">\(q_1\)</span>: <span class="arithmatex">\(q_1 = \frac{2 - q_2 - c_1}{2}\)</span></span>。这就是厂商<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>的最佳应对函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(R_1(q_2)\)</span></span>。</li>
+</ul>
+</li>
+<li>
+<p><strong>求解厂商<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>的最佳应对函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(R_2(q_1)\)</span></span></strong>:</p>
+<ul>
+<li>同理，对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\pi_2\)</span><span class="heti-spacing"> </span></span>求关于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(q_2\)</span><span class="heti-spacing"> </span></span>的偏导，可以得到<span><span class="heti-spacing"> </span><span class="arithmatex">\(R_2(q_1) = \frac{2 - q_1 - c_2}{2}\)</span></span>。</li>
+</ul>
+</li>
+<li>
+<p><strong>求解纳什均衡</strong>:</p>
+<ul>
+<li>纳什均衡是两个最佳应对函数的交点，即求解方程组：
+  $$
+  \begin{cases}
+  q_1^<em> = \frac{2 - q_2^</em> - c_1}{2} \
+  q_2^<em> = \frac{2 - q_1^</em> - c_2}{2}
+  \end{cases}
+  $$</li>
+<li>将第二个式子代入第一个，解得均衡产量：
+  $$
+  q_1^<em> = \frac{2 - 2c_1 + c_2}{3} \quad ; \quad q_2^</em> = \frac{2 - 2c_2 + c_1}{3}
+  $$</li>
+</ul>
+</li>
+</ol>
+<p><strong>结果分析<span><span class="heti-spacing"> </span>(page 78)</span></strong><span>:<span class="heti-spacing"> </span></span>这个结果非常符合直觉。一个厂商自身的成本<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(c_i\)</span><span class="heti-spacing"> </span></span>越高，其均衡产量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(q_i^*\)</span><span class="heti-spacing"> </span></span>就越低。而其<strong>对手</strong>的成本<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(c_j\)</span><span class="heti-spacing"> </span></span>越高，反而会导致自己的均衡产量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(q_i^*\)</span><span class="heti-spacing"> </span></span>越高（因为对手产量会收缩，留出了市场空间<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<p>这种模型的价值不仅在于解出均衡，更在于通过分析解来验证模型是否符合现实，并为现实决策提供参考。</p>
+<p><strong>图形表示<span><span class="heti-spacing"> </span>(page 79)</span></strong><span>:<span class="heti-spacing"> </span></span>纳什均衡点是两条最佳应对曲线（在本例中是直线）的交点。</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Lec03-2.png"><img alt="|600" src="../attachments/Lec03-2.png"/></a></p>
+</details>
+<h3 id="IV4-纳什均衡的意义与挑战协调博弈-page-80-81"><span>IV.4<span class="heti-spacing"> </span></span>纳什均衡的意义与挑战：协调博弈<span><span class="heti-spacing"> </span>(page 80-81)</span><a class="headerlink" href="#IV4-纳什均衡的意义与挑战协调博弈-page-80-81" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>纳什均衡是博弈论中最核心的解概念，但它也有其局限性，<strong>协调博弈<span><span class="heti-spacing"> </span>(Coordination Game)</span></strong> 就是一个很好的例子。</p>
+<details class="example" open="open">
+<summary>将军博弈<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>又称猎鹿博弈<span><span class="heti-spacing"> </span>)</span></summary>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>将军<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>将军<span><span class="heti-spacing"> </span>2</span></strong></th>
+<th style="text-align: center;">进攻</th>
+<th style="text-align: center;">不进攻</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>进攻</strong></td>
+<td style="text-align: center;"><strong>1, 1</strong></td>
+<td style="text-align: center;">-2, 0</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>不进攻</strong></td>
+<td style="text-align: center;">0, -2</td>
+<td style="text-align: center;"><strong>0, 0</strong></td>
+</tr>
+</tbody>
+</table>
+<p>这个博弈有两个纯策略纳什均衡：<strong><span>(<span class="heti-spacing"> </span></span>进攻<span class="heti-skip"><span class="heti-spacing"> </span>,<span class="heti-spacing"> </span></span>进攻<span><span class="heti-spacing"> </span>)</span></strong> 和 <strong><span>(<span class="heti-spacing"> </span></span>不进攻<span class="heti-skip"><span class="heti-spacing"> </span>,<span class="heti-spacing"> </span></span>不进攻<span><span class="heti-spacing"> </span>)</span></strong>。</p>
+<ul>
+<li><span>(<span class="heti-spacing"> </span></span>进攻<span class="heti-skip"><span class="heti-spacing"> </span>,<span class="heti-spacing"> </span></span>进攻<span class="heti-skip"><span class="heti-spacing"> </span>)<span class="heti-spacing"> </span></span>是一个好的均衡，双方合作获得收益。但它有风险，如果对方不配合，自己会损失惨重。</li>
+<li><span>(<span class="heti-spacing"> </span></span>不进攻<span class="heti-skip"><span class="heti-spacing"> </span>,<span class="heti-spacing"> </span></span>不进攻<span class="heti-skip"><span class="heti-spacing"> </span>)<span class="heti-spacing"> </span></span>是一个安全的均衡，虽然没有收益，但也避免了最坏的结果。</li>
+</ul>
+</details>
+<p><strong>协调博弈的挑战</strong>:</p>
+<ol>
+<li><strong>均衡选择问题</strong><span>:<span class="heti-spacing"> </span></span>当存在多个纳什均衡时，博弈论本身无法告诉我们哪个会发生。现实中，结果可能依赖于历史、文化、惯例或外部的建议（<strong>相关均衡</strong><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。现实往往达不到纳什均衡：需要充分的交流或多次博弈达到稳态或者有一个仲裁者建议（相关均衡<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，这也是协调博弈的意义。</li>
+<li><strong>均衡达成问题</strong><span>:<span class="heti-spacing"> </span></span>即使只有一个好均衡，参与者也未必能自动达到。如果缺乏沟通和信任，大家可能会因为害怕风险而选择安全的、但次优的策略。</li>
+<li><strong>精炼<span><span class="heti-spacing"> </span>(Refinement)</span></strong><span>:<span class="heti-spacing"> </span></span>博弈论后续的发展提出了很多“均衡精炼”的概念，试图在多个纳什均衡中筛选出更“合理”的均衡。</li>
+</ol>
+<p>协调博弈的意义在于，它说明了在很多社会经济活动中，<strong>交流、信任和建立共同预期</strong>是达成高效合作的关键。</p>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn:1">
+<p>颤抖的手原则<span class="heti-skip"><span class="heti-spacing"> </span>(Trembling Hand Perfection)<span class="heti-spacing"> </span></span>认为，对手在执行策略时有极小的概率会“手滑”选错，因此我们应该选择一个在对手犯错时表现也相对稳健的策略。在上面的例子中，如果<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>有极小概率选<span><span class="heti-spacing"> </span>L</span>，那么<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>选择<span class="heti-skip"><span class="heti-spacing"> </span>B<span class="heti-spacing"> </span></span>的期望收益就严格高于<span><span class="heti-spacing"> </span>T</span>。 <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年4月2日 11:20:22 CST">2026年4月2日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月28日 21:39:51 CST">2025年7月28日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: 第二讲：数据合规与安全" class="md-footer__link md-footer__link--prev" href="../Lec02/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                第二讲：数据合规与安全
+              </div>
+</div>
+</a>
+<a aria-label="下一页: 第四讲：非合作博弈论基础 (二)" class="md-footer__link md-footer__link--next" href="../Lec04/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                第四讲：非合作博弈论基础 (二)
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

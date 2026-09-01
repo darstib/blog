@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/AI/KG/KGE/" rel="canonical"/>
+<link href="../" rel="prev"/>
+<link href="../../JustDo/MCP/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>Knowledge Graph Embedding - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#Knowledge-Graph-Embedding">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Knowledge Graph Embedding
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../note/">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../note/">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_7" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_7_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    AI
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../RecSys/">
+<span class="md-ellipsis">
+    
+  
+    RecSys
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../GRL/">
+<span class="md-ellipsis">
+    
+  
+    GRL
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_7_4" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    KG
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_7_4" id="__nav_7_4_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_7_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_7_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    KG
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    Knowledge Graph Embedding
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    Knowledge Graph Embedding
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#平移距离模型TDM">
+<span class="md-ellipsis">
+      
+        平移距离模型(TDM)
+      
+    </span>
+</a>
+<nav aria-label="平移距离模型(TDM)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#TransE">
+<span class="md-ellipsis">
+      
+        TransE
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#TransH">
+<span class="md-ellipsis">
+      
+        TransH
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#TransR">
+<span class="md-ellipsis">
+      
+        TransR
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#TransD">
+<span class="md-ellipsis">
+      
+        TransD
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#TranSparse">
+<span class="md-ellipsis">
+      
+        TranSparse
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#TransM">
+<span class="md-ellipsis">
+      
+        TransM
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#TransF">
+<span class="md-ellipsis">
+      
+        TransF
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#TransA">
+<span class="md-ellipsis">
+      
+        TransA
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#KG2E">
+<span class="md-ellipsis">
+      
+        KG2E
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#TransG">
+<span class="md-ellipsis">
+      
+        TransG
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#小结">
+<span class="md-ellipsis">
+      
+        小结
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#语义匹配模型SMM">
+<span class="md-ellipsis">
+      
+        语义匹配模型(SMM)
+      
+    </span>
+</a>
+<nav aria-label="语义匹配模型(SMM)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#RESCAL">
+<span class="md-ellipsis">
+      
+        RESCAL
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#NN-based">
+<span class="md-ellipsis">
+      
+        NN-based
+      
+    </span>
+</a>
+<nav aria-label="NN-based" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#SME">
+<span class="md-ellipsis">
+      
+        SME
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#NTN">
+<span class="md-ellipsis">
+      
+        NTN
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#MLP">
+<span class="md-ellipsis">
+      
+        MLP
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#NAM">
+<span class="md-ellipsis">
+      
+        NAM
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#应用application">
+<span class="md-ellipsis">
+      
+        应用(application)
+      
+    </span>
+</a>
+<nav aria-label="应用(application)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#In-KG">
+<span class="md-ellipsis">
+      
+        In-KG
+      
+    </span>
+</a>
+<nav aria-label="In-KG" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#链接预测Link-prediction">
+<span class="md-ellipsis">
+      
+        链接预测(Link prediction)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#三元组分类Triple-Classiﬁcation">
+<span class="md-ellipsis">
+      
+        三元组分类(Triple Classiﬁcation)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#实体分类Entity-Classification">
+<span class="md-ellipsis">
+      
+        实体分类(Entity Classification)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#实体解析Entity-Resolution">
+<span class="md-ellipsis">
+      
+        实体解析(Entity Resolution)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Out-KG">
+<span class="md-ellipsis">
+      
+        Out-KG
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#关系抽取Relation-Extraction">
+<span class="md-ellipsis">
+      
+        关系抽取(Relation Extraction)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#问答系统Question-Answering">
+<span class="md-ellipsis">
+      
+        问答系统（Question Answering）
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#推荐系统Recommender-Systems">
+<span class="md-ellipsis">
+      
+        推荐系统（Recommender Systems）
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../JustDo/MCP/">
+<span class="md-ellipsis">
+    
+  
+    JustDo
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#平移距离模型TDM">
+<span class="md-ellipsis">
+      
+        平移距离模型(TDM)
+      
+    </span>
+</a>
+<nav aria-label="平移距离模型(TDM)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#TransE">
+<span class="md-ellipsis">
+      
+        TransE
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#TransH">
+<span class="md-ellipsis">
+      
+        TransH
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#TransR">
+<span class="md-ellipsis">
+      
+        TransR
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#TransD">
+<span class="md-ellipsis">
+      
+        TransD
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#TranSparse">
+<span class="md-ellipsis">
+      
+        TranSparse
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#TransM">
+<span class="md-ellipsis">
+      
+        TransM
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#TransF">
+<span class="md-ellipsis">
+      
+        TransF
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#TransA">
+<span class="md-ellipsis">
+      
+        TransA
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#KG2E">
+<span class="md-ellipsis">
+      
+        KG2E
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#TransG">
+<span class="md-ellipsis">
+      
+        TransG
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#小结">
+<span class="md-ellipsis">
+      
+        小结
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#语义匹配模型SMM">
+<span class="md-ellipsis">
+      
+        语义匹配模型(SMM)
+      
+    </span>
+</a>
+<nav aria-label="语义匹配模型(SMM)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#RESCAL">
+<span class="md-ellipsis">
+      
+        RESCAL
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#NN-based">
+<span class="md-ellipsis">
+      
+        NN-based
+      
+    </span>
+</a>
+<nav aria-label="NN-based" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#SME">
+<span class="md-ellipsis">
+      
+        SME
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#NTN">
+<span class="md-ellipsis">
+      
+        NTN
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#MLP">
+<span class="md-ellipsis">
+      
+        MLP
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#NAM">
+<span class="md-ellipsis">
+      
+        NAM
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#应用application">
+<span class="md-ellipsis">
+      
+        应用(application)
+      
+    </span>
+</a>
+<nav aria-label="应用(application)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#In-KG">
+<span class="md-ellipsis">
+      
+        In-KG
+      
+    </span>
+</a>
+<nav aria-label="In-KG" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#链接预测Link-prediction">
+<span class="md-ellipsis">
+      
+        链接预测(Link prediction)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#三元组分类Triple-Classiﬁcation">
+<span class="md-ellipsis">
+      
+        三元组分类(Triple Classiﬁcation)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#实体分类Entity-Classification">
+<span class="md-ellipsis">
+      
+        实体分类(Entity Classification)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#实体解析Entity-Resolution">
+<span class="md-ellipsis">
+      
+        实体解析(Entity Resolution)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Out-KG">
+<span class="md-ellipsis">
+      
+        Out-KG
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#关系抽取Relation-Extraction">
+<span class="md-ellipsis">
+      
+        关系抽取(Relation Extraction)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#问答系统Question-Answering">
+<span class="md-ellipsis">
+      
+        问答系统（Question Answering）
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#推荐系统Recommender-Systems">
+<span class="md-ellipsis">
+      
+        推荐系统（Recommender Systems）
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    AI
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    KG
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<h1 id="Knowledge-Graph-Embedding">Knowledge Graph Embedding<a class="headerlink" href="#Knowledge-Graph-Embedding" title="Permanent link">¶</a></h1>
+<blockquote>
+<p>参考论文：<a href="https://ieeexplore.ieee.org/document/8047276/">Knowledge Graph Embedding: A Survey of Approaches and Applications</a></p>
+</blockquote>
+<p>知识图谱嵌入<span class="heti-skip"><span class="heti-spacing"> </span>(Knowledge Graph Embedding, KGE)<span class="heti-spacing"> </span></span>是知识图谱研究的一个子反向，其目标是将知识图谱中的实体和关系嵌入到一个连续的向量空间中，而得到的这些嵌入向量可以被用在很多知识图谱的子任务中，比如知识图谱补全。</p>
+<p>基本思路是：</p>
+<ol>
+<li>基于观测<strong>事实</strong>（fact，实体<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>关系<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>实体三元组，一般使用<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mathbb{D}^{+}=\{(h, r, t)\}\)</span></span>）表示实体和关系</li>
+<li>学习一个<strong>评估函数</strong> <span><span class="arithmatex">\(f_{r}(h, t)\)</span><span class="heti-spacing"> </span></span>来衡量事实的<strong>合理性<span><span class="heti-spacing"> </span>(Plausibility)</span></strong>（其实可以认为是损失函数）</li>
+<li>最大化合理性来更新实体和关系的表示</li>
+</ol>
+<p><span>KG<span class="heti-spacing"> </span></span>嵌入的方式根据评估函数的不同可以分成<strong>平移距离模型<span><span class="heti-spacing"> </span>(Translation Distance Model)</span></strong> 和<strong>语义匹配模型<span><span class="heti-spacing"> </span>(Semantic Matching Model)</span></strong> 两种形式。</p>
+<h2 id="平移距离模型TDM">平移距离模型<span><span class="heti-spacing"> </span>(TDM)</span><a class="headerlink" href="#平移距离模型TDM" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p><span>TDM<span class="heti-spacing"> </span></span>利用基于距离的评估函数，这类模型将“关系”视为连接两个实体嵌入向量的一个向量（的平移<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(\vec{r} = \vec{t} - \vec{h}\)</span></span> 。</p>
+<h3 id="TransE">TransE<a class="headerlink" href="#TransE" title="Permanent link">¶</a></h3>
+<p><span>TransE<span class="heti-spacing"> </span></span>是最早也是最著名的平移距离模型（之后也有很多变体，如<span><span class="heti-spacing"> </span>TransH, TransR</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，它将实体和关系都用<span class="heti-skip"><span class="heti-spacing"> </span>d<span class="heti-spacing"> </span></span>维空间中的向量来表示，并且希望学习到的嵌入向量满足<span><span class="heti-spacing"> </span><span class="arithmatex">\(\vec{r} = \vec{t} - \vec{h}\)</span></span>，而其评估函数可以表示为（<span>p<span class="heti-spacing"> </span></span>一般取<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>或<span><span class="heti-spacing"> </span>2</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<div class="arithmatex">\[
+f_r(h,t)=-||h+r-t||_p
+\]</div>
+<p><span>TransE<span class="heti-spacing"> </span></span>的缺点在于只适合处理一对一的关系，而当知识图谱中出现一对多，多对一，多对多的关系的时候，使用这种算法学习到的嵌入向量的表示能力并不好。</p>
+<details class="help" open="open">
+<summary></summary>
+<p>举个例子，一个父亲<span class="heti-skip"><span class="heti-spacing"> </span>h<span class="heti-spacing"> </span></span>可能有多个儿子<span><span class="heti-spacing"> </span><span class="arithmatex">\(t_{i}\)</span></span>，他们的关系<span class="heti-skip"><span class="heti-spacing"> </span>r<span class="heti-spacing"> </span></span>是一样的，按照上面简单的逻辑，所有的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t_{i}\)</span><span class="heti-spacing"> </span></span>学习得到的<span class="heti-skip"><span class="heti-spacing"> </span>t<span class="heti-spacing"> </span></span>将会是完全相同的；</p>
+<p>又比如，<span>A<span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span>B<span class="heti-spacing"> </span></span>的姐姐，<span>B<span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span>C<span class="heti-spacing"> </span></span>的姐姐，<span>A<span class="heti-spacing"> </span></span>也是<span class="heti-skip"><span class="heti-spacing"> </span>C<span class="heti-spacing"> </span></span>的姐姐，但是<span class="heti-skip"><span class="heti-spacing"> </span>A<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>B<span class="heti-spacing"> </span></span>之间的<span class="heti-skip"><span class="heti-spacing"> </span>r<span class="heti-spacing"> </span></span>显然无法和<span class="heti-skip"><span class="heti-spacing"> </span>A<span class="heti-spacing"> </span></span>与<span class="heti-skip"><span class="heti-spacing"> </span>C<span class="heti-spacing"> </span></span>之间的<span class="heti-skip"><span class="heti-spacing"> </span>r<span class="heti-spacing"> </span></span>一致。</p>
+</details>
+<div class="admonition note">
+<p class="admonition-title">一部分改进思路认为将关系放入不同的空间中讨论以面对更加复杂的情况</p>
+<ul>
+<li>TransH, TransR, TransD, TranSparse</li>
+</ul>
+</div>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/12_251012-180855.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/12_251012-180855.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/12_251012-180855.png"/></a>
+<br/>
+<figcaption>https://ieeexplore.ieee.org/document/8047276</figcaption>
+</figure>
+<h3 id="TransH">TransH<a class="headerlink" href="#TransH" title="Permanent link">¶</a></h3>
+<p>为了解决多元关系上<span class="heti-skip"><span class="heti-spacing"> </span>TransE<span class="heti-spacing"> </span></span>的局限性，<span>TransH<span class="heti-spacing"> </span></span>提出当实体参与不同的关系时，将其投影嵌入到一个新的空间中。具体而言，为每个关系定义一个超平面（法向量为<span><span class="heti-spacing"> </span><span class="arithmatex">\(w_{r}\)</span></span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，投影公式为（<span>v<span class="heti-spacing"> </span></span>代表<span class="heti-skip"><span class="heti-spacing"> </span>h<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>t</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<div class="arithmatex">\[
+v_\perp=v-w_r^Tvw_r
+\]</div>
+<h3 id="TransR">TransR<a class="headerlink" href="#TransR" title="Permanent link">¶</a></h3>
+<p><span>TransR<span class="heti-spacing"> </span></span>则提出为每个关系建立专门的投影空间，使用矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(M_{r} \in \mathbb{R}^{d\times k}\)</span><span class="heti-spacing"> </span></span>进行线性变换（<span>v<span class="heti-spacing"> </span></span>代表<span class="heti-skip"><span class="heti-spacing"> </span>h<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>t</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<div class="arithmatex">\[
+v_{\perp} = M_{r}v
+\]</div>
+<h3 id="TransD">TransD<a class="headerlink" href="#TransD" title="Permanent link">¶</a></h3>
+<p>由于<span class="heti-skip"><span class="heti-spacing"> </span>TransR<span class="heti-spacing"> </span></span>中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(M_{r}\)</span><span class="heti-spacing"> </span></span>的参数量较大，<span>TransD<span class="heti-spacing"> </span></span>通过用三个映射向量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(w_{h}, w_{r}, w_{t}\)</span><span class="heti-spacing"> </span></span>来构建两个投影矩阵，从而减少参数量：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+M_r^{1}=w_rw_h^{T}+I,&amp;\quad M_r^{2}=w_rw_t^{T}+I\\
+h_{\perp } = M_{r}^{1}h,&amp;\quad t_{\perp } = M_{r}^{2}t
+\end{aligned}
+\]</div>
+<h3 id="TranSparse">TranSparse<a class="headerlink" href="#TranSparse" title="Permanent link">¶</a></h3>
+<p><span>TranSparse<span class="heti-spacing"> </span></span>则通过引入稀疏性约束<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\theta_{r}\)</span><span class="heti-spacing"> </span></span>来控制投影投影矩阵的参数量，具体如下（<span><span class="arithmatex">\(M_{r}(\theta_{r})\)</span><span class="heti-spacing"> </span></span>相同时为共享版本<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；</p>
+<div class="arithmatex">\[h_{\perp} = M_r^1(\theta_r^1)h, \quad t_{\perp} = M_r^2(\theta_r^2)t\]</div>
+<div class="admonition note">
+<p class="admonition-title">一部分改进思路则认为是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\vec{r} = \vec{t} - \vec{h}\)</span><span class="heti-spacing"> </span></span>约束过紧了，调整违反约束收到的惩罚</p>
+<ul>
+<li>TransM, TransF, TransA</li>
+</ul>
+</div>
+<h3 id="TransM">TransM<a class="headerlink" href="#TransM" title="Permanent link">¶</a></h3>
+<p><span>TransM<span class="heti-spacing"> </span></span>提出的思路是为每个关系设定一个权重<span><span class="heti-spacing"> </span><span class="arithmatex">\(\theta_{r}\)</span></span>，为一对多，多对一，多对多关系赋予较小的权重，也即减小这些关系对训练的影响（把简单关系做好<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<div class="arithmatex">\[
+f_r(h,t)=-\theta_r\|\mathbf{h}+\mathbf{r}-\mathbf{t}\|_{p}
+\]</div>
+<h3 id="TransF">TransF<a class="headerlink" href="#TransF" title="Permanent link">¶</a></h3>
+<p><span>TransF<span class="heti-spacing"> </span></span>则认为只要<span class="heti-skip"><span class="heti-spacing"> </span>r<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>t-h<span class="heti-spacing"> </span></span>的反向差不多就行，因此有：</p>
+<div class="arithmatex">\[
+f_r(h,t)=(\mathbf{h}+\mathbf{r})^\top\mathbf{t}+(\mathbf{t}-\mathbf{r})^\top\mathbf{h}.
+\]</div>
+<h3 id="TransA">TransA<a class="headerlink" href="#TransA" title="Permanent link">¶</a></h3>
+<p><span>TransA<span class="heti-spacing"> </span></span>参考马氏距离，引入了一个新的评估函数（<span><span class="arithmatex">\(M_{r}\)</span><span class="heti-spacing"> </span></span>为对称矩阵<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<div class="arithmatex">\[
+f_r(h,t)=(|h+r-t|)^TM_r(|h+r-t|)
+\]</div>
+<p>通过学习<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(M_{r}\)</span><span class="heti-spacing"> </span></span>来应对复杂的情况。</p>
+<div class="admonition note">
+<p class="admonition-title">还有人认为嵌入太固定了导致无法表达复杂的信息，可以将实体和关系表达为分布来显示建模噪声和多样性</p>
+<ul>
+<li>KG2E, TransG</li>
+</ul>
+</div>
+<h3 id="KG2E">KG2E<a class="headerlink" href="#KG2E" title="Permanent link">¶</a></h3>
+<p><span>KG2E<span class="heti-spacing"> </span></span>将每个实体和关系都表示为多元高斯<span><span class="heti-spacing"> </span><span class="arithmatex">\(N\left( \mu, \Sigma \right)\)</span></span>；此时比较的是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t-h \sim N(\mu_t-\mu_h,\, \Sigma_t+\Sigma_h)\)</span><span class="heti-spacing"> </span></span>与<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(r \sim N(\mu_r,\, \Sigma_r)\)</span><span class="heti-spacing"> </span></span>两个分布的相似度。</p>
+<p>相似度用两类度量计算：</p>
+<ol>
+<li><span>KL<span class="heti-spacing"> </span></span>散度（Kullback-Leibler Divergence，越小越好）</li>
+<li>概率积内核（Probability Product Kernel，越大越好）</li>
+</ol>
+<h3 id="TransG">TransG<a class="headerlink" href="#TransG" title="Permanent link">¶</a></h3>
+<p><span>TransG<span class="heti-spacing"> </span></span>认为一个关系往往是多义的，于是把关系表示为高斯混合<span><span class="heti-spacing"> </span><span class="arithmatex">\(r = \sum_i p_i\, \mathcal{N}(\mu^{(i)}_r,\, \sigma^2 I)\)</span></span>，实体仍用各自的高斯（常取各向同性方差<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。打分是对各语义分量的加权求和，本质是对多种“平移” <span><span class="arithmatex">\(h + \mu^{(i)}_r \approx t\)</span><span class="heti-spacing"> </span></span>的指数式相似度求混合；混合分量的数量与权重可用中餐馆过程自适应学习，从数据中自动发现“一个关系的多种语义”。</p>
+<blockquote>
+<p>直观上，<span>Gaussian/<span class="heti-spacing"> </span></span>混合高斯嵌入能更稳健地处理不完备与噪声数据，并刻画关系多义性；代价是参数更多（如协方差、混合分量）与训练计算更复杂。</p>
+</blockquote>
+<h3 id="小结">小结<a class="headerlink" href="#小结" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/PicGo//PicGo_exe/202510122211651.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/PicGo//PicGo_exe/202510122211651.png" src="https://raw.githubusercontent.com/darstib/public_imgs/PicGo//PicGo_exe/202510122211651.png"/></a>
+</figure>
+<h2 id="语义匹配模型SMM">语义匹配模型<span><span class="heti-spacing"> </span>(SMM)</span><a class="headerlink" href="#语义匹配模型SMM" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>​<span>SMM<span class="heti-spacing"> </span></span>通常使用基于相似度的评估函数，通过计算实体和关系在向量空间中的潜在语义匹配度来评估嵌入向量的合理性。</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/12_251012-224554.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/12_251012-224554.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/12_251012-224554.png"/></a>
+</figure>
+<h3 id="RESCAL">RESCAL<a class="headerlink" href="#RESCAL" title="Permanent link">¶</a></h3>
+<p><span>RESCAL (a.k.a. the bilinear model)<span class="heti-spacing"> </span></span>认为实体用向量表示，关系则直接使用矩阵表示，评估函数是一个双线性函数：</p>
+<div class="arithmatex">\[
+f_r(h,t)=\mathbf{h}^\top\mathbf{M}_r\mathbf{t}=\sum_{i=0}^{d-1}\sum_{j=0}^{d-1}\left[\mathbf{M}_r\right]_{ij}\cdot[\mathbf{h}]_i\cdot[\mathbf{t}]_j
+\]</div>
+<ul>
+<li><span>DistMult<span class="heti-spacing"> </span></span>将<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(M_{r}\)</span><span class="heti-spacing"> </span></span>约束为一个对角矩阵，显然这只能够处理对称的关系<ul>
+<li><span class="arithmatex">\(f_r(h,t)=\mathbf{h}^\top\mathrm{diag}(\mathbf{r})\mathbf{t}=\sum_{i=0}^{d-1}[\mathbf{r}]_i\cdot[\mathbf{h}]_i\cdot[\mathbf{t}]_i\)</span></li>
+</ul>
+</li>
+<li><span>HolE<span class="heti-spacing"> </span></span>利用循环相关操作提高矩阵的表达能力<ul>
+<li><span class="arithmatex">\(f_r(h,t)=\mathbf{r}^\top(\mathbf{h}\star\mathbf{t})=\sum_{i=0}^{d-1}[\mathbf{r}]_i\sum_{k=0}^{d-1}[\mathbf{h}]_k\cdot[\mathbf{t}]_{(k+i)\operatorname{mod}d}\)</span></li>
+</ul>
+</li>
+<li><span>ConplEx<span class="heti-spacing"> </span></span>引入复数一遍更好地对非对称关系进行建模<ul>
+<li><span class="arithmatex">\(f_r(h,t)=\mathrm{Re}\big(\mathbf{h}^\top\mathrm{diag}(\mathbf{r})\overline{\mathbf{t}}\big)=\mathrm{Re}\bigg(\sum_{i=0}^{d-1}[\mathbf{r}]_i\cdot[\mathbf{h}]_i\cdot[\mathbf{t}]_i\bigg)\)</span></li>
+</ul>
+</li>
+<li><span>ANALOGY<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>RESCAL<span class="heti-spacing"> </span></span>的基础上对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(M_{r}\)</span><span class="heti-spacing"> </span></span>添加了约束<span><span class="heti-spacing"> </span>(normality, commutativity)</span><ul>
+<li>
+<div class="arithmatex">\[\begin{aligned}\mathrm{normality:~}&amp;\mathbf{M}_{r}\mathbf{M}_{r}^{\top}=\mathbf{M}_{r}^{\top}\mathbf{M}_{r},\:\forall r\in\mathbb{R};\\\mathrm{commutativity:~}&amp;\mathbf{M}_{r}\mathbf{M}_{r^{\prime}}=\mathbf{M}_{r^{\prime}}\mathbf{M}_{r},\:\forall r,r^{\prime}\in\mathbb{R}.\end{aligned}\]</div>
+</li>
+<li>可以推导（虽然看不懂怎么得到的）将前述四个模型进行统一；也即前述模型都是<span class="heti-skip"><span class="heti-spacing"> </span>ANALOGY<span class="heti-spacing"> </span></span>的特例。</li>
+</ul>
+</li>
+</ul>
+<h3 id="NN-based">NN-based<a class="headerlink" href="#NN-based" title="Permanent link">¶</a></h3>
+<p>基于神经网络的匹配方法首先将<span class="heti-skip"><span class="heti-spacing"> </span>h,r,t<span class="heti-spacing"> </span></span>嵌入为向量（随机初始化、使用<span class="heti-skip"><span class="heti-spacing"> </span>TransE<span class="heti-spacing"> </span></span>等方式获得、和网络参数一起学习<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/13_251013-211623.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/13_251013-211623.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/13_251013-211623.png"/></a>
+</figure>
+<h4 id="SME">SME<a class="headerlink" href="#SME" title="Permanent link">¶</a></h4>
+<p>语义匹配能量模型<span class="heti-skip"><span class="heti-spacing"> </span>(Semantic Matching Energy, SME)<span class="heti-spacing"> </span></span>将实体分别与关系进行线性组合嵌入隐藏层，再计算匹配分数：</p>
+<ul>
+<li><span class="arithmatex">\(g_u(\mathbf{h,r})=\mathbf{M}_u^1\mathbf{h}\oplus\mathbf{M}_u^2\mathbf{r}+\mathbf{b}_u\)</span></li>
+<li><span class="arithmatex">\(g_v(\mathbf{t,r})=\mathbf{M}_v^1\mathbf{t}\oplus\mathbf{M}_v^2\mathbf{r}+\mathbf{b}_v\)</span></li>
+<li><span class="arithmatex">\(f_r(h,t)=g_u(\mathbf{h},\mathbf{r})^\top g_v(\mathbf{t},\mathbf{r})\)</span></li>
+</ul>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\oplus\)</span><span class="heti-spacing"> </span></span>可取<span><span class="heti-spacing"> </span><span class="arithmatex">\(+, \cdot\)</span></span>，分别代表了线性组合和双线性组合。</p>
+<h4 id="NTN">NTN<a class="headerlink" href="#NTN" title="Permanent link">¶</a></h4>
+<p>神经张量网络<span class="heti-skip"><span class="heti-spacing"> </span>(Neural Tensor Network, NTN)<span class="heti-spacing"> </span></span>评估函数为：</p>
+<div class="arithmatex">\[
+f_r(h,t)=\mathbf{r}^\top\tanh(\mathbf{h}^\top\underline{\mathbf{M}}_r\mathbf{t}+\mathbf{M}_r^1\mathbf{h}+\mathbf{M}_r^2\mathbf{t}+\mathbf{b}_r)
+\]</div>
+<p>看起来有点像推荐系统中的<a href="../../RecSys/Classic/1-Recall-vector/#二阶交叉特征">二阶交叉特征</a>，是本篇涉及的模型中表达能力最强的模型，但是碍于参数过多难以处理大型图谱。</p>
+<h4 id="MLP">MLP<a class="headerlink" href="#MLP" title="Permanent link">¶</a></h4>
+<p>多层感知机<span class="heti-skip"><span class="heti-spacing"> </span>(Multi-Layer Perceptron, MLP)<span class="heti-spacing"> </span></span>就是比较存粹的线性组合加非线性激活：</p>
+<div class="arithmatex">\[
+f_r(h,t)=\mathbf{w}^\top\tanh(\mathbf{M}^1\mathbf{h}+\mathbf{M}^2\mathbf{r}+\mathbf{M}^3\mathbf{t})
+\]</div>
+<h4 id="NAM">NAM<a class="headerlink" href="#NAM" title="Permanent link">¶</a></h4>
+<p>神经关联网络<span class="heti-skip"><span class="heti-spacing"> </span>(Neural Association Model, NAM)<span class="heti-spacing"> </span></span>比较简单粗暴，将<span class="heti-skip"><span class="heti-spacing"> </span>h, r<span class="heti-spacing"> </span></span>拼接后输入一个<span class="heti-skip"><span class="heti-spacing"> </span>L<span class="heti-spacing"> </span></span>层简单神经元构成的网络，将输出与<span class="heti-skip"><span class="heti-spacing"> </span>t<span class="heti-spacing"> </span></span>进行匹配：</p>
+<ol>
+<li><span class="arithmatex">\(\mathbf{z}^{(0)}=[\mathbf{h};\mathbf{r}]\in\mathbb{R}^{2d}\)</span><ul>
+<li><span class="arithmatex">\(\mathbf{a}^{(\ell)}=\mathbf{M}^{(\ell)}\mathbf{z}^{(\ell-1)}+\mathbf{b}^{(\ell)},\quad\ell=1,\ldots,L\)</span></li>
+<li><span class="arithmatex">\(\mathbf{z}^{(\ell)}=\mathrm{ReLU}(\mathbf{a}^{(\ell)}),\quad\ell=1,\ldots,L\)</span></li>
+</ul>
+</li>
+<li><span class="arithmatex">\(f_r(h,t)=\mathbf{t}^\top\mathbf{z}^{(L)}\)</span></li>
+</ol>
+<h2 id="应用application">应用<span><span class="heti-spacing"> </span>(application)</span><a class="headerlink" href="#应用application" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="In-KG">In-KG<a class="headerlink" href="#In-KG" title="Permanent link">¶</a></h3>
+<h4 id="链接预测Link-prediction">链接预测<span><span class="heti-spacing"> </span>(Link prediction)</span><a class="headerlink" href="#链接预测Link-prediction" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>链接预测任务一般指预测两个实体之间是否存在特定关系，常见的做法是给定<span class="heti-skip"><span class="heti-spacing"> </span>h/t<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>r</span>，所有的<span class="heti-skip"><span class="heti-spacing"> </span>t/h<span class="heti-spacing"> </span></span>作为候选答案进行选择；也可以给定<span class="heti-skip"><span class="heti-spacing"> </span>h<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>t</span>，寻找<span><span class="heti-spacing"> </span>r</span>。</p>
+<p>以寻找<span class="heti-skip"><span class="heti-spacing"> </span>t<span class="heti-spacing"> </span></span>为例，为了方便训练和评估（以及类比推荐系统和语言生成模型<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，更一般的做法是依据<span class="heti-skip"><span class="heti-spacing"> </span>h<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>r</span> ，将候选的所有<span class="heti-skip"><span class="heti-spacing"> </span>t<span class="heti-spacing"> </span></span>进行排序，随后进行评估（已经有很多对排序结果进行评估的方法了，例如<span><span class="heti-spacing"> </span>Hits@n , AUC-PR</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<h4 id="三元组分类Triple-Classiﬁcation">三元组分类<span><span class="heti-spacing"> </span>(Triple Classi</span>ﬁcation)<a class="headerlink" href="#三元组分类Triple-Classiﬁcation" title="Permanent link">¶</a></h4>
+<p>一般指判断事实三元组<span class="heti-skip"><span class="heti-spacing"> </span>(h, r, t)<span class="heti-spacing"> </span></span>的真假性；简答的形式是为合理性<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f_{r}(h, t)\)</span><span class="heti-spacing"> </span></span>设置一个阈值<span><span class="heti-spacing"> </span><span class="arithmatex">\(\delta\)</span></span>，高于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\delta\)</span><span class="heti-spacing"> </span></span>才认为这个事实为真。</p>
+<h4 id="实体分类Entity-Classification">实体分类<span><span class="heti-spacing"> </span>(Entity Classification)</span><a class="headerlink" href="#实体分类Entity-Classification" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>实体解析一般指判断两个实体是否有所属关系，例如“浅碎时光”是“大学生”。一个简单的方法是定义一个关系<span class="heti-skip"><span class="heti-spacing"> </span>isA<span class="heti-spacing"> </span></span>表示两个实体所属，随后就是对<span class="heti-skip"><span class="heti-spacing"> </span>(x, isA, ?)<span class="heti-spacing"> </span></span>进行来链接预测了。</p>
+<h4 id="实体解析Entity-Resolution">实体解析<span><span class="heti-spacing"> </span>(Entity Resolution)</span><a class="headerlink" href="#实体解析Entity-Resolution" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>实体解析一般指判断两个实体是否指的是同一个对象，例如浙大和浙江大学两个实体实际上是同一个对象。一个简单的方法是定义一个关系<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(equalTo\)</span><span class="heti-spacing"> </span></span>表示两个实体相同，随后就是对<span class="heti-skip"><span class="heti-spacing"> </span>(x, equalTo, y)<span class="heti-spacing"> </span></span>进行三元组分类了。</p>
+<h3 id="Out-KG">Out-KG<a class="headerlink" href="#Out-KG" title="Permanent link">¶</a></h3>
+<h3 id="关系抽取Relation-Extraction">关系抽取<span><span class="heti-spacing"> </span>(Relation Extraction)</span><a class="headerlink" href="#关系抽取Relation-Extraction" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>关系抽取的目的是从已经检测到实体的纯文本中抽取关系事实。传统的思路中利用“远程监督”：将已有<span class="heti-skip"><span class="heti-spacing"> </span>KG<span class="heti-spacing"> </span></span>上的事实对齐到语料库中包含同一对实体的片段中，用这些片段来训练一个<span><span class="heti-spacing"> </span>text-based extractor</span>。这里<span class="heti-skip"><span class="heti-spacing"> </span>KG<span class="heti-spacing"> </span></span>只是用于生成训练数据，没有利用到<span class="heti-skip"><span class="heti-spacing"> </span>KG<span class="heti-spacing"> </span></span>自身的推理能力。</p>
+<p>因此<span class="heti-skip"><span class="heti-spacing"> </span>Weston<span class="heti-spacing"> </span></span>等人提出训练<span class="heti-skip"><span class="heti-spacing"> </span>text-based extractor<span class="heti-spacing"> </span></span>的同时训练一个<span class="heti-skip"><span class="heti-spacing"> </span>KG<span class="heti-spacing"> </span></span>上的<span><span class="heti-spacing"> </span>embedding model</span>（如<span><span class="heti-spacing"> </span>TransE</span>）来作为辅助，具体融合思路为：</p>
+<ol>
+<li>利用<span class="heti-skip"><span class="heti-spacing"> </span>text-based extractor<span class="heti-spacing"> </span></span>对文本片段<span class="heti-skip"><span class="heti-spacing"> </span>m<span class="heti-spacing"> </span></span>与所有候选关系<span class="heti-skip"><span class="heti-spacing"> </span>r<span class="heti-spacing"> </span></span>匹配打分记为<span><span class="heti-spacing"> </span><span class="arithmatex">\(S_{text}(m, r)\)</span></span>，并选出预测关系<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{r}\)</span></span>；</li>
+<li>利用<span class="heti-skip"><span class="heti-spacing"> </span>embedding model<span class="heti-spacing"> </span></span>对三元组<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((h, \hat{r}, t)\)</span><span class="heti-spacing"> </span></span>的合理性进行评分记为<span><span class="heti-spacing"> </span><span class="arithmatex">\(S_{KG}(h, \hat{r}, t)\)</span></span></li>
+<li>复合打分为：<span class="arithmatex">\(S_{\mathrm{text}+\mathrm{KG}}(h,\hat{r},t)\:=\:\sum_{m\in M_{h,t}}S_{\mathrm{text}}(m,\hat{r})\:+\:S_{\mathrm{KG}}(h,\hat{r},t)\)</span></li>
+</ol>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(M_{h, t}\)</span><span class="heti-spacing"> </span></span>为语料库中所有涉及<span class="heti-skip"><span class="heti-spacing"> </span>h, t<span class="heti-spacing"> </span></span>两个实体的片段。直观来说就是：这段文本“像是”在说这俩个实体存在某种关系，且在<span class="heti-skip"><span class="heti-spacing"> </span>KG<span class="heti-spacing"> </span></span>里面也“比较合理”，那么这个关系就会被认可。</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/13_251013-225329.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/13_251013-225329.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/13_251013-225329.png"/></a>
+</figure>
+<p><span>Riedel<span class="heti-spacing"> </span></span>等人提出了另一种结合文本和<span class="heti-skip"><span class="heti-spacing"> </span>KG<span class="heti-spacing"> </span></span>的框架，他们构建了一个矩阵：</p>
+<ul>
+<li>每一行表示一对实体<span><span class="heti-spacing"> </span>(h, t)</span>；</li>
+<li>每一列表示一种关系标记，被分为两部分：<ul>
+<li>文本提及<span><span class="heti-spacing"> </span>(Textual mentions)</span><ul>
+<li><span>"directed by", "made by"<span class="heti-spacing"> </span></span>等表示所属关系的文本片段</li>
+</ul>
+</li>
+<li>知识图谱关系<span><span class="heti-spacing"> </span>(KG relations)</span><ul>
+<li><span>"DirectedOf", "ActorIn"<span class="heti-spacing"> </span></span>等规范化的关系</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>当一个实体对在语料库中或者知识图谱中以对应关系标记被提及<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>存在时，则标记对应单元为<span><span class="heti-spacing"> </span>1</span>，否则为<span><span class="heti-spacing"> </span>0</span>；对于测试样例即补全图中<span class="heti-skip"><span class="heti-spacing"> </span>?<span class="heti-spacing"> </span></span>区域的标记情况。</p>
+<h3 id="问答系统Question-Answering">问答系统（Question Answering）<a class="headerlink" href="#问答系统Question-Answering" title="Permanent link">¶</a></h3>
+<p>给定一个用自然语言表达的问题，任务是从<span class="heti-skip"><span class="heti-spacing"> </span>KG<span class="heti-spacing"> </span></span>中检索由三元组或三元组支持的正确答案。一个可行的方法是学习单词和<span class="heti-skip"><span class="heti-spacing"> </span>KG<span class="heti-spacing"> </span></span>成分的低维向量嵌入，使问题的表示和相应的答案在嵌入空间中相互接近，进行检索召回。</p>
+<h3 id="推荐系统Recommender-Systems">推荐系统（Recommender Systems）<a class="headerlink" href="#推荐系统Recommender-Systems" title="Permanent link">¶</a></h3>
+<p>有学者提出了一种混合推荐框架，该框架利用<span class="heti-skip"><span class="heti-spacing"> </span>KG<span class="heti-spacing"> </span></span>内的异构信息来提高协同过滤的质量——使用存储在<span class="heti-skip"><span class="heti-spacing"> </span>KG<span class="heti-spacing"> </span></span>的三种类型的信息<span class="heti-skip"><span class="heti-spacing"> </span>,<span class="heti-spacing"> </span></span>包括结构性知识<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>事实三元组<span class="heti-skip"><span class="heti-spacing"> </span>),<span class="heti-spacing"> </span></span>文本知识<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>例如<span class="heti-skip"><span class="heti-spacing"> </span>,<span class="heti-spacing"> </span></span>一本书或一部电影的文本性的总结<span class="heti-skip"><span class="heti-spacing"> </span>),<span class="heti-spacing"> </span></span>和视觉知识<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>例如<span class="heti-skip"><span class="heti-spacing"> </span>,<span class="heti-spacing"> </span></span>一本书的封面或电影海报图片<span class="heti-skip"><span class="heti-spacing"> </span>),<span class="heti-spacing"> </span></span>为每项生成语义表示。</p>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月1日 22:41:59 CST">2026年7月1日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年10月21日 15:43:52 CST">2025年10月21日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: Knowledge Graph" class="md-footer__link md-footer__link--prev" href="../">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                Knowledge Graph
+              </div>
+</div>
+</a>
+<a aria-label="下一页: MCP" class="md-footer__link md-footer__link--next" href="../../JustDo/MCP/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                MCP
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/AI/GRL/CNN%26RNN/" rel="canonical"/>
+<link href="../" rel="prev"/>
+<link href="../GE/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>CNN&amp;RNN - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#CNN">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              CNN&amp;RNN
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../note/">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../note/">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_7" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_7_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    AI
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../RecSys/">
+<span class="md-ellipsis">
+    
+  
+    RecSys
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_7_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    GRL
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_7_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_7_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    GRL
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    CNN&amp;RNN
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    CNN&amp;RNN
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#CNN">
+<span class="md-ellipsis">
+      
+        CNN
+      
+    </span>
+</a>
+<nav aria-label="CNN" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#卷积与卷积核">
+<span class="md-ellipsis">
+      
+        卷积与卷积核
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#卷积层">
+<span class="md-ellipsis">
+      
+        卷积层
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#降下采样-DownSampling">
+<span class="md-ellipsis">
+      
+        降/下采样 (DownSampling)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#RNN">
+<span class="md-ellipsis">
+      
+        RNN
+      
+    </span>
+</a>
+<nav aria-label="RNN" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#计算图">
+<span class="md-ellipsis">
+      
+        计算图
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#零长度输入">
+<span class="md-ellipsis">
+      
+        零长度输入
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#单长度输入">
+<span class="md-ellipsis">
+      
+        单长度输入
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#多长度输入">
+<span class="md-ellipsis">
+      
+        多长度输入
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#GRNN">
+<span class="md-ellipsis">
+      
+        GRNN
+      
+    </span>
+</a>
+<nav aria-label="GRNN" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#LSTM">
+<span class="md-ellipsis">
+      
+        LSTM
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#GRU">
+<span class="md-ellipsis">
+      
+        GRU
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../GE/">
+<span class="md-ellipsis">
+    
+  
+    Graph Embedding
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../GNN/">
+<span class="md-ellipsis">
+    
+  
+    Graph Neural Network
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../KG/">
+<span class="md-ellipsis">
+    
+  
+    KG
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../JustDo/MCP/">
+<span class="md-ellipsis">
+    
+  
+    JustDo
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#CNN">
+<span class="md-ellipsis">
+      
+        CNN
+      
+    </span>
+</a>
+<nav aria-label="CNN" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#卷积与卷积核">
+<span class="md-ellipsis">
+      
+        卷积与卷积核
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#卷积层">
+<span class="md-ellipsis">
+      
+        卷积层
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#降下采样-DownSampling">
+<span class="md-ellipsis">
+      
+        降/下采样 (DownSampling)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#RNN">
+<span class="md-ellipsis">
+      
+        RNN
+      
+    </span>
+</a>
+<nav aria-label="RNN" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#计算图">
+<span class="md-ellipsis">
+      
+        计算图
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#零长度输入">
+<span class="md-ellipsis">
+      
+        零长度输入
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#单长度输入">
+<span class="md-ellipsis">
+      
+        单长度输入
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#多长度输入">
+<span class="md-ellipsis">
+      
+        多长度输入
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#GRNN">
+<span class="md-ellipsis">
+      
+        GRNN
+      
+    </span>
+</a>
+<nav aria-label="GRNN" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#LSTM">
+<span class="md-ellipsis">
+      
+        LSTM
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#GRU">
+<span class="md-ellipsis">
+      
+        GRU
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    AI
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    GRL
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:notes">notes</a>
+</nav>
+<h1>CNN&amp;RNN</h1>
+<h2 id="CNN">CNN<a class="headerlink" href="#CNN" title="Permanent link">¶</a></h2>
+<blockquote>
+<p>https://www.huaxiaozhuan.com/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/chapters/5_CNN.html</p>
+</blockquote>
+<h3 id="卷积与卷积核">卷积与卷积核<a class="headerlink" href="#卷积与卷积核" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在我们学过的微积分知识中，卷积计算被定义为：</p>
+<div class="arithmatex">\[
+s(t)=(x*w)(t) = \int x(a)w(t-a)da
+\]</div>
+<p>在计算机科学中，计算往往是有限且离散的；在<strong>卷积神经网络<span><span class="heti-spacing"> </span>(Convolutional Neural Network, CNN)</span></strong> 中，<span><span class="arithmatex">\(x(\cdot)\)</span><span class="heti-spacing"> </span></span>被称为输入，<span><span class="arithmatex">\(w(\cdot)\)</span><span class="heti-spacing"> </span></span>被称为卷积核，输出被称为特征图<span><span class="heti-spacing"> </span>(feature map)</span>。卷积运算可以是高纬度的，但一般用于处理二维数据；如果二维图像<span class="heti-skip"><span class="heti-spacing"> </span>I<span class="heti-spacing"> </span></span>作为输入，则需要使用二维核函数<span><span class="heti-spacing"> </span>K</span>，卷积运算的输出为（这实际上是互相关函数<span><span class="heti-spacing"> </span>(cross-correlation)</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<div class="arithmatex">\[
+\mathbf{S}(i,j)=(\mathbf{I}*\mathbf{K})(i,j)=\sum_m\sum_n\mathbf{I}(m,n)\mathbf{K}(i-m,j-n)
+\]</div>
+<details class="help">
+<summary>直观理解</summary>
+<p>在<a href="https://zhuanlan.zhihu.com/p/76606892">卷积原理及可视化</a>中给出了动图直观的理解“卷积”操作；简单来说，核（往往远小于输入的规模）在输入上进行滑动（每次滑动的距离称为步长<span><span class="heti-spacing"> </span>(stride)</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；对于核与此时覆盖到的输入逐单元相乘并相加得到一个输出单元；输出单元按顺序构成输出。</p>
+<figure markdown="span">
+</figure></details>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/07_251007-222932.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/07_251007-222932.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/07_251007-222932.png"/></a></p>
+<blockquote>
+<p>另一方面，卷积也可以看作是除去接收域外其他参数均为<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>的稀疏全连接。</p>
+</blockquote>
+<p>注意到卷积过程中的计算都是相乘且相加，考虑可并行性转变为矩阵相乘；对于长度分别为<span class="heti-skip"><span class="heti-spacing"> </span>M, N<span class="heti-spacing"> </span></span>的<span><span class="heti-spacing"> </span><span class="arithmatex">\(x(\cdot), w(\cdot)\)</span></span>，最后输出<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(S\)</span><span class="heti-spacing"> </span></span>的长度应该为<span><span class="heti-spacing"> </span><span class="arithmatex">\(L\in[M-N+1, M+N-1]\)</span></span> （取决于填充情况，常见有三种填充方式<sup id="fnref:1"><a class="footnote-ref" href="#fn:1"><span><span class="heti-spacing"> </span>1</span></a></sup><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；为此先将<span class="heti-skip"><span class="heti-spacing"> </span>x, w<span class="heti-spacing"> </span></span>进行填充：</p>
+<div class="arithmatex">\[
+\left.x_p(i)=\left\{\begin{array}{ll}x(i)&amp;,0\leq i\leq M-1\\0&amp;,M-1&lt;i\leq L-1\end{array}\right.\right. ，w_p(i)=\left\{\begin{array}{ll}w(i)&amp;,0\leq i\leq N-1\\0&amp;,N-1&lt;i\leq L-1\end{array}\right.
+\]</div>
+<p>构造<span class="heti-skip"><span class="heti-spacing"> </span>w<span class="heti-spacing"> </span></span>的循环矩阵：</p>
+<div class="arithmatex">\[
+\mathbf{W}=\begin{bmatrix}w_p(0)&amp;w_p(L-1)&amp;w_p(L-2)&amp;\cdots&amp;w_p(1)\\w_p(1)&amp;w_p(0)&amp;w_p(L-1)&amp;\cdots&amp;w_p(2)\\\vdots&amp;\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\w_p(L-1)&amp;w_p(L-2)&amp;w_p(L-3)&amp;\cdots&amp;w_p(0)\end{bmatrix}
+\]</div>
+<p>故而可以计算<span><span class="heti-spacing"> </span><span class="arithmatex">\(S = W\cdot x_{p}\)</span></span> 。在神经网络中，卷积运算的作用就类似于滤波，因此也称卷积核为<span class="heti-skip"><span class="heti-spacing"> </span>(filter)<span class="heti-spacing"> </span></span>滤波器。</p>
+<p>每个卷积核能够提取一个类型的特征，并行使用多个卷积核可以使得输出的特征图具有多个通道<span><span class="heti-spacing"> </span>(channel)</span> 。</p>
+<h3 id="卷积层">卷积层<a class="headerlink" href="#卷积层" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>一个卷积层一般包括三个部分：卷积运算部分，非线性激活部分，池化部分。在卷积运算部分包含了三个重要思想：</p>
+<ol>
+<li>稀疏交互：相比于传统网络的全连接层，输出的每一个单元只受少部分集中的输入单元影响，减小了计算和存储开销；随着卷积层的叠加，输出的每一个单元同样能够间接的受到所有输入单元的影响；网络深层的单元格的接收域大于浅层。</li>
+<li>参数共享：相比于传统网络全连接层所有参数独立，在一次卷积运算中共享一个核，也即参数数量<span><span class="heti-spacing"> </span><span class="arithmatex">\(M\times M \rightarrow N \times N, M \gg N\)</span></span>。</li>
+<li>等变表示<heti-adjacent class="heti-adjacent-half">：</heti-adjacent>（如果<span><span class="heti-spacing"> </span><span class="arithmatex">\(f(g(x))= g(f(x))\)</span></span>，则称<span class="heti-skip"><span class="heti-spacing"> </span>f<span class="heti-spacing"> </span></span>对于<span class="heti-skip"><span class="heti-spacing"> </span>g<span class="heti-spacing"> </span></span>变换具有等变性）对于输入内容进行某些操作后（如对图像进行平移）并不会影响输出太多。</li>
+</ol>
+<h3 id="降下采样-DownSampling">降<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>下采样<span><span class="heti-spacing"> </span>(DownSampling)</span><a class="headerlink" href="#降下采样-DownSampling" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>有时候为了降低计算开销，我们适当抛弃一些原本需要计算的点。一般而言我们直接通过<strong>调整步长<span><span class="heti-spacing"> </span>(stride)</span></strong> 来实现（下图左<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；从达到目的的角度来看可以先实现原有的卷积再丢弃，但是显然这样不符合我们降低计算开销的一个目的，故而一般都使用前者。</p>
+<p><figure markdown="span">
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/07_251007-223351.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/07_251007-223351.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/07_251007-223351.png"/></a></figure></p>
+<p><strong>池化<span><span class="heti-spacing"> </span>(pooling)</span></strong> 是另一个降采样的方法，它可以看作一个特殊的卷积方式。与卷积相同，池化操作时使用一个滑动窗口进行采样，并进行一种“顺序无关”的操作，如取最大、求平均。池化具有两个特性：</p>
+<ol>
+<li>平移近似不变性：平移变换大体不影响池化操作的结果</li>
+<li>模拟其他不变性：对于旋转等操作可以利用多个核并选择激活以应对
+    <figure markdown="span">
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/07_251007-230606.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/07_251007-230606.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/07_251007-230606.png"/></a></figure></li>
+</ol>
+<h2 id="RNN">RNN<a class="headerlink" href="#RNN" title="Permanent link">¶</a></h2>
+<blockquote>
+<p>https://www.huaxiaozhuan.com/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/chapters/6_RNN.html</p>
+</blockquote>
+<p><strong>循环神经网络<span><span class="heti-spacing"> </span>(recurrent neural network, RNN)</span></strong> 是一种用于处理序列数据<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathbf{x}_i=\{\vec{\mathbf{x}}_i^{(1)},\vec{\mathbf{x}}_i^{(2)},\cdots,\vec{\mathbf{x}}_i^{(\tau_i)}\}\)</span><span class="heti-spacing"> </span></span>的神经网络。</p>
+<p>传统的前馈神经网络在每个时间点上分配一个独立的参数，因此网络需要学习每个时间点上的权重。而如果前一个时间步和后一个时间步之间的关系与时刻<span class="heti-skip"><span class="heti-spacing"> </span>t<span class="heti-spacing"> </span></span>无关，相同参数可以应用于不同的时间步，则循环神经网络在每个时间点上共享相同的权重。</p>
+<p>就像几乎所有函数都可以被认为是前馈神经网络，几乎任何涉及循环的函数都可以被认为是循环神经网络。</p>
+<h3 id="计算图">计算图<a class="headerlink" href="#计算图" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>考虑一个会受到外部影响的动力系统的转移方程：</p>
+<div class="arithmatex">\[
+\vec{\mathbf{h}}^{(t)}=f(\vec{\mathbf{h}}^{(t-1)},\vec{\mathbf{x}}^{(t)};\Theta)
+\]</div>
+<p>其中</p>
+<ul>
+<li><span class="arithmatex">\(\vec{h}^{(t)}\)</span>：系统状态</li>
+<li><span class="arithmatex">\(\vec{x}^{(t)}\)</span>：外部影响</li>
+<li><span class="arithmatex">\(\Theta\)</span>：模型参数</li>
+</ul>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/08_1759887460011.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/08_1759887460011.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/08_1759887460011.png"/></a>
+</figure>
+<p>可以认为，<span><span class="arithmatex">\(\vec{h}^{(t)}\)</span><span class="heti-spacing"> </span></span>是信息序列<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathbf{x}=\{\vec{x}^{(1)}, \vec{x}^{(2)}, \dots, \vec{x}^{(t-1)}\}\)</span><span class="heti-spacing"> </span></span>的一个有损表示（使用了定长的<span class="heti-skip"><span class="heti-spacing"> </span>h<span class="heti-spacing"> </span></span>表征变长的<span><span class="heti-spacing"> </span>x</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；有时会有选择的保留信息序列，例如<span class="heti-skip"><span class="heti-spacing"> </span>attention<span class="heti-spacing"> </span></span>机制。</p>
+<p>从上述转移方程和展开图我们不难发现：</p>
+<ul>
+<li>无论输入序列的长度<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\tau\)</span><span class="heti-spacing"> </span></span>如何，学得的模型始终具有相同的输入大小。<ul>
+<li>因为模型在每个时间步上，其模型的输入<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\vec{x}^{(t)}\)</span><span class="heti-spacing"> </span></span>都是相同大小的。</li>
+</ul>
+</li>
+<li>在每个时间步转移函数<span class="heti-skip"><span class="heti-spacing"> </span>f<span class="heti-spacing"> </span></span>是相同的，参数共享。</li>
+</ul>
+<p>这提高了模型的泛化性，降低了模型训练成本。</p>
+<h3 id="零长度输入">零长度输入<a class="headerlink" href="#零长度输入" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>当信息序列的长度为<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>时，则使用历史输出来作为当前时刻的输入（如简单的文本生成任务<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，得到时间步<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span><span class="heti-spacing"> </span></span>输出的<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>分量：</p>
+<div class="arithmatex">\[o_k^{(t)}=p(y^{(t)}=k\mid y^{(0)},y^{(1)},\cdots,y^{(t-1)}),\quad k=1,2,\cdots,K\]</div>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathbf{y}^{(t)}=\{y^{(0)}, \dots, y^{(t)}\}\)</span><span class="heti-spacing"> </span></span>为真实标签。损失函数为：</p>
+<div class="arithmatex">\[
+L=-\sum_{t=1}^\tau\sum_{k=1}^K\mathbb{I}(k=y^{(t)})\log o_k^{(t)}
+\]</div>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/08_251008-102601.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/08_251008-102601.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/08_251008-102601.png"/></a>
+</figure>
+<p>考虑到输入需要定长，使用<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(h^{(t-1)}\)</span><span class="heti-spacing"> </span></span>来有损表征<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mathbf{y}^{(t-1)}\)</span></span> ，同时上一时刻的标签<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(y^{(t-1)}\)</span><span class="heti-spacing"> </span></span>较为重要，故而实际模型为：</p>
+<div class="arithmatex">\[
+\begin{align}
+\vec{\mathbf{a}}^{(t)}&amp;=\vec{\mathbf{b}}+\mathbf{W}\vec{\mathbf{h}}^{(t-1)}+\mathbf{U}\vec{\mathbf{y}}^{(t-1)}\\
+\vec{\mathbf{h}}^{(t)}&amp;=\tanh(\vec{\mathbf{a}}^{(t)})\\
+\vec{\mathbf{o}}^{(t)}&amp;=\text{softmax}\left(\vec{\mathbf{c}}+\mathbf{V}\vec{\mathbf{h}}^{(t)}\right)
+\end{align}
+\]</div>
+<h3 id="单长度输入">单长度输入<a class="headerlink" href="#单长度输入" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>模型包含单个<span class="heti-skip"><span class="heti-spacing"> </span>x<span class="heti-spacing"> </span></span>作为输入。此时有三种输入方式：输入作为每个时间步的输入、输入作为初始状态、以及这两种方式的结合。</p>
+<h3 id="多长度输入">多长度输入<a class="headerlink" href="#多长度输入" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<blockquote>
+<p>较复杂，这里不讨论。</p>
+</blockquote>
+<h2 id="GRNN">GRNN<a class="headerlink" href="#GRNN" title="Permanent link">¶</a></h2>
+<p>目前实际应用中最有效的序列模型是<strong>门控循环神经网络<span><span class="heti-spacing"> </span>(Gated Recurrent Neural Network, GRNN)</span></strong>，包括基于长短期记忆<span class="heti-skip"><span class="heti-spacing"> </span>(Long Short-Term Memory, LSTM, 1997)<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>RNN<span class="heti-spacing"> </span></span>和基于门控循环单元<span class="heti-skip"><span class="heti-spacing"> </span>(Gated Recurrent Unit, GRU, 2014)<span class="heti-spacing"> </span></span>的<span><span class="heti-spacing"> </span>RNN</span> 。</p>
+<h3 id="LSTM">LSTM<a class="headerlink" href="#LSTM" title="Permanent link">¶</a></h3>
+<p>长短期记忆网络的设计灵感来自于计算机的逻辑门。长短期记忆网络引入了记忆元<span><span class="heti-spacing"> </span>(memory cell / cell)</span>。为了控制记忆元，我们需要许多门。</p>
+<ul>
+<li>其中一个门用来从单元中输出条目，我们将其称为输出门（output gate, O<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>另外一个门用来决定何时将数据读入单元，我们将其称为输入门（input gate, I<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>我们还需要一种机制来重置单元的内容，由遗忘门（forget gate, F）来管理，</li>
+</ul>
+<p>一个记忆元如下所示：</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/08_251008-215004.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/08_251008-215004.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/08_251008-215004.png"/></a>
+<br/>
+<figcaption>https://zh.d2l.ai/chapter_recurrent-modern/lstm.html#id6</figcaption>
+</figure>
+<ul>
+<li>遗忘门：<span class="arithmatex">\(\mathbf{F}_{t}=\sigma(\mathbf{X}_t\mathbf{W}_{xf}+\mathbf{H}_{t-1}\mathbf{W}_{hf}+\mathbf{b}_f) \in [0, 1]\)</span></li>
+<li>输入门：<span class="arithmatex">\(\mathbf{I}_{t}=\sigma(\mathbf{X}_t\mathbf{W}_{xi}+\mathbf{H}_{t-1}\mathbf{W}_{hi}+\mathbf{b}_i) \in [0, 1]\)</span></li>
+<li>候选记忆：<span class="arithmatex">\(\tilde{\mathbf{C}}_t=\tanh(\mathbf{X}_t\mathbf{W}_{xc}+\mathbf{H}_{t-1}\mathbf{W}_{hc}+\mathbf{b}_c)\)</span></li>
+<li>输出门：<span class="arithmatex">\(\mathbf{O}_{t}=\sigma(\mathbf{X}_{t}\mathbf{W}_{xo}+\mathbf{H}_{t-1}\mathbf{W}_{ho}+\mathbf{b}_{o}) \in [0, 1]\)</span></li>
+</ul>
+<p><span><span class="arithmatex">\(F_{t} \&amp; I_{t}\)</span><span class="heti-spacing"> </span></span>用于控制来自上一记忆元的记忆和当前候选记忆（来自上一记忆元隐状态和当前输入）的比例，进行逐元素相乘后相加作为当前记忆元的记忆输出<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mathbf{C}_t=\mathbf{F}_t\odot\mathbf{C}_{t-1}+\mathbf{I}_t\odot\tilde{\mathbf{C}}_t\)</span></span> ；输出门则与<span class="heti-skip"><span class="heti-spacing"> </span>tanh<span class="heti-spacing"> </span></span>激活后的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(C_{t}\)</span><span class="heti-spacing"> </span></span>进行逐元素相乘作为当前记忆元的隐状态输出。</p>
+<p>获得隐状态后与<span class="heti-skip"><span class="heti-spacing"> </span>RNN<span class="heti-spacing"> </span></span>操作一致。</p>
+<h3 id="GRU">GRU<a class="headerlink" href="#GRU" title="Permanent link">¶</a></h3>
+<p><span>GRU<span class="heti-spacing"> </span></span>的设计更加简单：</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/08_251008-221227.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/08_251008-221227.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2510/08_251008-221227.png"/></a>
+<br/>
+<figcaption>https://zh.d2l.ai/chapter_recurrent-modern/gru.html#id7</figcaption>
+</figure>
+<ul>
+<li>重置门：<span class="arithmatex">\(\mathbf{R}_{t}=\sigma(\mathbf{X}_t\mathbf{W}_{xr}+\mathbf{H}_{t-1}\mathbf{W}_{hr}+\mathbf{b}_r)\)</span></li>
+<li>更新门：<span class="arithmatex">\(\mathbf{Z}_{t}=\sigma(\mathbf{X}_t\mathbf{W}_{xz}+\mathbf{H}_{t-1}\mathbf{W}_{hz}+\mathbf{b}_z)\)</span></li>
+<li>候选隐藏态：<span class="arithmatex">\(\tilde{\mathbf{H}}_t=\tanh(\mathbf{X}_t\mathbf{W}_{xh}+(\mathbf{R}_t\odot\mathbf{H}_{t-1})\mathbf{W}_{hh}+\mathbf{b}_h)\)</span></li>
+<li>隐藏态：<span class="arithmatex">\(\mathbf{H}_t=\mathbf{Z}_t\odot\mathbf{H}_{t-1}+(1-\mathbf{Z}_t)\odot\tilde{\mathbf{H}}_t\)</span></li>
+</ul>
+<p>其余部分与<span class="heti-skip"><span class="heti-spacing"> </span>RNN<span class="heti-spacing"> </span></span>一致。</p>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn:1">
+<p>三种填充方式：</p>
+<ol>
+<li><span>valid<span class="heti-spacing"> </span></span>填充，也即不填充，只计算在输入能够完全包裹核的结果；对于宽度为<span class="heti-skip"><span class="heti-spacing"> </span>K<span class="heti-spacing"> </span></span>的核，每次计算后的输出的规模减小<span><span class="heti-spacing"> </span>K-1</span>；也即此时<span><span class="heti-spacing"> </span><span class="arithmatex">\(L = M-(N-1)\)</span></span>；</li>
+<li><span>same<span class="heti-spacing"> </span></span>填充，即确保输出与输入同规模的填充<span><span class="heti-spacing"> </span>0</span>；优点在于这样可以任意堆叠层数，缺点在于边缘单元被不断弱化；</li>
+<li><span>full<span class="heti-spacing"> </span></span>填充，也即只要输入和核有重叠部分即可计算，其余部分全部填充<span><span class="heti-spacing"> </span>0</span>；每个输入单元都恰好被访问了<span class="heti-skip"><span class="heti-spacing"> </span>K<span class="heti-spacing"> </span></span>次，每次计算后输出的规模增大<span><span class="heti-spacing"> </span>K-1</span>，也即此时<span><span class="heti-spacing"> </span><span class="arithmatex">\(L = M + (N-1)\)</span></span>。</li>
+</ol>
+<p><a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年10月12日 23:48:09 CST">2025年10月12日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年10月12日 23:48:09 CST">2025年10月12日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: Graph Representation Learning" class="md-footer__link md-footer__link--prev" href="../">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                Graph Representation Learning
+              </div>
+</div>
+</a>
+<a aria-label="下一页: Graph Embedding" class="md-footer__link md-footer__link--next" href="../GE/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                Graph Embedding
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

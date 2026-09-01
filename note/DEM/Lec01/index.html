@@ -1,0 +1,1793 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/note/DEM/Lec01/" rel="canonical"/>
+<link href="../" rel="prev"/>
+<link href="../Lec02/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>第一讲 数据要素市场简介 - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#第一讲-数据要素市场简介">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              第一讲 数据要素市场简介
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Note
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs188/">
+<span class="md-ellipsis">
+    
+  
+    cs188
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../physics/">
+<span class="md-ellipsis">
+    
+  
+    physics
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-II/">
+<span class="md-ellipsis">
+    
+  
+    CSys-II
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-III/">
+<span class="md-ellipsis">
+    
+  
+    CSys-III
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3_6" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    DEM
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    DEM
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    第一讲 数据要素市场简介
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    第一讲 数据要素市场简介
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I-贸易与市场的起点一个经济学寓言-page-3-12">
+<span class="md-ellipsis">
+      
+        I 贸易与市场的起点：一个经济学寓言 (page 3-12)
+      
+    </span>
+</a>
+<nav aria-label="I 贸易与市场的起点：一个经济学寓言 (page 3-12)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I1-贸易的益处">
+<span class="md-ellipsis">
+      
+        I.1 贸易的益处
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I2-绝对优势-absolute-advantage-page-4">
+<span class="md-ellipsis">
+      
+        I.2 绝对优势 (absolute advantage) (page 4)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I3-比较优势-comparative-advantage-page-6-7">
+<span class="md-ellipsis">
+      
+        I.3 比较优势 (comparative advantage) (page 6-7)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I4-交换价格的合理范围-page-9-11">
+<span class="md-ellipsis">
+      
+        I.4 交换价格的合理范围 (page 9-11)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I5-市场的作用-page-12">
+<span class="md-ellipsis">
+      
+        I.5 市场的作用 (page 12)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I6-循环流量图-circular-flow-diagram-page-13-14">
+<span class="md-ellipsis">
+      
+        I.6 循环流量图 (circular-flow diagram) (page 13-14)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II-生产要素-page-15-17">
+<span class="md-ellipsis">
+      
+        II 生产要素 (page 15-17)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III-数据要素市场的战略意义-page-19-25">
+<span class="md-ellipsis">
+      
+        III 数据要素（市场）的战略意义 (page 19-25)
+      
+    </span>
+</a>
+<nav aria-label="III 数据要素（市场）的战略意义 (page 19-25)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III1-数据要素市场化配置面临的挑战-page-19-22">
+<span class="md-ellipsis">
+      
+        III.1 数据要素市场化配置面临的挑战 (page 19-22)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III2-国家政策与全球布局-page-23-25">
+<span class="md-ellipsis">
+      
+        III.2 国家政策与全球布局 (page 23-25)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV-数据要素与传统四大生产要素的比较-page-27">
+<span class="md-ellipsis">
+      
+        IV 数据要素与传统四大生产要素的比较 (page 27)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V-数据市场的定义-page-29">
+<span class="md-ellipsis">
+      
+        V 数据市场的定义 (page 29)
+      
+    </span>
+</a>
+<nav aria-label="V 数据市场的定义 (page 29)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V1-原始数据交易面临的问题-page-33">
+<span class="md-ellipsis">
+      
+        V.1 原始数据交易面临的问题 (page 33)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V2-查询服务-page-34">
+<span class="md-ellipsis">
+      
+        V.2 查询服务 (page 34)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V3-模型训练与统计发布-page-35">
+<span class="md-ellipsis">
+      
+        V.3 模型训练与统计发布 (page 35)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V4-数据交易流程-page-36-43">
+<span class="md-ellipsis">
+      
+        V.4 数据交易流程 (page 36-43)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI-数据市场的设计要求-page-45">
+<span class="md-ellipsis">
+      
+        VI 数据市场的设计要求 (page 45)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VII-数据市场实例-page-47-57">
+<span class="md-ellipsis">
+      
+        VII 数据市场实例 (page 47-57)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec02/">
+<span class="md-ellipsis">
+    
+  
+    第二讲：数据合规与安全
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec03/">
+<span class="md-ellipsis">
+    
+  
+    第三讲：非合作博弈论基础（一）
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec04/">
+<span class="md-ellipsis">
+    
+  
+    第四讲：非合作博弈论基础 (二)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec05/">
+<span class="md-ellipsis">
+    
+  
+    第五讲：合作博弈与数据估值
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec06/">
+<span class="md-ellipsis">
+    
+  
+    第六讲：多臂老虎机算法基础与应用
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec07/">
+<span class="md-ellipsis">
+    
+  
+    第七讲：拍卖与机制设计基础
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec08/">
+<span class="md-ellipsis">
+    
+  
+    第八讲：最优机制
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec09/">
+<span class="md-ellipsis">
+    
+  
+    第九讲：数据交易定价
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec10/">
+<span class="md-ellipsis">
+    
+  
+    第十讲：贝叶斯劝说
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DMA/">
+<span class="md-ellipsis">
+    
+  
+    DMA
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs70/">
+<span class="md-ellipsis">
+    
+  
+    cs70
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../other/">
+<span class="md-ellipsis">
+    
+  
+    other
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I-贸易与市场的起点一个经济学寓言-page-3-12">
+<span class="md-ellipsis">
+      
+        I 贸易与市场的起点：一个经济学寓言 (page 3-12)
+      
+    </span>
+</a>
+<nav aria-label="I 贸易与市场的起点：一个经济学寓言 (page 3-12)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I1-贸易的益处">
+<span class="md-ellipsis">
+      
+        I.1 贸易的益处
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I2-绝对优势-absolute-advantage-page-4">
+<span class="md-ellipsis">
+      
+        I.2 绝对优势 (absolute advantage) (page 4)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I3-比较优势-comparative-advantage-page-6-7">
+<span class="md-ellipsis">
+      
+        I.3 比较优势 (comparative advantage) (page 6-7)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I4-交换价格的合理范围-page-9-11">
+<span class="md-ellipsis">
+      
+        I.4 交换价格的合理范围 (page 9-11)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I5-市场的作用-page-12">
+<span class="md-ellipsis">
+      
+        I.5 市场的作用 (page 12)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I6-循环流量图-circular-flow-diagram-page-13-14">
+<span class="md-ellipsis">
+      
+        I.6 循环流量图 (circular-flow diagram) (page 13-14)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II-生产要素-page-15-17">
+<span class="md-ellipsis">
+      
+        II 生产要素 (page 15-17)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III-数据要素市场的战略意义-page-19-25">
+<span class="md-ellipsis">
+      
+        III 数据要素（市场）的战略意义 (page 19-25)
+      
+    </span>
+</a>
+<nav aria-label="III 数据要素（市场）的战略意义 (page 19-25)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III1-数据要素市场化配置面临的挑战-page-19-22">
+<span class="md-ellipsis">
+      
+        III.1 数据要素市场化配置面临的挑战 (page 19-22)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III2-国家政策与全球布局-page-23-25">
+<span class="md-ellipsis">
+      
+        III.2 国家政策与全球布局 (page 23-25)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV-数据要素与传统四大生产要素的比较-page-27">
+<span class="md-ellipsis">
+      
+        IV 数据要素与传统四大生产要素的比较 (page 27)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V-数据市场的定义-page-29">
+<span class="md-ellipsis">
+      
+        V 数据市场的定义 (page 29)
+      
+    </span>
+</a>
+<nav aria-label="V 数据市场的定义 (page 29)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V1-原始数据交易面临的问题-page-33">
+<span class="md-ellipsis">
+      
+        V.1 原始数据交易面临的问题 (page 33)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V2-查询服务-page-34">
+<span class="md-ellipsis">
+      
+        V.2 查询服务 (page 34)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V3-模型训练与统计发布-page-35">
+<span class="md-ellipsis">
+      
+        V.3 模型训练与统计发布 (page 35)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V4-数据交易流程-page-36-43">
+<span class="md-ellipsis">
+      
+        V.4 数据交易流程 (page 36-43)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI-数据市场的设计要求-page-45">
+<span class="md-ellipsis">
+      
+        VI 数据市场的设计要求 (page 45)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VII-数据市场实例-page-47-57">
+<span class="md-ellipsis">
+      
+        VII 数据市场实例 (page 47-57)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Note
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    DEM
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:notes">notes</a>
+</nav>
+<h1 id="第一讲-数据要素市场简介">第一讲 数据要素市场简介<a class="headerlink" href="#第一讲-数据要素市场简介" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h1>
+<h2 id="I-贸易与市场的起点一个经济学寓言-page-3-12"><span>I<span class="heti-spacing"> </span></span>贸易与市场的起点：一个经济学寓言<span><span class="heti-spacing"> </span>(page 3-12)</span><a class="headerlink" href="#I-贸易与市场的起点一个经济学寓言-page-3-12" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>经济学旨在理解社会如何管理其稀缺资源。为了深入理解市场与贸易的起点，我们可以通过一个经济学寓言来探讨其中的基本原理。</p>
+<h3 id="I1-贸易的益处"><span>I.1<span class="heti-spacing"> </span></span>贸易的益处<a class="headerlink" href="#I1-贸易的益处" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>假设世界上只有<span><span class="heti-spacing"> </span>Rose</span>（牧牛人）和<span><span class="heti-spacing"> </span>Frank</span>（种土豆的农民）两个人，他们都喜欢吃牛肉和土豆。</p>
+<ul>
+<li><strong>初始情况</strong>：<ul>
+<li>如果<span class="heti-skip"><span class="heti-spacing"> </span>Rose<span class="heti-spacing"> </span></span>只能生产牛肉，<span>Frank<span class="heti-spacing"> </span></span>只能生产土豆，那么贸易的好处显而易见：通过贸易，他们都能享用到更多样化的食品，不必局限于单一食物。这体现了贸易能够使人们消费更多的物品。</li>
+<li>如果<span class="heti-skip"><span class="heti-spacing"> </span>Rose<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>Frank<span class="heti-spacing"> </span></span>都能生产这两种物品，但他们在生产其中一种物品时成本相对较高（即不擅长<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，通过专门从事自己最擅长的活动并相互交易，也能获益。这初步揭示了专业化带来的好处。</li>
+</ul>
+</li>
+</ul>
+<h3 id="I2-绝对优势-absolute-advantage-page-4"><span>I.2<span class="heti-spacing"> </span></span>绝对优势<span><span class="heti-spacing"> </span>(absolute advantage) (page 4)</span><a class="headerlink" href="#I2-绝对优势-absolute-advantage-page-4" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在经济学中，<strong>绝对优势</strong>指的是一个生产者在生产一种物品时，相比于另一个生产者，所需投入（如时间、资源等）更少，或者说在单位时间内能生产更多的该物品。</p>
+<details class="definition" open="open">
+<summary>绝对优势</summary>
+<p>生产者生产一种物品所需投入较少，就可以说该生产者在生产这种物品上有绝对优势。</p>
+</details>
+<p>例如，在给定<span class="heti-skip"><span class="heti-spacing"> </span>8<span class="heti-spacing"> </span></span>小时工作时间的情况下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><span>8<span class="heti-spacing"> </span></span>小时产量（盎司）</th>
+<th style="text-align: center;">牛肉</th>
+<th style="text-align: center;">土豆</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Frank</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">32</td>
+</tr>
+<tr>
+<td style="text-align: center;">Rose</td>
+<td style="text-align: center;">24</td>
+<td style="text-align: center;">48</td>
+</tr>
+</tbody>
+</table>
+<p>从上表可以看出，<span>Rose<span class="heti-spacing"> </span></span>无论在生产牛肉还是土豆上，单位时间产量都高于<span><span class="heti-spacing"> </span>Frank</span>。这意味着<span class="heti-skip"><span class="heti-spacing"> </span>Rose<span class="heti-spacing"> </span></span>在这两种物品的生产上都具有绝对优势。</p>
+<h3 id="I3-比较优势-comparative-advantage-page-6-7"><span>I.3<span class="heti-spacing"> </span></span>比较优势<span><span class="heti-spacing"> </span>(comparative advantage) (page 6-7)</span><a class="headerlink" href="#I3-比较优势-comparative-advantage-page-6-7" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>仅仅拥有绝对优势并不意味着不需要贸易。即便<span class="heti-skip"><span class="heti-spacing"> </span>Rose<span class="heti-spacing"> </span></span>在两种物品的生产上都具有绝对优势，她和<span class="heti-skip"><span class="heti-spacing"> </span>Frank<span class="heti-spacing"> </span></span>之间依然可以通过贸易互利。这引出了经济学中更深层次的概念——<strong>机会成本</strong>和<strong>比较优势</strong>。</p>
+<details class="definition" open="open">
+<summary>机会成本<span><span class="heti-spacing"> </span>(opportunity cost)</span><sup id="fnref:1"><a class="footnote-ref" href="#fn:1"><span><span class="heti-spacing"> </span>2</span></a></sup></summary>
+<p>经济学十大原理之二指出：某种东西的成本是为了得到它而放弃的东西。因此，机会成本是为了得到某种东西而必须放弃的东西。</p>
+</details>
+<p><strong>机会成本计算示例</strong>：</p>
+<ul>
+<li><span>Rose<span class="heti-spacing"> </span></span>每生产<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>单位牛肉，需要放弃<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(48/24 = 2\)</span><span class="heti-spacing"> </span></span>单位土豆（因为生产<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>单位牛肉需要<span class="heti-skip"><span class="heti-spacing"> </span>Rose 1/24<span class="heti-spacing"> </span></span>小时，<span>1/24<span class="heti-spacing"> </span></span>小时可以生产土豆<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(48 \times 1/24 = 2\)</span><span class="heti-spacing"> </span></span>盎司<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><span>Rose<span class="heti-spacing"> </span></span>每生产<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>单位土豆，需要放弃生产<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(24/48 = 1/2\)</span><span class="heti-spacing"> </span></span>单位牛肉。</li>
+<li><span>Frank<span class="heti-spacing"> </span></span>每生产<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>单位牛肉，需要放弃生产<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(32/8 = 4\)</span><span class="heti-spacing"> </span></span>单位土豆。</li>
+<li><span>Frank<span class="heti-spacing"> </span></span>每生产<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>单位土豆，需要放弃生产<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(8/32 = 1/4\)</span><span class="heti-spacing"> </span></span>单位牛肉。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">机会成本</th>
+<th style="text-align: center;">生产<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>单位牛肉</th>
+<th style="text-align: center;">生产<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>单位土豆</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Rose</td>
+<td style="text-align: center;"><span>2<span class="heti-spacing"> </span></span>单位土豆</td>
+<td style="text-align: center;"><span>1/2<span class="heti-spacing"> </span></span>单位牛肉</td>
+</tr>
+<tr>
+<td style="text-align: center;">Frank</td>
+<td style="text-align: center;"><span>4<span class="heti-spacing"> </span></span>单位土豆</td>
+<td style="text-align: center;"><span>1/4<span class="heti-spacing"> </span></span>单位牛肉</td>
+</tr>
+</tbody>
+</table>
+<details class="definition" open="open">
+<summary>比较优势<span><span class="heti-spacing"> </span>(comparative advantage)</span><sup id="fnref:2"><a class="footnote-ref" href="#fn:2"><span><span class="heti-spacing"> </span>3</span></a></sup></summary>
+<p>如果一个生产者在生产<span class="heti-skip"><span class="heti-spacing"> </span>X<span class="heti-spacing"> </span></span>物品时放弃了较少的其他物品，即生产<span class="heti-skip"><span class="heti-spacing"> </span>X<span class="heti-spacing"> </span></span>物品的机会成本较小，我们就可以说，他在生产该物品上具有比较优势。</p>
+</details>
+<p><strong>比较优势分析</strong>：</p>
+<ul>
+<li><span>Frank<span class="heti-spacing"> </span></span>生产土豆的机会成本是<span class="heti-skip"><span class="heti-spacing"> </span>1/4<span class="heti-spacing"> </span></span>单位牛肉，低于<span class="heti-skip"><span class="heti-spacing"> </span>Rose<span class="heti-spacing"> </span></span>生产土豆的机会成本<span class="heti-skip"><span class="heti-spacing"> </span>1/2<span class="heti-spacing"> </span></span>单位牛肉，因此<span class="heti-skip"><span class="heti-spacing"> </span>Frank<span class="heti-spacing"> </span></span>在种植土豆上具有比较优势。</li>
+<li><span>Rose<span class="heti-spacing"> </span></span>生产牛肉的机会成本是<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>单位土豆，低于<span class="heti-skip"><span class="heti-spacing"> </span>Frank<span class="heti-spacing"> </span></span>生产牛肉的机会成本<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>单位土豆，因此<span class="heti-skip"><span class="heti-spacing"> </span>Rose<span class="heti-spacing"> </span></span>在生产牛肉上具有比较优势。</li>
+</ul>
+<p><strong>关键结论</strong>：<u>尽管一个人有可能在两种物品的生产上都具有绝对优势，但不可能都具有比较优势，因为一种物品的机会成本是另一种物品机会成本的倒数。</u> 贸易的真正好处并非基于绝对优势，而是基于比较优势。当每个人专门生产自己有比较优势的物品时，经济的总产量会增加，并且双方都能从中获益。</p>
+<details class="attention" open="open">
+<summary>经济学十大原理之五</summary>
+<p>贸易能使每个人状况更好，因为它使人们可以专门从事他们具有比较优势的活动。</p>
+</details>
+<p><strong>优化生产与贸易</strong>：</p>
+<p>通过合理的时间分配和贸易，即使<span class="heti-skip"><span class="heti-spacing"> </span>Rose<span class="heti-spacing"> </span></span>拥有绝对优势，双方的总产量也可以增加，并且每一方都能以低于自己生产的机会成本的价格获得所需的物品。例如，<span>Frank<span class="heti-spacing"> </span></span>专门种土豆，<span>Rose<span class="heti-spacing"> </span></span>专门养牛，然后<span class="heti-skip"><span class="heti-spacing"> </span>Frank<span class="heti-spacing"> </span></span>用土豆换牛肉，<span>Rose<span class="heti-spacing"> </span></span>用牛肉换土豆。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">优化时间、进行交换后每天拥有数量（盎司）</th>
+<th style="text-align: center;">牛肉</th>
+<th style="text-align: center;">土豆</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Frank</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">17</td>
+</tr>
+<tr>
+<td style="text-align: center;">Rose</td>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">27</td>
+</tr>
+</tbody>
+</table>
+<p>相较于双方自给自足（<span>Frank 4<span class="heti-spacing"> </span></span>牛肉<span class="heti-skip"><span class="heti-spacing"> </span>/16<span class="heti-spacing"> </span></span>土豆，<span>Rose 12<span class="heti-spacing"> </span></span>牛肉<span class="heti-skip"><span class="heti-spacing"> </span>/24<span class="heti-spacing"> </span></span>土豆<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，优化后的产量都有所提升，从而达到双赢。</p>
+<h3 id="I4-交换价格的合理范围-page-9-11"><span>I.4<span class="heti-spacing"> </span></span>交换价格的合理范围<span><span class="heti-spacing"> </span>(page 9-11)</span><a class="headerlink" href="#I4-交换价格的合理范围-page-9-11" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="theorem" open="open">
+<summary><strong>经济学十大原理之三</strong></summary>
+<p>理性人考虑边际量，只有一种行动的边际利益大于边际成本，一个理性决策者才会采取这项行动。</p>
+</details>
+<details class="important" open="open">
+<summary>边际量<span><span class="heti-spacing"> </span>(Marginal Quantities)</span><sup id="fnref:3"><a class="footnote-ref" href="#fn:3"><span><span class="heti-spacing"> </span>4</span></a></sup></summary>
+<p>理性人通过比较边际利益和边际成本来做出决策。例如，航空公司在有空位时，即便平均成本较高，只要额外的乘客支付的票价（边际利益）高于其边际成本（如一包花生米和一罐软饮料<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，卖票就是有利可图的。</p>
+</details>
+<p><strong>水的价值与钻石的悖论</strong>：水是必需品但价格低廉，钻石非必需品但价格昂贵。这是因为人们对物品的支付意愿基于其增加一单位该物品所获得的<strong>边际收益</strong>。水供应充足，增加一杯水的边际收益微不足道；钻石稀少，额外增加一颗钻石的边际收益巨大。</p>
+<p><strong>贸易价格范围</strong>：对从贸易中获益的双方而言，他们进行贸易的价格在两种机会成本之间。
+在 Frank 和 Rose 的例子中，双方均能获益的牛肉价格范围应在 Frank 生产1盎司牛肉的机会成本（4盎司土豆）和 Rose 生产1盎司牛肉的机会成本（2盎司土豆）之间。即，每盎司牛肉的价格应介于 2 盎司土豆和 4 盎司土豆之间。</p>
+<h3 id="I5-市场的作用-page-12"><span>I.5<span class="heti-spacing"> </span></span>市场的作用<span><span class="heti-spacing"> </span>(page 12)</span><a class="headerlink" href="#I5-市场的作用-page-12" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="attention" open="open">
+<summary>经济学十大原理之六</summary>
+<p>市场通常是组织经济活动的一种好方法。</p>
+</details>
+<p>在市场经济中，经济参与者受利己心驱动，通过市场这只“看不见的手”<sup id="fnref:4"><a class="footnote-ref" href="#fn:4"><span>1<span class="heti-spacing"> </span></span></a></sup>的引导，在追求自身利益的同时，也促进了总体的经济福利。市场通过价格机制协调供给和需求，有效地配置资源。货币作为一般等价物，简化了成千上万种商品之间的价格衡量与交换。</p>
+<h3 id="I6-循环流量图-circular-flow-diagram-page-13-14"><span>I.6<span class="heti-spacing"> </span></span>循环流量图<span><span class="heti-spacing"> </span>(circular-flow diagram) (page 13-14)</span><a class="headerlink" href="#I6-循环流量图-circular-flow-diagram-page-13-14" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>为了简化理解复杂的经济活动，经济学引入了<strong>循环流量图</strong>这一模型。</p>
+<details class="definition" open="open">
+<summary>循环流量图<span><span class="heti-spacing"> </span>(circular-flow diagram)</span></summary>
+<p>一个说明货币如何通过市场在家庭与企业之间流动的直观经济模型。</p>
+</details>
+<p>在这个模型中，经济体由两类决策者组成：</p>
+<ol>
+<li><strong>企业</strong>：<ul>
+<li>生产并出售物品与服务。</li>
+<li>雇用并使用生产要素。</li>
+</ul>
+</li>
+<li><strong>家庭</strong>：<ul>
+<li>购买并消费物品与服务。</li>
+<li>拥有并出售生产要素。</li>
+</ul>
+</li>
+</ol>
+<p><strong>经济活动流程</strong>：
+家庭和企业在两类市场上相互交易：</p>
+<ul>
+<li><strong>物品与服务市场</strong>：家庭是买方，企业是卖方。家庭购买企业生产的物品与服务。</li>
+<li><strong>生产要素市场</strong>：家庭是卖方，企业是买方。家庭向企业提供用于生产物品与服务的投入。</li>
+</ul>
+<p><strong>货币流向示例</strong>：
+假设 1 美元从家庭（你的钱包）开始。你用它到咖啡店购买咖啡，这 1 美元成为咖啡店的收益（企业的收入）。咖啡店用这 1 美元向房东支付租金或向工人支付工资，这 1 美元又成了某个家庭的收入（家庭的收入）。至此，货币在经济体中完成了一个循环。</p>
+<h2 id="II-生产要素-page-15-17"><span>II<span class="heti-spacing"> </span></span>生产要素<span><span class="heti-spacing"> </span>(page 15-17)</span><a class="headerlink" href="#II-生产要素-page-15-17" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>在传统主流经济学中，通常将生产要素分为四大类：</p>
+<ol>
+<li>
+<p><strong>土地<span><span class="heti-spacing"> </span>(land)</span></strong>：所有用于生产的自然资源。</p>
+<ul>
+<li>包括可再生资源（如森林）和不可再生资源（如石油<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>土地服务的价格称为<strong>租金</strong>。</li>
+<li>特点：供给的价格弹性非常小，即价格变动很大也难以快速增加新的土地供给。</li>
+</ul>
+</li>
+<li>
+<p><strong>劳动力<span><span class="heti-spacing"> </span>(labour)</span></strong>：包含体力劳动和脑力劳动，也可称之为<strong>人力资源</strong>。</p>
+<ul>
+<li>劳动力的价格即<strong>工资</strong>。</li>
+<li>特点：供应可改变但不能立即改变，供给弹性小。</li>
+<li>供应受人口规模、工作欲望、态度、年龄和性别等多种因素影响。</li>
+</ul>
+</li>
+<li>
+<p><strong>资本<span><span class="heti-spacing"> </span>(capital)</span></strong>：指用于生产物品与服务的设备和建筑物。</p>
+<ul>
+<li>这里的资本不是指金钱，而是指实际的物质生产资料，如梯子、卡车、机器等。金钱只是购买这些资本要素的工具。</li>
+<li><strong>误区<span><span class="heti-spacing"> </span>1</span></strong>：资本作为生产要素不指金钱。金钱是交易工具，非直接生产工具。金融学中的资本是投资人投入公司的资源，反映投资者对公司的所有权或利润分配权。</li>
+<li><strong>误区<span><span class="heti-spacing"> </span>2</span></strong>：资本和资产（asset）并非一个意思。资产是公司控制的、能产生经济效益的资源，是会计概念。金融学中资产定价主要指证券等金融工具。</li>
+<li><strong>资本的价格</strong>：在循环流量模型中，家庭将拥有的资本存量出租给企业，所获得的收入是<strong>租金</strong>。实际中，企业通常拥有并从资本中获益，最终通过利息（对借款给企业的家庭）和股利（对企业股东）形式支付给家庭。</li>
+</ul>
+</li>
+<li>
+<p><strong>企业家才能<span><span class="heti-spacing"> </span>(entrepreneurship)</span></strong>：指组织、管理和承担风险以协调其他生产要素进行生产活动的能力。</p>
+<ul>
+<li>一些学派也将<strong>技术<span><span class="heti-spacing"> </span>(technology)</span></strong> 列为第五种生产要素。</li>
+<li>例如，马歇尔将“组织”列为第四要素。</li>
+<li>库兹涅茨和索洛的研究也揭示技术发展是经济增长的主要因素。</li>
+</ul>
+</li>
+</ol>
+<details class="note" open="open">
+<summary>生产要素的演变</summary>
+<p>从人类伊始的原始社会至今，生产要素的分类和内涵都在不断丰富和迭代。这表明我们对生产要素的理解是动态的，未来可能出现新的生产要素类型或对现有要素有新的理解。</p>
+</details>
+<h2 id="III-数据要素市场的战略意义-page-19-25"><span>III<span class="heti-spacing"> </span></span>数据要素（市场）的战略意义<span><span class="heti-spacing"> </span>(page 19-25)</span><a class="headerlink" href="#III-数据要素市场的战略意义-page-19-25" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>随着数字经济的蓬勃发展，数据作为一种新型生产要素的战略意义日益凸显。</p>
+<details class="important" open="open">
+<summary>国家战略地位</summary>
+<p><span>2020<span class="heti-spacing"> </span></span>年<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>月，中共中央、国务院发布了《关于构建更加完善的要素市场化配置体制机制的意见<heti-adjacent class="heti-adjacent-half">》</heti-adjacent>，明确将数据与土地、劳动力、资本、技术并列为第五大生产要素。这标志着数据要素在国家经济发展中的重要地位。</p>
+</details>
+<h3 id="III1-数据要素市场化配置面临的挑战-page-19-22"><span>III.1<span class="heti-spacing"> </span></span>数据要素市场化配置面临的挑战<span><span class="heti-spacing"> </span>(page 19-22)</span><a class="headerlink" href="#III1-数据要素市场化配置面临的挑战-page-19-22" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>尽管数据要素地位日益重要，但在市场化配置过程中仍面临诸多挑战：</p>
+<ol>
+<li>
+<p><strong>数据要素确权定价面临诸多困难</strong>：</p>
+<ul>
+<li><strong>产权复杂性</strong>：数据作为虚拟物品，其权属不同于传统物权，在全生命周期中可能涉及多个支配主体，所有权不一定完全属于某个经济主体。</li>
+<li><strong>价值计量困难</strong>：尚未建立有效的数据价值和成本计量方法，数据价值和成本难以从业务中剥离，难以通过市场直接定价。</li>
+<li><strong>法律法规不完善</strong>：数据所有权、使用权、管理权、交易权等权益尚未被相关法律充分认同、明确界定和完全保护。</li>
+</ul>
+</li>
+<li>
+<p><strong>数据要素交易成本过高</strong>：</p>
+<ul>
+<li><strong>数据孤岛与垄断</strong>：拥有大量数据的企业倾向于构建闭合生态，轻视数据共享，形成数据孤岛甚至垄断，导致数据越发分割分散，难以发挥应有价值。</li>
+<li><strong>缺乏标准与机制</strong>：缺少相适应的技术标准、规范化的市场环境和成熟的分配机制，导致数据流通困难，可信流通难以达成，数据滥用和非法交易频现。</li>
+</ul>
+</li>
+<li>
+<p><strong>数据安全与隐私保护任重道远</strong>：</p>
+<ul>
+<li><strong>泄露风险高</strong>：数据要素作为虚拟物品，更易泄露，对安全和隐私保护要求高。</li>
+<li><strong>泄露事件频发</strong>：全球数据泄露事件数量庞大，很多源于管理制度不完善，对企业经营和用户利益造成巨大危害，极大束缚了数据价值释放。缺乏充分保护将导致市场失灵，无法最优配置资源。</li>
+</ul>
+</li>
+</ol>
+<h3 id="III2-国家政策与全球布局-page-23-25"><span>III.2<span class="heti-spacing"> </span></span>国家政策与全球布局<span><span class="heti-spacing"> </span>(page 23-25)</span><a class="headerlink" href="#III2-国家政策与全球布局-page-23-25" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>《中华人民共和国国民经济和社会发展第十四个五年规划和<span class="heti-skip"><span class="heti-spacing"> </span>2035<span class="heti-spacing"> </span></span>年远景目标纲要》</strong>：提出要“培育规范的数据交易平台和市场主体”，构建数字规则体系，营造开放、健康、安全的数字生态。</li>
+<li>
+<p><strong>我国数据基础制度体系</strong>：<span>2022<span class="heti-spacing"> </span></span>年<span class="heti-skip"><span class="heti-spacing"> </span>12<span class="heti-spacing"> </span></span>月<span class="heti-skip"><span class="heti-spacing"> </span>19<span class="heti-spacing"> </span></span>日<heti-adjacent class="heti-adjacent-half">，</heti-adjacent>《中共中央国务院关于构建数据基础制度更好发挥数据要素作用的意见》发布，提出了数据要素的“四梁八柱”<sup id="fnref:5"><a class="footnote-ref" href="#fn:5"><span>5<span class="heti-spacing"> </span></span></a></sup>基本制度框架：</p>
+<ol>
+<li><strong>数据产权制度</strong>：探索数据产权结构性分置制度（数据资源持有权、数据加工使用权、数据产品经营权<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，推进数据分类分级确权授权机制。</li>
+<li><strong>流通交易制度</strong>：完善数据全流程合规与监管规则体系，构建规范高效的数据交易场所和数据要素流通和交易服务生态，建设数据流通基础设施。</li>
+<li><strong>收益分配制度</strong>：健全数据要素由市场评价贡献、按贡献决定报酬的机制，保护各参与方投入产出收益，推动数据要素收益合理倾斜，并更好发挥政府引导调节作用，关注公共利益和弱势群体。</li>
+<li><strong>安全治理制度</strong>：创新政府治理机制，守住安全底线，明确监管红线；压实企业责任意识和自律意识；充分发挥行业协会等社会力量，规范市场发展秩序。</li>
+</ol>
+</li>
+<li>
+<p><strong>全球趋势</strong>：多个国家和地区已开始设立负责数据要素的主管机构，在顶层设计上制定、协调和实施数据要素发展战略：</p>
+<ul>
+<li><strong>中国</strong>：国家数据局（<span>2023<span class="heti-spacing"> </span></span>年组建<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，统筹数据资源整合共享和开发利用。</li>
+<li><strong>欧盟</strong>：欧洲数据创新委员会（<span>2022<span class="heti-spacing"> </span></span>年立法通过<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，提供数据交换与存储的网络安全要求，指导保护个人数据。</li>
+<li><strong>美国</strong>：网络空间安全办公室（<span>2009<span class="heti-spacing"> </span></span>年成立<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，制定网络空间安全政策。</li>
+<li><strong>韩国</strong>：国家数据政策委员会（<span>2022<span class="heti-spacing"> </span></span>年成立<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，推动全社会数据的产生、开放和共享。</li>
+<li><strong>日本</strong>：日本数字厅（<span>2021<span class="heti-spacing"> </span></span>年成立<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，制定和推动数字社会政策方案。</li>
+</ul>
+</li>
+</ul>
+<h2 id="IV-数据要素与传统四大生产要素的比较-page-27"><span>IV<span class="heti-spacing"> </span></span>数据要素与传统四大生产要素的比较<span><span class="heti-spacing"> </span>(page 27)</span><a class="headerlink" href="#IV-数据要素与传统四大生产要素的比较-page-27" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>数据作为新型生产要素，与传统的土地、劳动力、资本、企业家才能相比，具有独特的属性。下表总结了这些差异：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Property</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: center;">Land</th>
+<th style="text-align: center;">Labor</th>
+<th style="text-align: center;">Capital</th>
+<th style="text-align: center;">Entrepreneurship</th>
+<th style="text-align: center;">Data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Tradability</strong></td>
+<td style="text-align: left;">can be traded</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Composability</strong></td>
+<td style="text-align: left;">can be integrated to achieve higher value</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Physical Object</strong></td>
+<td style="text-align: left;">is a physical object</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Replicability</strong></td>
+<td style="text-align: left;">can be replicated (almost) without cost</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Shareability</strong></td>
+<td style="text-align: left;">can be used by multiple parties simultaneously</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Externality</strong></td>
+<td style="text-align: left;">indirect cost or benefit arising from others' activity</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Priori Value</strong></td>
+<td style="text-align: left;">the value is the consensus before using</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Homogeneity</strong></td>
+<td style="text-align: left;">unit element has similar value</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Persistence</strong></td>
+<td style="text-align: left;">is reusable and not expendable</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Natural Increment</strong></td>
+<td style="text-align: left;">can be incremented without extra artificial effort</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>High Liquidity</strong></td>
+<td style="text-align: left;">can be easily converted into cash in a mature market</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✗</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Divisibility</strong></td>
+<td style="text-align: left;">can be feasibly divided</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+</tbody>
+</table>
+<p><strong>数据要素的独特属性</strong>：</p>
+<ul>
+<li><strong>非物理性<span><span class="heti-spacing"> </span>(Non-Physical)</span></strong>：数据是虚拟物品，不占据物理空间。</li>
+<li><strong>可复制性<span><span class="heti-spacing"> </span>(Replicability)</span></strong>：数据几乎可以以零成本无限复制，这是传统物理要素不具备的。</li>
+<li><strong>可共享性<span><span class="heti-spacing"> </span>(Shareability)</span></strong>：同一份数据可以被多个主体同时使用，而不会减少原始数据。</li>
+<li><strong>可组合性<span><span class="heti-spacing"> </span>(Composability)</span></strong>：数据可以通过集成和分析产生更高价值。</li>
+<li><strong>非同质性<span><span class="heti-spacing"> </span>(Homogeneity)</span></strong>：数据的单位元素（如一条记录）通常不具有相似的价值，其价值往往体现在其组合和分析中。</li>
+<li><strong>可重用性和非消耗性<span><span class="heti-spacing"> </span>(Persistence)</span></strong>：数据在使用后不会被消耗，可以反复使用。</li>
+<li><strong>自然增量<span><span class="heti-spacing"> </span>(Natural Increment)</span></strong>：数据在很多情况下可以随着业务活动的进行而自动生成和积累，无需额外的人工投入。</li>
+</ul>
+<h2 id="V-数据市场的定义-page-29"><span>V<span class="heti-spacing"> </span></span>数据市场的定义<span><span class="heti-spacing"> </span>(page 29)</span><a class="headerlink" href="#V-数据市场的定义-page-29" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<details class="definition" open="open">
+<summary>数据市场<span><span class="heti-spacing"> </span>(Data Market)</span></summary>
+<p>数据市场是任何一种机制，通过该机制，数据产品（包括数据集和数据衍生物，如统计数据、查询结果和训练模型）的交换得以实现，买方和卖方直接或通过中介代理进行接触。</p>
+</details>
+<p><strong>数据市场中的主要参与方和交易内容<span><span class="heti-spacing"> </span>(page 31)</span></strong>：</p>
+<ul>
+<li><strong>数据提供方</strong>：原始数据、梯度参数、查询调用。</li>
+<li><strong>数据服务方</strong>：提供加工后的数据、机器学习模型、数据查询服务。</li>
+<li><strong>数据使用方</strong>：消费加工后的数据、机器学习模型、数据查询服务。</li>
+</ul>
+<p><strong>数据交易形式<span><span class="heti-spacing"> </span>(page 32)</span></strong>：
+数据交易的产品形式多种多样，主要包括：</p>
+<ul>
+<li><strong>原始数据<span><span class="heti-spacing"> </span>(Raw Data Based)</span></strong>：未经处理的原始数据集。</li>
+<li><strong>查询服务<span><span class="heti-spacing"> </span>(Query Based)</span></strong>：基于用户查询需求，返回特定查询结果。</li>
+<li><strong>模型训练<span><span class="heti-spacing"> </span>(Model Based)</span></strong>：提供用于机器学习模型训练的数据集或直接提供训练好的模型。</li>
+<li><strong>统计发布<span><span class="heti-spacing"> </span>(Statistics Based)</span></strong>：发布数据的统计分析结果。</li>
+</ul>
+<details class="note" open="open">
+<summary>数字商品与数据要素</summary>
+<p>在经济学或计算机科学文献中，数字商品（如电影、音乐<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、信息商品（如个人信息）也被讨论。这些都可以视为特殊的数据形式，特别是当它们用于生产时，也属于数据要素范畴。</p>
+</details>
+<h3 id="V1-原始数据交易面临的问题-page-33"><span>V.1<span class="heti-spacing"> </span></span>原始数据交易面临的问题<span><span class="heti-spacing"> </span>(page 33)</span><a class="headerlink" href="#V1-原始数据交易面临的问题-page-33" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>当原始数据直接作为市场上的主要流通商品时，存在以下突出问题：</p>
+<ol>
+<li><strong>复制、转卖无成本</strong>：购买者可以轻易复制和转卖，使得数据所有者的利益难以保障。</li>
+<li><strong>隐私信息泄露</strong>：原始数据中常常包含（隐含）敏感的隐私信息，存在泄露风险。</li>
+<li><strong>数据无法入市</strong>：由于隐私问题和合规风险，大量原始数据无法进入市场流通。</li>
+<li><strong>可用性急剧下降</strong>：直接使用本地化差分隐私等技术可能导致数据可用性急剧下降。</li>
+</ol>
+<p>因此，对原始数据的交易<strong>需求是增强约束</strong>，以解决上述问题。</p>
+<h3 id="V2-查询服务-page-34"><span>V.2<span class="heti-spacing"> </span></span>查询服务<span><span class="heti-spacing"> </span>(page 34)</span><a class="headerlink" href="#V2-查询服务-page-34" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>基于查询定价的数据市场，如<span><span class="heti-spacing"> </span>Google Bigquery</span>，通过按查询向购买者收费并补偿数据所有者，部分缓解了原始数据交易的问题。市场决策可以包括对数据使用（如隐私保护查询）的限制、补偿分配以及基于查询的定价。
+<strong>需求</strong>：支持复杂的数据分析和决策制定，同时兼顾隐私保护。</p>
+<h3 id="V3-模型训练与统计发布-page-35"><span>V.3<span class="heti-spacing"> </span></span>模型训练与统计发布<span><span class="heti-spacing"> </span>(page 35)</span><a class="headerlink" href="#V3-模型训练与统计发布-page-35" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>近年来，出现了基于模型定价的数据市场。这种模式根据模型实例的质量进行定价，并在数据所有者之间公平分配补偿。
+<strong>需求</strong>：
+- <strong>控制数据的使用方式</strong>：通过模型交易间接控制原始数据的使用，降低隐私泄露风险。
+- <strong>选择最适合需求和预算的模型质量</strong>：提供不同质量等级的模型以满足不同需求。
+- <strong>公平地分配补偿</strong>：确保数据所有者因其数据被用于模型训练而获得合理回报。</p>
+<h3 id="V4-数据交易流程-page-36-43"><span>V.4<span class="heti-spacing"> </span></span>数据交易流程<span><span class="heti-spacing"> </span>(page 36-43)</span><a class="headerlink" href="#V4-数据交易流程-page-36-43" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>数据交易是一个多阶段的复杂过程，主要包括以下环节：</p>
+<ol>
+<li>
+<p><strong>数据收集<span><span class="heti-spacing"> </span>(page 37)</span></strong>：</p>
+<ul>
+<li><strong>目标</strong>：找到可交换的数据集，从海量数据中挖掘具有商业价值的数据。</li>
+<li><strong>挑战</strong>：如何从海量数据中高效、准确地挖掘出有商业价值的数据，避免陷入数据量大但有价值的数据稀缺的困境。</li>
+</ul>
+</li>
+<li>
+<p><strong>数据存储<span><span class="heti-spacing"> </span>(page 38)</span></strong>：</p>
+<ul>
+<li><strong>方式</strong>：集中式或分布式数据平台。</li>
+<li><strong>风险</strong>：黑客攻击、数据丢失、未经授权使用。</li>
+<li><strong>要求</strong>：存储阶段需结合物理措施和数据保护技术应对威胁。数据市场需要从可靠的数据源获取并推送最新数据。</li>
+</ul>
+</li>
+<li>
+<p><strong>数据产品化<span><span class="heti-spacing"> </span>(page 39)</span></strong>：</p>
+<ul>
+<li><strong>定义</strong>：将客户需求转化为可销售、标准化、可重复和可理解的数据产品。</li>
+<li><strong>过程</strong>：通过信息技术组合合适的数据元组，从原始数据衍生出各种形式的商品（如<span class="heti-skip"><span class="heti-spacing"> </span>web<span class="heti-spacing"> </span></span>界面、软件、查询结果和机器学习模型<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，并增加原始数据的价值。</li>
+</ul>
+</li>
+<li>
+<p><strong>数据合规<span><span class="heti-spacing"> </span>(page 40)</span></strong>：</p>
+<ul>
+<li><strong>目标</strong>：企业必须遵守相关标准和法规，防止敏感数据泄露、误用、破坏。</li>
+<li><strong>范围</strong>：适用于原始数据及其衍生的所有数据产品。</li>
+<li><strong>要求</strong>：数据交易、存储和传输方式需遵循法律规范（如<span><span class="heti-spacing"> </span>HIPAA</span>、GDPR、PCD-DSS、<span>SOX<span class="heti-spacing"> </span></span>等<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，否则将面临高额罚款。</li>
+<li><strong>技术</strong>：数据脱敏、同态加密、多方安全计算、联邦学习等隐私保护技术。</li>
+</ul>
+</li>
+<li>
+<p><strong>数据定价<span><span class="heti-spacing"> </span>(page 41)</span></strong>：</p>
+<ul>
+<li><strong>目标</strong>：将数据产品作为交易资产进行定价，这是计算产品盈利能力的关键。</li>
+<li><strong>挑战</strong>：数据产品的成本难以分解和明确估计。数据产品的固定成本可能很高，但复制成本接近于零，导致边际成本很低。数据产品往往是面向任务的，其价格取决于具体应用场景，客户对相同数据产品的感知价值可能不同。</li>
+</ul>
+</li>
+<li>
+<p><strong>数据溯源<span><span class="heti-spacing"> </span>(page 42)</span></strong>：</p>
+<ul>
+<li><strong>问题</strong>：买家面临如何验证卖家是否真实提供数据产品的问题。</li>
+<li><strong>挑战</strong>：恶意代理可能以零成本复制和传输数据产品，若缺乏合理著作权概念。</li>
+<li><strong>价值</strong>：描述数据来源和转换过程，是保证数据收集、产品化和定价真实性的关键。从源头解决数据质量和收益分配问题。</li>
+</ul>
+</li>
+<li>
+<p><strong>数据销毁<span><span class="heti-spacing"> </span>(page 43)</span></strong>：</p>
+<ul>
+<li><strong>必要性</strong>：一旦数据不再用于预期目的、或数据所有者拒绝共享，必须立即销毁，以保护数据所有者隐私。</li>
+<li><strong>方式</strong>：主要包括存储介质的物理销毁或存储内容的重写。</li>
+</ul>
+</li>
+</ol>
+<h2 id="VI-数据市场的设计要求-page-45"><span>VI<span class="heti-spacing"> </span></span>数据市场的设计要求<span><span class="heti-spacing"> </span>(page 45)</span><a class="headerlink" href="#VI-数据市场的设计要求-page-45" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>一个理想的数据市场应满足以下关键设计要求：</p>
+<ul>
+<li><strong>可信性<span><span class="heti-spacing"> </span>(Trustworthiness)</span></strong>：确保数据来源可靠、交易过程透明、数据质量可信。</li>
+<li><strong>公平性<span><span class="heti-spacing"> </span>(Fairness)</span></strong>：保障数据所有者和使用者之间的公平交易，包括合理的定价和收益分配机制。</li>
+<li><strong>安全性<span><span class="heti-spacing"> </span>(Security)</span></strong>：采取全面的安全措施，保护数据在收集、存储、流通和使用全生命周期的安全。</li>
+<li><strong>盈利性<span><span class="heti-spacing"> </span>(Profitability)</span></strong>：支持数据产品和服务的商业化，实现各参与方的经济效益。</li>
+<li><strong>高效性<span><span class="heti-spacing"> </span>(Efficiency)</span></strong>：优化数据流通和交易流程，提高数据处理和交付的效率。</li>
+</ul>
+<h2 id="VII-数据市场实例-page-47-57"><span>VII<span class="heti-spacing"> </span></span>数据市场实例<span><span class="heti-spacing"> </span>(page 47-57)</span><a class="headerlink" href="#VII-数据市场实例-page-47-57" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>附件中列举了多个国内外数据市场的实例，包括但不限于：</p>
+<ul>
+<li><strong>AWS Data Exchange</strong>：提供各种类型的数据集，如<span class="heti-skip"><span class="heti-spacing"> </span>COVID-19<span class="heti-spacing"> </span></span>数据、气候风险数据、豪车销售数据等，支持订阅模式。</li>
+<li><strong>Databricks Marketplace</strong>：提供数据产品，如<span class="heti-skip"><span class="heti-spacing"> </span>T-Mobile<span class="heti-spacing"> </span></span>客户数据增强服务，按包或按属性收费。</li>
+<li><strong>数据堂<span><span class="heti-spacing"> </span>(Datatang)</span></strong>：提供多种训练数据集，包括计算机视觉、语音识别、自然语言理解等，支持数据定制服务和标注平台。</li>
+<li><strong>上海数据交易所</strong>：提供数据产品，如“三要素简版核验”服务，用于企业风控和信息核验。</li>
+<li><strong>贵阳大数据交易所</strong>：提供企业基本信息查询、倾斜摄影数据采集等服务。</li>
+</ul>
+<p>这些实例展示了数据市场在不同领域和形式上的实践，涵盖了原始数据、数据产品、数据服务等多种交易类型。</p>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn:4">
+<p><strong>看不见的手<span><span class="heti-spacing"> </span>(Invisible Hand)</span></strong>：亚当<span class="heti-skip"><span class="heti-spacing"> </span>·<span class="heti-spacing"> </span></span>斯密在《国富论》中提出的经济学概念，指在市场经济中，个体在追求自身利益的过程中，无意中会被引导去促进社会整体的利益，无需政府或中央机构的干预。 <a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn:1">
+<p><strong>机会成本<span><span class="heti-spacing"> </span>(Opportunity Cost)</span></strong>：指在面临多项选择时，如果选择了其中一项，就必须放弃其他选择中能够获得的最大价值。它是经济学中一个重要的概念，强调资源稀缺性下的选择与取舍。 <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 2 in the text">↩</a></p>
+</li>
+<li id="fn:2">
+<p><strong>比较优势<span><span class="heti-spacing"> </span>(Comparative Advantage)</span></strong>：指在生产多种产品时，一个生产者在生产某种产品时，相比于其他生产者，其机会成本更低。即使某个生产者在所有产品上都具有绝对优势，他仍然应该专注于生产自己具有比较优势的产品，然后通过贸易来获取其他产品，从而实现互利。 <a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 3 in the text">↩</a></p>
+</li>
+<li id="fn:3">
+<p><strong>边际量<span><span class="heti-spacing"> </span>(Marginal Quantity)</span></strong>：指在保持其他条件不变的情况下，某一经济变量每增加或减少一个单位时，所引起的总经济变量的变化量。例如，边际成本、边际收益等。理性决策者会比较行动的边际利益和边际成本。 <a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 4 in the text">↩</a></p>
+</li>
+<li id="fn:5">
+<p><strong>四梁八柱</strong>：原指中国古代建筑中支撑整个房屋的四根主要梁和八根主要柱子，比喻核心和基础性的支撑结构。在这里，它指代中国数据要素基础制度体系的四大核心支柱：产权、流通交易、收益分配和安全治理。 <a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 5 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年10月12日 23:48:09 CST">2025年10月12日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月28日 21:39:51 CST">2025年7月28日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: Data element market" class="md-footer__link md-footer__link--prev" href="../">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                Data element market
+              </div>
+</div>
+</a>
+<a aria-label="下一页: 第二讲：数据合规与安全" class="md-footer__link md-footer__link--next" href="../Lec02/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                第二讲：数据合规与安全
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

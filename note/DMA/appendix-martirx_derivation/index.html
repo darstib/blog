@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="矩阵求导的技术，在统计学、控制论、机器学习等领域有广泛的应用。鉴于我看过的一些资料或言之不详、或繁乱无绪，本文来做个科普，分作两篇，上篇讲标量对矩阵的求导术，下篇讲矩阵对矩阵的求导术。" name="description"/>
+<meta content="['[[长躯鬼侠数学爱好者]]']" name="author"/>
+<link href="https://darstib.github.io/knowledge-graph/note/DMA/appendix-martirx_derivation/" rel="canonical"/>
+<link href="../appendix-grad/" rel="prev"/>
+<link href="../../cs70/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>矩阵求导术（上/下） - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#标量对矩阵的求导">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              矩阵求导术（上/下）
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Note
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs188/">
+<span class="md-ellipsis">
+    
+  
+    cs188
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../physics/">
+<span class="md-ellipsis">
+    
+  
+    physics
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-II/">
+<span class="md-ellipsis">
+    
+  
+    CSys-II
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-III/">
+<span class="md-ellipsis">
+    
+  
+    CSys-III
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DEM/">
+<span class="md-ellipsis">
+    
+  
+    DEM
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3_7" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    DMA
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_7_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    DMA
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../01-Intro/">
+<span class="md-ellipsis">
+    
+  
+    01 Intro
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../02-Perceptron/">
+<span class="md-ellipsis">
+    
+  
+    02 Perceptron
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../03-KNN/">
+<span class="md-ellipsis">
+    
+  
+    03 KNN
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../04-Naive_Bayes/">
+<span class="md-ellipsis">
+    
+  
+    04 Naive Bayes
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../05-Decision_Tree/">
+<span class="md-ellipsis">
+    
+  
+    05 Decision Tree
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../06-logistic/">
+<span class="md-ellipsis">
+    
+  
+    06 logistic
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../07-SVM/">
+<span class="md-ellipsis">
+    
+  
+    07 SVM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../08-Adaboost/">
+<span class="md-ellipsis">
+    
+  
+    08 Adaboost
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../09-Expect_Max/">
+<span class="md-ellipsis">
+    
+  
+    09 Expect Max
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../14-Cluster_Methods/">
+<span class="md-ellipsis">
+    
+  
+    14 Cluster Methods
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../15-SVD/">
+<span class="md-ellipsis">
+    
+  
+    15 SVD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../16-PCA/">
+<span class="md-ellipsis">
+    
+  
+    16 PCA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../19-MCMC/">
+<span class="md-ellipsis">
+    
+  
+    19 MCMC
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../21-PageRank/">
+<span class="md-ellipsis">
+    
+  
+    21 PageRank
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../appendix-UML/">
+<span class="md-ellipsis">
+    
+  
+    appendix UML
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../appendix-grad/">
+<span class="md-ellipsis">
+    
+  
+    Appendix grad
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    矩阵求导术（上/下）
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    矩阵求导术（上/下）
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#标量对矩阵的求导">
+<span class="md-ellipsis">
+      
+        标量对矩阵的求导
+      
+    </span>
+</a>
+<nav aria-label="标量对矩阵的求导" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例-1">
+<span class="md-ellipsis">
+      
+        例 1
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例-2">
+<span class="md-ellipsis">
+      
+        例 2
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例-3">
+<span class="md-ellipsis">
+      
+        例 3
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例-4线性回归">
+<span class="md-ellipsis">
+      
+        例 4【线性回归】
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例-5方差的最大似然估计">
+<span class="md-ellipsis">
+      
+        例 5【方差的最大似然估计】
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例-6多元-logistic-回归">
+<span class="md-ellipsis">
+      
+        例 6【多元 logistic 回归】
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例-7二层神经网络">
+<span class="md-ellipsis">
+      
+        例 7【二层神经网络】
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#矩阵对矩阵的求导">
+<span class="md-ellipsis">
+      
+        矩阵对矩阵的求导
+      
+    </span>
+</a>
+<nav aria-label="矩阵对矩阵的求导" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例-1_1">
+<span class="md-ellipsis">
+      
+        例 1
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例-2_1">
+<span class="md-ellipsis">
+      
+        例 2
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例-3_1">
+<span class="md-ellipsis">
+      
+        例 3
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例-4一元-logistic-回归">
+<span class="md-ellipsis">
+      
+        例 4【一元 logistic 回归】
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例-5多元-logistic-回归">
+<span class="md-ellipsis">
+      
+        例 5【多元 logistic 回归】
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#总结">
+<span class="md-ellipsis">
+      
+        总结
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs70/">
+<span class="md-ellipsis">
+    
+  
+    cs70
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../other/">
+<span class="md-ellipsis">
+    
+  
+    other
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#标量对矩阵的求导">
+<span class="md-ellipsis">
+      
+        标量对矩阵的求导
+      
+    </span>
+</a>
+<nav aria-label="标量对矩阵的求导" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例-1">
+<span class="md-ellipsis">
+      
+        例 1
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例-2">
+<span class="md-ellipsis">
+      
+        例 2
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例-3">
+<span class="md-ellipsis">
+      
+        例 3
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例-4线性回归">
+<span class="md-ellipsis">
+      
+        例 4【线性回归】
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例-5方差的最大似然估计">
+<span class="md-ellipsis">
+      
+        例 5【方差的最大似然估计】
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例-6多元-logistic-回归">
+<span class="md-ellipsis">
+      
+        例 6【多元 logistic 回归】
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例-7二层神经网络">
+<span class="md-ellipsis">
+      
+        例 7【二层神经网络】
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#矩阵对矩阵的求导">
+<span class="md-ellipsis">
+      
+        矩阵对矩阵的求导
+      
+    </span>
+</a>
+<nav aria-label="矩阵对矩阵的求导" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例-1_1">
+<span class="md-ellipsis">
+      
+        例 1
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例-2_1">
+<span class="md-ellipsis">
+      
+        例 2
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例-3_1">
+<span class="md-ellipsis">
+      
+        例 3
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例-4一元-logistic-回归">
+<span class="md-ellipsis">
+      
+        例 4【一元 logistic 回归】
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例-5多元-logistic-回归">
+<span class="md-ellipsis">
+      
+        例 5【多元 logistic 回归】
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#总结">
+<span class="md-ellipsis">
+      
+        总结
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Note
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    DMA
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<h1>矩阵求导术（上<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>下）</h1>
+<div class="admonition attention">
+<p class="admonition-title">本文为搬运</p>
+<p>本文为<a href="https://zhuanlan.zhihu.com/p/24709748">矩阵求导术（上）</a>及其下篇的搬运，主要是对其存档并对其中的数学公式进行了重排版。
+如有侵权请<a href="https://kg.darstib.cn/connect_me/">联系我</a> 删除。</p>
+</div>
+<p>在<a href="https://www.huaxiaozhuan.com/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/chapters/1_algebra.html">线性代数<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>矩阵运算</a>部分给出了矩阵运算的常用结论，但是如何理解的？如何推导？</p>
+<p><a href="https://zhida.zhihu.com/search?content_id=2070530&amp;content_type=Article&amp;match_order=1&amp;q=%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC&amp;zhida_source=entity">矩阵求导</a> 的技术，在统计学、控制论、机器学习等领域有广泛的应用。鉴于我看过的一些资料或言之不详、或繁乱无绪，本文来做个科普，分作两篇，上篇讲标量对矩阵的求导术，下篇讲矩阵对矩阵的求导术。<strong>本文使用小写字母<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>表示标量，粗体小写字母<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{x}\)</span><span class="heti-spacing"> </span></span>表示（列）向量，大写字母<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>表示矩阵。</strong></p>
+<h2 id="标量对矩阵的求导">标量对矩阵的求导<a class="headerlink" href="#标量对矩阵的求导" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>首先来琢磨一下定义，标量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f\)</span><span class="heti-spacing"> </span></span>对矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>的导数，定义为：
+$$
+\frac{\partial f}{\partial X} = \left[\frac{\partial f }{\partial X_{ij}}\right]
+$$
+即 <span class="arithmatex">\(f\)</span> 对 <span class="arithmatex">\(X\)</span> 逐元素求导排成与 <span class="arithmatex">\(X\)</span> 尺寸相同的矩阵。然而，这个定义在计算中并不好用，实用上的原因是对函数较复杂的情形难以逐元素求导；哲理上的原因是逐元素求导破坏了 <strong>整体性</strong> 。试想，为何要将<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f\)</span><span class="heti-spacing"> </span></span>看做矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>而不是各元素<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X_{ij}\)</span><span class="heti-spacing"> </span></span>的函数呢？答案是用矩阵运算更整洁。所以在求导时不宜拆开矩阵，而是要找一个从整体出发的算法。</p>
+<p>为此，我们来回顾，一元微积分中的导数（标量对标量的导数）与微分有联系：<span class="arithmatex">\(df = f'(x)dx\)</span> ；多元微积分中的<a href="https://zhida.zhihu.com/search?content_id=2070530&amp;content_type=Article&amp;match_order=1&amp;q=%E6%A2%AF%E5%BA%A6&amp;zhida_source=entity">梯度</a> （标量对向量的导数）也与微分有联系：
+$$
+df = \sum_{i=1}^n \frac{\partial f}{\partial x_i}dx_i = \frac{\partial f}{\partial \boldsymbol{x}}^T d\boldsymbol{x}
+$$
+这里第一个等号是<a href="https://zhida.zhihu.com/search?content_id=2070530&amp;content_type=Article&amp;match_order=1&amp;q=%E5%85%A8%E5%BE%AE%E5%88%86%E5%85%AC%E5%BC%8F&amp;zhida_source=entity">全微分公式</a> ，第二个等号表达了梯度与微分的联系：全微分 <span class="arithmatex">\(df\)</span> 是梯度向量 <span class="arithmatex">\(\frac{\partial f}{\partial \boldsymbol{x}}\)</span> (<span class="arithmatex">\(n\times 1\)</span>) 与微分向量 <span class="arithmatex">\(d\boldsymbol{x}\)</span> (<span class="arithmatex">\(n\times 1\)</span>) 的内积；受此启发，我们将矩阵导数与微分建立联系：
+$$
+df = \sum_{i=1}^m \sum_{j=1}^n \frac{\partial f}{\partial X_{ij}}dX_{ij} = \text{tr}\left(\frac{\partial f}{\partial X}^T dX\right)
+$$
+其中 <span class="arithmatex">\(\text{tr}\)</span> 代表<a href="https://zhida.zhihu.com/search?content_id=2070530&amp;content_type=Article&amp;match_order=1&amp;q=%E8%BF%B9&amp;zhida_source=entity">迹</a> (trace)，是方阵对角线元素之和，满足性质：<strong>对尺寸相同的矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(A,B\)</span></span>， <span class="arithmatex">\(\text{tr}(A^TB) = \sum_{i,j}A_{ij}B_{ij}\)</span>，即<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\text{tr}(A^TB)\)</span><span class="heti-spacing"> </span></span>是矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A,B\)</span><span class="heti-spacing"> </span></span>的内积</strong> 。与梯度相似，这里第一个等号是全微分公式，第二个等号表达了矩阵导数与微分的联系：全微分<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(df\)</span><span class="heti-spacing"> </span></span>是导数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial f}{\partial X}\)</span> (<span class="arithmatex">\(m\times n\)</span>)<span class="heti-spacing"> </span></span>与微分矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(dX\)</span> (<span class="arithmatex">\(m\times n\)</span>)<span class="heti-spacing"> </span></span>的内积。</p>
+<p>然后来建立运算法则。回想遇到较复杂的一元函数如<span><span class="heti-spacing"> </span><span class="arithmatex">\(f = \log(2+\sin x)e^{\sqrt{x}}\)</span></span>，我们是如何求导的呢？通常不是从定义开始求极限，而是先建立了初等函数求导和四则运算、复合等法则，再来运用这些法则。故而，我们来创立常用的矩阵微分的运算法则：</p>
+<ol>
+<li><strong>加减法</strong>：<span class="arithmatex">\(d(X\pm Y) = dX \pm dY\)</span>；<strong>矩阵乘法</strong>：<span class="arithmatex">\(d(XY) = (dX)Y + X dY\)</span>；<strong>转置</strong>：<span class="arithmatex">\(d(X^T) = (dX)^T\)</span>；<strong>迹</strong>：<span class="arithmatex">\(d\text{tr}(X) = \text{tr}(dX)\)</span>。</li>
+<li><strong>逆</strong>：<span class="arithmatex">\(dX^{-1} = -X^{-1}dX X^{-1}\)</span>。此式可在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(XX^{-1}=I\)</span><span class="heti-spacing"> </span></span>两侧求微分来证明。</li>
+<li><strong>行列式</strong>：<span class="arithmatex">\(d|X| = \text{tr}(X^{\#}dX)\)</span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X^{\#}\)</span><span class="heti-spacing"> </span></span>表示<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>的<a href="https://zhida.zhihu.com/search?content_id=2070530&amp;content_type=Article&amp;match_order=1&amp;q=%E4%BC%B4%E9%9A%8F%E7%9F%A9%E9%98%B5&amp;zhida_source=entity">伴随矩阵</a>，在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>可逆时又可以写作<span><span class="heti-spacing"> </span><span class="arithmatex">\(d|X|= |X|\text{tr}(X^{-1}dX)\)</span></span>。此式可用<span class="heti-skip"><span class="heti-spacing"> </span>Laplace<span class="heti-spacing"> </span></span>展开来证明，详见张贤达《矩阵分析与应用》第<span class="heti-skip"><span class="heti-spacing"> </span>279<span class="heti-spacing"> </span></span>页。</li>
+<li><strong>逐元素乘法</strong>：<span class="arithmatex">\(d(X\odot Y) = dX\odot Y + X\odot dY\)</span>，<span><span class="arithmatex">\(\odot\)</span><span class="heti-spacing"> </span></span>表示<span><span class="heti-spacing"> </span>Hadamard product</span>，尺寸相同的矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X,Y\)</span><span class="heti-spacing"> </span></span>逐元素相乘</li>
+<li><strong>逐元素函数</strong>：<span class="arithmatex">\(d\sigma(X) = \sigma'(X)\odot dX\)</span>，<span><span class="arithmatex">\(\sigma(X) = \left[\sigma(X_{ij})\right]\)</span><span class="heti-spacing"> </span></span>是逐元素标量函数运算，<span><span class="arithmatex">\(\sigma'(X)=[\sigma'(X_{ij})]\)</span><span class="heti-spacing"> </span></span>是逐元素求导数。例如：
+    $$
+    X=\left[\begin{matrix}X_{11} &amp; X_{12} \ X_{21} &amp; X_{22}\end{matrix}\right], \quad d \sin(X) = \left[\begin{matrix}\cos X_{11} dX_{11} &amp; \cos X_{12} d X_{12}\ \cos X_{21} d X_{21}&amp; \cos X_{22} dX_{22}\end{matrix}\right] = \cos(X)\odot dX
+    $$</li>
+</ol>
+<p>我们试图利用矩阵导数与微分的联系<span><span class="heti-spacing"> </span><span class="arithmatex">\(df = \text{tr}\left(\frac{\partial f}{\partial X}^T dX\right)\)</span></span>，在求出左侧的微分<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(df\)</span><span class="heti-spacing"> </span></span>后，该如何写成右侧的形式并得到导数呢？这需要一些迹技巧<span><span class="heti-spacing"> </span>(trace trick)</span>：</p>
+<ol>
+<li><strong>标量套上迹</strong>：<span class="arithmatex">\(a = \text{tr}(a)\)</span>。</li>
+<li><strong>转置</strong>：<span class="arithmatex">\(\text{tr}(A^T) = \text{tr}(A)\)</span>。</li>
+<li><strong>线性</strong>：<span class="arithmatex">\(\text{tr}(A\pm B) = \text{tr}(A)\pm \text{tr}(B)\)</span>。</li>
+<li><strong>矩阵乘法交换</strong>：<span class="arithmatex">\(\text{tr}(AB) = \text{tr}(BA)\)</span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>与<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(B^T\)</span><span class="heti-spacing"> </span></span>尺寸相同。两侧都等于<span><span class="heti-spacing"> </span><span class="arithmatex">\(\sum_{i,j}A_{ij}B_{ji}\)</span></span>。</li>
+<li><strong>矩阵乘法<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>逐元素乘法交换</strong>：<span class="arithmatex">\(\text{tr}(A^T(B\odot C)) = \text{tr}((A\odot B)^TC)\)</span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A, B, C\)</span><span class="heti-spacing"> </span></span>尺寸相同。两侧都等于<span><span class="heti-spacing"> </span><span class="arithmatex">\(\sum_{i,j}A_{ij}B_{ij}C_{ij}\)</span></span>。</li>
+</ol>
+<p>观察一下可以断言，<strong>若标量函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f\)</span><span class="heti-spacing"> </span></span>是矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>经加减乘法、逆、行列式、逐元素函数等运算构成，则使用相应的运算法则对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f\)</span><span class="heti-spacing"> </span></span>求微分，再使用迹技巧给<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(df\)</span><span class="heti-spacing"> </span></span>套上迹并将其它项交换至<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(dX\)</span><span class="heti-spacing"> </span></span>左侧，对照导数与微分的联系<span><span class="heti-spacing"> </span><span class="arithmatex">\(df = \text{tr}\left(\frac{\partial f}{\partial X}^T dX\right)\)</span></span>，即能得到导数。</strong></p>
+<p><strong>特别地，若矩阵退化为向量，对照导数与微分的联系<span><span class="heti-spacing"> </span><span class="arithmatex">\(df = \frac{\partial f}{\partial \boldsymbol{x}}^T d\boldsymbol{x}\)</span></span>，即能得到导数。</strong></p>
+<p>在建立法则的最后，来谈一谈复合：假设已求得<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial f}{\partial Y}\)</span></span>，而<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Y\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>的函数，如何求<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial f}{\partial X}\)</span><span class="heti-spacing"> </span></span>呢？在微积分中有标量求导的链式法则<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial f}{\partial x} = \frac{\partial f}{\partial y} \frac{\partial y}{\partial x}\)</span></span>，但这里我们 <strong>不能随意沿用标量的链式法则</strong>，因为<a href="https://zhida.zhihu.com/search?content_id=2070530&amp;content_type=Article&amp;match_order=1&amp;q=%E7%9F%A9%E9%98%B5%E5%AF%B9%E7%9F%A9%E9%98%B5%E7%9A%84%E5%AF%BC%E6%95%B0&amp;zhida_source=entity">矩阵对矩阵的导数</a><span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial Y}{\partial X}\)</span><span class="heti-spacing"> </span></span>截至目前仍是未定义的。于是我们继续追本溯源，链式法则是从何而来？源头仍然是微分。我们直接从微分入手建立复合法则：先写出<span><span class="heti-spacing"> </span><span class="arithmatex">\(df = \text{tr}\left(\frac{\partial f}{\partial Y}^T dY\right)\)</span></span>，再将<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(dY\)</span><span class="heti-spacing"> </span></span>用<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(dX\)</span><span class="heti-spacing"> </span></span>表示出来代入，并使用迹技巧将其他项交换至<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(dX\)</span><span class="heti-spacing"> </span></span>左侧，即可得到<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial f}{\partial X}\)</span></span>。</p>
+<p>最常见的情形是<span><span class="heti-spacing"> </span><span class="arithmatex">\(Y = AXB\)</span></span>，此时：
+$$
+df = \text{tr}\left(\frac{\partial f}{\partial Y}^T dY\right) = \text{tr}\left(\frac{\partial f}{\partial Y}^T AdXB\right) =  \text{tr}\left(B\frac{\partial f}{\partial Y}^T AdX\right) = \text{tr}\left((A^T\frac{\partial f}{\partial Y}B^T)^T dX\right)
+$$
+可得到 <span class="arithmatex">\(\frac{\partial f}{\partial X}=A^T\frac{\partial f}{\partial Y}B^T\)</span>。注意这里 <span class="arithmatex">\(dY = AdXB\)</span>，由于 <span class="arithmatex">\(A,B\)</span> 是常量，<span class="arithmatex">\(dA=0,dB=0\)</span>，以及我们使用矩阵乘法交换的迹技巧交换了 <span class="arithmatex">\(\frac{\partial f}{\partial Y}^T AdX\)</span> 与 <span class="arithmatex">\(B\)</span>。</p>
+<p>接下来演示一些算例。特别提醒要依据已经建立的运算法则来计算，不能随意套用微积分中标量导数的结论，比如认为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(AX\)</span><span class="heti-spacing"> </span></span>对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>的导数为<span><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span></span>，这是没有根据、意义不明的。</p>
+<h3 id="例-1">例<span><span class="heti-spacing"> </span>1</span><a class="headerlink" href="#例-1" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><span class="arithmatex">\(f = \boldsymbol{a}^T X\boldsymbol{b}\)</span>，求<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial f}{\partial X}\)</span></span>。其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{a}\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\times 1\)</span><span class="heti-spacing"> </span></span>列向量，<span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\times n\)</span><span class="heti-spacing"> </span></span>矩阵，<span><span class="arithmatex">\(\boldsymbol{b}\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\times 1\)</span><span class="heti-spacing"> </span></span>列向量，<span><span class="arithmatex">\(f\)</span><span class="heti-spacing"> </span></span>是标量。</p>
+</div>
+<p><strong>解</strong>：先使用矩阵乘法法则求微分，
+$$
+df = d\boldsymbol{a}^TX\boldsymbol{b}+\boldsymbol{a}^TdX\boldsymbol{b}+\boldsymbol{a}^TXd\boldsymbol{b} = \boldsymbol{a}^TdX\boldsymbol{b}
+$$
+注意这里的 <span class="arithmatex">\(\boldsymbol{a}, \boldsymbol{b}\)</span> 是常量，<span class="arithmatex">\(d\boldsymbol{a} = \boldsymbol{0}, d\boldsymbol{b} = \boldsymbol{0}\)</span>。由于 <span class="arithmatex">\(df\)</span> 是标量，它的迹等于自身，<span class="arithmatex">\(df = \text{tr}(df)\)</span>，套上迹并做矩阵乘法交换：
+$$
+df = \text{tr}(\boldsymbol{a}^TdX\boldsymbol{b}) = \text{tr}(\boldsymbol{b}\boldsymbol{a}^TdX)= \text{tr}((\boldsymbol{a}\boldsymbol{b}^T)^TdX)
+$$
+注意这里我们根据 <span class="arithmatex">\(\text{tr}(AB) = \text{tr}(BA)\)</span> 交换了 <span class="arithmatex">\(\boldsymbol{a}^TdX\)</span> 与 <span class="arithmatex">\(\boldsymbol{b}\)</span>。对照导数与微分的联系 <span class="arithmatex">\(df = \text{tr}\left(\frac{\partial f}{\partial X}^T dX\right)\)</span>，得到：
+$$
+\frac{\partial f}{\partial X} = \frac{\partial (\boldsymbol{a}^T X\boldsymbol{b})}{\partial X} = \boldsymbol{a}\boldsymbol{b}^T
+$$</p>
+<div class="admonition attention">
+<p>注意：这里不能用<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial f}{\partial X} =\boldsymbol{a}^T \frac{\partial X}{\partial X}\boldsymbol{b}=?\)</span></span> ，导数与矩阵乘法的交换是不合法则的运算（而微分是合法的<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。有些资料在计算矩阵导数时，会略过求微分这一步，这是逻辑上解释不通的。</p>
+</div>
+<h3 id="例-2">例<span><span class="heti-spacing"> </span>2</span><a class="headerlink" href="#例-2" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p><span class="arithmatex">\(f = \boldsymbol{a}^T \exp(X\boldsymbol{b})\)</span>，求<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial f}{\partial X}\)</span></span>。其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{a}\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\times 1\)</span><span class="heti-spacing"> </span></span>列向量，<span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\times n\)</span><span class="heti-spacing"> </span></span>矩阵，<span><span class="arithmatex">\(\boldsymbol{b}\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\times 1\)</span><span class="heti-spacing"> </span></span>列向量，<span><span class="arithmatex">\(\exp\)</span><span class="heti-spacing"> </span></span>表示逐元素求指数，<span><span class="arithmatex">\(f\)</span><span class="heti-spacing"> </span></span>是标量。</p>
+</div>
+<p><strong>解</strong>：先使用矩阵乘法、逐元素函数法则求微分：
+$$
+df = \boldsymbol{a}^T(\exp(X\boldsymbol{b})\odot (dX\boldsymbol{b}))
+$$
+再套上迹并做交换：
+$$
+\begin{aligned}
+df &amp;= \text{tr}( \boldsymbol{a}^T(\exp(X\boldsymbol{b})\odot (dX\boldsymbol{b}))) \
+&amp;= \text{tr}((\boldsymbol{a}\odot \exp(X\boldsymbol{b}))^TdX \boldsymbol{b}) \
+&amp;= \text{tr}(\boldsymbol{b}(\boldsymbol{a}\odot \exp(X\boldsymbol{b}))^TdX) \
+&amp;= \text{tr}(((\boldsymbol{a}\odot \exp(X\boldsymbol{b}))\boldsymbol{b}^T)^TdX)
+\end{aligned}
+$$
+注意这里我们先根据 <span class="arithmatex">\(\text{tr}(A^T(B\odot C)) = \text{tr}((A\odot B)^TC)\)</span> 交换了 <span class="arithmatex">\(\boldsymbol{a}\)</span>、<span class="arithmatex">\(\exp(X\boldsymbol{b})\)</span> 与 <span class="arithmatex">\(dX\boldsymbol{b}\)</span>，再根据 <span class="arithmatex">\(\text{tr}(AB) = \text{tr}(BA)\)</span> 交换了 <span class="arithmatex">\((\boldsymbol{a}\odot \exp(X\boldsymbol{b}))^TdX\)</span> 与 <span class="arithmatex">\(\boldsymbol{b}\)</span>。对照导数与微分的联系，得到：
+$$
+\frac{\partial f}{\partial X} = (\boldsymbol{a}\odot \exp(X\boldsymbol{b}))\boldsymbol{b}^T
+$$</p>
+<h3 id="例-3">例<span><span class="heti-spacing"> </span>3</span><a class="headerlink" href="#例-3" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p><span class="arithmatex">\(f = \text{tr}(Y^T M Y), Y = \sigma(WX)\)</span>，求<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial f}{\partial X}\)</span></span>。其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(W\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(l\times m\)</span><span class="heti-spacing"> </span></span>矩阵，<span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\times n\)</span><span class="heti-spacing"> </span></span>矩阵，<span><span class="arithmatex">\(Y\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(l\times n\)</span><span class="heti-spacing"> </span></span>矩阵，<span><span class="arithmatex">\(M\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(l\times l\)</span><span class="heti-spacing"> </span></span>对称矩阵，<span><span class="arithmatex">\(\sigma\)</span><span class="heti-spacing"> </span></span>是逐元素函数，<span><span class="arithmatex">\(f\)</span><span class="heti-spacing"> </span></span>是标量。</p>
+</div>
+<p><strong>解</strong>：先求<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial f}{\partial Y}\)</span></span>。求微分，使用矩阵乘法、转置法则：
+$$
+df = \text{tr}((dY)^TMY) + \text{tr}(Y^TMdY) = \text{tr}(Y^TM^TdY) + \text{tr}(Y^TMdY) = \text{tr}(Y^T(M+M^T)dY)
+$$
+对照导数与微分的联系，得到 <span class="arithmatex">\(\frac{\partial f}{\partial Y}=(M+M^T)Y = 2MY\)</span>，注意这里 <span class="arithmatex">\(M\)</span> 是对称矩阵。为求 <span class="arithmatex">\(\frac{\partial f}{\partial X}\)</span>，写出 <span class="arithmatex">\(df = \text{tr}\left(\frac{\partial f}{\partial Y}^T dY\right)\)</span>，再将 <span class="arithmatex">\(dY\)</span> 用 <span class="arithmatex">\(dX\)</span> 表示出来代入，并使用矩阵乘法/逐元素乘法交换：
+$$
+df = \text{tr}\left(\frac{\partial f}{\partial Y}^T (\sigma'(WX)\odot (WdX))\right) = \text{tr}\left(\left(\frac{\partial f}{\partial Y} \odot \sigma'(WX)\right)^T W dX\right)
+$$
+对照导数与微分的联系，得到：
+$$
+\frac{\partial f}{\partial X}=W^T \left(\frac{\partial f}{\partial Y}\odot \sigma'(WX)\right)=W^T((2M\sigma(WX))\odot\sigma'(WX))
+$$</p>
+<h3 id="例-4线性回归">例<span><span class="heti-spacing"> </span>4</span>【线性回归】<a class="headerlink" href="#例-4线性回归" title="Permanent link">¶</a></h3>
+<div class="admonition question">
+<p><span class="arithmatex">\(l = \|X\boldsymbol{w}- \boldsymbol{y}\|^2\)</span>，求<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{w}\)</span><span class="heti-spacing"> </span></span>的最小二乘估计，即求<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial l}{\partial \boldsymbol{w}}\)</span><span class="heti-spacing"> </span></span>的零点。其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{y}\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\times 1\)</span><span class="heti-spacing"> </span></span>列向量，<span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\times n\)</span><span class="heti-spacing"> </span></span>矩阵，<span><span class="arithmatex">\(\boldsymbol{w}\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\times 1\)</span><span class="heti-spacing"> </span></span>列向量，<span><span class="arithmatex">\(l\)</span><span class="heti-spacing"> </span></span>是标量。</p>
+</div>
+<p><strong>解</strong>：这是标量对向量的导数，不过可以把向量看做矩阵的特例。先将向量模平方改写成向量与自身的内积：
+$$
+l = (X\boldsymbol{w}- \boldsymbol{y})^T(X\boldsymbol{w}- \boldsymbol{y})
+$$
+求微分，使用矩阵乘法、转置等法则：
+$$
+dl = (Xd\boldsymbol{w})^T(X\boldsymbol{w}-\boldsymbol{y})+(X\boldsymbol{w}-\boldsymbol{y})^T(Xd\boldsymbol{w}) = 2(X\boldsymbol{w}-\boldsymbol{y})^TXd\boldsymbol{w}
+$$
+注意这里 <span class="arithmatex">\(Xd\boldsymbol{w}\)</span> 和 <span class="arithmatex">\(X\boldsymbol{w}-\boldsymbol{y}\)</span> 是向量，两个向量的内积满足 <span class="arithmatex">\(\boldsymbol{u}^T\boldsymbol{v} = \boldsymbol{v}^T \boldsymbol{u}\)</span>。对照导数与微分的联系 <span class="arithmatex">\(dl = \frac{\partial l}{\partial \boldsymbol{w}}^Td\boldsymbol{w}\)</span>，得到：
+$$
+\frac{\partial l}{\partial \boldsymbol{w}} = 2X^T(X\boldsymbol{w}-\boldsymbol{y})
+$$
+令 <span class="arithmatex">\(\frac{\partial l}{\partial \boldsymbol{w}}=\boldsymbol{0}\)</span> 即 <span class="arithmatex">\(X^TX\boldsymbol{w} = X^T\boldsymbol{y}\)</span>，得到 <span class="arithmatex">\(\boldsymbol{w}\)</span> 的最小二乘估计为 <span class="arithmatex">\(\boldsymbol{w} = (X^TX)^{-1}X^T\boldsymbol{y}\)</span>。</p>
+<h3 id="例-5方差的最大似然估计">例<span><span class="heti-spacing"> </span>5</span>【方差的最大似然估计】<a class="headerlink" href="#例-5方差的最大似然估计" title="Permanent link">¶</a></h3>
+<div class="admonition question">
+<p>样本<span><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{x}_1,\dots, \boldsymbol{x}_N \sim \mathcal{N}(\boldsymbol{\mu}, \Sigma)\)</span></span>，求方差<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\Sigma\)</span><span class="heti-spacing"> </span></span>的最大似然估计。写成数学式是：</p>
+<div class="arithmatex">\[
+l = \log|\Sigma|+\frac{1}{N}\sum_{i=1}^N(\boldsymbol{x}_i-\boldsymbol{\bar{x}})^T\Sigma^{-1}(\boldsymbol{x}_i-\boldsymbol{\bar{x}})
+\]</div>
+<p>求<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial l }{\partial \Sigma}\)</span><span class="heti-spacing"> </span></span>的零点。其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{x}_i\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\times 1\)</span><span class="heti-spacing"> </span></span>列向量，<span><span class="arithmatex">\(\bar{\boldsymbol{x}}=\frac{1}{N}\sum_{i=1}^N \boldsymbol{x}_i\)</span><span class="heti-spacing"> </span></span>是样本均值，<span><span class="arithmatex">\(\Sigma\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\times m\)</span><span class="heti-spacing"> </span></span>对称正定矩阵，<span><span class="arithmatex">\(l\)</span><span class="heti-spacing"> </span></span>是标量，<span><span class="arithmatex">\(\log\)</span><span class="heti-spacing"> </span></span>表示自然对数。</p>
+</div>
+<p><strong>解</strong>：首先求微分，使用矩阵乘法、行列式、逆等运算法则，第一项是：
+$$
+d\log|\Sigma| = |\Sigma|^{-1}d|\Sigma| = \text{tr}(\Sigma^{-1}d\Sigma)
+$$
+第二项是：
+$$
+\frac{1}{N}\sum_{i=1}^N(\boldsymbol{x}<em i="1">i-\boldsymbol{\bar{x}})^Td\Sigma^{-1}(\boldsymbol{x}_i-\boldsymbol{\bar{x}}) = -\frac{1}{N}\sum</em>}^N(\boldsymbol{x<em i="1">i-\boldsymbol{\bar{x}})^T\Sigma^{-1}d\Sigma\Sigma^{-1}(\boldsymbol{x}_i-\boldsymbol{\bar{x}})
+$$
+再给第二项套上迹做交换：
+$$
+\begin{aligned}
+&amp; \text{tr}\left(-\frac{1}{N}\sum</em>}^N(\boldsymbol{x<em i="1">i-\boldsymbol{\bar{x}})^T\Sigma^{-1}d\Sigma\Sigma^{-1}(\boldsymbol{x}_i-\boldsymbol{\bar{x}})\right) \
+&amp;= -\frac{1}{N} \sum</em>}^N \text{tr}((\boldsymbol{x<em i="1">i-\boldsymbol{\bar{x}})^T\Sigma^{-1} d\Sigma \Sigma^{-1}(\boldsymbol{x}_i-\boldsymbol{\bar{x}})) \
+&amp;= -\frac{1}{N}\sum</em>d\Sigma\right) \
+&amp;= -\text{tr}(\Sigma^{-1}S\Sigma^{-1}d\Sigma)
+\end{aligned}
+$$
+其中先交换迹与求和，然后将 }^N\text{tr}\left(\Sigma^{-1}(\boldsymbol{x}_i-\boldsymbol{\bar{x}})(\boldsymbol{x}_i-\boldsymbol{\bar{x}})^T\Sigma^{-1<span class="arithmatex">\(\Sigma^{-1} (\boldsymbol{x}_i-\boldsymbol{\bar{x}})\)</span> 交换到左边，最后再交换迹与求和，并定义 <span class="arithmatex">\(S = \frac{1}{N}\sum_{i=1}^N(\boldsymbol{x}_i-\boldsymbol{\bar{x}})(\boldsymbol{x}_i-\boldsymbol{\bar{x}})^T\)</span> 为样本方差矩阵。得到：
+$$
+dl = \text{tr}\left(\left(\Sigma^{-1}-\Sigma^{-1}S\Sigma^{-1}\right)d\Sigma\right)
+$$
+对照导数与微分的联系，有：
+$$
+\frac{\partial l }{\partial \Sigma}=(\Sigma^{-1}-\Sigma^{-1}S\Sigma^{-1})^T
+$$
+其零点即 <span class="arithmatex">\(\Sigma\)</span> 的最大似然估计为 <span class="arithmatex">\(\Sigma = S\)</span>。</p>
+<h3 id="例-6多元-logistic-回归">例<span><span class="heti-spacing"> </span>6</span>【多元<span class="heti-skip"><span class="heti-spacing"> </span>logistic<span class="heti-spacing"> </span></span>回归】<a class="headerlink" href="#例-6多元-logistic-回归" title="Permanent link">¶</a></h3>
+<div class="admonition question">
+<p><span class="arithmatex">\(l = -\boldsymbol{y}^T\log\text{softmax}(W\boldsymbol{x})\)</span>，求<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial l}{\partial W}\)</span></span>。其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{y}\)</span><span class="heti-spacing"> </span></span>是除一个元素为<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>外其它元素为<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\times 1\)</span><span class="heti-spacing"> </span></span>列向量，<span><span class="arithmatex">\(W\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\times n\)</span><span class="heti-spacing"> </span></span>矩阵，<span><span class="arithmatex">\(\boldsymbol{x}\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\times 1\)</span><span class="heti-spacing"> </span></span>列向量，<span><span class="arithmatex">\(l\)</span><span class="heti-spacing"> </span></span>是标量；<span><span class="arithmatex">\(\log\)</span><span class="heti-spacing"> </span></span>表示自然对数，<span class="arithmatex">\(\text{softmax}(\boldsymbol{a}) = \frac{\exp(\boldsymbol{a})}{\boldsymbol{1}^T\exp(\boldsymbol{a})}\)</span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\exp(\boldsymbol{a})\)</span><span class="heti-spacing"> </span></span>表示逐元素求指数，<span><span class="arithmatex">\(\boldsymbol{1}\)</span><span class="heti-spacing"> </span></span>代表全<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>向量。</p>
+</div>
+<p><strong>解<span><span class="heti-spacing"> </span>1</span></strong>：首先将<span class="heti-skip"><span class="heti-spacing"> </span>softmax<span class="heti-spacing"> </span></span>函数代入并写成：
+$$
+l = -\boldsymbol{y}^T \left(\log (\exp(W\boldsymbol{x}))-\boldsymbol{1}\log(\boldsymbol{1}^T\exp(W\boldsymbol{x}))\right) = -\boldsymbol{y}^TW\boldsymbol{x} + \log(\boldsymbol{1}^T\exp(W\boldsymbol{x}))
+$$
+这里要注意逐元素 <span class="arithmatex">\(\log\)</span> 满足等式 <span class="arithmatex">\(\log(\boldsymbol{u}/c) = \log(\boldsymbol{u}) - \boldsymbol{1}\log(c)\)</span>，以及 <span class="arithmatex">\(\boldsymbol{y}\)</span> 满足 <span class="arithmatex">\(\boldsymbol{y}^T \boldsymbol{1} = 1\)</span>（因为 y 表示的是标签，即 <code>[0, 1, 0, 0, ...]</code>）。求微分，使用矩阵乘法、逐元素函数等法则：</p>
+<div class="arithmatex">\[
+dl =- \boldsymbol{y}^TdW\boldsymbol{x}+\frac{\boldsymbol{1}^T\left(\exp(W\boldsymbol{x})\odot(dW\boldsymbol{x})\right)}{\boldsymbol{1}^T\exp(W\boldsymbol{x})}
+\]</div>
+<p>再套上迹并做交换，注意可化简<span><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{1}^T\left(\exp(W\boldsymbol{x})\odot(dW\boldsymbol{x})\right) = \exp(W\boldsymbol{x})^TdW\boldsymbol{x}\)</span></span>，这是根据等式<span><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{1}^T (\boldsymbol{u}\odot \boldsymbol{v}) = \boldsymbol{u}^T \boldsymbol{v}\)</span></span>，故：
+$$
+\begin{aligned}
+dl &amp;= \text{tr}\left(-\boldsymbol{y}^TdW\boldsymbol{x}+\frac{\exp(W\boldsymbol{x})^TdW\boldsymbol{x}}{\boldsymbol{1}^T\exp(W\boldsymbol{x})}\right) \
+&amp;=\text{tr}(-\boldsymbol{y}^TdW\boldsymbol{x}+\text{softmax}(W\boldsymbol{x})^TdW\boldsymbol{x}) \
+&amp;= \text{tr}(\boldsymbol{x}(\text{softmax}(W\boldsymbol{x})-\boldsymbol{y})^TdW)
+\end{aligned}
+$$
+对照导数与微分的联系，得到：
+$$
+\frac{\partial l}{\partial W}= (\text{softmax}(W\boldsymbol{x})-\boldsymbol{y})\boldsymbol{x}^T
+$$</p>
+<p><strong>解<span><span class="heti-spacing"> </span>2</span></strong>：定义<span><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{a} = W\boldsymbol{x}\)</span></span>，则<span><span class="heti-spacing"> </span><span class="arithmatex">\(l = -\boldsymbol{y}^T\log\text{softmax}(\boldsymbol{a})\)</span></span>，先同上求出<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial l}{\partial \boldsymbol{a}} = \text{softmax}(\boldsymbol{a})-\boldsymbol{y}\)</span></span>，再利用复合法则：
+$$
+dl = \text{tr}\left(\frac{\partial l}{\partial \boldsymbol{a}}^Td\boldsymbol{a}\right) = \text{tr}\left(\frac{\partial l}{\partial \boldsymbol{a}}^TdW \boldsymbol{x}\right) = \text{tr}\left(\boldsymbol{x}\frac{\partial l}{\partial \boldsymbol{a}}^TdW\right)
+$$
+得到 <span class="arithmatex">\(\frac{\partial l}{\partial W}= \frac{\partial l}{\partial\boldsymbol{a}}\boldsymbol{x}^T\)</span>。</p>
+<p>最后一例留给经典的神经网络。神经网络的求导术是学术史上的重要成果，还有个专门的名字叫做<span class="heti-skip"><span class="heti-spacing"> </span>BP<span class="heti-spacing"> </span></span>算法，我相信如今很多人在初次推导<span class="heti-skip"><span class="heti-spacing"> </span>BP<span class="heti-spacing"> </span></span>算法时也会颇费一番脑筋，事实上使用矩阵求导术来推导并不复杂。为简化起见，我们推导二层神经网络的<span class="heti-skip"><span class="heti-spacing"> </span>BP<span class="heti-spacing"> </span></span>算法。</p>
+<h3 id="例-7二层神经网络">例<span><span class="heti-spacing"> </span>7</span>【二层神经网络】<a class="headerlink" href="#例-7二层神经网络" title="Permanent link">¶</a></h3>
+<div class="admonition question">
+<p><span class="arithmatex">\(l = -\boldsymbol{y}^T\log\text{softmax}(W_2\sigma(W_1\boldsymbol{x}))\)</span>，求<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial l}{\partial W_1}\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial l}{\partial W_2}\)</span></span>。其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{y}\)</span><span class="heti-spacing"> </span></span>是除一个元素为<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>外其它元素为<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\times 1\)</span><span class="heti-spacing"> </span></span>列向量，<span><span class="arithmatex">\(W_2\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\times p\)</span><span class="heti-spacing"> </span></span>矩阵，<span><span class="arithmatex">\(W_1\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p \times n\)</span><span class="heti-spacing"> </span></span>矩阵，<span><span class="arithmatex">\(\boldsymbol{x}\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\times 1\)</span><span class="heti-spacing"> </span></span>列向量，<span><span class="arithmatex">\(l\)</span><span class="heti-spacing"> </span></span>是标量；<span><span class="arithmatex">\(\log\)</span><span class="heti-spacing"> </span></span>表示自然对数，<span><span class="arithmatex">\(\text{softmax}(\boldsymbol{a})\)</span><span class="heti-spacing"> </span></span>同上，<span><span class="arithmatex">\(\sigma\)</span><span class="heti-spacing"> </span></span>是逐元素<span class="heti-skip"><span class="heti-spacing"> </span>sigmoid<span class="heti-spacing"> </span></span>函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(\sigma(a) = \frac{1}{1+\exp(-a)}\)</span></span>。</p>
+</div>
+<p><strong>解</strong>：定义<span><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{a}_1=W_1\boldsymbol{x}\)</span></span>，<span class="arithmatex">\(\boldsymbol{h}_1 = \sigma(\boldsymbol{a}_1)\)</span>，<span class="arithmatex">\(\boldsymbol{a}_2 = W_2 \boldsymbol{h}_1\)</span>，则<span><span class="heti-spacing"> </span><span class="arithmatex">\(l =-\boldsymbol{y}^T\log\text{softmax}(\boldsymbol{a}_2)\)</span></span>。在前例中已求出<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial l}{\partial \boldsymbol{a}_2} = \text{softmax}(\boldsymbol{a}_2)-\boldsymbol{y}\)</span></span>。使用复合法则：
+$$
+dl = \text{tr}\left(\frac{\partial l}{\partial \boldsymbol{a}<em dl_2="dl_2">2}^Td\boldsymbol{a}_2\right) = \text{tr}\left(\frac{\partial l}{\partial \boldsymbol{a}_2}^TdW_2 \boldsymbol{h}_1\right) + \underbrace{ \text{tr}\left(\frac{\partial l}{\partial \boldsymbol{a}_2}^TW_2 d\boldsymbol{h}_1\right)}</em>
+$$
+使用矩阵乘法交换的迹技巧从第一项得到 <span class="arithmatex">\(\frac{\partial l}{\partial W_2}= \frac{\partial l}{\partial\boldsymbol{a}_2}\boldsymbol{h}_1^T\)</span>，从第二项得到 <span class="arithmatex">\(\frac{\partial l}{\partial \boldsymbol{h}_1}= W_2^T\frac{\partial l}{\partial\boldsymbol{a}_2}\)</span>。</p>
+<p>接下来对第二项继续使用复合法则来求<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial l}{\partial \boldsymbol{a}_1}\)</span></span>，并利用矩阵乘法和逐元素乘法交换的迹技巧：
+$$
+dl_2 = \text{tr}\left(\frac{\partial l}{\partial\boldsymbol{h}_1}^Td\boldsymbol{h}_1\right) = \text{tr}\left(\frac{\partial l}{\partial\boldsymbol{h}_1}^T(\sigma'(\boldsymbol{a}_1)\odot d\boldsymbol{a}_1)\right) = \text{tr}\left(\left(\frac{\partial l}{\partial\boldsymbol{h}_1}\odot \sigma'(\boldsymbol{a}_1)\right)^Td\boldsymbol{a}_1\right)
+$$
+得到 <span class="arithmatex">\(\frac{\partial l}{\partial \boldsymbol{a}_1}= \frac{\partial l}{\partial\boldsymbol{h}_1}\odot\sigma'(\boldsymbol{a}_1)\)</span>。为求 <span class="arithmatex">\(\frac{\partial l}{\partial W_1}\)</span>，再用一次复合法则：
+$$
+dl_2 = \text{tr}\left(\frac{\partial l}{\partial\boldsymbol{a}_1}^Td\boldsymbol{a}_1\right) = \text{tr}\left(\frac{\partial l}{\partial\boldsymbol{a}_1}^TdW_1\boldsymbol{x}\right) = \text{tr}\left(\boldsymbol{x}\frac{\partial l}{\partial\boldsymbol{a}_1}^TdW_1\right)
+$$
+得到 <span class="arithmatex">\(\frac{\partial l}{\partial W_1}= \frac{\partial l}{\partial\boldsymbol{a}_1}\boldsymbol{x}^T\)</span>。</p>
+<details class="note" open="open">
+<summary></summary>
+<p><strong>推广</strong>：样本<span><span class="heti-spacing"> </span><span class="arithmatex">\((\boldsymbol{x}_1, y_1), \dots, (\boldsymbol{x}_N,y_N)\)</span></span>，</p>
+<div class="arithmatex">\[
+l = -\sum_{i=1}^N \boldsymbol{y}_i^T\log\text{softmax}(W_2\sigma(W_1\boldsymbol{x}_i + \boldsymbol{b}_1) + \boldsymbol{b}_2)
+\]</div>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{b}_1\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p \times 1\)</span><span class="heti-spacing"> </span></span>列向量，<span><span class="arithmatex">\(\boldsymbol{b}_2\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\times 1\)</span><span class="heti-spacing"> </span></span>列向量，其余定义同上。</p>
+</details>
+<p><strong>解<span><span class="heti-spacing"> </span>1</span></strong>：定义<span><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{a}_{1,i} = W_1 \boldsymbol{x}_i + \boldsymbol{b}_1\)</span></span>，<span class="arithmatex">\(\boldsymbol{h}_{1,i} = \sigma(\boldsymbol{a}_{1,i})\)</span>，<span class="arithmatex">\(\boldsymbol{a}_{2,i} = W_2\boldsymbol{h}_{1,i} + \boldsymbol{b}_2\)</span>，则<span><span class="heti-spacing"> </span><span class="arithmatex">\(l = -\sum_{i=1}^N \boldsymbol{y}_i^T \log \text{softmax}(\boldsymbol{a}_{2,i})\)</span></span>。先同上可求出<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial l}{\partial \boldsymbol{a}_{2,i}} = \text{softmax}(\boldsymbol{a}_{2,i})-\boldsymbol{y}_i\)</span></span>。使用复合法则，
+$$
+\begin{aligned}
+dl &amp;= \text{tr}\left(\sum_{i=1}^N\frac{\partial l}{\partial \boldsymbol{a}<em 2_i="2,i">{2,i}}^T d \boldsymbol{a}</em>\right) \
+&amp;= \text{tr}\left( \sum_{i=1}^N \frac{\partial l}{\partial \boldsymbol{a}<em 1_i="1,i">{2,i}}^T dW_2 \boldsymbol{h}</em>}\right) + \underbrace{\text{tr}\left( \sum_{i=1}^N \frac{\partial l}{\partial \boldsymbol{a<em 1_i="1,i">{2,i}}^T W_2 d\boldsymbol{h}</em>}\right)<em i="1">{dl_2} + \text{tr}\left( \sum</em>_2\right)
+\end{aligned}
+$$
+从第一项得到得到 }^N \frac{\partial l}{\partial \boldsymbol{a}_{2,i}}^T d \boldsymbol{b<span class="arithmatex">\(\frac{\partial l}{\partial W_2}= \sum_{i=1}^N \frac{\partial l}{\partial\boldsymbol{a}_{2,i}}\boldsymbol{h}_{1,i}^T\)</span>，从第二项得到 <span class="arithmatex">\(\frac{\partial l}{\partial \boldsymbol{h}_{1,i}}= W_2^T\frac{\partial l}{\partial\boldsymbol{a}_{2,i}}\)</span>，从第三项得到到 <span class="arithmatex">\(\frac{\partial l}{\partial \boldsymbol{b}_2}= \sum_{i=1}^N \frac{\partial l}{\partial\boldsymbol{a}_{2,i}}\)</span>。</p>
+<p>接下来对第二项继续使用复合法则，得到<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial l}{\partial \boldsymbol{a}_{1,i}}= \frac{\partial l}{\partial\boldsymbol{h}_{1,i}}\odot\sigma'(\boldsymbol{a}_{1,i})\)</span></span>。为求<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial l}{\partial W_1}, \frac{\partial l}{\partial \boldsymbol{b}_1}\)</span></span>，再用一次复合法则：
+$$
+dl_2 = \text{tr}\left(\sum_{i=1}^N \frac{\partial l}{\partial\boldsymbol{a}<em 1_i="1,i">{1,i}}^Td\boldsymbol{a}</em>}\right) = \text{tr}\left(\sum_{i=1}^N \frac{\partial l}{\partial\boldsymbol{a<em i="1">{1,i}}^TdW_1\boldsymbol{x}_i\right) + \text{tr}\left(\sum</em>_1\right)
+$$
+得到 }^N \frac{\partial l}{\partial\boldsymbol{a}_{1,i}}^Td\boldsymbol{b<span class="arithmatex">\(\frac{\partial l}{\partial W_1}= \sum_{i=1}^N \frac{\partial l}{\partial\boldsymbol{a}_{1,i}}\boldsymbol{x}_i^T\)</span>，<span class="arithmatex">\(\frac{\partial l}{\partial \boldsymbol{b}_1}= \sum_{i=1}^N \frac{\partial l}{\partial\boldsymbol{a}_{1,i}}\)</span>。</p>
+<p><strong>解<span><span class="heti-spacing"> </span>2</span></strong>：可以用矩阵来表示<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(N\)</span><span class="heti-spacing"> </span></span>个样本，以简化形式。定义<span><span class="heti-spacing"> </span><span class="arithmatex">\(X = [\boldsymbol{x}_1, \cdots, \boldsymbol{x}_N]\)</span></span>，<span class="arithmatex">\(A_1 = [\boldsymbol{a}_{1,1},\cdots,\boldsymbol{a}_{1,N}] =W_1 X + \boldsymbol{b}_1 \boldsymbol{1}^T\)</span>，<span class="arithmatex">\(H_1 = [\boldsymbol{h}_{1,1}, \cdots, \boldsymbol{h}_{1,N}] = \sigma(A_1)\)</span>，<span class="arithmatex">\(A_2 = [\boldsymbol{a}_{2,1},\cdots,\boldsymbol{a}_{2,N}] = W_2 H_1 + \boldsymbol{b}_2 \boldsymbol{1}^T\)</span>，注意这里使用全<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>向量来扩展维度。先同上求出<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial l}{\partial A_2} = [\text{softmax}(\boldsymbol{a}_{2,1})-\boldsymbol{y}_1, \cdots, \text{softmax}(\boldsymbol{a}_{2,N})-\boldsymbol{y}_N]\)</span></span>。使用复合法则，</p>
+<p>$$
+dl = \text{tr}\left(\frac{\partial l}{\partial A_2}^T d A_2\right) = \text{tr}\left( \frac{\partial l}{\partial A_2}^T dW_2 H_1 \right) + \underbrace{\text{tr}\left(\frac{\partial l}{\partial A_2}^T W_2 d H_1\right)}_{dl_2} + \text{tr}\left(\frac{\partial l}{\partial A_2}^T d \boldsymbol{b}_2 \boldsymbol{1}^T\right)
+$$
+从第一项得到 <span class="arithmatex">\(\frac{\partial l}{\partial W_2}= \frac{\partial l}{\partial A_2}H_1^T\)</span>，从第二项得到 <span class="arithmatex">\(\frac{\partial l}{\partial H_1}= W_2^T\frac{\partial l}{\partial A_{2}}\)</span>，从第三项得到到 <span class="arithmatex">\(\frac{\partial l}{\partial \boldsymbol{b}_2}= \frac{\partial l}{\partial A_2}\boldsymbol{1}\)</span>。</p>
+<p>接下来对第二项继续使用复合法则，得到<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial l}{\partial A_1}= \frac{\partial l}{\partial H_1}\odot\sigma'(A_1)\)</span></span>。为求<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial l}{\partial W_1}, \frac{\partial l}{\partial \boldsymbol{b}_1}\)</span></span>，再用一次复合法则：
+$$
+dl_2 = \text{tr}\left(\frac{\partial l}{\partial A_1}^TdA_1\right) = \text{tr}\left(\frac{\partial l}{\partial A_1}^TdW_1X\right) + \text{tr}\left( \frac{\partial l}{\partial A_1}^Td\boldsymbol{b}_1 \boldsymbol{1}^T\right)
+$$
+得到 <span class="arithmatex">\(\frac{\partial l}{\partial W_1}=  \frac{\partial l}{\partial A_1}X^T\)</span>，<span class="arithmatex">\(\frac{\partial l}{\partial \boldsymbol{b}_1}= \frac{\partial l}{\partial A_1}\boldsymbol{1}\)</span>。</p>
+<h2 id="矩阵对矩阵的求导">矩阵对矩阵的求导<a class="headerlink" href="#矩阵对矩阵的求导" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>本文承接上篇<a href="https://zhuanlan.zhihu.com/p/24709748">矩阵求导术（上<heti-adjacent class="heti-adjacent-half">）</heti-adjacent></a>，来讲矩阵对矩阵的求导术。使用小写字母<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>表示标量，粗体小写字母<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{x}\)</span><span class="heti-spacing"> </span></span>表示列向量，大写字母<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>表示矩阵。矩阵对矩阵的求导采用了向量化的思路，常应用于二阶方法中<a href="https://zhida.zhihu.com/search?content_id=2132061&amp;content_type=Article&amp;match_order=1&amp;q=Hessian%E7%9F%A9%E9%98%B5&amp;zhida_source=entity"><span class="heti-skip"><span class="heti-spacing"> </span>Hessian<span class="heti-spacing"> </span></span>矩阵</a> 的分析。</p>
+<p>首先来琢磨一下定义。矩阵对矩阵的导数，需要什么样的定义？</p>
+<ol>
+<li>矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(F(p\times q)\)</span><span class="heti-spacing"> </span></span>对矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X(m\times n)\)</span><span class="heti-spacing"> </span></span>的导数应包含所有<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(mnpq\)</span><span class="heti-spacing"> </span></span>个偏导数<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial F_{kl}}{\partial X_{ij}}\)</span></span>，从而不损失信息；</li>
+<li>导数与微分有简明的联系，因为在计算导数和应用中需要这个联系；</li>
+<li>导数有简明的从整体出发的算法。</li>
+</ol>
+<p>我们先定义向量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{f}(p\times 1)\)</span><span class="heti-spacing"> </span></span>对向量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{x}(m\times 1)\)</span><span class="heti-spacing"> </span></span>的导数（梯度矩阵，分母布局<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：
+$$
+\frac{\partial \boldsymbol{f}}{\partial \boldsymbol{x}} = \begin{bmatrix} \frac{\partial f_1}{\partial x_1} &amp; \frac{\partial f_2}{\partial x_1} &amp; \cdots &amp; \frac{\partial f_p}{\partial x_1}\ \frac{\partial f_1}{\partial x_2} &amp; \frac{\partial f_2}{\partial x_2} &amp; \cdots &amp; \frac{\partial f_p}{\partial x_2}\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots\ \frac{\partial f_1}{\partial x_m} &amp; \frac{\partial f_2}{\partial x_m} &amp; \cdots &amp; \frac{\partial f_p}{\partial x_m}\ \end{bmatrix} \quad (m\times p)
+$$
+有 <span class="arithmatex">\(d\boldsymbol{f} = \frac{\partial \boldsymbol{f} }{\partial \boldsymbol{x} }^T d\boldsymbol{x}\)</span>。再定义矩阵的（按列优先）向量化：
+$$
+\mathrm{vec}(X) = [X_{11}, \ldots, X_{m1}, X_{12}, \ldots, X_{m2}, \ldots, X_{1n}, \ldots, X_{mn}]^T \quad (mn\times 1)
+$$
+并定义矩阵 <span class="arithmatex">\(F\)</span> 对矩阵 <span class="arithmatex">\(X\)</span> 的导数：
+$$
+\frac{\partial F}{\partial X} = \frac{\partial \mathrm{vec}(F)}{\partial \mathrm{vec}(X)} \quad (mn\times pq)
+$$
+导数与微分有联系：
+$$
+\mathrm{vec}(dF) = \frac{\partial F}{\partial X}^T \mathrm{vec}(dX)
+$$</p>
+<p>几点说明如下：</p>
+<ol>
+<li>按此定义，标量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f\)</span><span class="heti-spacing"> </span></span>对矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X(m\times n)\)</span><span class="heti-spacing"> </span></span>的导数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial f}{\partial X}\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(mn\times 1\)</span><span class="heti-spacing"> </span></span>向量，与上篇的定义不兼容，不过二者容易相互转换。为避免混淆，用记号<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\nabla_X f\)</span><span class="heti-spacing"> </span></span>表示上篇定义的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\times n\)</span><span class="heti-spacing"> </span></span>矩阵，则有<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial f}{\partial X}=\mathrm{vec}(\nabla_X f)\)</span></span>。虽然本篇的技术可以用于标量对矩阵求导这种特殊情况，但使用上篇中的技术更方便。读者可以通过上篇中的算例试验两种方法的等价转换。</li>
+<li>标量对矩阵的二阶导数，又称<span class="heti-skip"><span class="heti-spacing"> </span>Hessian<span class="heti-spacing"> </span></span>矩阵，定义为：
+    $$
+    \nabla^2_X f = \frac{\partial^2 f}{\partial X^2} = \frac{\partial \nabla_X f}{\partial X} \quad (mn\times mn)
+    $$
+    是对称矩阵。对向量 <span class="arithmatex">\(\frac{\partial f}{\partial X}\)</span> 或矩阵 <span class="arithmatex">\(\nabla_X f\)</span> 求导都可以得到 Hessian 矩阵，但从矩阵 <span class="arithmatex">\(\nabla_X f\)</span> 出发更方便。</li>
+<li><span class="arithmatex">\(\frac{\partial F}{\partial X} = \frac{\partial\mathrm{vec} (F)}{\partial X} = \frac{\partial F}{\partial \mathrm{vec}(X)} = \frac{\partial\mathrm{vec}(F)}{\partial \mathrm{vec}(X)}\)</span>，求导时矩阵被向量化，弊端是这在一定程度破坏了矩阵的结构，会导致结果变得形式复杂；好处是多元微积分中关于梯度、<span>Hessian<span class="heti-spacing"> </span></span>矩阵的结论可以沿用过来，只需将矩阵向量化。例如优化问题中，牛顿法的更新<span><span class="heti-spacing"> </span><span class="arithmatex">\(\Delta X\)</span></span>，满足：
+    $$
+    \mathrm{vec}(\Delta X) = -(\nabla^2_X f)^{-1}\mathrm{vec}(\nabla_X f)
+    $$</li>
+<li>在资料中，矩阵对矩阵的导数还有其它定义，比如<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial F}{\partial X} = \left[\frac{\partial F_{kl}}{\partial X}\right]\)</span> (<span class="arithmatex">\(mp\times nq\)</span>)</span>，或是<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial F}{\partial X} = \left[\frac{\partial F}{\partial X_{ij}}\right]\)</span> (<span class="arithmatex">\(mp\times nq\)</span>)</span>，它能兼容上篇中的标量对矩阵导数的定义，但微分与导数的联系（<span><span class="arithmatex">\(dF\)</span><span class="heti-spacing"> </span></span>等于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial F}{\partial X}\)</span><span class="heti-spacing"> </span></span>中逐个<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\times n\)</span><span class="heti-spacing"> </span></span>子块分别与<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(dX\)</span><span class="heti-spacing"> </span></span>做内积）不够简明，不便于计算和应用。资料<span class="heti-skip"><span class="heti-spacing"> </span>[5]<span class="heti-spacing"> </span></span>综述了以上定义，并批判它们是坏的定义，能配合微分运算的才是好的定义。</li>
+<li>在资料中，有分子布局和分母布局两种定义，其中向量对向量的导数的排布有所不同。本文使用的是<strong>分母布局</strong>，机器学习和优化中的梯度矩阵采用此定义。而控制论等领域中的<span class="heti-skip"><span class="heti-spacing"> </span>Jacobian<span class="heti-spacing"> </span></span>矩阵采用<strong>分子布局</strong>，向量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{f}\)</span><span class="heti-spacing"> </span></span>对向量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{x}\)</span><span class="heti-spacing"> </span></span>的导数定义是：
+    $$
+    \frac{\partial \boldsymbol{f}}{\partial \boldsymbol{x}} = \begin{bmatrix} \frac{\partial f_1}{\partial x_1} &amp; \frac{\partial f_1}{\partial x_2} &amp; \cdots &amp; \frac{\partial f_1}{\partial x_m}\ \frac{\partial f_2}{\partial x_1} &amp; \frac{\partial f_2}{\partial x_2} &amp; \cdots &amp; \frac{\partial f_2}{\partial x_m}\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots\ \frac{\partial f_p}{\partial x_1} &amp; \frac{\partial f_p}{\partial x_2} &amp; \cdots &amp; \frac{\partial f_p}{\partial x_m}\ \end{bmatrix}
+    $$
+    对应地导数与微分的联系是 <span class="arithmatex">\(d\boldsymbol{f} = \frac{\partial \boldsymbol{f} }{\partial \boldsymbol{x}}  d\boldsymbol{x}\)</span>；同样通过向量化定义矩阵 <span class="arithmatex">\(F\)</span> 对矩阵 <span class="arithmatex">\(X\)</span> 的导数 <span class="arithmatex">\(\frac{\partial F}{\partial X} = \frac{\partial \mathrm{vec}(F)}{\partial \mathrm{vec}(X)}\)</span>，有 <span class="arithmatex">\(\mathrm{vec}(dF) = \frac{\partial F}{\partial X} \mathrm{vec}(dX)\)</span>。两种布局下的导数互为转置，二者求微分的步骤是相同的，仅在对照导数与微分的联系时有一个转置的区别，读者可根据所在领域的习惯选定一种布局。</li>
+</ol>
+<p>然后来建立运算法则。仍然要利用导数与微分的联系<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mathrm{vec}(dF) = \frac{\partial F}{\partial X}^T \mathrm{vec}(dX)\)</span></span>，求微分的方法与上篇相同，而从微分得到导数需要一些向量化的技巧：</p>
+<ol>
+<li><strong>线性</strong>：<span class="arithmatex">\(\mathrm{vec}(A+B) = \mathrm{vec}(A) + \mathrm{vec}(B)\)</span>。</li>
+<li><strong>矩阵乘法</strong>：<span class="arithmatex">\(\mathrm{vec}(AXB) = (B^T \otimes A) \mathrm{vec}(X)\)</span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\otimes\)</span><span class="heti-spacing"> </span></span>表示<a href="https://zhida.zhihu.com/search?content_id=2132061&amp;content_type=Article&amp;match_order=1&amp;q=Kronecker%E7%A7%AF&amp;zhida_source=entity"><span class="heti-skip"><span class="heti-spacing"> </span>Kronecker<span class="heti-spacing"> </span></span>积</a>，<span><span class="arithmatex">\(A(m\times n)\)</span><span class="heti-spacing"> </span></span>与<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(B(p\times q)\)</span><span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>Kronecker<span class="heti-spacing"> </span></span>积是<span><span class="heti-spacing"> </span><span class="arithmatex">\(A\otimes B = [A_{ij}B]\)</span> (<span class="arithmatex">\(mp\times nq\)</span>)</span>。此式证明见张贤达《矩阵分析与应用》第<span class="heti-skip"><span class="heti-spacing"> </span>107-108<span class="heti-spacing"> </span></span>页。</li>
+<li><strong>转置</strong>：<span class="arithmatex">\(\mathrm{vec}(A^T) = K_{mn}\mathrm{vec}(A)\)</span>，<span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\times n\)</span><span class="heti-spacing"> </span></span>矩阵，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(K_{mn}\)</span> (<span class="arithmatex">\(mn\times mn\)</span>)<span class="heti-spacing"> </span></span>是<a href="https://zhida.zhihu.com/search?content_id=2132061&amp;content_type=Article&amp;match_order=1&amp;q=%E4%BA%A4%E6%8D%A2%E7%9F%A9%E9%98%B5&amp;zhida_source=entity">交换矩阵</a><span><span class="heti-spacing"> </span>(commutation matrix)</span>，将按列优先的向量化变为按行优先的向量化。例如：
+    $$
+    K_{22} = \begin{bmatrix}1 &amp; 0 &amp; 0&amp; 0 \ 0&amp; 0&amp; 1&amp; 0 \ 0&amp; 1&amp; 0&amp; 0 \ 0&amp; 0 &amp;0 &amp; 1\end{bmatrix}, \quad \mathrm{vec}(A^T)= \begin{bmatrix} A_{11} \ A_{12} \ A_{21} \ A_{22}\end{bmatrix}, \quad \mathrm{vec}(A)=\begin{bmatrix} A_{11} \ A_{21} \ A_{12} \ A_{22}\end{bmatrix}
+    $$</li>
+<li><strong>逐元素乘法</strong>：<span class="arithmatex">\(\mathrm{vec}(A\odot X) = \mathrm{diag}(A)\mathrm{vec}(X)\)</span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathrm{diag}(A)\)</span> (<span class="arithmatex">\(mn\times mn\)</span>)<span class="heti-spacing"> </span></span>是用<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>的元素（按列优先）排成的对角阵。</li>
+</ol>
+<p>观察一下可以断言，<strong>若矩阵函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(F\)</span><span class="heti-spacing"> </span></span>是矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>经加减乘法、逆、行列式、逐元素函数等运算构成，则使用相应的运算法则对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(F\)</span><span class="heti-spacing"> </span></span>求微分，再做向量化并使用技巧将其它项交换至<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathrm{vec}(dX)\)</span><span class="heti-spacing"> </span></span>左侧，对照导数与微分的联系<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mathrm{vec}(dF) = \frac{\partial F}{\partial X}^T \mathrm{vec}(dX)\)</span></span>，即能得到导数。</strong></p>
+<p><strong>特别地，若矩阵退化为向量，对照导数与微分的联系<span><span class="heti-spacing"> </span><span class="arithmatex">\(d\boldsymbol{f} = \frac{\partial \boldsymbol{f} }{\partial \boldsymbol{x} }^T d\boldsymbol{x}\)</span></span>，即能得到导数。</strong></p>
+<p>再谈一谈复合：假设已求得<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial F}{\partial Y}\)</span></span>，而<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Y\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>的函数，如何求<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial F}{\partial X}\)</span><span class="heti-spacing"> </span></span>呢？从导数与微分的联系入手，<span class="arithmatex">\(\mathrm{vec}(dF) = \frac{\partial F}{\partial Y}^T\mathrm{vec}(dY) = \frac{\partial F}{\partial Y}^T\frac{\partial Y}{\partial X}^T\mathrm{vec}(dX)\)</span>，可以推出链式法则：
+$$
+\frac{\partial F}{\partial X} = \frac{\partial Y}{\partial X}\frac{\partial F}{\partial Y}
+$$</p>
+<p>和标量对矩阵的导数相比，矩阵对矩阵的导数形式更加复杂，从不同角度出发常会得到形式不同的结果。有一些<span class="heti-skip"><span class="heti-spacing"> </span>Kronecker<span class="heti-spacing"> </span></span>积和交换矩阵相关的恒等式，可用来做等价变形：</p>
+<ol>
+<li><span class="arithmatex">\((A\otimes B)^T = A^T \otimes B^T\)</span>。</li>
+<li><span class="arithmatex">\(\mathrm{vec}(\boldsymbol{ab}^T) = \boldsymbol{b}\otimes\boldsymbol{a}\)</span>。</li>
+<li><span class="arithmatex">\((A\otimes B)(C\otimes D) = (AC)\otimes (BD)\)</span>。可以对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(F = D^TB^TXAC\)</span><span class="heti-spacing"> </span></span>求导来证明，一方面，直接求导得到<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial F}{\partial X} = (AC) \otimes (BD)\)</span></span>；另一方面，引入<span><span class="heti-spacing"> </span><span class="arithmatex">\(Y = B^T X A\)</span></span>，有<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial F}{\partial Y} = C \otimes D, \frac{\partial Y}{\partial X} = A \otimes B\)</span></span>，用链式法则得到<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial F}{\partial X} = (A\otimes B)(C \otimes D)\)</span></span>。</li>
+<li><span class="arithmatex">\(K_{mn} = K_{nm}^T, K_{mn}K_{nm} = I\)</span>。</li>
+<li><span class="arithmatex">\(K_{pm}(A\otimes B) K_{nq} = B\otimes A\)</span>，<span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\times n\)</span><span class="heti-spacing"> </span></span>矩阵，<span><span class="arithmatex">\(B\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p\times q\)</span><span class="heti-spacing"> </span></span>矩阵。可以对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(AXB^T\)</span><span class="heti-spacing"> </span></span>做向量化来证明，一方面，<span class="arithmatex">\(\mathrm{vec}(AXB^T) = (B\otimes A)\mathrm{vec}(X)\)</span>；另一方面，<span class="arithmatex">\(\mathrm{vec}(AXB^T) = K_{pm}\mathrm{vec}(BX^TA^T) = K_{pm}(A\otimes B)\mathrm{vec}(X^T) = K_{pm}(A\otimes B) K_{nq}\mathrm{vec}(X)\)</span>。</li>
+</ol>
+<p>接下来演示一些算例。</p>
+<h3 id="例-1_1">例<span><span class="heti-spacing"> </span>1</span><a class="headerlink" href="#例-1_1" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p><span class="arithmatex">\(F = AX\)</span>， <span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\times n\)</span><span class="heti-spacing"> </span></span>矩阵，求<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial F}{\partial X}\)</span></span>。</p>
+</div>
+<p><strong>解</strong>：先求微分：<span class="arithmatex">\(dF=AdX\)</span>，再做向量化，使用矩阵乘法的技巧，注意在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(dX\)</span><span class="heti-spacing"> </span></span>右侧添加单位阵：
+$$
+\mathrm{vec}(dF) = \mathrm{vec}(AdX) = (I_n\otimes A)\mathrm{vec}(dX)
+$$
+对照导数与微分的联系得到 <span class="arithmatex">\(\frac{\partial F}{\partial X} = I_n\otimes A^T\)</span>。</p>
+<p><em>特例</em>：如果<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>退化为向量，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{f} = A \boldsymbol{x}\)</span></span>，则根据向量的导数与微分的关系<span><span class="heti-spacing"> </span><span class="arithmatex">\(d\boldsymbol{f} = \frac{\partial \boldsymbol{f}}{\partial \boldsymbol{x}}^T d\boldsymbol{x}\)</span></span>，得到<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial \boldsymbol{f}}{\partial \boldsymbol{x}} = A^T\)</span></span>。</p>
+<h3 id="例-2_1">例<span><span class="heti-spacing"> </span>2</span><a class="headerlink" href="#例-2_1" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><span class="arithmatex">\(f = \log |X|\)</span>，<span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\times n\)</span><span class="heti-spacing"> </span></span>矩阵，求<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\nabla_X f\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(\nabla^2_X f\)</span></span>。</p>
+</div>
+<p><strong>解</strong>：使用上篇中的技术可求得<span><span class="heti-spacing"> </span><span class="arithmatex">\(\nabla_X f = X^{-1T}\)</span></span>。为求<span><span class="heti-spacing"> </span><span class="arithmatex">\(\nabla^2_X f\)</span></span>，先求微分：
+$$
+d\nabla_X f = -(X^{-1}dXX^{-1})^T
+$$
+再做向量化，使用转置和矩阵乘法的技巧：
+$$
+\mathrm{vec}(d\nabla_X f)= -K_{nn}\mathrm{vec}(X^{-1}dX X^{-1}) = -K_{nn}(X^{-1T}\otimes X^{-1})\mathrm{vec}(dX)
+$$
+对照导数与微分的联系，得到 <span class="arithmatex">\(\nabla^2_X f = -K_{nn}(X^{-1T}\otimes X^{-1})\)</span>，注意它是对称矩阵。在 <span class="arithmatex">\(X\)</span> 是对称矩阵时，可简化为 <span class="arithmatex">\(\nabla^2_X f = -X^{-1}\otimes X^{-1}\)</span>。</p>
+<h3 id="例-3_1">例<span><span class="heti-spacing"> </span>3</span><a class="headerlink" href="#例-3_1" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p><span class="arithmatex">\(F = A\exp(XB)\)</span>，<span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(l\times m\)</span><span class="heti-spacing"> </span></span>矩阵，<span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\times n\)</span><span class="heti-spacing"> </span></span>矩阵，<span><span class="arithmatex">\(B\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\times p\)</span><span class="heti-spacing"> </span></span>矩阵，<span>exp<span class="heti-spacing"> </span></span>为逐元素函数，求<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\partial F}{\partial X}\)</span></span>。</p>
+</div>
+<p><strong>解</strong>：先求微分：
+$$
+dF = A(\exp(XB)\odot (dXB))
+$$
+再做向量化，使用矩阵乘法的技巧：
+$$
+\mathrm{vec}(dF) = (I_p\otimes A)\mathrm{vec}(\exp(XB)\odot (dXB))
+$$
+再用逐元素乘法的技巧：
+$$
+\mathrm{vec}(dF) = (I_p \otimes A) \mathrm{diag}(\exp(XB))\mathrm{vec}(dXB)
+$$
+再用矩阵乘法的技巧：
+$$
+\mathrm{vec}(dF) = (I_p\otimes A)\mathrm{diag}(\exp(XB))(B^T\otimes I_m)\mathrm{vec}(dX)
+$$
+对照导数与微分的联系得到 <span class="arithmatex">\(\frac{\partial F}{\partial X} = (B\otimes I_m)\mathrm{diag}(\exp(XB))(I_p\otimes A^T)\)</span>。</p>
+<h3 id="例-4一元-logistic-回归">例<span><span class="heti-spacing"> </span>4</span>【一元<span class="heti-skip"><span class="heti-spacing"> </span>logistic<span class="heti-spacing"> </span></span>回归】<a class="headerlink" href="#例-4一元-logistic-回归" title="Permanent link">¶</a></h3>
+<div class="admonition question">
+<p><span class="arithmatex">\(l = -y \boldsymbol{x}^T \boldsymbol{w} + \log(1 + \exp(\boldsymbol{x}^T\boldsymbol{w}))\)</span>，求<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\nabla_\boldsymbol{w} l\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(\nabla^2_\boldsymbol{w} l\)</span></span>。其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(y\)</span><span class="heti-spacing"> </span></span>是取值<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>或<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>的标量，<span><span class="arithmatex">\(\boldsymbol{x},\boldsymbol{w}\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\times 1\)</span><span class="heti-spacing"> </span></span>列向量。</p>
+</div>
+<p><strong>解</strong>：使用上篇中的技术可求得<span><span class="heti-spacing"> </span><span class="arithmatex">\(\nabla_\boldsymbol{w} l = \boldsymbol{x}(\sigma(\boldsymbol{x}^T\boldsymbol{w}) - y)\)</span></span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\sigma(a) = \frac{\exp(a)}{1+\exp(a)}\)</span><span class="heti-spacing"> </span></span>为<a href="https://zhida.zhihu.com/search?content_id=2132061&amp;content_type=Article&amp;match_order=1&amp;q=sigmoid%E5%87%BD%E6%95%B0&amp;zhida_source=entity"><span class="heti-skip"><span class="heti-spacing"> </span>sigmoid<span class="heti-spacing"> </span></span>函数</a>。为求<span><span class="heti-spacing"> </span><span class="arithmatex">\(\nabla^2_\boldsymbol{w} l\)</span></span>，先求微分：
+$$
+d\nabla_\boldsymbol{w} l = \boldsymbol{x} \sigma'(\boldsymbol{x}^T\boldsymbol{w})\boldsymbol{x}^T d\boldsymbol{w}
+$$
+其中 <span class="arithmatex">\(\sigma'(a) = \frac{\exp(a)}{(1+\exp(a))^2}\)</span> 为 sigmoid 函数的导数，对照导数与微分的联系，得到 <span class="arithmatex">\(\nabla_w^2 l = \boldsymbol{x}\sigma'(\boldsymbol{x}^T\boldsymbol{w})\boldsymbol{x}^T\)</span>。</p>
+<p><strong>推广</strong>：样本<span><span class="heti-spacing"> </span><span class="arithmatex">\((\boldsymbol{x}_1, y_1), \dots, (\boldsymbol{x}_N,y_N)\)</span></span>，
+$$
+l = \sum_{i=1}^N \left(-y_i \boldsymbol{x}<em>i^T\boldsymbol{w} + \log(1+\exp(\boldsymbol{x_i}^T\boldsymbol{w}))\right)
+$$
+求 <span class="arithmatex">\(\nabla_w l\)</span> 和 <span class="arithmatex">\(\nabla^2_w l\)</span>。有两种方法，解 1：先对每个样本求导，然后相加；解 2：定义矩阵 <span class="arithmatex">\(X = \begin{bmatrix}\boldsymbol{x}_1^T \\ \vdots \\ \boldsymbol{x}_N^T \end{bmatrix}\)</span>，向量 <span class="arithmatex">\(\boldsymbol{y} = \begin{bmatrix}y_1 \\ \vdots \\ y_N\end{bmatrix}\)</span>，将 <span class="arithmatex">\(l\)</span> 写成矩阵形式：
+$$
+l = -\boldsymbol{y}^T X\boldsymbol{w} + \boldsymbol{1}^T\log(\boldsymbol{1} + \exp(X\boldsymbol{w}))
+$$
+进而可以使用上篇中的技术求得 <span class="arithmatex">\(\nabla_\boldsymbol{w} l = X^T(\sigma(X\boldsymbol{w}) - \boldsymbol{y})\)</span>。为求 <span class="arithmatex">\(\nabla^2_\boldsymbol{w} l\)</span>，先求微分，再用逐元素乘法的技巧：
+$$
+d\nabla</em>\boldsymbol{w} l = X^T (\sigma'(X\boldsymbol{w})\odot (X d\boldsymbol{w})) = X^T \text{diag}(\sigma'(X\boldsymbol{w}))Xd\boldsymbol{w}
+$$
+对照导数与微分的联系，得到 <span class="arithmatex">\(\nabla_w^2 l = X^T\text{diag}(\sigma'(X\boldsymbol{w}))X\)</span>。</p>
+<h3 id="例-5多元-logistic-回归">例<span><span class="heti-spacing"> </span>5</span>【多元<span class="heti-skip"><span class="heti-spacing"> </span>logistic<span class="heti-spacing"> </span></span>回归】<a class="headerlink" href="#例-5多元-logistic-回归" title="Permanent link">¶</a></h3>
+<div class="admonition question">
+<p><span class="arithmatex">\(l = -\boldsymbol{y}^T\log \text{softmax}(W\boldsymbol{x}) = -\boldsymbol{y}^TW\boldsymbol{x} + \log(\boldsymbol{1}^T\exp(W\boldsymbol{x}))\)</span>，求<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\nabla_W l\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(\nabla^2_W l\)</span></span>。其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{y}\)</span><span class="heti-spacing"> </span></span>是除一个元素为<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>外其它元素为<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\times 1\)</span><span class="heti-spacing"> </span></span>列向量，<span><span class="arithmatex">\(W\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\times n\)</span><span class="heti-spacing"> </span></span>矩阵，<span><span class="arithmatex">\(\boldsymbol{x}\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\times 1\)</span><span class="heti-spacing"> </span></span>列向量，<span><span class="arithmatex">\(l\)</span><span class="heti-spacing"> </span></span>是标量。</p>
+</div>
+<p><strong>解</strong>：上篇中已求得<span><span class="heti-spacing"> </span><span class="arithmatex">\(\nabla_W l = (\text{softmax}(W\boldsymbol{x})-\boldsymbol{y})\boldsymbol{x}^T\)</span></span>。为求<span><span class="heti-spacing"> </span><span class="arithmatex">\(\nabla^2_W l\)</span></span>，先求微分：定义<span><span class="heti-spacing"> </span><span class="arithmatex">\(\boldsymbol{a} = W\boldsymbol{x}\)</span></span>，
+$$
+\begin{aligned}
+d\nabla_W l &amp;= \left(\frac{\exp(\boldsymbol{a})\odot d\boldsymbol{a}}{\boldsymbol{1}^T\exp(\boldsymbol{a})} - \frac{\exp(\boldsymbol{a}) (\boldsymbol{1}^T(\exp(\boldsymbol{a})\odot d\boldsymbol{a}))}{(\boldsymbol{1}^T\exp(\boldsymbol{a}))^2}\right) \boldsymbol{x}^T \
+&amp;= \left( \frac{\text{diag}(\exp(\boldsymbol{a}))}{\boldsymbol{1}^T\exp(\boldsymbol{a})} - \frac{\exp(\boldsymbol{a})\exp(\boldsymbol{a})^T}{(\boldsymbol{1}^T\exp(\boldsymbol{a}))^2} \right)d\boldsymbol{a} \boldsymbol{x}^T \
+&amp;=\left(\text{diag}(\text{softmax}(\boldsymbol{a})) - \text{softmax}(\boldsymbol{a})\text{softmax}(\boldsymbol{a})^T\right)d\boldsymbol{a} \boldsymbol{x}^T
+\end{aligned}
+$$
+注意这里化简去掉逐元素乘法，第一项中 <span class="arithmatex">\(\exp(\boldsymbol{a})\odot d\boldsymbol{a} = \text{diag}(\exp(\boldsymbol{a})) d\boldsymbol{a}\)</span>，第二项中 <span class="arithmatex">\(\boldsymbol{1}^T(\exp(\boldsymbol{a})\odot d\boldsymbol{a}) = \exp(\boldsymbol{a})^Td\boldsymbol{a}\)</span>。定义矩阵 <span class="arithmatex">\(D(\boldsymbol{a}) = \text{diag}(\text{softmax}(\boldsymbol{a})) - \text{softmax}(\boldsymbol{a})\text{softmax}(\boldsymbol{a})^T\)</span>，
+$$
+d\nabla_W l =D(\boldsymbol{a})d\boldsymbol{a}\boldsymbol{x}^T = D(W\boldsymbol{x})dW \boldsymbol{x}\boldsymbol{x}^T
+$$
+做向量化并使用矩阵乘法的技巧，得到 <span class="arithmatex">\(\nabla^2_W l = (\boldsymbol{x}\boldsymbol{x}^T) \otimes D(W\boldsymbol{x})\)</span>。</p>
+<h2 id="总结">总结<a class="headerlink" href="#总结" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p><strong>最后做个总结</strong>。我们发展了从 <strong>整体</strong> 出发的矩阵求导的技术，<strong>导数与微分的联系是计算的枢纽</strong>：</p>
+<ul>
+<li>标量对矩阵的导数与微分的联系是<span><span class="heti-spacing"> </span><span class="arithmatex">\(df = \mathrm{tr}(\nabla_X^T f dX)\)</span></span>，先对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f\)</span><span class="heti-spacing"> </span></span>求微分，再使用迹技巧可求得导数。<ul>
+<li>特别地，标量对向量的导数与微分的联系是<span><span class="heti-spacing"> </span><span class="arithmatex">\(df = \nabla^T_{\boldsymbol{x}}f d\boldsymbol{x}\)</span></span>。</li>
+</ul>
+</li>
+<li>矩阵对矩阵的导数与微分的联系是<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mathrm{vec}(dF) = \frac{\partial F}{\partial X}^T \mathrm{vec}(dX)\)</span></span>，先对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(F\)</span><span class="heti-spacing"> </span></span>求微分，再使用向量化的技巧可求得导数。<ul>
+<li>特别地，向量对向量的导数与微分的联系是<span><span class="heti-spacing"> </span><span class="arithmatex">\(d\boldsymbol{f} = \frac{\partial \boldsymbol{f}}{\partial \boldsymbol{x}}^Td\boldsymbol{x}\)</span></span>。</li>
+</ul>
+</li>
+</ul>
+<p><strong>参考资料</strong>：
+1. 张贤达. <em>矩阵分析与应用</em><span>.<span class="heti-spacing"> </span></span>清华大学出版社有限公司<span><span class="heti-spacing"> </span>, 2004.</span>
+2. Fackler, Paul L. "Notes on matrix calculus." <em>North Carolina State University</em> (2005).
+3. Petersen, Kaare Brandt, and Michael Syskind Pedersen. "The matrix cookbook." <em>Technical University of Denmark</em> 7 (2008): 15.
+4. HU, Pili. "Matrix Calculus: Derivation and Simple Application." (2012).
+5. Magnus, Jan R., and Heinz Neudecker. "Matrix Differential Calculus with Applications in Statistics and Econometrics." Wiley, 2019.</p>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年1月8日 20:14:52 CST">2026年1月8日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年1月8日 20:14:52 CST">2026年1月8日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: Appendix grad" class="md-footer__link md-footer__link--prev" href="../appendix-grad/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                Appendix grad
+              </div>
+</div>
+</a>
+<a aria-label="下一页: Discrete Mathematics and Probability Theory" class="md-footer__link md-footer__link--next" href="../../cs70/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                Discrete Mathematics and Probability Theory
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

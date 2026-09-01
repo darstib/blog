@@ -1,0 +1,2043 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/note/DEM/Lec02/" rel="canonical"/>
+<link href="../Lec01/" rel="prev"/>
+<link href="../Lec03/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>第二讲：数据合规与安全 - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#第二讲数据合规与安全">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              第二讲：数据合规与安全
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Note
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs188/">
+<span class="md-ellipsis">
+    
+  
+    cs188
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../physics/">
+<span class="md-ellipsis">
+    
+  
+    physics
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-II/">
+<span class="md-ellipsis">
+    
+  
+    CSys-II
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-III/">
+<span class="md-ellipsis">
+    
+  
+    CSys-III
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3_6" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    DEM
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    DEM
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec01/">
+<span class="md-ellipsis">
+    
+  
+    第一讲 数据要素市场简介
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    第二讲：数据合规与安全
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    第二讲：数据合规与安全
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I-数据安全事件频发-page-2">
+<span class="md-ellipsis">
+      
+        I 数据安全事件频发 (page 2)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II-数据安全法制化建设越来越完善-page-3-4">
+<span class="md-ellipsis">
+      
+        II 数据安全法制化建设越来越完善 (page 3-4)
+      
+    </span>
+</a>
+<nav aria-label="II 数据安全法制化建设越来越完善 (page 3-4)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II1-中国数据安全法律框架-page-3">
+<span class="md-ellipsis">
+      
+        II.1 中国数据安全法律框架 (page 3)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II2-三驾马车法律架构-page-59">
+<span class="md-ellipsis">
+      
+        II.2 “三驾马车”法律架构 (page 59)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III-隐私计算常见技术-page-5-56">
+<span class="md-ellipsis">
+      
+        III 隐私计算常见技术 (page 5-56)
+      
+    </span>
+</a>
+<nav aria-label="III 隐私计算常见技术 (page 5-56)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III1-安全多方计算-Secure-Multi-Party-Computation-MPC-page-5-7-11">
+<span class="md-ellipsis">
+      
+        III.1 安全多方计算 (Secure Multi-Party Computation, MPC) (page 5, 7-11)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III2-联邦学习-Federated-Learning-FL-page-5-13-15">
+<span class="md-ellipsis">
+      
+        III.2 联邦学习 (Federated Learning, FL) (page 5, 13-15)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III3-数据脱敏-Data-Masking-page-5-17-27">
+<span class="md-ellipsis">
+      
+        III.3 数据脱敏 (Data Masking) (page 5, 17-27)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III4-差分隐私-Differential-Privacy-DP-page-5-29-49">
+<span class="md-ellipsis">
+      
+        III.4 差分隐私 (Differential Privacy, DP) (page 5, 29-49)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III5-全同态加密-Fully-Homomorphic-Encryption-FHE-page-5-51-52">
+<span class="md-ellipsis">
+      
+        III.5 全同态加密 (Fully Homomorphic Encryption, FHE) (page 5, 51-52)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III6-零知识证明-Zero-Knowledge-Proof-ZKP-page-5-54-56">
+<span class="md-ellipsis">
+      
+        III.6 零知识证明 (Zero Knowledge Proof, ZKP) (page 5, 54-56)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV-数据要素合规背景-page-58-61">
+<span class="md-ellipsis">
+      
+        IV 数据要素合规背景 (page 58-61)
+      
+    </span>
+</a>
+<nav aria-label="IV 数据要素合规背景 (page 58-61)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV1-合规面临的挑战-page-60">
+<span class="md-ellipsis">
+      
+        IV.1 合规面临的挑战 (page 60)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV2-消费者权力与企业责任-page-61">
+<span class="md-ellipsis">
+      
+        IV.2 消费者权力与企业责任 (page 61)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V-数据要素合规技术-page-62-64-66">
+<span class="md-ellipsis">
+      
+        V 数据要素合规技术 (page 62, 64-66)
+      
+    </span>
+</a>
+<nav aria-label="V 数据要素合规技术 (page 62, 64-66)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V1-技术挑战与解决方案-page-62">
+<span class="md-ellipsis">
+      
+        V.1 技术挑战与解决方案 (page 62)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V2-合规技术工具-page-65">
+<span class="md-ellipsis">
+      
+        V.2 合规技术工具 (page 65)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V3-AI-赋能的数据安全技术-page-66">
+<span class="md-ellipsis">
+      
+        V.3 AI 赋能的数据安全技术 (page 66)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI-数据要素合规平台-page-67-79">
+<span class="md-ellipsis">
+      
+        VI 数据要素合规平台 (page 67-79)
+      
+    </span>
+</a>
+<nav aria-label="VI 数据要素合规平台 (page 67-79)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI1-平台目标与挑战-page-68-69">
+<span class="md-ellipsis">
+      
+        VI.1 平台目标与挑战 (page 68-69)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI2-人有人所长器有器所专-page-70">
+<span class="md-ellipsis">
+      
+        VI.2 “人有人所长，器有器所专” (page 70)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI3-平台技术架构-page-71">
+<span class="md-ellipsis">
+      
+        VI.3 平台技术架构 (page 71)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI4-平台功能模块-page-72">
+<span class="md-ellipsis">
+      
+        VI.4 平台功能模块 (page 72)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI5-个人信息合规审计平台-page-73">
+<span class="md-ellipsis">
+      
+        VI.5 个人信息合规审计平台 (page 73)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI6-平台适用场景-page-74-78">
+<span class="md-ellipsis">
+      
+        VI.6 平台适用场景 (page 74-78)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI7-基于深度学习的个人信息抽取算法-page-79">
+<span class="md-ellipsis">
+      
+        VI.7 基于深度学习的个人信息抽取算法 (page 79)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VII-数据要素合规展望-page-84-90">
+<span class="md-ellipsis">
+      
+        VII 数据要素合规展望 (page 84-90)
+      
+    </span>
+</a>
+<nav aria-label="VII 数据要素合规展望 (page 84-90)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VII1-新型技术带来的挑战与机遇-page-84">
+<span class="md-ellipsis">
+      
+        VII.1 新型技术带来的挑战与机遇 (page 84)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VII2-AI-赋能的新型攻击与防御-page-85-86">
+<span class="md-ellipsis">
+      
+        VII.2 AI 赋能的新型攻击与防御 (page 85-86)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VII3-数据水印-Watermark-page-87-90">
+<span class="md-ellipsis">
+      
+        VII.3 数据水印 (Watermark) (page 87-90)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec03/">
+<span class="md-ellipsis">
+    
+  
+    第三讲：非合作博弈论基础（一）
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec04/">
+<span class="md-ellipsis">
+    
+  
+    第四讲：非合作博弈论基础 (二)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec05/">
+<span class="md-ellipsis">
+    
+  
+    第五讲：合作博弈与数据估值
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec06/">
+<span class="md-ellipsis">
+    
+  
+    第六讲：多臂老虎机算法基础与应用
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec07/">
+<span class="md-ellipsis">
+    
+  
+    第七讲：拍卖与机制设计基础
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec08/">
+<span class="md-ellipsis">
+    
+  
+    第八讲：最优机制
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec09/">
+<span class="md-ellipsis">
+    
+  
+    第九讲：数据交易定价
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec10/">
+<span class="md-ellipsis">
+    
+  
+    第十讲：贝叶斯劝说
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DMA/">
+<span class="md-ellipsis">
+    
+  
+    DMA
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs70/">
+<span class="md-ellipsis">
+    
+  
+    cs70
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../other/">
+<span class="md-ellipsis">
+    
+  
+    other
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I-数据安全事件频发-page-2">
+<span class="md-ellipsis">
+      
+        I 数据安全事件频发 (page 2)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II-数据安全法制化建设越来越完善-page-3-4">
+<span class="md-ellipsis">
+      
+        II 数据安全法制化建设越来越完善 (page 3-4)
+      
+    </span>
+</a>
+<nav aria-label="II 数据安全法制化建设越来越完善 (page 3-4)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II1-中国数据安全法律框架-page-3">
+<span class="md-ellipsis">
+      
+        II.1 中国数据安全法律框架 (page 3)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II2-三驾马车法律架构-page-59">
+<span class="md-ellipsis">
+      
+        II.2 “三驾马车”法律架构 (page 59)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III-隐私计算常见技术-page-5-56">
+<span class="md-ellipsis">
+      
+        III 隐私计算常见技术 (page 5-56)
+      
+    </span>
+</a>
+<nav aria-label="III 隐私计算常见技术 (page 5-56)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III1-安全多方计算-Secure-Multi-Party-Computation-MPC-page-5-7-11">
+<span class="md-ellipsis">
+      
+        III.1 安全多方计算 (Secure Multi-Party Computation, MPC) (page 5, 7-11)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III2-联邦学习-Federated-Learning-FL-page-5-13-15">
+<span class="md-ellipsis">
+      
+        III.2 联邦学习 (Federated Learning, FL) (page 5, 13-15)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III3-数据脱敏-Data-Masking-page-5-17-27">
+<span class="md-ellipsis">
+      
+        III.3 数据脱敏 (Data Masking) (page 5, 17-27)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III4-差分隐私-Differential-Privacy-DP-page-5-29-49">
+<span class="md-ellipsis">
+      
+        III.4 差分隐私 (Differential Privacy, DP) (page 5, 29-49)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III5-全同态加密-Fully-Homomorphic-Encryption-FHE-page-5-51-52">
+<span class="md-ellipsis">
+      
+        III.5 全同态加密 (Fully Homomorphic Encryption, FHE) (page 5, 51-52)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III6-零知识证明-Zero-Knowledge-Proof-ZKP-page-5-54-56">
+<span class="md-ellipsis">
+      
+        III.6 零知识证明 (Zero Knowledge Proof, ZKP) (page 5, 54-56)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV-数据要素合规背景-page-58-61">
+<span class="md-ellipsis">
+      
+        IV 数据要素合规背景 (page 58-61)
+      
+    </span>
+</a>
+<nav aria-label="IV 数据要素合规背景 (page 58-61)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV1-合规面临的挑战-page-60">
+<span class="md-ellipsis">
+      
+        IV.1 合规面临的挑战 (page 60)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV2-消费者权力与企业责任-page-61">
+<span class="md-ellipsis">
+      
+        IV.2 消费者权力与企业责任 (page 61)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V-数据要素合规技术-page-62-64-66">
+<span class="md-ellipsis">
+      
+        V 数据要素合规技术 (page 62, 64-66)
+      
+    </span>
+</a>
+<nav aria-label="V 数据要素合规技术 (page 62, 64-66)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V1-技术挑战与解决方案-page-62">
+<span class="md-ellipsis">
+      
+        V.1 技术挑战与解决方案 (page 62)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V2-合规技术工具-page-65">
+<span class="md-ellipsis">
+      
+        V.2 合规技术工具 (page 65)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V3-AI-赋能的数据安全技术-page-66">
+<span class="md-ellipsis">
+      
+        V.3 AI 赋能的数据安全技术 (page 66)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI-数据要素合规平台-page-67-79">
+<span class="md-ellipsis">
+      
+        VI 数据要素合规平台 (page 67-79)
+      
+    </span>
+</a>
+<nav aria-label="VI 数据要素合规平台 (page 67-79)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI1-平台目标与挑战-page-68-69">
+<span class="md-ellipsis">
+      
+        VI.1 平台目标与挑战 (page 68-69)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI2-人有人所长器有器所专-page-70">
+<span class="md-ellipsis">
+      
+        VI.2 “人有人所长，器有器所专” (page 70)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI3-平台技术架构-page-71">
+<span class="md-ellipsis">
+      
+        VI.3 平台技术架构 (page 71)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI4-平台功能模块-page-72">
+<span class="md-ellipsis">
+      
+        VI.4 平台功能模块 (page 72)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI5-个人信息合规审计平台-page-73">
+<span class="md-ellipsis">
+      
+        VI.5 个人信息合规审计平台 (page 73)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI6-平台适用场景-page-74-78">
+<span class="md-ellipsis">
+      
+        VI.6 平台适用场景 (page 74-78)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI7-基于深度学习的个人信息抽取算法-page-79">
+<span class="md-ellipsis">
+      
+        VI.7 基于深度学习的个人信息抽取算法 (page 79)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VII-数据要素合规展望-page-84-90">
+<span class="md-ellipsis">
+      
+        VII 数据要素合规展望 (page 84-90)
+      
+    </span>
+</a>
+<nav aria-label="VII 数据要素合规展望 (page 84-90)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VII1-新型技术带来的挑战与机遇-page-84">
+<span class="md-ellipsis">
+      
+        VII.1 新型技术带来的挑战与机遇 (page 84)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VII2-AI-赋能的新型攻击与防御-page-85-86">
+<span class="md-ellipsis">
+      
+        VII.2 AI 赋能的新型攻击与防御 (page 85-86)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VII3-数据水印-Watermark-page-87-90">
+<span class="md-ellipsis">
+      
+        VII.3 数据水印 (Watermark) (page 87-90)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Note
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    DEM
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:notes">notes</a>
+</nav>
+<h1 id="第二讲数据合规与安全">第二讲：数据合规与安全<a class="headerlink" href="#第二讲数据合规与安全" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h1>
+<h2 id="I-数据安全事件频发-page-2"><span>I<span class="heti-spacing"> </span></span>数据安全事件频发<span><span class="heti-spacing"> </span>(page 2)</span><a class="headerlink" href="#I-数据安全事件频发-page-2" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>随着大数据时代的到来，数据量呈爆炸式增长，个人隐私数据泄露问题日益突出，亟待解决。</p>
+<details class="example" open="open">
+<summary>典型数据安全事件</summary>
+<ul>
+<li><strong>滴滴出行</strong>：因严重违法违规收集使用个人信息被勒令下架整改。</li>
+<li><strong>Facebook</strong>：用户数据遭窃，<span>5.33<span class="heti-spacing"> </span></span>亿用户的个人隐私数据被泄露。</li>
+<li><strong>Quora</strong>：系统遭第三方未授权访问，<span>1<span class="heti-spacing"> </span></span>亿用户数据可能泄露。</li>
+<li><strong>Exactis</strong>：失误泄露<span class="heti-skip"><span class="heti-spacing"> </span>2TB<span class="heti-spacing"> </span></span>隐私信息，含<span class="heti-skip"><span class="heti-spacing"> </span>3.4<span class="heti-spacing"> </span></span>亿条数据，涉及<span class="heti-skip"><span class="heti-spacing"> </span>2.3<span class="heti-spacing"> </span></span>亿人。</li>
+<li><strong>万豪酒店</strong>：客房预订数据库遭黑客入侵，约<span class="heti-skip"><span class="heti-spacing"> </span>5<span class="heti-spacing"> </span></span>亿名客人的信息可能被泄露。</li>
+<li><strong>美国医疗机构</strong>：数据泄露造成<span class="heti-skip"><span class="heti-spacing"> </span>130<span class="heti-spacing"> </span></span>亿美元损失。</li>
+</ul>
+</details>
+<p>这些事件凸显了数据安全和隐私保护的严峻挑战。</p>
+<h2 id="II-数据安全法制化建设越来越完善-page-3-4"><span>II<span class="heti-spacing"> </span></span>数据安全法制化建设越来越完善<span><span class="heti-spacing"> </span>(page 3-4)</span><a class="headerlink" href="#II-数据安全法制化建设越来越完善-page-3-4" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>为了应对日益严峻的数据安全挑战，各国纷纷加强数据安全法制化建设。中国已初步形成了以法律、法规、标准为核心的数据安全法律体系。</p>
+<h3 id="II1-中国数据安全法律框架-page-3"><span>II.1<span class="heti-spacing"> </span></span>中国数据安全法律框架<span><span class="heti-spacing"> </span>(page 3)</span><a class="headerlink" href="#II1-中国数据安全法律框架-page-3" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ol>
+<li>
+<p><strong>法律</strong>：</p>
+<ul>
+<li>《中华人民共和国网络安全法》</li>
+<li>《中华人民共和国个人信息保护法》</li>
+<li>《中华人民共和国数据安全法》</li>
+<li>《中华人民共和国未成年人保护法》</li>
+<li>《中华人民共和国密码法》</li>
+<li>《中华人民共和国国家安全法》</li>
+</ul>
+</li>
+<li>
+<p><strong>法规</strong>：</p>
+<ul>
+<li>《网络数据安全管理条例<heti-adjacent class="heti-adjacent-half">》</heti-adjacent>（征求意见稿）</li>
+<li>《深圳经济特区智能网联汽车管理条例》</li>
+<li>《深圳经济特区数字经济产业促进条例》</li>
+<li>《浙江省公共数据开放与安全管理暂行办法》</li>
+<li>《上海市数据条例》</li>
+<li>《数据出境安全评估办法》</li>
+<li>《网络安全审查办法》</li>
+</ul>
+</li>
+<li>
+<p><strong>标准</strong>：</p>
+<ul>
+<li>《信息安全技术个人信息安全规范<heti-adjacent class="heti-adjacent-half">》</heti-adjacent>（GB/T 35273-2020）</li>
+<li>《信息安全技术数据安全能力成熟度模型<heti-adjacent class="heti-adjacent-half">》</heti-adjacent>（GB/T 37988-2019）</li>
+<li>《工业互联网数据安全保护要求<heti-adjacent class="heti-adjacent-half">》</heti-adjacent>（YD/T 3865-2021）</li>
+<li>《公共数据安全体系评估规范<heti-adjacent class="heti-adjacent-half">》</heti-adjacent>（DB33/T 2488-2022）</li>
+</ul>
+</li>
+</ol>
+<h3 id="II2-三驾马车法律架构-page-59">II.2 “三驾马车”法律架构<span><span class="heti-spacing"> </span>(page 59)</span><a class="headerlink" href="#II2-三驾马车法律架构-page-59" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>2021<span class="heti-spacing"> </span></span>年《数据安全法》与《个人信息保护法》的出台，与<span class="heti-skip"><span class="heti-spacing"> </span>2017<span class="heti-spacing"> </span></span>年《网络安全法》共同构成了数据要素合规领域的“三驾马车”，标志着我国数据要素合规的基本法律架构已初步搭建完成。</p>
+<ul>
+<li><strong>《网络安全法》</strong>：强调国家实行网络安全等级保护制度，要求采取数据分类、重要数据备份和加密等措施。</li>
+<li><strong>《数据安全法》</strong>：规定开展数据处理活动应建立健全全流程数据安全管理制度，组织数据安全教育培训，采取技术措施保障数据安全。</li>
+<li><strong>《个人信息保护法》</strong>：首次明确对个人信息保护合规提出了要求，例如采取加密、去标识化等安全技术措施，并对违法行为规定了高额罚款。</li>
+</ul>
+<p>这些法律法规共同构筑了数据要素合规的基石，为数据的合法处理、流通和价值挖掘提供了保障。</p>
+<h2 id="III-隐私计算常见技术-page-5-56"><span>III<span class="heti-spacing"> </span></span>隐私计算常见技术<span><span class="heti-spacing"> </span>(page 5-56)</span><a class="headerlink" href="#III-隐私计算常见技术-page-5-56" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>为了在数据流通和使用中有效保护隐私，一系列隐私计算技术应运而生。</p>
+<details class="important" open="open">
+<summary>隐私计算技术概述</summary>
+<p>隐私计算是一类信息技术，旨在实现数据价值的流通和利用，同时保障数据本身的隐私安全。</p>
+</details>
+<h3 id="III1-安全多方计算-Secure-Multi-Party-Computation-MPC-page-5-7-11"><span>III.1<span class="heti-spacing"> </span></span>安全多方计算<span><span class="heti-spacing"> </span>(Secure Multi-Party Computation, MPC) (page 5, 7-11)</span><a class="headerlink" href="#III1-安全多方计算-Secure-Multi-Party-Computation-MPC-page-5-7-11" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><strong>定义</strong>：安全多方计算是一种密码学技术，允许多个互不信任的参与方在不泄露各自原始数据的前提下，共同完成一项计算任务。</p>
+<details class="definition" open="open">
+<summary>安全多方计算</summary>
+<p>互不信任的参与方协同计算而不泄露隐私信息。</p>
+</details>
+<p><strong>核心思想</strong>：通过密码学手段（如同态加密、混淆电路、秘密共享等<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，将数据加密或进行数学变换，使得计算可以在密文上进行，最终得到计算结果，但无法还原出任何一方的原始输入数据。</p>
+<p><strong>经典问题</strong>：<strong>姚氏百万富翁问题</strong><sup id="fnref:6"><a class="footnote-ref" href="#fn:6">1</a></sup></p>
+<details class="example" open="open">
+<summary>姚氏百万富翁问题</summary>
+<p>假设<span class="heti-skip"><span class="heti-spacing"> </span>Alice<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>Bob<span class="heti-spacing"> </span></span>都是百万富翁，他们想知道谁更富有，但又不想泄露各自的具体财产金额。如何设计一个协议，使得他们可以比较出谁的钱更多，而除了最终的比较结果外，无法得知对方的具体金额？</p>
+<p><strong>通俗理解方法</strong>：</p>
+<ol>
+<li>第一个百万富翁（Alice）准备十个盒子，分别代表<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>到<span><span class="heti-spacing"> </span>10</span>。</li>
+<li><span>Alice<span class="heti-spacing"> </span></span>将自己的财产数字与每个盒子的数字进行比较：如果小于盒子数字，就在盒子里放一个苹果；如果大于等于，就放一个香蕉。</li>
+<li>第二个百万富翁（Bob）在第一个百万富翁不参与的情况下，选择自己财产数额对应的盒子。</li>
+<li><span>Bob<span class="heti-spacing"> </span></span>销毁所有剩余的盒子。</li>
+<li>最后，两个百万富翁一起打开<span class="heti-skip"><span class="heti-spacing"> </span>Bob<span class="heti-spacing"> </span></span>选择的盒子，根据里面是苹果还是香蕉，就可以判断谁更富有，但具体金额不被泄露。</li>
+</ol>
+</details>
+<p><strong>数学协议示例</strong>：
+假设 Alice 有 <span class="arithmatex">\(i\)</span> 百万美元，Bob 有 <span class="arithmatex">\(j\)</span> 百万美元，其中 <span class="arithmatex">\(1 \le i, j \le 10\)</span>。目标是确定 <span class="arithmatex">\(i &lt; j\)</span> 是否成立，且不泄露 <span class="arithmatex">\(i\)</span> 和 <span class="arithmatex">\(j\)</span> 的具体值。</p>
+<ol>
+<li><strong><span>Bob<span class="heti-spacing"> </span></span>生成密钥对</strong> <span class="arithmatex">\((PK_A, SK_A)\)</span>，选择一个大的随机数<span><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span></span>，并用<span class="heti-skip"><span class="heti-spacing"> </span>Alice<span class="heti-spacing"> </span></span>的公钥<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(PK_A\)</span><span class="heti-spacing"> </span></span>加密得到<span><span class="heti-spacing"> </span><span class="arithmatex">\(E_{PK_A}(x) = k\)</span></span>。</li>
+<li><strong><span>Bob<span class="heti-spacing"> </span></span>计算并发送给<span><span class="heti-spacing"> </span>Alice</span></strong>：<span class="arithmatex">\(k' = k - j + 1\)</span>。</li>
+<li><strong><span>Alice<span class="heti-spacing"> </span></span>解密</strong>：<span>Alice<span class="heti-spacing"> </span></span>用自己的私钥<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(SK_A\)</span><span class="heti-spacing"> </span></span>解密<span><span class="heti-spacing"> </span><span class="arithmatex">\(k'\)</span></span>，得到<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D_{SK_A}(k')\)</span>.<span class="heti-spacing"> </span></span>接着<span class="heti-skip"><span class="heti-spacing"> </span>Alice<span class="heti-spacing"> </span></span>计算<span><span class="heti-spacing"> </span><span class="arithmatex">\(y_u = D_{SK_A}(k - j + u)\)</span> for <span class="arithmatex">\(u = 1, \dots, 10\)</span></span>。</li>
+<li><strong><span>Alice<span class="heti-spacing"> </span></span>引入随机性</strong>：<span>Alice<span class="heti-spacing"> </span></span>生成一个大的随机素数<span><span class="heti-spacing"> </span><span class="arithmatex">\(p\)</span></span>，并计算<span><span class="heti-spacing"> </span><span class="arithmatex">\(z_u = y_u \pmod p\)</span></span>。为了保证隐私，<span>Alice<span class="heti-spacing"> </span></span>会多次尝试不同的<span><span class="heti-spacing"> </span><span class="arithmatex">\(p\)</span></span>，直到所有的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(z_u\)</span><span class="heti-spacing"> </span></span>值彼此之间相隔至少<span><span class="heti-spacing"> </span>2</span>。</li>
+<li><strong><span>Alice<span class="heti-spacing"> </span></span>发送信息给<span><span class="heti-spacing"> </span>Bob</span></strong>：<span>Alice<span class="heti-spacing"> </span></span>将素数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>10<span class="heti-spacing"> </span></span>个数字序列发送给<span><span class="heti-spacing"> </span>Bob</span>。该序列是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(z_1, z_2, \dots, z_i\)</span><span class="heti-spacing"> </span></span>以及<span><span class="heti-spacing"> </span><span class="arithmatex">\(z_i+1, z_{i+1}+1, \dots, z_{10}+1\)</span></span>（模<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p\)</span><span class="heti-spacing"> </span></span>意义下<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong><span>Bob<span class="heti-spacing"> </span></span>比较</strong>：<span>Bob<span class="heti-spacing"> </span></span>检查他收到的第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(j\)</span><span class="heti-spacing"> </span></span>个数字（不包括<span><span class="heti-spacing"> </span><span class="arithmatex">\(p\)</span></span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，是否等于<span><span class="heti-spacing"> </span><span class="arithmatex">\(x \pmod p\)</span></span>。<ul>
+<li>如果相等，则说明<span><span class="heti-spacing"> </span><span class="arithmatex">\(j \le i\)</span></span>。</li>
+<li>如果不相等，则说明<span><span class="heti-spacing"> </span><span class="arithmatex">\(j &gt; i\)</span></span>。</li>
+</ul>
+</li>
+<li><strong><span>Bob<span class="heti-spacing"> </span></span>告知<span class="heti-skip"><span class="heti-spacing"> </span>Alice<span class="heti-spacing"> </span></span>结论</strong>。</li>
+</ol>
+<p><strong>协议背后的原理</strong>：
+- <strong>第一步</strong>：通过特定操作，<span>Alice<span class="heti-spacing"> </span></span>构造<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>把锁，<span>Bob<span class="heti-spacing"> </span></span>拥有且仅拥有第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(j\)</span><span class="heti-spacing"> </span></span>把锁的钥匙，但<span class="heti-skip"><span class="heti-spacing"> </span>Alice<span class="heti-spacing"> </span></span>不知道<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(j\)</span><span class="heti-spacing"> </span></span>是多少。
+- <strong>第二步</strong>：<span>Alice<span class="heti-spacing"> </span></span>给<span class="heti-skip"><span class="heti-spacing"> </span>Bob <span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>把锁着的标志位，其中前<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>个标志位置为<span><span class="heti-spacing"> </span>0</span>，后<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n-i\)</span><span class="heti-spacing"> </span></span>个置为<span><span class="heti-spacing"> </span>1</span>。
+- <strong>第三步</strong>：<span>Bob<span class="heti-spacing"> </span></span>检查第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(j\)</span><span class="heti-spacing"> </span></span>把锁锁着的标志位是否为<span><span class="heti-spacing"> </span>0</span>。如果为<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>则<span><span class="heti-spacing"> </span><span class="arithmatex">\(i \ge j\)</span></span>，否则<span><span class="heti-spacing"> </span><span class="arithmatex">\(i &lt; j\)</span></span>。</p>
+<h3 id="III2-联邦学习-Federated-Learning-FL-page-5-13-15"><span>III.2<span class="heti-spacing"> </span></span>联邦学习<span><span class="heti-spacing"> </span>(Federated Learning, FL) (page 5, 13-15)</span><a class="headerlink" href="#III2-联邦学习-Federated-Learning-FL-page-5-13-15" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><strong>定义</strong>：联邦学习是一种分布式机器学习技术，在不共享原始数据的前提下，多个参与方（数据拥有方）通过加密传输模型参数，共同训练一个机器学习模型。</p>
+<details class="definition" open="open">
+<summary>联邦学习</summary>
+<p>在分布式设备或系统上训练模型，参与方仅传输模型参数，在不共享数据的基础上联合建模。原始数据不出域、通信量低、计算负载均衡，但是上传参数存在隐私泄露风险。</p>
+</details>
+<p><strong>核心特征</strong>：</p>
+<ul>
+<li><strong>多方协作</strong>：多个数据拥有方协作构建一个共享的机器学习模型，每个参与方都拥有各自的训练数据。</li>
+<li><strong>各方平等</strong>：所有参与方在训练过程中地位平等。</li>
+<li><strong>数据隐私保护</strong>：原始数据不离开数据拥有方，且其他参与方无法推测出原始数据。</li>
+</ul>
+<p><strong>技术类别</strong>：</p>
+<ul>
+<li><strong>横向联邦学习<span><span class="heti-spacing"> </span>(Horizontal Federated Learning)</span></strong>：适用于单一数据库用户量不足但属性维度相似的场景，多个数据库联合训练。例如，不同医院的病历数据，病种相似但患者数量不足。</li>
+<li><strong>纵向联邦学习<span><span class="heti-spacing"> </span>(Vertical Federated Learning)</span></strong>：适用于单一数据库属性维度不足但用户重叠度高的场景，多个数据库联合训练。例如，同一用户在银行和电商平台的金融和消费数据。</li>
+<li><strong>迁移联邦学习<span><span class="heti-spacing"> </span>(Federated Transfer Learning)</span></strong>：适用于数据库之间样本和属性重叠均较少的场景，通过迁移学习技术实现多个数据库的联合训练。</li>
+</ul>
+<p><strong>优势</strong>：
+- <strong>更好的隐私保护</strong>：相比集中式学习，原始数据不离开本地。
+- <strong>减少通信开销</strong>：只传输模型参数，通信量通常小于传输原始数据。
+- <strong>可扩展性</strong>：相比安全多方计算，计算和通信复杂度更低，可扩展到百万级参与者。</p>
+<p><strong>劣势</strong>：
+- <strong>精度损失</strong>：相比集中式学习，可能存在一定的模型精度损失。
+- <strong>信息泄露风险</strong>：尽管不传输原始数据，但模型参数本身可能泄露部分信息。
+- <strong>计算任务局限</strong>：主要局限于模型训练任务。</p>
+<p><strong>实用化挑战</strong>：
+- <strong>降低隐私泄漏</strong>：需要结合密码学、差分隐私等技术，降低联邦学习中间结果的隐私泄漏风险。
+- <strong>兼容大模型</strong>：模型参数量巨大，需要研究新的联邦学习方法以降低通信复杂度。</p>
+<h3 id="III3-数据脱敏-Data-Masking-page-5-17-27"><span>III.3<span class="heti-spacing"> </span></span>数据脱敏<span><span class="heti-spacing"> </span>(Data Masking) (page 5, 17-27)</span><a class="headerlink" href="#III3-数据脱敏-Data-Masking-page-5-17-27" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><strong>定义</strong>：数据脱敏是根据制定的脱敏规则，对敏感信息进行数据变形或遮蔽，以降低数据的敏感级别，扩大数据可共享和被使用的范围，从而达到保护隐私数据的安全目的。</p>
+<details class="definition" open="open">
+<summary>数据脱敏</summary>
+<p>数据脱敏<span class="heti-skip"><span class="heti-spacing"> </span>(Data Masking)<span class="heti-spacing"> </span></span>是根据制定的脱敏规则，针对敏感信息进行数据变形或遮蔽，降低数据的敏感级别，扩大数据可共享和被使用的范围，达到保护隐私数据安全的目的。</p>
+</details>
+<p><strong>分类</strong>：</p>
+<ul>
+<li><strong>动态数据脱敏</strong>：适用于不脱离生产环境的场景，对敏感数据的查询和调用结果进行<strong>实时脱敏</strong>。不同角色、权限和数据类型可以应用不同的脱敏方案，确保返回数据的可用性和安全性。</li>
+<li><strong>静态数据脱敏</strong>：适用于脱离生产环境的场景，脱敏后分发至测试、开发、数据分析等环节。通过“搬移并仿真替换”的方式，将敏感数据处理后下发给下游环节，使脱敏数据与生产环境<strong>相隔离</strong>，满足业务需求同时保障生产数据库安全。</li>
+</ul>
+<p><strong>常见技术</strong>：</p>
+<ul>
+<li><strong>无效化</strong>：对字段数据值进行截断、加密、隐藏，使其不再具有利用价值。通常用特殊字符（如 <code>*</code>）代替真值。</li>
+<li><strong>随机值替换</strong>：将字母替换为随机字母，数字替换为随机数字，文字随机替换。优点是保留原有数据格式，用户不易察觉。</li>
+<li><strong>数据替换</strong>：用一个设定的虚拟值替换真值，不使用特殊字符遮挡。</li>
+<li><strong>对称加密</strong>：一种可逆脱敏方法，通过加密密钥和算法对敏感数据加密。密文格式与原始数据在逻辑规则上一致，通过密钥解密可恢复原始数据。关键在于密钥的安全性。</li>
+<li><strong>平均值</strong>：常用于统计场景，针对数值型数据。先计算均值，然后使脱敏后的值在均值附近随机分布，从而保持数据的总和不变。</li>
+<li><strong>偏移和取整</strong>：通过随机移位改变数字数据，在保持数据安全性的同时保证范围的大致真实性。在大数据分析场景中意义较大。</li>
+</ul>
+<p><strong>脱敏标准<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>要求</strong>：</p>
+<ul>
+<li><strong>遮蔽脱敏</strong>：对数据的全部或部分用符号替换。</li>
+<li><strong>一致性脱敏</strong>：脱敏后数据间的关联关系保持不变。</li>
+<li><strong>保持数据格式脱敏</strong>：保留数据的主要格式。</li>
+<li><strong>保持数据特征脱敏</strong>：保留数据的主要特征。</li>
+<li><strong>泛化脱敏</strong>：在保留原始数据局部特征的前提下，使用其他方式替代原始数据。</li>
+<li><strong>可逆性脱敏</strong>：脱敏后数据可使用对应表进行恢复操作。</li>
+</ul>
+<p><strong>整体架构<span><span class="heti-spacing"> </span>(page 27)</span></strong>：
+数据脱敏的整体架构通常包括：</p>
+<ol>
+<li><strong>敏感数据识别</strong>：识别原始数据中的敏感信息。</li>
+<li><strong>敏感数据处理</strong>：根据脱敏规则，进行动态脱敏或静态脱敏。</li>
+<li><strong>脱敏数据使用</strong>：将脱敏后的数据用于外部访问、开发测试环境或外部开发环境。</li>
+</ol>
+<h3 id="III4-差分隐私-Differential-Privacy-DP-page-5-29-49"><span>III.4<span class="heti-spacing"> </span></span>差分隐私<span><span class="heti-spacing"> </span>(Differential Privacy, DP) (page 5, 29-49)</span><a class="headerlink" href="#III4-差分隐私-Differential-Privacy-DP-page-5-29-49" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><strong>定义</strong>：差分隐私是一种严格的数学隐私保护模型，旨在通过向数据添加随机噪声来保护个体隐私，同时仍能进行有意义的统计分析。</p>
+<details class="definition" open="open">
+<summary>差分隐私<span><span class="heti-spacing"> </span>(Differential Privacy)</span><sup id="fnref:7"><a class="footnote-ref" href="#fn:7"><span><span class="heti-spacing"> </span>3</span></a></sup></summary>
+<p>第一次用可证明的数学模型定义了隐私和隐私保护（Dwork06<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。它通过引入随机扰动，在实现数据分析<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>挖掘应用的同时保护用户的数据隐私。</p>
+</details>
+<p><strong>核心思想</strong>：通过对真实数据添加随机噪声进行扰动，实现用户隐私的量化保护。</p>
+<ul>
+<li><strong>安全性</strong>：随机噪声对真实数据的扰动是差分隐私安全性的来源。</li>
+<li><strong>可用性</strong>：独立随机噪声叠加后的相互抵消使得扰动数据的统计结果仍具有较高准确度。</li>
+</ul>
+<details class="example" open="open">
+<summary>隐私困境<span><span class="heti-spacing"> </span>(page 30)</span></summary>
+<p>如果一个数据集中包含某个个体的敏感信息（如<span class="heti-skip"><span class="heti-spacing"> </span>HIV+<span class="heti-spacing"> </span></span>状态<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，直接发布统计直方图可能暴露个体隐私。差分隐私的目标是：<strong>不学习关于个体的任何信息，同时学习关于总体的有用统计信息。</strong></p>
+</details>
+<p><strong>数学定义</strong>：
+对于任意两个相邻数据集 <span class="arithmatex">\(D_1\)</span> 和 <span class="arithmatex">\(D_2\)</span>（只相差一行记录，即一个记录的添加或移除），以及算法 <span class="arithmatex">\(A\)</span> 的任意输出 <span class="arithmatex">\(O\)</span>，差分隐私要求满足：</p>
+<div class="arithmatex">\[
+\log \left( \frac{\Pr[A(D_1) = O]}{\Pr[A(D_2) = O]} \right) &lt; \epsilon \quad (\epsilon &gt; 0)
+\]</div>
+<p>等价于：</p>
+<div class="arithmatex">\[
+\Pr[A(D_1) = O] \le e^\epsilon \Pr[A(D_2) = O]
+\]</div>
+<p>其中，<span><span class="arithmatex">\(\epsilon\)</span><span class="heti-spacing"> </span></span>是隐私预算（privacy budget<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，控制隐私保护的强度：
+- <span class="arithmatex">\(\epsilon\)</span> 越小，隐私性越强，但数据可用性越差（噪声越大）。
+- <span class="arithmatex">\(\epsilon\)</span> 越大，隐私性越弱，但数据可用性越好（噪声越小）。</p>
+<p><strong>为什么是“只相差一行”的数据集？</strong>
+这是为了模拟单个记录的存在或缺失对查询结果的影响，从而保证即使攻击者知道数据集中除目标个体外的所有信息，也无法推断出该目标个体是否在数据集中。</p>
+<p><strong>为什么是“所有”数据集对？</strong>
+这是为了保证无论数据集中其他记录是什么，该隐私保证都成立，提供强大的抗背景知识攻击能力。</p>
+<p><strong>实现机制：<span>Laplace<span class="heti-spacing"> </span></span>机制<span><span class="heti-spacing"> </span>(page 36-42)</span></strong></p>
+<details class="definition" open="open">
+<summary><span>Laplace<span class="heti-spacing"> </span></span>机制<sup id="fnref:8"><a class="footnote-ref" href="#fn:8"><span><span class="heti-spacing"> </span>4</span></a></sup></summary>
+<p><span>Laplace<span class="heti-spacing"> </span></span>机制是一种常用的差分隐私实现方法，通过向查询结果中添加服从<span class="heti-skip"><span class="heti-spacing"> </span>Laplace<span class="heti-spacing"> </span></span>分布的随机噪声来实现差分隐私。</p>
+</details>
+<p><strong>敏感度<span><span class="heti-spacing"> </span>(Sensitivity)</span></strong> <sup id="fnref:9"><a class="footnote-ref" href="#fn:9">2</a></sup>：
+对于查询函数 <span class="arithmatex">\(q: \mathcal{I} \to \mathbb{R}\)</span>，其敏感度 <span class="arithmatex">\(S(q)\)</span> 是指对于任意两个相邻数据集 <span class="arithmatex">\(D, D'\)</span>，查询结果 <span class="arithmatex">\(|q(D) - q(D')|\)</span> 的最大可能变化量中的最小上界。</p>
+<div class="arithmatex">\[
+S(q) = \max_{D, D'} |q(D) - q(D')|
+\]</div>
+<p><strong><span>Laplace<span class="heti-spacing"> </span></span>机制定理</strong>：
+如果查询 <span class="arithmatex">\(q\)</span> 的敏感度是 <span class="arithmatex">\(S(q)\)</span>，那么算法 <span class="arithmatex">\(A(D) = q(D) + \text{Lap}(S(q)/\epsilon)\)</span> 能够保证 <span class="arithmatex">\(\epsilon\)</span> -差分隐私。
+其中，<span class="arithmatex">\(\text{Lap}(\lambda)\)</span> 表示服从参数为 <span class="arithmatex">\(\lambda\)</span> 的 Laplace 分布，其概率密度函数为：</p>
+<div class="arithmatex">\[
+f(x | \mu, \lambda) = \frac{1}{2\lambda} \exp\left(-\frac{|x-\mu|}{\lambda}\right)
+\]</div>
+<p>在差分隐私中，通常<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mu=0\)</span></span>，噪声<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\eta\)</span><span class="heti-spacing"> </span></span>服从<span><span class="heti-spacing"> </span><span class="arithmatex">\(\text{Lap}(S(q)/\epsilon)\)</span></span>。</p>
+<p><strong><span>Laplace<span class="heti-spacing"> </span></span>机制示例<span><span class="heti-spacing"> </span>(COUNT Query)</span></strong>：
+假设有一个数据集，包含个体是否患病的信息（Y/N）。我们想查询患病人数。
+- 当一个记录从 Y 变为 N 时，COUNT query 的结果变化是 1。因此，敏感度 <span class="arithmatex">\(S(COUNT) = 1\)</span>。
+- 为了实现 <span class="arithmatex">\(\epsilon\)</span> -差分隐私，我们在真实计数上添加服从 <span class="arithmatex">\(\text{Lap}(1/\epsilon)\)</span> 分布的噪声。</p>
+<div class="arithmatex">\[
+\text{Solution: Actual Count} + \eta, \quad \text{where } \eta \sim \text{Lap}(1/\epsilon)
+\]</div>
+<p><strong>差分隐私的组合性<span><span class="heti-spacing"> </span>(page 43)</span></strong>：</p>
+<ul>
+<li><strong>顺序组合<span><span class="heti-spacing"> </span>(Sequential Composition)</span></strong>：当在同一数据集上进行一系列查询时，总隐私预算是每个查询的隐私预算之和。</li>
+<li><strong>并行组合<span><span class="heti-spacing"> </span>(Parallel Composition)</span></strong>：当在不相交的数据集上进行并行查询时，总隐私预算是所有查询中隐私预算的最大值。</li>
+</ul>
+<p><strong>为什么是差分隐私？ (page 44)</strong></p>
+<ul>
+<li><strong>功能需求</strong>：加密方法解决了数据计算过程中的隐私泄露，而差分隐私解决了<strong>计算结果</strong>的隐私泄露。</li>
+<li><strong>性能需求</strong>：在海量数据收集的场景中，加密方法（如全同态加密）计算开销过大，而差分隐私通过添加噪声的方式，性能开销相对较小。</li>
+<li><strong>风控需求</strong>：企业需要一种“一劳永逸”的用户数据脱敏方法，即在数据收集后，存储、处理、分析阶段不需要额外的用户隐私保护措施，从而有效控制风险责任。</li>
+</ul>
+<p><strong>全局差分隐私<span class="heti-skip"><span class="heti-spacing"> </span>vs<span class="heti-spacing"> </span></span>本地差分隐私<span><span class="heti-spacing"> </span>(page 45)</span></strong>：</p>
+<ul>
+<li><strong>全局差分隐私<span><span class="heti-spacing"> </span>(Global Differential Privacy)</span></strong>：可信的数据管理者收集所有数据，并在数据集的统计结果上添加扰动。优点是噪声较少，数据可用性较高。</li>
+<li><strong>本地差分隐私<span><span class="heti-spacing"> </span>(Local Differential Privacy)</span></strong>：用户在本地对数据添加扰动后，再发送给非可信的数据管理者。优点是用户数据在离开设备前就得到保护，隐私性更强。缺点是噪声通常更大，数据可用性相对较低。</li>
+</ul>
+<p><strong>差分隐私应用概览<span><span class="heti-spacing"> </span>(page 46-49)</span></strong>：</p>
+<ul>
+<li><strong>Google (2014)</strong>：推出基于布隆过滤器和随机响应技术的<span class="heti-skip"><span class="heti-spacing"> </span>RAPPOR<span class="heti-spacing"> </span></span>本地差分方案，应用于<span class="heti-skip"><span class="heti-spacing"> </span>Chrome<span class="heti-spacing"> </span></span>浏览器，采集用户系统设定和域名访问数据。</li>
+<li><strong>Apple (2016)</strong>：在<span class="heti-skip"><span class="heti-spacing"> </span>WWDC<span class="heti-spacing"> </span></span>大会宣布使用基于<span class="heti-skip"><span class="heti-spacing"> </span>CM-Sketch<span class="heti-spacing"> </span></span>和阿达马变换的本地化差分隐私技术，保护<span class="heti-skip"><span class="heti-spacing"> </span>iOS/MAC<span class="heti-spacing"> </span></span>用户隐私，用于统计表情符号、键盘输入、高频域名等。</li>
+<li><strong>Microsoft (2017)</strong>：在<span class="heti-skip"><span class="heti-spacing"> </span>Windows 10<span class="heti-spacing"> </span></span>中部署本地化差分隐私方案，引入<span><span class="heti-spacing"> </span>1BitMean</span>、<span>dBitFlip<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>Memoization<span class="heti-spacing"> </span></span>等方法，用于统计应用使用时长和用户使用模式。</li>
+<li><strong>其他</strong>：Uber（用户数据采集分析<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、美国人口普查（微观普查数据<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、IBM（开源库<span><span class="heti-spacing"> </span>Diffprivlib</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、阿里巴巴（<span>DataTrust<span class="heti-spacing"> </span></span>平台<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、领英（广告客户查询<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、TensorFlow（隐私保护机器学习开源库<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+</ul>
+<h3 id="III5-全同态加密-Fully-Homomorphic-Encryption-FHE-page-5-51-52"><span>III.5<span class="heti-spacing"> </span></span>全同态加密<span><span class="heti-spacing"> </span>(Fully Homomorphic Encryption, FHE) (page 5, 51-52)</span><a class="headerlink" href="#III5-全同态加密-Fully-Homomorphic-Encryption-FHE-page-5-51-52" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><strong>定义</strong>：全同态加密是一种加密技术，允许在密文域上直接对数据进行任意计算（如加法和乘法<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，而无需先解密。计算结果仍为密文，解密后与明文数据直接计算的结果相同。</p>
+<details class="definition" open="open">
+<summary>全同态加密</summary>
+<p>在密文域的操作等效于明文域的对应操作，支持加法和乘法数据操作的同时不泄露任何数据信息。</p>
+</details>
+<p><strong>简单示例<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>加法同态<span><span class="heti-spacing"> </span>)</span></strong>：
+假设加密算法是将明文乘以密钥 73。
+- 明文 <span class="arithmatex">\(m_1=6, m_2=8\)</span>。
+- 加密 <span class="arithmatex">\(E(m_1)=6 \times 73 = 438\)</span>, <span class="arithmatex">\(E(m_2)=8 \times 73 = 584\)</span>。
+- 密文域相加：<span class="arithmatex">\(438 + 584 = 1022\)</span>。
+- 解密：<span class="arithmatex">\(1022 \div 73 = 14\)</span>。
+- 明文域相加：<span class="arithmatex">\(6+8=14\)</span>。
+- 结果一致，实现了加法同态。</p>
+<p><strong>技术发展</strong>：
+- <strong>第一代同态加密<span><span class="heti-spacing"> </span>(Gentry09)</span></strong>：首次提出全同态加密算法，证明其可行性。
+- <strong>第二代同态加密<span><span class="heti-spacing"> </span>(BV11, BGV12)</span></strong>：基于标准安全假设构造，效率有所提升。
+- <strong>第三代同态加密<span><span class="heti-spacing"> </span>(GSW13)</span></strong>：设计了基于近似特征向量的方案，进一步提升了效率。
+- <strong>第四代同态加密<span><span class="heti-spacing"> </span>(CKKS16)</span></strong>：支持浮点数同态运算，使其能应用于联邦学习等场景。</p>
+<p><strong>优势</strong>：
+- <strong>数据可用不可见</strong>：实现了在密文域上的任意运算，运算过程中无需解密，避免敏感信息泄露。
+- <strong>隐私保护严格</strong>：理论上能提供最高级别的隐私保护。</p>
+<p><strong>劣势</strong>：
+- <strong>计算成本高</strong>：尽管技术不断发展，但全同态加密的计算开销依然巨大，限制了其实际应用。</p>
+<h3 id="III6-零知识证明-Zero-Knowledge-Proof-ZKP-page-5-54-56"><span>III.6<span class="heti-spacing"> </span></span>零知识证明<span><span class="heti-spacing"> </span>(Zero Knowledge Proof, ZKP) (page 5, 54-56)</span><a class="headerlink" href="#III6-零知识证明-Zero-Knowledge-Proof-ZKP-page-5-54-56" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><strong>定义</strong>：零知识证明是一种密码学协议，证明者能够在不向验证者透露任何额外信息（除了要证明的论断本身）的情况下，使验证者相信某个论断是真实的。</p>
+<details class="definition" open="open">
+<summary>零知识证明<span><span class="heti-spacing"> </span>(Zero Knowledge Proof)</span><sup id="fnref:10"><a class="footnote-ref" href="#fn:10"><span><span class="heti-spacing"> </span>5</span></a></sup></summary>
+<p>证明者<span class="heti-skip"><span class="heti-spacing"> </span>(Prover)<span class="heti-spacing"> </span></span>能够在不向验证者<span class="heti-skip"><span class="heti-spacing"> </span>(Verifier)<span class="heti-spacing"> </span></span>提供任何有用的信息的情况下，使验证者相信某个论断是正确的。</p>
+</details>
+<p><strong>核心特征</strong>：
+- <strong>完整性<span><span class="heti-spacing"> </span>(Completeness)</span></strong>：如果论断是真实的，诚实的证明者总能使诚实的验证者相信。
+- <strong>可靠性<span><span class="heti-spacing"> </span>(Soundness)</span></strong>：如果论断是虚假的，不诚实的证明者几乎不可能使诚实的验证者相信（即无法作弊<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。
+- <strong>零知识性<span><span class="heti-spacing"> </span>(Zero-Knowledge)</span></strong>：验证者除了得知论断的正确性外，无法获得任何关于论断的额外信息。</p>
+<details class="example" open="open">
+<summary>魔法门示例<span><span class="heti-spacing"> </span>(page 54)</span></summary>
+<p><span>Alice<span class="heti-spacing"> </span></span>知道一个魔法洞穴中某扇门的开门暗号，洞穴是环形，入口在一侧，对侧有魔法门隔断。<span>Bob<span class="heti-spacing"> </span></span>想知道<span class="heti-skip"><span class="heti-spacing"> </span>Alice<span class="heti-spacing"> </span></span>是否知道暗号，但<span class="heti-skip"><span class="heti-spacing"> </span>Alice<span class="heti-spacing"> </span></span>不想泄露暗号。</p>
+<p><strong>协议过程</strong>：</p>
+<ol>
+<li><span>Alice<span class="heti-spacing"> </span></span>随机选择一条路进入洞穴（<span>A<span class="heti-spacing"> </span></span>或<span><span class="heti-spacing"> </span>B</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><span>Bob<span class="heti-spacing"> </span></span>进入山洞，随机选择<span class="heti-skip"><span class="heti-spacing"> </span>A<span class="heti-spacing"> </span></span>或<span class="heti-skip"><span class="heti-spacing"> </span>B<span class="heti-spacing"> </span></span>作为他想让<span class="heti-skip"><span class="heti-spacing"> </span>Alice<span class="heti-spacing"> </span></span>返回的路径名称并大喊。</li>
+<li>如果<span class="heti-skip"><span class="heti-spacing"> </span>Alice<span class="heti-spacing"> </span></span>确实知道暗号，她可以在必要时打开门，<strong>永远</strong>能够沿着<span class="heti-skip"><span class="heti-spacing"> </span>Bob<span class="heti-spacing"> </span></span>要求的路径返回。</li>
+<li>如果<span class="heti-skip"><span class="heti-spacing"> </span>Alice<span class="heti-spacing"> </span></span>不知道暗号，她只能在<span class="heti-skip"><span class="heti-spacing"> </span>Bob<span class="heti-spacing"> </span></span>碰巧做出与她所选路径相同的选择时返回（<span>50%<span class="heti-spacing"> </span></span>的机会<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>重复多次（例如连续进行<span class="heti-skip"><span class="heti-spacing"> </span>20<span class="heti-spacing"> </span></span>次<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，如果<span class="heti-skip"><span class="heti-spacing"> </span>Alice<span class="heti-spacing"> </span></span>每次都能成功返回，那么<span class="heti-skip"><span class="heti-spacing"> </span>Bob<span class="heti-spacing"> </span></span>相信<span class="heti-skip"><span class="heti-spacing"> </span>Alice<span class="heti-spacing"> </span></span>知道暗号的概率会呈指数级增长，但<span class="heti-skip"><span class="heti-spacing"> </span>Bob<span class="heti-spacing"> </span></span>从未真正得知暗号本身。</li>
+</ol>
+</details>
+<p><strong>零知识证明技术分类</strong>：</p>
+<ul>
+<li><strong>交互式零知识证明</strong>：通过证明者和验证者之间的多轮交互完成论断的证明。</li>
+<li><strong>简洁非交互式零知识证明<span><span class="heti-spacing"> </span>(zk-SNARKs)</span></strong>：<ul>
+<li><strong>简洁</strong>：证明大小和验证时间都很短，可以快速验证。</li>
+<li><strong>非交互式</strong>：证明者和验证者之间只需要交互一次（或者无交互，通过公共参数<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+</ul>
+</li>
+<li><strong>非交互式可扩容透明零知识证明<span><span class="heti-spacing"> </span>(zk-STARKs)</span></strong>：<ul>
+<li><strong>可扩容</strong>：验证时间与电路规模呈亚线性增长，适用于大规模计算。</li>
+<li><strong>透明</strong>：依赖可公开验证的随机数来生成公共参数，无需可信设置。</li>
+</ul>
+</li>
+</ul>
+<p><strong>优势</strong>：
+- <strong>严格的隐私保护</strong>：通过密码学可证明的安全理论，实现对用户信息的隐私保护。
+- <strong>广泛的应用场景</strong>：包括匿名支付、身份认证、区块链扩容等，未来市场潜力巨大。</p>
+<p><strong>劣势</strong>：
+- <strong>证明生产成本高</strong>：证明者的时间和空间复杂度较高，难以在低算力设备上执行。
+- <strong>需要不可证伪假设</strong>：大多数零知识证明技术需要某种不可证伪的密码学假设（如知识假设<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，这可能引入新的攻击面。
+- <strong>存在量子计算威胁</strong>：部分零知识证明依赖双线性曲线群，量子计算机可能打破其安全模型。</p>
+<p><strong>实用化挑战</strong>：
+- <strong>性能优化</strong>：需要优化执行引擎，改进算法和电路，实现线性证明者执行时间。
+- <strong>硬件加速</strong>：设计新型基于硬件（GPU、ASIC）加速的安全零知识证明方案。
+- <strong>零知识证明编译器</strong>：开发高兼容性零知识证明编译器，包括高级开发框架、布尔电路、<span>R1CS<span class="heti-spacing"> </span></span>编译器。</p>
+<h2 id="IV-数据要素合规背景-page-58-61"><span>IV<span class="heti-spacing"> </span></span>数据要素合规背景<span><span class="heti-spacing"> </span>(page 58-61)</span><a class="headerlink" href="#IV-数据要素合规背景-page-58-61" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>数据要素合规是当前数字经济发展的关键议题。</p>
+<h3 id="IV1-合规面临的挑战-page-60"><span>IV.1<span class="heti-spacing"> </span></span>合规面临的挑战<span><span class="heti-spacing"> </span>(page 60)</span><a class="headerlink" href="#IV1-合规面临的挑战-page-60" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>数据体量与维度激增</strong>：多模态海量数据与多维属性使得合规工作量和处理难度呈<strong>双重挑战</strong>，传统合规方式存在明显瓶颈。</li>
+<li><strong>管理与产品挑战</strong>：为应对数据要素合规时代的到来，企业纷纷设立合规部、合规官，但在实施个人信息保护合规管理过程中，仍面临来自管理层、支持部门、产品本身等各方面的诸多挑战。</li>
+<li><strong>强监管信号</strong>：网信办、工信部、公安部、市场监督总局等部门持续释放个人信息保护强监管信号，执法常态化趋势，导致各行业数据要素合规需求大幅增加。</li>
+</ul>
+<h3 id="IV2-消费者权力与企业责任-page-61"><span>IV.2<span class="heti-spacing"> </span></span>消费者权力与企业责任<span><span class="heti-spacing"> </span>(page 61)</span><a class="headerlink" href="#IV2-消费者权力与企业责任-page-61" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>数据合规旨在平衡消费者的数据权利与企业的数据责任，同时解决大数据融合需求和隐私保护合规之间的矛盾。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">消费者权力</th>
+<th style="text-align: left;">企业的数据责任</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>知情权</strong>：了解数据收集和使用方式。</td>
+<td style="text-align: left;"><strong>限制查看权限</strong>：仅授权个体可访问数据。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>被遗忘权</strong>：要求删除个人数据。</td>
+<td style="text-align: left;"><strong>数据记录</strong>：记录数据加工过程、类型、期限、是否输出第三方。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>数据保护要求</strong>：全球适用安全保护。</td>
+<td style="text-align: left;"><strong>数据安全合规</strong>：条款含隐私设计原则，缺乏具体实现手段。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>个人数据可携权</strong>：将数据转移到其他系统。</td>
+<td style="text-align: left;"><strong>持续评估</strong>：持续检查被保护数据。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>访问权</strong>：拥有更改不准确数据。</td>
+<td style="text-align: left;"><strong>影响评估</strong>：加工敏感数据前进行预先评估。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>反对权</strong>：明确撤回数据收集意愿。</td>
+<td style="text-align: left;"><strong>限制加工</strong>：仅限数据收集目的。</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>限制数据收集</strong>：限制并保护数据。</td>
+</tr>
+</tbody>
+</table>
+<p>核心目标是：<strong>满足数据隐私性、可用性和高效性的业务要求。</strong></p>
+<h2 id="V-数据要素合规技术-page-62-64-66"><span>V<span class="heti-spacing"> </span></span>数据要素合规技术<span><span class="heti-spacing"> </span>(page 62, 64-66)</span><a class="headerlink" href="#V-数据要素合规技术-page-62-64-66" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>数据安全合规治理面临多项技术挑战，也需要技术创新来推动。</p>
+<h3 id="V1-技术挑战与解决方案-page-62"><span>V.1<span class="heti-spacing"> </span></span>技术挑战与解决方案<span><span class="heti-spacing"> </span>(page 62)</span><a class="headerlink" href="#V1-技术挑战与解决方案-page-62" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ol>
+<li>
+<p><strong>海量异构数据全量扫描</strong>：</p>
+<ul>
+<li><strong>挑战</strong>：组织内数据存储方式多元异构，结构复杂，难以高效准确识别和分类海量数据。</li>
+<li><strong>解决方案</strong>：需高效准确识别与分类。</li>
+</ul>
+</li>
+<li>
+<p><strong>多模态数据敏感信息提取</strong>：</p>
+<ul>
+<li><strong>挑战</strong>：敏感信息存在于文本、图像、语音等多种模态载体中，难以统一识别。</li>
+<li><strong>解决方案</strong>：集成<span><span class="heti-spacing"> </span>NLP</span>、OCR、<span>ASR<span class="heti-spacing"> </span></span>等技术对多模态数据进行敏感信息识别与定位。</li>
+</ul>
+</li>
+<li>
+<p><strong>全周期数据安全风险评估</strong>：</p>
+<ul>
+<li><strong>挑战</strong>：从项目立项到数据销毁，数据在收集、存储、使用、删除、共享、出境等全生命周期各环节存在风险。</li>
+<li><strong>解决方案</strong>：需要全周期风险管理。</li>
+</ul>
+</li>
+<li>
+<p><strong>数据合规法律知识库搭建</strong>：</p>
+<ul>
+<li><strong>挑战</strong>：法律法规数量庞大、更新频繁，难以人工全面理解和应用。</li>
+<li><strong>解决方案</strong>：结合法律专家知识，将现有法律拆分，建立可量化、可分析、可复用的数据合规法律知识库。</li>
+</ul>
+</li>
+<li>
+<p><strong>数据合规量化评价指标制定</strong>：</p>
+<ul>
+<li><strong>挑战</strong>：缺乏统一的合规性评价标准。</li>
+<li><strong>解决方案</strong>：根据法规和国家标准，从合规性、隐私性等维度对数据进行评价，并用于模型训练。</li>
+</ul>
+</li>
+<li>
+<p><strong>司法<span class="heti-skip"><span class="heti-spacing"> </span>+AI<span class="heti-spacing"> </span></span>智能化合规分析</strong>：</p>
+<ul>
+<li><strong>挑战</strong>：人工分析法律法规耗时耗力。</li>
+<li><strong>解决方案</strong>：平台对法律法规进行深度模型训练与特征提取，通过神经网络模型将违规数据映射到特定法律条款。</li>
+</ul>
+</li>
+</ol>
+<h3 id="V2-合规技术工具-page-65"><span>V.2<span class="heti-spacing"> </span></span>合规技术工具<span><span class="heti-spacing"> </span>(page 65)</span><a class="headerlink" href="#V2-合规技术工具-page-65" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>合规工具是数字化转型的关键，技术创新配合易用工具能极大提升工作效率和质量。</p>
+<ul>
+<li><strong>数据分析工具</strong>：优化数据分析工具，建立全流程易学易用的可视化平台。</li>
+<li><strong>专业工具封装</strong>：高度封装各类专业工具，降低人员学习和使用门槛。</li>
+<li><strong>RPA（机器人流程自动化）</strong>：利用<span class="heti-skip"><span class="heti-spacing"> </span>RPA<span class="heti-spacing"> </span></span>等工具，实现文本、报表和数据的自动批量下载和加工，减少重复劳动。</li>
+</ul>
+<h3 id="V3-AI-赋能的数据安全技术-page-66"><span>V.3 AI<span class="heti-spacing"> </span></span>赋能的数据安全技术<span><span class="heti-spacing"> </span>(page 66)</span><a class="headerlink" href="#V3-AI-赋能的数据安全技术-page-66" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>基础技术</strong>：<span>OCR (<span class="heti-spacing"> </span></span>光学字符识别<span><span class="heti-spacing"> </span>)</span>、<span>ASR (<span class="heti-spacing"> </span></span>自动语音识别<span><span class="heti-spacing"> </span>)</span>、<span>NLP (<span class="heti-spacing"> </span></span>自然语言处理<span class="heti-skip"><span class="heti-spacing"> </span>)<span class="heti-spacing"> </span></span>用于数据提取和处理。</li>
+<li><strong>机器学习、神经网络、深度学习</strong>：用于数据分析、模式识别、风险预测等。</li>
+<li><strong>区块链技术</strong>：应用于数据溯源、存证、确权，保障数据完整性和不可篡改性。</li>
+</ul>
+<h2 id="VI-数据要素合规平台-page-67-79"><span>VI<span class="heti-spacing"> </span></span>数据要素合规平台<span><span class="heti-spacing"> </span>(page 67-79)</span><a class="headerlink" href="#VI-数据要素合规平台-page-67-79" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>数据要素合规平台旨在集人工智能、法律、数据安全于一体，提供个人信息保护合规的一站式解决方案，有效解决合规业务“最后一公里”问题。</p>
+<h3 id="VI1-平台目标与挑战-page-68-69"><span>VI.1<span class="heti-spacing"> </span></span>平台目标与挑战<span><span class="heti-spacing"> </span>(page 68-69)</span><a class="headerlink" href="#VI1-平台目标与挑战-page-68-69" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>个人信息隐私保护与安全备受关注</strong>：数据过度收集、滥用、泄露等事件频发，引发广泛关注。</li>
+<li><strong>数据要素合规是新兴交叉学科</strong>：融合了计算机、法律、行业等多领域专业知识。</li>
+<li><strong>平台致力于高效审核</strong>：帮助数据审核方和处理方高效审核数据，保证数据合规合法流通和处理。</li>
+</ul>
+<p><strong>核心功能</strong>：</p>
+<ul>
+<li><strong>个人信息盘点</strong>：自动从海量数据中对与个人信息相关的敏感数据进行盘点。</li>
+<li><strong>数据分类分级</strong>：对各种类型的数据进行自动分类分级。</li>
+<li><strong>数据要素合规</strong>：自动分析与个人信息关联数据，根据规则进行合规处理。</li>
+<li><strong>数据合规处理</strong>：根据分析结果自动推荐合规策略，并提供合规处理功能。</li>
+</ul>
+<h3 id="VI2-人有人所长器有器所专-page-70">VI.2 “人有人所长，器有器所专” (page 70)<a class="headerlink" href="#VI2-人有人所长器有器所专-page-70" title="Permanent link">¶</a></h3>
+<p>该平台通过发挥人工智能的优势，解放专家精力，使其聚焦于合规要点。海量数据挖掘和分析筛查交由<span class="heti-skip"><span class="heti-spacing"> </span>AI<span class="heti-spacing"> </span></span>完成，实现人机协同。
+平台需实现数据最小化、数据分类分级和数据匿名化，这三点与隐私保护计算高度相关。</p>
+<h3 id="VI3-平台技术架构-page-71"><span>VI.3<span class="heti-spacing"> </span></span>平台技术架构<span><span class="heti-spacing"> </span>(page 71)</span><a class="headerlink" href="#VI3-平台技术架构-page-71" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>应用场景</strong>：数据交易审计、数据出海审计、自动化合规处理、周期化数据审计。</li>
+<li><strong>核心技术</strong>：<ul>
+<li><strong>模型化开发</strong>：个人信息抽取算法、机器学习分类模型、深度分类模型。</li>
+<li><strong>数据安全技术</strong>：分布式敏感信息数据库、企业级数据脱敏、数据去标识化<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>匿名化。</li>
+<li><strong>赋能</strong>：数据合规核心库（个人信息保护合规库、国内<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>国外相关法律法规<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+</ul>
+</li>
+<li><strong>理论支持</strong>：自然语言处理、图像处理、音频处理、视频处理、安全法律分析。</li>
+<li><strong>硬件支持</strong>：存储服务器、计算服务器、<span>GPU<span class="heti-spacing"> </span></span>服务器。</li>
+</ul>
+<h3 id="VI4-平台功能模块-page-72"><span>VI.4<span class="heti-spacing"> </span></span>平台功能模块<span><span class="heti-spacing"> </span>(page 72)</span><a class="headerlink" href="#VI4-平台功能模块-page-72" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>平台系统能够对用户上传的数据进行自动化合规性审查，涵盖文本、表格、图片、视频、音频等数据类型。</p>
+<ul>
+<li><strong>数据抽取</strong>：格式化和非格式化数据的个人信息抽取。</li>
+<li><strong>合规性分类与评估</strong>：个人信息数据合规性分类，个人信息保护合规。</li>
+<li><strong>策略与处理</strong>：个人信息保护合规策略推荐，违规数据一键合规，数据要素合规性可视化，违规数据快速定位查询。</li>
+<li><strong>报告与技术</strong>：个人信息保护合规报告，敏感数据加密分布式存储，数据库敏感信息数据脱敏，个人中高风险信息去标识化<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>匿名化。</li>
+</ul>
+<h3 id="VI5-个人信息合规审计平台-page-73"><span>VI.5<span class="heti-spacing"> </span></span>个人信息合规审计平台<span><span class="heti-spacing"> </span>(page 73)</span><a class="headerlink" href="#VI5-个人信息合规审计平台-page-73" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>该平台提供了一整套审计功能：</p>
+<ul>
+<li><strong>合规策略设置</strong>：设置审计业务基础信息、数据基础信息、数据合规审计规则、合规策略自动调度。</li>
+<li><strong>审计规则配置</strong>：文本<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>图片黑白名单、敏感信息设置、个人信息设置、法律库设置。</li>
+<li><strong><span>AI<span class="heti-spacing"> </span></span>自动化合规审计</strong>：个人信息抽取（结构化、非结构化、特殊信息<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，利用个人信息合规核心库（敏感信息库、黑白名单库、定制法律合规清单库<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，进行文本、图像、音频、视频审计。</li>
+<li><strong>合规审计处理</strong>：生成审计证据、审计报告、可视化展示，提供合规意见和一键合规功能。</li>
+</ul>
+<h3 id="VI6-平台适用场景-page-74-78"><span>VI.6<span class="heti-spacing"> </span></span>平台适用场景<span><span class="heti-spacing"> </span>(page 74-78)</span><a class="headerlink" href="#VI6-平台适用场景-page-74-78" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ol>
+<li><strong>数据交易</strong>：交易主体、交易过程、数据产品合规。</li>
+<li><strong>汽车数据</strong>：人机交互（生物识别、语音识别、车内摄像头<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，车内收集数据合规、敏感数据匿名化、车联网业务数据合规。</li>
+<li><strong>医疗服务</strong>：病例数据、生物体征数据、医疗<span><span class="heti-spacing"> </span>APP</span>，医疗数据共享合规、生物体征数据匿名化、医疗<span class="heti-skip"><span class="heti-spacing"> </span>APP<span class="heti-spacing"> </span></span>采集数据合规。</li>
+<li><strong>数据出海</strong>：元数据出境、外企数据入境、数据共享，出境<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>入境数据要素合规、国家重要数据合规。</li>
+<li><strong>内部合规</strong>：产品合规、业务合规、管理经营、人员培训，存储数据合规、产品数据合规、供应商数据产品合规。</li>
+</ol>
+<h3 id="VI7-基于深度学习的个人信息抽取算法-page-79"><span>VI.7<span class="heti-spacing"> </span></span>基于深度学习的个人信息抽取算法<span><span class="heti-spacing"> </span>(page 79)</span><a class="headerlink" href="#VI7-基于深度学习的个人信息抽取算法-page-79" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>平台利用深度学习技术，提供个人信息抽取算法支持：</p>
+<ul>
+<li><strong>应用场景</strong>：结构化<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>非结构化个人信息识别、自动化个人信息打标。</li>
+<li><strong>工程实现</strong>：智能文本<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>图片<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>音频过滤引擎。</li>
+<li><strong>模型构建</strong>：<span>NLP<span class="heti-spacing"> </span></span>模型、<span>CV<span class="heti-spacing"> </span></span>模型、音频模型。</li>
+<li><strong>理论支持</strong>：自监督学习、预训练模型、模型集成技术、视频<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>音频处理技术。</li>
+<li><strong>数据支持</strong>：个人信息保护合规库、个人信息标记库。</li>
+</ul>
+<h2 id="VII-数据要素合规展望-page-84-90"><span>VII<span class="heti-spacing"> </span></span>数据要素合规展望<span><span class="heti-spacing"> </span>(page 84-90)</span><a class="headerlink" href="#VII-数据要素合规展望-page-84-90" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="VII1-新型技术带来的挑战与机遇-page-84"><span>VII.1<span class="heti-spacing"> </span></span>新型技术带来的挑战与机遇<span><span class="heti-spacing"> </span>(page 84)</span><a class="headerlink" href="#VII1-新型技术带来的挑战与机遇-page-84" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>人工智能、智能物联网和量子技术的出现，使数据安全技术面临新的挑战与机遇：</p>
+<ul>
+<li><strong>人工智能</strong>：在赋能传统安全防御的同时，也可能被恶意利用，放大攻击者的威胁能力。</li>
+<li><strong>智能物联网</strong>：万物互联互通导致数以亿计的物联网设备存在巨大数据安全风险。</li>
+<li><strong>量子计算与通信</strong>：新型计算和通信模式为数据安全技术带来全新挑战和应用场景。</li>
+</ul>
+<h3 id="VII2-AI-赋能的新型攻击与防御-page-85-86"><span>VII.2 AI<span class="heti-spacing"> </span></span>赋能的新型攻击与防御<span><span class="heti-spacing"> </span>(page 85-86)</span><a class="headerlink" href="#VII2-AI-赋能的新型攻击与防御-page-85-86" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><strong><span>AI<span class="heti-spacing"> </span></span>赋能的新型攻击</strong>：
+人工智能被恶意用于创建更复杂精准的自动化攻击，更快更准地发现系统漏洞。</p>
+<ul>
+<li><strong>新型密码破解工具<span><span class="heti-spacing"> </span>(PassGAN)</span></strong>：通过训练生成对抗网络，学习人类密码使用习惯，掌握其分布，生成更真实准确的密码，破解效率远超传统暴力破解。</li>
+<li><strong>钓鱼攻击<span><span class="heti-spacing"> </span>(FraudGPT)</span></strong>：通过微调生成式语言模型，学习人类邮件撰写习惯和特征，生成看似真实的钓鱼电子邮件，具备极高欺骗性。</li>
+</ul>
+<p><strong><span>AI<span class="heti-spacing"> </span></span>赋能的新型防御</strong>：
+人工智能可以增强防御系统在应对复杂攻击时的防御能力，赋能防御者更准更高效完成威胁检测、入侵检测、渗透测试、智能安全策略制定等任务。</p>
+<ul>
+<li><strong>流量检测系统<span><span class="heti-spacing"> </span>(USENIX Sec'22)</span></strong>：利用<span class="heti-skip"><span class="heti-spacing"> </span>AI<span class="heti-spacing"> </span></span>学习网络流量统计特征、会话特征、上下文信息等关键特征，自动化检测恶意流量。能检测加密、暗网等复杂流量。</li>
+<li><strong>渗透测试系统<span><span class="heti-spacing"> </span>(USENIX Sec'22)</span></strong>：利用<span class="heti-skip"><span class="heti-spacing"> </span>AI<span class="heti-spacing"> </span></span>智能调度和关联传统渗透测试中的攻击维度，自动化渗透测试流程。准确性和效率远超人工测试。</li>
+</ul>
+<h3 id="VII3-数据水印-Watermark-page-87-90"><span>VII.3<span class="heti-spacing"> </span></span>数据水印<span><span class="heti-spacing"> </span>(Watermark) (page 87-90)</span><a class="headerlink" href="#VII3-数据水印-Watermark-page-87-90" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><strong>定义与目的</strong>：数据水印是一种技术，用于断言数据所有权，并防止共享数据的未经授权使用。</p>
+<p><strong>基本原理</strong>：
+- <strong>嵌入阶段<span><span class="heti-spacing"> </span>(Embedding)</span></strong>：在数据中嵌入特定的水印信息（通常通过引入设计噪声<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。
+- <strong>检测阶段<span><span class="heti-spacing"> </span>(Detection)</span></strong>：从可能被篡改或未经授权使用的数据中检测出水印，以验证所有权或追踪泄露源。</p>
+<p><strong>水印嵌入过程</strong>：</p>
+<ol>
+<li><strong>选择关键单元</strong>：从选定的属性中选择关键数据单元（通常是非侵入性的<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>噪声域分区</strong>：划分噪声范围（例如，红色域和绿色域<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，并从其中选择噪声。</li>
+<li><strong>扰动关键单元</strong>：在所选的关键单元中引入设计好的噪声，从而生成带有水印的数据集。<ul>
+<li>对于数值型属性，通过添加或减去小量值实现。</li>
+<li>对于分类属性，直接替换为预设的水印值。</li>
+</ul>
+</li>
+</ol>
+<p><strong>水印检测过程</strong>：</p>
+<ol>
+<li><strong>计算扰动差异</strong>：计算可疑数据集中可能被扰动单元与原始数据之间的差异。</li>
+<li><strong>恢复噪声域分区</strong>：根据预设的噪声域分区规则进行恢复。</li>
+<li><strong>统计绿色单元</strong>：根据差异值判断哪些单元属于“绿色单元”（即被水印扰动过的部分<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>计算<span class="heti-skip"><span class="heti-spacing"> </span>Z-score<span class="heti-spacing"> </span></span>并与阈值比较</strong>：通过统计方法计算<span><span class="heti-spacing"> </span>Z-score</span>，并与预设阈值进行比较，以确定是否存在水印，从而判断数据是否被未经授权使用。</li>
+</ol>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn:6">
+<p><strong>姚氏百万富翁问题<span><span class="heti-spacing"> </span>(Yao's Millionaires' Problem)</span></strong>：由华人密码学家姚期智在<span class="heti-skip"><span class="heti-spacing"> </span>1982<span class="heti-spacing"> </span></span>年提出的一个经典安全多方计算问题。它描述了两个百万富翁如何在不透露各自财富的情况下，比较出谁更富有。这个问题是安全多方计算领域的一个里程碑，证明了在隐私保护下进行协同计算的可能性。 <a class="footnote-backref" href="#fnref:6" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn:9">
+<p><strong>敏感度<span><span class="heti-spacing"> </span>(Sensitivity)</span></strong>：在差分隐私中，敏感度是指当数据集中任意一条记录发生变化（添加、删除或修改）时，某个查询函数输出结果的最大变化量。敏感度越高，意味着单个记录对查询结果的影响越大，因此需要添加更多的噪声才能满足差分隐私要求。 <a class="footnote-backref" href="#fnref:9" title="Jump back to footnote 2 in the text">↩</a></p>
+</li>
+<li id="fn:7">
+<p><strong>差分隐私<span><span class="heti-spacing"> </span>(Differential Privacy)</span></strong>：一种强大的隐私保护技术，通过向数据添加精心设计的随机噪声来混淆个体的精确信息，使得攻击者即使掌握了除了某个特定个体以外的所有数据，也无法判断这个个体是否在数据集中，从而在保证数据可用性的同时，提供严格的数学隐私保证。 <a class="footnote-backref" href="#fnref:7" title="Jump back to footnote 3 in the text">↩</a></p>
+</li>
+<li id="fn:8">
+<p><strong><span>Laplace<span class="heti-spacing"> </span></span>机制<span><span class="heti-spacing"> </span>(Laplace Mechanism)</span></strong>：差分隐私中最基本和广泛应用的机制之一。它通过向查询结果（通常是数值型统计结果）添加服从拉普拉斯分布的随机噪声来实现隐私保护。噪声的大小与查询的敏感度（对单个记录变化的查询结果最大影响）和隐私预算成比例。 <a class="footnote-backref" href="#fnref:8" title="Jump back to footnote 4 in the text">↩</a></p>
+</li>
+<li id="fn:10">
+<p><strong>零知识证明<span><span class="heti-spacing"> </span>(Zero-Knowledge Proof)</span></strong>：一种密码学协议，允许一方（证明者）向另一方（验证者）证明某个陈述是真实的，而无需透露该陈述本身以外的任何信息。它具有三个核心特性：完整性、可靠性和零知识性。 <a class="footnote-backref" href="#fnref:10" title="Jump back to footnote 5 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年10月12日 23:48:09 CST">2025年10月12日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月28日 21:39:51 CST">2025年7月28日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: 第一讲 数据要素市场简介" class="md-footer__link md-footer__link--prev" href="../Lec01/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                第一讲 数据要素市场简介
+              </div>
+</div>
+</a>
+<a aria-label="下一页: 第三讲：非合作博弈论基础（一）" class="md-footer__link md-footer__link--next" href="../Lec03/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                第三讲：非合作博弈论基础（一）
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

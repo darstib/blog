@@ -1,0 +1,1761 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/collection/note_link/" rel="canonical"/>
+<link href="../data_visualization/" rel="prev"/>
+<link href="../teachyourselfcs/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>Note link - Darstib's KG!</title>
+<link href="../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../css/timeline.css" rel="stylesheet"/>
+<link href="../../css/heti.css" rel="stylesheet"/>
+<link href="../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../css/flink.css" rel="stylesheet"/>
+<link href="../../css/apperance.css" rel="stylesheet"/>
+<link href="../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#大三下">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Note link
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../note/">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Collection
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Tools/">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../articles/">
+<span class="md-ellipsis">
+    
+  
+    Articles
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../bugs_solutions/">
+<span class="md-ellipsis">
+    
+  
+    Bugs solutions
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../data_visualization/">
+<span class="md-ellipsis">
+    
+  
+    Data Visualization
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    Note link
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    Note link
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#大三下">
+<span class="md-ellipsis">
+      
+        大三下
+      
+    </span>
+</a>
+<nav aria-label="大三下" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#-编译原理">
+<span class="md-ellipsis">
+      
+        -编译原理
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#大三上">
+<span class="md-ellipsis">
+      
+        大三上
+      
+    </span>
+</a>
+<nav aria-label="大三上" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#计算机网络">
+<span class="md-ellipsis">
+      
+        计算机网络
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#密码学进阶">
+<span class="md-ellipsis">
+      
+        密码学进阶
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#软件安全">
+<span class="md-ellipsis">
+      
+        软件安全
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#大二下">
+<span class="md-ellipsis">
+      
+        大二下
+      
+    </span>
+</a>
+<nav aria-label="大二下" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#计算机系统三">
+<span class="md-ellipsis">
+      
+        计算机系统三
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#人工智能安全">
+<span class="md-ellipsis">
+      
+        人工智能安全
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#人工智能伦理与安全">
+<span class="md-ellipsis">
+      
+        人工智能伦理与安全
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#数据建模与分析">
+<span class="md-ellipsis">
+      
+        数据建模与分析
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#隐私计算与数据合规">
+<span class="md-ellipsis">
+      
+        隐私计算与数据合规
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#会计学">
+<span class="md-ellipsis">
+      
+        会计学
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#毛概">
+<span class="md-ellipsis">
+      
+        毛概
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#大二上">
+<span class="md-ellipsis">
+      
+        大二上
+      
+    </span>
+</a>
+<nav aria-label="大二上" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#高级数据结构与算法分析-ADS">
+<span class="md-ellipsis">
+      
+        高级数据结构与算法分析 (ADS)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#面向对象程序设计-OOP">
+<span class="md-ellipsis">
+      
+        面向对象程序设计 (OOP)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#数据安全与密码学基础">
+<span class="md-ellipsis">
+      
+        数据安全与密码学基础
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#计算机系统-II-sys-II">
+<span class="md-ellipsis">
+      
+        计算机系统 II (sys-II)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#大学物理实验">
+<span class="md-ellipsis">
+      
+        大学物理实验
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#大学物理乙-II">
+<span class="md-ellipsis">
+      
+        大学物理乙 II
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#大一下">
+<span class="md-ellipsis">
+      
+        大一下
+      
+    </span>
+</a>
+<nav aria-label="大一下" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#大学物理乙-I">
+<span class="md-ellipsis">
+      
+        大学物理乙 I
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#数据结构基础-FDS">
+<span class="md-ellipsis">
+      
+        数据结构基础 (FDS)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#计算机系统-I-sys-I">
+<span class="md-ellipsis">
+      
+        计算机系统 I (sys-I)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#信息安全原理与数学基础离散数学与概率论">
+<span class="md-ellipsis">
+      
+        信息安全原理与数学基础（离散数学与概率论）
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#马克思主义原理">
+<span class="md-ellipsis">
+      
+        马克思主义原理
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#大一上">
+<span class="md-ellipsis">
+      
+        大一上
+      
+    </span>
+</a>
+<nav aria-label="大一上" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#线性代数">
+<span class="md-ellipsis">
+      
+        线性代数
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#其他">
+<span class="md-ellipsis">
+      
+        其他
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#参考资料">
+<span class="md-ellipsis">
+      
+        参考资料
+      
+    </span>
+</a>
+<nav aria-label="参考资料" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#笔记链接">
+<span class="md-ellipsis">
+      
+        笔记链接
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#仓库链接">
+<span class="md-ellipsis">
+      
+        仓库链接
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../teachyourselfcs/">
+<span class="md-ellipsis">
+    
+  
+    Teachyourselfcs
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../web_sites/">
+<span class="md-ellipsis">
+    
+  
+    Web sites
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../note/">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#大三下">
+<span class="md-ellipsis">
+      
+        大三下
+      
+    </span>
+</a>
+<nav aria-label="大三下" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#-编译原理">
+<span class="md-ellipsis">
+      
+        -编译原理
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#大三上">
+<span class="md-ellipsis">
+      
+        大三上
+      
+    </span>
+</a>
+<nav aria-label="大三上" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#计算机网络">
+<span class="md-ellipsis">
+      
+        计算机网络
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#密码学进阶">
+<span class="md-ellipsis">
+      
+        密码学进阶
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#软件安全">
+<span class="md-ellipsis">
+      
+        软件安全
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#大二下">
+<span class="md-ellipsis">
+      
+        大二下
+      
+    </span>
+</a>
+<nav aria-label="大二下" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#计算机系统三">
+<span class="md-ellipsis">
+      
+        计算机系统三
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#人工智能安全">
+<span class="md-ellipsis">
+      
+        人工智能安全
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#人工智能伦理与安全">
+<span class="md-ellipsis">
+      
+        人工智能伦理与安全
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#数据建模与分析">
+<span class="md-ellipsis">
+      
+        数据建模与分析
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#隐私计算与数据合规">
+<span class="md-ellipsis">
+      
+        隐私计算与数据合规
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#会计学">
+<span class="md-ellipsis">
+      
+        会计学
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#毛概">
+<span class="md-ellipsis">
+      
+        毛概
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#大二上">
+<span class="md-ellipsis">
+      
+        大二上
+      
+    </span>
+</a>
+<nav aria-label="大二上" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#高级数据结构与算法分析-ADS">
+<span class="md-ellipsis">
+      
+        高级数据结构与算法分析 (ADS)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#面向对象程序设计-OOP">
+<span class="md-ellipsis">
+      
+        面向对象程序设计 (OOP)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#数据安全与密码学基础">
+<span class="md-ellipsis">
+      
+        数据安全与密码学基础
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#计算机系统-II-sys-II">
+<span class="md-ellipsis">
+      
+        计算机系统 II (sys-II)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#大学物理实验">
+<span class="md-ellipsis">
+      
+        大学物理实验
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#大学物理乙-II">
+<span class="md-ellipsis">
+      
+        大学物理乙 II
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#大一下">
+<span class="md-ellipsis">
+      
+        大一下
+      
+    </span>
+</a>
+<nav aria-label="大一下" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#大学物理乙-I">
+<span class="md-ellipsis">
+      
+        大学物理乙 I
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#数据结构基础-FDS">
+<span class="md-ellipsis">
+      
+        数据结构基础 (FDS)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#计算机系统-I-sys-I">
+<span class="md-ellipsis">
+      
+        计算机系统 I (sys-I)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#信息安全原理与数学基础离散数学与概率论">
+<span class="md-ellipsis">
+      
+        信息安全原理与数学基础（离散数学与概率论）
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#马克思主义原理">
+<span class="md-ellipsis">
+      
+        马克思主义原理
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#大一上">
+<span class="md-ellipsis">
+      
+        大一上
+      
+    </span>
+</a>
+<nav aria-label="大一上" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#线性代数">
+<span class="md-ellipsis">
+      
+        线性代数
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#其他">
+<span class="md-ellipsis">
+      
+        其他
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#参考资料">
+<span class="md-ellipsis">
+      
+        参考资料
+      
+    </span>
+</a>
+<nav aria-label="参考资料" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#笔记链接">
+<span class="md-ellipsis">
+      
+        笔记链接
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#仓库链接">
+<span class="md-ellipsis">
+      
+        仓库链接
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../tags/#tag:collection">collection</a>
+<a class="md-tag md-tag-icon" href="../../tags/#tag:notes">notes</a>
+</nav>
+<h1>Note link</h1>
+<p>复习老是在找笔记的路上……所以想把自己用过的笔记链接集成在这，所有努力均由各位大佬付出，我基本只是一个搬运工 😀（基于<span class="heti-skip"><span class="heti-spacing"> </span>ZJU 2023<span class="heti-spacing"> </span></span>级信息安全培养方案<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<!-- more -->
+<details class="attention" open="open">
+<summary></summary>
+<ul>
+<li>来源繁多，如认为有不当之处还请评论区留言或者<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我</a>删除<span><span class="heti-spacing"> </span>;</span></li>
+<li>采用倒叙，毕竟对于我自己来说“时间上”越后面的翻得越多；</li>
+<li>一些打算上的课的笔记也在这里，但是不能够保证比较好，最后会留下帮助最大的一些笔记；</li>
+<li>同时链接名前的 <code>-</code> 表示我只是粗略地查看过相关资料并将其收集于此而并没用上，仅供参考。</li>
+</ul>
+</details>
+<h2 id="大三下">大三下<a class="headerlink" href="#大三下" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="-编译原理"><span>-<span class="heti-spacing"> </span></span>编译原理<a class="headerlink" href="#-编译原理" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><a href="https://cubicy.icu/compiler-construction-principles/"><span>-<span class="heti-spacing"> </span></span>编译原理课程笔记（<span>All-in-One<span class="heti-spacing"> </span></span>速通版）</a></li>
+<li><a href="https://github.com/Tian42chen/Transcription-Malfunctioned/blob/main/_Finalized_Notes/CP.pdf">-Transcription-Malfunctioned - CP.pdf</a></li>
+<li><a href="https://github.com/lhxcs/ZJU_Courses/tree/main/(%E5%A4%A7%E4%B8%89%E6%98%A5%E5%A4%8F)%20%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86"><span>-lhxcs -<span class="heti-spacing"> </span></span>编译原理</a></li>
+<li><a href="https://www.yuque.com/xianyuxuan/coding/compiler"><span>-<span class="heti-spacing"> </span></span>咸鱼肆<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>编译原理</a></li>
+</ul>
+<h2 id="大三上">大三上<a class="headerlink" href="#大三上" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="计算机网络">计算机网络<a class="headerlink" href="#计算机网络" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://www.bilibili.com/video/BV19E411D78Q/">王道计算机网络</a></li>
+<li><a href="https://www.yuque.com/xianyuxuan/coding/network">咸鱼肆<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>计算机网络</a></li>
+<li><del><a href="https://note.isshikih.top/cour_note/D3QD_ComputerNetwork/"><span>-Isshiki<span class="heti-spacing"> </span></span>修<span><span class="heti-spacing"> </span>'s Notebook</span></a></del></li>
+<li>
+<p><del><a href="https://zhang-each.github.io/My-CS-Notebook/Networking/"><span>-<span class="heti-spacing"> </span></span>小角龙的学习记录</a></del></p>
+</li>
+<li class="task-list-item">
+<p><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://zjucomp.net/">zjucomp.net</a></p>
+</li>
+<li><a href="https://www.keepnight.com/archives/269/"><span>GNS3<span class="heti-spacing"> </span></span>常用命令</a></li>
+</ul>
+<blockquote>
+<p>我上的是<span class="heti-skip"><span class="heti-spacing"> </span>bk<span class="heti-spacing"> </span></span>老师的课，老师上课比较有活力，<del>就是全英文导致不是很想听</del></p>
+<ul>
+<li>实验部分用的是老实验（非<span><span class="heti-spacing"> </span>cs144</span>）难度不大，纯体力活……</li>
+<li>作业方面，<span>bk<span class="heti-spacing"> </span></span>老师就期末前布置了一次，非常基础</li>
+<li>考试方面，感觉王道书<span class="heti-skip"><span class="heti-spacing"> </span>+B<span class="heti-spacing"> </span></span>站上王道的视频比较好理解，然后再过一遍咸鱼肆，最后（<span>98<span class="heti-spacing"> </span></span>上）找题目刷刷，我觉得差不多了（尤其要关注一下专业术语的中英文映射，考试应该都是全英文的，虽然貌似也可以考场问老师）</li>
+</ul>
+</blockquote>
+<h3 id="密码学进阶">密码学进阶<a class="headerlink" href="#密码学进阶" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><del><a href="https://penghao.site/post/mi-ma-xue-ji-chu-xue-xi-bi-ji/">-「密码学基础」学习笔记</a></del></li>
+<li><del><a href="https://note.tonycrane.cc/sec/crypto/"><span>-<span class="heti-spacing"> </span></span>鹤翔万里的笔记本</a></del></li>
+</ul>
+<blockquote>
+<p>不知道是不是课改了之类的，我上的是<span class="heti-skip"><span class="heti-spacing"> </span>lj<span class="heti-spacing"> </span></span>老师的课；</p>
+<ul>
+<li><span>10%<span class="heti-spacing"> </span></span>考勤（<span>lj<span class="heti-spacing"> </span></span>老师第一节课明确说会都给到所有人）</li>
+<li><span>50%<span class="heti-spacing"> </span></span>自选主题展示（每人<span class="heti-skip"><span class="heti-spacing"> </span>20<span class="heti-spacing"> </span></span>分钟，实际老师对时间没有特别严格要求）</li>
+<li><span>40%<span class="heti-spacing"> </span></span>与展示相比配的报告一份</li>
+</ul>
+<p>所以似乎没有什么“笔记”可言</p>
+</blockquote>
+<h3 id="软件安全">软件安全<a class="headerlink" href="#软件安全" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><del><a href="https://github.com/RyanFcr/ZJU_Course/tree/main/%E5%A4%A7%E4%BA%8C%E6%98%A5%E5%A4%8F/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8">-RyanFrc - ZJU</a></del></li>
+<li><del><a href="https://www.yuque.com/hxfqg9/bin/ug9gx5#5dvaL">二进制安全</a></del></li>
+</ul>
+<blockquote>
+<p>由<span class="heti-skip"><span class="heti-spacing"> </span>dwl<span class="heti-spacing"> </span></span>老师课改，<span>seedlab<span class="heti-spacing"> </span></span>的内容还是比较朴实好懂的，就是实验不占分很无语，小测给分略迷。</p>
+</blockquote>
+<h2 id="大二下">大二下<a class="headerlink" href="#大二下" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="计算机系统三">计算机系统三<a class="headerlink" href="#计算机系统三" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><a href="../../note/CSys-III/">CSys-III</a> （声明：借助了<span class="heti-skip"><span class="heti-spacing"> </span>AI<span class="heti-spacing"> </span></span>整理<span><span class="heti-spacing"> </span>ppt</span>，再自己阅读、修改）</li>
+<li><a href="https://github.com/RyanFcr/ZJU_Course/tree/main/%E5%A4%A7%E4%BA%8C%E6%98%A5%E5%A4%8F/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E2%85%A2"><span>RyanFcr<span class="heti-spacing"> </span></span>的仓库</a></li>
+</ul>
+<h3 id="人工智能安全">人工智能安全<a class="headerlink" href="#人工智能安全" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li>笔记<ul>
+<li><a href="https://www.zhihu.com/column/c_1633936906831552512">金鱼马的人工智能安全笔记</a></li>
+</ul>
+</li>
+<li>参考资料<ul>
+<li><a href="https://ai-data-model-safety.github.io/index.html">人工智能：数据与模型安全</a></li>
+<li><a href="https://christophm.github.io/interpretable-ml-book/">Interpretable Machine Learning</a><ul>
+<li><a href="https://github.com/MingchaoZhu/InterpretableMLBook"><span>-<span class="heti-spacing"> </span></span>中文翻译</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="人工智能伦理与安全">人工智能伦理与安全<a class="headerlink" href="#人工智能伦理与安全" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition extra">
+<p class="admonition-title">从完成上课任务来看下面这些都没有必要</p>
+</div>
+<ul>
+<li>参考资料<ul>
+<li><a href="https://www.aisafetybook.com/">-Introduction to AI Safety, Ethics, and Society</a></li>
+<li><a href="https://www.ai-governance.online/cn">人工智能治理公共服务平台</a></li>
+</ul>
+</li>
+<li>笔记<ul>
+<li><a href="https://yey.world/archive/?tag=COMP90087">-YEY blog - COMP90087</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="数据建模与分析">数据建模与分析<a class="headerlink" href="#数据建模与分析" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li>参考书<ul>
+<li><a href="../../static/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95v2.pdf">统计学习方法<span><span class="heti-spacing"> </span>v2</span></a> （主要参考教材，仅供学习参考使用）<ul>
+<li><a href="https://datawhalechina.github.io/statistical-learning-method-solutions-manual/#/">参考习题解答</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>笔记<ul>
+<li><a href="https://www.cc98.org/topic/5926719">cc98</a></li>
+<li><a href="../../note/DMA/">DMA</a></li>
+</ul>
+</li>
+</ul>
+<div class="admonition extra">
+<p class="admonition-title">课程内容很好，可能是外界评价太高的原因，期末被恶心到了😑，小道消息：老师出难就是让大家都别选。</p>
+</div>
+<h3 id="隐私计算与数据合规">隐私计算与数据合规<a class="headerlink" href="#隐私计算与数据合规" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><a href="https://www.yuque.com/secret-flow/admin">语雀资料</a></li>
+<li><a href="../../static/PrivacyComputing_Final.pdf">2024-2025 PrivacyComputing_Final</a></li>
+</ul>
+<h3 id="会计学">会计学<a class="headerlink" href="#会计学" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><a href="https://note.xiu-zju.me/courses/accounting/"><span>xiu<span class="heti-spacing"> </span></span>的笔记本</a></li>
+<li><a href="https://space.bilibili.com/492140935/lists/2018319">会计学期末速成</a></li>
+<li>历年卷<span><span class="heti-spacing"> </span>- cc98</span><ul>
+<li><a href="https://www.cc98.org/topic/6084064"><span>2024-2025<span class="heti-spacing"> </span></span>秋冬 经济学院会计学 回忆卷</a></li>
+<li><a href="https://www.cc98.org/topic/5805943">2023—<span>2024<span class="heti-spacing"> </span></span>秋冬会计学回忆卷</a></li>
+<li><a href="https://www.cc98.org/topic/5508119"><span>2022-2023<span class="heti-spacing"> </span></span>秋冬学期会计学回忆<span class="heti-skip"><span class="heti-spacing"> </span>+<span class="heti-spacing"> </span></span>个人笔记</a></li>
+<li><a href="https://www.cc98.org/topic/5639876"><span>2022-2023<span class="heti-spacing"> </span></span>管院《会计学》春夏回忆卷</a></li>
+<li><a href="https://www.cc98.org/topic/5355335"><span>2021-2022<span class="heti-spacing"> </span></span>春夏经院会计学回忆卷</a></li>
+<li><a href="https://www.cc98.org/topic/6204522">会计学（经院）这门课的期末考试该怎么复习啊</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="毛概">毛概<a class="headerlink" href="#毛概" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><a href="https://www.cc98.org/topic/6181236"><span>cc98 -<span class="heti-spacing"> </span></span>毛概资源汇总</a><ul>
+<li>下面的内容基本出于此<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>发源于此</li>
+</ul>
+</li>
+<li>回忆卷<ul>
+<li><a href="https://gi7cake7hk2.feishu.cn/docx/NoTPdE0qZoKazcxKfwtcuLegnKg#UTl0dAYuAo3S5lxAk5bcgMS5nrh"><span>-<span class="heti-spacing"> </span></span>飞书<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>回忆卷整理</a></li>
+<li><a href="https://www.cc98.org/topic/6181236#:~:text=%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%9F%A5%E7%9C%8B~-,%E5%9B%9E%E5%BF%86%E5%8D%B7%E6%B1%87%E6%80%BB,-%E3%80%90%E5%AD%A6%E4%B9%A0%E5%A4%A9%E5%9C%B0%E3%80%912024">毛概资源汇总<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>回忆卷汇总</a></li>
+</ul>
+</li>
+<li>其他<ul>
+<li><a href="https://www.cc98.org/topic/5921889">【毛概】重要会议和文献梳理</a></li>
+<li><a href="https://www.cc98.org/topic/5925126">细碎小点<span><span class="heti-spacing"> </span>-</span>【<span>2023<span class="heti-spacing"> </span></span>版毛概笔记】精读教材后的补天笔记</a></li>
+</ul>
+</li>
+<li><a href="https://space.bilibili.com/477713299/lists/1428220"><span>Bilibili -<span class="heti-spacing"> </span></span>毛概带背</a></li>
+</ul>
+<h2 id="大二上">大二上<a class="headerlink" href="#大二上" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="高级数据结构与算法分析-ADS">高级数据结构与算法分析<span><span class="heti-spacing"> </span>(ADS)</span><a class="headerlink" href="#高级数据结构与算法分析-ADS" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li>笔记<ul>
+<li>初学<ul>
+<li><a href="https://note.isshikih.top/cour_note/D2CX_AdvancedDataStructure/"><span>Isshiki<span class="heti-spacing"> </span></span>修<span><span class="heti-spacing"> </span>'s Notebook-ADS</span></a></li>
+<li><a href="https://sh17c.top/LessonsNotes/D2CX_AdvancedDataStructure/">时清川的个人主页<span><span class="heti-spacing"> </span>-ADS</span></a></li>
+</ul>
+</li>
+<li>深入<ul>
+<li><a href="https://github.com/Darstib/blog/tree/main/docs/collection/attachments/2024%E6%98%A5%E5%A4%8FADS%E8%AE%B2%E4%B9%89.pdf"><span>2024<span class="heti-spacing"> </span></span>春夏<span class="heti-skip"><span class="heti-spacing"> </span>ADS<span class="heti-spacing"> </span></span>讲义</a><ul>
+<li><a href="https://github.com/yhwu-is"><span>yhwu-is<span class="heti-spacing"> </span></span></a>任<span class="heti-skip"><span class="heti-spacing"> </span>ADS<span class="heti-spacing"> </span></span>助教期间写的补充讲义，已获得本人许可。</li>
+<li>【免责】作者及我不对内容完全正确性做保证；</li>
+<li>【推销】作者希望更多人看到：<a href="https://github.com/yhwu-is/Linear-Algebra-Left-Undone"><span>LALU #<span class="heti-spacing"> </span></span>线性代数：未竟之美</a>。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>复习<ul>
+<li><a href="https://mem.ac/course/ads/">memset0 - ads</a></li>
+<li><a href="https://github.com/Tian42chen/Transcription-Malfunctioned/blob/main/_Finalized_Notes/ADS.pdf">Transcription-Malfunctioned - ads</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>习题<span class="heti-skip"><span class="heti-spacing"> </span>&amp;<span class="heti-spacing"> </span></span>真题<ul>
+<li><a href="../../note/other/ADS_problems/">ADS_problems</a><ul>
+<li>参考<a href="https://zhoutimemachine.github.io/note/courses/ads-hw-review/"><span><span class="heti-spacing"> </span>Jianjun Zhou's Notebook-ADS_HW</span></a></li>
+<li><a href="https://mem.ac/course/ads/correction/"><span>-mem.ac<span class="heti-spacing"> </span></span>错题</a></li>
+</ul>
+</li>
+<li><a href="https://www.hyluz.cn/search.php?q=%E7%A8%8B%E5%BA%8F%E5%A1%AB%E7%A9%BA%E9%A2%98">程序填空题</a></li>
+<li><a href="https://www.yuque.com/xianyuxuan/coding/ads_exam_1"><span>-<span class="heti-spacing"> </span></span>面向<span class="heti-skip"><span class="heti-spacing"> </span>ADS<span class="heti-spacing"> </span></span>的考试技巧</a></li>
+<li><a href="https://note.howjul.com/ADS/ads/"><span>HowJul<span class="heti-spacing"> </span></span>的学习笔记</a></li>
+<li><a href="https://github.com/JLY191/ZJU_SE_Course/tree/main/%E5%A4%A7%E4%BA%8C%E6%98%A5%E5%A4%8F/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90">JLY191's github</a> </li>
+</ul>
+</li>
+</ul>
+<h3 id="面向对象程序设计-OOP">面向对象程序设计<span><span class="heti-spacing"> </span>(OOP)</span><a class="headerlink" href="#面向对象程序设计-OOP" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li>
+<p>理论学习部分</p>
+<ul>
+<li><a href="https://xuan-insr.github.io/cpp/cpp_restart/"><span>xyx<span class="heti-spacing"> </span></span>的代码空间</a><ul>
+<li><span>xyx<span class="heti-spacing"> </span></span>学长讲的可能超出这门课程的考核范围，但是能够让我们对<span class="heti-skip"><span class="heti-spacing"> </span>c++<span class="heti-spacing"> </span></span>有一个更深的理解。</li>
+</ul>
+</li>
+<li><a href="https://note.enlzhao.com/Course/OOP/">HengZhao's Knowledge Base</a></li>
+<li><a href="https://blog.jerryhzy.top/tag/oop/">Jerryhzy's Blog</a></li>
+</ul>
+</li>
+<li>
+<p>理论题复习部分</p>
+<ul>
+<li><a href="https://note.howjul.com/OOP/oop/"><span>HowJul<span class="heti-spacing"> </span></span>的学习笔记</a></li>
+<li><del><a href="https://zhoutimemachine.github.io/note/courses/oop-mid-review/">zhoutimemachine - midterm</a></del></li>
+<li><del><a href="https://zhoutimemachine.github.io/note/courses/oop-final-review/">zhoutimemachine - final_term</a></del></li>
+</ul>
+</li>
+</ul>
+<h3 id="数据安全与密码学基础">数据安全与密码学基础<a class="headerlink" href="#数据安全与密码学基础" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<blockquote>
+<p>由于课改，这部分作业很少，考试补天也找不到很贴合的笔记……</p>
+</blockquote>
+<ul>
+<li><a href="https://zzw4257.cn/posts/is-pro/%E5%AF%86%E7%A0%81%E5%AD%A6/#contest">数据安全与密码学基础<span><span class="heti-spacing"> </span>Cheatsheet &amp; Homework</span></a></li>
+</ul>
+<h3 id="计算机系统-II-sys-II">计算机系统<span><span class="heti-spacing"> </span>II (sys-II)</span><a class="headerlink" href="#计算机系统-II-sys-II" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><a href="https://darstib.github.io/knowledge-graph/note/CSys-II">CSys-II</a></li>
+<li><a href="https://note.tonycrane.cc/cs/system/cs2/">鹤翔万里的笔记本</a></li>
+<li><a href="https://www.cc98.org/topic/6089253"><span>24-25<span class="heti-spacing"> </span></span>秋冬 计算机系统Ⅱ期末回忆卷</a></li>
+</ul>
+<h3 id="大学物理实验">大学物理实验<a class="headerlink" href="#大学物理实验" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li>
+<p>实验</p>
+<ul>
+<li>实验报告：<ul>
+<li><a href="https://www.cc98.org/topic/5862194"><span>cc98<span class="heti-spacing"> </span></span>经验贴<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>资源索引</a> 将内容提取出来，就是：<ul>
+<li><a href="https://xuan-insr.github.io/other_courses/big_physics_exp/">咸鱼暄的代码空间<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>大物实验报告</a></li>
+<li><a href="https://www.cc98.org/topic/5845216">另一个<span class="heti-skip"><span class="heti-spacing"> </span>98<span class="heti-spacing"> </span></span>贴</a></li>
+<li><a href="https://mp.weixin.qq.com/s/IbfZSrt9D-YW0kTTLyMCWA">公众号<code>某包</code></a></li>
+<li><a href="https://github.com/QSCTech/zju-icicles/tree/master/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86%E5%AE%9E%E9%AA%8C"><span>zju-icicles-<span class="heti-spacing"> </span></span>大学物理实验</a></li>
+</ul>
+</li>
+<li><a href="https://mp.weixin.qq.com/s/UzxCtjPO33aU1FHn2A-zMg">抛射体运动的照相法研究</a></li>
+</ul>
+</li>
+<li><a href="https://darstib.github.io/knowledge-graph/note/other/%E5%A4%A7%E7%89%A9%E5%AE%9E%E9%AA%8C%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC">大物实验处理脚本（部分）</a><ul>
+<li><a href="https://github.com/TonyCrane/ZJU-General-Physics-Experiment-I"><span>TonyCrane-<span class="heti-spacing"> </span></span>普通物理学实验<span class="heti-skip"><span class="heti-spacing"> </span>I<span class="heti-spacing"> </span></span>绘图</a></li>
+</ul>
+</li>
+<li>组装整流器<a href="../../static/zzzlq2021-1.heic"><span><span class="heti-spacing"> </span>zzzlq2021-1</span></a><a href="../../static/zzzlq2021-2.heic"><span><span class="heti-spacing"> </span>zzzlq2021-2</span></a></li>
+</ul>
+</li>
+<li>
+<p>期末考</p>
+<ul>
+<li><a href="https://courses.zju.edu.cn/course/75245/learning-activity/full-screen#/892277">绪论课课件</a></li>
+<li><a href="https://github.com/QSCTech/zju-icicles/blob/master/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86%E5%AE%9E%E9%AA%8C/%E5%A4%A7%E7%89%A9%E5%AE%9E%E9%AA%8C%E6%9C%9F%E6%9C%AB%E8%80%83%E8%AF%95%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0-2021-22%E5%AD%A6%E5%B9%B4%E7%A7%8B%E5%86%AC-%E9%BB%84%E6%8C%AF.pdf">期末复习笔记</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="大学物理乙-II">大学物理乙<span><span class="heti-spacing"> </span>II</span><a class="headerlink" href="#大学物理乙-II" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><a href="../../note/physics/physics2-problems/">physics2-problems</a><ul>
+<li>参考<a href="https://savia7582.github.io/Exterior/Physics/2/"><span class="heti-skip"><span class="heti-spacing"> </span>SAVIA<span class="heti-spacing"> </span></span>的外装代脑</a> 做的题型<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>技巧整理</li>
+</ul>
+</li>
+<li><a href="https://mem.ac/course/physics/">memset0</a></li>
+<li><a href="https://note.noughtq.top/misc/physics/">NoughtQ</a></li>
+</ul>
+<h2 id="大一下">大一下<a class="headerlink" href="#大一下" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="大学物理乙-I">大学物理乙<span><span class="heti-spacing"> </span>I</span><a class="headerlink" href="#大学物理乙-I" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><a href="https://savia7582.github.io/Exterior/Physics/1/"><span>SAVIA<span class="heti-spacing"> </span></span>的外装代脑</a><ul>
+<li>虽然是大物甲的复习资料，但是质量比较高，挺可以的。</li>
+</ul>
+</li>
+</ul>
+<h3 id="数据结构基础-FDS">数据结构基础<span><span class="heti-spacing"> </span>(FDS)</span><a class="headerlink" href="#数据结构基础-FDS" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><a href="https://note.enlzhao.com/Course/FDS/">HengZhao's Knowledge Base</a> or  <a href="https://yaoyaolingbro.github.io/notebook/ZJU_CS/FDS/">Yaoyaoling's notebook</a><ul>
+<li>较详细，前者带<span><span class="heti-spacing"> </span>code</span>，后者带例题</li>
+</ul>
+</li>
+<li><a href="https://darstib.github.io/knowledge-graph/note/other/FDS-questions/">FDS-questions</a><ul>
+<li>本人期末复习整理的部分题目</li>
+</ul>
+</li>
+<li><a href="https://www.zhihu.com/question/68235594/answer/261395370">诚信测试<span class="heti-skip"><span class="heti-spacing"> </span>cyll<span class="heti-spacing"> </span></span>官方答案</a><ul>
+<li>这个算是一个“相关资料”</li>
+</ul>
+</li>
+<li><a href="https://www.cs.usfca.edu/~galles/visualization/Algorithms.html">Data Structure Visualizations</a><ul>
+<li>数据结构可视化</li>
+</ul>
+</li>
+</ul>
+<h3 id="计算机系统-I-sys-I">计算机系统<span><span class="heti-spacing"> </span>I (sys-I)</span><a class="headerlink" href="#计算机系统-I-sys-I" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><a href="https://note.tonycrane.cc/cs/system/cs1/">鹤翔万里的笔记本<span class="heti-skip"><span class="heti-spacing"> </span>-cs1<span class="heti-spacing"> </span></span></a><span class="heti-skip"><span class="heti-spacing"> </span>and<span class="heti-spacing"> </span></span><a href="https://note.tonycrane.cc/cs/pl/riscv/unprivileged/"><span class="heti-skip"><span class="heti-spacing"> </span>RISC-V<span class="heti-spacing"> </span></span>非特权级<span><span class="heti-spacing"> </span>ISA</span></a><ul>
+<li><span>xg<span class="heti-spacing"> </span></span>的系统<span class="heti-skip"><span class="heti-spacing"> </span>I<span class="heti-spacing"> </span></span>笔记。</li>
+</ul>
+</li>
+</ul>
+<details class="extra">
+<summary>学后感</summary>
+<p>前期和计逻差不多（大致到时序逻辑电路<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，后面<span class="heti-skip"><span class="heti-spacing"> </span>sys I<span class="heti-spacing"> </span></span>为了和之后的内容接轨而开始有所不同</p>
+</details>
+<h3 id="信息安全原理与数学基础离散数学与概率论">信息安全原理与数学基础（离散数学与概率论）<a class="headerlink" href="#信息安全原理与数学基础离散数学与概率论" title="Permanent link">¶</a></h3>
+<ul>
+<li><a href="https://www.yuque.com/xianyuxuan/coding/crs-csmath">咸鱼肆</a><ul>
+<li>这个<strong><span>4<span class="heti-spacing"> </span></span>年前的笔记</strong>和老师<span class="heti-skip"><span class="heti-spacing"> </span>ppt<span class="heti-spacing"> </span></span>也是基本一致😑</li>
+</ul>
+</li>
+</ul>
+<h3 id="马克思主义原理">马克思主义原理<a class="headerlink" href="#马克思主义原理" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><a href="https://note.bowling233.top/%E5%85%B6%E4%BB%96/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%F0%9F%8F%AB%20%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E5%8E%9F%E7%90%86%EF%BC%88H%EF%BC%89/">Bowling's TechStack</a><ul>
+<li>仅做一个大纲吧，还是非常简略的</li>
+<li><a href="https://www.bilibili.com/video/BV1x14y1K7UX/">【马原期末考试攻略】知识点<span class="heti-skip"><span class="heti-spacing"> </span>+<span class="heti-spacing"> </span></span>做题方法</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="大一上">大一上<a class="headerlink" href="#大一上" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="线性代数">线性代数<a class="headerlink" href="#线性代数" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><a href="https://github.com/yhwu-is/Linear-Algebra-Left-Undone">Linear-Algebra-Left-Undone</a><ul>
+<li>进去看看就知道了😏</li>
+</ul>
+</li>
+</ul>
+<h2 id="其他">其他<a class="headerlink" href="#其他" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<div class="admonition extra">
+<p class="admonition-title">不知道<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>不方便具体放哪。</p>
+</div>
+<ul>
+<li><a href="https://study.zjueva.net/">思政刷题器</a></li>
+<li><a href="https://www.cs.usfca.edu/~galles/visualization/Algorithms.html"><span>Data Structure Visualizations<span class="heti-spacing"> </span></span></a><span>or<span class="heti-spacing"> </span></span><a href="https://www.rmboot.com/"><span>-<span class="heti-spacing"> </span></span>中文版？</a><ul>
+<li>数据结构可视化</li>
+</ul>
+</li>
+<li><a href="https://algorithm-visualizer.org/">-Algorithm Visualizer</a><ul>
+<li>算法可视化</li>
+</ul>
+</li>
+<li>
+<p><a href="https://cooervo.github.io/Algorithms-DataStructures-BigONotation/index.html">-Algorithms-DataStructures-BigONotation</a></p>
+</li>
+<li>
+<p>大语言模型<span class="heti-skip"><span class="heti-spacing"> </span>(LLM)<span class="heti-spacing"> </span></span>基础知识</p>
+<ul>
+<li><a href="https://www.huaxiaozhuan.com/"><span>AI<span class="heti-spacing"> </span></span>算法工程师手册</a></li>
+<li><a href="https://llmbook-zh.github.io/">LLMBook-zh</a></li>
+<li><a href="https://www.rethink.fun/">Rethink Fun</a></li>
+<li><a href="https://datawhalechina.github.io/thorough-pytorch/index.html">深入浅出<span><span class="heti-spacing"> </span>PyTorch</span></a></li>
+<li><a href="https://transformers.run/"><span>Transformers<span class="heti-spacing"> </span></span>快速入门</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="参考资料">参考资料<a class="headerlink" href="#参考资料" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="笔记链接">笔记链接<a class="headerlink" href="#笔记链接" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><a href="https://isshikihugh.github.io/zju-cs-asio/">zju-cs-asio</a><ul>
+<li><a href="https://note.isshikih.top/"><span>Isshiki<span class="heti-spacing"> </span></span>修<span><span class="heti-spacing"> </span>'s Notebook</span></a></li>
+<li><a href="https://note.howjul.com/course/"><span>HowJul<span class="heti-spacing"> </span></span>的学习笔记</a></li>
+<li><a href="https://note.enlzhao.com/">HengZhao's Knowledge Base</a></li>
+<li><a href="https://note.jiepeng.tech/">Jiepeng's notes</a></li>
+<li><a href="https://zhoutimemachine.github.io/note/">Jianjun Zhou's Notebook</a></li>
+<li><a href="https://note.minjoker.top/">MinJoker's Notebook</a></li>
+<li><a href="https://yaoyaolingbro.github.io/notebook/">Yaoyaoling's notebook</a></li>
+<li><a href="https://sh17c.top/LessonsNotes/">时清川的笔记本</a></li>
+<li><a href="https://note.gopoux.cc/"><span>GoPoux<span class="heti-spacing"> </span></span>的笔记本</a></li>
+<li><a href="https://brucejqs.github.io/MyNotebook/">BruceJin's Notebook</a></li>
+</ul>
+</li>
+<li><a href="https://notes.bencuan.me/">UCB student's note with CS 61A/61B/70/162/168/186/</a></li>
+</ul>
+<h3 id="仓库链接">仓库链接<a class="headerlink" href="#仓库链接" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><a href="https://github.com/Tian42chen/Transcription-Malfunctioned/tree/main/_Finalized_Notes">Transcription-Malfunctioned</a></li>
+<li><a href="https://github.com/Tian42chen/Transcription-Malfunctioned/">Tian42chen</a></li>
+<li><a href="https://github.com/RyanFcr/ZJU_Course">RyanFcr</a></li>
+<li><a href="https://github.com/Zhang-Each/CourseNoteOfZJUSE">Zhang-Each</a></li>
+<li><a href="https://github.com/JLY191/ZJU_SE_Course">JLY191</a></li>
+<li><a href="https://pan.zju.edu.cn/share/30b96c3488000197330231de40?redirect=%2Fshare%2F30b96c3488000197330231de40">一些电子书</a></li>
+</ul>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年8月27日 22:33:32 CST">2026年8月27日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2024年6月23日 10:48:16 CST">2024年6月23日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: Data Visualization" class="md-footer__link md-footer__link--prev" href="../data_visualization/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                Data Visualization
+              </div>
+</div>
+</a>
+<a aria-label="下一页: Teachyourselfcs" class="md-footer__link md-footer__link--next" href="../teachyourselfcs/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                Teachyourselfcs
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../js/katex.js"></script>
+<script src="../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

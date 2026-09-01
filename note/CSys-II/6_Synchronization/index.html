@@ -1,0 +1,2457 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/note/CSys-II/6_Synchronization/" rel="canonical"/>
+<link href="../5_IPC/" rel="prev"/>
+<link href="../PBFX/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>6 Synchronization - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#I-Intro">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              6 Synchronization
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Note
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs188/">
+<span class="md-ellipsis">
+    
+  
+    cs188
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../physics/">
+<span class="md-ellipsis">
+    
+  
+    physics
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3_4" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    CSys-II
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    CSys-II
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../1_pipeline/">
+<span class="md-ellipsis">
+    
+  
+    1 pipeline
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../2_OS/">
+<span class="md-ellipsis">
+    
+  
+    2 OS
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../3_Process/">
+<span class="md-ellipsis">
+    
+  
+    3 Process
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../4_Scheduling/">
+<span class="md-ellipsis">
+    
+  
+    4 Scheduling
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../5_IPC/">
+<span class="md-ellipsis">
+    
+  
+    5 IPC
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    6 Synchronization
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    6 Synchronization
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I-Intro">
+<span class="md-ellipsis">
+      
+        I Intro
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II-Critical-section">
+<span class="md-ellipsis">
+      
+        II Critical section
+      
+    </span>
+</a>
+<nav aria-label="II Critical section" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II1-Problem">
+<span class="md-ellipsis">
+      
+        II.1 Problem
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II2-solution">
+<span class="md-ellipsis">
+      
+        II.2 solution
+      
+    </span>
+</a>
+<nav aria-label="II.2 solution" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II21-Three-Requirements-for-Solutions">
+<span class="md-ellipsis">
+      
+        II.2.1 Three Requirements for Solutions
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II22-Petersons-solution">
+<span class="md-ellipsis">
+      
+        II.2.2 Peterson's solution
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II3-Hardware-Support-for-synchronization">
+<span class="md-ellipsis">
+      
+        II.3 Hardware Support for synchronization
+      
+    </span>
+</a>
+<nav aria-label="II.3 Hardware Support for synchronization" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II31-Memory-barriers-memory-fences">
+<span class="md-ellipsis">
+      
+        II.3.1 Memory barriers (memory fences)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II32-Hardware-Instructions">
+<span class="md-ellipsis">
+      
+        II.3.2 Hardware Instructions
+      
+    </span>
+</a>
+<nav aria-label="II.3.2 Hardware Instructions" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II321-test_and_set-TAS">
+<span class="md-ellipsis">
+      
+        II.3.2.1 test_and_set (TAS)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II322-compare_and_swap-CAS">
+<span class="md-ellipsis">
+      
+        II.3.2.2 compare_and_swap (CAS)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II33-Atomic-Variables">
+<span class="md-ellipsis">
+      
+        II.3.3 Atomic Variables
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II4-Mutex-Lock-spinlock">
+<span class="md-ellipsis">
+      
+        II.4 Mutex Lock (spinlock)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II5-Semaphore">
+<span class="md-ellipsis">
+      
+        II.5 Semaphore
+      
+    </span>
+</a>
+<nav aria-label="II.5 Semaphore" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II51-Semaphore-w-waiting-queue">
+<span class="md-ellipsis">
+      
+        II.5.1 Semaphore w/ waiting queue:
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II52-mutex-vs-semaphore">
+<span class="md-ellipsis">
+      
+        II.5.2 mutex vs. semaphore
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II53-deadlock-and-starvation">
+<span class="md-ellipsis">
+      
+        II.5.3 deadlock and starvation
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II54-Priority-Inversion">
+<span class="md-ellipsis">
+      
+        II.5.4 Priority Inversion
+      
+    </span>
+</a>
+<nav aria-label="II.5.4 Priority Inversion" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II541-example">
+<span class="md-ellipsis">
+      
+        II.5.4.1 example
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II542-solution">
+<span class="md-ellipsis">
+      
+        II.5.4.2 solution
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II6-reader-writer-block-todo">
+<span class="md-ellipsis">
+      
+        II.6 reader-writer block (todo)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III-Examples">
+<span class="md-ellipsis">
+      
+        III Examples
+      
+    </span>
+</a>
+<nav aria-label="III Examples" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III1-Bounded-Buffer-Problem">
+<span class="md-ellipsis">
+      
+        III.1 Bounded-Buffer Problem
+      
+    </span>
+</a>
+<nav aria-label="III.1 Bounded-Buffer Problem" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III11-description">
+<span class="md-ellipsis">
+      
+        III.1.1 description
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III12-solution">
+<span class="md-ellipsis">
+      
+        III.1.2 solution
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III2-Readers-Writers-Problem">
+<span class="md-ellipsis">
+      
+        III.2 Readers-Writers Problem
+      
+    </span>
+</a>
+<nav aria-label="III.2 Readers-Writers Problem" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III21-description">
+<span class="md-ellipsis">
+      
+        III.2.1 description
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III22-solution">
+<span class="md-ellipsis">
+      
+        III.2.2 solution
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III3-Dining-Philosophers-Problem-to-learn">
+<span class="md-ellipsis">
+      
+        III.3 Dining-Philosophers Problem (to learn)
+      
+    </span>
+</a>
+<nav aria-label="III.3 Dining-Philosophers Problem (to learn)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III31-description">
+<span class="md-ellipsis">
+      
+        III.3.1 description
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III32-solution">
+<span class="md-ellipsis">
+      
+        III.3.2 solution
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV-Linux-Synchronization-Todo">
+<span class="md-ellipsis">
+      
+        IV Linux Synchronization (Todo)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V-Deadlock">
+<span class="md-ellipsis">
+      
+        V Deadlock
+      
+    </span>
+</a>
+<nav aria-label="V Deadlock" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V1-Deadlock-problem">
+<span class="md-ellipsis">
+      
+        V.1 Deadlock problem
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V2-System-model">
+<span class="md-ellipsis">
+      
+        V.2 System model
+      
+    </span>
+</a>
+<nav aria-label="V.2 System model" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V21-Resource-Allocation-Graph">
+<span class="md-ellipsis">
+      
+        V.2.1 Resource-Allocation Graph
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V22-Four-Conditions-of-Deadlock">
+<span class="md-ellipsis">
+      
+        V.2.2 Four Conditions of Deadlock
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V3-Handling-deadlocks">
+<span class="md-ellipsis">
+      
+        V.3 Handling deadlocks
+      
+    </span>
+</a>
+<nav aria-label="V.3 Handling deadlocks" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V31-Deadlock-prevention">
+<span class="md-ellipsis">
+      
+        V.3.1 Deadlock prevention
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V32-Deadlock-avoidance">
+<span class="md-ellipsis">
+      
+        V.3.2 Deadlock avoidance
+      
+    </span>
+</a>
+<nav aria-label="V.3.2 Deadlock avoidance" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V321-safe-state">
+<span class="md-ellipsis">
+      
+        V.3.2.1 safe state
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V322-Bankers-algorithm">
+<span class="md-ellipsis">
+      
+        V.3.2.2 Banker's algorithm
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V33-Deadlock-detection">
+<span class="md-ellipsis">
+      
+        V.3.3 Deadlock detection
+      
+    </span>
+</a>
+<nav aria-label="V.3.3 Deadlock detection" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V331-Single-Instance-Resources-Wait-for-Graph">
+<span class="md-ellipsis">
+      
+        V.3.3.1 Single Instance Resources (Wait-for Graph)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V332-Multi-instance-Resources">
+<span class="md-ellipsis">
+      
+        V.3.3.2 Multi-instance Resources
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V34-Deadlock-recovery">
+<span class="md-ellipsis">
+      
+        V.3.4 Deadlock recovery
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../PBFX/">
+<span class="md-ellipsis">
+    
+  
+    PBFX
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-III/">
+<span class="md-ellipsis">
+    
+  
+    CSys-III
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DEM/">
+<span class="md-ellipsis">
+    
+  
+    DEM
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DMA/">
+<span class="md-ellipsis">
+    
+  
+    DMA
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs70/">
+<span class="md-ellipsis">
+    
+  
+    cs70
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../other/">
+<span class="md-ellipsis">
+    
+  
+    other
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I-Intro">
+<span class="md-ellipsis">
+      
+        I Intro
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II-Critical-section">
+<span class="md-ellipsis">
+      
+        II Critical section
+      
+    </span>
+</a>
+<nav aria-label="II Critical section" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II1-Problem">
+<span class="md-ellipsis">
+      
+        II.1 Problem
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II2-solution">
+<span class="md-ellipsis">
+      
+        II.2 solution
+      
+    </span>
+</a>
+<nav aria-label="II.2 solution" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II21-Three-Requirements-for-Solutions">
+<span class="md-ellipsis">
+      
+        II.2.1 Three Requirements for Solutions
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II22-Petersons-solution">
+<span class="md-ellipsis">
+      
+        II.2.2 Peterson's solution
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II3-Hardware-Support-for-synchronization">
+<span class="md-ellipsis">
+      
+        II.3 Hardware Support for synchronization
+      
+    </span>
+</a>
+<nav aria-label="II.3 Hardware Support for synchronization" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II31-Memory-barriers-memory-fences">
+<span class="md-ellipsis">
+      
+        II.3.1 Memory barriers (memory fences)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II32-Hardware-Instructions">
+<span class="md-ellipsis">
+      
+        II.3.2 Hardware Instructions
+      
+    </span>
+</a>
+<nav aria-label="II.3.2 Hardware Instructions" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II321-test_and_set-TAS">
+<span class="md-ellipsis">
+      
+        II.3.2.1 test_and_set (TAS)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II322-compare_and_swap-CAS">
+<span class="md-ellipsis">
+      
+        II.3.2.2 compare_and_swap (CAS)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II33-Atomic-Variables">
+<span class="md-ellipsis">
+      
+        II.3.3 Atomic Variables
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II4-Mutex-Lock-spinlock">
+<span class="md-ellipsis">
+      
+        II.4 Mutex Lock (spinlock)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II5-Semaphore">
+<span class="md-ellipsis">
+      
+        II.5 Semaphore
+      
+    </span>
+</a>
+<nav aria-label="II.5 Semaphore" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II51-Semaphore-w-waiting-queue">
+<span class="md-ellipsis">
+      
+        II.5.1 Semaphore w/ waiting queue:
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II52-mutex-vs-semaphore">
+<span class="md-ellipsis">
+      
+        II.5.2 mutex vs. semaphore
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II53-deadlock-and-starvation">
+<span class="md-ellipsis">
+      
+        II.5.3 deadlock and starvation
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II54-Priority-Inversion">
+<span class="md-ellipsis">
+      
+        II.5.4 Priority Inversion
+      
+    </span>
+</a>
+<nav aria-label="II.5.4 Priority Inversion" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II541-example">
+<span class="md-ellipsis">
+      
+        II.5.4.1 example
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II542-solution">
+<span class="md-ellipsis">
+      
+        II.5.4.2 solution
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II6-reader-writer-block-todo">
+<span class="md-ellipsis">
+      
+        II.6 reader-writer block (todo)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III-Examples">
+<span class="md-ellipsis">
+      
+        III Examples
+      
+    </span>
+</a>
+<nav aria-label="III Examples" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III1-Bounded-Buffer-Problem">
+<span class="md-ellipsis">
+      
+        III.1 Bounded-Buffer Problem
+      
+    </span>
+</a>
+<nav aria-label="III.1 Bounded-Buffer Problem" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III11-description">
+<span class="md-ellipsis">
+      
+        III.1.1 description
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III12-solution">
+<span class="md-ellipsis">
+      
+        III.1.2 solution
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III2-Readers-Writers-Problem">
+<span class="md-ellipsis">
+      
+        III.2 Readers-Writers Problem
+      
+    </span>
+</a>
+<nav aria-label="III.2 Readers-Writers Problem" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III21-description">
+<span class="md-ellipsis">
+      
+        III.2.1 description
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III22-solution">
+<span class="md-ellipsis">
+      
+        III.2.2 solution
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III3-Dining-Philosophers-Problem-to-learn">
+<span class="md-ellipsis">
+      
+        III.3 Dining-Philosophers Problem (to learn)
+      
+    </span>
+</a>
+<nav aria-label="III.3 Dining-Philosophers Problem (to learn)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III31-description">
+<span class="md-ellipsis">
+      
+        III.3.1 description
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III32-solution">
+<span class="md-ellipsis">
+      
+        III.3.2 solution
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV-Linux-Synchronization-Todo">
+<span class="md-ellipsis">
+      
+        IV Linux Synchronization (Todo)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V-Deadlock">
+<span class="md-ellipsis">
+      
+        V Deadlock
+      
+    </span>
+</a>
+<nav aria-label="V Deadlock" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V1-Deadlock-problem">
+<span class="md-ellipsis">
+      
+        V.1 Deadlock problem
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V2-System-model">
+<span class="md-ellipsis">
+      
+        V.2 System model
+      
+    </span>
+</a>
+<nav aria-label="V.2 System model" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V21-Resource-Allocation-Graph">
+<span class="md-ellipsis">
+      
+        V.2.1 Resource-Allocation Graph
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V22-Four-Conditions-of-Deadlock">
+<span class="md-ellipsis">
+      
+        V.2.2 Four Conditions of Deadlock
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V3-Handling-deadlocks">
+<span class="md-ellipsis">
+      
+        V.3 Handling deadlocks
+      
+    </span>
+</a>
+<nav aria-label="V.3 Handling deadlocks" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V31-Deadlock-prevention">
+<span class="md-ellipsis">
+      
+        V.3.1 Deadlock prevention
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V32-Deadlock-avoidance">
+<span class="md-ellipsis">
+      
+        V.3.2 Deadlock avoidance
+      
+    </span>
+</a>
+<nav aria-label="V.3.2 Deadlock avoidance" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V321-safe-state">
+<span class="md-ellipsis">
+      
+        V.3.2.1 safe state
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V322-Bankers-algorithm">
+<span class="md-ellipsis">
+      
+        V.3.2.2 Banker's algorithm
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V33-Deadlock-detection">
+<span class="md-ellipsis">
+      
+        V.3.3 Deadlock detection
+      
+    </span>
+</a>
+<nav aria-label="V.3.3 Deadlock detection" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V331-Single-Instance-Resources-Wait-for-Graph">
+<span class="md-ellipsis">
+      
+        V.3.3.1 Single Instance Resources (Wait-for Graph)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V332-Multi-instance-Resources">
+<span class="md-ellipsis">
+      
+        V.3.3.2 Multi-instance Resources
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V34-Deadlock-recovery">
+<span class="md-ellipsis">
+      
+        V.3.4 Deadlock recovery
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Note
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    CSys-II
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:notes">notes</a>
+</nav>
+<h1>6 Synchronization</h1>
+<h2 id="I-Intro">I Intro<a class="headerlink" href="#I-Intro" title="Permanent link">¶</a></h2>
+<div class="highlight"><span class="filename">example.c</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><a href="#__codelineno-0-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;pthread.h&gt;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><a href="#__codelineno-0-4"><span class="linenos" data-linenos=" 4 "></span></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><a href="#__codelineno-0-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="kt">int</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><a href="#__codelineno-0-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">loops</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e7</span><span class="p">;</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><a href="#__codelineno-0-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="c1">// pthread_mutex_t pmutex = PTHREAD_MUTEX_INITIALIZER;</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><a href="#__codelineno-0-8"><span class="linenos" data-linenos=" 8 "></span></a>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a><a href="#__codelineno-0-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="nf">worker</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">arg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><a href="#__codelineno-0-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a><a href="#__codelineno-0-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"%s: begin</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">arg</span><span class="p">);</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a><a href="#__codelineno-0-12"><span class="linenos" data-linenos="12 "></span></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">loops</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a><a href="#__codelineno-0-13"><span class="linenos" data-linenos="13 "></span></a><span class="w">        </span><span class="c1">// pthread_mutex_lock(&amp;pmutex);</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a><a href="#__codelineno-0-14"><span class="linenos" data-linenos="14 "></span></a><span class="w">        </span><span class="n">counter</span><span class="o">++</span><span class="p">;</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a><a href="#__codelineno-0-15"><span class="linenos" data-linenos="15 "></span></a><span class="w">        </span><span class="c1">// pthread_mutex_unlock(&amp;pmutex);</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a><a href="#__codelineno-0-16"><span class="linenos" data-linenos="16 "></span></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17"></a><a href="#__codelineno-0-17"><span class="linenos" data-linenos="17 "></span></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"%s: done</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">arg</span><span class="p">);</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18"></a><a href="#__codelineno-0-18"><span class="linenos" data-linenos="18 "></span></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19"></a><a href="#__codelineno-0-19"><span class="linenos" data-linenos="19 "></span></a><span class="p">}</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20"></a><a href="#__codelineno-0-20"><span class="linenos" data-linenos="20 "></span></a>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21"></a><a href="#__codelineno-0-21"><span class="linenos" data-linenos="21 "></span></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22"></a><a href="#__codelineno-0-22"><span class="linenos" data-linenos="22 "></span></a><span class="w">    </span><span class="n">pthread_t</span><span class="w"> </span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="n">p2</span><span class="p">;</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23"></a><a href="#__codelineno-0-23"><span class="linenos" data-linenos="23 "></span></a>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24"></a><a href="#__codelineno-0-24"><span class="linenos" data-linenos="24 "></span></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"main: begin (counter = %d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">counter</span><span class="p">);</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25"></a><a href="#__codelineno-0-25"><span class="linenos" data-linenos="25 "></span></a><span class="w">    </span><span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">worker</span><span class="p">,</span><span class="w"> </span><span class="s">"A"</span><span class="p">);</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26"></a><a href="#__codelineno-0-26"><span class="linenos" data-linenos="26 "></span></a><span class="w">    </span><span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">p2</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">worker</span><span class="p">,</span><span class="w"> </span><span class="s">"B"</span><span class="p">);</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27"></a><a href="#__codelineno-0-27"><span class="linenos" data-linenos="27 "></span></a><span class="w">    </span><span class="n">pthread_join</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28"></a><a href="#__codelineno-0-28"><span class="linenos" data-linenos="28 "></span></a><span class="w">    </span><span class="n">pthread_join</span><span class="p">(</span><span class="n">p2</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29"></a><a href="#__codelineno-0-29"><span class="linenos" data-linenos="29 "></span></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"main: done with both (counter = %d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">counter</span><span class="p">);</span>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30"></a><a href="#__codelineno-0-30"><span class="linenos" data-linenos="30 "></span></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31"></a><a href="#__codelineno-0-31"><span class="linenos" data-linenos="31 "></span></a><span class="p">}</span>
+</span></code></pre></div>
+<p>在我们的预期中，上面的程序应当是两个线程<span class="heti-skip"><span class="heti-spacing"> </span>p1 p2<span class="heti-spacing"> </span></span>一起数数，每个人数<span class="heti-skip"><span class="heti-spacing"> </span>1e6<span class="heti-spacing"> </span></span>次，共<span class="heti-skip"><span class="heti-spacing"> </span>2e6<span class="heti-spacing"> </span></span>次；但是实际运行结果如下：</p>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos" data-linenos="1 "></span></a>$<span class="w"> </span>gcc<span class="w"> </span>example.c<span class="w"> </span>-o<span class="w"> </span>tmpC<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./tmpC
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><a href="#__codelineno-1-2"><span class="linenos" data-linenos="2 "></span></a>main:<span class="w"> </span>begin<span class="w"> </span><span class="o">(</span><span class="nv">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="o">)</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><a href="#__codelineno-1-3"><span class="linenos" data-linenos="3 "></span></a>A:<span class="w"> </span>begin
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><a href="#__codelineno-1-4"><span class="linenos" data-linenos="4 "></span></a>B:<span class="w"> </span>begin
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><a href="#__codelineno-1-5"><span class="linenos" data-linenos="5 "></span></a>B:<span class="w"> </span><span class="k">done</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a><a href="#__codelineno-1-6"><span class="linenos" data-linenos="6 "></span></a>A:<span class="w"> </span><span class="k">done</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a><a href="#__codelineno-1-7"><span class="linenos" data-linenos="7 "></span></a>main:<span class="w"> </span><span class="k">done</span><span class="w"> </span>with<span class="w"> </span>both<span class="w"> </span><span class="o">(</span><span class="nv">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1034720</span><span class="o">)</span>
+</span></code></pre></div>
+<p><code>counter++;</code> 是一条<span class="heti-skip"><span class="heti-spacing"> </span>C<span class="heti-spacing"> </span></span>语言语句，但是需要多条汇编指令（取决于<span><span class="heti-spacing"> </span>ISA</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；如果<span class="heti-skip"><span class="heti-spacing"> </span>p1<span class="heti-spacing"> </span></span>执行某条指令时，被<span class="heti-skip"><span class="heti-spacing"> </span>interrupt<span class="heti-spacing"> </span></span>或者<span class="heti-skip"><span class="heti-spacing"> </span>p2<span class="heti-spacing"> </span></span>读取了<span class="heti-skip"><span class="heti-spacing"> </span>counter<span class="heti-spacing"> </span></span>的值（此时<span class="heti-skip"><span class="heti-spacing"> </span>p1<span class="heti-spacing"> </span></span>还没有将计算的结果写回<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；那么不知不觉中，数的次数就偏少了，这称为<span><span class="heti-spacing"> </span>Race Condition</span>。</p>
+<details class="definition">
+<summary>Race Condition</summary>
+<p>Several processes (or threads) access and manipulate the same data concurrently and the outcome of the execution depends on the particular order in which the access takes place, is called a <strong>race-condition</strong>.</p>
+</details>
+<p>为此，引入<span><span class="heti-spacing"> </span>critical section</span>。</p>
+<h2 id="II-Critical-section">II Critical section<a class="headerlink" href="#II-Critical-section" title="Permanent link">¶</a></h2>
+<h3 id="II1-Problem">II.1 Problem<a class="headerlink" href="#II1-Problem" title="Permanent link">¶</a></h3>
+<p>Each process has a critical section segment of code (E.g., to change common variables, update table, write file, etc.)</p>
+<div class="highlight"><span class="filename">general structure of a progress</span><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><a href="#__codelineno-2-1"><span class="linenos" data-linenos="1 "></span></a><span class="c1">// An example is presented in the comments to the code above</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><a href="#__codelineno-2-2"><span class="linenos" data-linenos="2 "></span></a><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><a href="#__codelineno-2-3"><span class="linenos" data-linenos="3 "></span></a><span class="w">    </span><span class="c1">// entry section</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><a href="#__codelineno-2-4"><span class="linenos" data-linenos="4 "></span></a><span class="w">    </span><span class="cm">/* critical section */</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><a href="#__codelineno-2-5"><span class="linenos" data-linenos="5 "></span></a><span class="w">    </span><span class="c1">// exit section</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><a href="#__codelineno-2-6"><span class="linenos" data-linenos="6 "></span></a><span class="w">    </span><span class="cm">/* remainder section */</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a><a href="#__codelineno-2-7"><span class="linenos" data-linenos="7 "></span></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li>Only one process can be in the <strong>critical section</strong></li>
+<li>Each process must ask permission to enter critical section in <strong>entry section</strong></li>
+<li>The permission should be released in <strong>exit section</strong></li>
+<li>The remaining code is the <strong>remainder section</strong></li>
+</ul>
+<h3 id="II2-solution">II.2 solution<a class="headerlink" href="#II2-solution" title="Permanent link">¶</a></h3>
+<p>What about Preventing interrupts?
+- Single-core system: works well
+- Multiple-processor system: not feasible</p>
+<h4 id="II21-Three-Requirements-for-Solutions">II.2.1 Three Requirements for Solutions<a class="headerlink" href="#II21-Three-Requirements-for-Solutions" title="Permanent link">¶</a></h4>
+<ol>
+<li><strong>Mutual Exclusion</strong><ul>
+<li>Only one process can execute in the critical section.</li>
+</ul>
+</li>
+<li><strong>Progress</strong><ul>
+<li>No deadlock (there must a progress in critical section unless no progress wish to enter its critical section).</li>
+</ul>
+</li>
+<li><strong>Bounded waiting</strong><ul>
+<li>No starvation (every progress has chance to  enter its critical section).</li>
+</ul>
+</li>
+</ol>
+<h4 id="II22-Petersons-solution">II.2.2 Peterson's solution<a class="headerlink" href="#II22-Petersons-solution" title="Permanent link">¶</a></h4>
+<p>Peterson’s solution solves <strong>two-processes</strong> synchronization, and <strong>only works for two processes case</strong>.</p>
+<p>It assumes that LOAD and STORE are <strong>atomic</strong> (execution can't be interrupted, but it usually can't be guaranteed by hardware automatically).</p>
+<p>So the two processes share two variables:</p>
+<ul>
+<li>boolean <strong>flag[2]</strong>: whether a process is ready to enter the critical section</li>
+<li>int <strong>turn</strong>: whose turn it is to enter the critical section</li>
+</ul>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/6_Synchronization.png"><img alt="" src="../attachments/6_Synchronization.png"/></a></p>
+<p>We can prove that Peterson's solution satisfies the three requirements of the solution.</p>
+<details class="extra">
+<summary>Although useful for demonstrating an algorithm, Peterson’s solution is not guaranteed to work on modern architectures. (Since it requires too much, sometimes be wrong and works only for two.)</summary>
+<p>https://www.cs.cornell.edu/courses/cs414/2007sp/homework/hw2_soln.pdf
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/6_Synchronization-10.png"><img alt="" src="../attachments/6_Synchronization-10.png"/></a></p>
+</details>
+<h3 id="II3-Hardware-Support-for-synchronization">II.3 Hardware Support for synchronization<a class="headerlink" href="#II3-Hardware-Support-for-synchronization" title="Permanent link">¶</a></h3>
+<p>Uniprocessors: disable interrupts</p>
+<h4 id="II31-Memory-barriers-memory-fences">II.3.1 Memory barriers (memory fences)<a class="headerlink" href="#II31-Memory-barriers-memory-fences" title="Permanent link">¶</a></h4>
+<p>Memory models are the memory guarantees a computer architecture makes to application programs. They are either Strongly ordered or Weakly ordered.</p>
+<p><u>A memory barrier is an instruction that forces any change in memory to be propagated (made visible) to all other processors.</u> </p>
+<p><strong>Four basic varieties of memory barriers in linux:</strong>
+- Write (or store) memory barriers
+- Address-dependency barriers (historical)
+- Read (or load) memory barriers
+- General memory barriers
+- Implicit varieties:
+    - ACQUIRE operations
+    - RELEASE operations</p>
+<p><strong>Explicit/Implicit Memory Barriers in Linux:</strong> TODO, may be not important.</p>
+<h4 id="II32-Hardware-Instructions">II.3.2 Hardware Instructions<a class="headerlink" href="#II32-Hardware-Instructions" title="Permanent link">¶</a></h4>
+<p>Special hardware instructions that allow us to either test-and modify the contentof a word, or to swap the contents of two words atomically (uninterruptable)</p>
+<h5 id="II321-test_and_set-TAS">II.3.2.1 test_and_set (TAS)<a class="headerlink" href="#II321-test_and_set-TAS" title="Permanent link">¶</a></h5>
+<div class="highlight"><span class="filename">tas.c</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><a href="#__codelineno-3-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="c1">// The function is atomically; it is just one instruction</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><a href="#__codelineno-3-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="kt">bool</span><span class="w"> </span><span class="nf">test_and_set</span><span class="p">(</span><span class="kt">bool</span><span class="o">*</span><span class="w"> </span><span class="n">target</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// passed parameter (pp)</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><a href="#__codelineno-3-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">rv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">target</span><span class="p">;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a><a href="#__codelineno-3-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">    </span><span class="o">*</span><span class="n">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"> </span><span class="c1">// set the new value of pp to true</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a><a href="#__codelineno-3-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">rv</span><span class="p">;</span><span class="w"> </span><span class="c1">// return the original value of pp, ensure if target is used, another thread can jump out `while();` that is, another thread is busying waiting.</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a><a href="#__codelineno-3-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="p">}</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a><a href="#__codelineno-3-7"><span class="linenos" data-linenos=" 7 "></span></a>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a><a href="#__codelineno-3-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="kt">void</span><span class="w"> </span><span class="nf">use_lock</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9"></a><a href="#__codelineno-3-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">lock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10"></a><a href="#__codelineno-3-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">    </span><span class="k">do</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11"></a><a href="#__codelineno-3-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">test_and_set</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lock</span><span class="p">));</span><span class="w"> </span><span class="c1">// get lock if lock is not used; else do nothing</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12"></a><a href="#__codelineno-3-12"><span class="linenos" data-linenos="12 "></span></a><span class="w">        </span><span class="cm">/* critical section */</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13"></a><a href="#__codelineno-3-13"><span class="linenos" data-linenos="13 "></span></a><span class="w">        </span><span class="n">lock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"> </span><span class="c1">// release lock</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14"></a><a href="#__codelineno-3-14"><span class="linenos" data-linenos="14 "></span></a><span class="w">        </span><span class="cm">/* remainder section */</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15"></a><a href="#__codelineno-3-15"><span class="linenos" data-linenos="15 "></span></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16"></a><a href="#__codelineno-3-16"><span class="linenos" data-linenos="16 "></span></a><span class="p">}</span>
+</span></code></pre></div>
+<h5 id="II322-compare_and_swap-CAS">II.3.2.2 compare_and_swap (CAS)<a class="headerlink" href="#II322-compare_and_swap-CAS" title="Permanent link">¶</a></h5>
+<div class="highlight"><span class="filename">cas.c</span><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><a href="#__codelineno-4-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="c1">// The function is atomically</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><a href="#__codelineno-4-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="kt">int</span><span class="w"> </span><span class="nf">compare_and_swap</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">expected</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">new_value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><a href="#__codelineno-4-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">value</span><span class="p">;</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a><a href="#__codelineno-4-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">expected</span><span class="p">)</span><span class="w"> </span><span class="c1">// swap happens only under this condition</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a><a href="#__codelineno-4-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">        </span><span class="o">*</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new_value</span><span class="p">;</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a><a href="#__codelineno-4-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">temp</span><span class="p">;</span><span class="w"> </span><span class="c1">// return the original value of passed *value</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7"></a><a href="#__codelineno-4-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="p">}</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8"></a><a href="#__codelineno-4-8"><span class="linenos" data-linenos=" 8 "></span></a>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9"></a><a href="#__codelineno-4-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="kt">void</span><span class="w"> </span><span class="nf">use_lock</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10"></a><a href="#__codelineno-4-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">lock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11"></a><a href="#__codelineno-4-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12"></a><a href="#__codelineno-4-12"><span class="linenos" data-linenos="12 "></span></a><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">compare_and_swap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// get lock if lock is not used; else do nothing</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13"></a><a href="#__codelineno-4-13"><span class="linenos" data-linenos="13 "></span></a><span class="w">        </span><span class="cm">/* critical section */</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14"></a><a href="#__codelineno-4-14"><span class="linenos" data-linenos="14 "></span></a><span class="w">        </span><span class="n">lock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15"></a><a href="#__codelineno-4-15"><span class="linenos" data-linenos="15 "></span></a><span class="w">        </span><span class="cm">/* remainder section */</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16"></a><a href="#__codelineno-4-16"><span class="linenos" data-linenos="16 "></span></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17"></a><a href="#__codelineno-4-17"><span class="linenos" data-linenos="17 "></span></a><span class="p">}</span>
+</span></code></pre></div>
+<p><strong>in practice:</strong>
+- x86
+    - <code>lock cmpxchg &lt;destination operand&gt;, &lt;source operand&gt;</code>
+- arm
+    - <code>LDREX</code> and <code>STREX</code> instructions used together
+    - to implement atomic operations the programmer must retry the operation (both LDREX and STREX) until the exclusive monitor signals a success.</p>
+<h4 id="II33-Atomic-Variables">II.3.3 Atomic Variables<a class="headerlink" href="#II33-Atomic-Variables" title="Permanent link">¶</a></h4>
+<p>One tool is an <strong>atomic variable</strong> that provides atomic (uninterruptible) updates on basic data types such as integers and booleans.
+- For example, the increment() operation on the atomic variable sequence ensures sequence is incremented without interruption: <code>increment(&amp;sequence);</code>;</p>
+<h3 id="II4-Mutex-Lock-spinlock">II.4 Mutex Lock (spinlock)<a class="headerlink" href="#II4-Mutex-Lock-spinlock" title="Permanent link">¶</a></h3>
+<p>Mutex locks protect a critical section by first <code>acquire()</code> a lock then <code>release()</code> the lock; calls to <code>acquire()</code> and <code>release()</code> must be atomic. These two functions can be implement using test_and_set or compare_and_swap.</p>
+<div class="highlight"><span class="filename">mutexLock/spinLock.c</span><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><a href="#__codelineno-5-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="k">static</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">available</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a><a href="#__codelineno-5-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="kt">void</span><span class="w"> </span><span class="nf">acquire</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a><a href="#__codelineno-5-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">available</span><span class="p">);</span><span class="w"> </span><span class="c1">// busy wait</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a><a href="#__codelineno-5-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">    </span><span class="n">available</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a><a href="#__codelineno-5-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="p">}</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a><a href="#__codelineno-5-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="kt">void</span><span class="w"> </span><span class="nf">release</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a><a href="#__codelineno-5-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">    </span><span class="n">available</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8"></a><a href="#__codelineno-5-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="p">}</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9"></a><a href="#__codelineno-5-9"><span class="linenos" data-linenos=" 9 "></span></a>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10"></a><a href="#__codelineno-5-10"><span class="linenos" data-linenos="10 "></span></a><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11"></a><a href="#__codelineno-5-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">    </span><span class="n">acquire</span><span class="w"> </span><span class="n">lock</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12"></a><a href="#__codelineno-5-12"><span class="linenos" data-linenos="12 "></span></a><span class="w">    </span><span class="n">critical</span><span class="w"> </span><span class="n">section</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13"></a><a href="#__codelineno-5-13"><span class="linenos" data-linenos="13 "></span></a><span class="w">    </span><span class="n">release</span><span class="w"> </span><span class="n">lock</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14"></a><a href="#__codelineno-5-14"><span class="linenos" data-linenos="14 "></span></a><span class="w">    </span><span class="n">remainder</span><span class="w"> </span><span class="n">section</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15"></a><a href="#__codelineno-5-15"><span class="linenos" data-linenos="15 "></span></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition wiki">
+<p class="admonition-title"><a href="https://en.wikipedia.org/wiki/Busy_waiting">busy waiting</a></p>
+<p>In computer science and software engineering, <strong>busy-waiting, busy-looping or spinning</strong> is a technique in which a process repeatedly checks to see if a condition is true, such as whether keyboard input or a lock is available. Spinning can also be used to generate an arbitrary time delay, a technique that was necessary on systems that lacked a method of waiting a specific length of time. Processor speeds vary greatly from computer to computer, especially as some processors are designed to dynamically adjust speed based on current workload.[1] Consequently, spinning as a time-delay technique can produce inconsistent or even unpredictable results on different systems unless code is included to determine the time a processor takes to execute a "do nothing" loop, or the looping code explicitly checks a real-time clock.</p>
+</div>
+<p>This solution requires busy waiting; so called a <strong>spinlock</strong> . In certain circumstances on multicore systems, spinlocks are in fact the preferable choice for locking.</p>
+<p>What if we have N threads?
+- N-1 threads loops in all their CPU time
+- A huge <strong>waste of CPU time and power</strong></p>
+<p>To avoid wasting, it can just yield:</p>
+<div class="highlight"><span class="filename">yield_CPU.c</span><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><a href="#__codelineno-6-1"><span class="linenos" data-linenos="1 "></span></a><span class="kt">bool</span><span class="w"> </span><span class="n">flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a><a href="#__codelineno-6-2"><span class="linenos" data-linenos="2 "></span></a><span class="kt">void</span><span class="w"> </span><span class="nf">lock</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a><a href="#__codelineno-6-3"><span class="linenos" data-linenos="3 "></span></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">test_and_set</span><span class="p">(</span><span class="o">&amp;</span><span class="n">flag</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4"></a><a href="#__codelineno-6-4"><span class="linenos" data-linenos="4 "></span></a><span class="w">        </span><span class="n">yield</span><span class="p">();</span><span class="w"> </span><span class="c1">// give up the cpu</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5"></a><a href="#__codelineno-6-5"><span class="linenos" data-linenos="5 "></span></a><span class="p">}</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6"></a><a href="#__codelineno-6-6"><span class="linenos" data-linenos="6 "></span></a><span class="kt">void</span><span class="w"> </span><span class="nf">unlock</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7"></a><a href="#__codelineno-6-7"><span class="linenos" data-linenos="7 "></span></a><span class="w">    </span><span class="n">flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8"></a><a href="#__codelineno-6-8"><span class="linenos" data-linenos="8 "></span></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="II5-Semaphore">II.5 Semaphore<a class="headerlink" href="#II5-Semaphore" title="Permanent link">¶</a></h3>
+<div class="highlight"><span class="filename">semaphore_simple.c</span><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a><a href="#__codelineno-7-1"><span class="linenos" data-linenos="1 "></span></a><span class="kt">void</span><span class="w"> </span><span class="nf">wait</span><span class="p">(</span><span class="n">S</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a><a href="#__codelineno-7-2"><span class="linenos" data-linenos="2 "></span></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">S</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// busy wait</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a><a href="#__codelineno-7-3"><span class="linenos" data-linenos="3 "></span></a><span class="w">    </span><span class="n">S</span><span class="o">--</span><span class="p">;</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a><a href="#__codelineno-7-4"><span class="linenos" data-linenos="4 "></span></a><span class="p">}</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5"></a><a href="#__codelineno-7-5"><span class="linenos" data-linenos="5 "></span></a><span class="kt">void</span><span class="w"> </span><span class="nf">signal</span><span class="p">(</span><span class="n">S</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6"></a><a href="#__codelineno-7-6"><span class="linenos" data-linenos="6 "></span></a><span class="w">    </span><span class="n">S</span><span class="o">++</span><span class="p">;</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7"></a><a href="#__codelineno-7-7"><span class="linenos" data-linenos="7 "></span></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li>semaphore stands for how many resources we can use.</li>
+<li><strong>Counting semaphore</strong> – integer value can range over an unrestricted domain</li>
+<li><strong>Binary semaphore</strong> – integer value can range only between 0 and 1<ul>
+<li>Same as a mutex lock</li>
+</ul>
+</li>
+</ul>
+<h4 id="II51-Semaphore-w-waiting-queue">II.5.1 Semaphore w/ waiting queue:<a class="headerlink" href="#II51-Semaphore-w-waiting-queue" title="Permanent link">¶</a></h4>
+<blockquote>
+<p><code>w/</code> 是 <code>with</code> 的意思</p>
+</blockquote>
+<div class="highlight"><span class="filename">semaphore_wq.c</span><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a><a href="#__codelineno-8-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a><a href="#__codelineno-8-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a><a href="#__codelineno-8-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">list_head</span><span class="o">*</span><span class="w"> </span><span class="n">wating_queue</span><span class="p">;</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4"></a><a href="#__codelineno-8-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="p">}</span><span class="w"> </span><span class="n">semaphore</span><span class="p">;</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5"></a><a href="#__codelineno-8-5"><span class="linenos" data-linenos=" 5 "></span></a>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6"></a><a href="#__codelineno-8-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="kt">void</span><span class="w"> </span><span class="nf">wait</span><span class="p">(</span><span class="n">semaphore</span><span class="o">*</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7"></a><a href="#__codelineno-8-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">    </span><span class="n">s</span><span class="o">-&gt;</span><span class="n">value</span><span class="o">--</span><span class="p">;</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8"></a><a href="#__codelineno-8-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">value</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9"></a><a href="#__codelineno-8-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">        </span><span class="c1">// add this process to s-&gt;waiting_queue</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10"></a><a href="#__codelineno-8-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">        </span><span class="n">block</span><span class="p">();</span><span class="w"> </span><span class="c1">//place the process invoking the operation on the appropriate waiting queue</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11"></a><a href="#__codelineno-8-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12"></a><a href="#__codelineno-8-12"><span class="linenos" data-linenos="12 "></span></a><span class="p">};</span>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13"></a><a href="#__codelineno-8-13"><span class="linenos" data-linenos="13 "></span></a><span class="kt">void</span><span class="w"> </span><span class="nf">signal</span><span class="p">(</span><span class="n">semaphore</span><span class="o">*</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14"></a><a href="#__codelineno-8-14"><span class="linenos" data-linenos="14 "></span></a><span class="w">    </span><span class="n">s</span><span class="o">-&gt;</span><span class="n">value</span><span class="o">++</span><span class="p">;</span>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15"></a><a href="#__codelineno-8-15"><span class="linenos" data-linenos="15 "></span></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">value</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16"></a><a href="#__codelineno-8-16"><span class="linenos" data-linenos="16 "></span></a><span class="w">        </span><span class="c1">// reomve a process P from s-&gt;waiting_queue</span>
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17"></a><a href="#__codelineno-8-17"><span class="linenos" data-linenos="17 "></span></a><span class="w">        </span><span class="n">wakeup</span><span class="p">(</span><span class="n">P</span><span class="p">);</span><span class="w"> </span><span class="c1">// remove one of processes in the waiting queue and place it in the ready queue</span>
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18"></a><a href="#__codelineno-8-18"><span class="linenos" data-linenos="18 "></span></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19"></a><a href="#__codelineno-8-19"><span class="linenos" data-linenos="19 "></span></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Busy waiting changes:</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/6_Synchronization-1.png"><img alt="" src="../attachments/6_Synchronization-1.png"/></a></p>
+<div class="highlight"><span class="filename">semaphore_wq in practice</span><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a><a href="#__codelineno-9-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">__lock_t</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a><a href="#__codelineno-9-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">flag</span><span class="p">;</span><span class="w">  </span><span class="c1">// 0 means not locked</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3"></a><a href="#__codelineno-9-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">guard</span><span class="p">;</span><span class="w"> </span><span class="c1">// 0 means not available to flag</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4"></a><a href="#__codelineno-9-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">    </span><span class="n">queue_t</span><span class="o">*</span><span class="w"> </span><span class="n">q</span><span class="p">;</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5"></a><a href="#__codelineno-9-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="p">}</span><span class="w"> </span><span class="n">lock_t</span><span class="p">;</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6"></a><a href="#__codelineno-9-6"><span class="linenos" data-linenos=" 6 "></span></a>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7"></a><a href="#__codelineno-9-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="kt">void</span><span class="w"> </span><span class="nf">lock_init</span><span class="p">(</span><span class="n">lock_t</span><span class="o">*</span><span class="w"> </span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8"></a><a href="#__codelineno-9-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">    </span><span class="n">m</span><span class="o">-&gt;</span><span class="n">flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9"></a><a href="#__codelineno-9-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">    </span><span class="n">m</span><span class="o">-&gt;</span><span class="n">guard</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10"></a><a href="#__codelineno-9-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">    </span><span class="n">queue_init</span><span class="p">(</span><span class="n">m</span><span class="o">-&gt;</span><span class="n">q</span><span class="p">);</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11"></a><a href="#__codelineno-9-11"><span class="linenos" data-linenos="11 "></span></a><span class="p">}</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12"></a><a href="#__codelineno-9-12"><span class="linenos" data-linenos="12 "></span></a>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13"></a><a href="#__codelineno-9-13"><span class="linenos" data-linenos="13 "></span></a><span class="kt">void</span><span class="w"> </span><span class="nf">lock</span><span class="p">(</span><span class="n">lock_t</span><span class="o">*</span><span class="w"> </span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14"></a><a href="#__codelineno-9-14"><span class="linenos" data-linenos="14 "></span></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">test_and_set</span><span class="p">(</span><span class="o">&amp;</span><span class="n">m</span><span class="o">-&gt;</span><span class="n">guard</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15"></a><a href="#__codelineno-9-15"><span class="linenos" data-linenos="15 "></span></a><span class="w">        </span><span class="p">;</span><span class="w"> </span><span class="c1">//acquire guard lock by spinning</span>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16"></a><a href="#__codelineno-9-16"><span class="linenos" data-linenos="16 "></span></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">m</span><span class="o">-&gt;</span><span class="n">flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17"></a><a href="#__codelineno-9-17"><span class="linenos" data-linenos="17 "></span></a><span class="w">        </span><span class="n">m</span><span class="o">-&gt;</span><span class="n">flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="c1">//lock is acquired</span>
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18"></a><a href="#__codelineno-9-18"><span class="linenos" data-linenos="18 "></span></a><span class="w">        </span><span class="n">m</span><span class="o">-&gt;</span><span class="n">guard</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19"></a><a href="#__codelineno-9-19"><span class="linenos" data-linenos="19 "></span></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20"></a><a href="#__codelineno-9-20"><span class="linenos" data-linenos="20 "></span></a><span class="w">        </span><span class="n">queue_add</span><span class="p">(</span><span class="n">m</span><span class="o">-&gt;</span><span class="n">q</span><span class="p">,</span><span class="w"> </span><span class="n">gettid</span><span class="p">());</span>
+</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21"></a><a href="#__codelineno-9-21"><span class="linenos" data-linenos="21 "></span></a><span class="w">        </span><span class="n">m</span><span class="o">-&gt;</span><span class="n">guard</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// </span>
+</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22"></a><a href="#__codelineno-9-22"><span class="linenos" data-linenos="22 "></span></a><span class="w">        </span><span class="n">park</span><span class="p">();</span><span class="w"> </span><span class="c1">// release the processor</span>
+</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23"></a><a href="#__codelineno-9-23"><span class="linenos" data-linenos="23 "></span></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24"></a><a href="#__codelineno-9-24"><span class="linenos" data-linenos="24 "></span></a><span class="p">}</span>
+</span><span id="__span-9-25"><a id="__codelineno-9-25" name="__codelineno-9-25"></a><a href="#__codelineno-9-25"><span class="linenos" data-linenos="25 "></span></a>
+</span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26"></a><a href="#__codelineno-9-26"><span class="linenos" data-linenos="26 "></span></a><span class="kt">void</span><span class="w"> </span><span class="nf">unlock</span><span class="p">(</span><span class="n">lock_t</span><span class="o">*</span><span class="w"> </span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27"></a><a href="#__codelineno-9-27"><span class="linenos" data-linenos="27 "></span></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">test_and_set</span><span class="p">(</span><span class="o">&amp;</span><span class="n">m</span><span class="o">-&gt;</span><span class="n">guard</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-9-28"><a id="__codelineno-9-28" name="__codelineno-9-28"></a><a href="#__codelineno-9-28"><span class="linenos" data-linenos="28 "></span></a><span class="w">        </span><span class="p">;</span><span class="w"> </span><span class="c1">//acquire guard lock by spinning</span>
+</span><span id="__span-9-29"><a id="__codelineno-9-29" name="__codelineno-9-29"></a><a href="#__codelineno-9-29"><span class="linenos" data-linenos="29 "></span></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">queue_empty</span><span class="p">(</span><span class="n">m</span><span class="o">-&gt;</span><span class="n">q</span><span class="p">))</span>
+</span><span id="__span-9-30"><a id="__codelineno-9-30" name="__codelineno-9-30"></a><a href="#__codelineno-9-30"><span class="linenos" data-linenos="30 "></span></a><span class="w">        </span><span class="n">m</span><span class="o">-&gt;</span><span class="n">flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-9-31"><a id="__codelineno-9-31" name="__codelineno-9-31"></a><a href="#__codelineno-9-31"><span class="linenos" data-linenos="31 "></span></a><span class="w">    </span><span class="k">else</span>
+</span><span id="__span-9-32"><a id="__codelineno-9-32" name="__codelineno-9-32"></a><a href="#__codelineno-9-32"><span class="linenos" data-linenos="32 "></span></a><span class="w">        </span><span class="n">wakeup</span><span class="p">(</span><span class="n">queue_remove</span><span class="p">(</span><span class="n">m</span><span class="o">-&gt;</span><span class="n">q</span><span class="p">));</span>
+</span><span id="__span-9-33"><a id="__codelineno-9-33" name="__codelineno-9-33"></a><a href="#__codelineno-9-33"><span class="linenos" data-linenos="33 "></span></a><span class="w">    </span><span class="n">m</span><span class="o">-&gt;</span><span class="n">guard</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-9-34"><a id="__codelineno-9-34" name="__codelineno-9-34"></a><a href="#__codelineno-9-34"><span class="linenos" data-linenos="34 "></span></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><span>m-&gt;guard<span class="heti-spacing"> </span></span>的作用是：保护<span><span class="heti-spacing"> </span>m-&gt;flag</span></li>
+<li><span>14-15<span class="heti-spacing"> </span></span>行的实现了：spinLock</li>
+<li>为什么不能够互换<span class="heti-skip"><span class="heti-spacing"> </span>21/22<span class="heti-spacing"> </span></span>行：执行到<span class="heti-skip"><span class="heti-spacing"> </span>21/22<span class="heti-spacing"> </span></span>行时，说明<span><span class="heti-spacing"> </span>guard = 1</span>；互换后执行到 <code>park()</code> 时，该线程将 “拿着<span class="heti-skip"><span class="heti-spacing"> </span>lock<span class="heti-spacing"> </span></span>去<span><span class="heti-spacing"> </span>sleep</span>”；<span>m-&gt;guard<span class="heti-spacing"> </span></span>永远为<span><span class="heti-spacing"> </span>1</span>，其他线程一旦进入 <code>lock()</code> 就无法跳出<span class="heti-skip"><span class="heti-spacing"> </span>14<span class="heti-spacing"> </span></span>行循环<heti-adjacent class="heti-adjacent-half">。</heti-adjacent>（课上记的，好像有点问题<heti-adjacent class="heti-adjacent-half">？</heti-adjacent>）</li>
+</ul>
+<h4 id="II52-mutex-vs-semaphore">II.5.2 mutex vs. semaphore<a class="headerlink" href="#II52-mutex-vs-semaphore" title="Permanent link">¶</a></h4>
+<ul>
+<li>mutex(spinLock)<ul>
+<li>pros: no blocking</li>
+<li>cons: waste CPU time on looping</li>
+<li>Good for <strong>short</strong> critical section.</li>
+</ul>
+</li>
+<li>semaphore<ul>
+<li>pros: no looping</li>
+<li>cons: context switch is time-consuming</li>
+<li>Good for <strong>long</strong> cirtical section</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>长和短是相对<span class="heti-skip"><span class="heti-spacing"> </span>context switch<span class="heti-spacing"> </span></span>的长度而言的。</p>
+</blockquote>
+<h4 id="II53-deadlock-and-starvation">II.5.3 deadlock and starvation<a class="headerlink" href="#II53-deadlock-and-starvation" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Deadlock</strong>: two or more processes are waiting indefinitely for an event that can be caused by only one of the waiting processes</li>
+<li><strong>Starvation</strong>: indefinite blocking; a process may never be removed from the semaphore’s waiting queue</li>
+</ul>
+<h4 id="II54-Priority-Inversion">II.5.4 Priority Inversion<a class="headerlink" href="#II54-Priority-Inversion" title="Permanent link">¶</a></h4>
+<p>a higher priority process is <strong>indirectly</strong> preempted by a lower priority task.</p>
+<h5 id="II541-example">II.5.4.1 example<a class="headerlink" href="#II541-example" title="Permanent link">¶</a></h5>
+<ul>
+<li>three processes, PL, PM, and PH with priority PL &lt; PM &lt; PH</li>
+<li>PL holds a lock that was requested by PH ➱ PH is blocked</li>
+<li>PM becomes ready and preempted the PL</li>
+<li>It effectively "inverts" the relative priorities of PM and PH</li>
+</ul>
+<h5 id="II542-solution">II.5.4.2 solution<a class="headerlink" href="#II542-solution" title="Permanent link">¶</a></h5>
+<p><strong>priority inheritance</strong>: temporary assign the highest priority of waiting process (PH) to the process holding the lock (PL)</p>
+<h3 id="II6-reader-writer-block-todo">II.6 reader-writer block (todo)<a class="headerlink" href="#II6-reader-writer-block-todo" title="Permanent link">¶</a></h3>
+<h2 id="III-Examples">III Examples<a class="headerlink" href="#III-Examples" title="Permanent link">¶</a></h2>
+<h3 id="III1-Bounded-Buffer-Problem">III.1 Bounded-Buffer Problem<a class="headerlink" href="#III1-Bounded-Buffer-Problem" title="Permanent link">¶</a></h3>
+<h4 id="III11-description">III.1.1 description<a class="headerlink" href="#III11-description" title="Permanent link">¶</a></h4>
+<ul>
+<li>Two processes, the producer and the consumer share n buffers<ul>
+<li>the producer generates data, puts it into the buffer</li>
+<li>the consumer consumes data by removing it from the buffer</li>
+</ul>
+</li>
+<li>The problem is to make sure:<ul>
+<li>the producer won’t try to add data into the buffer if it is full</li>
+<li>the consumer won’t try to remove data from an empty buffer</li>
+</ul>
+</li>
+<li>aka producer-consumer problem</li>
+</ul>
+<h4 id="III12-solution">III.1.2 solution<a class="headerlink" href="#III12-solution" title="Permanent link">¶</a></h4>
+<ul>
+<li>n buffers, each can hold one item</li>
+<li>semaphore mutex initialized to the value 1</li>
+<li>semaphore full-slots initialized to the value 0</li>
+<li>semaphore empty-slots initialized to the value N</li>
+</ul>
+<div class="highlight"><span class="filename">solution.c</span><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a><a href="#__codelineno-10-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="cm">/* The producer process: */</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2"></a><a href="#__codelineno-10-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="k">do</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3"></a><a href="#__codelineno-10-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="c1">//produce an item</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4"></a><a href="#__codelineno-10-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">    </span><span class="err">…</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5"></a><a href="#__codelineno-10-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">    </span><span class="n">wait</span><span class="p">(</span><span class="n">empty</span><span class="o">-</span><span class="n">slots</span><span class="p">);</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6"></a><a href="#__codelineno-10-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">    </span><span class="n">wait</span><span class="p">(</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7"></a><a href="#__codelineno-10-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">    </span><span class="c1">//add the item to the buffer</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8"></a><a href="#__codelineno-10-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">    </span><span class="err">…</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9"></a><a href="#__codelineno-10-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">    </span><span class="n">signal</span><span class="p">(</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10"></a><a href="#__codelineno-10-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">    </span><span class="n">signal</span><span class="p">(</span><span class="n">full</span><span class="o">-</span><span class="n">slots</span><span class="p">);</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11"></a><a href="#__codelineno-10-11"><span class="linenos" data-linenos="11 "></span></a><span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TRUE</span><span class="p">)</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12"></a><a href="#__codelineno-10-12"><span class="linenos" data-linenos="12 "></span></a>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13"></a><a href="#__codelineno-10-13"><span class="linenos" data-linenos="13 "></span></a><span class="cm">/* The consumer process: */</span>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14"></a><a href="#__codelineno-10-14"><span class="linenos" data-linenos="14 "></span></a><span class="k">do</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15"></a><a href="#__codelineno-10-15"><span class="linenos" data-linenos="15 "></span></a><span class="w">    </span><span class="n">wait</span><span class="p">(</span><span class="n">full</span><span class="o">-</span><span class="n">slots</span><span class="p">);</span>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16"></a><a href="#__codelineno-10-16"><span class="linenos" data-linenos="16 "></span></a><span class="w">    </span><span class="n">wait</span><span class="p">(</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17"></a><a href="#__codelineno-10-17"><span class="linenos" data-linenos="17 "></span></a><span class="w">    </span><span class="c1">//remove an item from buffer</span>
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18"></a><a href="#__codelineno-10-18"><span class="linenos" data-linenos="18 "></span></a><span class="w">    </span><span class="err">…</span>
+</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19"></a><a href="#__codelineno-10-19"><span class="linenos" data-linenos="19 "></span></a><span class="w">    </span><span class="n">signal</span><span class="p">(</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20"></a><a href="#__codelineno-10-20"><span class="linenos" data-linenos="20 "></span></a><span class="w">    </span><span class="n">signal</span><span class="p">(</span><span class="n">empty</span><span class="o">-</span><span class="n">slots</span><span class="p">);</span>
+</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21"></a><a href="#__codelineno-10-21"><span class="linenos" data-linenos="21 "></span></a><span class="w">    </span><span class="c1">//consume the item</span>
+</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22"></a><a href="#__codelineno-10-22"><span class="linenos" data-linenos="22 "></span></a><span class="w">    </span><span class="err">…</span>
+</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23"></a><a href="#__codelineno-10-23"><span class="linenos" data-linenos="23 "></span></a><span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TRUE</span><span class="p">);</span>
+</span></code></pre></div>
+<h3 id="III2-Readers-Writers-Problem">III.2 Readers-Writers Problem<a class="headerlink" href="#III2-Readers-Writers-Problem" title="Permanent link">¶</a></h3>
+<h4 id="III21-description">III.2.1 description<a class="headerlink" href="#III21-description" title="Permanent link">¶</a></h4>
+<p>• A data set is shared among a number of concurrent processes
+    • readers: only read the data set; they do not perform any updates
+    • writers: can both read and write
+• The readers-writers problem:
+    • allow multiple readers to read at the same time (shared access)
+    • only one single writer can access the shared data (exclusive access)</p>
+<h4 id="III22-solution">III.2.2 solution<a class="headerlink" href="#III22-solution" title="Permanent link">¶</a></h4>
+<p>• semaphore mutex initialized to 1
+• semaphore write initialized to 1
+• integer readcount initialized to 0</p>
+<div class="highlight"><span class="filename">solution.c</span><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a><a href="#__codelineno-11-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="cm">/* The writer process */</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2"></a><a href="#__codelineno-11-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="k">do</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3"></a><a href="#__codelineno-11-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="n">wait</span><span class="p">(</span><span class="n">write</span><span class="p">);</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4"></a><a href="#__codelineno-11-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">    </span><span class="c1">//write the shared data</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5"></a><a href="#__codelineno-11-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">    </span><span class="err">…</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6"></a><a href="#__codelineno-11-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">    </span><span class="n">signal</span><span class="p">(</span><span class="n">write</span><span class="p">);</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7"></a><a href="#__codelineno-11-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TRUE</span><span class="p">);</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8"></a><a href="#__codelineno-11-8"><span class="linenos" data-linenos=" 8 "></span></a>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9"></a><a href="#__codelineno-11-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="cm">/* The structure of a reader process */</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10"></a><a href="#__codelineno-11-10"><span class="linenos" data-linenos="10 "></span></a><span class="k">do</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11"></a><a href="#__codelineno-11-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">    </span><span class="n">wait</span><span class="p">(</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12"></a><a href="#__codelineno-11-12"><span class="linenos" data-linenos="12 "></span></a><span class="w">    </span><span class="n">readcount</span><span class="o">++</span><span class="p">;</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13"></a><a href="#__codelineno-11-13"><span class="linenos" data-linenos="13 "></span></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">readcount</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="c1">//first reader</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14"></a><a href="#__codelineno-11-14"><span class="linenos" data-linenos="14 "></span></a><span class="w">        </span><span class="n">wait</span><span class="p">(</span><span class="n">write</span><span class="p">);</span><span class="w">    </span><span class="c1">//block write</span>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15"></a><a href="#__codelineno-11-15"><span class="linenos" data-linenos="15 "></span></a><span class="w">    </span><span class="n">signal</span><span class="p">(</span><span class="n">mutex</span><span class="p">)</span>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16"></a><a href="#__codelineno-11-16"><span class="linenos" data-linenos="16 "></span></a><span class="w">    </span><span class="c1">//reading data</span>
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17"></a><a href="#__codelineno-11-17"><span class="linenos" data-linenos="17 "></span></a><span class="w">    </span><span class="err">…</span>
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18"></a><a href="#__codelineno-11-18"><span class="linenos" data-linenos="18 "></span></a><span class="w">    </span><span class="n">wait</span><span class="p">(</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19"></a><a href="#__codelineno-11-19"><span class="linenos" data-linenos="19 "></span></a><span class="w">    </span><span class="n">readcount</span><span class="o">--</span><span class="p">;</span>
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20"></a><a href="#__codelineno-11-20"><span class="linenos" data-linenos="20 "></span></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">readcount</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21"></a><a href="#__codelineno-11-21"><span class="linenos" data-linenos="21 "></span></a><span class="w">        </span><span class="n">signal</span><span class="p">(</span><span class="n">write</span><span class="p">);</span>
+</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22"></a><a href="#__codelineno-11-22"><span class="linenos" data-linenos="22 "></span></a><span class="w">    </span><span class="n">signal</span><span class="p">(</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-11-23"><a id="__codelineno-11-23" name="__codelineno-11-23"></a><a href="#__codelineno-11-23"><span class="linenos" data-linenos="23 "></span></a><span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TRUE</span><span class="p">);</span>
+</span></code></pre></div>
+<h3 id="III3-Dining-Philosophers-Problem-to-learn">III.3 Dining-Philosophers Problem (to learn)<a class="headerlink" href="#III3-Dining-Philosophers-Problem-to-learn" title="Permanent link">¶</a></h3>
+<h4 id="III31-description">III.3.1 description<a class="headerlink" href="#III31-description" title="Permanent link">¶</a></h4>
+<ul>
+<li>Philosophers spend their lives thinking and eating<ul>
+<li>They sit in a round table, but don’t interact with each other</li>
+</ul>
+</li>
+<li>They occasionally try to pick up 2 chopsticks (one at a time) to eat<ul>
+<li><strong>One chopstick between each adjacent two philosophers</strong></li>
+<li>Need both chopsticks to eat, then release both when done</li>
+</ul>
+</li>
+<li>Dining-philosopher problem represents multi-resource synchronization  </li>
+</ul>
+<h4 id="III32-solution">III.3.2 solution<a class="headerlink" href="#III32-solution" title="Permanent link">¶</a></h4>
+<p>Semaphore chopstick[5] initialized to 1.</p>
+<blockquote>
+<p>For more exercise: https://www.cs.cornell.edu/courses/cs414/2007sp/homework/hw2_soln.pdf</p>
+</blockquote>
+<h2 id="IV-Linux-Synchronization-Todo">IV Linux Synchronization (Todo)<a class="headerlink" href="#IV-Linux-Synchronization-Todo" title="Permanent link">¶</a></h2>
+<h2 id="V-Deadlock">V Deadlock<a class="headerlink" href="#V-Deadlock" title="Permanent link">¶</a></h2>
+<h3 id="V1-Deadlock-problem">V.1 Deadlock problem<a class="headerlink" href="#V1-Deadlock-problem" title="Permanent link">¶</a></h3>
+<details class="definition">
+<summary>Deadlock</summary>
+<p>a set of blocked processes each holding a resource and waiting to acquire a resource held by another process in the set</p>
+</details>
+<details class="wiki">
+<summary><a href="https://en.wikipedia.org/wiki/Deadlock_(computer_science)">deadlock_cs</a></summary>
+<p>In concurrent computing, deadlock is any situation in which <strong>no member of some group of entities can proceed</strong> because each waits for another member, including itself, to take action, such as sending a message or, more commonly, releasing a lock.</p>
+</details>
+<div class="highlight"><span class="filename">deadLock.c</span><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a><a href="#__codelineno-12-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="n">pthread_mutex_t</span><span class="w"> </span><span class="n">first_mutex</span><span class="p">;</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a><a href="#__codelineno-12-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="n">pthread_mutex_t</span><span class="w"> </span><span class="n">second_mutex</span><span class="p">;</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3"></a><a href="#__codelineno-12-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="kt">void</span><span class="w"> </span><span class="nf">deadLock_init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4"></a><a href="#__codelineno-12-4"><span class="linenos" data-linenos=" 4 "></span></a>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5"></a><a href="#__codelineno-12-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">    </span><span class="n">pthread_mutex_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">first_mutex</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6"></a><a href="#__codelineno-12-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">    </span><span class="n">pthread_mutex_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">second_mutex</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7"></a><a href="#__codelineno-12-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="p">}</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8"></a><a href="#__codelineno-12-8"><span class="linenos" data-linenos=" 8 "></span></a>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9"></a><a href="#__codelineno-12-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="nf">do_work_one</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10"></a><a href="#__codelineno-12-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">    </span><span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">first_mutex</span><span class="p">);</span>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11"></a><a href="#__codelineno-12-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">    </span><span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">second_mutex</span><span class="p">);</span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12"></a><a href="#__codelineno-12-12"><span class="linenos" data-linenos="12 "></span></a><span class="w">    </span><span class="c1">// do work</span>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13"></a><a href="#__codelineno-12-13"><span class="linenos" data-linenos="13 "></span></a><span class="w">    </span><span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">second_mutex</span><span class="p">);</span>
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14"></a><a href="#__codelineno-12-14"><span class="linenos" data-linenos="14 "></span></a><span class="w">    </span><span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">first_mutex</span><span class="p">);</span>
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15"></a><a href="#__codelineno-12-15"><span class="linenos" data-linenos="15 "></span></a><span class="w">    </span><span class="n">pthread_exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16"></a><a href="#__codelineno-12-16"><span class="linenos" data-linenos="16 "></span></a><span class="p">}</span>
+</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17"></a><a href="#__codelineno-12-17"><span class="linenos" data-linenos="17 "></span></a>
+</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18"></a><a href="#__codelineno-12-18"><span class="linenos" data-linenos="18 "></span></a><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="nf">do_work_two</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-12-19"><a id="__codelineno-12-19" name="__codelineno-12-19"></a><a href="#__codelineno-12-19"><span class="linenos" data-linenos="19 "></span></a><span class="w">    </span><span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">second_mutex</span><span class="p">);</span>
+</span><span id="__span-12-20"><a id="__codelineno-12-20" name="__codelineno-12-20"></a><a href="#__codelineno-12-20"><span class="linenos" data-linenos="20 "></span></a><span class="w">    </span><span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">first_mutex</span><span class="p">);</span>
+</span><span id="__span-12-21"><a id="__codelineno-12-21" name="__codelineno-12-21"></a><a href="#__codelineno-12-21"><span class="linenos" data-linenos="21 "></span></a><span class="w">    </span><span class="c1">// do work</span>
+</span><span id="__span-12-22"><a id="__codelineno-12-22" name="__codelineno-12-22"></a><a href="#__codelineno-12-22"><span class="linenos" data-linenos="22 "></span></a><span class="w">    </span><span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">first_mutex</span><span class="p">);</span>
+</span><span id="__span-12-23"><a id="__codelineno-12-23" name="__codelineno-12-23"></a><a href="#__codelineno-12-23"><span class="linenos" data-linenos="23 "></span></a><span class="w">    </span><span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">second_mutex</span><span class="p">);</span>
+</span><span id="__span-12-24"><a id="__codelineno-12-24" name="__codelineno-12-24"></a><a href="#__codelineno-12-24"><span class="linenos" data-linenos="24 "></span></a><span class="w">    </span><span class="n">pthread_exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span><span id="__span-12-25"><a id="__codelineno-12-25" name="__codelineno-12-25"></a><a href="#__codelineno-12-25"><span class="linenos" data-linenos="25 "></span></a><span class="p">}</span>
+</span></code></pre></div>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/6_Synchronization-2.png"><img alt="" src="../attachments/6_Synchronization-2.png"/></a></p>
+<h3 id="V2-System-model">V.2 System model<a class="headerlink" href="#V2-System-model" title="Permanent link">¶</a></h3>
+<h4 id="V21-Resource-Allocation-Graph">V.2.1 Resource-Allocation Graph<a class="headerlink" href="#V21-Resource-Allocation-Graph" title="Permanent link">¶</a></h4>
+<ul>
+<li>Two types of nodes:<ul>
+<li>P = {P1, P2, …, Pn}, the set of all the <strong>processes</strong> in the system</li>
+<li>R = {R1, R2, …, Rm}, the set of <strong>all resource types</strong> in the system</li>
+</ul>
+</li>
+<li>Two types of edges:<ul>
+<li><strong>Request edge</strong>: directed edge Pi ➞ Rj<ul>
+<li>Pi has requested an instance of resource type Rj and is currently waiting for that resource.</li>
+</ul>
+</li>
+<li><strong>Assignment edge</strong>: directed edge Rj ➞ Pi<ul>
+<li>An instance of resource type Rj has been allocated to thread Pi</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>legend <a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/6_Synchronization-3.png"><img alt="" src="../attachments/6_Synchronization-3.png"/></a></li>
+</ul>
+<details class="help">
+<summary>judge dead lock or not</summary>
+<ul>
+<li>
+<p>dead Lock <a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/6_Synchronization-4.png"><img alt="" src="../attachments/6_Synchronization-4.png"/></a></p>
+</li>
+<li>
+<p>no dead Lock <a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/6_Synchronization-5.png"><img alt="" src="../attachments/6_Synchronization-5.png"/></a></p>
+</li>
+</ul>
+<div class="admonition help">
+<p class="admonition-title">Help</p>
+<p>一个<span class="heti-skip"><span class="heti-spacing"> </span>resource<span class="heti-spacing"> </span></span>只要有一个<span class="heti-skip"><span class="heti-spacing"> </span>instance<span class="heti-spacing"> </span></span>是空闲的，就可以被分配。</p>
+</div>
+<div class="admonition summary">
+<p class="admonition-title">Summary</p>
+<ul>
+<li>
+<p>If graph contains no cycles ➠ no deadlock</p>
+</li>
+<li>
+<p>If graph contains a cycle </p>
+<ul>
+<li>If only one instance per resource type ➠ deadlock</li>
+<li>If several instances per resource type ➠ possibility of deadlock</li>
+</ul>
+</li>
+</ul>
+</div>
+</details>
+<h4 id="V22-Four-Conditions-of-Deadlock">V.2.2 Four Conditions of Deadlock<a class="headerlink" href="#V22-Four-Conditions-of-Deadlock" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Mutual exclusion</strong>: only one process at a time can use a resource</li>
+<li><strong>Hold and wait</strong>: a process holding at least one resource is waiting to acquire additional resources held by other processes</li>
+<li><strong>No preemption</strong>: a resource can be released only voluntarily by the process holding it, after it has completed its task</li>
+<li><strong>Circular wait</strong>: there exists a set of waiting processes {P0, P1, …, Pn}<ul>
+<li>P0 is waiting for a resource that is held by P1</li>
+<li>P1 is waiting for a resource that is held by P2 … </li>
+<li>Pn–1 is waiting for a resource that is held by Pn</li>
+<li>Pn is waiting for a resource that is held by P0</li>
+</ul>
+</li>
+</ul>
+<h3 id="V3-Handling-deadlocks">V.3 Handling deadlocks<a class="headerlink" href="#V3-Handling-deadlocks" title="Permanent link">¶</a></h3>
+<h4 id="V31-Deadlock-prevention">V.3.1 Deadlock prevention<a class="headerlink" href="#V31-Deadlock-prevention" title="Permanent link">¶</a></h4>
+<ul>
+<li>How to <strong>prevent mutual exclusion</strong><ul>
+<li>Not required for sharable resources</li>
+<li>Must hold for non-sharable resources</li>
+<li>In general, however, we cannot prevent deadlocks by denying the mutual-exclusion condition, because <u>some resources are intrinsically non-sharable.</u> </li>
+</ul>
+</li>
+<li>How to <strong>prevent hold and wait</strong><ul>
+<li>Whenever a process requests a resource, it doesn’t hold any other resources<ul>
+<li>Require process to request all its resources before it begins execution</li>
+<li>Allow process to request resources only when the process has none</li>
+</ul>
+</li>
+<li><u>Low resource utilization; starvation possible</u> </li>
+</ul>
+</li>
+<li>How to handle <strong>no preemption</strong><ul>
+<li>If a process requests a resource not available<ul>
+<li>All resources the process is currently holding are preempted (Preempted resources are added to the list of resources it waits for)</li>
+<li>Process will be restarted only when it can get all waiting resources</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>How to handle <strong>circular wait</strong><ul>
+<li>Impose a total ordering of all resource types (Require that each process requests resources in an increasing order)</li>
+<li>Many operating systems adopt this strategy for some locks.</li>
+<li>But fail to handle dynamic acquired lock.</li>
+</ul>
+</li>
+</ul>
+<h4 id="V32-Deadlock-avoidance">V.3.2 Deadlock avoidance<a class="headerlink" href="#V32-Deadlock-avoidance" title="Permanent link">¶</a></h4>
+<p><strong>Deadlock avoidance</strong>: require extra information about how resources are to be requested. (not practical)</p>
+<p>Resource-allocation state: 
+- The number of available and allocated resources
+- The maximum demands of the processes</p>
+<h5 id="V321-safe-state">V.3.2.1 safe state<a class="headerlink" href="#V321-safe-state" title="Permanent link">¶</a></h5>
+<ul>
+<li>There exists a sequence <p1, p2,="" pn="" …,=""> of all processes in the system</p1,></li>
+<li>For each Pi, resources that Pi can still request can be satisfied by <strong>currently available resources + resources held by all the Pj</strong> (j &lt; i)</li>
+<li>Safe state can guarantee no deadlock <a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/6_Synchronization-6.png"><img alt="" src="../attachments/6_Synchronization-6.png"/></a></li>
+</ul>
+<details class="help">
+<summary>judge safe or not</summary>
+<ul>
+<li>下图的上半部分的情况是<span class="heti-skip"><span class="heti-spacing"> </span>safe<span class="heti-spacing"> </span></span>的，因为<span class="heti-skip"><span class="heti-spacing"> </span>Available<span class="heti-spacing"> </span></span>资源足够执行<span><span class="heti-spacing"> </span>P1</span>，<span>P1<span class="heti-spacing"> </span></span>释放后可以执行<span><span class="heti-spacing"> </span>P0 -&gt; P2</span></li>
+</ul>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/6_Synchronization-7.png"><img alt="" src="../attachments/6_Synchronization-7.png"/></a></p>
+<ul>
+<li>上图下半部分的情况是<span class="heti-skip"><span class="heti-spacing"> </span>unsafe<span class="heti-spacing"> </span></span>的，因为执行<span class="heti-skip"><span class="heti-spacing"> </span>P1<span class="heti-spacing"> </span></span>后不足以执行<span><span class="heti-spacing"> </span>P0</span>。</li>
+</ul>
+</details>
+<h5 id="V322-Bankers-algorithm">V.3.2.2 Banker's algorithm<a class="headerlink" href="#V322-Bankers-algorithm" title="Permanent link">¶</a></h5>
+<ul>
+<li>Single instance of each resource type ➠ use <strong>resource-allocation graph</strong> (if cycle)</li>
+<li>
+<p>Multiple instances of a resource type ➠ use the <strong>banker’s algorithm</strong></p>
+</li>
+<li>
+<p>Banker’s algorithm is for <strong>multiple-instance resource deadlock avoidance</strong></p>
+<ul>
+<li>Each process must claim maximum use of each resource type in advance</li>
+<li>When a process requests a resource it may have to wait</li>
+<li>When a process gets all its resources it must release them in a finite amount of time</li>
+</ul>
+</li>
+<li>
+<p><strong>n processes, m types of resources</strong></p>
+<ul>
+<li>available: an array of length m, instances of available resource<ul>
+<li>available[j] = k: k instances of resource type Rj available</li>
+</ul>
+</li>
+<li>max: <code>n*m</code> matrix<ul>
+<li>max [i,j] = k: process Pi may request at most k instances of resource Rj</li>
+</ul>
+</li>
+<li>allocation: <code>n*m</code> matrix <ul>
+<li>allocation[i,j] = k: Pi is currently allocated k instances of Rj</li>
+</ul>
+</li>
+<li>need: <code>n*m</code> matrix<ul>
+<li>need[i,j] = k: Pi may need k more instances of Rj to complete its task</li>
+<li>need [i,j] = max[i,j] – allocation [i,j]</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<details class="example">
+<summary>Example</summary>
+<p>题目本身只会给我们<span class="heti-skip"><span class="heti-spacing"> </span>system state<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>allocation, max<span class="heti-spacing"> </span></span>向量<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>矩阵。 </p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/6_Synchronization-8.png"><img alt="" src="../attachments/6_Synchronization-8.png"/></a></p>
+<p>我们需要做的也很简单：</p>
+<ol>
+<li>计算<span class="heti-skip"><span class="heti-spacing"> </span>need<span class="heti-spacing"> </span></span>矩阵和<span class="heti-skip"><span class="heti-spacing"> </span>available<span class="heti-spacing"> </span></span>向量。</li>
+<li>观察<span class="heti-skip"><span class="heti-spacing"> </span>available<span class="heti-spacing"> </span></span>向量能否满足某一个进程<span class="heti-skip"><span class="heti-spacing"> </span>Pi<span class="heti-spacing"> </span></span>对应的<span class="heti-skip"><span class="heti-spacing"> </span>need<span class="heti-spacing"> </span></span>向量（在上面的例子中，<span>P3<span class="heti-spacing"> </span></span>可以都满足<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，执行下一步；如果都不能，则处于<span><span class="heti-spacing"> </span>unsafe state</span>，结束。</li>
+<li>将<span class="heti-skip"><span class="heti-spacing"> </span>Pi<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>allocation<span class="heti-spacing"> </span></span>向量加到<span class="heti-skip"><span class="heti-spacing"> </span>available<span class="heti-spacing"> </span></span>上，并将其排除出矩阵；再次执行步骤<span><span class="heti-spacing"> </span>2</span>，直到<span class="heti-skip"><span class="heti-spacing"> </span>need<span class="heti-spacing"> </span></span>为空。</li>
+</ol>
+<p>https://www.cs.cornell.edu/courses/cs414/2007sp/homework/hw2_soln.pdf
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/6_Synchronization-11.png"><img alt="" src="../attachments/6_Synchronization-11.png"/></a></p>
+</details>
+<h4 id="V33-Deadlock-detection">V.3.3 Deadlock detection<a class="headerlink" href="#V33-Deadlock-detection" title="Permanent link">¶</a></h4>
+<h5 id="V331-Single-Instance-Resources-Wait-for-Graph">V.3.3.1 Single Instance Resources (Wait-for Graph)<a class="headerlink" href="#V331-Single-Instance-Resources-Wait-for-Graph" title="Permanent link">¶</a></h5>
+<p>find a cycle:</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/6_Synchronization-9.png"><img alt="" src="../attachments/6_Synchronization-9.png"/></a></p>
+<h5 id="V332-Multi-instance-Resources">V.3.3.2 Multi-instance Resources<a class="headerlink" href="#V332-Multi-instance-Resources" title="Permanent link">¶</a></h5>
+<p>Just like Banker's algorithm.</p>
+<h4 id="V34-Deadlock-recovery">V.3.4 Deadlock recovery<a class="headerlink" href="#V34-Deadlock-recovery" title="Permanent link">¶</a></h4>
+<ul>
+<li>Terminate deadlocked processes. options:<ul>
+<li>Abort all deadlocked processes</li>
+<li>Abort one process at a time until the deadlock cycle is eliminated</li>
+</ul>
+</li>
+<li>Resource preemption<ul>
+<li>Select a victim</li>
+<li>Rollback</li>
+<li>Starvation</li>
+</ul>
+</li>
+</ul>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月31日 13:35:16 CST">2025年3月31日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年2月15日 20:55:58 CST">2025年2月15日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: 5 IPC" class="md-footer__link md-footer__link--prev" href="../5_IPC/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                5 IPC
+              </div>
+</div>
+</a>
+<a aria-label="下一页: PBFX" class="md-footer__link md-footer__link--next" href="../PBFX/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                PBFX
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

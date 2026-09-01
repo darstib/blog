@@ -1,0 +1,2573 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/note/DMA/appendix-grad/" rel="canonical"/>
+<link href="../appendix-UML/" rel="prev"/>
+<link href="../appendix-martirx_derivation/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>Appendix grad - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#介绍-page-2">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Appendix grad
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Note
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs188/">
+<span class="md-ellipsis">
+    
+  
+    cs188
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../physics/">
+<span class="md-ellipsis">
+    
+  
+    physics
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-II/">
+<span class="md-ellipsis">
+    
+  
+    CSys-II
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-III/">
+<span class="md-ellipsis">
+    
+  
+    CSys-III
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DEM/">
+<span class="md-ellipsis">
+    
+  
+    DEM
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3_7" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    DMA
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_7_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    DMA
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../01-Intro/">
+<span class="md-ellipsis">
+    
+  
+    01 Intro
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../02-Perceptron/">
+<span class="md-ellipsis">
+    
+  
+    02 Perceptron
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../03-KNN/">
+<span class="md-ellipsis">
+    
+  
+    03 KNN
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../04-Naive_Bayes/">
+<span class="md-ellipsis">
+    
+  
+    04 Naive Bayes
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../05-Decision_Tree/">
+<span class="md-ellipsis">
+    
+  
+    05 Decision Tree
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../06-logistic/">
+<span class="md-ellipsis">
+    
+  
+    06 logistic
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../07-SVM/">
+<span class="md-ellipsis">
+    
+  
+    07 SVM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../08-Adaboost/">
+<span class="md-ellipsis">
+    
+  
+    08 Adaboost
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../09-Expect_Max/">
+<span class="md-ellipsis">
+    
+  
+    09 Expect Max
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../14-Cluster_Methods/">
+<span class="md-ellipsis">
+    
+  
+    14 Cluster Methods
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../15-SVD/">
+<span class="md-ellipsis">
+    
+  
+    15 SVD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../16-PCA/">
+<span class="md-ellipsis">
+    
+  
+    16 PCA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../19-MCMC/">
+<span class="md-ellipsis">
+    
+  
+    19 MCMC
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../21-PageRank/">
+<span class="md-ellipsis">
+    
+  
+    21 PageRank
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../appendix-UML/">
+<span class="md-ellipsis">
+    
+  
+    appendix UML
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    Appendix grad
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    Appendix grad
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#介绍-page-2">
+<span class="md-ellipsis">
+      
+        介绍 (page 2)
+      
+    </span>
+</a>
+<nav aria-label="介绍 (page 2)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#大规模机器学习与优化-page-3-5">
+<span class="md-ellipsis">
+      
+        大规模机器学习与优化 (page 3-5)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#函数的分类-page-2">
+<span class="md-ellipsis">
+      
+        函数的分类 (page 2)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#监督学习与经验风险最小化-page-8-14-17">
+<span class="md-ellipsis">
+      
+        监督学习与经验风险最小化 (page 8, 14-17)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#一般假设-page-18">
+<span class="md-ellipsis">
+      
+        一般假设 (page 18)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#凸性-page-19-25">
+<span class="md-ellipsis">
+      
+        凸性 (page 19-25)
+      
+    </span>
+</a>
+<nav aria-label="凸性 (page 19-25)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#全局定义-page-20">
+<span class="md-ellipsis">
+      
+        全局定义 (page 20)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#次梯度与次微分-Subgradients-and-Subdifferentials-page-22">
+<span class="md-ellipsis">
+      
+        次梯度与次微分 (Subgradients and Subdifferentials) (page 22)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#局部定义-page-23">
+<span class="md-ellipsis">
+      
+        局部定义 (page 23)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#凸性的重要性-page-24-25">
+<span class="md-ellipsis">
+      
+        凸性的重要性 (page 24-25)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Lipschitz-连续性-page-26">
+<span class="md-ellipsis">
+      
+        Lipschitz 连续性 (page 26)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#光滑性与强凸性-Smoothness-and-Strong-Convexity-page-27-31">
+<span class="md-ellipsis">
+      
+        光滑性与强凸性 (Smoothness and Strong Convexity) (page 27-31)
+      
+    </span>
+</a>
+<nav aria-label="光滑性与强凸性 (Smoothness and Strong Convexity) (page 27-31)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#光滑性-Smoothness-page-27-28">
+<span class="md-ellipsis">
+      
+        光滑性 (Smoothness) (page 27-28)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#强凸性-Strong-Convexity-page-29-31">
+<span class="md-ellipsis">
+      
+        强凸性 (Strong Convexity) (page 29-31)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#平滑性凸性假设总结-page-32">
+<span class="md-ellipsis">
+      
+        平滑性/凸性假设总结 (page 32)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#经验风险最小化分析-page-33-36">
+<span class="md-ellipsis">
+      
+        经验风险最小化分析 (page 33-36)
+      
+    </span>
+</a>
+<nav aria-label="经验风险最小化分析 (page 33-36)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#均匀偏差界-Uniform-Deviation-Bounds-page-34-36">
+<span class="md-ellipsis">
+      
+        均匀偏差界 (Uniform Deviation Bounds) (page 34-36)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#慢速率Lipschitz-函数与快速率强凸函数-page-38-40">
+<span class="md-ellipsis">
+      
+        慢速率（Lipschitz 函数）与快速率（强凸函数） (page 38-40)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#凸优化经典方法-page-41-42">
+<span class="md-ellipsis">
+      
+        凸优化经典方法 (page 41-42)
+      
+    </span>
+</a>
+<nav aria-label="凸优化经典方法 (page 41-42)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#光滑-梯度下降-Smooth-Gradient-Descent-page-43-47">
+<span class="md-ellipsis">
+      
+        (光滑) 梯度下降 (Smooth Gradient Descent) (page 43-47)
+      
+    </span>
+</a>
+<nav aria-label="(光滑) 梯度下降 (Smooth Gradient Descent) (page 43-47)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#强凸情况下的梯度下降-Strong-Convexity-page-44-46">
+<span class="md-ellipsis">
+      
+        强凸情况下的梯度下降 (Strong Convexity) (page 44, 46)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#一般凸情况下的梯度下降-Slow-Rate-page-45-47">
+<span class="md-ellipsis">
+      
+        一般凸情况下的梯度下降 (Slow Rate) (page 45, 47)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#梯度下降用于二次函数-Proof-for-Quadratic-Functions-page-46-47">
+<span class="md-ellipsis">
+      
+        梯度下降用于二次函数 (Proof for Quadratic Functions) (page 46-47)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#光滑凸函数的性质-Properties-of-Smooth-Convex-Functions-page-48">
+<span class="md-ellipsis">
+      
+        光滑凸函数的性质 (Properties of Smooth Convex Functions) (page 48)
+      
+    </span>
+</a>
+<nav aria-label="光滑凸函数的性质 (Properties of Smooth Convex Functions) (page 48)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Polyak-Lojasiewicz-不等式-page-50">
+<span class="md-ellipsis">
+      
+        Polyak-Lojasiewicz 不等式 (page 50)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#加速梯度方法-Accelerated-Gradient-Methods-page-54-55">
+<span class="md-ellipsis">
+      
+        加速梯度方法 (Accelerated Gradient Methods) (page 54-55)
+      
+    </span>
+</a>
+<nav aria-label="加速梯度方法 (Accelerated Gradient Methods) (page 54-55)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#强凸情况下的加速梯度方法-page-55">
+<span class="md-ellipsis">
+      
+        强凸情况下的加速梯度方法 (page 55)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#投影梯度下降-Projected-Gradient-Descent-page-56">
+<span class="md-ellipsis">
+      
+        投影梯度下降 (Projected Gradient Descent) (page 56)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#牛顿法-Newton-Method-page-57">
+<span class="md-ellipsis">
+      
+        牛顿法 (Newton Method) (page 57)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#光滑凸函数最小化总结-Summary-Minimizing-Smooth-Convex-Functions-page-58-59">
+<span class="md-ellipsis">
+      
+        光滑凸函数最小化总结 (Summary: Minimizing Smooth Convex Functions) (page 58-59)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#次梯度法下降-Subgradient-MethodDescent-Shor-et-al-1985-page-60-64">
+<span class="md-ellipsis">
+      
+        次梯度法/"下降" (Subgradient Method/"Descent") (Shor et al., 1985) (page 60-64)
+      
+    </span>
+</a>
+<nav aria-label='次梯度法/"下降" (Subgradient Method/"Descent") (Shor et al., 1985) (page 60-64)' class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#次梯度法用于机器学习-Subgradient-Descent-for-Machine-Learning-page-65">
+<span class="md-ellipsis">
+      
+        次梯度法用于机器学习 (Subgradient Descent for Machine Learning) (page 65)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#强凸情况下的次梯度下降-Strong-Convexity-page-66-68">
+<span class="md-ellipsis">
+      
+        强凸情况下的次梯度下降 (Strong Convexity) (page 66-68)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#凸函数最小化总结-Summary-Minimizing-Convex-Functions-page-69">
+<span class="md-ellipsis">
+      
+        凸函数最小化总结 (Summary: Minimizing Convex Functions) (page 69)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#关键见解-Key-Insights-from-Bottou-and-Bousquet-2008-page-70">
+<span class="md-ellipsis">
+      
+        关键见解 (Key Insights from Bottou and Bousquet (2008)) (page 70)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#非光滑随机逼近-Non-smooth-Stochastic-Approximation-page-72-78">
+<span class="md-ellipsis">
+      
+        非光滑随机逼近 (Non-smooth Stochastic Approximation) (page 72-78)
+      
+    </span>
+</a>
+<nav aria-label="非光滑随机逼近 (Non-smooth Stochastic Approximation) (page 72-78)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#目标-Goal-page-73">
+<span class="md-ellipsis">
+      
+        目标 (Goal) (page 73)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#机器学习与统计-Machine-Learning---Statistics-page-74">
+<span class="md-ellipsis">
+      
+        机器学习与统计 (Machine Learning - Statistics) (page 74)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#随机逼近的适用性-Stochastic-Approximation-page-75">
+<span class="md-ellipsis">
+      
+        随机逼近的适用性 (Stochastic Approximation) (page 75)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#与在线学习的关系-Relationship-to-Online-Learning-page-76-78">
+<span class="md-ellipsis">
+      
+        与在线学习的关系 (Relationship to Online Learning) (page 76-78)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#凸随机逼近-Convex-Stochastic-Approximation-page-79-81">
+<span class="md-ellipsis">
+      
+        凸随机逼近 (Convex Stochastic Approximation) (page 79-81)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#随机次梯度下降-Stochastic-Subgradient-Method-page-82-85">
+<span class="md-ellipsis">
+      
+        随机次梯度下降 (Stochastic Subgradient Method) (page 82-85)
+      
+    </span>
+</a>
+<nav aria-label="随机次梯度下降 (Stochastic Subgradient Method) (page 82-85)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#强凸情况下的随机次梯度下降-Strong-Convexity-page-89-91">
+<span class="md-ellipsis">
+      
+        强凸情况下的随机次梯度下降 (Strong Convexity) (page 89-91)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#高概率界-High-Probability-Bounds-page-96-100">
+<span class="md-ellipsis">
+      
+        高概率界 (High-Probability Bounds) (page 96-100)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#收敛速率总结-Summary-of-Rates-of-Convergence-page-71-101">
+<span class="md-ellipsis">
+      
+        收敛速率总结 (Summary of Rates of Convergence) (page 71, 101)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../appendix-martirx_derivation/">
+<span class="md-ellipsis">
+    
+  
+    矩阵求导术（上/下）
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs70/">
+<span class="md-ellipsis">
+    
+  
+    cs70
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../other/">
+<span class="md-ellipsis">
+    
+  
+    other
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#介绍-page-2">
+<span class="md-ellipsis">
+      
+        介绍 (page 2)
+      
+    </span>
+</a>
+<nav aria-label="介绍 (page 2)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#大规模机器学习与优化-page-3-5">
+<span class="md-ellipsis">
+      
+        大规模机器学习与优化 (page 3-5)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#函数的分类-page-2">
+<span class="md-ellipsis">
+      
+        函数的分类 (page 2)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#监督学习与经验风险最小化-page-8-14-17">
+<span class="md-ellipsis">
+      
+        监督学习与经验风险最小化 (page 8, 14-17)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#一般假设-page-18">
+<span class="md-ellipsis">
+      
+        一般假设 (page 18)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#凸性-page-19-25">
+<span class="md-ellipsis">
+      
+        凸性 (page 19-25)
+      
+    </span>
+</a>
+<nav aria-label="凸性 (page 19-25)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#全局定义-page-20">
+<span class="md-ellipsis">
+      
+        全局定义 (page 20)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#次梯度与次微分-Subgradients-and-Subdifferentials-page-22">
+<span class="md-ellipsis">
+      
+        次梯度与次微分 (Subgradients and Subdifferentials) (page 22)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#局部定义-page-23">
+<span class="md-ellipsis">
+      
+        局部定义 (page 23)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#凸性的重要性-page-24-25">
+<span class="md-ellipsis">
+      
+        凸性的重要性 (page 24-25)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Lipschitz-连续性-page-26">
+<span class="md-ellipsis">
+      
+        Lipschitz 连续性 (page 26)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#光滑性与强凸性-Smoothness-and-Strong-Convexity-page-27-31">
+<span class="md-ellipsis">
+      
+        光滑性与强凸性 (Smoothness and Strong Convexity) (page 27-31)
+      
+    </span>
+</a>
+<nav aria-label="光滑性与强凸性 (Smoothness and Strong Convexity) (page 27-31)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#光滑性-Smoothness-page-27-28">
+<span class="md-ellipsis">
+      
+        光滑性 (Smoothness) (page 27-28)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#强凸性-Strong-Convexity-page-29-31">
+<span class="md-ellipsis">
+      
+        强凸性 (Strong Convexity) (page 29-31)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#平滑性凸性假设总结-page-32">
+<span class="md-ellipsis">
+      
+        平滑性/凸性假设总结 (page 32)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#经验风险最小化分析-page-33-36">
+<span class="md-ellipsis">
+      
+        经验风险最小化分析 (page 33-36)
+      
+    </span>
+</a>
+<nav aria-label="经验风险最小化分析 (page 33-36)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#均匀偏差界-Uniform-Deviation-Bounds-page-34-36">
+<span class="md-ellipsis">
+      
+        均匀偏差界 (Uniform Deviation Bounds) (page 34-36)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#慢速率Lipschitz-函数与快速率强凸函数-page-38-40">
+<span class="md-ellipsis">
+      
+        慢速率（Lipschitz 函数）与快速率（强凸函数） (page 38-40)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#凸优化经典方法-page-41-42">
+<span class="md-ellipsis">
+      
+        凸优化经典方法 (page 41-42)
+      
+    </span>
+</a>
+<nav aria-label="凸优化经典方法 (page 41-42)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#光滑-梯度下降-Smooth-Gradient-Descent-page-43-47">
+<span class="md-ellipsis">
+      
+        (光滑) 梯度下降 (Smooth Gradient Descent) (page 43-47)
+      
+    </span>
+</a>
+<nav aria-label="(光滑) 梯度下降 (Smooth Gradient Descent) (page 43-47)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#强凸情况下的梯度下降-Strong-Convexity-page-44-46">
+<span class="md-ellipsis">
+      
+        强凸情况下的梯度下降 (Strong Convexity) (page 44, 46)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#一般凸情况下的梯度下降-Slow-Rate-page-45-47">
+<span class="md-ellipsis">
+      
+        一般凸情况下的梯度下降 (Slow Rate) (page 45, 47)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#梯度下降用于二次函数-Proof-for-Quadratic-Functions-page-46-47">
+<span class="md-ellipsis">
+      
+        梯度下降用于二次函数 (Proof for Quadratic Functions) (page 46-47)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#光滑凸函数的性质-Properties-of-Smooth-Convex-Functions-page-48">
+<span class="md-ellipsis">
+      
+        光滑凸函数的性质 (Properties of Smooth Convex Functions) (page 48)
+      
+    </span>
+</a>
+<nav aria-label="光滑凸函数的性质 (Properties of Smooth Convex Functions) (page 48)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Polyak-Lojasiewicz-不等式-page-50">
+<span class="md-ellipsis">
+      
+        Polyak-Lojasiewicz 不等式 (page 50)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#加速梯度方法-Accelerated-Gradient-Methods-page-54-55">
+<span class="md-ellipsis">
+      
+        加速梯度方法 (Accelerated Gradient Methods) (page 54-55)
+      
+    </span>
+</a>
+<nav aria-label="加速梯度方法 (Accelerated Gradient Methods) (page 54-55)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#强凸情况下的加速梯度方法-page-55">
+<span class="md-ellipsis">
+      
+        强凸情况下的加速梯度方法 (page 55)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#投影梯度下降-Projected-Gradient-Descent-page-56">
+<span class="md-ellipsis">
+      
+        投影梯度下降 (Projected Gradient Descent) (page 56)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#牛顿法-Newton-Method-page-57">
+<span class="md-ellipsis">
+      
+        牛顿法 (Newton Method) (page 57)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#光滑凸函数最小化总结-Summary-Minimizing-Smooth-Convex-Functions-page-58-59">
+<span class="md-ellipsis">
+      
+        光滑凸函数最小化总结 (Summary: Minimizing Smooth Convex Functions) (page 58-59)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#次梯度法下降-Subgradient-MethodDescent-Shor-et-al-1985-page-60-64">
+<span class="md-ellipsis">
+      
+        次梯度法/"下降" (Subgradient Method/"Descent") (Shor et al., 1985) (page 60-64)
+      
+    </span>
+</a>
+<nav aria-label='次梯度法/"下降" (Subgradient Method/"Descent") (Shor et al., 1985) (page 60-64)' class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#次梯度法用于机器学习-Subgradient-Descent-for-Machine-Learning-page-65">
+<span class="md-ellipsis">
+      
+        次梯度法用于机器学习 (Subgradient Descent for Machine Learning) (page 65)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#强凸情况下的次梯度下降-Strong-Convexity-page-66-68">
+<span class="md-ellipsis">
+      
+        强凸情况下的次梯度下降 (Strong Convexity) (page 66-68)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#凸函数最小化总结-Summary-Minimizing-Convex-Functions-page-69">
+<span class="md-ellipsis">
+      
+        凸函数最小化总结 (Summary: Minimizing Convex Functions) (page 69)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#关键见解-Key-Insights-from-Bottou-and-Bousquet-2008-page-70">
+<span class="md-ellipsis">
+      
+        关键见解 (Key Insights from Bottou and Bousquet (2008)) (page 70)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#非光滑随机逼近-Non-smooth-Stochastic-Approximation-page-72-78">
+<span class="md-ellipsis">
+      
+        非光滑随机逼近 (Non-smooth Stochastic Approximation) (page 72-78)
+      
+    </span>
+</a>
+<nav aria-label="非光滑随机逼近 (Non-smooth Stochastic Approximation) (page 72-78)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#目标-Goal-page-73">
+<span class="md-ellipsis">
+      
+        目标 (Goal) (page 73)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#机器学习与统计-Machine-Learning---Statistics-page-74">
+<span class="md-ellipsis">
+      
+        机器学习与统计 (Machine Learning - Statistics) (page 74)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#随机逼近的适用性-Stochastic-Approximation-page-75">
+<span class="md-ellipsis">
+      
+        随机逼近的适用性 (Stochastic Approximation) (page 75)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#与在线学习的关系-Relationship-to-Online-Learning-page-76-78">
+<span class="md-ellipsis">
+      
+        与在线学习的关系 (Relationship to Online Learning) (page 76-78)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#凸随机逼近-Convex-Stochastic-Approximation-page-79-81">
+<span class="md-ellipsis">
+      
+        凸随机逼近 (Convex Stochastic Approximation) (page 79-81)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#随机次梯度下降-Stochastic-Subgradient-Method-page-82-85">
+<span class="md-ellipsis">
+      
+        随机次梯度下降 (Stochastic Subgradient Method) (page 82-85)
+      
+    </span>
+</a>
+<nav aria-label="随机次梯度下降 (Stochastic Subgradient Method) (page 82-85)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#强凸情况下的随机次梯度下降-Strong-Convexity-page-89-91">
+<span class="md-ellipsis">
+      
+        强凸情况下的随机次梯度下降 (Strong Convexity) (page 89-91)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#高概率界-High-Probability-Bounds-page-96-100">
+<span class="md-ellipsis">
+      
+        高概率界 (High-Probability Bounds) (page 96-100)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#收敛速率总结-Summary-of-Rates-of-Convergence-page-71-101">
+<span class="md-ellipsis">
+      
+        收敛速率总结 (Summary of Rates of Convergence) (page 71, 101)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Note
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    DMA
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:notes">notes</a>
+</nav>
+<h1>Appendix grad</h1>
+<h2 id="介绍-page-2">介绍<span><span class="heti-spacing"> </span>(page 2)</span><a class="headerlink" href="#介绍-page-2" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>本节主要概述了统计机器学习和凸优化在“大数据”背景下的应用及其相关理论基础。</p>
+<h3 id="大规模机器学习与优化-page-3-5">大规模机器学习与优化<span><span class="heti-spacing"> </span>(page 3-5)</span><a class="headerlink" href="#大规模机器学习与优化-page-3-5" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在大规模机器学习的背景下，数据通常表现为<strong>高维度（large <span class="arithmatex">\(d\)</span>）</strong> 和<strong>大数据量（large <span class="arithmatex">\(n\)</span>）</strong>。</p>
+<ul>
+<li><strong><span class="arithmatex">\(d\)</span></strong><span>:<span class="heti-spacing"> </span></span>表示每个观测值（输入）的维度。</li>
+<li><strong><span class="arithmatex">\(n\)</span></strong><span>:<span class="heti-spacing"> </span></span>表示观测值的数量。</li>
+</ul>
+<p>例如，在计算机视觉、生物信息学和广告等领域，我们经常遇到这类问题。理想的运行时间复杂度通常是<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(dn)\)</span></span>。为了应对大规模数据，研究人员开始重新审视一些“简单”的方法，特别是<strong>随机梯度方法<span><span class="heti-spacing"> </span>(Stochastic Gradient Methods)</span></strong>，最早由<span class="heti-skip"><span class="heti-spacing"> </span>Robbins<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>Monro<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>1951<span class="heti-spacing"> </span></span>年提出<sup id="fnref:1"><a class="footnote-ref" href="#fn:1"><span><span class="heti-spacing"> </span>1</span></a></sup>。这些方法通过结合统计学和优化理论，并利用函数的平滑性来超越传统的随机梯度下降。</p>
+<details class="note" open="open">
+<summary>历史回顾<span><span class="heti-spacing"> </span>(page 6-7)</span></summary>
+<p><strong><span>1950<span class="heti-spacing"> </span></span>年代</strong>：计算机性能不足，例如<span class="heti-skip"><span class="heti-spacing"> </span>1959<span class="heti-spacing"> </span></span>年的<span><span class="heti-spacing"> </span>IBM</span> “1620”计算机，<span>CPU<span class="heti-spacing"> </span></span>频率仅为<span><span class="heti-spacing"> </span>50 KHz</span>，价格超过<span class="heti-skip"><span class="heti-spacing"> </span>10<span class="heti-spacing"> </span></span>万美元，限制了大规模计算的应用。</p>
+<p><strong><span>2010<span class="heti-spacing"> </span></span>年代</strong>：数据量变得过于庞大，传统的优化方法难以处理。这促使人们重新关注随机梯度方法等“简单”方法，以应对数据规模的挑战。</p>
+</details>
+<h3 id="函数的分类-page-2">函数的分类<span><span class="heti-spacing"> </span>(page 2)</span><a class="headerlink" href="#函数的分类-page-2" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在凸优化中，我们根据函数的性质将其分为不同的类别，这对于选择合适的优化算法至关重要。主要包括：</p>
+<ul>
+<li><strong>凸函数<span><span class="heti-spacing"> </span>(Convex Functions)</span></strong>：这类函数在定义域内任意两点之间的线段，其函数值不会超过两端点函数值的连线。</li>
+<li><strong>光滑函数<span><span class="heti-spacing"> </span>(Smooth Functions)</span></strong>：这类函数的梯度是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L\)</span> -Lipschitz<span class="heti-spacing"> </span></span>连续的，这意味着函数的坡度变化不会太剧烈。</li>
+<li><strong>强凸函数<span><span class="heti-spacing"> </span>(Strongly Convex Functions)</span></strong>：比普通凸函数更强，其函数图像具有更明显的“碗状”结构，保证了全局最优解的唯一性，并且算法收敛速度更快。</li>
+</ul>
+<h3 id="监督学习与经验风险最小化-page-8-14-17">监督学习与经验风险最小化<span><span class="heti-spacing"> </span>(page 8, 14-17)</span><a class="headerlink" href="#监督学习与经验风险最小化-page-8-14-17" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在监督学习中，我们的目标是从给定的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>个独立同分布（i.i.d.）观测数据<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((x_i, y_i) \in \mathcal{X} \times \mathcal{Y}\)</span><span class="heti-spacing"> </span></span>中学习一个模型。</p>
+<ul>
+<li><strong>数据</strong><span>: <span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>个独立同分布的观测值<span><span class="heti-spacing"> </span><span class="arithmatex">\((x_i, y_i) \in \mathcal{X} \times \mathcal{Y}\)</span>, <span class="arithmatex">\(i = 1, \dots, n\)</span></span>。</li>
+<li><strong>预测</strong><span>:<span class="heti-spacing"> </span></span>通常通过一个线性函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\theta^\top \Phi(x)\)</span><span class="heti-spacing"> </span></span>进行预测，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\Phi(x) \in \mathbb{R}^d\)</span><span class="heti-spacing"> </span></span>是特征向量。</li>
+<li><strong>经验风险最小化<span><span class="heti-spacing"> </span>(Empirical Risk Minimization, ERM)</span></strong><span>:<span class="heti-spacing"> </span></span>机器学习的核心任务之一是找到一个参数<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{\theta}\)</span></span>，使得在给定数据集上的损失函数最小化。为了避免过拟合，通常会引入<strong>正则化项</strong>。</li>
+</ul>
+<p><span>ERM<span class="heti-spacing"> </span></span>的目标函数通常表示为：</p>
+<div class="arithmatex">\[
+\min_{\theta \in \mathbb{R}^d} \frac{1}{n} \sum_{i=1}^n \ell(y_i, \theta^\top \Phi(x_i)) + \mu \Omega(\theta)
+\]</div>
+<p>其中：</p>
+<ul>
+<li><span><span class="arithmatex">\(\frac{1}{n} \sum_{i=1}^n \ell(y_i, \theta^\top \Phi(x_i))\)</span><span class="heti-spacing"> </span></span>是<strong>凸数据拟合项<span><span class="heti-spacing"> </span>(convex data fitting term)</span></strong>，也称为<strong>经验风险<span><span class="heti-spacing"> </span>(Empirical Risk) <span class="arithmatex">\(\hat{f}(\theta)\)</span></span></strong> 或<strong>训练成本<span><span class="heti-spacing"> </span>(training cost)</span></strong>。它衡量了模型在训练数据上的表现。</li>
+<li><span><span class="arithmatex">\(\mu \Omega(\theta)\)</span><span class="heti-spacing"> </span></span>是<strong>正则化项<span><span class="heti-spacing"> </span>(regularizer)</span></strong>。其目的是为了避免过拟合，通常通过限制模型复杂度来实现。</li>
+</ul>
+<p>或者，正则化也可以表示为约束条件：</p>
+<div class="arithmatex">\[
+\begin{align}
+\min_{\theta \in \mathbb{R}^d} \quad &amp; \frac{1}{n} \sum_{i=1}^n \ell(y_i, \theta^\top \Phi(x_i)) \\
+\text{s.t.}\quad &amp; \Omega(\theta) \le D
+\end{align}
+\]</div>
+<p>这里<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\Omega(\theta) \le D\)</span><span class="heti-spacing"> </span></span>是一个<strong>约束<span><span class="heti-spacing"> </span>(constraint)</span></strong>。</p>
+<ul>
+<li><strong>经验风险<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{f}(\theta)\)</span></span></strong><span>:<span class="heti-spacing"> </span></span>衡量模型在训练数据上的表现，即：
+  $$
+  \hat{f}(\theta) = \frac{1}{n} \sum_{i=1}^n \ell(y_i, \theta^\top \Phi(x_i)) \quad \text{training cost}
+  $$</li>
+<li><strong>期望风险<span><span class="heti-spacing"> </span>(Expected Risk) <span class="arithmatex">\(f(\theta)\)</span></span></strong><span>:<span class="heti-spacing"> </span></span>衡量模型在未见数据上的泛化能力，即：
+  $$
+  f(\theta) = \mathbb{E}_{(x,y)} \ell(y, \theta^\top \Phi(x)) \quad \text{testing cost}
+  $$
+  期望风险是经验风险在整个数据分布上的期望。</li>
+</ul>
+<p>有两个基本问题需要解决：</p>
+<ol>
+<li><strong>计算<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{\theta}\)</span></span></strong><span>:<span class="heti-spacing"> </span></span>找到经验风险最小化的参数。</li>
+<li><strong>分析<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{\theta}\)</span></span></strong><span>:<span class="heti-spacing"> </span></span>评估<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{\theta}\)</span><span class="heti-spacing"> </span></span>的统计特性，例如它的泛化能力。</li>
+</ol>
+<p>这两个问题通常可以同时解决。</p>
+<details class="note" open="open">
+<summary>典型损失函数<span><span class="heti-spacing"> </span>(page 9-11)</span></summary>
+<ul>
+<li><strong>回归<span><span class="heti-spacing"> </span>(Regression)</span></strong>：目标变量<span><span class="heti-spacing"> </span><span class="arithmatex">\(y \in \mathbb{R}\)</span></span>。预测值<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{y} = \theta^\top \Phi(x)\)</span></span>。</li>
+<li><strong>二次损失<span><span class="heti-spacing"> </span>(Quadratic Loss)</span></strong>：
+    $$
+    \frac{1}{2}(y - \hat{y})^2 = \frac{1}{2}(y - \theta^\top \Phi(x))^2
+    $$</li>
+<li><strong>分类<span><span class="heti-spacing"> </span>(Classification)</span></strong>：目标变量<span><span class="heti-spacing"> </span><span class="arithmatex">\(y \in \{-1, 1\}\)</span></span>。预测值<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{y} = \text{sign}(\theta^\top \Phi(x))\)</span></span>。</li>
+<li>损失函数形式：<span class="arithmatex">\(\ell(y \theta^\top \Phi(x))\)</span>。</li>
+<li><strong>“真实” <span>0-1<span class="heti-spacing"> </span></span>损失<span><span class="heti-spacing"> </span>(True 0-1 Loss)</span></strong>：<span class="arithmatex">\(\ell(y \theta^\top \Phi(x)) = \mathbf{1}_{y \theta^\top \Phi(x) &lt; 0}\)</span>。这是非凸的。</li>
+<li><strong>常用凸损失<span><span class="heti-spacing"> </span>(Usual Convex Losses)</span></strong>：为了使优化问题可解，通常使用凸替代损失。</li>
+<li><strong>合页损失<span><span class="heti-spacing"> </span>(Hinge Loss)</span></strong> <span>(<span class="heti-spacing"> </span></span>支持向量机<span class="heti-skip"><span class="heti-spacing"> </span>, SVM): <span class="arithmatex">\(\ell(Y, \theta^\top \Phi(X)) = \max\{1 - Y \theta^\top \Phi(X), 0\}\)</span> (<span class="heti-spacing"> </span></span>非光滑<span><span class="heti-spacing"> </span>)</span>。</li>
+<li><strong>逻辑损失<span><span class="heti-spacing"> </span>(Logistic Loss)</span></strong> <span>(<span class="heti-spacing"> </span></span>逻辑回归<span class="heti-skip"><span class="heti-spacing"> </span>): <span class="arithmatex">\(\ell(Y, \theta^\top \Phi(X)) = \log(1 + \exp(-Y \theta^\top \Phi(X)))\)</span> (<span class="heti-spacing"> </span></span>光滑<span><span class="heti-spacing"> </span>)</span>。</li>
+<li><strong>最小二乘回归<span><span class="heti-spacing"> </span>(Least-squares Regression)</span></strong>: <span class="arithmatex">\(\ell(Y, \theta^\top \Phi(X)) = \frac{1}{2}(Y - \theta^\top \Phi(X))^2\)</span>。</li>
+</ul>
+</details>
+<details class="note" open="open">
+<summary>常用正则化器<span><span class="heti-spacing"> </span>(page 12-13)</span></summary>
+<p>正则化的主要目标是<strong>避免过拟合<span><span class="heti-spacing"> </span>(avoid overfitting)</span></strong>。</p>
+<ul>
+<li><strong>（平方）欧几里得范数<span><span class="heti-spacing"> </span>(Squared Euclidean Norm)</span></strong> <span>(L2<span class="heti-spacing"> </span></span>正则化<span><span class="heti-spacing"> </span>):</span>
+  $$
+  |\theta|<em j="1">2^2 = \sum</em>^d |\theta_j|^2
+  $$</li>
+<li>这种范数在数值上表现良好。</li>
+<li>与核方法<span class="heti-skip"><span class="heti-spacing"> </span>(kernel methods)<span class="heti-spacing"> </span></span>和表示定理<span class="heti-skip"><span class="heti-spacing"> </span>(representer theorem)<span class="heti-spacing"> </span></span>相关联。</li>
+<li><strong>稀疏诱导范数<span><span class="heti-spacing"> </span>(Sparsity-inducing Norms)</span></strong>：</li>
+<li>主要例子是 <strong><span><span class="arithmatex">\(L_1\)</span><span class="heti-spacing"> </span></span>范数</strong> (Lasso):
+    $$
+    |\theta|<em j="1">1 = \sum</em>^d |\theta_j|
+    $$</li>
+<li>它不仅进行正则化，还能进行<strong>模型选择<span><span class="heti-spacing"> </span>(model selection)</span></strong>，因为它可以使得模型参数稀疏，即某些特征的权重变为零。</li>
+<li>涉及非光滑优化和结构化稀疏性。</li>
+</ul>
+</details>
+<h3 id="一般假设-page-18">一般假设<span><span class="heti-spacing"> </span>(page 18)</span><a class="headerlink" href="#一般假设-page-18" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在分析机器学习算法时，通常会引入一些一般性假设：</p>
+<ul>
+<li><strong>数据</strong><span>: <span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>个独立同分布的观测值<span><span class="heti-spacing"> </span><span class="arithmatex">\((x_i, y_i) \in \mathcal{X} \times \mathcal{Y}\)</span></span>。</li>
+<li><strong>有界特征</strong><span>:<span class="heti-spacing"> </span></span>特征<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\Phi(x) \in \mathbb{R}^d\)</span><span class="heti-spacing"> </span></span>是有界的，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(\|\Phi(x)\|_2 \le R\)</span></span>。</li>
+<li><strong>经验风险</strong><span>: <span class="arithmatex">\(\hat{f}(\theta) = \frac{1}{n} \sum_{i=1}^n \ell(y_i, \theta^\top \Phi(x_i))\)</span> (<span class="heti-spacing"> </span></span>训练成本<span><span class="heti-spacing"> </span>)</span>。</li>
+<li><strong>期望风险</strong><span>: <span class="arithmatex">\(f(\theta) = \mathbb{E}_{(x,y)} \ell(y, \theta^\top \Phi(x))\)</span> (<span class="heti-spacing"> </span></span>测试成本<span><span class="heti-spacing"> </span>)</span>。</li>
+<li><strong>单次观测损失</strong>: <span class="arithmatex">\(f_i(\theta) = \ell(y_i, \theta^\top \Phi(x_i))\)</span>。这意味着对于每个观测，其期望损失<span><span class="heti-spacing"> </span><span class="arithmatex">\(f(\theta) = \mathbb{E} f_i(\theta)\)</span></span>。</li>
+<li><strong>函数性质</strong><span>: <span class="arithmatex">\(f_i, f, \hat{f}\)</span><span class="heti-spacing"> </span></span>都满足：<ul>
+<li>在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathbb{R}^d\)</span><span class="heti-spacing"> </span></span>上是<strong>凸函数<span><span class="heti-spacing"> </span>(Convex)</span></strong>。</li>
+<li>额外的正则性假设，如 <strong><span>Lipschitz<span class="heti-spacing"> </span></span>连续性<span><span class="heti-spacing"> </span>(Lipschitz-continuity)</span></strong>、<strong>光滑性<span><span class="heti-spacing"> </span>(smoothness)</span></strong> 和 <strong>强凸性<span><span class="heti-spacing"> </span>(strong convexity)</span></strong>。</li>
+</ul>
+</li>
+</ul>
+<h2 id="凸性-page-19-25">凸性<span><span class="heti-spacing"> </span>(page 19-25)</span><a class="headerlink" href="#凸性-page-19-25" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>凸性是优化理论中的核心概念，它使得许多优化问题变得可解。</p>
+<h3 id="全局定义-page-20">全局定义<span><span class="heti-spacing"> </span>(page 20)</span><a class="headerlink" href="#全局定义-page-20" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>对于一个函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(g: \mathbb{R}^d \to \mathbb{R}\)</span></span>，如果对于任意<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\theta_1, \theta_2 \in \mathbb{R}^d\)</span><span class="heti-spacing"> </span></span>和任意<span><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha \in\)</span></span>，满足以下条件，则称其为<strong>凸函数</strong>：</p>
+<div class="arithmatex">\[
+g(\alpha\theta_1 + (1-\alpha)\theta_2) \le \alpha g(\theta_1) + (1-\alpha)g(\theta_2)
+\]</div>
+<p>这个定义不要求函数可微。从几何上看，这意味着函数图像上任意两点之间的线段都在函数图像的上方或与图像重合。</p>
+<p>如果函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(g\)</span><span class="heti-spacing"> </span></span>可微，则其凸性定义可以等价地表示为：</p>
+<div class="arithmatex">\[
+\forall \theta_1, \theta_2 \in \mathbb{R}^d, g(\theta_1) \ge g(\theta_2) + g'(\theta_2)^\top(\theta_1 - \theta_2)
+\]</div>
+<p>这表示函数图像上任意一点的切线（或超平面）都在函数图像的下方。</p>
+<h3 id="次梯度与次微分-Subgradients-and-Subdifferentials-page-22">次梯度与次微分<span><span class="heti-spacing"> </span>(Subgradients and Subdifferentials) (page 22)</span><a class="headerlink" href="#次梯度与次微分-Subgradients-and-Subdifferentials-page-22" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>对于非光滑凸函数，梯度不一定存在。此时，我们引入<strong>次梯度<span><span class="heti-spacing"> </span>(subgradient)</span></strong> 和<strong>次微分<span><span class="heti-spacing"> </span>(subdifferential)</span></strong> 的概念。</p>
+<details class="definition" open="open">
+<summary>次梯度定义</summary>
+<p>给定一个凸函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(g: \mathbb{R}^d \to \mathbb{R}\)</span></span>，如果向量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(s \in \mathbb{R}^d\)</span><span class="heti-spacing"> </span></span>满足以下条件，则称其为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(g\)</span><span class="heti-spacing"> </span></span>在点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\theta\)</span><span class="heti-spacing"> </span></span>处的次梯度：</p>
+<div class="arithmatex">\[
+\forall \theta' \in \mathbb{R}^d, g(\theta') \ge g(\theta) + s^\top(\theta' - \theta)
+\]</div>
+</details>
+<details class="definition" open="open">
+<summary>次微分定义</summary>
+<p>函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(g\)</span><span class="heti-spacing"> </span></span>在点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\theta\)</span><span class="heti-spacing"> </span></span>处的<strong>次微分<span><span class="heti-spacing"> </span>(subdifferential)</span></strong> <span><span class="arithmatex">\(\partial g(\theta)\)</span><span class="heti-spacing"> </span></span>是所有次梯度的集合：</p>
+<div class="arithmatex">\[
+\partial g(\theta) = \{s \in \mathbb{R}^d \mid \forall \theta' \in \mathbb{R}^d, g(\theta') \ge g(\theta) + s^\top(\theta' - \theta)\}
+\]</div>
+</details>
+<p>如果<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(g\)</span><span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\theta\)</span><span class="heti-spacing"> </span></span>处可微，那么次微分只包含一个元素，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(\partial g(\theta) = \{g'(\theta)\}\)</span></span>。著名的<span class="heti-skip"><span class="heti-spacing"> </span>Rockafellar (1997)<span class="heti-spacing"> </span></span>证明了凸函数的次微分永远不为空集。</p>
+<h3 id="局部定义-page-23">局部定义<span><span class="heti-spacing"> </span>(page 23)</span><a class="headerlink" href="#局部定义-page-23" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>对于<strong>二次可微函数</strong>，凸性也可以通过二阶导数（<span>Hessian<span class="heti-spacing"> </span></span>矩阵）来定义：</p>
+<div class="arithmatex">\[
+\forall \theta, g''(\theta) \ge 0 \quad \text{(positive semi-definite Hessians)}
+\]</div>
+<p>这意味着<span class="heti-skip"><span class="heti-spacing"> </span>Hessian<span class="heti-spacing"> </span></span>矩阵是半正定的。</p>
+<h3 id="凸性的重要性-page-24-25">凸性的重要性<span><span class="heti-spacing"> </span>(page 24-25)</span><a class="headerlink" href="#凸性的重要性-page-24-25" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>凸性在优化中至关重要，因为它带来以下优良性质：</p>
+<ul>
+<li><strong>局部最小值即全局最小值<span><span class="heti-spacing"> </span>(Local Minimum = Global Minimum)</span></strong>：对于凸函数，任何局部最小值都是全局最小值。这极大地简化了优化问题，因为我们不需要担心被局部最优解困住。</li>
+<li><strong>最优性条件<span><span class="heti-spacing"> </span>(Optimality Condition)</span></strong>：</li>
+<li><strong>非光滑情况</strong><span>: <span class="arithmatex">\(0 \in \partial g(\theta)\)</span> (<span class="heti-spacing"> </span></span>零向量属于次微分<span><span class="heti-spacing"> </span>)</span>。</li>
+<li><strong>光滑情况</strong><span>: <span class="arithmatex">\(g'(\theta) = 0\)</span> (<span class="heti-spacing"> </span></span>梯度为零<span><span class="heti-spacing"> </span>)</span>。</li>
+<li><strong>凸对偶性<span><span class="heti-spacing"> </span>(Convex Duality)</span></strong>：凸优化问题通常可以转化为对偶问题，有时对偶问题更容易求解，并且可以提供原始问题的下界。</li>
+<li><strong>识别凸问题<span><span class="heti-spacing"> </span>(Recognizing Convex Problems)</span></strong>：存在成熟的理论和工具来识别和处理凸问题。</li>
+</ul>
+<h2 id="Lipschitz-连续性-page-26"><span>Lipschitz<span class="heti-spacing"> </span></span>连续性<span><span class="heti-spacing"> </span>(page 26)</span><a class="headerlink" href="#Lipschitz-连续性-page-26" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p><span>Lipschitz<span class="heti-spacing"> </span></span>连续性描述了函数变化的平滑程度，即函数值（或梯度值）的变化不会超过输入变量变化的某个常数倍。</p>
+<details class="definition" open="open">
+<summary><span>Lipschitz<span class="heti-spacing"> </span></span>连续性定义</summary>
+<p>函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(g\)</span><span class="heti-spacing"> </span></span>是 <strong><span><span class="arithmatex">\(B\)</span> -Lipschitz<span class="heti-spacing"> </span></span>连续的</strong>，如果对于其定义域内任意两点<span><span class="heti-spacing"> </span><span class="arithmatex">\(\theta, \theta'\)</span></span>，函数值的变化有界：</p>
+<div class="arithmatex">\[
+|g(\theta) - g(\theta')| \le B \|\theta - \theta'\|_2
+\]</div>
+<p>对于<strong>凸可微函数</strong>，如果其梯度是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(B\)</span> -<span class="heti-spacing"> </span></span>有界的（在中心为<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>半径为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D\)</span><span class="heti-spacing"> </span></span>的球内<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，即：</p>
+<div class="arithmatex">\[
+\forall \theta \in \mathbb{R}^d, \|\theta\|_2 \le D \Rightarrow \|g'(\theta)\|_2 \le B
+\]</div>
+<p>这与上述函数值定义的<span class="heti-skip"><span class="heti-spacing"> </span>Lipschitz<span class="heti-spacing"> </span></span>连续性是等价的，即：</p>
+<div class="arithmatex">\[
+\forall \theta, \theta' \in \mathbb{R}^d, \|\theta\|_2 \le D, \|\theta'\|_2 \le D \Leftrightarrow  |g(\theta) - g(\theta')| \le B \|\theta - \theta'\|_2
+\]</div>
+</details>
+<p><span>Lipschitz<span class="heti-spacing"> </span></span>连续的意义是：输入的一个很小的变化，会引起输出的一个很小的变化。</p>
+<p>在机器学习中，如果损失函数是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span> -Lipschitz<span class="heti-spacing"> </span></span>连续的，并且数据是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(R\)</span> -<span class="heti-spacing"> </span></span>有界的（即<span><span class="heti-spacing"> </span><span class="arithmatex">\(\|\Phi(x)\|_2 \le R\)</span></span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，那么可以推导出<span><span class="heti-spacing"> </span><span class="arithmatex">\(B = GR\)</span></span>。</p>
+<h2 id="光滑性与强凸性-Smoothness-and-Strong-Convexity-page-27-31">光滑性与强凸性<span><span class="heti-spacing"> </span>(Smoothness and Strong Convexity) (page 27-31)</span><a class="headerlink" href="#光滑性与强凸性-Smoothness-and-Strong-Convexity-page-27-31" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="光滑性-Smoothness-page-27-28">光滑性<span><span class="heti-spacing"> </span>(Smoothness) (page 27-28)</span><a class="headerlink" href="#光滑性-Smoothness-page-27-28" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="definition" open="open">
+<summary><span>L-<span class="heti-spacing"> </span></span>光滑函数定义</summary>
+<p>函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(g: \mathbb{R}^d \to \mathbb{R}\)</span><span class="heti-spacing"> </span></span>是 <strong><span><span class="arithmatex">\(L\)</span> -<span class="heti-spacing"> </span></span>光滑的<span><span class="heti-spacing"> </span>(L-smooth)</span></strong>，当且仅当它是可微的，并且其梯度是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L\)</span> -Lipschitz<span class="heti-spacing"> </span></span>连续的：</p>
+<div class="arithmatex">\[
+\forall \theta_1, \theta_2 \in \mathbb{R}^d, \|g'(\theta_1) - g'(\theta_2)\|_2 \le L \|\theta_1 - \theta_2\|_2
+\]</div>
+</details>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/06_250606-202349.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/06_250606-202349.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/06_250606-202349.png" width="500"/></a>
+<br/>
+<figcaption>smooth vs. non-smooth</figcaption>
+</figure>
+<p>如果<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(g\)</span><span class="heti-spacing"> </span></span>是二次可微的，那么<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L\)</span> -<span class="heti-spacing"> </span></span>光滑性等价于其<span class="heti-skip"><span class="heti-spacing"> </span>Hessian<span class="heti-spacing"> </span></span>矩阵的最大特征值有界：</p>
+<div class="arithmatex">\[
+\forall \theta \in \mathbb{R}^d, g''(\theta) \preceq L \cdot \mathbf{Id}
+\]</div>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathbf{Id}\)</span><span class="heti-spacing"> </span></span>是单位矩阵。在机器学习中：</p>
+<ul>
+<li>对于<span><span class="heti-spacing"> </span><span class="arithmatex">\(g(\theta) = \frac{1}{n} \sum_{i=1}^n \ell(y_i, \theta^\top \Phi(x_i))\)</span></span>，如果损失函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\ell\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L_{\text{loss}}\)</span> -<span class="heti-spacing"> </span></span>光滑的，并且数据是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(R\)</span> -<span class="heti-spacing"> </span></span>有界的，那么整个损失函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(g\)</span><span class="heti-spacing"> </span></span>的光滑常数<span><span class="heti-spacing"> </span><span class="arithmatex">\(L = L_{\text{loss}} R^2\)</span></span>。</li>
+</ul>
+<h3 id="强凸性-Strong-Convexity-page-29-31">强凸性<span><span class="heti-spacing"> </span>(Strong Convexity) (page 29-31)</span><a class="headerlink" href="#强凸性-Strong-Convexity-page-29-31" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>强凸性是比普通凸性更强的性质，它保证了函数有一个“碗状”的下界。</p>
+<details class="definition" open="open">
+<summary><span><span class="arithmatex">\(\mu\)</span> -<span class="heti-spacing"> </span></span>强凸函数定义</summary>
+<p>函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(g: \mathbb{R}^d \to \mathbb{R}\)</span><span class="heti-spacing"> </span></span>是 <strong><span><span class="arithmatex">\(\mu\)</span> -<span class="heti-spacing"> </span></span>强凸的<span><span class="heti-spacing"> </span>(<span class="arithmatex">\(\mu\)</span> -strongly convex)</span></strong>，当且仅当对于任意<span><span class="heti-spacing"> </span><span class="arithmatex">\(\theta_1, \theta_2 \in \mathbb{R}^d\)</span></span>，满足：</p>
+<div class="arithmatex">\[
+g(\theta_1) \ge g(\theta_2) + g'(\theta_2)^\top(\theta_1 - \theta_2) + \frac{\mu}{2}\|\theta_1 - \theta_2\|_2^2
+\]</div>
+</details>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/06_250606-202459.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/06_250606-202459.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/06_250606-202459.png" width="500"/></a>
+<br/>
+<figcaption>convex vs. strongly convex</figcaption>
+</figure>
+<p>如果<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(g\)</span><span class="heti-spacing"> </span></span>是二次可微的，那么<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mu\)</span> -<span class="heti-spacing"> </span></span>强凸性等价于其<span class="heti-skip"><span class="heti-spacing"> </span>Hessian<span class="heti-spacing"> </span></span>矩阵的最小特征值有界：</p>
+<div class="arithmatex">\[
+\forall \theta \in \mathbb{R}^d, g''(\theta) \succeq \mu \cdot \mathbf{Id}
+\]</div>
+<p>在机器学习中：</p>
+<ul>
+<li>对于<span><span class="heti-spacing"> </span><span class="arithmatex">\(g(\theta) = \frac{1}{n} \sum_{i=1}^n \ell(y_i, \theta^\top \Phi(x_i))\)</span></span>，其<span class="heti-skip"><span class="heti-spacing"> </span>Hessian<span class="heti-spacing"> </span></span>矩阵近似于协方差矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{1}{n} \sum_{i=1}^n \Phi(x_i)\Phi(x_i)^\top\)</span></span>。</li>
+<li>如果数据具有可逆的协方差矩阵（低相关性<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>维度<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，可能表现出强凸性。</li>
+<li>通过添加正则化项<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\mu}{2}\|\theta\|_2^2\)</span></span>，可以使函数变为强凸。但这会引入额外的偏差，除非<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mu\)</span><span class="heti-spacing"> </span></span>很小。</li>
+</ul>
+<h2 id="平滑性凸性假设总结-page-32">平滑性<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>凸性假设总结<span><span class="heti-spacing"> </span>(page 32)</span><a class="headerlink" href="#平滑性凸性假设总结-page-32" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<ul>
+<li><strong>有界梯度<span><span class="heti-spacing"> </span>(Lipschitz-continuity)</span></strong>：对于凸可微函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(g\)</span></span>，如果其在中心为<span><span class="heti-spacing"> </span><span class="arithmatex">\(0\)</span></span>、半径为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D\)</span><span class="heti-spacing"> </span></span>的球上的次梯度均匀有界为<span><span class="heti-spacing"> </span><span class="arithmatex">\(B\)</span></span>，即：
+  $$
+  \forall \theta \in \mathbb{R}^d, |\theta|_2 \le D \Rightarrow |g'(\theta)|_2 \le B
+  $$</li>
+<li><strong>光滑性<span><span class="heti-spacing"> </span>(Smoothness)</span></strong>：函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(g\)</span><span class="heti-spacing"> </span></span>是凸、可微的，并且其梯度<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(g'\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L\)</span> -Lipschitz<span class="heti-spacing"> </span></span>连续的（例如，<span>Hessian<span class="heti-spacing"> </span></span>有界<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：
+  $$
+  \forall \theta_1, \theta_2 \in \mathbb{R}^d, |g'(\theta_1) - g'(\theta_2)|_2 \le L |\theta_1 - \theta_2|_2
+  $$</li>
+<li><strong>强凸性<span><span class="heti-spacing"> </span>(Strong Convexity)</span></strong>：函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(g\)</span><span class="heti-spacing"> </span></span>是强凸的，其凸性常数<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mu &gt; 0\)</span></span>：
+  $$
+  \forall \theta_1, \theta_2 \in \mathbb{R}^d, g(\theta_1) \ge g(\theta_2) + g'(\theta_2)^\top(\theta_1 - \theta_2) + \frac{\mu}{2}|\theta_1 - \theta_2|_2^2
+  $$</li>
+</ul>
+<h2 id="经验风险最小化分析-page-33-36">经验风险最小化分析<span><span class="heti-spacing"> </span>(page 33-36)</span><a class="headerlink" href="#经验风险最小化分析-page-33-36" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>经验风险最小化的分析通常涉及<strong>逼近误差<span><span class="heti-spacing"> </span>(Approximation Error)</span></strong> 和<strong>估计误差<span><span class="heti-spacing"> </span>(Estimation Error)</span></strong> 的分解。</p>
+<p>设<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\Theta = \{\theta \in \mathbb{R}^d | \Omega(\theta) \le D\}\)</span><span class="heti-spacing"> </span></span>是参数空间。经验风险最小化解<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{\theta}\)</span><span class="heti-spacing"> </span></span>与真实风险的全局最小值之间的差距可以分解为两部分：</p>
+<div class="arithmatex">\[
+f(\hat{\theta}) - \min_{\theta \in \mathbb{R}^d} f(\theta) = \underbrace{\left[f(\hat{\theta}) - \min_{\theta \in \Theta} f(\theta)\right]}_{\text{Estimation error}} + \underbrace{\left[\min_{\theta \in \Theta} f(\theta) - \min_{\theta \in \mathbb{R}^d} f(\theta)\right]}_{\text{Approximation error}}
+\]</div>
+<ul>
+<li><strong>估计误差<span><span class="heti-spacing"> </span>(Estimation Error)</span></strong>：衡量了在给定参数空间<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\Theta\)</span><span class="heti-spacing"> </span></span>内，通过经验风险最小化得到的解<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{\theta}\)</span><span class="heti-spacing"> </span></span>的期望风险与真实风险在该参数空间内的最优值<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\min_{\theta \in \Theta} f(\theta)\)</span><span class="heti-spacing"> </span></span>之间的差距。这部分误差通常随着数据量的增加而减小。</li>
+<li><strong>逼近误差<span><span class="heti-spacing"> </span>(Approximation Error)</span></strong>：衡量了真实风险在受限参数空间<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\Theta\)</span><span class="heti-spacing"> </span></span>内的最优值<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\min_{\theta \in \Theta} f(\theta)\)</span><span class="heti-spacing"> </span></span>与在整个<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathbb{R}^d\)</span><span class="heti-spacing"> </span></span>空间内的全局最优值<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\min_{\theta \in \mathbb{R}^d} f(\theta)\)</span><span class="heti-spacing"> </span></span>之间的差距。这部分误差与模型的表达能力（参数空间<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\Theta\)</span><span class="heti-spacing"> </span></span>的选择）有关，通常不会随着数据量的增加而减小。</li>
+</ul>
+<h3 id="均匀偏差界-Uniform-Deviation-Bounds-page-34-36">均匀偏差界<span><span class="heti-spacing"> </span>(Uniform Deviation Bounds) (page 34-36)</span><a class="headerlink" href="#均匀偏差界-Uniform-Deviation-Bounds-page-34-36" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>对于<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{\theta} \in \arg \min_{\theta \in \Theta} \hat{f}(\theta)\)</span></span>，我们有：</p>
+<div class="arithmatex">\[
+f(\hat{\theta}) - \min_{\theta \in \Theta} f(\theta) \le 2 \cdot \sup_{\theta \in \Theta} |f(\theta) - \hat{f}(\theta)|
+\]</div>
+<p>这意味着估计误差的上限可以通过经验风险与期望风险之间的最大偏差来控制。这种偏差通常以<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(O(1/\sqrt{n})\)</span><span class="heti-spacing"> </span></span>的慢速收敛。</p>
+<p>通过更精细的集中不等式，可以获得更快的收敛速率，例如<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(1/n)\)</span></span>。</p>
+<h3 id="慢速率Lipschitz-函数与快速率强凸函数-page-38-40">慢速率（<span>Lipschitz<span class="heti-spacing"> </span></span>函数）与快速率（强凸函数） (page 38-40)<a class="headerlink" href="#慢速率Lipschitz-函数与快速率强凸函数-page-38-40" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong><span>Lipschitz<span class="heti-spacing"> </span></span>函数导致慢速率<span><span class="heti-spacing"> </span>(Lipschitz functions <span class="arithmatex">\(\Rightarrow\)</span> slow rate)</span></strong>：在没有凸性假设的情况下，对于<span class="heti-skip"><span class="heti-spacing"> </span>Lipschitz<span class="heti-spacing"> </span></span>损失函数，经验风险和期望风险之间的偏差通常以<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(O(1/\sqrt{n})\)</span><span class="heti-spacing"> </span></span>的速度收敛。这可以通过<span class="heti-skip"><span class="heti-spacing"> </span>Rademacher<span class="heti-spacing"> </span></span>复杂度分析得到。
+  $$
+  \sup_{\theta \in \Theta} |\hat{f}(\theta) - f(\theta)| \le \frac{\ell_0 + GRD}{\sqrt{n}} \left[2 + \sqrt{2 \log \frac{2}{\delta}}\right]
+  $$
+  期望估计误差：
+  $$
+  \mathbb{E}\left[\sup_{\theta \in \Theta} |\hat{f}(\theta) - f(\theta)|\right] \le \frac{4\ell_0 + 4GRD}{\sqrt{n}}
+  $$</li>
+<li><strong>强凸函数导致快速率<span><span class="heti-spacing"> </span>(Strongly convex functions <span class="arithmatex">\(\Rightarrow\)</span> fast rate)</span></strong>：
+  如果函数是强凸的，则可以获得更快的收敛速率。引入正则化后的风险函数 <span class="arithmatex">\(f^\mu(\theta) = f(\theta) + \frac{\mu}{2}\|\theta\|_2^2\)</span> 和 <span class="arithmatex">\(\hat{f}^\mu(\theta) = \hat{f}(\theta) + \frac{\mu}{2}\|\theta\|_2^2\)</span>。对于强凸函数，我们可以得到如下界：
+  $$
+  f^\mu(\hat{\theta}) - \min_{\eta \in \mathbb{R}^d} f^\mu(\eta) \le \frac{8G^2R^2(32 + \log \frac{1}{\delta})}{\mu n}
+  $$
+  需要注意的是，为了减小逼近误差，正则化参数 <span class="arithmatex">\(\mu\)</span> 应该随着 <span class="arithmatex">\(n\)</span> 的增加而减小。</li>
+</ul>
+<h2 id="凸优化经典方法-page-41-42">凸优化经典方法<span><span class="heti-spacing"> </span>(page 41-42)</span><a class="headerlink" href="#凸优化经典方法-page-41-42" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>本节将介绍几种用于凸优化的经典算法：</p>
+<ul>
+<li><strong>梯度下降<span><span class="heti-spacing"> </span>(Gradient Descent)</span></strong>：一种迭代优化算法，用于寻找函数的局部最小值。</li>
+<li><strong>牛顿法<span><span class="heti-spacing"> </span>(Newton Method)</span></strong>：一种二阶优化算法，收敛速度通常比梯度下降快，但计算成本更高。</li>
+<li><strong>加速梯度下降<span><span class="heti-spacing"> </span>(Accelerated Gradient Descent)</span></strong> <span>(Nesterov<span class="heti-spacing"> </span></span>方法<span><span class="heti-spacing"> </span>)</span>：一种改进的梯度下降方法，在光滑凸函数上可以获得更快的收敛速度。</li>
+<li><strong>次梯度法<span><span class="heti-spacing"> </span>(Subgradient Method)</span></strong>：适用于非光滑凸函数，使用次梯度而非梯度进行更新。</li>
+<li><strong>椭球法<span><span class="heti-spacing"> </span>(Ellipsoid Algorithm)</span></strong>：一种通用的凸优化算法，理论上收敛，但在实践中不如梯度下降类方法高效。</li>
+</ul>
+<h3 id="光滑-梯度下降-Smooth-Gradient-Descent-page-43-47"><span>(<span class="heti-spacing"> </span></span>光滑<span class="heti-skip"><span class="heti-spacing"> </span>)<span class="heti-spacing"> </span></span>梯度下降<span><span class="heti-spacing"> </span>(Smooth Gradient Descent) (page 43-47)</span><a class="headerlink" href="#光滑-梯度下降-Smooth-Gradient-Descent-page-43-47" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>假设</strong><span>: <span class="arithmatex">\(g\)</span><span class="heti-spacing"> </span></span>是凸的，且其梯度是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L\)</span> -Lipschitz<span class="heti-spacing"> </span></span>连续的（即<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L\)</span> -<span class="heti-spacing"> </span></span>光滑<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，且存在最小值<span><span class="heti-spacing"> </span><span class="arithmatex">\(\theta^*\)</span></span>。</li>
+<li><strong>算法</strong>:
+  $$
+  \theta_t = \theta_{t-1} - \frac{1}{L}g'(\theta_{t-1})
+  $$
+  其中 <span class="arithmatex">\(\frac{1}{L}\)</span> 是步长。</li>
+</ul>
+<h4 id="强凸情况下的梯度下降-Strong-Convexity-page-44-46">强凸情况下的梯度下降<span><span class="heti-spacing"> </span>(Strong Convexity) (page 44, 46)</span><a class="headerlink" href="#强凸情况下的梯度下降-Strong-Convexity-page-44-46" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>如果<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(g\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mu\)</span> -<span class="heti-spacing"> </span></span>强凸的，则梯度下降的收敛速度是<strong>线性<span><span class="heti-spacing"> </span>(linear)</span></strong> 的，即误差呈几何级数下降：</p>
+<div class="arithmatex">\[
+g(\theta_t) - g(\theta^*) \le \left(1 - \frac{\mu}{L}\right)^t [g(\theta_0) - g(\theta^*)]
+\]</div>
+<p>这里的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\mu}{L}\)</span><span class="heti-spacing"> </span></span>称为<strong>条件数<span><span class="heti-spacing"> </span>(condition number)</span></strong>，它决定了收敛速度。条件数越大，收敛越慢。</p>
+<h4 id="一般凸情况下的梯度下降-Slow-Rate-page-45-47">一般凸情况下的梯度下降<span><span class="heti-spacing"> </span>(Slow Rate) (page 45, 47)</span><a class="headerlink" href="#一般凸情况下的梯度下降-Slow-Rate-page-45-47" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>如果<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(g\)</span><span class="heti-spacing"> </span></span>只是凸的（而不是强凸<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，梯度下降的收敛速度会慢一些，通常是<strong>次线性<span><span class="heti-spacing"> </span>(sublinear)</span></strong> 的：</p>
+<div class="arithmatex">\[
+g(\theta_t) - g(\theta^*) \le \frac{2L\|\theta_0 - \theta^*\|_2^2}{t + 4}
+\]</div>
+<p>这意味着误差以<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(O(1/t)\)</span><span class="heti-spacing"> </span></span>的速率收敛。</p>
+<ul>
+<li><strong>梯度下降的适应性<span><span class="heti-spacing"> </span>(Adaptivity of gradient descent)</span></strong>：梯度下降对问题难度具有适应性。</li>
+<li><strong>收敛率并非最优<span><span class="heti-spacing"> </span>(Not best possible convergence rates)</span></strong>：在某些情况下，梯度下降在经过<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(O(d)\)</span><span class="heti-spacing"> </span></span>次迭代后可能无法达到最优收敛率。</li>
+</ul>
+<h4 id="梯度下降用于二次函数-Proof-for-Quadratic-Functions-page-46-47">梯度下降用于二次函数<span><span class="heti-spacing"> </span>(Proof for Quadratic Functions) (page 46-47)</span><a class="headerlink" href="#梯度下降用于二次函数-Proof-for-Quadratic-Functions-page-46-47" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>对于二次凸函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(g(\theta) = \frac{1}{2}\theta^\top H\theta - c^\top\theta\)</span></span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(H\)</span><span class="heti-spacing"> </span></span>是对称正定矩阵：</p>
+<ul>
+<li><span><span class="arithmatex">\(\mu\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L\)</span><span class="heti-spacing"> </span></span>分别是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(H\)</span><span class="heti-spacing"> </span></span>的最小和最大特征值。</li>
+<li>全局最优解<span><span class="heti-spacing"> </span><span class="arithmatex">\(\theta^* = H^{-1}c\)</span></span>。</li>
+</ul>
+<p>梯度下降的更新规则变为：</p>
+<div class="arithmatex">\[
+\theta_t = \theta_{t-1} - \frac{1}{L}(H\theta_{t-1} - c) = \theta_{t-1} - \frac{1}{L}(H\theta_{t-1} - H\theta^*)
+\]</div>
+<p>这可以进一步简化为：</p>
+<div class="arithmatex">\[
+\theta_t - \theta^* = \left(I - \frac{1}{L}H\right)(\theta_{t-1} - \theta^*) = \left(I - \frac{1}{L}H\right)^t(\theta_0 - \theta^*)
+\]</div>
+<ul>
+<li><strong>强凸性<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mu &gt; 0\)</span></span></strong>：<ul>
+<li>迭代的收敛：<span class="arithmatex">\(\|\theta_t - \theta^*\|_2^2 \le (1 - \mu/L)^{2t}\|\theta_0 - \theta^*\|_2^2\)</span>。</li>
+<li>函数值的收敛：<span class="arithmatex">\(g(\theta_t) - g(\theta^*) \le (1 - \mu/L)^{2t}[g(\theta_0) - g(\theta^*)]\)</span>。</li>
+</ul>
+</li>
+<li><strong>凸性<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mu = 0\)</span></span></strong>：<ul>
+<li>迭代不收敛到<span><span class="heti-spacing"> </span><span class="arithmatex">\(\theta^*\)</span></span>。</li>
+<li>函数值收敛：<span class="arithmatex">\(g(\theta_t) - g(\theta^*) \le \frac{L}{t}\|\theta_0 - \theta^*\|_2^2\)</span>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="光滑凸函数的性质-Properties-of-Smooth-Convex-Functions-page-48">光滑凸函数的性质<span><span class="heti-spacing"> </span>(Properties of Smooth Convex Functions) (page 48)</span><a class="headerlink" href="#光滑凸函数的性质-Properties-of-Smooth-Convex-Functions-page-48" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>对于一个<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L\)</span> -<span class="heti-spacing"> </span></span>光滑的凸函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(g: \mathbb{R}^d \to \mathbb{R}\)</span></span>，对于任意<span><span class="heti-spacing"> </span><span class="arithmatex">\(\theta, \eta \in \mathbb{R}^d\)</span></span>：</p>
+<ul>
+<li><strong>梯度<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L\)</span> -Lipschitz<span class="heti-spacing"> </span></span>连续</strong>: <span class="arithmatex">\(\|g'(\theta) - g'(\eta)\| \le L\|\theta - \eta\|\)</span>。</li>
+<li><strong>二次上界<span><span class="heti-spacing"> </span>(Quadratic Upper-Bound)</span></strong>：
+  $$
+  0 \le g(\theta) - g(\eta) - g'(\eta)^\top(\theta - \eta) \le \frac{L}{2}|\theta - \eta|_2^2
+  $$
+  这可以通过泰勒展开与积分余项得到。</li>
+<li>
+<p><strong><span>Co-coercivity (<span class="heti-spacing"> </span></span>共强制性<span><span class="heti-spacing"> </span>)</span></strong>：
+  $$
+  \frac{1}{L}|g'(\theta) - g'(\eta)|_2^2 \le [g'(\theta) - g'(\eta)]^\top(\theta - \eta)
+  $$
+    Co-coercivity 的证明可以利用二次上界和定义辅助函数 <span class="arithmatex">\(h(\theta) = g(\theta) - \theta^\top g'(\eta)\)</span>。通过最小化 <span class="arithmatex">\(h(\theta)\)</span>，并利用其凸性，可以推导出 co-coercivity 关系 (page 49)。</p>
+</li>
+<li>
+<p><strong>如果<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(g\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mu\)</span> -<span class="heti-spacing"> </span></span>强凸的，则满足</strong>:
+  $$
+  g(\theta) \ge g(\eta) + g'(\eta)^\top(\theta - \eta) + \frac{1}{2\mu}|g'(\theta) - g'(\eta)|_2^2
+  $$</p>
+</li>
+<li><strong>到最优解的“距离” (Distance to Optimum)</strong>：
+  $$
+  g(\theta) - g(\theta^<em>) \ge g'(\theta)^\top(\theta - \theta^</em>)
+  $$</li>
+</ul>
+<h4 id="Polyak-Lojasiewicz-不等式-page-50"><span>Polyak-Lojasiewicz<span class="heti-spacing"> </span></span>不等式<span><span class="heti-spacing"> </span>(page 50)</span><a class="headerlink" href="#Polyak-Lojasiewicz-不等式-page-50" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>如果<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\eta = \theta^*\)</span><span class="heti-spacing"> </span></span>是全局最小点，则对于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mu\)</span> -<span class="heti-spacing"> </span></span>强凸函数，有：</p>
+<div class="arithmatex">\[
+g(\theta) - g(\theta^*) \le \frac{1}{2\mu}\|g'(\theta)\|_2^2
+\]</div>
+<p>这被称为<span class="heti-skip"><span class="heti-spacing"> </span>Polyak-Lojasiewicz<span class="heti-spacing"> </span></span>不等式，它表明了函数值与梯度的范数之间的关系，对于分析收敛性非常有用。</p>
+<h3 id="加速梯度方法-Accelerated-Gradient-Methods-page-54-55">加速梯度方法<span><span class="heti-spacing"> </span>(Accelerated Gradient Methods) (page 54-55)</span><a class="headerlink" href="#加速梯度方法-Accelerated-Gradient-Methods-page-54-55" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>加速梯度方法<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>通常指<span class="heti-skip"><span class="heti-spacing"> </span>Nesterov<span class="heti-spacing"> </span></span>梯度下降，<span>Nesterov, 1983)<span class="heti-spacing"> </span></span>是一种针对光滑凸函数优化的重要算法，它在收敛速度上优于标准梯度下降。</p>
+<ul>
+<li><strong>假设</strong><span>: <span class="arithmatex">\(g\)</span><span class="heti-spacing"> </span></span>是凸的，且其梯度是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L\)</span> -Lipschitz<span class="heti-spacing"> </span></span>连续的，并且存在最小值<span><span class="heti-spacing"> </span><span class="arithmatex">\(\theta^*\)</span></span>。</li>
+<li><strong>算法</strong><span>: Nesterov<span class="heti-spacing"> </span></span>的加速梯度下降通常涉及两个序列的更新：<span><span class="arithmatex">\(\theta_t\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(\eta_t\)</span></span>。
+  $$
+  \theta_t = \eta_{t-1} - \frac{1}{L}g'(\eta_{t-1})
+  $$
+  $$
+  \eta_t = \theta_t + \frac{t-1}{t+2}(\theta_t - \theta_{t-1})
+  $$</li>
+<li><strong>收敛界<span><span class="heti-spacing"> </span>(Bound)</span></strong>：对于一般光滑凸函数，<span>Nesterov<span class="heti-spacing"> </span></span>方法可以达到<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(O(1/t^2)\)</span><span class="heti-spacing"> </span></span>的收敛速度：
+  $$
+  g(\theta_t) - g(\theta^<em>) \le \frac{2L|\theta_0 - \theta^</em>|_2^2}{(t + 1)^2}
+  $$
+  这个收敛率被认为是不可改进的，因为对于光滑凸函数，存在匹配这个下界的优化问题。</li>
+</ul>
+<h4 id="强凸情况下的加速梯度方法-page-55">强凸情况下的加速梯度方法<span><span class="heti-spacing"> </span>(page 55)</span><a class="headerlink" href="#强凸情况下的加速梯度方法-page-55" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>如果<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(g\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mu\)</span> -<span class="heti-spacing"> </span></span>强凸的，加速梯度方法可以获得线性收敛速度，其依赖于条件数<span><span class="heti-spacing"> </span><span class="arithmatex">\(\kappa = L/\mu\)</span></span>：</p>
+<div class="arithmatex">\[
+\theta_t=\quad\eta_{t-1}-\frac{1}{L}g'(\eta_{t-1})
+\]</div>
+<div class="arithmatex">\[
+\eta_t=\quad\theta_t+\frac{1-\sqrt{\mu/L}}{1+\sqrt{\mu/L}}(\theta_t-\theta_{t-1})
+\]</div>
+<div class="arithmatex">\[
+g(\theta_t) - f(\theta^*) \le L\|\theta_0 - \theta^*\|_2^2 \left(1 - \sqrt{\frac{\mu}{L}}\right)^t
+\]</div>
+<ul>
+<li><strong>与共轭梯度法的关系<span><span class="heti-spacing"> </span>(Relationship with conjugate gradient)</span></strong>：对于二次函数，加速梯度法与共轭梯度法<span class="heti-skip"><span class="heti-spacing"> </span>(Conjugate Gradient)<span class="heti-spacing"> </span></span>有密切关系。</li>
+</ul>
+<h3 id="投影梯度下降-Projected-Gradient-Descent-page-56">投影梯度下降<span><span class="heti-spacing"> </span>(Projected Gradient Descent) (page 56)</span><a class="headerlink" href="#投影梯度下降-Projected-Gradient-Descent-page-56" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>投影梯度下降用于解决带有简单凸约束的优化问题，形式为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\min_{\theta \in \mathcal{K}} f(\theta)\)</span></span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{K}\)</span><span class="heti-spacing"> </span></span>是一个凸集。</p>
+<ul>
+<li>
+<p><strong>算法</strong><span>:<span class="heti-spacing"> </span></span>投影梯度下降的迭代更新包括一个梯度下降步骤和一个到约束集的投影步骤：
+    <span class="arithmatex">\(<span class="arithmatex">\(\theta_{t+1} = \arg \min_{\theta \in \mathcal{K}} \left\{f(\theta_t) + (\theta - \theta_t)^\top \nabla f(\theta_t) + \frac{L}{2}\|\theta - \theta_t\|_2^2\right\}\)</span>\)</p>
+<p>这等价于：
+<span class="arithmatex">\(<span class="arithmatex">\(\theta_{t+1} = \arg \min_{\theta \in \mathcal{K}} \frac{1}{2}\left\|\theta - \left(\theta_t - \frac{1}{L}\nabla f(\theta_t)\right)\right\|_2^2\)</span>\)
+  这个操作 <span class="arithmatex">\(\Pi_{\mathcal{K}}(x) = \arg \min_{z \in \mathcal{K}} \|x - z\|_2\)</span> 就是将点 <span class="arithmatex">\(x\)</span> 投影到凸集 <span class="arithmatex">\(\mathcal{K}\)</span> 上。
+- <strong>收敛率<span><span class="heti-spacing"> </span>(Convergence Rates)</span></strong>：投影梯度下降的收敛率与无约束的光滑优化方法类似。
+- <strong>加速方法<span><span class="heti-spacing"> </span>(Acceleration Methods)</span></strong>：同样存在加速投影梯度下降的方法<span><span class="heti-spacing"> </span>(Nesterov, 2007; Beck and Teboulle, 2009)</span>。</p>
+</li>
+</ul>
+<h3 id="牛顿法-Newton-Method-page-57">牛顿法<span><span class="heti-spacing"> </span>(Newton Method) (page 57)</span><a class="headerlink" href="#牛顿法-Newton-Method-page-57" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>牛顿法是一种二阶优化算法，它利用函数的二阶导数信息（<span>Hessian<span class="heti-spacing"> </span></span>矩阵）来确定搜索方向。</p>
+<ul>
+<li><strong>原理</strong><span>:<span class="heti-spacing"> </span></span>在当前点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\theta_{t-1}\)</span><span class="heti-spacing"> </span></span>处，最小化目标函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(g(\theta)\)</span><span class="heti-spacing"> </span></span>的二阶泰勒展开式<span><span class="heti-spacing"> </span><span class="arithmatex">\(\tilde{g}(\theta)\)</span></span>：
+  $$
+  \tilde{g}(\theta) = g(\theta_{t-1}) + g'(\theta_{t-1})^\top(\theta - \theta_{t-1}) + \frac{1}{2}(\theta - \theta_{t-1})^\top g''(\theta_{t-1})(\theta - \theta_{t-1})
+  $$</li>
+<li><strong>迭代</strong><span>:<span class="heti-spacing"> </span></span>通过设置<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\tilde{g}'(\theta) = 0\)</span><span class="heti-spacing"> </span></span>找到最小值，得到牛顿迭代公式：
+  $$
+  \theta_t = \theta_{t-1} - [g''(\theta_{t-1})]^{-1}g'(\theta_{t-1})
+  $$</li>
+<li><strong>计算成本</strong><span>:<span class="heti-spacing"> </span></span>每次迭代需要计算<span class="heti-skip"><span class="heti-spacing"> </span>Hessian<span class="heti-spacing"> </span></span>矩阵的逆，其运行时间复杂度通常为<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(d^3)\)</span></span>，这在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(d\)</span><span class="heti-spacing"> </span></span>很大时非常昂贵。</li>
+<li><strong>二次收敛<span><span class="heti-spacing"> </span>(Quadratic Convergence)</span></strong>：如果初始点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\theta_{t-1}\)</span><span class="heti-spacing"> </span></span>足够接近最优解<span><span class="heti-spacing"> </span><span class="arithmatex">\(\theta^*\)</span></span>，牛顿法表现出二次收敛速度。这意味着误差在每次迭代中会平方级减小：
+  $$
+  (C|\theta_t - \theta^<em>|) \le (C|\theta_{t-1} - \theta^</em>|)^2
+  $$
+  （其中 <span class="arithmatex">\(C\)</span> 是一个常数）。</li>
+</ul>
+<h3 id="光滑凸函数最小化总结-Summary-Minimizing-Smooth-Convex-Functions-page-58-59">光滑凸函数最小化总结<span><span class="heti-spacing"> </span>(Summary: Minimizing Smooth Convex Functions) (page 58-59)</span><a class="headerlink" href="#光滑凸函数最小化总结-Summary-Minimizing-Smooth-Convex-Functions-page-58-59" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">方法</th>
+<th style="text-align: center;">收敛假设</th>
+<th style="text-align: center;">收敛率<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>一般凸<span><span class="heti-spacing"> </span>)</span></th>
+<th style="text-align: center;">收敛率<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>强凸<span><span class="heti-spacing"> </span>)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>梯度下降</strong></td>
+<td style="text-align: center;"><span><span class="arithmatex">\(g\)</span><span class="heti-spacing"> </span></span>凸，梯度<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L\)</span> -Lipschitz<span class="heti-spacing"> </span></span>连续</td>
+<td style="text-align: center;"><span class="arithmatex">\(O(1/t)\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(O(e^{-t\mu/L})\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>加速梯度下降</strong></td>
+<td style="text-align: center;"><span><span class="arithmatex">\(g\)</span><span class="heti-spacing"> </span></span>凸，梯度<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L\)</span> -Lipschitz<span class="heti-spacing"> </span></span>连续</td>
+<td style="text-align: center;"><span class="arithmatex">\(O(1/t^2)\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(O(e^{-t\sqrt{\mu/L}})\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>牛顿法</strong></td>
+<td style="text-align: center;"><span><span class="arithmatex">\(g\)</span><span class="heti-spacing"> </span></span>凸，二阶可微<br/><span>Hessian <span class="arithmatex">\(L\)</span> -Lipschitz<span class="heti-spacing"> </span></span>连续</td>
+<td style="text-align: center;"><span class="arithmatex">\(O(e^{-\rho^2t})\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(O(e^{-\rho^2t})\)</span> <br/><span>(<span class="heti-spacing"> </span></span>局部二次收敛<span><span class="heti-spacing"> </span>)</span></td>
+</tr>
+</tbody>
+</table>
+<p>从光滑函数到非光滑函数，通常使用<strong>次梯度法<span><span class="heti-spacing"> </span>(Subgradient Method)</span></strong> 和 <strong>椭球法<span><span class="heti-spacing"> </span>(Ellipsoid Algorithm)</span></strong>。</p>
+<h3 id="次梯度法下降-Subgradient-MethodDescent-Shor-et-al-1985-page-60-64">次梯度法<span class="heti-skip"><span class="heti-spacing"> </span>/"<span class="heti-spacing"> </span></span>下降<span><span class="heti-spacing"> </span>" (Subgradient Method/"Descent") (Shor et al., 1985) (page 60-64)</span><a class="headerlink" href="#次梯度法下降-Subgradient-MethodDescent-Shor-et-al-1985-page-60-64" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>次梯度法是用于非光滑凸优化的基本方法。</p>
+<ul>
+<li><strong>假设</strong><span>: <span class="arithmatex">\(g\)</span><span class="heti-spacing"> </span></span>是凸的，且在中心为<span><span class="heti-spacing"> </span><span class="arithmatex">\(0\)</span></span>、半径为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D\)</span><span class="heti-spacing"> </span></span>的球上是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(B\)</span> -Lipschitz<span class="heti-spacing"> </span></span>连续的，且存在最优解<span><span class="heti-spacing"> </span><span class="arithmatex">\(\theta^*\)</span></span>。</li>
+<li><strong>算法</strong><span>:<span class="heti-spacing"> </span></span>次梯度法的迭代更新公式为：
+  $$
+  \theta_t = \Pi_D \left(\theta_{t-1} - \frac{2D}{B\sqrt{t}}g'(\theta_{t-1})\right)
+  $$
+  其中 <span class="arithmatex">\(\Pi_D\)</span> 是到球体 <span class="arithmatex">\(\{\theta \mid \|\theta\|_2 \le D\}\)</span> 的正交投影，<span class="arithmatex">\(g'(\theta_{t-1})\)</span> 是次梯度。</li>
+<li><strong>收敛界<span><span class="heti-spacing"> </span>(Bound)</span></strong>：次梯度法的收敛速度通常是<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(1/\sqrt{t})\)</span></span>：
+  $$
+  g\left(\frac{1}{t}\sum_{k=0}^{t-1}\theta_k\right) - g(\theta^*) \le \frac{2DB}{\sqrt{t}}
+  $$
+  这表示平均迭代点的函数值收敛到最优值。</li>
+</ul>
+<h4 id="次梯度法用于机器学习-Subgradient-Descent-for-Machine-Learning-page-65">次梯度法用于机器学习<span><span class="heti-spacing"> </span>(Subgradient Descent for Machine Learning) (page 65)</span><a class="headerlink" href="#次梯度法用于机器学习-Subgradient-Descent-for-Machine-Learning-page-65" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<ul>
+<li><strong>假设</strong><span>: <span class="arithmatex">\(f\)</span><span class="heti-spacing"> </span></span>是期望风险，<span><span class="arithmatex">\(\hat{f}\)</span><span class="heti-spacing"> </span></span>是经验风险。线性预测器<span><span class="heti-spacing"> </span><span class="arithmatex">\(\theta(x) = \theta^\top \Phi(x)\)</span></span>，特征<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\Phi(x)\)</span><span class="heti-spacing"> </span></span>有界<span><span class="heti-spacing"> </span><span class="arithmatex">\(\|\Phi(x)\|_2 \le R\)</span></span>。损失函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{f}\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(GR\)</span> -Lipschitz<span class="heti-spacing"> </span></span>连续的，且参数在有界集合<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\Theta = \{\theta \mid \|\theta\|_2 \le D\}\)</span><span class="heti-spacing"> </span></span>中。</li>
+<li><strong>统计学<span><span class="heti-spacing"> </span>(Statistics)</span></strong>：对于<span class="heti-skip"><span class="heti-spacing"> </span>Lipschitz<span class="heti-spacing"> </span></span>函数，期望风险和经验风险之间的偏差有界：
+  $$
+  \sup_{\theta \in \Theta} |\hat{f}(\theta) - f(\theta)| \le \frac{GRD}{\sqrt{n}}\left[2 + \sqrt{2 \log \frac{2}{\delta}}\right]
+  $$</li>
+<li><strong>优化<span><span class="heti-spacing"> </span>(Optimization)</span></strong>：经过<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span><span class="heti-spacing"> </span></span>次次梯度迭代后，经验风险的收敛：
+  $$
+  \hat{f}(\hat{\theta}) - \min_{\eta \in \Theta} \hat{f}(\eta) \le \frac{GRD}{\sqrt{t}}
+  $$</li>
+<li><strong>总运行时间复杂度<span><span class="heti-spacing"> </span>(Total Running-Time Complexity)</span></strong>：如果迭代次数<span><span class="heti-spacing"> </span><span class="arithmatex">\(t = n\)</span></span>，则总运行时间复杂度为<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(n^2d)\)</span></span>，这是因为每次迭代需要计算所有<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>个样本的次梯度。</li>
+</ul>
+<h4 id="强凸情况下的次梯度下降-Strong-Convexity-page-66-68">强凸情况下的次梯度下降<span><span class="heti-spacing"> </span>(Strong Convexity) (page 66-68)</span><a class="headerlink" href="#强凸情况下的次梯度下降-Strong-Convexity-page-66-68" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>如果函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(g\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mu\)</span> -<span class="heti-spacing"> </span></span>强凸的，则次梯度下降的收敛速度为<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(1/t)\)</span></span>：
+$$
+g\left(\frac{2}{t(t+1)}\sum_{k=1}^t k\theta_{k-1}\right) - g(\theta^*) \le \frac{2B^2}{\mu(t+1)}
+$$
+这表示加权平均迭代点的函数值收敛到最优值。</p>
+<h3 id="凸函数最小化总结-Summary-Minimizing-Convex-Functions-page-69">凸函数最小化总结<span><span class="heti-spacing"> </span>(Summary: Minimizing Convex Functions) (page 69)</span><a class="headerlink" href="#凸函数最小化总结-Summary-Minimizing-Convex-Functions-page-69" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">方法</th>
+<th style="text-align: left;">收敛假设</th>
+<th style="text-align: left;">收敛率<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>非光滑凸<span><span class="heti-spacing"> </span>)</span></th>
+<th style="text-align: left;">收敛率<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>光滑凸<span><span class="heti-spacing"> </span>)</span></th>
+<th style="text-align: left;">收敛率<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>强光滑凸<span><span class="heti-spacing"> </span>)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>梯度下降</strong></td>
+<td style="text-align: left;"><span><span class="arithmatex">\(g\)</span><span class="heti-spacing"> </span></span>凸</td>
+<td style="text-align: left;"><span class="arithmatex">\(O(1/\sqrt{t})\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(O(1/t)\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(O(e^{-\rho t})\)</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>牛顿法</strong></td>
+<td style="text-align: left;"><span><span class="arithmatex">\(g\)</span><span class="heti-spacing"> </span></span>凸，二阶可微</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;"><span class="arithmatex">\(O(e^{-\rho^2t})\)</span></td>
+</tr>
+</tbody>
+</table>
+<h3 id="关键见解-Key-Insights-from-Bottou-and-Bousquet-2008-page-70">关键见解<span><span class="heti-spacing"> </span>(Key Insights from Bottou and Bousquet (2008)) (page 70)</span><a class="headerlink" href="#关键见解-Key-Insights-from-Bottou-and-Bousquet-2008-page-70" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ol>
+<li><strong>无需优化到统计误差以下</strong><span>:<span class="heti-spacing"> </span></span>在机器学习中，没有必要将经验风险优化到远远低于统计误差的程度。这意味着我们不需要追求极高的优化精度，因为数据本身带有噪声和不确定性。</li>
+<li><strong>成本函数是平均值</strong><span>:<span class="heti-spacing"> </span></span>机器学习中的成本函数通常是数据样本的平均损失。这为使用随机优化方法提供了基础。</li>
+</ol>
+<p>这两个见解共同导向了<strong>随机逼近<span><span class="heti-spacing"> </span>(Stochastic Approximation)</span></strong> 方法的应用。</p>
+<h2 id="非光滑随机逼近-Non-smooth-Stochastic-Approximation-page-72-78">非光滑随机逼近<span><span class="heti-spacing"> </span>(Non-smooth Stochastic Approximation) (page 72-78)</span><a class="headerlink" href="#非光滑随机逼近-Non-smooth-Stochastic-Approximation-page-72-78" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>随机逼近方法的目标是在只能获得梯度（或次梯度）的无偏估计的情况下，最小化一个函数。</p>
+<h3 id="目标-Goal-page-73">目标<span><span class="heti-spacing"> </span>(Goal) (page 73)</span><a class="headerlink" href="#目标-Goal-page-73" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>目标</strong><span>:<span class="heti-spacing"> </span></span>最小化一个定义在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathbb{R}^d\)</span><span class="heti-spacing"> </span></span>上的函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(f\)</span></span>。</li>
+<li><strong>挑战</strong><span>:<span class="heti-spacing"> </span></span>只能获得其梯度<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f'(\theta_n)\)</span><span class="heti-spacing"> </span></span>的无偏估计<span><span class="heti-spacing"> </span><span class="arithmatex">\(f'_n(\theta_n)\)</span></span>。</li>
+</ul>
+<h3 id="机器学习与统计-Machine-Learning---Statistics-page-74">机器学习与统计<span><span class="heti-spacing"> </span>(Machine Learning - Statistics) (page 74)</span><a class="headerlink" href="#机器学习与统计-Machine-Learning---Statistics-page-74" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在机器学习中，这种无偏估计是很自然的：</p>
+<ul>
+<li><strong>单对观测的损失<span><span class="heti-spacing"> </span>(Loss for a single pair of observations)</span></strong>：<span class="arithmatex">\(f_n(\theta) = \ell(y_n, \theta^\top \Phi(x_n))\)</span>。</li>
+<li><strong>期望损失<span><span class="heti-spacing"> </span>(Expected loss)</span></strong>：<span class="arithmatex">\(f(\theta) = \mathbb{E} f_n(\theta) = \mathbb{E} \ell(y_n, \theta^\top \Phi(x_n))\)</span>，这就是泛化误差<span><span class="heti-spacing"> </span>(generalization error)</span>。</li>
+<li><strong>期望梯度<span><span class="heti-spacing"> </span>(Expected gradient)</span></strong>：<span class="arithmatex">\(f'(\theta) = \mathbb{E} f'_n(\theta) = \mathbb{E}[\ell'(y_n, \theta^\top \Phi(x_n)) \Phi(x_n)]\)</span>。</li>
+<li><strong>迭代次数<span class="heti-skip"><span class="heti-spacing"> </span>=<span class="heti-spacing"> </span></span>观测次数<span><span class="heti-spacing"> </span>(Number of iterations = number of observations)</span></strong>。</li>
+</ul>
+<h3 id="随机逼近的适用性-Stochastic-Approximation-page-75">随机逼近的适用性<span><span class="heti-spacing"> </span>(Stochastic Approximation) (page 75)</span><a class="headerlink" href="#随机逼近的适用性-Stochastic-Approximation-page-75" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>随机逼近的适用范围比凸优化更广，它不一定要求凸性、<span>i.i.d.<span class="heti-spacing"> </span></span>假设或有限维度。</p>
+<ul>
+<li>
+<p><strong>核心算法<span><span class="heti-spacing"> </span>(Key Algorithm)</span></strong>：<strong>随机梯度下降<span><span class="heti-spacing"> </span>(Stochastic Gradient Descent, SGD)</span></strong>，也被称为<span class="heti-skip"><span class="heti-spacing"> </span>Robbins-Monro<span class="heti-spacing"> </span></span>算法。
+  $$
+  \theta_n = \theta_{n-1} - \gamma_n h_n(\theta_{n-1}) \quad \text{with } \mathbb{E}[h_n(\theta_{n-1})|\theta_{n-1}] = h(\theta_{n-1})
+  $$</p>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(h_n(\theta_{n-1})\)</span><span class="heti-spacing"> </span></span>是真实梯度<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(h(\theta_{n-1})\)</span><span class="heti-spacing"> </span></span>的无偏估计，<span><span class="arithmatex">\(\gamma_n\)</span><span class="heti-spacing"> </span></span>是学习率（步长<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。
+- <strong><span>Polyak-Ruppert<span class="heti-spacing"> </span></span>平均<span><span class="heti-spacing"> </span>(Polyak-Ruppert Averaging)</span></strong>：通常对迭代点进行平均可以改善收敛性，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(\bar{\theta}_n = \frac{1}{n}\sum_{k=0}^{n-1} \theta_k\)</span></span>。
+- <strong>学习率序列<span><span class="heti-spacing"> </span>(Learning Rate Sequence)</span></strong>：经典的设置是<span><span class="heti-spacing"> </span><span class="arithmatex">\(\gamma_n = Cn^{-\alpha}\)</span></span>。
+- <strong>理想行为</strong><span>:<span class="heti-spacing"> </span></span>适用于经典监督学习问题，对未知常数<span class="heti-skip"><span class="heti-spacing"> </span>(L, B, <span class="arithmatex">\(\mu\)</span>)<span class="heti-spacing"> </span></span>具有鲁棒性，并能适应问题难度（如强凸性<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+</li>
+</ul>
+<h3 id="与在线学习的关系-Relationship-to-Online-Learning-page-76-78">与在线学习的关系<span><span class="heti-spacing"> </span>(Relationship to Online Learning) (page 76-78)</span><a class="headerlink" href="#与在线学习的关系-Relationship-to-Online-Learning-page-76-78" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>随机逼近<span><span class="heti-spacing"> </span>(Stochastic Approximation)</span></strong>：最小化期望风险<span><span class="heti-spacing"> </span><span class="arithmatex">\(f(\theta) = \mathbb{E}_z \ell(\theta, z)\)</span></span>，使用单次<span class="heti-skip"><span class="heti-spacing"> </span>i.i.d.<span class="heti-spacing"> </span></span>观测的梯度。</li>
+<li><strong>批量学习<span><span class="heti-spacing"> </span>(Batch Learning)</span></strong>：给定有限观测集<span><span class="heti-spacing"> </span><span class="arithmatex">\(z_1, \dots, z_n\)</span></span>，最小化经验风险<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{f}(\theta) = \frac{1}{n}\sum_{k=1}^n \ell(\theta, z_k)\)</span></span>。泛化界通常使用均匀集中结果得到。</li>
+<li><strong>在线学习<span><span class="heti-spacing"> </span>(Online Learning)</span></strong>：每次接收一个新的（可能是对抗性的）观测<span><span class="heti-spacing"> </span><span class="arithmatex">\(z_n\)</span></span>，并更新<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{\theta}_n\)</span></span>。累积损失为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{1}{n}\sum_{k=1}^n \ell(\hat{\theta}_{k-1}, z_k)\)</span></span>。通过平均可以将在线学习结果转化为批量学习结果。</li>
+</ul>
+<h3 id="凸随机逼近-Convex-Stochastic-Approximation-page-79-81">凸随机逼近<span><span class="heti-spacing"> </span>(Convex Stochastic Approximation) (page 79-81)</span><a class="headerlink" href="#凸随机逼近-Convex-Stochastic-Approximation-page-79-81" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li>关键性质<span><span class="heti-spacing"> </span>:</span><ul>
+<li><strong>光滑性<span><span class="heti-spacing"> </span>(Smoothness)</span></strong>：函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(B\)</span> -Lipschitz<span class="heti-spacing"> </span></span>连续的，其梯度<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f'\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L\)</span> -Lipschitz<span class="heti-spacing"> </span></span>连续的。</li>
+<li><strong>强凸性<span><span class="heti-spacing"> </span>(Strong Convexity)</span></strong>：函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mu\)</span> -<span class="heti-spacing"> </span></span>强凸的。</li>
+<li><strong>核心算法</strong><span>:<span class="heti-spacing"> </span></span>随机梯度下降<span><span class="heti-spacing"> </span>(Robbins-Monro)</span>。
+  $$
+  \theta_n = \theta_{n-1} - \gamma_n f'<em n-1="n-1">n(\theta</em>)
+  $$</li>
+</ul>
+</li>
+<li><strong><span>Polyak-Ruppert<span class="heti-spacing"> </span></span>平均</strong>: <span class="arithmatex">\(\bar{\theta}_n = \frac{1}{n}\sum_{k=0}^{n-1} \theta_k\)</span>。</li>
+<li><strong>学习率序列</strong><span>:<span class="heti-spacing"> </span></span>经典的设置是<span><span class="heti-spacing"> </span><span class="arithmatex">\(\gamma_n = Cn^{-\alpha}\)</span></span>。</li>
+</ul>
+<h3 id="随机次梯度下降-Stochastic-Subgradient-Method-page-82-85">随机次梯度下降<span><span class="heti-spacing"> </span>(Stochastic Subgradient Method) (page 82-85)</span><a class="headerlink" href="#随机次梯度下降-Stochastic-Subgradient-Method-page-82-85" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>假设</strong><span>: <span class="arithmatex">\(f_n\)</span><span class="heti-spacing"> </span></span>是凸的且<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(B\)</span> -Lipschitz<span class="heti-spacing"> </span></span>连续的，并且是<span class="heti-skip"><span class="heti-spacing"> </span>i.i.d.<span class="heti-spacing"> </span></span>函数，满足<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mathbb{E} f_n = f\)</span></span>。<span><span class="arithmatex">\(f\)</span><span class="heti-spacing"> </span></span>的全局最优解<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\theta^*\)</span><span class="heti-spacing"> </span></span>在约束集<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(C = \{\theta \mid \|\theta\|_2 \le D\}\)</span><span class="heti-spacing"> </span></span>内。</li>
+<li><strong>算法</strong>:
+  $$
+  \theta_n = \Pi_D \left(\theta_{n-1} - \frac{2D}{B\sqrt{n}}f'<em n-1="n-1">n(\theta</em>)\right)
+  $$</li>
+<li><strong>收敛界<span><span class="heti-spacing"> </span>(Bound)</span></strong>：随机次梯度法的收敛速度通常是<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(1/\sqrt{n})\)</span></span>：
+  $$
+  \mathbb{E}f\left(\frac{1}{n}\sum_{k=0}^{n-1}\theta_k\right) - f(\theta^*) \le \frac{2DB}{\sqrt{n}}
+  $$</li>
+<li><strong>运行时间复杂度</strong><span>:<span class="heti-spacing"> </span></span>经过<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>次迭代后，总运行时间复杂度为<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(dn)\)</span></span>。这比批量次梯度下降的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(O(n^2d)\)</span><span class="heti-spacing"> </span></span>更优，因为每次迭代只计算一个样本的次梯度。</li>
+</ul>
+<h4 id="强凸情况下的随机次梯度下降-Strong-Convexity-page-89-91">强凸情况下的随机次梯度下降<span><span class="heti-spacing"> </span>(Strong Convexity) (page 89-91)</span><a class="headerlink" href="#强凸情况下的随机次梯度下降-Strong-Convexity-page-89-91" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>如果函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mu\)</span> -<span class="heti-spacing"> </span></span>强凸的，且次梯度有界，那么随机次梯度下降的收敛速度为<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(1/n)\)</span></span>：
+$$
+\mathbb{E}f\left(\frac{2}{n(n+1)}\sum_{k=1}^n k\theta_{k-1}\right) - f(\theta^*) \le \frac{2B^2}{\mu(n+1)}
+$$</p>
+<h3 id="高概率界-High-Probability-Bounds-page-96-100">高概率界<span><span class="heti-spacing"> </span>(High-Probability Bounds) (page 96-100)</span><a class="headerlink" href="#高概率界-High-Probability-Bounds-page-96-100" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>除了期望收敛，我们还关心高概率下的收敛界。</p>
+<ul>
+<li><strong>典型结果</strong><span>:<span class="heti-spacing"> </span></span>通过马尔可夫不等式，可以从期望收敛结果推导出高概率界：
+  $$
+  \mathbb{P}\left(f\left(\frac{1}{n}\sum_{k=0}^{n-1}\theta_k\right) - f(\theta^*) \ge \varepsilon\right) \le \frac{2DB}{\sqrt{n}\varepsilon}
+  $$</li>
+<li><strong>偏差不等式<span><span class="heti-spacing"> </span>(Deviation inequality)</span></strong>：利用更强大的偏差不等式（如<span class="heti-skip"><span class="heti-spacing"> </span>Azuma-Hoeffding<span class="heti-spacing"> </span></span>不等式）可以获得更紧的高概率界。对于有界鞅差分序列，可以得到：
+  $$
+  \mathbb{P}\left(\sum_{u=1}^n \frac{Z_u}{2\gamma_u} \ge t\sqrt{n} \cdot 4DB\right) \le \exp\left(-\frac{t^2}{2}\right)
+  $$
+  其中 <span class="arithmatex">\(Z_u = -2\gamma_u(\theta_{u-1}-\theta^*)^\top[f'_u(\theta_{u-1}) - f'(\theta_{u-1})]\)</span> 是鞅差分序列。</li>
+</ul>
+<h3 id="收敛速率总结-Summary-of-Rates-of-Convergence-page-71-101">收敛速率总结<span><span class="heti-spacing"> </span>(Summary of Rates of Convergence) (page 71, 101)</span><a class="headerlink" href="#收敛速率总结-Summary-of-Rates-of-Convergence-page-71-101" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>下表总结了不同类型函数和优化设置下的收敛速率。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>类型</strong></th>
+<th style="text-align: left;"><strong>性质</strong></th>
+<th style="text-align: left;"><strong>确定性方法<span><span class="heti-spacing"> </span>(Deterministic)</span></strong></th>
+<th style="text-align: left;"><strong>随机方法<span><span class="heti-spacing"> </span>(Stochastic)</span></strong></th>
+<th style="text-align: left;"><strong>有限和<span><span class="heti-spacing"> </span>(Finite Sum)</span></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>非光滑凸</strong></td>
+<td style="text-align: left;"><strong>凸</strong></td>
+<td style="text-align: left;"><span class="arithmatex">\(BD/\sqrt{t}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(BD/\sqrt{n}\)</span></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>强凸</strong></td>
+<td style="text-align: left;"><span class="arithmatex">\(B^2/(t\mu)\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(B^2/(n\mu)\)</span></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>光滑凸</strong></td>
+<td style="text-align: left;"><strong>凸</strong></td>
+<td style="text-align: left;"><span class="arithmatex">\(LD^2/t^2\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(LD^2/\sqrt{n}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(n/t\)</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>强凸</strong></td>
+<td style="text-align: left;"><span class="arithmatex">\(\exp(-t\sqrt{\mu/L})\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(L/(n\mu)\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\exp(-\min\{1/n, \mu/L\}t)\)</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>二次</strong></td>
+<td style="text-align: left;"><strong>凸</strong></td>
+<td style="text-align: left;"><span class="arithmatex">\(LD^2/t^2\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(d/n + LD^2/n\)</span></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>强凸</strong></td>
+<td style="text-align: left;"><span class="arithmatex">\(\exp(-t\sqrt{\mu/L})\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(d/n + LD^2/n\)</span></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<p>其中：</p>
+<ul>
+<li><span><span class="arithmatex">\(D\)</span>:<span class="heti-spacing"> </span></span>域的直径<span><span class="heti-spacing"> </span>(diameter of the domain)</span>。</li>
+<li><span><span class="arithmatex">\(B\)</span>: Lipschitz<span class="heti-spacing"> </span></span>常数。</li>
+<li><span><span class="arithmatex">\(L\)</span>:<span class="heti-spacing"> </span></span>光滑常数。</li>
+<li><span><span class="arithmatex">\(\mu\)</span>:<span class="heti-spacing"> </span></span>强凸常数。</li>
+<li><span><span class="arithmatex">\(t\)</span>:<span class="heti-spacing"> </span></span>迭代次数。</li>
+<li><span><span class="arithmatex">\(n\)</span>:<span class="heti-spacing"> </span></span>样本数量。</li>
+<li><span><span class="arithmatex">\(d\)</span>:<span class="heti-spacing"> </span></span>维度。</li>
+</ul>
+<p><strong>注意</strong>:</p>
+<ul>
+<li>对于非光滑凸函数，随机方法通常比确定性方法更快，因为它们能够利用数据的随机性。</li>
+<li>对于光滑凸函数，加速梯度方法可以达到<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(O(1/t^2)\)</span><span class="heti-spacing"> </span></span>的收敛率，优于普通梯度下降的<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(1/t)\)</span></span>。</li>
+<li>强凸函数通常具有指数级的收敛速度，这比次线性收敛快得多。</li>
+<li>在随机设置下，收敛率通常依赖于样本数量<span><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span></span>，而不是迭代次数<span><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span></span>。</li>
+</ul>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn:1">
+<p>Robbins, H., &amp; Monro, S. (1951). A stochastic approximation method. <em>The Annals of Mathematical Statistics</em>, 22(3), 400-407. <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年1月8日 20:14:52 CST">2026年1月8日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年6月17日 10:27:55 CST">2025年6月17日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: appendix UML" class="md-footer__link md-footer__link--prev" href="../appendix-UML/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                appendix UML
+              </div>
+</div>
+</a>
+<a aria-label="下一页: 矩阵求导术（上/下）" class="md-footer__link md-footer__link--next" href="../appendix-martirx_derivation/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                矩阵求导术（上/下）
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

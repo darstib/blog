@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/collection/bugs_solutions/" rel="canonical"/>
+<link href="../articles/" rel="prev"/>
+<link href="../data_visualization/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>Bugs solutions - Darstib's KG!</title>
+<link href="../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../css/timeline.css" rel="stylesheet"/>
+<link href="../../css/heti.css" rel="stylesheet"/>
+<link href="../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../css/flink.css" rel="stylesheet"/>
+<link href="../../css/apperance.css" rel="stylesheet"/>
+<link href="../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#I-Unix">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Bugs solutions
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../note/">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Collection
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Tools/">
+<span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../articles/">
+<span class="md-ellipsis">
+    
+  
+    Articles
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    Bugs solutions
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    Bugs solutions
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I-Unix">
+<span class="md-ellipsis">
+      
+        I Unix
+      
+    </span>
+</a>
+<nav aria-label="I Unix" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I1-ssh-to-WSL">
+<span class="md-ellipsis">
+      
+        I.1 ssh to WSL
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I2-Wsl-default-user">
+<span class="md-ellipsis">
+      
+        I.2 Wsl default user
+      
+    </span>
+</a>
+<nav aria-label="I.2 Wsl default user" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I21-法-1通用">
+<span class="md-ellipsis">
+      
+        I.2.1 法 1（通用）
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I22-法-2终端中能运行对应发行版程序">
+<span class="md-ellipsis">
+      
+        I.2.2 法 2（终端中能运行对应发行版程序）
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I3-Wsl-磁盘转移">
+<span class="md-ellipsis">
+      
+        I.3 Wsl 磁盘转移
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I4-wsl-磁盘压缩">
+<span class="md-ellipsis">
+      
+        I.4 wsl 磁盘压缩
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I5-忘记了-wsl-root-权限密码">
+<span class="md-ellipsis">
+      
+        I.5 忘记了 wsl root 权限密码
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I6-忘记-Vmware-machine-密码">
+<span class="md-ellipsis">
+      
+        I.6 忘记 Vmware-machine 密码
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I7-change-version-of-JAVA-in-linux">
+<span class="md-ellipsis">
+      
+        I.7 change version of JAVA in linux
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I8-change-version-of-GCC-in-linux">
+<span class="md-ellipsis">
+      
+        I.8 change version of GCC in linux
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I9-WSL-0x80190193">
+<span class="md-ellipsis">
+      
+        I.9 WSL (0x80190193)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I10-Kali-linux-install">
+<span class="md-ellipsis">
+      
+        I.10 Kali linux install
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I11-内网服务器的网络问题">
+<span class="md-ellipsis">
+      
+        I.11 内网服务器的网络问题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II-windows">
+<span class="md-ellipsis">
+      
+        II windows
+      
+    </span>
+</a>
+<nav aria-label="II windows" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II1-电脑假死">
+<span class="md-ellipsis">
+      
+        II.1 电脑假死
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II2-oh-my-posh-显示-python-虚拟环境">
+<span class="md-ellipsis">
+      
+        II.2 oh-my-posh 显示 python 虚拟环境
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II3-windows-文件资源管理器中的-网盘图标-移除">
+<span class="md-ellipsis">
+      
+        II.3 windows 文件资源管理器中的 “网盘图标” 移除
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II4-电脑不使用后两分钟锁屏自动锁屏">
+<span class="md-ellipsis">
+      
+        II.4 电脑不使用后两分钟锁屏自动锁屏
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II5-在-Windows11-上隐藏任务栏中的-copilot">
+<span class="md-ellipsis">
+      
+        II.5 在 Windows11 上隐藏任务栏中的 copilot
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II6-windows-多任务处理-edge-浏览器标签页显示过多">
+<span class="md-ellipsis">
+      
+        II.6 windows 多任务处理 edge 浏览器标签页显示过多
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Docker-未安装在指定位置导致-compose-插件无法被找到">
+<span class="md-ellipsis">
+      
+        Docker 未安装在指定位置导致 compose 插件无法被找到
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III-Network">
+<span class="md-ellipsis">
+      
+        III Network
+      
+    </span>
+</a>
+<nav aria-label="III Network" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III1-macOS-clash-系统代理打开无效">
+<span class="md-ellipsis">
+      
+        III.1 macOS clash 系统代理打开无效
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III2-missing-cap_net_rawp-capability-or-setuid">
+<span class="md-ellipsis">
+      
+        III.2 missing cap_net_raw+p capability or setuid
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III3-From-xxxx-icmp_seqn-Destination-Host-Unreachable">
+<span class="md-ellipsis">
+      
+        III.3 From xxxx icmp_seq=n Destination Host Unreachable
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III4-连接需要登录的-wifi-时重定向界面错误">
+<span class="md-ellipsis">
+      
+        III.4 连接需要登录的 wifi 时重定向界面错误
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III5-vscode-中使用-copilot-登录失败">
+<span class="md-ellipsis">
+      
+        III.5 vscode 中使用 copilot 登录失败
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV-Other">
+<span class="md-ellipsis">
+      
+        IV Other
+      
+    </span>
+</a>
+<nav aria-label="IV Other" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV11-如何获取-Google-安全码">
+<span class="md-ellipsis">
+      
+        IV.1.1 如何获取 Google 安全码？
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV12-Tab-Foucs-in-Vscode">
+<span class="md-ellipsis">
+      
+        IV.1.2 Tab Foucs in Vscode
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV13-obsidian-文件保存失败">
+<span class="md-ellipsis">
+      
+        IV.1.3 obsidian 文件保存失败？
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV14-Obsidian-调整-mermaid-宽度">
+<span class="md-ellipsis">
+      
+        IV.1.4 Obsidian 调整 mermaid 宽度
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV15-Syncthing-跨设备同步工具">
+<span class="md-ellipsis">
+      
+        IV.1.5 Syncthing 跨设备同步工具
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV16-Deskflow">
+<span class="md-ellipsis">
+      
+        IV.1.6 Deskflow
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../data_visualization/">
+<span class="md-ellipsis">
+    
+  
+    Data Visualization
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../note_link/">
+<span class="md-ellipsis">
+    
+  
+    Note link
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../teachyourselfcs/">
+<span class="md-ellipsis">
+    
+  
+    Teachyourselfcs
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../web_sites/">
+<span class="md-ellipsis">
+    
+  
+    Web sites
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../note/">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I-Unix">
+<span class="md-ellipsis">
+      
+        I Unix
+      
+    </span>
+</a>
+<nav aria-label="I Unix" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I1-ssh-to-WSL">
+<span class="md-ellipsis">
+      
+        I.1 ssh to WSL
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I2-Wsl-default-user">
+<span class="md-ellipsis">
+      
+        I.2 Wsl default user
+      
+    </span>
+</a>
+<nav aria-label="I.2 Wsl default user" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I21-法-1通用">
+<span class="md-ellipsis">
+      
+        I.2.1 法 1（通用）
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I22-法-2终端中能运行对应发行版程序">
+<span class="md-ellipsis">
+      
+        I.2.2 法 2（终端中能运行对应发行版程序）
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I3-Wsl-磁盘转移">
+<span class="md-ellipsis">
+      
+        I.3 Wsl 磁盘转移
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I4-wsl-磁盘压缩">
+<span class="md-ellipsis">
+      
+        I.4 wsl 磁盘压缩
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I5-忘记了-wsl-root-权限密码">
+<span class="md-ellipsis">
+      
+        I.5 忘记了 wsl root 权限密码
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I6-忘记-Vmware-machine-密码">
+<span class="md-ellipsis">
+      
+        I.6 忘记 Vmware-machine 密码
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I7-change-version-of-JAVA-in-linux">
+<span class="md-ellipsis">
+      
+        I.7 change version of JAVA in linux
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I8-change-version-of-GCC-in-linux">
+<span class="md-ellipsis">
+      
+        I.8 change version of GCC in linux
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I9-WSL-0x80190193">
+<span class="md-ellipsis">
+      
+        I.9 WSL (0x80190193)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I10-Kali-linux-install">
+<span class="md-ellipsis">
+      
+        I.10 Kali linux install
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I11-内网服务器的网络问题">
+<span class="md-ellipsis">
+      
+        I.11 内网服务器的网络问题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II-windows">
+<span class="md-ellipsis">
+      
+        II windows
+      
+    </span>
+</a>
+<nav aria-label="II windows" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II1-电脑假死">
+<span class="md-ellipsis">
+      
+        II.1 电脑假死
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II2-oh-my-posh-显示-python-虚拟环境">
+<span class="md-ellipsis">
+      
+        II.2 oh-my-posh 显示 python 虚拟环境
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II3-windows-文件资源管理器中的-网盘图标-移除">
+<span class="md-ellipsis">
+      
+        II.3 windows 文件资源管理器中的 “网盘图标” 移除
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II4-电脑不使用后两分钟锁屏自动锁屏">
+<span class="md-ellipsis">
+      
+        II.4 电脑不使用后两分钟锁屏自动锁屏
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II5-在-Windows11-上隐藏任务栏中的-copilot">
+<span class="md-ellipsis">
+      
+        II.5 在 Windows11 上隐藏任务栏中的 copilot
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II6-windows-多任务处理-edge-浏览器标签页显示过多">
+<span class="md-ellipsis">
+      
+        II.6 windows 多任务处理 edge 浏览器标签页显示过多
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Docker-未安装在指定位置导致-compose-插件无法被找到">
+<span class="md-ellipsis">
+      
+        Docker 未安装在指定位置导致 compose 插件无法被找到
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III-Network">
+<span class="md-ellipsis">
+      
+        III Network
+      
+    </span>
+</a>
+<nav aria-label="III Network" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III1-macOS-clash-系统代理打开无效">
+<span class="md-ellipsis">
+      
+        III.1 macOS clash 系统代理打开无效
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III2-missing-cap_net_rawp-capability-or-setuid">
+<span class="md-ellipsis">
+      
+        III.2 missing cap_net_raw+p capability or setuid
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III3-From-xxxx-icmp_seqn-Destination-Host-Unreachable">
+<span class="md-ellipsis">
+      
+        III.3 From xxxx icmp_seq=n Destination Host Unreachable
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III4-连接需要登录的-wifi-时重定向界面错误">
+<span class="md-ellipsis">
+      
+        III.4 连接需要登录的 wifi 时重定向界面错误
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III5-vscode-中使用-copilot-登录失败">
+<span class="md-ellipsis">
+      
+        III.5 vscode 中使用 copilot 登录失败
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV-Other">
+<span class="md-ellipsis">
+      
+        IV Other
+      
+    </span>
+</a>
+<nav aria-label="IV Other" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV11-如何获取-Google-安全码">
+<span class="md-ellipsis">
+      
+        IV.1.1 如何获取 Google 安全码？
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV12-Tab-Foucs-in-Vscode">
+<span class="md-ellipsis">
+      
+        IV.1.2 Tab Foucs in Vscode
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV13-obsidian-文件保存失败">
+<span class="md-ellipsis">
+      
+        IV.1.3 obsidian 文件保存失败？
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV14-Obsidian-调整-mermaid-宽度">
+<span class="md-ellipsis">
+      
+        IV.1.4 Obsidian 调整 mermaid 宽度
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV15-Syncthing-跨设备同步工具">
+<span class="md-ellipsis">
+      
+        IV.1.5 Syncthing 跨设备同步工具
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV16-Deskflow">
+<span class="md-ellipsis">
+      
+        IV.1.6 Deskflow
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../tags/#tag:collection">collection</a>
+</nav>
+<h1>Bugs solutions</h1>
+<div class="admonition help">
+<p class="admonition-title">即自己遇到的问题以及相应的解决方法。</p>
+</div>
+<h2 id="I-Unix">I Unix<a class="headerlink" href="#I-Unix" title="Permanent link">¶</a></h2>
+<h3 id="I1-ssh-to-WSL">I.1 ssh to WSL<a class="headerlink" href="#I1-ssh-to-WSL" title="Permanent link">¶</a></h3>
+<ul>
+<li><a href="https://blog.csdn.net/Narutolxy/article/details/144226085">从<span class="heti-skip"><span class="heti-spacing"> </span>macOS<span class="heti-spacing"> </span></span>到<span><span class="heti-spacing"> </span>Windows WSL</span></a><ul>
+<li>ubuntu: <code>sudo systemctl start ssh</code></li>
+</ul>
+</li>
+<li><a href="https://zhi.moe/post/access-into-wsl2-ubuntu-from-macos/"><span>SSH<span class="heti-spacing"> </span></span>访问<span class="heti-skip"><span class="heti-spacing"> </span>Windows<span class="heti-spacing"> </span></span>的<span><span class="heti-spacing"> </span>WSL2 Ubuntu</span></a><ul>
+<li>kali-linux: <code>sudo /usr/sbin/service ssh start</code></li>
+</ul>
+</li>
+<li><span>windows<span class="heti-spacing"> </span></span>上执行 <code>netsh interface portproxy show all</code> 查看开放端口</li>
+</ul>
+<h3 id="I2-Wsl-default-user">I.2 Wsl default user<a class="headerlink" href="#I2-Wsl-default-user" title="Permanent link">¶</a></h3>
+<h4 id="I21-法-1通用"><span>I.2.1<span class="heti-spacing"> </span></span>法<span><span class="heti-spacing"> </span>1</span>（通用）<a class="headerlink" href="#I21-法-1通用" title="Permanent link">¶</a></h4>
+<div class="highlight"><span class="filename">/etc/wsl.conf</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos="1 "></span></a>[user]
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos" data-linenos="2 "></span></a>default=darstib
+</span></code></pre></div>
+<h4 id="I22-法-2终端中能运行对应发行版程序"><span>I.2.2<span class="heti-spacing"> </span></span>法<span><span class="heti-spacing"> </span>2</span>（终端中能运行对应发行版程序）<a class="headerlink" href="#I22-法-2终端中能运行对应发行版程序" title="Permanent link">¶</a></h4>
+<div class="highlight"><span class="filename">cmd/powershell</span><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos" data-linenos="1 "></span></a>&lt;Distro&gt; config --default-user &lt;user&gt;
+</span></code></pre></div>
+<blockquote>
+<p>基本失效，一般都使用 <code>wsl -d &lt;Distro&gt;</code> 。</p>
+</blockquote>
+<h3 id="I3-Wsl-磁盘转移"><span>I.3 Wsl<span class="heti-spacing"> </span></span>磁盘转移<a class="headerlink" href="#I3-Wsl-磁盘转移" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>Wsl<span class="heti-spacing"> </span></span>越用越大，默认在<span class="heti-skip"><span class="heti-spacing"> </span>C<span class="heti-spacing"> </span></span>盘，如何移动到<span class="heti-skip"><span class="heti-spacing"> </span>D<span class="heti-spacing"> </span></span>盘自己指定的位置呢？</p>
+<div class="admonition tip">
+<p class="admonition-title">显然迁移是需要打包、迁移、解包的，那么当然是发行版越小的时候迁移越方便。</p>
+</div>
+<div class="admonition attention">
+<p class="admonition-title"><span>20250714<span class="heti-spacing"> </span></span>更<heti-adjacent class="heti-adjacent-half">：</heti-adjacent>（来自<span><span class="heti-spacing"> </span>https://linux.do/t/topic/785798</span> ）</p>
+</div>
+<div class="highlight"><span class="filename">in cmd or powershell</span><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><a href="#__codelineno-2-1"><span class="linenos" data-linenos="1 "></span></a>wsl<span class="w"> </span>--list<span class="w"> </span>-v<span class="w"> </span><span class="c1"># 获取发行版名称，此处以Ubuntu-24.04为例</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><a href="#__codelineno-2-2"><span class="linenos" data-linenos="2 "></span></a><span class="nv">$targetPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"D:\Ubuntu-24"</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><a href="#__codelineno-2-3"><span class="linenos" data-linenos="3 "></span></a><span class="k">if</span><span class="w"> </span><span class="o">(</span>!<span class="o">(</span>Test-Path<span class="w"> </span><span class="nv">$targetPath</span><span class="o">))</span><span class="w"> </span><span class="o">{</span><span class="w"> </span>New-Item<span class="w"> </span>-Path<span class="w"> </span><span class="nv">$targetPath</span><span class="w"> </span>-ItemType<span class="w"> </span>Directory<span class="w"> </span><span class="p">|</span><span class="w"> </span>Out-Null<span class="w"> </span><span class="o">}</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><a href="#__codelineno-2-4"><span class="linenos" data-linenos="4 "></span></a>wsl<span class="w"> </span>--shutdown
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><a href="#__codelineno-2-5"><span class="linenos" data-linenos="5 "></span></a>wsl<span class="w"> </span>--manage<span class="w"> </span>Ubuntu-24.04<span class="w"> </span>--move<span class="w"> </span><span class="s2">"</span><span class="nv">$targetPath</span><span class="s2">"</span>
+</span></code></pre></div>
+<details class="extra">
+<summary>原方案</summary>
+<div class="highlight"><span class="filename">in cmd or powershell</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><a href="#__codelineno-3-1"><span class="linenos" data-linenos="1 "></span></a>wsl<span class="w"> </span>--shutdown<span class="w"> </span><span class="c1"># 关闭 wsl 上运行的发行版</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><a href="#__codelineno-3-2"><span class="linenos" data-linenos="2 "></span></a>wsl<span class="w"> </span>--export<span class="w"> </span>&lt;Distro&gt;<span class="w"> </span>&lt;FileName&gt;<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span><span class="c1"># 建议将分发版导出到 tar 文件。</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><a href="#__codelineno-3-3"><span class="linenos" data-linenos="3 "></span></a>wsl<span class="w"> </span>--unregister<span class="w"> </span>&lt;Distro&gt;<span class="w"> </span><span class="c1"># 将原来的卸载</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a><a href="#__codelineno-3-4"><span class="linenos" data-linenos="4 "></span></a>wsl<span class="w"> </span>--import-in-place<span class="w"> </span>&lt;Distro&gt;<span class="w"> </span>&lt;InstallLocation&gt;<span class="w"> </span>&lt;FileName&gt;
+</span></code></pre></div>
+</details>
+<details class="note">
+<summary><span>windows<span class="heti-spacing"> </span></span>上<span class="heti-skip"><span class="heti-spacing"> </span>docker<span class="heti-spacing"> </span></span>的迁移</summary>
+<p>可以参考<a href="https://hellodk.cn/post/1177"><span class="heti-skip"><span class="heti-spacing"> </span>Windows 11 Docker Desktop<span class="heti-spacing"> </span></span>更换默认<span class="heti-skip"><span class="heti-spacing"> </span>C<span class="heti-spacing"> </span></span>盘存储路径，释放<span class="heti-skip"><span class="heti-spacing"> </span>C<span class="heti-spacing"> </span></span>盘空间</a>；</p>
+<p>原文为（但是迁移上面文件夹的同时迁移了<span class="heti-skip"><span class="heti-spacing"> </span>docker<span class="heti-spacing"> </span></span>的 <code>*.vhdx</code> ，所以看上面的文章即可<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：<a href="https://stackoverflow.com/questions/62441307/how-can-i-change-the-location-of-docker-images-when-using-docker-desktop-on-wsl2">How can I change the location of docker images when using Docker Desktop on WSL2 with Windows 10 Home?</a></p>
+</details>
+<h3 id="I4-wsl-磁盘压缩"><span>I.4 wsl<span class="heti-spacing"> </span></span>磁盘压缩<a class="headerlink" href="#I4-wsl-磁盘压缩" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>wsl<span class="heti-spacing"> </span></span>不主动释放使用过的空间，可以使用<a href="https://www.cnblogs.com/T6uE13s/p/18704140"><span class="heti-skip"><span class="heti-spacing"> </span>WSL2<span class="heti-spacing"> </span></span>虚拟磁盘文件<span class="heti-skip"><span class="heti-spacing"> </span>(.vhdx)<span class="heti-spacing"> </span></span>占用过大处理办法</a> 解决。</p>
+<h3 id="I5-忘记了-wsl-root-权限密码"><span>I.5<span class="heti-spacing"> </span></span>忘记了<span class="heti-skip"><span class="heti-spacing"> </span>wsl root<span class="heti-spacing"> </span></span>权限密码<a class="headerlink" href="#I5-忘记了-wsl-root-权限密码" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><a href="https://learn.microsoft.com/zh-cn/windows/wsl/setup/environment#set-up-your-linux-username-and-password">set-up-your-linux-username-and-password</a></li>
+</ul>
+<h3 id="I6-忘记-Vmware-machine-密码"><span>I.6<span class="heti-spacing"> </span></span>忘记<span class="heti-skip"><span class="heti-spacing"> </span>Vmware-machine<span class="heti-spacing"> </span></span>密码<a class="headerlink" href="#I6-忘记-Vmware-machine-密码" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><a href="https://www.bilibili.com/video/BV1Ha4y1X76Y/?spm_id_from=333.337.search-card.all.click&amp;vd_source=0a037c4dd2becee04d2b1ccafdc1862e"><span>bilibili -<span class="heti-spacing"> </span></span>忘记虚拟机密码登录不了（虚拟机开启报错）与虚拟机修改密码</a></li>
+</ul>
+<h3 id="I7-change-version-of-JAVA-in-linux">I.7 change version of JAVA in linux<a class="headerlink" href="#I7-change-version-of-JAVA-in-linux" title="Permanent link">¶</a></h3>
+<p><code>sudo update-alternatives --config java</code></p>
+<h3 id="I8-change-version-of-GCC-in-linux">I.8 change version of GCC in linux<a class="headerlink" href="#I8-change-version-of-GCC-in-linux" title="Permanent link">¶</a></h3>
+<ul>
+<li>https://blog.csdn.net/qq_39779233/article/details/105124478</li>
+<li>https://lindevs.com/install-gcc-on-ubuntu/</li>
+</ul>
+<h3 id="I9-WSL-0x80190193">I.9 WSL (0x80190193)<a class="headerlink" href="#I9-WSL-0x80190193" title="Permanent link">¶</a></h3>
+<div class="highlight"><span class="filename">PowerShell</span><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><a href="#__codelineno-4-1"><span class="linenos" data-linenos="1 "></span></a><span class="p">&gt;</span> <span class="n">wsl</span> <span class="p">-</span><span class="n">-update</span> <span class="p">-</span><span class="n">-pre-release</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><a href="#__codelineno-4-2"><span class="linenos" data-linenos="2 "></span></a><span class="n">正在检查更新</span><span class="err">。</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><a href="#__codelineno-4-3"><span class="linenos" data-linenos="3 "></span></a><span class="n">已禁止</span><span class="p">(</span><span class="n">403</span><span class="p">)</span><span class="err">。</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a><a href="#__codelineno-4-4"><span class="linenos" data-linenos="4 "></span></a><span class="n">错误代码</span><span class="p">:</span> <span class="n">Wsl</span><span class="p">/</span><span class="n">UpdatePackage</span><span class="p">/</span><span class="n">0x80190193</span>
+</span></code></pre></div>
+<p>解决方案：<strong>关闭代理</strong>，参考<a href="https://blog.csdn.net/qq_44154915/article/details/140602090"><span class="heti-skip"><span class="heti-spacing"> </span>wsl<span class="heti-spacing"> </span></span>安装问题</a>。</p>
+<h3 id="I10-Kali-linux-install">I.10 Kali linux install<a class="headerlink" href="#I10-Kali-linux-install" title="Permanent link">¶</a></h3>
+<ul>
+<li><a href="https://blog.csdn.net/fingue/article/details/127559353"><span>2023 Kali<span class="heti-spacing"> </span></span>安装教程</a></li>
+<li><a href="https://blog.csdn.net/qq_34668863/article/details/134009574"><span>Kali Linux(VMware)<span class="heti-spacing"> </span></span>中解决界面太小等问题</a></li>
+</ul>
+<h3 id="I11-内网服务器的网络问题"><span>I.11<span class="heti-spacing"> </span></span>内网服务器的网络问题<a class="headerlink" href="#I11-内网服务器的网络问题" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title"><span>pip<span class="heti-spacing"> </span></span>安装<span class="heti-skip"><span class="heti-spacing"> </span>python<span class="heti-spacing"> </span></span>包缓慢<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>失败</p>
+</div>
+<p>使用清华源安装：</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><a href="#__codelineno-5-1"><span class="linenos" data-linenos="1 "></span></a>pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+</span></code></pre></div>
+<div class="admonition question">
+<p class="admonition-title"><span>vsc<span class="heti-spacing"> </span></span>插件的网络访问问题</p>
+<details class="important">
+<summary>【<span>20260304<span class="heti-spacing"> </span></span>更新】这里是原来的版本</summary>
+<ul>
+<li>https://blog.csdn.net/qq_40620465/article/details/152000104</li>
+<li>在<span class="heti-skip"><span class="heti-spacing"> </span>ssh<span class="heti-spacing"> </span></span>连接时使用 <code>RemoteForward 7890 localhost:7890</code></li>
+<li>在<strong>服务器</strong>的<span class="heti-skip"><span class="heti-spacing"> </span>setting.json<span class="heti-spacing"> </span></span>中添加下列选项（前两条是关键）</li>
+</ul>
+<div class="highlight"><span class="filename">setting.json</span><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><a href="#__codelineno-6-1"><span class="linenos" data-linenos="1 "></span></a><span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a><a href="#__codelineno-6-2"><span class="linenos" data-linenos="2 "></span></a><span class="w">    </span><span class="nt">"http.proxy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://127.0.0.1:7890"</span><span class="p">,</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a><a href="#__codelineno-6-3"><span class="linenos" data-linenos="3 "></span></a><span class="w">    </span><span class="nt">"http.useLocalProxyConfiguration"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4"></a><a href="#__codelineno-6-4"><span class="linenos" data-linenos="4 "></span></a><span class="w">    </span><span class="nt">"http.proxyStrictSSL"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5"></a><a href="#__codelineno-6-5"><span class="linenos" data-linenos="5 "></span></a><span class="w">    </span><span class="nt">"http.proxySupport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"on"</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6"></a><a href="#__codelineno-6-6"><span class="linenos" data-linenos="6 "></span></a><span class="p">}</span>
+</span></code></pre></div>
+</details>
+</div>
+<p>按照上面的配置，很多时候是可用的（如果没问题用上面的做法即可<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；但有时出现了问题，可以表现为对<span class="heti-skip"><span class="heti-spacing"> </span>google.com<span class="heti-spacing"> </span></span>的请求异常：</p>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a><a href="#__codelineno-7-1"><span class="linenos" data-linenos="1 "></span></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">https_proxy</span><span class="o">=</span>http://127.0.0.1:7890<span class="w"> </span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a><a href="#__codelineno-7-2"><span class="linenos" data-linenos="2 "></span></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a><a href="#__codelineno-7-3"><span class="linenos" data-linenos="3 "></span></a>$<span class="w"> </span>curl<span class="w"> </span>-I<span class="w"> </span>https://www.google.com<span class="w">              </span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a><a href="#__codelineno-7-4"><span class="linenos" data-linenos="4 "></span></a>HTTP/1.1<span class="w"> </span><span class="m">200</span><span class="w"> </span>Connection<span class="w"> </span>established
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5"></a><a href="#__codelineno-7-5"><span class="linenos" data-linenos="5 "></span></a>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6"></a><a href="#__codelineno-7-6"><span class="linenos" data-linenos="6 "></span></a>curl:<span class="w"> </span><span class="o">(</span><span class="m">35</span><span class="o">)</span><span class="w"> </span>OpenSSL<span class="w"> </span>SSL_connect:<span class="w"> </span>Connection<span class="w"> </span>reset<span class="w"> </span>by<span class="w"> </span>peer<span class="w"> </span><span class="k">in</span><span class="w"> </span>connection<span class="w"> </span>to<span class="w"> </span>google.com:443<span class="w"> </span>
+</span></code></pre></div>
+<p>经过对日志的排查以及借助<span class="heti-skip"><span class="heti-spacing"> </span>gemini-3.1-pro<span class="heti-spacing"> </span></span>的分析，猜测是：由于服务器是多人共用的（或者说我自己就是两台电脑<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，当不同的主机尝试通过<span class="heti-skip"><span class="heti-spacing"> </span>ssh<span class="heti-spacing"> </span></span>连接服务器并在<span class="heti-skip"><span class="heti-spacing"> </span>7890<span class="heti-spacing"> </span></span>端口建立转发服务时，就会产生一些奇怪的行为……所以我们换一个端口用，且不再使用本地主机的代理配置（<span>ssh<span class="heti-spacing"> </span></span>连接时配置 <code>RemoteForward 17890 localhost:7890</code><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<div class="highlight"><span class="filename">setting.json</span><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a><a href="#__codelineno-8-1"><span class="linenos" data-linenos="1 "></span></a><span class="p">{</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a><a href="#__codelineno-8-2"><span class="linenos" data-linenos="2 "></span></a><span class="w">    </span><span class="nt">"http.useLocalProxyConfiguration"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a><a href="#__codelineno-8-3"><span class="linenos" data-linenos="3 "></span></a><span class="w">    </span><span class="nt">"http.proxy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://127.0.0.1:17890"</span><span class="p">,</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4"></a><a href="#__codelineno-8-4"><span class="linenos" data-linenos="4 "></span></a><span class="w">    </span><span class="nt">"http.proxySupport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"override"</span><span class="p">,</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5"></a><a href="#__codelineno-8-5"><span class="linenos" data-linenos="5 "></span></a><span class="p">}</span>
+</span></code></pre></div>
+<p>重新构建连接后测试：</p>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a><a href="#__codelineno-9-1"><span class="linenos" data-linenos="1 "></span></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">https_proxy</span><span class="o">=</span>http://127.0.0.1:17890
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a><a href="#__codelineno-9-2"><span class="linenos" data-linenos="2 "></span></a>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3"></a><a href="#__codelineno-9-3"><span class="linenos" data-linenos="3 "></span></a>$<span class="w"> </span>curl<span class="w"> </span>-I<span class="w"> </span>https://www.google.com<span class="w">           </span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4"></a><a href="#__codelineno-9-4"><span class="linenos" data-linenos="4 "></span></a>HTTP/1.1<span class="w"> </span><span class="m">200</span><span class="w"> </span>Connection<span class="w"> </span>established
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5"></a><a href="#__codelineno-9-5"><span class="linenos" data-linenos="5 "></span></a>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6"></a><a href="#__codelineno-9-6"><span class="linenos" data-linenos="6 "></span></a>HTTP/2<span class="w"> </span><span class="m">200</span><span class="w"> </span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7"></a><a href="#__codelineno-9-7"><span class="linenos" data-linenos="7 "></span></a>content-type:<span class="w"> </span>text/html<span class="p">;</span><span class="w"> </span><span class="nv">charset</span><span class="o">=</span>ISO-8859-1
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8"></a><a href="#__codelineno-9-8"><span class="linenos" data-linenos="8 "></span></a>...
+</span></code></pre></div>
+<h2 id="II-windows">II windows<a class="headerlink" href="#II-windows" title="Permanent link">¶</a></h2>
+<h3 id="II1-电脑假死"><span>II.1<span class="heti-spacing"> </span></span>电脑假死<a class="headerlink" href="#II1-电脑假死" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">我的电脑的鼠标可以移动，针对键盘也有响应，但是鼠标无法点击屏幕上的任何东西。</p>
+</div>
+<p>虽然不知道为什么，但是成功在<a href="https://www.reddit.com/r/computerhelp/comments/12t6aik/my_mouse_cursor_works_but_cannot_click_anything/?tl=zh-hans"><span class="heti-skip"><span class="heti-spacing"> </span>reddit<span class="heti-spacing"> </span></span></a>上找到了“在我的情况下”可行的方式（原理不详<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<ol>
+<li>Ctrl+Alt+Delete ，选中“资源管理器”</li>
+<li>按下<span><span class="heti-spacing"> </span>Esc</span>，似乎无事发生，但是此时发现可以点击了……</li>
+</ol>
+<h3 id="II2-oh-my-posh-显示-python-虚拟环境"><span>II.2 oh-my-posh<span class="heti-spacing"> </span></span>显示<span class="heti-skip"><span class="heti-spacing"> </span>python<span class="heti-spacing"> </span></span>虚拟环境<a class="headerlink" href="#II2-oh-my-posh-显示-python-虚拟环境" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="bug">
+<summary><span>PowerShell<span class="heti-spacing"> </span></span>显示<span class="heti-skip"><span class="heti-spacing"> </span>Module<span class="heti-spacing"> </span></span>相关问题</summary>
+<div class="highlight"><span class="filename"><span>Import-Module, Install-Module<span class="heti-spacing"> </span></span>无法识别</span><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a><a href="#__codelineno-10-1"><span class="linenos" data-linenos="1 "></span></a><span class="c"># 检查是否含有 PowerShellGet 模块</span>
+</span></code></pre></div>
+<div class="highlight"><span class="filename">模块不存在</span><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a><a href="#__codelineno-11-1"><span class="linenos" data-linenos="1 "></span></a><span class="nv">$Env:PSModulePath</span> <span class="n">-split</span> <span class="s1">';'</span> <span class="c"># 检查 Module 路径，确认确实存在相关模块；否则去下载</span>
+</span></code></pre></div>
+</details>
+<ul>
+<li><a href="http://zhuanlan.zhihu.com/p/677709658"><span>python<span class="heti-spacing"> </span></span>环境显示：记录一下<span class="heti-skip"><span class="heti-spacing"> </span>windows<span class="heti-spacing"> </span></span>配置<span class="heti-skip"><span class="heti-spacing"> </span>oh my posh<span class="heti-spacing"> </span></span>遇到的坑</a></li>
+</ul>
+<p>注意<span class="heti-skip"><span class="heti-spacing"> </span>json<span class="heti-spacing"> </span></span>文件中实际不能够有注释：</p>
+<div class="highlight"><span class="filename">JSON</span><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a><a href="#__codelineno-12-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="p">{</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a><a href="#__codelineno-12-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"python"</span><span class="p">,</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3"></a><a href="#__codelineno-12-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">  </span><span class="nt">"foreground"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#ffffff"</span><span class="p">,</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4"></a><a href="#__codelineno-12-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">  </span><span class="nt">"style"</span><span class="p">:</span><span class="w"> </span><span class="s2">"plain"</span><span class="p">,</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5"></a><a href="#__codelineno-12-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">  </span><span class="nt">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6"></a><a href="#__codelineno-12-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">    </span><span class="nt">"home_enabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7"></a><a href="#__codelineno-12-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">    </span><span class="nt">"fetch_version"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8"></a><a href="#__codelineno-12-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">    </span><span class="nt">"fetch_virtual_env"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9"></a><a href="#__codelineno-12-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">    </span><span class="nt">"display_mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"context"</span><span class="p">,</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10"></a><a href="#__codelineno-12-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">    </span><span class="nt">"display_virtual_env"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11"></a><a href="#__codelineno-12-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">    </span><span class="nt">"dispplay_default"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12"></a><a href="#__codelineno-12-12"><span class="linenos" data-linenos="12 "></span></a><span class="w">    </span><span class="nt">"display_version"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13"></a><a href="#__codelineno-12-13"><span class="linenos" data-linenos="13 "></span></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14"></a><a href="#__codelineno-12-14"><span class="linenos" data-linenos="14 "></span></a><span class="w">  </span><span class="nt">"template"</span><span class="p">:</span><span class="w"> </span><span class="s2">"(\uE235 {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }}{{ else }}{{ .Full }}{{ end }}{{ end }})"</span>
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15"></a><a href="#__codelineno-12-15"><span class="linenos" data-linenos="15 "></span></a><span class="p">},</span>
+</span></code></pre></div>
+<h3 id="II3-windows-文件资源管理器中的-网盘图标-移除"><span>II.3 windows<span class="heti-spacing"> </span></span>文件资源管理器中的 “网盘图标” 移除<a class="headerlink" href="#II3-windows-文件资源管理器中的-网盘图标-移除" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>注册表中：</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1"></a><a href="#__codelineno-13-1"><span class="linenos" data-linenos="1 "></span></a>计算机\HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2"></a><a href="#__codelineno-13-2"><span class="linenos" data-linenos="2 "></span></a>也有些可能在 HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\
+</span></code></pre></div>
+<h3 id="II4-电脑不使用后两分钟锁屏自动锁屏"><span>II.4<span class="heti-spacing"> </span></span>电脑不使用后两分钟锁屏自动锁屏<a class="headerlink" href="#II4-电脑不使用后两分钟锁屏自动锁屏" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li>https://www.zhihu.com/question/55617612</li>
+</ul>
+<h3 id="II5-在-Windows11-上隐藏任务栏中的-copilot"><span>II.5<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>Windows11<span class="heti-spacing"> </span></span>上隐藏任务栏中的<span><span class="heti-spacing"> </span>copilot</span><a class="headerlink" href="#II5-在-Windows11-上隐藏任务栏中的-copilot" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>最近在<span class="heti-skip"><span class="heti-spacing"> </span>windows 11<span class="heti-spacing"> </span></span>更新后，任务栏中出现了一个 <strong>copilot</strong> ，基于仍然是试用期，而且大陆不能直接访问，懒得用了，放那也碍眼：</p>
+<ul>
+<li><a href="https://www.sysgeek.cn/windows-11-disable-copilot/">系统极客<span class="heti-skip"><span class="heti-spacing"> </span>-3<span class="heti-spacing"> </span></span>招教你在<span class="heti-skip"><span class="heti-spacing"> </span>Windows 11<span class="heti-spacing"> </span></span>中轻松关闭或移除<span class="heti-skip"><span class="heti-spacing"> </span>Copilot<span class="heti-spacing"> </span></span>功能</a></li>
+</ul>
+<h3 id="II6-windows-多任务处理-edge-浏览器标签页显示过多"><span>II.6 windows<span class="heti-spacing"> </span></span>多任务处理<span class="heti-skip"><span class="heti-spacing"> </span>edge<span class="heti-spacing"> </span></span>浏览器标签页显示过多<a class="headerlink" href="#II6-windows-多任务处理-edge-浏览器标签页显示过多" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="tip" open="open">
+<summary>温知识</summary>
+<p>在<span class="heti-skip"><span class="heti-spacing"> </span>windows<span class="heti-spacing"> </span></span>上按住 <code>Alt</code> 同时按 <code>Tab</code> 键会进入“多任务处理”，展示当前打开的软件界面，点按 <code>Tab</code> 可以进行切换，松开 <code>Alt</code> 则聚焦对应界面。</p>
+</details>
+<p>我对多个浏览器都有使用，发现<span class="heti-skip"><span class="heti-spacing"> </span>Edge<span class="heti-spacing"> </span></span>浏览器在“多任务处理”界面中会展示多个标签页，对于我想要切换至其他软件非常不友好（需要多按几下 <code>Tab</code><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；原来在系统设置中：</p>
+<ol>
+<li>进入 “设置<span class="heti-skip"><span class="heti-spacing"> </span>&gt;<span class="heti-spacing"> </span></span>系统<span class="heti-skip"><span class="heti-spacing"> </span>&gt;<span class="heti-spacing"> </span></span>多任务处理”</li>
+<li>调整“对齐或按<span class="heti-skip"><span class="heti-spacing"> </span>AIt+Tab<span class="heti-spacing"> </span></span>时显示应用中的标签页”为“不显示选项卡”</li>
+</ol>
+<p>此时虽然说“不显示”，但还是会保留基本的<span class="heti-skip"><span class="heti-spacing"> </span>edge<span class="heti-spacing"> </span></span>的页面的。</p>
+<h3 id="Docker-未安装在指定位置导致-compose-插件无法被找到"><span>Docker<span class="heti-spacing"> </span></span>未安装在指定位置导致<span class="heti-skip"><span class="heti-spacing"> </span>compose<span class="heti-spacing"> </span></span>插件无法被找到<a class="headerlink" href="#Docker-未安装在指定位置导致-compose-插件无法被找到" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>我使用<span class="heti-skip"><span class="heti-spacing"> </span>windows<span class="heti-spacing"> </span></span>上的<span class="heti-skip"><span class="heti-spacing"> </span>docker desktop<span class="heti-spacing"> </span></span>并默认安装在了<span class="heti-skip"><span class="heti-spacing"> </span>D<span class="heti-spacing"> </span></span>盘；在启动容器时出现下面的错误： </p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1"></a><a href="#__codelineno-14-1"><span class="linenos" data-linenos="1 "></span></a>Cannot start Docker Compose application. Reason: compose [start] exit status 125. unknown flag: --project-name Usage: docker [OPTIONS] COMMAND [ARG...] Run 'docker --help' for more information
+</span></code></pre></div>
+<p>但是在管理员权限下执行下面命令之后可以正常：</p>
+<p></p><div class="highlight"><span class="filename">Bash</span><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1"></a><a href="#__codelineno-15-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="w"> </span>C:<span class="se">\.</span>.<span class="se">\s</span>ystem32
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2"></a><a href="#__codelineno-15-2"><span class="linenos" data-linenos=" 2 "></span></a>&gt;<span class="w"> </span>new-Item<span class="w"> </span>-ItemType<span class="w"> </span>SymbolicLink<span class="w"> </span>-Path<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">\.docker\cli-plugins\docker-compose.exe"</span><span class="w"> </span>-Target<span class="w"> </span><span class="s2">"D:\Docker\docker_desktop\resources\bin\docker-compose.exe"</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3"></a><a href="#__codelineno-15-3"><span class="linenos" data-linenos=" 3 "></span></a>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4"></a><a href="#__codelineno-15-4"><span class="linenos" data-linenos=" 4 "></span></a>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5"></a><a href="#__codelineno-15-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">    </span>目录:<span class="w"> </span>C:<span class="se">\U</span>sers<span class="se">\x</span>xxxx<span class="se">\.</span>docker<span class="se">\c</span>li-plugins
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6"></a><a href="#__codelineno-15-6"><span class="linenos" data-linenos=" 6 "></span></a>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7"></a><a href="#__codelineno-15-7"><span class="linenos" data-linenos=" 7 "></span></a>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8"></a><a href="#__codelineno-15-8"><span class="linenos" data-linenos=" 8 "></span></a>Mode<span class="w">                 </span>LastWriteTime<span class="w">         </span>Length<span class="w"> </span>Name
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9"></a><a href="#__codelineno-15-9"><span class="linenos" data-linenos=" 9 "></span></a>----<span class="w">                 </span>-------------<span class="w">         </span>------<span class="w"> </span>----
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10"></a><a href="#__codelineno-15-10"><span class="linenos" data-linenos="10 "></span></a>-a---l<span class="w">         </span><span class="m">2026</span>/2/25<span class="w">     </span><span class="m">10</span>:53<span class="w">              </span><span class="m">0</span><span class="w"> </span>docker-compose.exe
+</span></code></pre></div>
+但依旧不幸的是 docker desktop （或者是电脑重启后）依旧会失效，需要重新执行该命令。
+</div>
+<p>问题和<a href="https://github.com/docker/for-win/issues/14902">这个<span class="heti-skip"><span class="heti-spacing"> </span>issue<span class="heti-spacing"> </span></span></a>类似，最后翻到可以在 <code>$HOME\.docker\config.json</code> 添加（路径结合实际修改<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<div class="highlight"><span class="filename">JSON</span><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1"></a><a href="#__codelineno-16-1"><span class="linenos" data-linenos="1 "></span></a><span class="p">{</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2"></a><a href="#__codelineno-16-2"><span class="linenos" data-linenos="2 "></span></a><span class="w">  </span><span class="nt">"cliPluginsExtraDirs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3"></a><a href="#__codelineno-16-3"><span class="linenos" data-linenos="3 "></span></a><span class="w">    </span><span class="s2">"D:\\Docker\\docker_desktop\\resources\\cli-plugins"</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4"></a><a href="#__codelineno-16-4"><span class="linenos" data-linenos="4 "></span></a><span class="w">  </span><span class="p">]</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5"></a><a href="#__codelineno-16-5"><span class="linenos" data-linenos="5 "></span></a><span class="p">}</span>
+</span></code></pre></div>
+<h2 id="III-Network">III Network<a class="headerlink" href="#III-Network" title="Permanent link">¶</a></h2>
+<h3 id="III1-macOS-clash-系统代理打开无效"><span>III.1 macOS clash<span class="heti-spacing"> </span></span>系统代理打开无效<a class="headerlink" href="#III1-macOS-clash-系统代理打开无效" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><a href="https://github.com/clash-verge-rev/clash-verge-rev/issues/1118#issuecomment-2144418510">打开隐私与安全中的高级设置，关闭访问系统范围的设置需要输入管理员密码</a></li>
+</ul>
+<h3 id="III2-missing-cap_net_rawp-capability-or-setuid">III.2 missing cap_net_raw+p capability or setuid<a class="headerlink" href="#III2-missing-cap_net_rawp-capability-or-setuid" title="Permanent link">¶</a></h3>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1"></a><a href="#__codelineno-17-1"><span class="linenos" data-linenos="1 "></span></a>$<span class="w"> </span>ping<span class="w"> </span>github.com
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2"></a><a href="#__codelineno-17-2"><span class="linenos" data-linenos="2 "></span></a>ping:<span class="w"> </span>socktype:<span class="w"> </span>SOCK_RAW
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3"></a><a href="#__codelineno-17-3"><span class="linenos" data-linenos="3 "></span></a>ping:<span class="w"> </span>socket:<span class="w"> </span>Operation<span class="w"> </span>not<span class="w"> </span>permitted
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4"></a><a href="#__codelineno-17-4"><span class="linenos" data-linenos="4 "></span></a>ping:<span class="w"> </span><span class="o">=</span>&gt;<span class="w"> </span>missing<span class="w"> </span>cap_net_raw+p<span class="w"> </span>capability<span class="w"> </span>or<span class="w"> </span>setuid?
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5"></a><a href="#__codelineno-17-5"><span class="linenos" data-linenos="5 "></span></a>$<span class="w"> </span>curl<span class="w"> </span>https://baidu.com
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6"></a><a href="#__codelineno-17-6"><span class="linenos" data-linenos="6 "></span></a>curl:<span class="w"> </span><span class="o">(</span><span class="m">35</span><span class="o">)</span><span class="w"> </span>GnuTLS,<span class="w"> </span>handshake<span class="w"> </span>failed:<span class="w"> </span>The<span class="w"> </span>TLS<span class="w"> </span>connection<span class="w"> </span>was<span class="w"> </span>non-properly<span class="w"> </span>terminated.
+</span></code></pre></div>
+<p><code>ping</code> 权限不够，<code>sudo setcap cap_net_raw+ep /usr/bin/ping</code> 提供权限。</p>
+<h3 id="III3-From-xxxx-icmp_seqn-Destination-Host-Unreachable">III.3 From xxxx icmp_seq=n Destination Host Unreachable<a class="headerlink" href="#III3-From-xxxx-icmp_seqn-Destination-Host-Unreachable" title="Permanent link">¶</a></h3>
+<p><span>WSL<span class="heti-spacing"> </span></span><code>ping &lt;domain&gt;/&lt;ip&gt;</code>时出现无法找到的问题，但是宿主机是可以正常访问的，<strong>unreachable</strong> 似乎将问题指向了<span><span class="heti-spacing"> </span>DNS</span>，最后通过修改 <code>/etc/resolv.conf</code> 中的<span class="heti-skip"><span class="heti-spacing"> </span>nameserver<span class="heti-spacing"> </span></span>后的<span class="heti-skip"><span class="heti-spacing"> </span>DNS<span class="heti-spacing"> </span></span>服务器<span class="heti-skip"><span class="heti-spacing"> </span>ip<span class="heti-spacing"> </span></span>解决（修改至与宿主机一致即可<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<h3 id="III4-连接需要登录的-wifi-时重定向界面错误"><span>III.4<span class="heti-spacing"> </span></span>连接需要登录的<span class="heti-skip"><span class="heti-spacing"> </span>wifi<span class="heti-spacing"> </span></span>时重定向界面错误<a class="headerlink" href="#III4-连接需要登录的-wifi-时重定向界面错误" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在登入企业<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>学校<span class="heti-skip"><span class="heti-spacing"> </span>wifi<span class="heti-spacing"> </span></span>时，需要账号登入；但是发现只是跳转到<span class="heti-skip"><span class="heti-spacing"> </span>http://www.msftconnecttest.com/redirect<span class="heti-spacing"> </span></span>之后显示失败了，在<a href="https://answers.microsoft.com/zh-hans/windows/forum/all/windows%E8%BF%9E%E6%8E%A5%E5%85%AC%E5%85%B1/9cee5962-a379-4335-893f-984f0cd0f151#:~:text=%E7%9A%84%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98-,%E9%A6%96%E5%85%88%E5%85%B3%E9%97%AD%E7%94%B5%E8%84%91%E4%B8%8A%E6%89%80%E6%9C%89%E7%9A%84%E4%BB%A3%E7%90%86%E4%B8%8EVPN%E8%BD%AF%E4%BB%B6,-%E6%8C%89%E4%B8%8B%E3%80%90windows%20%2B%20x">这里</a> 找到了答案。</p>
+<p>简而言之，先把<span class="heti-skip"><span class="heti-spacing"> </span>VPN<span class="heti-spacing"> </span></span>什么的关了，否则影响上述链接重定向。</p>
+<h3 id="III5-vscode-中使用-copilot-登录失败"><span>III.5 vscode<span class="heti-spacing"> </span></span>中使用<span class="heti-skip"><span class="heti-spacing"> </span>copilot<span class="heti-spacing"> </span></span>登录失败<a class="headerlink" href="#III5-vscode-中使用-copilot-登录失败" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<blockquote>
+<p>在更换学生认证包后，<span>vscode<span class="heti-spacing"> </span></span>上的<span class="heti-skip"><span class="heti-spacing"> </span>copilot<span class="heti-spacing"> </span></span>突然间登入不上，体现在点击登陆后自动跳转到认证界面，确定后<span class="heti-skip"><span class="heti-spacing"> </span>vscode<span class="heti-spacing"> </span></span>这边却没反应。</p>
+</blockquote>
+<p>搜索后有人指向了<span><span class="heti-spacing"> </span>setting.json</span>，打开搜索，确实发现了：</p>
+<div class="highlight"><span class="filename">JSON</span><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1"></a><a href="#__codelineno-18-1"><span class="linenos" data-linenos="1 "></span></a><span class="nt">"github.copilot.chat.localeOverride"</span><span class="p">:</span><span class="w"> </span><span class="s2">"zh-CN"</span><span class="p">,</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2"></a><a href="#__codelineno-18-2"><span class="linenos" data-linenos="2 "></span></a><span class="nt">"github.copilot.preferredAccount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w">  </span><span class="c1">// 此处省略我的 GitHub 邮箱地址</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3"></a><a href="#__codelineno-18-3"><span class="linenos" data-linenos="3 "></span></a><span class="nt">"github.copilot.enable"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4"></a><a href="#__codelineno-18-4"><span class="linenos" data-linenos="4 "></span></a><span class="w">  </span><span class="nt">"*"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5"></a><a href="#__codelineno-18-5"><span class="linenos" data-linenos="5 "></span></a><span class="w">  </span><span class="nt">"plaintext"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6"></a><a href="#__codelineno-18-6"><span class="linenos" data-linenos="6 "></span></a><span class="w">  </span><span class="nt">"markdown"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7"></a><a href="#__codelineno-18-7"><span class="linenos" data-linenos="7 "></span></a><span class="w">  </span><span class="nt">"scminput"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8"></a><a href="#__codelineno-18-8"><span class="linenos" data-linenos="8 "></span></a><span class="p">},</span>
+</span></code></pre></div>
+<p>尝试删除后重试，问题解决；建议<span class="heti-skip"><span class="heti-spacing"> </span>Ctrl x<span class="heti-spacing"> </span></span>剪切，万一问题不在这，也能复原。</p>
+<h2 id="IV-Other">IV Other<a class="headerlink" href="#IV-Other" title="Permanent link">¶</a></h2>
+<h4 id="IV11-如何获取-Google-安全码"><span>IV.1.1<span class="heti-spacing"> </span></span>如何获取<span class="heti-skip"><span class="heti-spacing"> </span>Google<span class="heti-spacing"> </span></span>安全码？<a class="headerlink" href="#IV11-如何获取-Google-安全码" title="Permanent link">¶</a></h4>
+<ul>
+<li><a href="https://www.lifeee.top/posts/13004.html">热夏的博客</a><ul>
+<li>有些手机没有<span class="heti-skip"><span class="heti-spacing"> </span>google<span class="heti-spacing"> </span></span>官方给出的获取安全码的方式，我们可以在<span class="heti-skip"><span class="heti-spacing"> </span>google play<span class="heti-spacing"> </span></span>中下载<span class="heti-skip"><span class="heti-spacing"> </span>"google"<span class="heti-spacing"> </span></span>这个应用。</li>
+</ul>
+</li>
+</ul>
+<h4 id="IV12-Tab-Foucs-in-Vscode">IV.1.2 Tab Foucs in Vscode<a class="headerlink" href="#IV12-Tab-Foucs-in-Vscode" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Q:</strong> 在<span class="heti-skip"><span class="heti-spacing"> </span>VSCode<span class="heti-spacing"> </span></span>中，<span>Tab<span class="heti-spacing"> </span></span>键变成了在各选项间跳跃（即焦点切换<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，而不是接受<span class="heti-skip"><span class="heti-spacing"> </span>AI<span class="heti-spacing"> </span></span>插件给出的建议。</li>
+<li><strong>A:</strong> 使用 <code>Ctrl M</code> 快捷键切换了这一模式。</li>
+</ul>
+<h4 id="IV13-obsidian-文件保存失败"><span>IV.1.3 obsidian<span class="heti-spacing"> </span></span>文件保存失败？<a class="headerlink" href="#IV13-obsidian-文件保存失败" title="Permanent link">¶</a></h4>
+<ul>
+<li><a href="https://forum.obsidian.md/t/failed-to-save-a-file-eperm-operation-not-permitted/33760/4">Fail to save files</a></li>
+</ul>
+<h4 id="IV14-Obsidian-调整-mermaid-宽度"><span>IV.1.4 Obsidian<span class="heti-spacing"> </span></span>调整<span class="heti-skip"><span class="heti-spacing"> </span>mermaid<span class="heti-spacing"> </span></span>宽度<a class="headerlink" href="#IV14-Obsidian-调整-mermaid-宽度" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<ul>
+<li><a href="https://forum.obsidian.md/t/let-the-user-decide-the-size-and-alignment-of-mermaid-diagrams/7019/1">let-the-user-decide-the-size-and-alignment-of-mermaid-diagrams</a></li>
+</ul>
+<h4 id="IV15-Syncthing-跨设备同步工具"><span>IV.1.5 Syncthing<span class="heti-spacing"> </span></span>跨设备同步工具<a class="headerlink" href="#IV15-Syncthing-跨设备同步工具" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/69267020"><span>Syncthing - P2P<span class="heti-spacing"> </span></span>文件同步工具</a></li>
+</ul>
+<h4 id="IV16-Deskflow">IV.1.6 Deskflow<a class="headerlink" href="#IV16-Deskflow" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Q</strong>: <code>NOTE: cursor is locked to screen, check scroll lock key</code> </li>
+<li>
+<p><span>(windows)<span class="heti-spacing"> </span></span>键盘上的 <code>ScrLk</code> 按键。</p>
+</li>
+<li>
+<p><strong>Q:</strong> <span>MacOS<span class="heti-spacing"> </span></span>上<span class="heti-skip"><span class="heti-spacing"> </span>Deskflow<span class="heti-spacing"> </span></span>反复索要<span><span class="heti-spacing"> </span>accessibility</span>，哪怕已经给到</p>
+</li>
+<li><span>(MacOS)<span class="heti-spacing"> </span></span>参考<a href="https://github.com/deskflow/deskflow/issues/8028#issuecomment-2741208978"><span><span class="heti-spacing"> </span>#8028</span></a>，之前卸载过<span><span class="heti-spacing"> </span>deskflow</span>，导致重新安装后<span class="heti-skip"><span class="heti-spacing"> </span>accessibility<span class="heti-spacing"> </span></span>出了问题，只要将选项移除后重新启动<span class="heti-skip"><span class="heti-spacing"> </span>deskflow<span class="heti-spacing"> </span></span>并赋权即可。</li>
+</ul>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年4月2日 11:20:22 CST">2026年4月2日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年5月3日 12:43:27 CST">2025年5月3日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: Articles" class="md-footer__link md-footer__link--prev" href="../articles/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                Articles
+              </div>
+</div>
+</a>
+<a aria-label="下一页: Data Visualization" class="md-footer__link md-footer__link--next" href="../data_visualization/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                Data Visualization
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../js/katex.js"></script>
+<script src="../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

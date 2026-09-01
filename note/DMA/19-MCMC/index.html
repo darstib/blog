@@ -1,0 +1,2240 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/note/DMA/19-MCMC/" rel="canonical"/>
+<link href="../16-PCA/" rel="prev"/>
+<link href="../21-PageRank/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>19 MCMC - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#蒙特卡罗法-Monte-Carlo-Method-page-3-5-19">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              19 MCMC
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Note
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs188/">
+<span class="md-ellipsis">
+    
+  
+    cs188
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../physics/">
+<span class="md-ellipsis">
+    
+  
+    physics
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-II/">
+<span class="md-ellipsis">
+    
+  
+    CSys-II
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-III/">
+<span class="md-ellipsis">
+    
+  
+    CSys-III
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DEM/">
+<span class="md-ellipsis">
+    
+  
+    DEM
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3_7" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    DMA
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_7_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    DMA
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../01-Intro/">
+<span class="md-ellipsis">
+    
+  
+    01 Intro
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../02-Perceptron/">
+<span class="md-ellipsis">
+    
+  
+    02 Perceptron
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../03-KNN/">
+<span class="md-ellipsis">
+    
+  
+    03 KNN
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../04-Naive_Bayes/">
+<span class="md-ellipsis">
+    
+  
+    04 Naive Bayes
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../05-Decision_Tree/">
+<span class="md-ellipsis">
+    
+  
+    05 Decision Tree
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../06-logistic/">
+<span class="md-ellipsis">
+    
+  
+    06 logistic
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../07-SVM/">
+<span class="md-ellipsis">
+    
+  
+    07 SVM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../08-Adaboost/">
+<span class="md-ellipsis">
+    
+  
+    08 Adaboost
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../09-Expect_Max/">
+<span class="md-ellipsis">
+    
+  
+    09 Expect Max
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../14-Cluster_Methods/">
+<span class="md-ellipsis">
+    
+  
+    14 Cluster Methods
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../15-SVD/">
+<span class="md-ellipsis">
+    
+  
+    15 SVD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../16-PCA/">
+<span class="md-ellipsis">
+    
+  
+    16 PCA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    19 MCMC
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    19 MCMC
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#蒙特卡罗法-Monte-Carlo-Method-page-3-5-19">
+<span class="md-ellipsis">
+      
+        蒙特卡罗法 (Monte Carlo Method) (page 3, 5-19)
+      
+    </span>
+</a>
+<nav aria-label="蒙特卡罗法 (Monte Carlo Method) (page 3, 5-19)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#随机抽样方法-page-7">
+<span class="md-ellipsis">
+      
+        随机抽样方法 (page 7)
+      
+    </span>
+</a>
+<nav aria-label="随机抽样方法 (page 7)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#接受-拒绝抽样法-Accept-Reject-Sampling-Method-page-8-12">
+<span class="md-ellipsis">
+      
+        接受-拒绝抽样法 (Accept-Reject Sampling Method) (page 8-12)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#数学期望估计-Estimation-of-Mathematical-Expectation-page-13-14">
+<span class="md-ellipsis">
+      
+        数学期望估计 (Estimation of Mathematical Expectation) (page 13-14)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#蒙特卡洛积分-page-15-19">
+<span class="md-ellipsis">
+      
+        蒙特卡洛积分 (page 15-19)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#马尔可夫链-Markov-Chain-page-20-59">
+<span class="md-ellipsis">
+      
+        马尔可夫链 (Markov Chain) (page 20-59)
+      
+    </span>
+</a>
+<nav aria-label="马尔可夫链 (Markov Chain) (page 20-59)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#定义与性质-page-21-22">
+<span class="md-ellipsis">
+      
+        定义与性质 (page 21-22)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#离散状态马尔可夫链-Discrete-state-Markov-Chain-page-23-24">
+<span class="md-ellipsis">
+      
+        离散状态马尔可夫链 (Discrete-state Markov Chain) (page 23-24)
+      
+    </span>
+</a>
+<nav aria-label="离散状态马尔可夫链 (Discrete-state Markov Chain) (page 23-24)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#转移概率矩阵-Transition-Probability-Matrix-page-24">
+<span class="md-ellipsis">
+      
+        转移概率矩阵 (Transition Probability Matrix) (page 24)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#状态分布-State-Distribution-page-25-26">
+<span class="md-ellipsis">
+      
+        状态分布 (State Distribution) (page 25-26)
+      
+    </span>
+</a>
+<nav aria-label="状态分布 (State Distribution) (page 25-26)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#转移概率矩阵和状态分布的关系-page-27-31-32">
+<span class="md-ellipsis">
+      
+        转移概率矩阵和状态分布的关系 (page 27, 31-32)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#平稳分布-page-36-43">
+<span class="md-ellipsis">
+      
+        平稳分布 (page 36-43)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#连续状态马尔可夫链-Continuous-state-Markov-Chain-page-44-45">
+<span class="md-ellipsis">
+      
+        连续状态马尔可夫链 (Continuous-state Markov Chain) (page 44-45)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#马尔可夫链的性质-page-46-58">
+<span class="md-ellipsis">
+      
+        马尔可夫链的性质 (page 46-58)
+      
+    </span>
+</a>
+<nav aria-label="马尔可夫链的性质 (page 46-58)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-不可约性-Irreducibility-page-46-47">
+<span class="md-ellipsis">
+      
+        1. 不可约性 (Irreducibility) (page 46-47)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-非周期性-Aperiodicity-page-48-50">
+<span class="md-ellipsis">
+      
+        2. 非周期性 (Aperiodicity) (page 48-50)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-正常返性-Positive-Recurrent-page-51-53">
+<span class="md-ellipsis">
+      
+        3. 正常返性 (Positive Recurrent) (page 51-53)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-遍历定理-Ergodic-Theorem-page-54-56">
+<span class="md-ellipsis">
+      
+        4. 遍历定理 (Ergodic Theorem) (page 54-56)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-可逆马尔可夫链-Reversible-Markov-Chain-page-57-59">
+<span class="md-ellipsis">
+      
+        5. 可逆马尔可夫链 (Reversible Markov Chain) (page 57-59)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#马尔可夫链蒙特卡罗法-Markov-Chain-Monte-Carlo-MCMC-page-60-69">
+<span class="md-ellipsis">
+      
+        马尔可夫链蒙特卡罗法 (Markov Chain Monte Carlo, MCMC) (page 60-69)
+      
+    </span>
+</a>
+<nav aria-label="马尔可夫链蒙特卡罗法 (Markov Chain Monte Carlo, MCMC) (page 60-69)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#基本想法-page-61-66">
+<span class="md-ellipsis">
+      
+        基本想法 (page 61-66)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#基本步骤-page-67">
+<span class="md-ellipsis">
+      
+        基本步骤 (page 67)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#MCMC-与统计学习-MCMC-and-Statistical-Learning-page-68-69">
+<span class="md-ellipsis">
+      
+        MCMC 与统计学习 (MCMC and Statistical Learning) (page 68-69)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Metropolis-Hastings-算法-page-70-92">
+<span class="md-ellipsis">
+      
+        Metropolis-Hastings 算法 (page 70-92)
+      
+    </span>
+</a>
+<nav aria-label="Metropolis-Hastings 算法 (page 70-92)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#基本原理-page-71-77">
+<span class="md-ellipsis">
+      
+        基本原理 (page 71-77)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#建议分布-qx-x-的形式-page-78-80">
+<span class="md-ellipsis">
+      
+        建议分布 \(q(x, x')\) 的形式 (page 78-80)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#满条件分布-Full-Conditional-Distribution-page-81-85">
+<span class="md-ellipsis">
+      
+        满条件分布 (Full Conditional Distribution) (page 81-85)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#算法-192-Metropolis-Hastings-算法-page-86-87">
+<span class="md-ellipsis">
+      
+        算法 19.2 (Metropolis-Hastings 算法) (page 86-87)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#单分量-Metropolis-Hastings-算法-Single-Component-Metropolis-Hastings-Algorithm-page-88-92">
+<span class="md-ellipsis">
+      
+        单分量 Metropolis-Hastings 算法 (Single-Component Metropolis-Hastings Algorithm) (page 88-92)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#吉布斯抽样-Gibbs-Sampling-page-93-109">
+<span class="md-ellipsis">
+      
+        吉布斯抽样 (Gibbs Sampling) (page 93-109)
+      
+    </span>
+</a>
+<nav aria-label="吉布斯抽样 (Gibbs Sampling) (page 93-109)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#基本原理-page-95-100">
+<span class="md-ellipsis">
+      
+        基本原理 (page 95-100)
+      
+    </span>
+</a>
+<nav aria-label="基本原理 (page 95-100)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#迭代过程">
+<span class="md-ellipsis">
+      
+        迭代过程
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#吉布斯抽样是单分量-Metropolis-Hastings-算法的特殊情况-page-99-100">
+<span class="md-ellipsis">
+      
+        吉布斯抽样是单分量 Metropolis-Hastings 算法的特殊情况 (page 99-100)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#算法-193-吉布斯抽样-page-101-102">
+<span class="md-ellipsis">
+      
+        算法 19.3 (吉布斯抽样) (page 101-102)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#抽样计算-page-106-109">
+<span class="md-ellipsis">
+      
+        抽样计算 (page 106-109)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../21-PageRank/">
+<span class="md-ellipsis">
+    
+  
+    21 PageRank
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../appendix-UML/">
+<span class="md-ellipsis">
+    
+  
+    appendix UML
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../appendix-grad/">
+<span class="md-ellipsis">
+    
+  
+    Appendix grad
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../appendix-martirx_derivation/">
+<span class="md-ellipsis">
+    
+  
+    矩阵求导术（上/下）
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs70/">
+<span class="md-ellipsis">
+    
+  
+    cs70
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../other/">
+<span class="md-ellipsis">
+    
+  
+    other
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#蒙特卡罗法-Monte-Carlo-Method-page-3-5-19">
+<span class="md-ellipsis">
+      
+        蒙特卡罗法 (Monte Carlo Method) (page 3, 5-19)
+      
+    </span>
+</a>
+<nav aria-label="蒙特卡罗法 (Monte Carlo Method) (page 3, 5-19)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#随机抽样方法-page-7">
+<span class="md-ellipsis">
+      
+        随机抽样方法 (page 7)
+      
+    </span>
+</a>
+<nav aria-label="随机抽样方法 (page 7)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#接受-拒绝抽样法-Accept-Reject-Sampling-Method-page-8-12">
+<span class="md-ellipsis">
+      
+        接受-拒绝抽样法 (Accept-Reject Sampling Method) (page 8-12)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#数学期望估计-Estimation-of-Mathematical-Expectation-page-13-14">
+<span class="md-ellipsis">
+      
+        数学期望估计 (Estimation of Mathematical Expectation) (page 13-14)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#蒙特卡洛积分-page-15-19">
+<span class="md-ellipsis">
+      
+        蒙特卡洛积分 (page 15-19)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#马尔可夫链-Markov-Chain-page-20-59">
+<span class="md-ellipsis">
+      
+        马尔可夫链 (Markov Chain) (page 20-59)
+      
+    </span>
+</a>
+<nav aria-label="马尔可夫链 (Markov Chain) (page 20-59)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#定义与性质-page-21-22">
+<span class="md-ellipsis">
+      
+        定义与性质 (page 21-22)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#离散状态马尔可夫链-Discrete-state-Markov-Chain-page-23-24">
+<span class="md-ellipsis">
+      
+        离散状态马尔可夫链 (Discrete-state Markov Chain) (page 23-24)
+      
+    </span>
+</a>
+<nav aria-label="离散状态马尔可夫链 (Discrete-state Markov Chain) (page 23-24)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#转移概率矩阵-Transition-Probability-Matrix-page-24">
+<span class="md-ellipsis">
+      
+        转移概率矩阵 (Transition Probability Matrix) (page 24)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#状态分布-State-Distribution-page-25-26">
+<span class="md-ellipsis">
+      
+        状态分布 (State Distribution) (page 25-26)
+      
+    </span>
+</a>
+<nav aria-label="状态分布 (State Distribution) (page 25-26)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#转移概率矩阵和状态分布的关系-page-27-31-32">
+<span class="md-ellipsis">
+      
+        转移概率矩阵和状态分布的关系 (page 27, 31-32)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#平稳分布-page-36-43">
+<span class="md-ellipsis">
+      
+        平稳分布 (page 36-43)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#连续状态马尔可夫链-Continuous-state-Markov-Chain-page-44-45">
+<span class="md-ellipsis">
+      
+        连续状态马尔可夫链 (Continuous-state Markov Chain) (page 44-45)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#马尔可夫链的性质-page-46-58">
+<span class="md-ellipsis">
+      
+        马尔可夫链的性质 (page 46-58)
+      
+    </span>
+</a>
+<nav aria-label="马尔可夫链的性质 (page 46-58)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-不可约性-Irreducibility-page-46-47">
+<span class="md-ellipsis">
+      
+        1. 不可约性 (Irreducibility) (page 46-47)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-非周期性-Aperiodicity-page-48-50">
+<span class="md-ellipsis">
+      
+        2. 非周期性 (Aperiodicity) (page 48-50)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-正常返性-Positive-Recurrent-page-51-53">
+<span class="md-ellipsis">
+      
+        3. 正常返性 (Positive Recurrent) (page 51-53)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-遍历定理-Ergodic-Theorem-page-54-56">
+<span class="md-ellipsis">
+      
+        4. 遍历定理 (Ergodic Theorem) (page 54-56)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-可逆马尔可夫链-Reversible-Markov-Chain-page-57-59">
+<span class="md-ellipsis">
+      
+        5. 可逆马尔可夫链 (Reversible Markov Chain) (page 57-59)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#马尔可夫链蒙特卡罗法-Markov-Chain-Monte-Carlo-MCMC-page-60-69">
+<span class="md-ellipsis">
+      
+        马尔可夫链蒙特卡罗法 (Markov Chain Monte Carlo, MCMC) (page 60-69)
+      
+    </span>
+</a>
+<nav aria-label="马尔可夫链蒙特卡罗法 (Markov Chain Monte Carlo, MCMC) (page 60-69)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#基本想法-page-61-66">
+<span class="md-ellipsis">
+      
+        基本想法 (page 61-66)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#基本步骤-page-67">
+<span class="md-ellipsis">
+      
+        基本步骤 (page 67)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#MCMC-与统计学习-MCMC-and-Statistical-Learning-page-68-69">
+<span class="md-ellipsis">
+      
+        MCMC 与统计学习 (MCMC and Statistical Learning) (page 68-69)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Metropolis-Hastings-算法-page-70-92">
+<span class="md-ellipsis">
+      
+        Metropolis-Hastings 算法 (page 70-92)
+      
+    </span>
+</a>
+<nav aria-label="Metropolis-Hastings 算法 (page 70-92)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#基本原理-page-71-77">
+<span class="md-ellipsis">
+      
+        基本原理 (page 71-77)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#建议分布-qx-x-的形式-page-78-80">
+<span class="md-ellipsis">
+      
+        建议分布 \(q(x, x')\) 的形式 (page 78-80)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#满条件分布-Full-Conditional-Distribution-page-81-85">
+<span class="md-ellipsis">
+      
+        满条件分布 (Full Conditional Distribution) (page 81-85)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#算法-192-Metropolis-Hastings-算法-page-86-87">
+<span class="md-ellipsis">
+      
+        算法 19.2 (Metropolis-Hastings 算法) (page 86-87)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#单分量-Metropolis-Hastings-算法-Single-Component-Metropolis-Hastings-Algorithm-page-88-92">
+<span class="md-ellipsis">
+      
+        单分量 Metropolis-Hastings 算法 (Single-Component Metropolis-Hastings Algorithm) (page 88-92)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#吉布斯抽样-Gibbs-Sampling-page-93-109">
+<span class="md-ellipsis">
+      
+        吉布斯抽样 (Gibbs Sampling) (page 93-109)
+      
+    </span>
+</a>
+<nav aria-label="吉布斯抽样 (Gibbs Sampling) (page 93-109)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#基本原理-page-95-100">
+<span class="md-ellipsis">
+      
+        基本原理 (page 95-100)
+      
+    </span>
+</a>
+<nav aria-label="基本原理 (page 95-100)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#迭代过程">
+<span class="md-ellipsis">
+      
+        迭代过程
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#吉布斯抽样是单分量-Metropolis-Hastings-算法的特殊情况-page-99-100">
+<span class="md-ellipsis">
+      
+        吉布斯抽样是单分量 Metropolis-Hastings 算法的特殊情况 (page 99-100)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#算法-193-吉布斯抽样-page-101-102">
+<span class="md-ellipsis">
+      
+        算法 19.3 (吉布斯抽样) (page 101-102)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#抽样计算-page-106-109">
+<span class="md-ellipsis">
+      
+        抽样计算 (page 106-109)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Note
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    DMA
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:notes">notes</a>
+</nav>
+<h1>19 MCMC</h1>
+<p>马尔可夫链蒙特卡罗（Markov Chain Monte Carlo, MCMC）法是一种强大的统计模拟方法，它结合了蒙特卡罗方法和马尔可夫链理论，主要用于从复杂概率分布中进行抽样，并进行近似数值计算。该方法在统计学习中，特别是概率模型的学习与推理中扮演着重要角色。</p>
+<details class="tip">
+<summary>结合阅读：<a href="https://www.huaxiaozhuan.com/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/chapters/4_monte_carlo.html">蒙特卡洛方法与<span class="heti-skip"><span class="heti-spacing"> </span>MCMC<span class="heti-spacing"> </span></span>采样</a></summary>
+</details>
+<h2 id="蒙特卡罗法-Monte-Carlo-Method-page-3-5-19">蒙特卡罗法<span><span class="heti-spacing"> </span>(Monte Carlo Method) (page 3, 5-19)</span><a class="headerlink" href="#蒙特卡罗法-Monte-Carlo-Method-page-3-5-19" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>蒙特卡罗法，又称统计模拟方法，核心是通过从概率模型中进行随机抽样来实现近似数值计算。它主要解决的问题是，在已知概率分布定义的情况下，通过随机抽样获得样本，然后对该概率分布的特征进行分析。例如，可以通过样本得到经验分布来估计总体分布，或者通过计算样本均值来估计总体期望。</p>
+<details class="definition" open="open">
+<summary>蒙特卡罗法</summary>
+<p>蒙特卡罗法是一种统计模拟方法，通过从概率模型中随机抽样来近似计算数值。</p>
+</details>
+<p>蒙特卡罗法的核心是<strong>随机抽样<span><span class="heti-spacing"> </span>(random sampling)</span></strong>。</p>
+<h3 id="随机抽样方法-page-7">随机抽样方法<span><span class="heti-spacing"> </span>(page 7)</span><a class="headerlink" href="#随机抽样方法-page-7" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>蒙特卡罗法中常用的随机抽样方法包括：</p>
+<ul>
+<li><strong>直接抽样法</strong>：当概率密度函数形式简单，可以直接从其中抽取样本时使用。</li>
+<li><strong>接受<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>拒绝抽样法<span><span class="heti-spacing"> </span>(Accept-Reject Sampling Method)</span></strong>：适用于概率密度函数复杂（如含有多个变量，各变量相互不独立，或密度函数形式复杂）导致不能直接抽样的情况。</li>
+<li><strong>重要性抽样法<span><span class="heti-spacing"> </span>(Importance Sampling Method)</span></strong>：也是处理复杂概率密度函数的一种抽样方法。</li>
+</ul>
+<h4 id="接受-拒绝抽样法-Accept-Reject-Sampling-Method-page-8-12">接受<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>拒绝抽样法<span><span class="heti-spacing"> </span>(Accept-Reject Sampling Method) (page 8-12)</span><a class="headerlink" href="#接受-拒绝抽样法-Accept-Reject-Sampling-Method-page-8-12" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>假设我们有一个随机变量<span><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span></span>，其取值<span><span class="heti-spacing"> </span><span class="arithmatex">\(x \in \mathcal{X}\)</span></span>，概率密度函数为<span><span class="heti-spacing"> </span><span class="arithmatex">\(p(x)\)</span></span>。我们的目标是得到该概率分布的随机样本，以便对该分布进行分析。</p>
+<p>当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p(x)\)</span><span class="heti-spacing"> </span></span>不可以直接抽样时，接受<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>拒绝抽样法提供了一种解决方案。它需要找到一个<strong>建议分布<span><span class="heti-spacing"> </span>(proposal distribution)</span></strong> <span class="arithmatex">\(q(x)\)</span>，该分布可以直接抽样，并且满足<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(cq(x) \ge p(x)\)</span><span class="heti-spacing"> </span></span>对于任意<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>成立，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(c &gt; 0\)</span><span class="heti-spacing"> </span></span>是一个常数。</p>
+<p><strong>算法步骤<span><span class="heti-spacing"> </span>:</span></strong></p>
+<ol>
+<li><strong>输入</strong><span>:<span class="heti-spacing"> </span></span>目标概率分布的概率密度函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(p(x)\)</span></span>。</li>
+<li><strong>输出</strong><span>:<span class="heti-spacing"> </span></span>目标概率分布的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>个随机样本<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_1, x_2, \dots, x_n\)</span></span>。</li>
+<li><strong>参数</strong><span>:<span class="heti-spacing"> </span></span>样本数<span><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span></span>。</li>
+</ol>
+<p><strong>具体流程<span><span class="heti-spacing"> </span>:</span></strong></p>
+<ol>
+<li>选择一个概率密度函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(q(x)\)</span><span class="heti-spacing"> </span></span>作为建议分布，使其对于任意<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>满足<span><span class="heti-spacing"> </span><span class="arithmatex">\(cq(x) \ge p(x)\)</span></span>，其中<span><span class="heti-spacing"> </span><span class="arithmatex">\(c &gt; 0\)</span></span>。</li>
+<li>按照建议分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(q(x)\)</span><span class="heti-spacing"> </span></span>随机抽样得到一个候选样本<span><span class="heti-spacing"> </span><span class="arithmatex">\(x^*\)</span></span>。</li>
+<li>从均匀分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(U(0,1)\)</span><span class="heti-spacing"> </span></span>中抽样得到一个随机数<span><span class="heti-spacing"> </span><span class="arithmatex">\(u\)</span></span>。</li>
+<li><strong>判断</strong><span>:<span class="heti-spacing"> </span></span>如果<span><span class="heti-spacing"> </span><span class="arithmatex">\(u \le \frac{p(x^*)}{cq(x^*)}\)</span></span>，则将<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x^*\)</span><span class="heti-spacing"> </span></span>作为抽样结果接受；否则，拒绝<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x^*\)</span><span class="heti-spacing"> </span></span>并回到步骤<span><span class="heti-spacing"> </span>(2)</span>，重新抽样。</li>
+<li>重复步骤<span class="heti-skip"><span class="heti-spacing"> </span>(2)<span class="heti-spacing"> </span></span>到<span><span class="heti-spacing"> </span>(4)</span>，直到得到<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>个随机样本。</li>
+</ol>
+<details class="note" open="open">
+<summary>接受<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>拒绝抽样法的优缺点<span><span class="heti-spacing"> </span>(page 12)</span></summary>
+<ul>
+<li><strong>优点</strong><span>:<span class="heti-spacing"> </span></span>容易实现。</li>
+<li><strong>缺点</strong><span>:<span class="heti-spacing"> </span></span>效率可能不高。当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p(x)\)</span><span class="heti-spacing"> </span></span>的涵盖体积占<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(cq(x)\)</span><span class="heti-spacing"> </span></span>的涵盖体积的比例很低时，会导致拒绝的比例很高，抽样效率会很低。特别在高维空间中，即使<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p(x)\)</span><span class="heti-spacing"> </span></span>与<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(cq(x)\)</span><span class="heti-spacing"> </span></span>很接近，两者涵盖体积的差异也可能很大，进一步降低效率。</li>
+</ul>
+</details>
+<h3 id="数学期望估计-Estimation-of-Mathematical-Expectation-page-13-14">数学期望估计<span><span class="heti-spacing"> </span>(Estimation of Mathematical Expectation) (page 13-14)</span><a class="headerlink" href="#数学期望估计-Estimation-of-Mathematical-Expectation-page-13-14" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>蒙特卡罗法也可以用于数学期望的估计。
+假设有一个随机变量 <span class="arithmatex">\(X\)</span>，取值 <span class="arithmatex">\(x \in \mathcal{X}\)</span>，其概率密度函数为 <span class="arithmatex">\(p(x)\)</span>，同时 <span class="arithmatex">\(f(x)\)</span> 是定义在 <span class="arithmatex">\(\mathcal{X}\)</span> 上的函数。我们的目标是求函数 <span class="arithmatex">\(f(x)\)</span> 关于密度函数 <span class="arithmatex">\(p(x)\)</span> 的数学期望 <span class="arithmatex">\(E_{p(x)}[f(x)]\)</span>。</p>
+<p>根据蒙特卡罗法，我们可以从概率分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p(x)\)</span><span class="heti-spacing"> </span></span>中独立地抽取<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>个样本<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_1, x_2, \dots, x_n\)</span></span>，然后计算函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f(x)\)</span><span class="heti-spacing"> </span></span>的样本均值<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{f}_n\)</span>:</span></p>
+<div class="arithmatex">\[
+\hat{f}_n = \frac{1}{n} \sum_{i=1}^n f(x_i)
+\]</div>
+<p>根据<strong>大数定律<span><span class="heti-spacing"> </span>(Law of Large Numbers)</span></strong>，当样本容量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>趋于无穷大时，样本均值<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{f}_n\)</span><span class="heti-spacing"> </span></span>将以概率<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>收敛于数学期望<span><span class="heti-spacing"> </span><span class="arithmatex">\(E_{p(x)}[f(x)]\)</span></span>：</p>
+<div class="arithmatex">\[
+\hat{f}_n \to E_{p(x)}[f(x)], \quad n \to \infty
+\]</div>
+<p>因此，数学期望的近似计算方法为：</p>
+<div class="arithmatex">\[
+E_{p(x)}[f(x)] \approx \frac{1}{n} \sum_{i=1}^n f(x_i)
+\]</div>
+<h3 id="蒙特卡洛积分-page-15-19">蒙特卡洛积分<span><span class="heti-spacing"> </span>(page 15-19)</span><a class="headerlink" href="#蒙特卡洛积分-page-15-19" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>蒙特卡罗法也可以用于定积分的近似计算，这被称为<strong>蒙特卡罗积分<span><span class="heti-spacing"> </span>(Monte Carlo integration)</span></strong>。</p>
+<p>假设目标是计算函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(h(x)\)</span><span class="heti-spacing"> </span></span>的积分<span><span class="heti-spacing"> </span><span class="arithmatex">\(\int_{\mathcal{X}} h(x) dx\)</span></span>。
+如果能够将函数 <span class="arithmatex">\(h(x)\)</span> 分解成一个函数 <span class="arithmatex">\(f(x)\)</span> 和一个概率密度函数 <span class="arithmatex">\(p(x)\)</span> 的乘积形式，即 <span class="arithmatex">\(h(x) = f(x)p(x)\)</span>，那么就有：</p>
+<div class="arithmatex">\[
+\int_{\mathcal{X}} h(x) dx = \int_{\mathcal{X}} f(x)p(x) dx = E_{p(x)}[f(x)]
+\]</div>
+<p>这意味着，任何一个函数的积分都可以表示为某个函数的数学期望形式，而这个数学期望又可以通过函数的样本均值来估计。
+因此，我们可以利用样本均值来近似计算积分。给定一个概率密度函数 <span class="arithmatex">\(p(x)\)</span>，我们只需取 <span class="arithmatex">\(f(x) = \frac{h(x)}{p(x)}\)</span>。</p>
+<details class="example">
+<summary><strong>例<span><span class="heti-spacing"> </span>1 (page 17-18):</span></strong> 用蒙特卡罗积分法求<span><span class="heti-spacing"> </span><span class="arithmatex">\(\int_0^1 e^{-x^2/2} dx\)</span></span></summary>
+<p>令<span><span class="heti-spacing"> </span><span class="arithmatex">\(f(x) = e^{-x^2/2}\)</span></span>，并假设随机变量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((0,1)\)</span><span class="heti-spacing"> </span></span>区间遵循均匀分布，其概率密度函数为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p(x)=1\)</span> (<span class="heti-spacing"> </span></span>当<span><span class="heti-spacing"> </span><span class="arithmatex">\(0 &lt; x &lt; 1\)</span>)</span>。</p>
+<p>抽取<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(10\)</span><span class="heti-spacing"> </span></span>个随机样本<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_1, x_2, \dots, x_{10}\)</span></span>，计算函数均值<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{f}_{10} = \frac{1}{10} \sum_{i=1}^{10} e^{-x_i^2/2} = 0.832\)</span></span>。</p>
+<p>随机样本数越大，计算结果越精确。</p>
+</details>
+<details class="example">
+<summary><strong>例<span><span class="heti-spacing"> </span>2 (page 19):</span></strong> 用蒙特卡罗积分法求<span><span class="heti-spacing"> </span><span class="arithmatex">\(\int_{-\infty}^\infty x \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{x^2}{2}\right) dx\)</span></span>。</summary>
+<p>令<span><span class="heti-spacing"> </span><span class="arithmatex">\(f(x) = x\)</span></span>，且<span><span class="heti-spacing"> </span><span class="arithmatex">\(p(x) = \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{x^2}{2}\right)\)</span></span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p(x)\)</span><span class="heti-spacing"> </span></span>是标准正态分布的密度函数。</p>
+<p>按照标准正态分布在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((-\infty, \infty)\)</span><span class="heti-spacing"> </span></span>区间抽样<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_1, x_2, \dots, x_n\)</span></span>，取其平均值，就得到要求的积分值。当样本增大时，积分值趋于<span><span class="heti-spacing"> </span>0</span>。</p>
+</details>
+<h2 id="马尔可夫链-Markov-Chain-page-20-59">马尔可夫链<span><span class="heti-spacing"> </span>(Markov Chain) (page 20-59)</span><a class="headerlink" href="#马尔可夫链-Markov-Chain-page-20-59" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="定义与性质-page-21-22">定义与性质<span><span class="heti-spacing"> </span>(page 21-22)</span><a class="headerlink" href="#定义与性质-page-21-22" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="definition" open="open">
+<summary>定义<span class="heti-skip"><span class="heti-spacing"> </span>19.1 (<span class="heti-spacing"> </span></span>马尔可夫链<span><span class="heti-spacing"> </span>) (page 21)</span></summary>
+<p>考虑一个随机变量的序列<span><span class="heti-spacing"> </span><span class="arithmatex">\(X = \{X_0, X_1, \dots, X_t, \dots\}\)</span></span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X_t\)</span><span class="heti-spacing"> </span></span>表示时刻<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span><span class="heti-spacing"> </span></span>的随机变量，<span class="arithmatex">\(t = 0,1,2, \dots\)</span>。每个随机变量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X_t\)</span> (<span class="arithmatex">\(t=0,1,2, \dots\)</span>)<span class="heti-spacing"> </span></span>的取值集合相同，称为<strong>状态空间<span><span class="heti-spacing"> </span>(state space)</span></strong>，表示为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{S}\)</span></span>。随机变量可以是离散的，也可以是连续的。</p>
+<p>以上随机变量的序列构成<strong>随机过程<span><span class="heti-spacing"> </span>(stochastic process)</span></strong>。</p>
+<p>假设在时刻<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>的随机变量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X_0\)</span><span class="heti-spacing"> </span></span>遵循概率分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(P(X_0) = \pi_0\)</span></span>，称为<strong>初始状态分布<span><span class="heti-spacing"> </span>(initial state distribution)</span></strong>。</p>
+<p>在某个时刻<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t \ge 1\)</span><span class="heti-spacing"> </span></span>的随机变量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X_t\)</span><span class="heti-spacing"> </span></span>与前一个时刻的随机变量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X_{t-1}\)</span><span class="heti-spacing"> </span></span>之间有条件分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(P(X_t | X_{t-1})\)</span></span>。如果<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X_t\)</span><span class="heti-spacing"> </span></span>只依赖于<span><span class="heti-spacing"> </span><span class="arithmatex">\(X_{t-1}\)</span></span>，而不依赖于过去的随机变量<span><span class="heti-spacing"> </span><span class="arithmatex">\(\{X_0, X_1, \dots, X_{t-2}\}\)</span></span>，这一性质称为<strong>马尔可夫性<span><span class="heti-spacing"> </span>(Markovian property)</span></strong>，即：</p>
+<div class="arithmatex">\[
+P(X_t | X_0, X_1, \dots, X_{t-1}) = P(X_t | X_{t-1}), \quad t = 1,2, \dots \quad (19.6)
+\]</div>
+<p>具有马尔可夫性的随机序列<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X = \{X_0, X_1, \dots, X_t, \dots\}\)</span><span class="heti-spacing"> </span></span>称为<strong>马尔可夫链<span><span class="heti-spacing"> </span>(Markov chain)</span></strong>，或<strong>马尔可夫过程<span><span class="heti-spacing"> </span>(Markov process)</span></strong>。条件概率分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(P(X_t | X_{t-1})\)</span><span class="heti-spacing"> </span></span>称为马尔可夫链的<strong>转移概率分布<span><span class="heti-spacing"> </span>(transition probability distribution)</span></strong>。转移概率分布决定了马尔可夫链的特性。</p>
+</details>
+<p>马尔可夫性的直观解释是“未来只依赖于现在（假设现在已知<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，而与过去无关”。</p>
+<p>如果转移概率分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(P(X_{t+s} | X_{t-1+s})\)</span><span class="heti-spacing"> </span></span>与时间<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(s\)</span><span class="heti-spacing"> </span></span>无关，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(P(X_{t+s} | X_{t-1+s}) = P(X_t | X_{t-1})\)</span></span>，则称该马尔可夫链为<strong>时间齐次的马尔可夫链<span><span class="heti-spacing"> </span>(time homogeneous Markov chain)</span></strong>。</p>
+<p>上述定义是一阶马尔可夫链，它也可以扩展到<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>阶马尔可夫链，满足<span><span class="heti-spacing"> </span><span class="arithmatex">\(P(X_t | X_0, X_1, \dots, X_{t-2}, X_{t-1}) = P(X_t | X_{t-n}, \dots, X_{t-2}, X_{t-1})\)</span></span>。</p>
+<h3 id="离散状态马尔可夫链-Discrete-state-Markov-Chain-page-23-24">离散状态马尔可夫链<span><span class="heti-spacing"> </span>(Discrete-state Markov Chain) (page 23-24)</span><a class="headerlink" href="#离散状态马尔可夫链-Discrete-state-Markov-Chain-page-23-24" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>对于离散状态马尔可夫链<span><span class="heti-spacing"> </span><span class="arithmatex">\(X = \{X_0, X_1, \dots, X_t, \dots\}\)</span></span>，随机变量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X_t\)</span> (<span class="arithmatex">\(t=0,1,2, \dots\)</span>)<span class="heti-spacing"> </span></span>定义在离散状态空间<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{S}\)</span><span class="heti-spacing"> </span></span>上，其转移概率分布可以由矩阵表示。</p>
+<p>若马尔可夫链在时刻<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((t-1)\)</span><span class="heti-spacing"> </span></span>处于状态<span><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span></span>，在时刻<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span><span class="heti-spacing"> </span></span>移动到状态<span><span class="heti-spacing"> </span><span class="arithmatex">\(j\)</span></span>，则将<strong>转移概率<span><span class="heti-spacing"> </span>(transition probability)</span></strong> 记作<span><span class="heti-spacing"> </span><span class="arithmatex">\(p_{ij}\)</span>:</span></p>
+<div class="arithmatex">\[
+p_{ij} = P(X_t = j | X_{t-1} = i), \quad i,j = 1,2, \dots
+\]</div>
+<p>转移概率满足<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p_{ij} \ge 0\)</span><span class="heti-spacing"> </span></span>且<span><span class="heti-spacing"> </span><span class="arithmatex">\(\sum_j p_{ij} = 1\)</span></span>。</p>
+<h4 id="转移概率矩阵-Transition-Probability-Matrix-page-24">转移概率矩阵<span><span class="heti-spacing"> </span>(Transition Probability Matrix) (page 24)</span><a class="headerlink" href="#转移概率矩阵-Transition-Probability-Matrix-page-24" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>马尔可夫链的转移概率<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p_{ij}\)</span><span class="heti-spacing"> </span></span>可以由<strong>转移概率矩阵<span><span class="heti-spacing"> </span>(transition probability matrix)</span></strong> <span><span class="arithmatex">\(P\)</span><span class="heti-spacing"> </span></span>表示：</p>
+<div class="arithmatex">\[
+P = \begin{pmatrix}
+p_{11} &amp; p_{12} &amp; p_{13} &amp; \dots \\
+p_{21} &amp; p_{22} &amp; p_{23} &amp; \dots \\
+p_{31} &amp; p_{32} &amp; p_{33} &amp; \dots \\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots
+\end{pmatrix}
+\]</div>
+<p>转移概率矩阵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(P\)</span><span class="heti-spacing"> </span></span>满足<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p_{ij} \ge 0\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\sum_j p_{ij} = 1\)</span> (<span class="heti-spacing"> </span></span>即<strong>行元素之和为<span><span class="heti-spacing"> </span>1</span></strong>)。满足这两个条件的矩阵称为<strong>随机矩阵<span><span class="heti-spacing"> </span>(stochastic matrix)</span></strong>。</p>
+<h3 id="状态分布-State-Distribution-page-25-26">状态分布<span><span class="heti-spacing"> </span>(State Distribution) (page 25-26)</span><a class="headerlink" href="#状态分布-State-Distribution-page-25-26" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>考虑马尔可夫链<span><span class="heti-spacing"> </span><span class="arithmatex">\(X = \{X_0, X_1, \dots, X_t, \dots\}\)</span></span>，在时刻<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span> (<span class="arithmatex">\(t=0,1,2, \dots\)</span>)<span class="heti-spacing"> </span></span>的概率分布称为<strong>时刻<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span><span class="heti-spacing"> </span></span>的状态分布<span><span class="heti-spacing"> </span>(state distribution at time <span class="arithmatex">\(t\)</span>)</span></strong>，记作<span><span class="heti-spacing"> </span><span class="arithmatex">\(\pi(t)\)</span></span>：</p>
+<div class="arithmatex">\[
+\pi(t) = \begin{pmatrix}
+\pi_1(t) \\
+\pi_2(t) \\
+\vdots
+\end{pmatrix}
+\]</div>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\pi_i(t)\)</span><span class="heti-spacing"> </span></span>表示时刻<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span><span class="heti-spacing"> </span></span>状态为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>的概率<span><span class="heti-spacing"> </span><span class="arithmatex">\(P(X_t = i)\)</span></span>。特别地，马尔可夫链的初始状态分布可以表示为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\pi(0)\)</span></span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\pi_i(0)\)</span><span class="heti-spacing"> </span></span>表示时刻<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>状态为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>的概率<span><span class="heti-spacing"> </span><span class="arithmatex">\(P(X_0 = i)\)</span></span>。通常，初始分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\pi(0)\)</span><span class="heti-spacing"> </span></span>的向量只有一个分量是<span><span class="heti-spacing"> </span>1</span>，其余分量都是<span><span class="heti-spacing"> </span>0</span>，这表示马尔可夫链从一个具体状态开始。</p>
+<h4 id="转移概率矩阵和状态分布的关系-page-27-31-32">转移概率矩阵和状态分布的关系<span><span class="heti-spacing"> </span>(page 27, 31-32)</span><a class="headerlink" href="#转移概率矩阵和状态分布的关系-page-27-31-32" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>有限离散状态的马尔可夫链可以通过有向图表示，结点表示状态，边表示状态之间的转移，边上的数值表示转移概率。从一个初始状态出发，根据有向边上定义的概率在状态之间随机跳转（或随机转移<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，就可以产生状态的序列。</p>
+<p>马尔可夫链实际上是刻画随时间在状态之间转移的模型，假设未来的转移状态只依赖于现在的状态，而与过去的状态无关。</p>
+<p>马尔可夫链<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>在时刻<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span><span class="heti-spacing"> </span></span>的状态分布可以由在时刻<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((t-1)\)</span><span class="heti-spacing"> </span></span>的状态分布以及转移概率分布决定：</p>
+<div class="arithmatex">\[
+\pi(t) = P\pi(t-1)
+\]</div>
+<p>这是因为：</p>
+<div class="arithmatex">\[
+\begin{align}
+\pi_i(t) &amp;= P(X_t = i) \\
+&amp;= \sum_m P(X_t = i | X_{t-1} = m)P(X_{t-1} = m) \\
+&amp;= \sum_m p_{im}\pi_m(t-1)
+\end{align}
+\]</div>
+<p>通过递推，可以得到：</p>
+<div class="arithmatex">\[
+\pi(t) = P\pi(t-1) = P^2\pi(t-2) = \dots = P^t\pi(0)
+\]</div>
+<p>这里的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(P^t\)</span><span class="heti-spacing"> </span></span>称为 <strong><span><span class="arithmatex">\(t\)</span><span class="heti-spacing"> </span></span>步转移概率矩阵<span><span class="heti-spacing"> </span>(t-step transition probability matrix)</span></strong>，其元素<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(P^t_{ij}\)</span><span class="heti-spacing"> </span></span>表示时刻<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>从状态<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(j\)</span><span class="heti-spacing"> </span></span>出发，时刻<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span><span class="heti-spacing"> </span></span>达到状态<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>的概率<span><span class="heti-spacing"> </span><span class="arithmatex">\(P(X_t = i | X_0 = j)\)</span></span>。<span><span class="arithmatex">\(P^t\)</span><span class="heti-spacing"> </span></span>也是随机矩阵。马尔可夫链的状态分布由初始分布和转移概率分布决定。</p>
+<h3 id="平稳分布-page-36-43">平稳分布<span><span class="heti-spacing"> </span>(page 36-43)</span><a class="headerlink" href="#平稳分布-page-36-43" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="definition" open="open">
+<summary>定义<span class="heti-skip"><span class="heti-spacing"> </span>19.2 (<span class="heti-spacing"> </span></span>平稳分布<span><span class="heti-spacing"> </span>) (page 36)</span></summary>
+<p>设有马尔可夫链<span><span class="heti-spacing"> </span><span class="arithmatex">\(X = \{X_0, X_1, \dots, X_t, \dots\}\)</span></span>，其状态空间为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{S}\)</span></span>，转移概率矩阵为<span><span class="heti-spacing"> </span><span class="arithmatex">\(P = (p_{ij})\)</span></span>。如果存在状态空间<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{S}\)</span><span class="heti-spacing"> </span></span>上的一个分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\pi = \begin{pmatrix} \pi_1 \\ \pi_2 \\ \vdots \end{pmatrix}\)</span><span class="heti-spacing"> </span></span>使得：</p>
+<div class="arithmatex">\[
+\pi = P\pi \quad (19.15)
+\]</div>
+<p>则称<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\pi\)</span><span class="heti-spacing"> </span></span>为马尔可夫链<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X = \{X_0, X_1, \dots, X_t, \dots\}\)</span><span class="heti-spacing"> </span></span>的<strong>平稳分布<span><span class="heti-spacing"> </span>(stationary distribution)</span></strong>。</p>
+</details>
+<p>直观上，如果马尔可夫链的平稳分布存在，那么以该平稳分布作为初始分布，面向未来进行随机状态转移，之后任何一个时刻的状态分布都是该平稳分布。</p>
+<details class="theorem" open="open">
+<summary>引理<span class="heti-skip"><span class="heti-spacing"> </span>19.1 (<span class="heti-spacing"> </span></span>平稳分布的充分必要条件<span><span class="heti-spacing"> </span>) (page 37)</span></summary>
+<p>给定一个马尔可夫链<span><span class="heti-spacing"> </span><span class="arithmatex">\(X = \{X_0, X_1, \dots, X_t, \dots\}\)</span></span>，状态空间为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{S}\)</span></span>，转移概率矩阵为<span><span class="heti-spacing"> </span><span class="arithmatex">\(P = (p_{ij})\)</span></span>，则分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\pi = (\pi_1, \pi_2, \dots)^T\)</span><span class="heti-spacing"> </span></span>为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>的平稳分布的<strong>充分必要条件</strong>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\pi = (\pi_1, \pi_2, \dots)^T\)</span><span class="heti-spacing"> </span></span>是下列方程组的解：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\pi_i &amp;= \sum_j p_{ji}\pi_j, \quad i = 1,2, \dots \quad (19.16) \\
+\pi_i &amp;\ge 0, \quad i = 1,2, \dots \quad (19.17) \\
+\sum_i \pi_i &amp;= 1 \quad (19.18)
+\end{aligned}
+\]</div>
+</details>
+<p>马尔可夫链可能存在唯一平稳分布，无穷多个平稳分布，或者不存在平稳分布。</p>
+<h3 id="连续状态马尔可夫链-Continuous-state-Markov-Chain-page-44-45">连续状态马尔可夫链<span><span class="heti-spacing"> </span>(Continuous-state Markov Chain) (page 44-45)</span><a class="headerlink" href="#连续状态马尔可夫链-Continuous-state-Markov-Chain-page-44-45" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>对于连续状态马尔可夫链<span><span class="heti-spacing"> </span><span class="arithmatex">\(X = \{X_0, X_1, \dots, X_t, \dots\}\)</span></span>，随机变量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X_t\)</span> (<span class="arithmatex">\(t=0,1,2, \dots\)</span>)<span class="heti-spacing"> </span></span>定义在连续状态空间<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{S}\)</span><span class="heti-spacing"> </span></span>上。其转移概率分布由<strong>概率转移核<span><span class="heti-spacing"> </span>(transition kernel)</span></strong> 或简称为<strong>转移核<span><span class="heti-spacing"> </span>(transition kernel)</span></strong> <span><span class="arithmatex">\(P(x, A)\)</span><span class="heti-spacing"> </span></span>表示。</p>
+<p>设<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{S}\)</span><span class="heti-spacing"> </span></span>是连续状态空间，对于任意的<span><span class="heti-spacing"> </span><span class="arithmatex">\(x \in \mathcal{S}, A \subset \mathcal{S}\)</span></span>，定义为：</p>
+<div class="arithmatex">\[
+P(x, A) = \int_A p(x,y) dy
+\]</div>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p(x,\cdot)\)</span><span class="heti-spacing"> </span></span>是概率密度函数，满足<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p(x,\cdot) \ge 0\)</span><span class="heti-spacing"> </span></span>且<span><span class="heti-spacing"> </span><span class="arithmatex">\(\int_{\mathcal{S}} p(x,y) dy = 1\)</span></span>。
+<span class="arithmatex">\(P(x,A)\)</span> 表示从状态 <span class="arithmatex">\(x\)</span> 转移到集合 <span class="arithmatex">\(A\)</span> 的转移概率。有时也将概率密度函数 <span class="arithmatex">\(p(x,\cdot)\)</span> 称为转移核。</p>
+<p>若马尔可夫链的状态空间<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{S}\)</span><span class="heti-spacing"> </span></span>上的概率分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\pi(x)\)</span><span class="heti-spacing"> </span></span>满足条件：</p>
+<div class="arithmatex">\[
+\pi(y) = \int_{\mathcal{S}} p(x,y)\pi(x)dx, \quad \forall y \in \mathcal{S}
+\]</div>
+<p>则称分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\pi(x)\)</span><span class="heti-spacing"> </span></span>为该马尔可夫链的平稳分布。等价地，<span><span class="arithmatex">\(\pi = P\pi\)</span><span class="heti-spacing"> </span></span>或写为：</p>
+<div class="arithmatex">\[
+\pi(A) = \int_{\mathcal{S}} P(x, A)\pi(x)dx, \quad \forall A \subset \mathcal{S}
+\]</div>
+<h3 id="马尔可夫链的性质-page-46-58">马尔可夫链的性质<span><span class="heti-spacing"> </span>(page 46-58)</span><a class="headerlink" href="#马尔可夫链的性质-page-46-58" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>马尔可夫链具有一些重要的性质，这些性质对于<span class="heti-skip"><span class="heti-spacing"> </span>MCMC<span class="heti-spacing"> </span></span>方法的收敛性和有效性至关重要。</p>
+<h4 id="1-不可约性-Irreducibility-page-46-47"><span>1.<span class="heti-spacing"> </span></span>不可约性<span><span class="heti-spacing"> </span>(Irreducibility) (page 46-47)</span><a class="headerlink" href="#1-不可约性-Irreducibility-page-46-47" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<details class="definition" open="open">
+<summary>定义<span class="heti-skip"><span class="heti-spacing"> </span>19.3 (<span class="heti-spacing"> </span></span>不可约<span><span class="heti-spacing"> </span>) (page 46)</span></summary>
+<p>设有马尔可夫链<span><span class="heti-spacing"> </span><span class="arithmatex">\(X = \{X_0, X_1, \dots, X_t, \dots\}\)</span></span>，状态空间为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{S}\)</span></span>。对于任意状态<span><span class="heti-spacing"> </span><span class="arithmatex">\(i, j \in \mathcal{S}\)</span></span>，如果存在一个时刻<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t &gt; 0\)</span><span class="heti-spacing"> </span></span>满足<span><span class="heti-spacing"> </span><span class="arithmatex">\(P(X_t = i | X_0 = j) &gt; 0\)</span> (19.24)</span>，则称此马尔可夫链<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>是<strong>不可约的<span><span class="heti-spacing"> </span>(irreducible)</span></strong>，否则称马尔可夫链是<strong>可约的<span><span class="heti-spacing"> </span>(reducible)</span></strong>。</p>
+</details>
+<p>直观上，一个不可约的马尔可夫链，从任意状态出发，当经过充分长时间后，可以到达任意状态。这意味着状态之间可以相互<strong>连通</strong>。</p>
+<h4 id="2-非周期性-Aperiodicity-page-48-50"><span>2.<span class="heti-spacing"> </span></span>非周期性<span><span class="heti-spacing"> </span>(Aperiodicity) (page 48-50)</span><a class="headerlink" href="#2-非周期性-Aperiodicity-page-48-50" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<details class="definition" open="open">
+<summary>定义<span class="heti-skip"><span class="heti-spacing"> </span>19.4 (<span class="heti-spacing"> </span></span>非周期<span><span class="heti-spacing"> </span>) (page 48)</span></summary>
+<p>设有马尔可夫链<span><span class="heti-spacing"> </span><span class="arithmatex">\(X = \{X_0, X_1, \dots, X_t, \dots\}\)</span></span>，状态空间为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{S}\)</span></span>。对于任意状态<span><span class="heti-spacing"> </span><span class="arithmatex">\(i \in \mathcal{S}\)</span></span>，如果时刻<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>从状态<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>出发，时刻<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span><span class="heti-spacing"> </span></span>返回状态<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>的所有时间长<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\{t : P(X_t = i | X_0 = i) &gt; 0\}\)</span><span class="heti-spacing"> </span></span>的最大公约数是<span><span class="heti-spacing"> </span>1</span>，则称此马尔可夫链<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>是<strong>非周期的<span><span class="heti-spacing"> </span>(aperiodic)</span></strong>，否则称马尔可夫链是<strong>周期的<span><span class="heti-spacing"> </span>(periodic)</span></strong>。</p>
+</details>
+<p>直观上，一个非周期性的马尔可夫链，不存在一个状态，从这一个状态出发，再返回到这个状态时所经历的时间长呈一定的周期性。</p>
+<details class="theorem" open="open">
+<summary>定理<span><span class="heti-spacing"> </span>19.2 (page 50)</span></summary>
+<p>不可约且非周期的有限状态马尔可夫链，有<strong>唯一平稳分布</strong>存在。</p>
+</details>
+<h4 id="3-正常返性-Positive-Recurrent-page-51-53"><span>3.<span class="heti-spacing"> </span></span>正常返性<span><span class="heti-spacing"> </span>(Positive Recurrent) (page 51-53)</span><a class="headerlink" href="#3-正常返性-Positive-Recurrent-page-51-53" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<details class="definition" open="open">
+<summary>定义<span class="heti-skip"><span class="heti-spacing"> </span>19.5 (<span class="heti-spacing"> </span></span>正常返<span><span class="heti-spacing"> </span>) (page 51)</span></summary>
+<p>设有马尔可夫链<span><span class="heti-spacing"> </span><span class="arithmatex">\(X = \{X_0, X_1, \dots, X_t, \dots\}\)</span></span>，状态空间为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{S}\)</span></span>。对于任意状态<span><span class="heti-spacing"> </span><span class="arithmatex">\(i, j \in \mathcal{S}\)</span></span>，定义概率<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f^t_{ij}\)</span><span class="heti-spacing"> </span></span>为时刻<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>从状态<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(j\)</span><span class="heti-spacing"> </span></span>出发，时刻<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span><span class="heti-spacing"> </span></span>首次转移到状态<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>的概率，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(f^t_{ij} = P(X_t = i, X_s \ne i, s = 1,2, \dots, t-1 | X_0 = j), t = 1,2, \dots\)</span></span>。若对所有状态<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i, j\)</span><span class="heti-spacing"> </span></span>都满足<span><span class="heti-spacing"> </span><span class="arithmatex">\(\lim_{t \to \infty} f^t_{ij} &gt; 0\)</span></span>，则称马尔可夫链<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>是<strong>正常返的<span><span class="heti-spacing"> </span>(positive recurrent)</span></strong>。</p>
+</details>
+<p>直观上，一个正常返的马尔可夫链，其中任意一个状态，从其他任意一个状态出发，当时间趋于无穷时，首次转移到这个状态的概率不为<span><span class="heti-spacing"> </span>0</span>。</p>
+<details class="example">
+<summary>说明下图所示无限状态马尔可夫链，当<span class="heti-skip"><span class="heti-spacing"> </span>p&gt;q<span class="heti-spacing"> </span></span>时是正常返的，当<span><span class="heti-spacing"> </span>p</span>≤<span>q<span class="heti-spacing"> </span></span>不是正常返的<span><span class="heti-spacing"> </span>(page 52)</span></summary>
+<figure markdown="span">
+</figure></details>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/06_250606-214203.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/06_250606-214203.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/06_250606-214203.png"/></a></p>
+<details class="theorem" open="open">
+<summary>定理<span><span class="heti-spacing"> </span>19.3 (page 53)</span></summary>
+<p>不可约、非周期且正常返的马尔可夫链，有<strong>唯一平稳分布</strong>存在。</p>
+</details>
+<h4 id="4-遍历定理-Ergodic-Theorem-page-54-56"><span>4.<span class="heti-spacing"> </span></span>遍历定理<span><span class="heti-spacing"> </span>(Ergodic Theorem) (page 54-56)</span><a class="headerlink" href="#4-遍历定理-Ergodic-Theorem-page-54-56" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<details class="theorem" open="open">
+<summary>定理<span class="heti-skip"><span class="heti-spacing"> </span>19.4 (<span class="heti-spacing"> </span></span>遍历定理<span><span class="heti-spacing"> </span>) (page 54)</span></summary>
+<p>设有马尔可夫链<span><span class="heti-spacing"> </span><span class="arithmatex">\(X = \{X_0, X_1, \dots, X_t, \dots\}\)</span></span>，状态空间为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{S}\)</span></span>。若马尔可夫链<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>是<strong>不可约</strong>、<strong>非周期</strong>且<strong>正常返</strong>的，则该马尔可夫链有<strong>唯一平稳分布</strong> <span class="arithmatex">\(\pi = (\pi_1, \pi_2, \dots)^T\)</span>，并且转移概率的极限分布是马尔可夫链的平稳分布：</p>
+<div class="arithmatex">\[
+\lim_{t \to \infty} P(X_t = i | X_0 = j) = \pi_i, \quad i = 1,2, \dots; j = 1,2, \dots \quad (19.25)
+\]</div>
+<p>若<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f(x)\)</span><span class="heti-spacing"> </span></span>是定义在状态空间上的函数，且<span><span class="heti-spacing"> </span><span class="arithmatex">\(E_{\pi}[f(X)] &lt; \infty\)</span></span>，则：</p>
+<div class="arithmatex">\[
+P\{\hat{f}_t \to E_{\pi}[f(X)]\} = 1 \quad (19.26)
+\]</div>
+<p>这里<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{f}_t = \frac{1}{t}\sum_{s=1}^t f(x_s)\)</span></span>。</p>
+<p>表达式<span class="heti-skip"><span class="heti-spacing"> </span>(19.26)<span class="heti-spacing"> </span></span>表示<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{f}_t \to E_{\pi}[f(X)]\)</span></span>，当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t \to \infty\)</span><span class="heti-spacing"> </span></span>时几乎处处成立或以概率<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>成立。</p>
+</details>
+<p><strong>遍历定理的直观解释<span><span class="heti-spacing"> </span>(page 55):</span></strong></p>
+<ul>
+<li>满足相应条件的马尔可夫链，当时间趋于无穷时，马尔可夫链的状态分布趋近于平稳分布，随机变量的函数的样本均值以概率<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>收敛于该函数的数学期望。</li>
+<li>样本均值可以认为是<strong>时间均值<span><span class="heti-spacing"> </span>(time average)</span></strong>，而数学期望是<strong>空间均值<span><span class="heti-spacing"> </span>(space average)</span></strong>。遍历定理实际表述了遍历性的含义：当时间趋于无穷时，时间均值等于空间均值。</li>
+<li>遍历定理的三个条件：不可约、非周期、正常返，保证了当时间趋于无穷时达到任意一个状态的概率不为<span><span class="heti-spacing"> </span>0</span>。</li>
+</ul>
+<p>在实际应用遍历定理时，我们通常会取一个足够大的整数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\)</span><span class="heti-spacing"> </span></span>作为<strong>燃烧期<span><span class="heti-spacing"> </span>(burn-in period)</span></strong>，认为经过<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\)</span><span class="heti-spacing"> </span></span>次迭代之后状态分布就是平稳分布。这时计算从第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m+1\)</span><span class="heti-spacing"> </span></span>次迭代到第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>次迭代的均值：</p>
+<div class="arithmatex">\[
+\hat{f}_n = \frac{1}{n-m} \sum_{i=m+1}^n f(x_i)
+\]</div>
+<h4 id="5-可逆马尔可夫链-Reversible-Markov-Chain-page-57-59"><span>5.<span class="heti-spacing"> </span></span>可逆马尔可夫链<span><span class="heti-spacing"> </span>(Reversible Markov Chain) (page 57-59)</span><a class="headerlink" href="#5-可逆马尔可夫链-Reversible-Markov-Chain-page-57-59" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<details class="definition" open="open">
+<summary>定义<span class="heti-skip"><span class="heti-spacing"> </span>19.6 (<span class="heti-spacing"> </span></span>可逆马尔可夫链<span><span class="heti-spacing"> </span>) (page 57)</span></summary>
+<p>设有马尔可夫链<span><span class="heti-spacing"> </span><span class="arithmatex">\(X = \{X_0, X_1, \dots, X_t, \dots\}\)</span></span>，状态空间为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{S}\)</span></span>，转移概率矩阵为<span><span class="heti-spacing"> </span><span class="arithmatex">\(P\)</span></span>。如果存在状态分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(\pi = (\pi_1, \pi_2, \dots)^T\)</span></span>，对于任意状态<span><span class="heti-spacing"> </span><span class="arithmatex">\(i, j \in \mathcal{S}\)</span></span>，对任意一个时刻<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span><span class="heti-spacing"> </span></span>满足：</p>
+<div class="arithmatex">\[
+P(X_t = i | X_{t-1} = j)\pi_j = P(X_{t-1} = j | X_t = i)\pi_i, \quad i,j = 1,2, \dots \quad (19.29)
+\]</div>
+<p>或简写为：</p>
+<div class="arithmatex">\[
+p_{ij}\pi_j = p_{ji}\pi_i, \quad i,j = 1,2, \dots \quad (19.30)
+\]</div>
+<p>则称此马尔可夫链<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>为<strong>可逆马尔可夫链<span><span class="heti-spacing"> </span>(reversible Markov chain)</span></strong>，式<span class="heti-skip"><span class="heti-spacing"> </span>(19.30)<span class="heti-spacing"> </span></span>称为<strong>细致平衡方程<span><span class="heti-spacing"> </span>(detailed balance equation)</span></strong>。</p>
+</details>
+<p>直观上，如果有可逆的马尔可夫链，那么以该马尔可夫链的平稳分布作为初始分布，进行随机状态转移，无论是面向未来还是面向过去，任何一个时刻的状态分布都是该平稳分布。</p>
+<details class="theorem" open="open">
+<summary>定理<span class="heti-skip"><span class="heti-spacing"> </span>19.5 (<span class="heti-spacing"> </span></span>细致平衡方程<span><span class="heti-spacing"> </span>) (page 58)</span></summary>
+<p>满足细致平衡方程的状态分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\pi\)</span><span class="heti-spacing"> </span></span>就是该马尔可夫链的平稳分布。即：</p>
+<div class="arithmatex">\[
+P\pi = \pi
+\]</div>
+<p><strong>证明</strong><span>:<span class="heti-spacing"> </span></span>事实上，</p>
+<div class="arithmatex">\[
+\begin{align}
+(P\pi)_i &amp;= \sum_j p_{ij}\pi_j \\
+&amp;= \sum_j p_{ji}\pi_i \quad (\text{由细致平衡方程}) \\
+&amp;= \pi_i \sum_j p_{ji} \\
+&amp;= \pi_i \quad (\text{因为 } \sum_j p_{ji} = 1 \text{ 对于随机矩阵的列和}) \\
+\end{align}
+\]</div>
+<p>因此，<span class="arithmatex">\((P\pi)_i = \pi_i\)</span>，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(P\pi = \pi\)</span></span>。</p>
+</details>
+<p>可逆马尔可夫链一定有唯一平稳分布，给出了一个马尔可夫链有平稳分布的充分条件<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>不是必要条件<span><span class="heti-spacing"> </span>)</span>。也就是说，可逆马尔可夫链满足遍历定理<span class="heti-skip"><span class="heti-spacing"> </span>19.4<span class="heti-spacing"> </span></span>的条件。</p>
+<details class="example" open="open">
+<summary>说明下图所示马尔可夫链是不可逆的<span><span class="heti-spacing"> </span>(page 59)</span></summary>
+<figure markdown="span">
+</figure></details>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/06_250606-220410.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/06_250606-220410.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/06_250606-220410.png"/></a></p>
+<h2 id="马尔可夫链蒙特卡罗法-Markov-Chain-Monte-Carlo-MCMC-page-60-69">马尔可夫链蒙特卡罗法<span><span class="heti-spacing"> </span>(Markov Chain Monte Carlo, MCMC) (page 60-69)</span><a class="headerlink" href="#马尔可夫链蒙特卡罗法-Markov-Chain-Monte-Carlo-MCMC-page-60-69" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="基本想法-page-61-66">基本想法<span><span class="heti-spacing"> </span>(page 61-66)</span><a class="headerlink" href="#基本想法-page-61-66" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>马尔可夫链蒙特卡罗法更适合于随机变量是多元的、密度函数是非标准形式的、随机变量各分量不独立等情况。</p>
+<p>假设我们有一个多元随机变量<span><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span></span>，满足<span><span class="heti-spacing"> </span><span class="arithmatex">\(x \in \mathcal{X}\)</span></span>，其概率密度函数为<span><span class="heti-spacing"> </span><span class="arithmatex">\(p(x)\)</span></span>。同时<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f(x)\)</span><span class="heti-spacing"> </span></span>是定义在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{X}\)</span><span class="heti-spacing"> </span></span>上的函数。我们的目标是获得概率分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p(x)\)</span><span class="heti-spacing"> </span></span>的样本集合，以及求函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f(x)\)</span><span class="heti-spacing"> </span></span>的数学期望<span><span class="heti-spacing"> </span><span class="arithmatex">\(E_{p(x)}[f(x)]\)</span></span>。</p>
+<p><strong><span>MCMC<span class="heti-spacing"> </span></span>的基本想法<span><span class="heti-spacing"> </span>(page 62):</span></strong></p>
+<ol>
+<li>在随机变量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>的状态空间<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{S}\)</span><span class="heti-spacing"> </span></span>上定义一个满足遍历定理的马尔可夫链<span><span class="heti-spacing"> </span><span class="arithmatex">\(X = \{X_0, X_1, \dots, X_t, \dots\}\)</span></span>，使其平稳分布就是抽样的目标分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(p(x)\)</span></span>。</li>
+<li>然后在这个马尔可夫链上进行随机游走，每个时刻得到一个样本。</li>
+<li>根据遍历定理，当时间趋于无穷时，样本的分布趋近平稳分布，样本的函数均值趋近函数的数学期望。</li>
+</ol>
+<p><strong>实际应用<span><span class="heti-spacing"> </span>(page 63):</span></strong></p>
+<p>当时间足够长时（时刻大于某个正整数<span><span class="heti-spacing"> </span><span class="arithmatex">\(m\)</span></span>，称为<strong>燃烧期</strong><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，在之后的时间（时刻小于等于某个正整数<span><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span></span>，且<span><span class="heti-spacing"> </span><span class="arithmatex">\(n &gt; m\)</span></span>）里随机游走得到的样本集合<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\{x_{m+1}, x_{m+2}, \dots, x_n\}\)</span><span class="heti-spacing"> </span></span>就是目标概率分布的抽样结果。得到的函数均值（遍历均值）就是要计算的数学期望值：</p>
+<div class="arithmatex">\[
+\hat{E}f = \frac{1}{n-m} \sum_{i=m+1}^n f(x_i)
+\]</div>
+<p><strong>构建具体的马尔可夫链<span><span class="heti-spacing"> </span>(page 64):</span></strong></p>
+<ul>
+<li>连续变量时，需要定义<strong>转移核函数</strong>。</li>
+<li>离散变量时，需要定义<strong>转移矩阵</strong>。</li>
+</ul>
+<p>一个方法是定义特殊的转移核函数或者转移矩阵，构建<strong>可逆马尔可夫链</strong>，这样可以保证遍历定理成立。</p>
+<p>常用的马尔可夫链蒙特卡罗法有<strong><span>Metropolis-Hastings<span class="heti-spacing"> </span></span>算法</strong>和<strong>吉布斯抽样</strong>。由于这些马尔可夫链满足遍历定理，随机游走的起始点不影响得到的结果，即从不同的起始点出发，都会收敛到同一平稳分布。</p>
+<p><strong><span>MCMC<span class="heti-spacing"> </span></span>收敛性的判断<span><span class="heti-spacing"> </span>(page 65):</span></strong></p>
+<p><span>MCMC<span class="heti-spacing"> </span></span>方法的收敛性的判断通常是经验性的：</p>
+<ul>
+<li>在马尔可夫链上进行随机游走，检验遍历均值是否收敛。具体地，每隔一段时间取一次样本，得到多个样本后，计算遍历均值。当计算的均值稳定后，认为马尔可夫链已经收敛。</li>
+<li>在马尔可夫链上并行进行多个随机游走，比较各个随机游走的遍历均值是否接近一致。</li>
+</ul>
+<p><strong><span>MCMC<span class="heti-spacing"> </span></span>的样本性质<span><span class="heti-spacing"> </span>(page 66):</span></strong></p>
+<p><span>MCMC<span class="heti-spacing"> </span></span>法中得到的样本序列，相邻的样本点是相关的，而不是独立的。若需要独立样本时，可以在该样本序列中再次进行随机抽样，比如每隔一段时间取一次样本，将这样得到的子样本集合作为独立样本集合。</p>
+<details class="extra" open="open">
+<summary><span>MCMC<span class="heti-spacing"> </span></span>与接受<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>拒绝抽样法的比较<span><span class="heti-spacing"> </span>(page 66)</span></summary>
+<p>马尔可夫链蒙特卡罗法比接受<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>拒绝法更容易实现，因为只需要定义马尔可夫链，而不需要定义建议分布。一般来说，<span>MCMC<span class="heti-spacing"> </span></span>法比接受<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>拒绝法效率更高，没有大量被拒绝的样本，虽然燃烧期的样本也要抛弃。</p>
+</details>
+<h3 id="基本步骤-page-67">基本步骤<span><span class="heti-spacing"> </span>(page 67)</span><a class="headerlink" href="#基本步骤-page-67" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>MCMC<span class="heti-spacing"> </span></span>方法可以概括为以下三步：</p>
+<ol>
+<li><strong>构造马尔可夫链</strong><span>:<span class="heti-spacing"> </span></span>在随机变量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>的状态空间<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{S}\)</span><span class="heti-spacing"> </span></span>上构造一个满足遍历定理的马尔可夫链，使其平稳分布为目标分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(p(x)\)</span></span>。</li>
+<li><strong>随机游走</strong><span>:<span class="heti-spacing"> </span></span>从状态空间的某一点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_0\)</span><span class="heti-spacing"> </span></span>出发，用构造的马尔可夫链进行随机游走，产生样本序列<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_0, x_1, \dots, x_t, \dots\)</span></span>。</li>
+<li><strong>计算均值</strong><span>:<span class="heti-spacing"> </span></span>应用马尔可夫链的遍历定理，确定正整数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span> (<span class="arithmatex">\(m &lt; n\)</span>)</span>，得到样本集合<span><span class="heti-spacing"> </span><span class="arithmatex">\(\{x_{m+1}, x_{m+2}, \dots, x_n\}\)</span></span>，求得函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f(x)\)</span><span class="heti-spacing"> </span></span>的均值（遍历均值<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：
+    $$
+    \hat{f} = \frac{1}{n-m} \sum_{i=m+1}^n f(x_i)
+    $$</li>
+</ol>
+<h3 id="MCMC-与统计学习-MCMC-and-Statistical-Learning-page-68-69"><span>MCMC<span class="heti-spacing"> </span></span>与统计学习<span><span class="heti-spacing"> </span>(MCMC and Statistical Learning) (page 68-69)</span><a class="headerlink" href="#MCMC-与统计学习-MCMC-and-Statistical-Learning-page-68-69" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在统计学习中，特别是贝叶斯学习，<span>MCMC<span class="heti-spacing"> </span></span>方法提供了一个通用的有效解决方案，用于计算后验概率中涉及的三种积分运算：</p>
+<ul>
+<li><strong>归范化<span><span class="heti-spacing"> </span>(normalization)</span></strong><span>:<span class="heti-spacing"> </span></span>后验概率分母的积分<span><span class="heti-spacing"> </span><span class="arithmatex">\(\int_{\mathcal{X}} p(y|x')p(x')dx'\)</span></span>。</li>
+<li><strong>边缘化<span><span class="heti-spacing"> </span>(marginalization)</span></strong><span>:<span class="heti-spacing"> </span></span>当存在隐变量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(z \in \mathcal{Z}\)</span><span class="heti-spacing"> </span></span>时，后验概率的计算需要边缘化积分<span><span class="heti-spacing"> </span><span class="arithmatex">\(p(x|y) = \int_{\mathcal{Z}} p(x,z|y)dz\)</span></span>。</li>
+<li><strong>数学期望<span><span class="heti-spacing"> </span>(expectation)</span></strong><span>:<span class="heti-spacing"> </span></span>如果有一个函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(f(x)\)</span></span>，需要计算其关于后验概率分布的数学期望<span><span class="heti-spacing"> </span><span class="arithmatex">\(E_{P(x|y)}[f(x)] = \int_{\mathcal{X}} f(x)p(x|y)dx\)</span></span>。</li>
+</ul>
+<p>假设观测数据由随机变量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(y \in \mathcal{Y}\)</span><span class="heti-spacing"> </span></span>表示，模型由随机变量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x \in \mathcal{X}\)</span><span class="heti-spacing"> </span></span>表示。贝叶斯学习通过贝叶斯定理计算给定数据条件下模型的后验概率，并选择后验概率最大的模型。
+后验概率为 <span class="arithmatex">\(p(x|y) = \frac{p(y|x)p(x)}{\int_{\mathcal{X}} p(y|x')p(x')dx'}\)</span>。</p>
+<p>在贝叶斯学习中，如果我们将<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x = (\alpha, \theta, z)\)</span><span class="heti-spacing"> </span></span>表示为超参数<span><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha\)</span></span>、模型参数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\theta\)</span><span class="heti-spacing"> </span></span>和未观测数据<span><span class="heti-spacing"> </span><span class="arithmatex">\(z\)</span></span>。吉布斯抽样中各个变量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha, \theta, z\)</span><span class="heti-spacing"> </span></span>的满条件分布存在如下关系：</p>
+<ul>
+<li><span class="arithmatex">\(p(\alpha | \alpha_{-i}, \theta, z, y) \propto p(y|\theta)p(\alpha)\)</span></li>
+<li><span class="arithmatex">\(p(\theta | \theta_{-j}, \alpha, z, y) \propto p(z,y|\theta)p(\theta|\alpha)\)</span></li>
+<li><span class="arithmatex">\(p(z | z_{-k}, \alpha, \theta, y) \propto p(z,y|\theta)\)</span></li>
+</ul>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha_{-i}\)</span><span class="heti-spacing"> </span></span>表示变量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha_i\)</span><span class="heti-spacing"> </span></span>以外的所有变量，<span><span class="arithmatex">\(\theta_{-j}\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(z_{-k}\)</span><span class="heti-spacing"> </span></span>类似。
+依照满条件概率分布的抽样可以通过依照这些条件概率分布的乘积的抽样进行。这样可以大幅减少抽样的计算复杂度，因为计算只涉及部分变量。</p>
+<h2 id="Metropolis-Hastings-算法-page-70-92"><span>Metropolis-Hastings<span class="heti-spacing"> </span></span>算法<span><span class="heti-spacing"> </span>(page 70-92)</span><a class="headerlink" href="#Metropolis-Hastings-算法-page-70-92" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p><span>Metropolis-Hastings (M-H)<span class="heti-spacing"> </span></span>算法是最基本的马尔可夫链蒙特卡罗法，用于从复杂概率分布中抽取样本。</p>
+<h3 id="基本原理-page-71-77">基本原理<span><span class="heti-spacing"> </span>(page 71-77)</span><a class="headerlink" href="#基本原理-page-71-77" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>假设要抽样的概率分布为<span><span class="heti-spacing"> </span><span class="arithmatex">\(p(x)\)</span></span>。<span>Metropolis-Hastings<span class="heti-spacing"> </span></span>算法采用转移核<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p(x, x')\)</span><span class="heti-spacing"> </span></span>的马尔可夫链， <span class="arithmatex">\(p(x, x') = q(x, x')\alpha(x, x')\)</span>。</p>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(q(x, x')\)</span><span class="heti-spacing"> </span></span>称为<strong>建议分布<span><span class="heti-spacing"> </span>(proposal distribution)</span></strong>，<span><span class="arithmatex">\(\alpha(x, x')\)</span><span class="heti-spacing"> </span></span>称为<strong>接受分布<span><span class="heti-spacing"> </span>(acceptance distribution)</span></strong>。</p>
+<ul>
+<li>
+<p><strong>建议分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(q(x, x')\)</span>:</span></strong>、</p>
+<ul>
+<li>建议分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(q(x, x')\)</span><span class="heti-spacing"> </span></span>不需要额外定义，一般是另一个马尔可夫链的转移核，并且<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(q(x, x')\)</span><span class="heti-spacing"> </span></span>是不可约的，即其概率值恒不为<span><span class="heti-spacing"> </span>0</span>。同时它是一个容易抽样的分布。</li>
+</ul>
+</li>
+<li>
+<p><strong>接受分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha(x, x')\)</span>:</span></strong></p>
+<ul>
+<li>
+<p>接受分布为：</p>
+<div class="arithmatex">\[\alpha(x, x') = \min\left\{1, \frac{p(x')q(x',x)}{p(x)q(x,x')}\right\}\]</div>
+</li>
+</ul>
+</li>
+</ul>
+<p>这时，转移核<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p(x, x')\)</span><span class="heti-spacing"> </span></span>可以写成：</p>
+<div class="arithmatex">\[
+p(x, x') = \begin{cases}
+q(x, x'), &amp; \text{if } p(x')q(x',x) \ge p(x)q(x,x') \\
+q(x, x')\frac{p(x')q(x',x)}{p(x)q(x,x')} = q(x', x) \frac{p(x')}{p(x)}, &amp; \text{if } p(x')q(x',x) &lt; p(x)q(x,x')
+\end{cases}
+\]</div>
+<p><strong>马尔可夫链上的随机游走方式<span><span class="heti-spacing"> </span>:</span></strong></p>
+<ol>
+<li>如果在时刻<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((t-1)\)</span><span class="heti-spacing"> </span></span>处于状态<span><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span></span>，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(X_{t-1} = x\)</span></span>，则先按照建议分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(q(x, x')\)</span><span class="heti-spacing"> </span></span>抽样产生一个<strong>候选状态<span><span class="heti-spacing"> </span>(candidate state)</span></strong> <span class="arithmatex">\(x'\)</span>。</li>
+<li>然后按照接受分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha(x, x')\)</span><span class="heti-spacing"> </span></span>抽样决定是否接受状态<span><span class="heti-spacing"> </span><span class="arithmatex">\(x'\)</span></span>。<ul>
+<li>以概率<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha(x, x')\)</span><span class="heti-spacing"> </span></span>接受了<span><span class="heti-spacing"> </span><span class="arithmatex">\(x'\)</span></span>，决定时刻<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span><span class="heti-spacing"> </span></span>转移到状态<span><span class="heti-spacing"> </span><span class="arithmatex">\(x'\)</span></span>。</li>
+<li>以概率<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(1 - \alpha(x, x')\)</span><span class="heti-spacing"> </span></span>拒绝<span><span class="heti-spacing"> </span><span class="arithmatex">\(x'\)</span></span>，决定时刻<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span><span class="heti-spacing"> </span></span>仍停留在状态<span><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span></span>。</li>
+</ul>
+</li>
+</ol>
+<p><strong>具体地<span><span class="heti-spacing"> </span>:</span></strong> 从区间<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((0,1)\)</span><span class="heti-spacing"> </span></span>上的均匀分布中抽取一个随机数<span><span class="heti-spacing"> </span><span class="arithmatex">\(u\)</span></span>，决定时刻<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span><span class="heti-spacing"> </span></span>的状态<span><span class="heti-spacing"> </span><span class="arithmatex">\(X_t\)</span></span>：</p>
+<div class="arithmatex">\[
+X_t = \begin{cases}
+x', &amp; \text{if } u \le \alpha(x, x') \\
+x, &amp; \text{if } u &gt; \alpha(x, x')
+\end{cases}
+\]</div>
+<p>可以证明，转移核<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p(x, x')\)</span><span class="heti-spacing"> </span></span>的马尔可夫链是可逆马尔可夫链（满足遍历定理<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，其平稳分布就是<span><span class="heti-spacing"> </span><span class="arithmatex">\(p(x)\)</span></span>，即要抽样的目标分布。</p>
+<details class="theorem" open="open">
+<summary>定理<span><span class="heti-spacing"> </span>19.6 (page 75)</span></summary>
+<p>由转移核<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p(x, x')\)</span> (19.38) ~ (19.40)<span class="heti-spacing"> </span></span>构成的马尔可夫链是可逆的，即：</p>
+<div class="arithmatex">\[
+p(x)p(x,x') = p(x')p(x',x) \quad (19.41)
+\]</div>
+<p>并且<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p(x)\)</span><span class="heti-spacing"> </span></span>是该马尔可夫链的平稳分布。</p>
+</details>
+<h3 id="建议分布-qx-x-的形式-page-78-80">建议分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(q(x, x')\)</span><span class="heti-spacing"> </span></span>的形式<span><span class="heti-spacing"> </span>(page 78-80)</span><a class="headerlink" href="#建议分布-qx-x-的形式-page-78-80" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>建议分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(q(x, x')\)</span><span class="heti-spacing"> </span></span>有多种可能的形式：</p>
+<ol>
+<li>
+<p><strong>对称建议分布<span><span class="heti-spacing"> </span>(Symmetric Proposal Distribution)</span></strong> <span>(<span class="heti-spacing"> </span></span>称为 <strong><span>Metropolis<span class="heti-spacing"> </span></span>选择</strong>):</p>
+<p>假设建议分布是对称的，即对任意的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x'\)</span><span class="heti-spacing"> </span></span>有<span><span class="heti-spacing"> </span><span class="arithmatex">\(q(x, x') = q(x', x)\)</span></span>。
+这时，接受分布 <span class="arithmatex">\(\alpha(x, x')\)</span> 简化为：</p>
+<div class="arithmatex">\[\alpha(x, x') = \min\left\{1, \frac{p(x')}{p(x)}\right\}\]</div>
+<p><span>Metropolis<span class="heti-spacing"> </span></span>选择的一个特例是令<span><span class="heti-spacing"> </span><span class="arithmatex">\(q(x, x') = q(|x-x'|)\)</span></span>，这时算法称为<strong>随机游走<span class="heti-skip"><span class="heti-spacing"> </span>Metropolis<span class="heti-spacing"> </span></span>算法<span><span class="heti-spacing"> </span>(Random Walk Metropolis algorithm)</span></strong>。例如，<span class="arithmatex">\(q(x, x') \propto \exp\left(-\frac{(x'-x)^2}{2}\right)\)</span>。
+Metropolis 选择的特点是当 <span class="arithmatex">\(x'\)</span> 与 <span class="arithmatex">\(x\)</span> 接近时，<span class="arithmatex">\(q(x, x')\)</span> 的概率值高，否则概率值低。状态转移在附近点的可能性更大。</p>
+</li>
+<li>
+<p><strong>独立抽样建议分布<span><span class="heti-spacing"> </span>(Independent Sampling Proposal Distribution)</span></strong>:</p>
+<p>假设<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(q(x, x')\)</span><span class="heti-spacing"> </span></span>与当前状态<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>无关，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(q(x, x') = q(x')\)</span></span>。
+建议分布的计算按照 <span class="arithmatex">\(q(x')\)</span> 独立抽样进行。此时，接受分布 <span class="arithmatex">\(\alpha(x, x')\)</span> 可以写成：</p>
+<div class="arithmatex">\[\alpha(x, x') = \min\left\{1, \frac{w(x')}{w(x)}\right\}\]</div>
+<p>其中<span><span class="heti-spacing"> </span><span class="arithmatex">\(w(x') = p(x')/q(x')\)</span></span>，<span class="arithmatex">\(w(x) = p(x)/q(x)\)</span>。</p>
+<p>独立抽样实现简单，但可能收敛速度慢，通常选择接近目标分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p(x)\)</span><span class="heti-spacing"> </span></span>的分布作为建议分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(q(x)\)</span></span>。</p>
+</li>
+</ol>
+<h3 id="满条件分布-Full-Conditional-Distribution-page-81-85">满条件分布<span><span class="heti-spacing"> </span>(Full Conditional Distribution) (page 81-85)</span><a class="headerlink" href="#满条件分布-Full-Conditional-Distribution-page-81-85" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>马尔可夫链蒙特卡罗法的目标分布通常是多元联合概率分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(p(x) = p(x_1, x_2, \dots, x_k)\)</span></span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x = (x_1, x_2, \dots, x_k)^T\)</span><span class="heti-spacing"> </span></span>为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>维随机变量。</p>
+<p>如果条件概率分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p(x_I | x_{-I})\)</span><span class="heti-spacing"> </span></span>中所有<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>个变量全部出现，其中<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_I = \{x_i, i \in I\}\)</span></span>，<span class="arithmatex">\(x_{-I} = \{x_i, i \notin I\}\)</span>，<span class="arithmatex">\(I \subset K = \{1,2, \dots, k\}\)</span>，那么称这种条件概率分布为<strong>满条件分布<span><span class="heti-spacing"> </span>(full conditional distribution)</span></strong>。</p>
+<p><strong>满条件分布的性质<span><span class="heti-spacing"> </span>:</span></strong></p>
+<p>对任意的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x, x' \in \mathcal{X}\)</span><span class="heti-spacing"> </span></span>和任意的<span><span class="heti-spacing"> </span><span class="arithmatex">\(I \subset K\)</span></span>，有：
+$$
+p(x_I | x_{-I}) = \frac{p(x)}{\int_I p(x)dx_I} \propto p(x)
+$$
+而且，对任意的 <span class="arithmatex">\(x, x' \in \mathcal{X}\)</span> 和任意的 <span class="arithmatex">\(I \subset K\)</span>，有：</p>
+<div class="arithmatex">\[
+\frac{p(x'_I | x'_{-I})}{p(x_I | x_{-I})} = \frac{p(x')}{p(x)}
+\]</div>
+<p><span>Metropolis-Hastings<span class="heti-spacing"> </span></span>算法中，可以利用上述性质，简化计算，提高计算效率。具体地，通过满条件分布概率的比值<span><span class="heti-spacing"> </span><span class="arithmatex">\(p(x'_I | x'_{-I})/p(x_I | x_{-I})\)</span></span>，计算联合概率的比值<span><span class="heti-spacing"> </span><span class="arithmatex">\(p(x')/p(x)\)</span></span>，而前者更容易计算。</p>
+<h3 id="算法-192-Metropolis-Hastings-算法-page-86-87">算法<span class="heti-skip"><span class="heti-spacing"> </span>19.2 (Metropolis-Hastings<span class="heti-spacing"> </span></span>算法<span><span class="heti-spacing"> </span>) (page 86-87)</span><a class="headerlink" href="#算法-192-Metropolis-Hastings-算法-page-86-87" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><strong>输入</strong><span>:<span class="heti-spacing"> </span></span>抽样的目标分布的密度函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(p(x)\)</span></span>，函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(f(x)\)</span></span>。
+<strong>输出</strong><span>: <span class="arithmatex">\(p(x)\)</span><span class="heti-spacing"> </span></span>的随机样本<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_{m+1}, x_{m+2}, \dots, x_n\)</span></span>，函数样本均值<span><span class="heti-spacing"> </span><span class="arithmatex">\(f_{mn}\)</span></span>。
+<strong>参数</strong><span>:<span class="heti-spacing"> </span></span>收敛步数<span><span class="heti-spacing"> </span><span class="arithmatex">\(m\)</span></span>，迭代步数<span><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span></span>。</p>
+<p><strong>步骤</strong>:</p>
+<ol>
+<li>任意选择一个初始值<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_0\)</span></span>。</li>
+<li>对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i = 1,2, \dots, n\)</span><span class="heti-spacing"> </span></span>循环执行<span><span class="heti-spacing"> </span>:</span><ul>
+<li>设状态<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_{i-1} = x\)</span></span>，按照建议分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(q(x, x')\)</span><span class="heti-spacing"> </span></span>随机抽取一个候选状态<span><span class="heti-spacing"> </span><span class="arithmatex">\(x'\)</span></span>。</li>
+<li>计算接受概率<span><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha(x, x') = \min\left\{1, \frac{p(x')q(x',x)}{p(x)q(x,x')}\right\}\)</span></span>。</li>
+<li>从区间<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((0,1)\)</span><span class="heti-spacing"> </span></span>中按均匀分布随机抽取一个数<span><span class="heti-spacing"> </span><span class="arithmatex">\(u\)</span></span>。若<span><span class="heti-spacing"> </span><span class="arithmatex">\(u \le \alpha(x, x')\)</span></span>，则状态<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_i = x'\)</span></span>；否则，状态<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_i = x\)</span></span>。</li>
+</ul>
+</li>
+<li>得到样本集合<span><span class="heti-spacing"> </span><span class="arithmatex">\(\{x_{m+1}, x_{m+2}, \dots, x_n\}\)</span></span>。</li>
+<li>计算函数样本均值：
+    $$
+    f_{mn} = \frac{1}{n-m} \sum_{i=m+1}^n f(x_i)
+    $$</li>
+</ol>
+<h3 id="单分量-Metropolis-Hastings-算法-Single-Component-Metropolis-Hastings-Algorithm-page-88-92">单分量<span class="heti-skip"><span class="heti-spacing"> </span>Metropolis-Hastings<span class="heti-spacing"> </span></span>算法<span><span class="heti-spacing"> </span>(Single-Component Metropolis-Hastings Algorithm) (page 88-92)</span><a class="headerlink" href="#单分量-Metropolis-Hastings-算法-Single-Component-Metropolis-Hastings-Algorithm-page-88-92" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在<span class="heti-skip"><span class="heti-spacing"> </span>Metropolis-Hastings<span class="heti-spacing"> </span></span>算法中，通常需要对多元变量分布进行抽样，有时对多元变量分布的抽样是困难的。
+单分量 Metropolis-Hastings 算法允许对多元变量的每一变量的条件分布依次分别进行抽样，从而实现对整个多元变量的一次抽样。</p>
+<p><strong>假设马尔可夫链的状态由<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>维随机变量表示<span><span class="heti-spacing"> </span>(page 89):</span></strong></p>
+<p><span class="arithmatex">\(x = (x_1, x_2, \dots, x_k)^T\)</span>。
+其中 <span class="arithmatex">\(x_j\)</span> 表示随机变量 <span class="arithmatex">\(x\)</span> 的第 <span class="arithmatex">\(j\)</span> 个分量，<span class="arithmatex">\(j = 1,2, \dots, k\)</span>。
+<span class="arithmatex">\(x^{(i)}\)</span> 表示马尔可夫链在时刻 <span class="arithmatex">\(i\)</span> 的状态：<span class="arithmatex">\(x^{(i)} = (x_1^{(i)}, x_2^{(i)}, \dots, x_k^{(i)})^T\)</span>。
+其中 <span class="arithmatex">\(x_j^{(i)}\)</span> 是随机变量 <span class="arithmatex">\(x^{(i)}\)</span> 的第 <span class="arithmatex">\(j\)</span> 个分量。</p>
+<p><strong>算法步骤<span><span class="heti-spacing"> </span>(page 90-91):</span></strong></p>
+<p>为了生成容量为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>的样本集合<span><span class="heti-spacing"> </span><span class="arithmatex">\(\{x^{(1)}, x^{(2)}, \dots, x^{(n)}\}\)</span></span>，单分量<span class="heti-skip"><span class="heti-spacing"> </span>Metropolis-Hastings<span class="heti-spacing"> </span></span>算法由下面的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>步迭代实现<span class="heti-skip"><span class="heti-spacing"> </span>Metropolis-Hastings<span class="heti-spacing"> </span></span>算法的一次迭代。</p>
+<p>设在第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((i-1)\)</span><span class="heti-spacing"> </span></span>次迭代结束时分量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_j\)</span><span class="heti-spacing"> </span></span>的取值为<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_j^{(i-1)}\)</span></span>。在第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>次迭代的第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(j\)</span><span class="heti-spacing"> </span></span>步，对分量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_j\)</span><span class="heti-spacing"> </span></span>根据<span class="heti-skip"><span class="heti-spacing"> </span>Metropolis-Hastings<span class="heti-spacing"> </span></span>算法更新，得到其新的取值<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_j^{(i)}\)</span></span>：</p>
+<ol>
+<li>首先，由建议分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(q(x_j^{(i-1)}, x_j' | x_{-j}^{(i)})\)</span><span class="heti-spacing"> </span></span>抽样产生分量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_j\)</span><span class="heti-spacing"> </span></span>的候选值<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_j'\)</span></span>。这里<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_{-j}^{(i)}\)</span><span class="heti-spacing"> </span></span>表示在第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>次迭代的第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((j-1)\)</span><span class="heti-spacing"> </span></span>步后的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x^{(i)}\)</span><span class="heti-spacing"> </span></span>除去<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_j^{(i-1)}\)</span><span class="heti-spacing"> </span></span>的所有值，即：<span class="arithmatex">\(x_{-j}^{(i)} = (x_1^{(i)}, \dots, x_{j-1}^{(i)}, x_{j+1}^{(i-1)}, \dots, x_k^{(i-1)})^T\)</span>；其中分量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(1,2, \dots, j-1\)</span><span class="heti-spacing"> </span></span>已经更新。</li>
+<li>
+<p>然后，按照接受概率计算：
+    $$
+    \alpha(x_j^{(i-1)}, x_j' | x_{-j}^{(i)}) = \min\left{1, \frac{p(x_j' | x_{-j}^{(i)}) q(x_j', x_j^{(i-1)} | x_{-j}^{(i)})}{p(x_j^{(i-1)} | x_{-j}^{(i)}) q(x_j^{(i-1)}, x_j' | x_{-j}^{(i)})}\right}
+    $$</p>
+</li>
+<li>
+<p>抽样决定是否接受候选值<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_j'\)</span></span>。如果<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_j'\)</span><span class="heti-spacing"> </span></span>被接受，则令<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_j^{(i)} = x_j'\)</span></span>；否则令<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_j^{(i)} = x_j^{(i-1)}\)</span></span>，其余分量在第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(j\)</span><span class="heti-spacing"> </span></span>步不改变。</p>
+</li>
+</ol>
+<p>由于建议分布可能不被接受，<span>Metropolis-Hastings<span class="heti-spacing"> </span></span>算法可能在一些相邻的时刻不产生移动。这意味着样本点之间可能存在停滞。</p>
+<h2 id="吉布斯抽样-Gibbs-Sampling-page-93-109">吉布斯抽样<span><span class="heti-spacing"> </span>(Gibbs Sampling) (page 93-109)</span><a class="headerlink" href="#吉布斯抽样-Gibbs-Sampling-page-93-109" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>吉布斯抽样是马尔可夫链蒙特卡罗法的常用算法，可以认为是<span class="heti-skip"><span class="heti-spacing"> </span>Metropolis-Hastings<span class="heti-spacing"> </span></span>算法的特殊情况，但更容易实现，因而被广泛使用。</p>
+<h3 id="基本原理-page-95-100">基本原理<span><span class="heti-spacing"> </span>(page 95-100)</span><a class="headerlink" href="#基本原理-page-95-100" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>吉布斯抽样用于多元变量联合分布的抽样和估计。其基本做法是，从联合概率分布定义满条件概率分布，依次对满条件概率分布进行抽样，得到样本的序列。</p>
+<p>可以证明这样的抽样过程是在一个马尔可夫链上的随机游走，每一个样本对应着马尔可夫链的状态，平稳分布就是目标的联合分布。
+整体成为一个马尔可夫链蒙特卡罗法，燃烧期之后的样本就是联合分布的随机样本。</p>
+<p><strong>假设多元变量的联合概率分布为<span><span class="heti-spacing"> </span>:</span></strong>
+<span class="arithmatex">\(p(x) = p(x_1, x_2, \dots, x_k)\)</span>。</p>
+<p>吉布斯抽样从一个初始样本<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x^{(0)} = (x_1^{(0)}, x_2^{(0)}, \dots, x_k^{(0)})^T\)</span><span class="heti-spacing"> </span></span>出发，不断进行迭代，每一次迭代得到联合分布的一个样本<span><span class="heti-spacing"> </span><span class="arithmatex">\(x^{(i)} = (x_1^{(i)}, x_2^{(i)}, \dots, x_k^{(i)})^T\)</span></span>，最终得到样本序列<span><span class="heti-spacing"> </span><span class="arithmatex">\(\{x^{(0)}, x^{(1)}, \dots, x^{(n)}\}\)</span></span>。</p>
+<h4 id="迭代过程">迭代过程<a class="headerlink" href="#迭代过程" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>在每次迭代中，依次对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>个随机变量中的一个变量进行随机抽样。
+如果在第 <span class="arithmatex">\(i\)</span> 次迭代中，对第 <span class="arithmatex">\(j\)</span> 个变量进行随机抽样，那么抽样的分布是满条件概率分布 <span class="arithmatex">\(p(x_j | x_{-j}^{(i)})\)</span>，这里 <span class="arithmatex">\(x_{-j}^{(i)}\)</span> 表示第 <span class="arithmatex">\(i\)</span> 次迭代中，变量 <span class="arithmatex">\(x_j\)</span> 以外的其他变量。</p>
+<ol>
+<li>设在第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((i-1)\)</span><span class="heti-spacing"> </span></span>步得到样本<span><span class="heti-spacing"> </span><span class="arithmatex">\(x^{(i-1)} = (x_1^{(i-1)}, x_2^{(i-1)}, \dots, x_k^{(i-1)})^T\)</span></span>。</li>
+<li>在第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>步，首先对第一个变量按照以下满条件概率分布随机抽样：<span><span class="arithmatex">\(x_1^{(i)} \sim p(x_1 | x_2^{(i-1)}, \dots, x_k^{(i-1)})\)</span><span class="heti-spacing"> </span></span>得到<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_1^{(i)}\)</span></span>。</li>
+<li>之后依次对第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(j\)</span><span class="heti-spacing"> </span></span>个变量按照以下满条件概率分布随机抽样：<span><span class="arithmatex">\(x_j^{(i)} \sim p(x_j | x_1^{(i)}, \dots, x_{j-1}^{(i)}, x_{j+1}^{(i-1)}, \dots, x_k^{(i-1)}), \quad j = 2, \dots, k-1\)</span><span class="heti-spacing"> </span></span>得到<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_j^{(i)}\)</span></span>。</li>
+<li>最后对第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>个变量按照以下满条件概率分布随机抽样：<span><span class="arithmatex">\(x_k^{(i)} \sim p(x_k | x_1^{(i)}, \dots, x_{k-1}^{(i)})\)</span><span class="heti-spacing"> </span></span>得到<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_k^{(i)}\)</span></span>。</li>
+<li>于是得到整体样本<span><span class="heti-spacing"> </span><span class="arithmatex">\(x^{(i)} = (x_1^{(i)}, x_2^{(i)}, \dots, x_k^{(i)})^T\)</span></span>，回到第一步进行迭代。</li>
+</ol>
+<h4 id="吉布斯抽样是单分量-Metropolis-Hastings-算法的特殊情况-page-99-100">吉布斯抽样是单分量<span class="heti-skip"><span class="heti-spacing"> </span>Metropolis-Hastings<span class="heti-spacing"> </span></span>算法的特殊情况<span><span class="heti-spacing"> </span>(page 99-100)</span><a class="headerlink" href="#吉布斯抽样是单分量-Metropolis-Hastings-算法的特殊情况-page-99-100" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>定义建议分布是当前变量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_j, j = 1,2, \dots, k\)</span><span class="heti-spacing"> </span></span>的满条件概率分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(q(x, x') = p(x_j' | x_{-j})\)</span></span>。
+这时，接受概率 <span class="arithmatex">\(\alpha = 1\)</span>:</p>
+<div class="arithmatex">\[
+\begin{align}
+\alpha(x, x') &amp;= \min\left\{1, \frac{p(x')q(x',x)}{p(x)q(x,x')}\right\} \\
+&amp;= \min\left\{1, \frac{p(x_j', x_{-j})}{p(x_j, x_{-j})} \frac{p(x_j | x_{-j})}{p(x_j' | x_{-j})}\right\} \\
+&amp;= \min\left\{1, \frac{p(x_j' | x_{-j})p(x_{-j})}{p(x_j | x_{-j})p(x_{-j})} \frac{p(x_j | x_{-j})}{p(x_j' | x_{-j})}\right\} \\
+&amp;= \min\{1, 1\} = 1
+\end{align}
+\]</div>
+<p>这里用到<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p(x) = p(x_j|x_{-j})p(x_{-j})\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(p(x') = p(x_j'|x_{-j})p(x_{-j})\)</span></span>。因此，转移核就是满条件概率分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(p(x, x') = p(x_j' | x_{-j})\)</span></span>。</p>
+<details class="attention" open="open">
+<summary>吉布斯抽样特点<span><span class="heti-spacing"> </span>(page 100)</span></summary>
+<p>也就是说，依次按照单变量的满条件概率分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p(x_j' | x_{-j})\)</span><span class="heti-spacing"> </span></span>进行随机抽样，就能实现单分量<span class="heti-skip"><span class="heti-spacing"> </span>Metropolis-Hastings<span class="heti-spacing"> </span></span>算法。</p>
+<p>吉布斯抽样对每次抽样的结果都接受，没有拒绝，这一点和一般的<span class="heti-skip"><span class="heti-spacing"> </span>Metropolis-Hastings<span class="heti-spacing"> </span></span>算法不同。</p>
+<p>这里，假设满条件概率分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p(x_j' | x_{-j})\)</span><span class="heti-spacing"> </span></span>不为<span><span class="heti-spacing"> </span>0</span>，即马尔可夫链是不可约的。</p>
+</details>
+<h3 id="算法-193-吉布斯抽样-page-101-102">算法<span class="heti-skip"><span class="heti-spacing"> </span>19.3 (<span class="heti-spacing"> </span></span>吉布斯抽样<span><span class="heti-spacing"> </span>) (page 101-102)</span><a class="headerlink" href="#算法-193-吉布斯抽样-page-101-102" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><strong>输入</strong><span>:<span class="heti-spacing"> </span></span>目标概率分布的密度函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(p(x)\)</span></span>，函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(f(x)\)</span></span>。
+<strong>输出</strong><span>: <span class="arithmatex">\(p(x)\)</span><span class="heti-spacing"> </span></span>的随机样本<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_{m+1}, x_{m+2}, \dots, x_n\)</span></span>，函数样本均值<span><span class="heti-spacing"> </span><span class="arithmatex">\(f_{mn}\)</span></span>。
+<strong>参数</strong><span>:<span class="heti-spacing"> </span></span>收敛步数<span><span class="heti-spacing"> </span><span class="arithmatex">\(m\)</span></span>，迭代步数<span><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span></span>。</p>
+<p><strong>步骤</strong>:
+1. <strong>初始化</strong><span>:<span class="heti-spacing"> </span></span>给出初始样本<span><span class="heti-spacing"> </span><span class="arithmatex">\(x^{(0)} = (x_1^{(0)}, x_2^{(0)}, \dots, x_k^{(0)})^T\)</span></span>。
+2. <strong>对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>执行循环</strong><span>:<span class="heti-spacing"> </span></span>设第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((i-1)\)</span><span class="heti-spacing"> </span></span>次迭代结束时的样本为<span><span class="heti-spacing"> </span><span class="arithmatex">\(x^{(i-1)} = (x_1^{(i-1)}, x_2^{(i-1)}, \dots, x_k^{(i-1)})^T\)</span></span>，则第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>次迭代进行如下几步操作：
+    - 由满条件分布 <span class="arithmatex">\(p(x_1 | x_2^{(i-1)}, \dots, x_k^{(i-1)})\)</span> 抽取 <span class="arithmatex">\(x_1^{(i)}\)</span>。
+    - 由满条件分布 <span class="arithmatex">\(p(x_j | x_1^{(i)}, \dots, x_{j-1}^{(i)}, x_{j+1}^{(i-1)}, \dots, x_k^{(i-1)})\)</span> 抽取 <span class="arithmatex">\(x_j^{(i)}\)</span>。
+    - 由满条件分布 <span class="arithmatex">\(p(x_k | x_1^{(i)}, \dots, x_{k-1}^{(i)})\)</span> 抽取 <span class="arithmatex">\(x_k^{(i)}\)</span>。</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span>得到第 $i$ 次迭代值 $x^{(i)} = (x_1^{(i)}, x_2^{(i)}, \dots, x_k^{(i)})^T$。
+</code></pre></div>
+<ol start="3">
+<li>得到样本集合<span><span class="heti-spacing"> </span><span class="arithmatex">\(\{x^{(m+1)}, x^{(m+2)}, \dots, x^{(n)}\}\)</span></span>。</li>
+<li>计算：
+    $$
+    f_{mn} = \frac{1}{n-m} \sum_{i=m+1}^n f(x^{(i)})
+    $$</li>
+</ol>
+<details class="example">
+<summary><span>(<span class="heti-spacing"> </span></span>例<span class="heti-skip"><span class="heti-spacing"> </span>11)<span class="heti-spacing"> </span></span>用吉布斯抽样从二元正态分布中抽取随机样本。 (page 103-105)</summary>
+<p><span class="arithmatex">\(x = (x_1, x_2)^T \sim p(x_1, x_2)\)</span>
+<span class="arithmatex">\(p(x_1, x_2) = \mathcal{N}(0, \Sigma)\)</span>, <span class="arithmatex">\(\Sigma = \begin{pmatrix} 1 &amp; \rho \\ \rho &amp; 1 \end{pmatrix}\)</span>。</p>
+</details>
+<p>条件概率分布为一元正态分布：</p>
+<ul>
+<li><span class="arithmatex">\(p(x_1 | x_2) = \mathcal{N}(\rho x_2, 1 - \rho^2)\)</span></li>
+<li><span class="arithmatex">\(p(x_2 | x_1) = \mathcal{N}(\rho x_1, 1 - \rho^2)\)</span></li>
+</ul>
+<p>假设初始样本为<span><span class="heti-spacing"> </span><span class="arithmatex">\(x^{(0)} = (x_1^{(0)}, x_2^{(0)})\)</span></span>，通过吉布斯抽样，可以得到样本序列。最终得到的样本集合<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\{x^{(m+1)}, x^{(m+2)}, \dots, x^{(n)}\}\)</span>, <span class="arithmatex">\(m &lt; n\)</span><span class="heti-spacing"> </span></span>就是二元正态分布的随机抽样。</p>
+<h3 id="抽样计算-page-106-109">抽样计算<span><span class="heti-spacing"> </span>(page 106-109)</span><a class="headerlink" href="#抽样计算-page-106-109" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>吉布斯抽样中需要对满条件概率分布进行重复多次抽样。可以利用概率分布的性质提高抽样的效率。
+在贝叶斯学习中，设 <span class="arithmatex">\(y\)</span> 表示观测数据，<span class="arithmatex">\(\alpha, \theta, z\)</span> 分别表示超参数、模型参数、未观测数据，<span class="arithmatex">\(x = (\alpha, \theta, z)\)</span>。贝叶斯学习的目的是估计后验概率分布 <span class="arithmatex">\(p(x|y)\)</span>，并求后验概率最大的模型。
+<span class="arithmatex">\(p(x|y) = p(\alpha, \theta, z | y) \propto p(z,y|\theta)p(\theta|\alpha)p(\alpha)\)</span>。
+式中 <span class="arithmatex">\(p(\alpha)\)</span> 是超参数分布，<span class="arithmatex">\(p(\theta|\alpha)\)</span> 是先验分布，<span class="arithmatex">\(p(z,y|\theta)\)</span> 是完全数据的分布。</p>
+<p>现在用吉布斯抽样估计<span><span class="heti-spacing"> </span><span class="arithmatex">\(p(x|y)\)</span></span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(y\)</span><span class="heti-spacing"> </span></span>已知，<span><span class="arithmatex">\(x = (\alpha, \theta, z)\)</span><span class="heti-spacing"> </span></span>未知。吉布斯抽样中各个变量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha, \theta, z\)</span><span class="heti-spacing"> </span></span>的满条件分布有以下关系：</p>
+<ul>
+<li><span class="arithmatex">\(p(\alpha | \alpha_{-i}, \theta, z, y) \propto p(\alpha)p(\theta|\alpha)\)</span></li>
+<li><span class="arithmatex">\(p(\theta | \theta_{-j}, \alpha, z, y) \propto p(z,y|\theta)p(\theta|\alpha)\)</span></li>
+<li><span class="arithmatex">\(p(z | z_{-k}, \alpha, \theta, y) \propto p(z,y|\theta)\)</span></li>
+</ul>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha_{-i}\)</span><span class="heti-spacing"> </span></span>表示变量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha_i\)</span><span class="heti-spacing"> </span></span>以外的所有变量，<span><span class="arithmatex">\(\theta_{-j}\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(z_{-k}\)</span><span class="heti-spacing"> </span></span>类似。
+依照满条件概率分布的抽样可以通过依照这些条件概率分布的乘积的抽样进行。这样可以大幅减少抽样的计算复杂度，因为计算只涉及部分变量。</p>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年1月8日 20:14:52 CST">2026年1月8日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年6月17日 10:27:55 CST">2025年6月17日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: 16 PCA" class="md-footer__link md-footer__link--prev" href="../16-PCA/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                16 PCA
+              </div>
+</div>
+</a>
+<a aria-label="下一页: 21 PageRank" class="md-footer__link md-footer__link--next" href="../21-PageRank/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                21 PageRank
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

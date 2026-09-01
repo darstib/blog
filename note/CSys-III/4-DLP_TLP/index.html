@@ -1,0 +1,2088 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/note/CSys-III/4-DLP_TLP/" rel="canonical"/>
+<link href="../3-Cache/" rel="prev"/>
+<link href="../5-MM/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>数据级到线程级并行 - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#数据级到线程级并行">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              数据级到线程级并行
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Note
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs188/">
+<span class="md-ellipsis">
+    
+  
+    cs188
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../physics/">
+<span class="md-ellipsis">
+    
+  
+    physics
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-II/">
+<span class="md-ellipsis">
+    
+  
+    CSys-II
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3_5" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    CSys-III
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_5_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    CSys-III
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../0-hard_review/">
+<span class="md-ellipsis">
+    
+  
+    计算机体系结构课程回顾
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../0-soft_review/">
+<span class="md-ellipsis">
+    
+  
+    操作系统核心概念回顾
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../1-Fundamentals/">
+<span class="md-ellipsis">
+    
+  
+    计算机系统基础
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../2-ILP/">
+<span class="md-ellipsis">
+    
+  
+    指令级并行 (ILP)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../3-Cache/">
+<span class="md-ellipsis">
+    
+  
+    计算机系统 III：存储层次结构 (Memory Hierarchy)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    数据级到线程级并行
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    数据级到线程级并行
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#计算机系统的宏观视角-page-3-9">
+<span class="md-ellipsis">
+      
+        计算机系统的宏观视角 (page 3-9)
+      
+    </span>
+</a>
+<nav aria-label="计算机系统的宏观视角 (page 3-9)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#状态机程序指令集与处理器的统一抽象-page-4-5">
+<span class="md-ellipsis">
+      
+        状态机：程序、指令集与处理器的统一抽象 (page 4-5)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#计算机系统的分层与演进-page-6-9">
+<span class="md-ellipsis">
+      
+        计算机系统的分层与演进 (page 6-9)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#数据级并行-DLP-与-SIMD-架构-page-10-129-page-130-137">
+<span class="md-ellipsis">
+      
+        数据级并行 (DLP) 与 SIMD 架构 (page 10-129; page 130-137)
+      
+    </span>
+</a>
+<nav aria-label="数据级并行 (DLP) 与 SIMD 架构 (page 10-129; page 130-137)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#向量处理器-Vector-Processor-page-12-44">
+<span class="md-ellipsis">
+      
+        向量处理器 (Vector Processor) (page 12-44)
+      
+    </span>
+</a>
+<nav aria-label="向量处理器 (Vector Processor) (page 12-44)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#向量计算的处理方式">
+<span class="md-ellipsis">
+      
+        向量计算的处理方式
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#CRAY-1-向量处理器案例分析-page-23-29">
+<span class="md-ellipsis">
+      
+        CRAY-1 向量处理器案例分析 (page 23-29)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#提升向量处理器性能的技术-page-30-41">
+<span class="md-ellipsis">
+      
+        提升向量处理器性能的技术 (page 30-41)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#RV64V-和多通道-Multiple-Lanes-page-42-44">
+<span class="md-ellipsis">
+      
+        RV64V 和多通道 (Multiple Lanes) (page 42-44)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#阵列处理器-Array-Processor-page-45-52">
+<span class="md-ellipsis">
+      
+        阵列处理器 (Array Processor) (page 45-52)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#互连网络-Interconnection-Network-page-53-128">
+<span class="md-ellipsis">
+      
+        互连网络 (Interconnection Network) (page 53-128)
+      
+    </span>
+</a>
+<nav aria-label="互连网络 (Interconnection Network) (page 53-128)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#设计核心问题-page-57">
+<span class="md-ellipsis">
+      
+        设计核心问题 (page 57)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#互连网络分类与目的-page-58-59">
+<span class="md-ellipsis">
+      
+        互连网络分类与目的 (page 58-59)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#静态互连网络-单级网络-page-62-95">
+<span class="md-ellipsis">
+      
+        静态互连网络 (单级网络) (page 62-95)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#动态互连网络-page-96-128">
+<span class="md-ellipsis">
+      
+        动态互连网络 (page 96-128)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#图形处理器-GPU-作为-DLP-引擎-page-130-137">
+<span class="md-ellipsis">
+      
+        图形处理器 (GPU) 作为 DLP 引擎 (page 130-137)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#线程级并行-TLP-与-MIMD-架构-page-2-38">
+<span class="md-ellipsis">
+      
+        线程级并行 (TLP) 与 MIMD 架构 (page 2-38)
+      
+    </span>
+</a>
+<nav aria-label="线程级并行 (TLP) 与 MIMD 架构 (page 2-38)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#从-ILP-到-TLP-的转变-page-3-6">
+<span class="md-ellipsis">
+      
+        从 ILP 到 TLP 的转变 (page 3-6)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#MIMD-架构分类-page-8-34">
+<span class="md-ellipsis">
+      
+        MIMD 架构分类 (page 8-34)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#并行处理的挑战-page-35-38">
+<span class="md-ellipsis">
+      
+        并行处理的挑战 (page 35-38)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#多处理器系统中的存储一致性-page-39-70">
+<span class="md-ellipsis">
+      
+        多处理器系统中的存储一致性 (page 39-70)
+      
+    </span>
+</a>
+<nav aria-label="多处理器系统中的存储一致性 (page 39-70)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#缓存一致性-vs-内存一致性-page-41-67">
+<span class="md-ellipsis">
+      
+        缓存一致性 vs. 内存一致性 (page 41, 67)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#缓存一致性协议-Cache-Coherence-Protocols-page-43-66-todo">
+<span class="md-ellipsis">
+      
+        缓存一致性协议 (Cache Coherence Protocols) (page 43-66) [todo]
+      
+    </span>
+</a>
+<nav aria-label="缓存一致性协议 (Cache Coherence Protocols) (page 43-66) [todo]" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#深入写无效侦听协议-MSI-MESI-MOESI-page-51-65">
+<span class="md-ellipsis">
+      
+        深入写无效侦听协议 (MSI, MESI, MOESI) (page 51-65)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#内存一致性模型-page-67-70">
+<span class="md-ellipsis">
+      
+        内存一致性模型 (page 67-70)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#特定领域架构-DSA-page-71-77">
+<span class="md-ellipsis">
+      
+        特定领域架构 (DSA) (page 71-77)
+      
+    </span>
+</a>
+<nav aria-label="特定领域架构 (DSA) (page 71-77)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#案例谷歌-TPU-Tensor-Processing-Unit-page-74-77">
+<span class="md-ellipsis">
+      
+        案例：谷歌 TPU (Tensor Processing Unit) (page 74-77)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#总结-page-129-page-78">
+<span class="md-ellipsis">
+      
+        总结 (page 129; page 78)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../5-MM/">
+<span class="md-ellipsis">
+    
+  
+    主存储器
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../6-VM/">
+<span class="md-ellipsis">
+    
+  
+    虚拟内存 (Virtual Memory)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../7-Disk/">
+<span class="md-ellipsis">
+    
+  
+    大容量存储结构 (Mass-Storage Structure)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../8-IO/">
+<span class="md-ellipsis">
+    
+  
+    I/O 系统
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../9-FS/">
+<span class="md-ellipsis">
+    
+  
+    文件系统 (File System)
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DEM/">
+<span class="md-ellipsis">
+    
+  
+    DEM
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DMA/">
+<span class="md-ellipsis">
+    
+  
+    DMA
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs70/">
+<span class="md-ellipsis">
+    
+  
+    cs70
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../other/">
+<span class="md-ellipsis">
+    
+  
+    other
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#计算机系统的宏观视角-page-3-9">
+<span class="md-ellipsis">
+      
+        计算机系统的宏观视角 (page 3-9)
+      
+    </span>
+</a>
+<nav aria-label="计算机系统的宏观视角 (page 3-9)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#状态机程序指令集与处理器的统一抽象-page-4-5">
+<span class="md-ellipsis">
+      
+        状态机：程序、指令集与处理器的统一抽象 (page 4-5)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#计算机系统的分层与演进-page-6-9">
+<span class="md-ellipsis">
+      
+        计算机系统的分层与演进 (page 6-9)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#数据级并行-DLP-与-SIMD-架构-page-10-129-page-130-137">
+<span class="md-ellipsis">
+      
+        数据级并行 (DLP) 与 SIMD 架构 (page 10-129; page 130-137)
+      
+    </span>
+</a>
+<nav aria-label="数据级并行 (DLP) 与 SIMD 架构 (page 10-129; page 130-137)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#向量处理器-Vector-Processor-page-12-44">
+<span class="md-ellipsis">
+      
+        向量处理器 (Vector Processor) (page 12-44)
+      
+    </span>
+</a>
+<nav aria-label="向量处理器 (Vector Processor) (page 12-44)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#向量计算的处理方式">
+<span class="md-ellipsis">
+      
+        向量计算的处理方式
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#CRAY-1-向量处理器案例分析-page-23-29">
+<span class="md-ellipsis">
+      
+        CRAY-1 向量处理器案例分析 (page 23-29)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#提升向量处理器性能的技术-page-30-41">
+<span class="md-ellipsis">
+      
+        提升向量处理器性能的技术 (page 30-41)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#RV64V-和多通道-Multiple-Lanes-page-42-44">
+<span class="md-ellipsis">
+      
+        RV64V 和多通道 (Multiple Lanes) (page 42-44)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#阵列处理器-Array-Processor-page-45-52">
+<span class="md-ellipsis">
+      
+        阵列处理器 (Array Processor) (page 45-52)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#互连网络-Interconnection-Network-page-53-128">
+<span class="md-ellipsis">
+      
+        互连网络 (Interconnection Network) (page 53-128)
+      
+    </span>
+</a>
+<nav aria-label="互连网络 (Interconnection Network) (page 53-128)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#设计核心问题-page-57">
+<span class="md-ellipsis">
+      
+        设计核心问题 (page 57)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#互连网络分类与目的-page-58-59">
+<span class="md-ellipsis">
+      
+        互连网络分类与目的 (page 58-59)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#静态互连网络-单级网络-page-62-95">
+<span class="md-ellipsis">
+      
+        静态互连网络 (单级网络) (page 62-95)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#动态互连网络-page-96-128">
+<span class="md-ellipsis">
+      
+        动态互连网络 (page 96-128)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#图形处理器-GPU-作为-DLP-引擎-page-130-137">
+<span class="md-ellipsis">
+      
+        图形处理器 (GPU) 作为 DLP 引擎 (page 130-137)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#线程级并行-TLP-与-MIMD-架构-page-2-38">
+<span class="md-ellipsis">
+      
+        线程级并行 (TLP) 与 MIMD 架构 (page 2-38)
+      
+    </span>
+</a>
+<nav aria-label="线程级并行 (TLP) 与 MIMD 架构 (page 2-38)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#从-ILP-到-TLP-的转变-page-3-6">
+<span class="md-ellipsis">
+      
+        从 ILP 到 TLP 的转变 (page 3-6)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#MIMD-架构分类-page-8-34">
+<span class="md-ellipsis">
+      
+        MIMD 架构分类 (page 8-34)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#并行处理的挑战-page-35-38">
+<span class="md-ellipsis">
+      
+        并行处理的挑战 (page 35-38)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#多处理器系统中的存储一致性-page-39-70">
+<span class="md-ellipsis">
+      
+        多处理器系统中的存储一致性 (page 39-70)
+      
+    </span>
+</a>
+<nav aria-label="多处理器系统中的存储一致性 (page 39-70)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#缓存一致性-vs-内存一致性-page-41-67">
+<span class="md-ellipsis">
+      
+        缓存一致性 vs. 内存一致性 (page 41, 67)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#缓存一致性协议-Cache-Coherence-Protocols-page-43-66-todo">
+<span class="md-ellipsis">
+      
+        缓存一致性协议 (Cache Coherence Protocols) (page 43-66) [todo]
+      
+    </span>
+</a>
+<nav aria-label="缓存一致性协议 (Cache Coherence Protocols) (page 43-66) [todo]" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#深入写无效侦听协议-MSI-MESI-MOESI-page-51-65">
+<span class="md-ellipsis">
+      
+        深入写无效侦听协议 (MSI, MESI, MOESI) (page 51-65)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#内存一致性模型-page-67-70">
+<span class="md-ellipsis">
+      
+        内存一致性模型 (page 67-70)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#特定领域架构-DSA-page-71-77">
+<span class="md-ellipsis">
+      
+        特定领域架构 (DSA) (page 71-77)
+      
+    </span>
+</a>
+<nav aria-label="特定领域架构 (DSA) (page 71-77)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#案例谷歌-TPU-Tensor-Processing-Unit-page-74-77">
+<span class="md-ellipsis">
+      
+        案例：谷歌 TPU (Tensor Processing Unit) (page 74-77)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#总结-page-129-page-78">
+<span class="md-ellipsis">
+      
+        总结 (page 129; page 78)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Note
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    CSys-III
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:notes">notes</a>
+</nav>
+<h1 id="数据级到线程级并行">数据级到线程级并行<a class="headerlink" href="#数据级到线程级并行" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h1>
+<p>本篇文档旨在全面、深入地探讨现代计算机系统中的核心主题——并行计算。我们将从计算机系统的宏观抽象模型出发，理解程序、指令集与处理器之间的关联，并逐步深入探讨两种主要的并行形式：数据级并行（DLP）和线程级并行（TLP<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，以及支持这些并行模式的硬件架构，包括<span><span class="heti-spacing"> </span>SIMD</span>、MIMD、向量处理器、阵列处理器、<span>GPU<span class="heti-spacing"> </span></span>以及复杂的互连网络和多处理器内存系统。</p>
+<h2 id="计算机系统的宏观视角-page-3-9">计算机系统的宏观视角<span><span class="heti-spacing"> </span>(page 3-9)</span><a class="headerlink" href="#计算机系统的宏观视角-page-3-9" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>在深入并行计算之前，我们首先建立一个宏观的认知框架，理解计算机系统不同层次之间的关系。</p>
+<h3 id="状态机程序指令集与处理器的统一抽象-page-4-5">状态机：程序、指令集与处理器的统一抽象<span><span class="heti-spacing"> </span>(page 4-5)</span><a class="headerlink" href="#状态机程序指令集与处理器的统一抽象-page-4-5" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>从根本上说，计算机系统的核心组件都可以被抽象为<strong>状态机<span><span class="heti-spacing"> </span>(State Machine)</span></strong>。一个状态机由状态集合、激励事件、状态转移规则和初始状态定义。</p>
+<ul>
+<li><strong>程序是状态机</strong>：一个程序的状态可以由其所有变量的当前值和程序计数器（PC）共同定义。程序的每一条语句（如<span class="heti-skip"><span class="heti-spacing"> </span>C<span class="heti-spacing"> </span></span>语言语句）的执行，就是一次状态转移。其状态转移的规则由高级语言的语义（如<span class="heti-skip"><span class="heti-spacing"> </span>C<span class="heti-spacing"> </span></span>语言标准手册）所规定。</li>
+<li><strong>处理器是状态机</strong>：一个硬件处理器的状态由其内部所有寄存器、时序逻辑电路（如触发器）的当前值定义。时钟信号的每个周期都会触发一次状态转移，其规则由组合逻辑电路和处理器的设计文档决定。</li>
+<li><strong>指令集是状态机</strong>：指令集（Instruction Set Architecture, ISA）是介于软件和硬件之间的抽象层。它定义了一个抽象的计算机模型，其状态包括寄存器和内存。每一条指令的执行都会根据指令的语义（由指令集手册规定）来改变这个抽象状态。</li>
+</ul>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-200716.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-200716.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-200716.png" width="600"/></a>
+<br/>
+<figcaption>sys-fsm</figcaption>
+</figure>
+<p>这三个状态机关联在一起，构成了程序在处理器上运行的基本原理：</p>
+<ol>
+<li><strong>编译<span><span class="heti-spacing"> </span>(Compilation)</span></strong>：编译器将高级语言程序（如<span class="heti-skip"><span class="heti-spacing"> </span>C<span class="heti-spacing"> </span></span>代码）翻译成语义等价的指令序列。</li>
+<li><strong>实现<span><span class="heti-spacing"> </span>(Implementation)</span></strong>：架构师根据指令集手册设计出行为等价的电路，即处理器。</li>
+<li><strong>运行<span><span class="heti-spacing"> </span>(Execution)</span></strong>：指令序列控制处理器内部的电路进行状态转移，从而实现了程序的逻辑。</li>
+</ol>
+<h3 id="计算机系统的分层与演进-page-6-9">计算机系统的分层与演进<span><span class="heti-spacing"> </span>(page 6-9)</span><a class="headerlink" href="#计算机系统的分层与演进-page-6-9" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>一个完整的计算机系统可以看作是一个分层的软硬件协同体系。随着技术的发展，这个体系的复杂性也在不断增加，以支持更强大的计算能力，尤其是并行处理能力。</p>
+<ul>
+<li><strong>系统<span class="heti-skip"><span class="heti-spacing"> </span>1 (<span class="heti-spacing"> </span></span>基础单周期模型<span><span class="heti-spacing"> </span>)</span></strong>：这是最简单的计算机模型，包含<span><span class="heti-spacing"> </span>CPU</span>（控制器、运算器、寄存器组、PC<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、内存和<span class="heti-skip"><span class="heti-spacing"> </span>I/O<span class="heti-spacing"> </span></span>设备。它对应冯<span class="heti-skip"><span class="heti-spacing"> </span>·<span class="heti-spacing"> </span></span>诺依曼架构的基本原理，能够执行<span class="heti-skip"><span class="heti-spacing"> </span>ISA<span class="heti-spacing"> </span></span>定义的指令。</li>
+<li><strong>系统<span class="heti-skip"><span class="heti-spacing"> </span>2 (<span class="heti-spacing"> </span></span>流水线与操作系统<span><span class="heti-spacing"> </span>)</span></strong>：为了提升性能，引入了<strong>流水线<span><span class="heti-spacing"> </span>(Pipelining)</span></strong> 技术。这带来了<strong>冒险<span><span class="heti-spacing"> </span>(Hazard)</span></strong> 问题，需要在硬件层面增加<strong>冒险检测<span><span class="heti-spacing"> </span>(Hazard Detection)</span></strong> 和<strong>前递单元<span><span class="heti-spacing"> </span>(Forwarding Unit)</span></strong>。同时，为了管理复杂的硬件资源和多任务，引入了<strong>操作系统<span><span class="heti-spacing"> </span>(Operating System)</span></strong>，通过<strong>系统调用<span><span class="heti-spacing"> </span>(System Call)</span></strong> 与硬件交互，实现了进程管理、调度和通信等功能。</li>
+<li><strong>系统<span class="heti-skip"><span class="heti-spacing"> </span>3 (<span class="heti-spacing"> </span></span>高级并行与存储层次<span><span class="heti-spacing"> </span>)</span></strong>：为了进一步挖掘性能，系统引入了更高级的并行技术。<ul>
+<li><strong>指令级并行<span><span class="heti-spacing"> </span>(Instruction-Level Parallelism, ILP)</span></strong>：通过<strong>分支预测单元<span><span class="heti-spacing"> </span>(Branch Prediction Unit, BPU)</span></strong>、<strong>寄存器重命名<span><span class="heti-spacing"> </span>(Register Renaming, RAT)</span></strong>、<strong>保留站<span><span class="heti-spacing"> </span>(Reservation Stations, RS)</span></strong> 和<strong>重排序缓冲区<span><span class="heti-spacing"> </span>(Re-order Buffer, ROB)</span></strong> 等技术实现超标量和乱序执行。</li>
+<li><strong>数据级并行<span><span class="heti-spacing"> </span>(Data-Level Parallelism, DLP)</span></strong> 和 <strong>线程级并行<span><span class="heti-spacing"> </span>(Thread-Level Parallelism, TLP)</span></strong>：这是本篇的重点，通过专门的硬件单元（如<span class="heti-skip"><span class="heti-spacing"> </span>SIMD<span class="heti-spacing"> </span></span>单元）和多核架构来利用。</li>
+<li><strong>存储层次<span><span class="heti-spacing"> </span>(Memory Hierarchy)</span></strong>：引入了 <strong>Cache</strong> 和 <strong>内存管理单元<span><span class="heti-spacing"> </span>(Memory Management Unit, MMU)/TLB</span></strong> 来解决<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>与主存之间的速度鸿沟，并支持虚拟内存。</li>
+</ul>
+</li>
+</ul>
+<h2 id="数据级并行-DLP-与-SIMD-架构-page-10-129-page-130-137">数据级并行<span class="heti-skip"><span class="heti-spacing"> </span>(DLP)<span class="heti-spacing"> </span></span>与<span class="heti-skip"><span class="heti-spacing"> </span>SIMD<span class="heti-spacing"> </span></span>架构<span><span class="heti-spacing"> </span>(page 10-129; page 130-137)</span><a class="headerlink" href="#数据级并行-DLP-与-SIMD-架构-page-10-129-page-130-137" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<details class="info" open="open">
+<summary><span>Flynn<span class="heti-spacing"> </span></span>分类法</summary>
+<p>迈克尔<span class="heti-skip"><span class="heti-spacing"> </span>·<span class="heti-spacing"> </span></span>弗林（Michael J. Flynn）在<span class="heti-skip"><span class="heti-spacing"> </span>1966<span class="heti-spacing"> </span></span>年提出了基于指令流和数据流数量的计算机架构分类法，即<span class="heti-skip"><span class="heti-spacing"> </span>Flynn<span class="heti-spacing"> </span></span>分类法：</p>
+<ul>
+<li><strong>SISD (Single Instruction, Single Data)</strong>：单指令流，单数据流。这是传统的串行冯<span class="heti-skip"><span class="heti-spacing"> </span>·<span class="heti-spacing"> </span></span>诺依曼计算机模型。</li>
+<li><strong>SIMD (Single Instruction, Multiple Data)</strong>：单指令流，多数据流。一条指令可以同时对多个数据执行操作。这是实现<span class="heti-skip"><span class="heti-spacing"> </span>DLP<span class="heti-spacing"> </span></span>的关键。向量处理器和阵列处理器是其典型代表。</li>
+<li><strong>MISD (Multiple Instruction, Single Data)</strong>：多指令流，单数据流。较为罕见，有时用于容错系统。</li>
+<li><strong>MIMD (Multiple Instruction, Multiple Data)</strong>：多指令流，多数据流。多个处理器同时执行不同的指令处理不同的数据。多核处理器是其主流实现。</li>
+</ul>
+</details>
+<p>数据级并行（Data-Level Parallelism, DLP）是指程序中存在大量可以同时对不同数据执行相同操作的机会。这种并行性在科学计算、多媒体处理等领域非常普遍。开发<span class="heti-skip"><span class="heti-spacing"> </span>DLP<span class="heti-spacing"> </span></span>的主要架构是<span><span class="heti-spacing"> </span>SIMD</span>。</p>
+<h3 id="向量处理器-Vector-Processor-page-12-44">向量处理器<span><span class="heti-spacing"> </span>(Vector Processor) (page 12-44)</span><a class="headerlink" href="#向量处理器-Vector-Processor-page-12-44" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="definition" open="open">
+<summary>向量处理器<span class="heti-skip"><span class="heti-spacing"> </span>(Vector Processor)<span class="heti-spacing"> </span></span>与标量处理器<span><span class="heti-spacing"> </span>(Scalar Processor)</span></summary>
+<ul>
+<li><strong>向量处理器</strong>：一种流水线处理器，它设置了向量数据表示方式（即向量寄存器）和相应的向量指令。一条向量指令可以对整个向量（一组数据）进行操作。</li>
+<li><strong>标量处理器<span><span class="heti-spacing"> </span>(Scalar Processor)</span></strong>：传统的流水线处理器，没有向量数据表示和向量指令，一次只能处理单个数据元素（标量<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+</ul>
+</details>
+<p>向量处理的核心优势在于，向量中的各个元素在运算时通常是<strong>独立</strong>的，极少存在数据依赖关系，这天然地适合流水线并行处理。</p>
+<h4 id="向量计算的处理方式">向量计算的处理方式<a class="headerlink" href="#向量计算的处理方式" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>考虑一个典型的向量运算 <code>D = A × (B + C)</code>，其中<span class="heti-skip"><span class="heti-spacing"> </span>A, B, C, D<span class="heti-spacing"> </span></span>都是长度为<span class="heti-skip"><span class="heti-spacing"> </span>N<span class="heti-spacing"> </span></span>的向量。有三种处理该运算的方式：</p>
+<ol>
+<li><strong>水平处理<span><span class="heti-spacing"> </span>(Horizontal processing)</span></strong><ul>
+<li><strong>过程</strong>：按行（row-wise）计算，依次完成每个元素 <code>d_i</code> 的完整计算。即先计算 <code>d_1 = a_1 × (b_1 + c_1)</code>，再计算 <code>d_2 = a_2 × (b_2 + c_2)</code>，以此类推。这等价于一个循环程序。</li>
+<li><strong>问题</strong>：<ul>
+<li><strong>数据相关</strong>：在计算每个 <code>d_i</code> 时，<code>k_i = b_i + c_i</code> 和 <code>d_i = a_i × k_i</code> 之间存在<strong>写后读<span><span class="heti-spacing"> </span>(Read-After-Write, RAW)</span></strong> 相关。</li>
+<li><strong>流水线效率低</strong>：如果加法和乘法使用不同的功能单元（例如，在静态多功能流水线中<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，则每次循环都需要切换功能单元，导致流水线频繁排空和重新充满，吞吐率甚至低于串行执行。因此，水平处理不适合向量处理器。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>垂直处理<span><span class="heti-spacing"> </span>(Vertical processing)</span></strong><ul>
+<li><strong>过程</strong>：按列（column-wise）计算，先完成所有元素的加法，再完成所有元素的乘法。即 <code>K = B + C</code>，然后 <code>D = A × K</code>。</li>
+<li><strong>特点</strong>：这种方式将一个复杂的向量表达式分解为一系列简单的向量指令。数据相关只在向量指令之间存在（<code>D</code> 依赖 <code>K</code><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，而向量指令内部的元素计算是并行的。</li>
+<li><strong>架构要求</strong>：由于中间结果向量 <code>K</code> 需要被存储，这种方式要求处理器具有<strong>内存<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>内存<span><span class="heti-spacing"> </span>(memory-memory)</span></strong> 架构，即源向量和目标向量都存储在内存中。这会导致较高的内存访问延迟。</li>
+</ul>
+</li>
+<li><strong>垂直与水平结合处理<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>分组处理<span><span class="heti-spacing"> </span>, Grouping)</span></strong><ul>
+<li><strong>过程</strong>：将长向量<span class="heti-skip"><span class="heti-spacing"> </span>N<span class="heti-spacing"> </span></span>分成<span class="heti-skip"><span class="heti-spacing"> </span>S<span class="heti-spacing"> </span></span>个长度为<span class="heti-skip"><span class="heti-spacing"> </span>n<span class="heti-spacing"> </span></span>的组（<code>N = S × n + r</code><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，然后对每个组（剩下的<span class="heti-skip"><span class="heti-spacing"> </span>r<span class="heti-spacing"> </span></span>也视为一个组，故共<span class="heti-skip"><span class="heti-spacing"> </span>S+1<span class="heti-spacing"> </span></span>个组）进行垂直处理。</li>
+<li><strong>特点</strong>：这是对垂直处理的优化，旨在平衡计算和访存。</li>
+<li><strong>架构要求</strong>：为了高效处理分组，最好将当前处理的组缓存在高速存储中。这引出了<strong>寄存器<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>寄存器<span><span class="heti-spacing"> </span>(register-register)</span></strong> 架构，即设置专门的<strong>向量寄存器<span><span class="heti-spacing"> </span>(vector registers)</span></strong> 来存储源向量、目标向量和中间结果，从而形成高效的操作流水线。</li>
+</ul>
+</li>
+</ol>
+<details class="summary" open="open">
+<summary>向量处理方式对比</summary>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">处理方式</th>
+<th style="text-align: left;">核心思想</th>
+<th style="text-align: left;">优点</th>
+<th style="text-align: left;">缺点与架构要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>水平处理</strong></td>
+<td style="text-align: left;">循环处理每个元素</td>
+<td style="text-align: left;">逻辑简单，类似标量代码</td>
+<td style="text-align: left;"><span>RAW<span class="heti-spacing"> </span></span>依赖严重，流水线效率极低</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>垂直处理</strong></td>
+<td style="text-align: left;">分解为多个向量指令</td>
+<td style="text-align: left;">充分利用流水线，依赖少</td>
+<td style="text-align: left;">需要存储整个中间向量，要求内存<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>内存架构，延迟高</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>分组处理</strong></td>
+<td style="text-align: left;">垂直处理的分块版本</td>
+<td style="text-align: left;">平衡计算与访存</td>
+<td style="text-align: left;">要求寄存器<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>寄存器架构，引入向量寄存器</td>
+</tr>
+</tbody>
+</table>
+</details>
+<p>现代向量处理器（如<span><span class="heti-spacing"> </span>CRAY-1</span>）和<span class="heti-skip"><span class="heti-spacing"> </span>SIMD<span class="heti-spacing"> </span></span>扩展（如<span><span class="heti-spacing"> </span>RV64V</span>）普遍采用寄存器<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>寄存器架构。</p>
+<h4 id="CRAY-1-向量处理器案例分析-page-23-29"><span>CRAY-1<span class="heti-spacing"> </span></span>向量处理器案例分析<span><span class="heti-spacing"> </span>(page 23-29)</span><a class="headerlink" href="#CRAY-1-向量处理器案例分析-page-23-29" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-205911.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-205911.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-205911.png" width="600"/></a>
+<br/>
+<figcaption>cray-1</figcaption>
+</figure>
+<p><span>CRAY-1<span class="heti-spacing"> </span></span>是向量处理器的里程碑。其设计思想至今仍有影响力。</p>
+<ul>
+<li><strong>核心架构</strong>：<ul>
+<li><strong><span>12<span class="heti-spacing"> </span></span>个并行功能单元</strong>：包括向量、浮点、标量、地址计算单元，每个单元都是流水化的，可以并行工作。</li>
+<li><strong>寄存器<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>寄存器架构</strong>：拥有<span class="heti-skip"><span class="heti-spacing"> </span>8<span class="heti-spacing"> </span></span>个向量寄存器（Vi<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，每个寄存器包含<span class="heti-skip"><span class="heti-spacing"> </span>64<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>64-bit<span class="heti-spacing"> </span></span>的元素。</li>
+<li><strong>高性能</strong>：时钟周期<span><span class="heti-spacing"> </span>12.5ns</span>，峰值性能可达<span><span class="heti-spacing"> </span>100 MFLOPS</span>。</li>
+</ul>
+</li>
+<li><strong>并行执行的冲突</strong>：<ul>
+<li><strong><span>Vi<span class="heti-spacing"> </span></span>冲突</strong>：并行执行的多条向量指令使用了同一个向量寄存器作为源或目标。<ul>
+<li><strong>写后读相关</strong>：<code>V3 ← V0 × V4</code> 依赖于 <code>V0 ← V1 + V2</code> 的结果。</li>
+<li><strong>资源冲突</strong>：<code>V3 ← V1 × V4</code> 与 <code>V0 ← V1 + V2</code> 同时读取 <code>V1</code> 是允许的（如果寄存器堆支持多端口读<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+</ul>
+</li>
+<li><strong>功能单元冲突</strong>：并行执行的多条指令需要使用同一个功能单元（例如，两条浮点乘法指令<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。后一条指令必须等待前一条指令的最后一个元素计算完成并释放功能单元后才能开始。</li>
+</ul>
+</li>
+<li><strong>指令类型</strong>：<span>CRAY-1<span class="heti-spacing"> </span></span>支持多种向量指令格式，包括：<ul>
+<li>向量<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>向量操作：<code>Vk ← Vi op Vj</code></li>
+<li>向量<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>标量操作：<code>Vk ← Si op Vj</code></li>
+<li>内存加载<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>存储：<code>Vk ← Memory</code>, <code>Memory ← Vi</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="提升向量处理器性能的技术-page-30-41">提升向量处理器性能的技术<span><span class="heti-spacing"> </span>(page 30-41)</span><a class="headerlink" href="#提升向量处理器性能的技术-page-30-41" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<ol>
+<li>
+<p><strong>多功能单元并行</strong>：<span>CRAY-1<span class="heti-spacing"> </span></span>有<span class="heti-skip"><span class="heti-spacing"> </span>12<span class="heti-spacing"> </span></span>个独立的功能单元，只要不存在资源冲突，就可以并行执行不同类型的操作。</p>
+</li>
+<li>
+<p><strong>向量链接<span><span class="heti-spacing"> </span>(Vector Chaining)</span></strong></p>
+<ul>
+<li><strong>思想</strong>：将存在写后读（RAW）依赖的向量指令的执行过程像流水线一样连接起来。一旦第一个操作数准备好，就可以立即送入下一个功能单元，而无需等待整个前序向量指令全部完成。这本质上是将流水线思想应用到了向量指令序列的执行中。</li>
+<li><strong>条件</strong>：两条指令存在<span class="heti-skip"><span class="heti-spacing"> </span>RAW<span class="heti-spacing"> </span></span>依赖，且不争用功能单元。</li>
+</ul>
+</li>
+</ol>
+<details class="example" open="open">
+<summary>向量链接性能分析</summary>
+<p><strong>问题</strong>：在<span class="heti-skip"><span class="heti-spacing"> </span>CRAY-1<span class="heti-spacing"> </span></span>上计算 <code>D = A × (B+C)</code>，向量长度为<span><span class="heti-spacing"> </span>N (N</span> ≤ 64)。假设浮点加法流水线<span class="heti-skip"><span class="heti-spacing"> </span>6<span class="heti-spacing"> </span></span>级，浮点乘法<span class="heti-skip"><span class="heti-spacing"> </span>7<span class="heti-spacing"> </span></span>级，访存和寄存器传输各需<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>个时钟周期（<code>beat</code><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<p><strong>指令序列</strong>：
+1. <code>V3 ← memory</code> (加载向量 A)
+2. <code>V2 ← V0 + V1</code> (B 和 C 已在 V0, V1)
+3. <code>V4 ← V2 × V3</code> (最终结果存入 V4)</p>
+<p><strong>流水线启动开销</strong>：一条向量指令从开始到第一个结果产出所需的时间。
+- 访存：<code>1 (启动) + T_mem + 1 (写回)</code>，这里简化为 <code>1+6+1=8</code> 拍 (假设内存延迟为 6)。
+- 加法：<code>1 (读) + T_add + 1 (写回)</code> = <code>1 + 6 + 1 = 8</code> 拍。
+- 乘法：<code>1 (读) + T_mul + 1 (写回)</code> = <code>1 + 7 + 1 = 9</code> 拍。</p>
+<p><strong>总执行时间</strong> (<code>T_first_result + N - 1</code>)
+- <strong>串行执行</strong>：三条指令依次执行。
+  <code>T = (8 + N - 1) + (8 + N - 1) + (9 + N - 1) = 3N + 22</code></p>
+<ul>
+<li>
+<p><strong>部分并行</strong>：指令<span class="heti-skip"><span class="heti-spacing"> </span>(1)<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>(2)<span class="heti-spacing"> </span></span>无依赖，可以并行。指令<span class="heti-skip"><span class="heti-spacing"> </span>(3)<span class="heti-spacing"> </span></span>依赖它们的结果。
+  <code>T = max(T_load, T_add) + T_mul = max(8 + N - 1, 8 + N - 1) + (9 + N - 1) = 2N + 15</code></p>
+</li>
+<li>
+<p><strong>使用向量链接</strong>：指令<span class="heti-skip"><span class="heti-spacing"> </span>(2)<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>(3)<span class="heti-spacing"> </span></span>之间、指令<span class="heti-skip"><span class="heti-spacing"> </span>(1)<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>(3)<span class="heti-spacing"> </span></span>之间都可以形成链接。指令<span class="heti-skip"><span class="heti-spacing"> </span>(1)<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>(2)<span class="heti-spacing"> </span></span>并行启动。指令<span class="heti-skip"><span class="heti-spacing"> </span>(3)<span class="heti-spacing"> </span></span>的第一个元素计算，需要等待指令<span class="heti-skip"><span class="heti-spacing"> </span>(2)<span class="heti-spacing"> </span></span>的第一个结果（第<span class="heti-skip"><span class="heti-spacing"> </span>8<span class="heti-spacing"> </span></span>拍）和指令<span class="heti-skip"><span class="heti-spacing"> </span>(1)<span class="heti-spacing"> </span></span>的第一个结果（第<span class="heti-skip"><span class="heti-spacing"> </span>8<span class="heti-spacing"> </span></span>拍<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。因此，指令<span class="heti-skip"><span class="heti-spacing"> </span>(3)<span class="heti-spacing"> </span></span>可以在第 <code>max(8, 8) = 8</code> 拍后启动。</p>
+<p><span class="arithmatex">\(T = max(T_{load setup}, T_{add setup}) + T_{mul} + N - 1 =&gt; T = \max(8, 8) + 9 + N - 1 = 8 + 9 + N - 1 = N + 16\)</span></p>
+<p>这里的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(T_{mul}\)</span><span class="heti-spacing"> </span></span>是乘法流水线的深度加传输开销，即<span class="heti-skip"><span class="heti-spacing"> </span>9<span class="heti-spacing"> </span></span>拍。</p>
+</li>
+</ul>
+<p><strong>结论</strong>：向量链接技术极大地重叠了指令执行，显著减少了总执行时间。</p>
+</details>
+<ol start="3">
+<li>
+<p><strong>分段向量处理<span><span class="heti-spacing"> </span>(Segmented Vector)</span></strong>：当向量长度超过向量寄存器长度时，硬件和软件会自动将长向量分割成段，以循环方式处理。这个过程对程序员是透明的。</p>
+</li>
+<li>
+<p><strong>多处理器系统</strong>：如<span class="heti-skip"><span class="heti-spacing"> </span>CRAY-2, CRAY Y-MP<span class="heti-spacing"> </span></span>等后续机型通过集成多个向量处理器来进一步提升整体性能。</p>
+</li>
+</ol>
+<h4 id="RV64V-和多通道-Multiple-Lanes-page-42-44"><span>RV64V<span class="heti-spacing"> </span></span>和多通道<span><span class="heti-spacing"> </span>(Multiple Lanes) (page 42-44)</span><a class="headerlink" href="#RV64V-和多通道-Multiple-Lanes-page-42-44" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>现代<span class="heti-skip"><span class="heti-spacing"> </span>RISC-V<span class="heti-spacing"> </span></span>指令集中的向量扩展（<span>V<span class="heti-spacing"> </span></span>扩展）借鉴了<span class="heti-skip"><span class="heti-spacing"> </span>CRAY-1<span class="heti-spacing"> </span></span>的思想，并进行了现代化改造。</p>
+<ul>
+<li><strong><span>RV64V<span class="heti-spacing"> </span></span>特点</strong>：<ul>
+<li>基于<span class="heti-skip"><span class="heti-spacing"> </span>CRAY-1<span class="heti-spacing"> </span></span>的寄存器<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>寄存器模型。</li>
+<li><span>32<span class="heti-spacing"> </span></span>个向量寄存器，由<span class="heti-skip"><span class="heti-spacing"> </span>16<span class="heti-spacing"> </span></span>个读端口和<span class="heti-skip"><span class="heti-spacing"> </span>8<span class="heti-spacing"> </span></span>个写端口。</li>
+<li>全流水线的向量功能单元。</li>
+<li><strong>多通道<span><span class="heti-spacing"> </span>(Multiple Lanes)</span></strong> 设计：为了实现每个时钟周期处理多个元素，向量单元可以被设计为多个并行的通道。例如，一个<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>通道的加法器可以同时计算<code>c[0]=a[0]+b[0]</code><span><span class="heti-spacing"> </span>,</span><code>c[1]=a[1]+b[1]</code><span><span class="heti-spacing"> </span>,</span><code>c[2]=a[2]+b[2]</code><span><span class="heti-spacing"> </span>,</span> <code>c[3]=a[3]+b[3]</code>。</li>
+<li><strong>硬件接线简化</strong>：<span>RV64V<span class="heti-spacing"> </span></span>指令集规定，向量运算中，一个向量寄存器的第<span class="heti-skip"><span class="heti-spacing"> </span>N<span class="heti-spacing"> </span></span>个元素只能与另一个向量寄存器的第<span class="heti-skip"><span class="heti-spacing"> </span>N<span class="heti-spacing"> </span></span>个元素进行运算。这个“硬连线”属性极大地简化了多通道并行设计，因为不需要复杂的交叉开关。</li>
+</ul>
+</li>
+</ul>
+<details class="example">
+<summary><span>DAXPY<span class="heti-spacing"> </span></span>在标量<span class="heti-skip"><span class="heti-spacing"> </span>RISC-V<span class="heti-spacing"> </span></span>与<span class="heti-skip"><span class="heti-spacing"> </span>RV64V<span class="heti-spacing"> </span></span>上的对比</summary>
+<p><strong><span>DAXPY<span class="heti-spacing"> </span></span>操作</strong><span>:<span class="heti-spacing"> </span></span><code>Y = a*X + Y</code><span>(<span class="heti-spacing"> </span></span>双精度浮点<span><span class="heti-spacing"> </span>)</span></p>
+<p><strong>标量<span class="heti-skip"><span class="heti-spacing"> </span>RISC-V<span class="heti-spacing"> </span></span>代码<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>循环实现<span><span class="heti-spacing"> </span>)</span></strong>:
+</p><div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos="1 "></span></a>Loop: fld   f1, 0(x5)      # Load X[i]
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos" data-linenos="2 "></span></a>      fmul.d f1, f1, f0    # a * X[i]
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><a href="#__codelineno-0-3"><span class="linenos" data-linenos="3 "></span></a>      fld   f2, 0(x6)      # Load Y[i]
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><a href="#__codelineno-0-4"><span class="linenos" data-linenos="4 "></span></a>      fadd.d f2, f2, f1    # (a * X[i]) + Y[i]
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><a href="#__codelineno-0-5"><span class="linenos" data-linenos="5 "></span></a>      fsd   f2, 0(x6)      # Store new Y[i]
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><a href="#__codelineno-0-6"><span class="linenos" data-linenos="6 "></span></a>      addi  x5, x5, **8**{: .hash}     # Increment pointer for X
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><a href="#__codelineno-0-7"><span class="linenos" data-linenos="7 "></span></a>      addi  x6, x6, **8**{: .hash}     # Increment pointer for Y
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><a href="#__codelineno-0-8"><span class="linenos" data-linenos="8 "></span></a>      bne   x28, x5, Loop  # Check loop condition
+</span></code></pre></div>
+<em>这段代码充满了循环开销指令（<code>addi</code>, <code>bne</code>）和数据依赖。</em>
+<p><strong><span>RV64V<span class="heti-spacing"> </span></span>向量代码</strong>:
+</p><div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos" data-linenos="1 "></span></a>vsetdcfg 4*FP64       # Enable 4 DP FP vregs
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><a href="#__codelineno-1-2"><span class="linenos" data-linenos="2 "></span></a>fld    f0, a           # Load scalar a
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><a href="#__codelineno-1-3"><span class="linenos" data-linenos="3 "></span></a>vld    v0, x5          # Load vector X
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><a href="#__codelineno-1-4"><span class="linenos" data-linenos="4 "></span></a>vmul   v1, v0, f0      # Vector-scalar multiply (a*X)
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><a href="#__codelineno-1-5"><span class="linenos" data-linenos="5 "></span></a>vld    v2, x6          # Load vector Y
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a><a href="#__codelineno-1-6"><span class="linenos" data-linenos="6 "></span></a>vadd   v3, v1, v2      # Vector-vector add
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a><a href="#__codelineno-1-7"><span class="linenos" data-linenos="7 "></span></a>vst    v3, x6          # Store result vector Y
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a><a href="#__codelineno-1-8"><span class="linenos" data-linenos="8 "></span></a>vdisable              # Disable vector regs
+</span></code></pre></div>
+<em>向量代码简洁明了，没有循环控制开销，将并行性明确地暴露给硬件。</em>
+</details>
+<h3 id="阵列处理器-Array-Processor-page-45-52">阵列处理器<span><span class="heti-spacing"> </span>(Array Processor) (page 45-52)</span><a class="headerlink" href="#阵列处理器-Array-Processor-page-45-52" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="definition" open="open">
+<summary>阵列处理器<span><span class="heti-spacing"> </span>(Array Processor)</span></summary>
+<p>阵列处理器是<span class="heti-skip"><span class="heti-spacing"> </span>SIMD<span class="heti-spacing"> </span></span>的另一种实现形式。它由多个重复的<strong>处理单元<span><span class="heti-spacing"> </span>(Processing Elements, PE)</span></strong> 构成阵列，在一个<strong>单一控制单元<span><span class="heti-spacing"> </span>(Control Unit, CU)</span></strong> 的控制下，并行地对分配给各个<span class="heti-skip"><span class="heti-spacing"> </span>PE<span class="heti-spacing"> </span></span>的数据执行相同的指令。</p>
+<p>Array processors are sometimes called parallel processors.</p>
+</details>
+<ul>
+<li>
+<p><strong>经典案例：ILLIAC IV</strong></p>
+<ul>
+<li>由<span class="heti-skip"><span class="heti-spacing"> </span>64<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>PE<span class="heti-spacing"> </span></span>组成<span class="heti-skip"><span class="heti-spacing"> </span>8x8<span class="heti-spacing"> </span></span>的阵列。</li>
+<li>控制单元广播指令给所有<span><span class="heti-spacing"> </span>PE</span>，<span>PE<span class="heti-spacing"> </span></span>并行执行。</li>
+<li>每个<span class="heti-skip"><span class="heti-spacing"> </span>PE<span class="heti-spacing"> </span></span>有自己的本地存储器<span><span class="heti-spacing"> </span>(PEM)</span>。</li>
+</ul>
+</li>
+<li>
+<p>根据系统中内存的组成，阵列处理器分为两种<strong>基本结构</strong></p>
+<ul>
+<li><strong>分布式存储<span><span class="heti-spacing"> </span>(Distributed memory)</span></strong>：每个<span class="heti-skip"><span class="heti-spacing"> </span>PE<span class="heti-spacing"> </span></span>拥有自己私有的本地存储器（PEM<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，<span>PE<span class="heti-spacing"> </span></span>之间通过互连网络（ICN）通信。这是<span class="heti-skip"><span class="heti-spacing"> </span>SIMD<span class="heti-spacing"> </span></span>阵列处理器的主流配置。
+    <figure markdown="span">
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-212512.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-212512.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-212512.png" width="600"/></a>
+<br/>
+<figcaption>Distributated memory</figcaption></figure></li>
+</ul>
+</li>
+</ul>
+<p>
+    - <strong>集中式共享存储<span><span class="heti-spacing"> </span>(Centralized shared memory)</span></strong>：所有<span class="heti-skip"><span class="heti-spacing"> </span>PE<span class="heti-spacing"> </span></span>共享一组存储模块（MM<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，通过互连网络访问。
+        <figure markdown="span">
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-212625.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-212625.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-212625.png" width="600"/></a>
+<br/>
+<figcaption>Centralized shared memory</figcaption></figure></p>
+<h3 id="互连网络-Interconnection-Network-page-53-128">互连网络<span><span class="heti-spacing"> </span>(Interconnection Network) (page 53-128)</span><a class="headerlink" href="#互连网络-Interconnection-Network-page-53-128" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>无论是阵列处理器还是多核<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>多处理器系统，处理单元之间的通信都是通过互连网络实现的。</p>
+<details class="definition" open="open">
+<summary>互连网络<span><span class="heti-spacing"> </span>(Interconnection Network)</span></summary>
+<p>互连网络是由交换单元和链路组成的网络，根据一定的拓扑结构和控制方式，实现计算机系统内多个处理器或功能部件之间的互连。</p>
+</details>
+<details class="extra">
+<summary>如果每两个处理单元之间都直接联通，需要<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(C_{n}^{2} = \frac{n(n-1)}{2}\)</span><span class="heti-spacing"> </span></span>次连接，难以实现。</summary>
+</details>
+<h4 id="设计核心问题-page-57">设计核心问题<span><span class="heti-spacing"> </span>(page 57)</span><a class="headerlink" href="#设计核心问题-page-57" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<ul>
+<li><strong>拓扑结构<span><span class="heti-spacing"> </span>(Topology)</span></strong>：节点和链路的连接方式；静态拓扑、动态拓扑。</li>
+<li><strong>时钟模式<span><span class="heti-spacing"> </span>(Time mode)</span></strong>：处理单元同步<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>异步。</li>
+<li><strong>交换方式<span><span class="heti-spacing"> </span>(Switching)</span></strong>：电路交换、分组交换。</li>
+<li><strong>控制策略<span><span class="heti-spacing"> </span>(Control)</span></strong>：集中式<span class="heti-skip"><span class="heti-spacing"> </span>vs.<span class="heti-spacing"> </span></span>分布式。</li>
+</ul>
+<h4 id="互连网络分类与目的-page-58-59">互连网络分类与目的<span><span class="heti-spacing"> </span>(page 58-59)</span><a class="headerlink" href="#互连网络分类与目的-page-58-59" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<ul>
+<li><strong>静态网络<span><span class="heti-spacing"> </span>(Static Network)</span></strong>：节点间的连接路径在程序执行期间是固定的，通常用于<span class="heti-skip"><span class="heti-spacing"> </span>PE<span class="heti-spacing"> </span></span>之间或计算机节点之间的直接连接。</li>
+<li>
+<p><strong>动态网络<span><span class="heti-spacing"> </span>(Dynamic Network)</span></strong>：由交换机组成，可以根据应用需求动态改变连接状态，如总线、交叉开关等。</p>
+</li>
+<li>
+<p><strong>单级网络<span><span class="heti-spacing"> </span>(Single-stage)</span></strong></p>
+</li>
+<li>
+<p><strong>多级网络<span><span class="heti-spacing"> </span>(Multi-stage)</span></strong></p>
+</li>
+<li>
+<p><strong>互连网络的目的</strong>：经过有限次连接，任意两个处理单元可以在一步或者几步之内及进行信息传递。</p>
+</li>
+</ul>
+<h4 id="静态互连网络-单级网络-page-62-95">静态互连网络<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>单级网络<span><span class="heti-spacing"> </span>) (page 62-95)</span><a class="headerlink" href="#静态互连网络-单级网络-page-62-95" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>静态网络的目标是使用有限的连接，让任意两个<span class="heti-skip"><span class="heti-spacing"> </span>PE<span class="heti-spacing"> </span></span>能够通过一步或几步完成信息传输。</p>
+<ol>
+<li><strong>立方体网络<span><span class="heti-spacing"> </span>(Cube Network)</span></strong><ul>
+<li><strong>定义</strong>：对于<span class="heti-skip"><span class="heti-spacing"> </span>N<span class="heti-spacing"> </span></span>个节点（<span class="arithmatex">\(N = 2^n\)</span>，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(n = \log N\)</span></span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，每个节点用<span class="heti-skip"><span class="heti-spacing"> </span>n-bit<span class="heti-spacing"> </span></span>二进制编码。<span><span class="arithmatex">\(Cube_i\)</span><span class="heti-spacing"> </span></span>函数将一个节点的地址 <code>P</code> 连接到其第 <code>i</code> 位取反的地址 <code>P'</code>。</li>
+<li><strong>公式</strong>：<span class="arithmatex">\(Cube_i(P_{n-1}...P_i...P_0) = P_{n-1}...\overline{P_i}...P_0\)</span></li>
+<li><strong>特性</strong>：<span>n<span class="heti-spacing"> </span></span>维立方体（超立方体<span><span class="heti-spacing"> </span>, Hypercube</span>）网络中，任意两点间的最大距离（直径）为<span><span class="heti-spacing"> </span>n</span>。
+    <figure markdown="span">
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-214639.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-214639.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-214639.png" width="600"/></a>
+<br/>
+<figcaption>3D Cube Network</figcaption></figure></li>
+</ul>
+</li>
+</ol>
+<p> 
+2. <strong><span>PM2I<span class="heti-spacing"> </span></span>网络<span><span class="heti-spacing"> </span>(Plus-Minus 2^i)</span></strong>
+    - <strong>定义</strong>：节点 <code>j</code> 可以连接到<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((j + 2^i) \mod N\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\((j - 2^i) \mod N\)</span></span>。
+    - <strong>应用</strong>：<span>ILLIAC IV<span class="heti-spacing"> </span></span>阵列处理器使用<code>PM2_±0</code><span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>左右邻居<span class="heti-skip"><span class="heti-spacing"> </span>)<span class="heti-spacing"> </span></span>和<code>PM2_±n/2</code><span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>上下邻居<span class="heti-skip"><span class="heti-spacing"> </span>)<span class="heti-spacing"> </span></span>构成了其二维网格互连。
+        <figure markdown="span">
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-214918.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-214918.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-214918.png" width="600"/></a>
+<br/>
+<figcaption>PM2I demo</figcaption></figure></p>
+<p>
+3. <strong>混洗交换网络<span><span class="heti-spacing"> </span>(Shuffle-Exchange Network)</span></strong>
+    - <strong>定义</strong>：由两种连接构成：
+        - <strong>混洗<span><span class="heti-spacing"> </span>(Shuffle)</span></strong>：将地址 <code>P_{n-1}P_{n-2}...P_0</code> 连接到 <code>P_{n-2}...P_0P_{n-1}</code>（循环左移一位<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。
+        - <strong>交换<span><span class="heti-spacing"> </span>(Exchange)</span></strong>：即 <code>Cube_0</code> 连接，连接到最低位取反的地址。
+    - <strong>特性</strong>：最大距离为 <code>2n-1</code>。</p>
+<details class="summary" open="open">
+<summary>常见静态网络拓扑特性对比<span class="heti-skip"><span class="heti-spacing"> </span>(N<span class="heti-spacing"> </span></span>为节点数<span><span class="heti-spacing"> </span>)</span></summary>
+<figure markdown="span">
+</figure></details>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-220557.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-220557.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-220557.png" width="650"/></a>
+<br/>
+<figcaption>topology of static network</figcaption></p>
+<h4 id="动态互连网络-page-96-128">动态互连网络<span><span class="heti-spacing"> </span>(page 96-128)</span><a class="headerlink" href="#动态互连网络-page-96-128" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>动态网络的核心是可配置的交换单元，主要包括总线、交叉开关和多级互连网络。</p>
+<ol>
+<li><strong>总线<span><span class="heti-spacing"> </span>(Bus)</span></strong>：所有设备共享一条通信链路。结构简单，但存在严重的争用问题，可扩展性差（通常<span class="heti-skip"><span class="heti-spacing"> </span>&lt;=32<span class="heti-spacing"> </span></span>个处理器<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。<ul>
+<li>与线性阵列的区别：线性阵列的不同部分可以同时工作（没有冲突即可）<ul>
+<li>总线一次只能够为一对节点提供传输服务</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>交叉开关<span><span class="heti-spacing"> </span>(Crosspoint Switch)</span></strong>：提供任意输入到任意输出的无阻塞连接。性能最好，但硬件成本极高（<span><span class="arithmatex">\(N*N\)</span><span class="heti-spacing"> </span></span>个交叉点开关<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，复杂度为<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(N^2)\)</span></span>。</li>
+<li><strong>多级互连网络<span><span class="heti-spacing"> </span>(Multi-stage Interconnection Network, MIN)</span></strong><ul>
+<li><strong>思想</strong>：用多个级别的、更小的交换单元（如<span class="heti-skip"><span class="heti-spacing"> </span>2x2<span class="heti-spacing"> </span></span>开关）来构建一个大型交换网络，是成本和性能之间的折衷。</li>
+<li><strong>基本组件</strong>：一个<span class="heti-skip"><span class="heti-spacing"> </span>2x2<span class="heti-spacing"> </span></span>交换单元可以有两种状态（直通、交换）或四种状态（增加上广播、下广播<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>常见拓扑</strong>：<ul>
+<li><strong>多级立方体网络<span class="heti-skip"><span class="heti-spacing"> </span>(STARAN<span class="heti-spacing"> </span></span>网络<span><span class="heti-spacing"> </span>)</span></strong>：各级之间的连接遵循 <code>Cube_i</code> 关系。</li>
+<li><strong>多级混洗交换网络<span class="heti-skip"><span class="heti-spacing"> </span>(Omega<span class="heti-spacing"> </span></span>网络<span><span class="heti-spacing"> </span>)</span></strong>：各级之间是混洗连接，交换单元是四功能的。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/PicGo//PicGo_exe/MIN.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/PicGo//PicGo_exe/MIN.png" src="https://raw.githubusercontent.com/darstib/public_imgs/PicGo//PicGo_exe/MIN.png" width="600"/></a>
+<br/>
+<figcaption>MIN</figcaption>
+</figure>
+<details class="note" open="open">
+<summary><span>Omega<span class="heti-spacing"> </span></span>网络与<span class="heti-skip"><span class="heti-spacing"> </span>n-cube<span class="heti-spacing"> </span></span>网络的对比</summary>
+<ul>
+<li><strong>数据流方向</strong>：<span>Omega<span class="heti-spacing"> </span></span>网络的数据从<span class="heti-skip"><span class="heti-spacing"> </span>n-1<span class="heti-spacing"> </span></span>级流向<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>级，而<span class="heti-skip"><span class="heti-spacing"> </span>n-cube<span class="heti-spacing"> </span></span>网络从<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>级流向<span class="heti-skip"><span class="heti-spacing"> </span>n-1<span class="heti-spacing"> </span></span>级。如果忽略交换单元功能，<span>Omega<span class="heti-spacing"> </span></span>网络是<span class="heti-skip"><span class="heti-spacing"> </span>n-cube<span class="heti-spacing"> </span></span>网络的逆网络。</li>
+<li><strong>交换单元功能</strong>：<span>Omega<span class="heti-spacing"> </span></span>网络使用四功能交换单元（支持广播<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，而<span class="heti-skip"><span class="heti-spacing"> </span>n-cube<span class="heti-spacing"> </span></span>网络使用二功能交换单元。</li>
+<li><strong>阻塞特性</strong>：两者都是<strong>阻塞网络<span><span class="heti-spacing"> </span>(Blocking Network)</span></strong>。例如，在<span class="heti-skip"><span class="heti-spacing"> </span>Omega<span class="heti-spacing"> </span></span>网络中，若要同时建立 <code>5→0</code> 和 <code>7→1</code> 的连接，它们会在中间级的同一个交换单元（G）的同一个输出端口发生冲突，导致 <code>0→5</code> 和 <code>1→7</code> 的连接无法同时建立。全排列的<strong>非阻塞网络<span><span class="heti-spacing"> </span>(Non-blocking Network)</span></strong>（如<span class="heti-skip"><span class="heti-spacing"> </span>Benes<span class="heti-spacing"> </span></span>网络）通常需要更多级的交换。</li>
+</ul>
+</details>
+<h3 id="图形处理器-GPU-作为-DLP-引擎-page-130-137">图形处理器<span class="heti-skip"><span class="heti-spacing"> </span>(GPU)<span class="heti-spacing"> </span></span>作为<span class="heti-skip"><span class="heti-spacing"> </span>DLP<span class="heti-spacing"> </span></span>引擎<span><span class="heti-spacing"> </span>(page 130-137)</span><a class="headerlink" href="#图形处理器-GPU-作为-DLP-引擎-page-130-137" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>GPU<span class="heti-spacing"> </span></span>是现代<span class="heti-skip"><span class="heti-spacing"> </span>SIMD<span class="heti-spacing"> </span></span>架构的杰出代表，它通过大规模并行处理单元来挖掘<span><span class="heti-spacing"> </span>DLP</span>。</p>
+<ul>
+<li><strong>基本思想与编程模型</strong>：<ul>
+<li><strong>异构执行模型<span><span class="heti-spacing"> </span>(Heterogeneous execution model)</span></strong>：<span>CPU<span class="heti-spacing"> </span></span>作为<code>host</code><span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>主机<span><span class="heti-spacing"> </span>)</span>，负责控制逻辑；<span>GPU<span class="heti-spacing"> </span></span>作为<code>device</code><span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>设备<span><span class="heti-spacing"> </span>)</span>，负责并行计算密集型任务。</li>
+<li><strong>CUDA (Compute Unified Device Architecture)</strong>：<span>NVIDIA<span class="heti-spacing"> </span></span>推出的并行计算平台和编程模型。</li>
+<li><strong>SIMT (Single Instruction, Multiple Thread)</strong>：<span>CUDA<span class="heti-spacing"> </span></span>的编程模型，是<span class="heti-skip"><span class="heti-spacing"> </span>SIMD<span class="heti-spacing"> </span></span>的一种演进。程序员编写单个线程的代码，<span>GPU<span class="heti-spacing"> </span></span>硬件将成组的线程（称为 <strong>Warp</strong>，通常是<span class="heti-skip"><span class="heti-spacing"> </span>32<span class="heti-spacing"> </span></span>个线程）调度到<span class="heti-skip"><span class="heti-spacing"> </span>SIMD<span class="heti-spacing"> </span></span>执行单元上。</li>
+<li><strong>线程组织</strong>：线程<span class="heti-skip"><span class="heti-spacing"> </span>(Thread) -&gt;<span class="heti-spacing"> </span></span>线程块<span class="heti-skip"><span class="heti-spacing"> </span>(Block) -&gt;<span class="heti-spacing"> </span></span>网格<span><span class="heti-spacing"> </span>(Grid)</span>。<span>GPU<span class="heti-spacing"> </span></span>硬件负责线程管理。</li>
+</ul>
+</li>
+<li><strong><span>GPU<span class="heti-spacing"> </span></span>内存结构</strong>：<ul>
+<li><strong>全局内存<span><span class="heti-spacing"> </span>(GPU memory)</span></strong>：由所有<span class="heti-skip"><span class="heti-spacing"> </span>Grid<span class="heti-spacing"> </span></span>共享，访问速度慢。</li>
+<li><strong>共享内存<span><span class="heti-spacing"> </span>(Local memory)</span></strong>：由一个<span class="heti-skip"><span class="heti-spacing"> </span>Block<span class="heti-spacing"> </span></span>内的所有线程共享，速度快，相当于程序员可控的<span><span class="heti-spacing"> </span>Cache</span>。</li>
+<li><strong>私有内存<span><span class="heti-spacing"> </span>(Private memory)</span></strong>：每个线程私有。</li>
+</ul>
+</li>
+<li><strong><span>GPU<span class="heti-spacing"> </span></span>架构与向量机对比</strong>：<ul>
+<li><strong>相似点</strong>：都擅长处理<span class="heti-skip"><span class="heti-spacing"> </span>DLP<span class="heti-spacing"> </span></span>问题，都有类似掩码寄存器（用于处理分支）和大规模寄存器堆的机制。</li>
+<li><strong>不同点</strong>：<ul>
+<li><span>GPU<span class="heti-spacing"> </span></span>没有标量处理器，所有计算都是并行的。</li>
+<li><span>GPU<span class="heti-spacing"> </span></span>使用<strong>多线程<span><span class="heti-spacing"> </span>(Multithreading)</span></strong> 来隐藏内存访问延迟，而向量机使用深度流水线。</li>
+<li><span>GPU<span class="heti-spacing"> </span></span>拥有大量简单的功能单元，而向量机拥有少量深度流水线化的复杂功能单元。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="线程级并行-TLP-与-MIMD-架构-page-2-38">线程级并行<span class="heti-skip"><span class="heti-spacing"> </span>(TLP)<span class="heti-spacing"> </span></span>与<span class="heti-skip"><span class="heti-spacing"> </span>MIMD<span class="heti-spacing"> </span></span>架构<span><span class="heti-spacing"> </span>(page 2-38)</span><a class="headerlink" href="#线程级并行-TLP-与-MIMD-架构-page-2-38" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>当并行性存在于更高层次的、由数千到数百万条指令组成的独立“线程”之间时，我们称之为线程级并行（Thread-Level Parallelism, TLP<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<h3 id="从-ILP-到-TLP-的转变-page-3-6">从<span class="heti-skip"><span class="heti-spacing"> </span>ILP<span class="heti-spacing"> </span></span>到<span class="heti-skip"><span class="heti-spacing"> </span>TLP<span class="heti-spacing"> </span></span>的转变<span><span class="heti-spacing"> </span>(page 3-6)</span><a class="headerlink" href="#从-ILP-到-TLP-的转变-page-3-6" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>动机</strong>：<span>2004<span class="heti-spacing"> </span></span>年左右，由于<strong>功耗墙<span><span class="heti-spacing"> </span>(Power Wall)</span></strong> 和 <strong>登纳德缩放定律<span><span class="heti-spacing"> </span>(Dennard Scaling)</span></strong> 的失效，单纯依靠提高时钟频率和深化流水线来挖掘<span class="heti-skip"><span class="heti-spacing"> </span>ILP<span class="heti-spacing"> </span></span>的方式遇到了瓶颈，其收益递减。</li>
+<li><strong>转向</strong>：业界转向<strong>多核<span><span class="heti-spacing"> </span>(Multicore)</span></strong> 设计，将多个处理器核心集成到单个芯片上，通过<span class="heti-skip"><span class="heti-spacing"> </span>TLP<span class="heti-spacing"> </span></span>来继续提升性能。</li>
+</ul>
+<details class="extra" open="open">
+<summary>行业观点</summary>
+<ul>
+<li><span>"<span class="heti-spacing"> </span></span>我们正将所有未来的产品开发投入到多核设计中。我们相信这是行业的关键拐点。<span>" - Intel<span class="heti-spacing"> </span></span>总裁<span><span class="heti-spacing"> </span>Paul Otellini, 2005</span></li>
+<li><span>"<span class="heti-spacing"> </span></span>自<span class="heti-skip"><span class="heti-spacing"> </span>2004<span class="heti-spacing"> </span></span>年以来，处理器设计者增加了核心数量以利用摩尔定律的扩展，而不是专注于单核性能。" - Hadi Esmaeilzadeh, et al., 2012</li>
+</ul>
+</details>
+<p><span>TLP<span class="heti-spacing"> </span></span>意味着程序中存在多个独立的执行流，每个流都有自己的程序计数器<span><span class="heti-spacing"> </span>(PC)</span>。因此，开发<span class="heti-skip"><span class="heti-spacing"> </span>TLP<span class="heti-spacing"> </span></span>主要通过 <strong>MIMD (Multiple Instruction, Multiple Data)</strong> 架构来实现。</p>
+<h3 id="MIMD-架构分类-page-8-34"><span>MIMD<span class="heti-spacing"> </span></span>架构分类<span><span class="heti-spacing"> </span>(page 8-34)</span><a class="headerlink" href="#MIMD-架构分类-page-8-34" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>MIMD<span class="heti-spacing"> </span></span>架构根据内存组织方式和通信机制可分为两大类：</p>
+<ol>
+<li><strong>多处理器系统<span><span class="heti-spacing"> </span>(Multi-processor System)</span></strong>：基于<strong>共享内存<span><span class="heti-spacing"> </span>(Shared Memory)</span></strong>。<ul>
+<li><strong>特征</strong>：所有处理器共享一个统一的地址空间。通信通过 <code>LOAD</code> 和 <code>STORE</code> 指令隐式进行。</li>
+<li><strong>子分类<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>按内存访问模型<span><span class="heti-spacing"> </span>)</span></strong>：<ul>
+<li><strong>UMA (Uniform Memory Access)</strong>：所有处理器访问任何内存位置的延迟都是相同的。物理内存是集中式的，通常通过总线或交叉开关连接。也称为<strong>对称多处理器<span><span class="heti-spacing"> </span>(Symmetric Multiprocessors, SMP)</span></strong>。
+    <figure markdown="span">
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-225042.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-225042.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-225042.png" width="600"/></a>
+<br/>
+<figcaption>UMA</figcaption></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>
+        - <strong>NUMA (Non-Uniform Memory Access)</strong>：物理内存是分布式的，每个处理器有自己的本地内存，但所有内存仍在同一个地址空间内。访问本地内存快，访问远程内存慢。也称为<strong>分布式共享内存<span><span class="heti-spacing"> </span>(Distributed Shared-Memory, DSM)</span></strong>。根据是否使用缓存一致性协议，又分为<span class="heti-skip"><span class="heti-spacing"> </span>NC-NUMA (<span class="heti-spacing"> </span></span>无缓存<span class="heti-skip"><span class="heti-spacing"> </span>)<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>CC-NUMA (<span class="heti-spacing"> </span></span>有缓存一致性<span><span class="heti-spacing"> </span>)</span>。
+            <figure markdown="span">
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-225217.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-225217.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/10_250610-225217.png" width="600"/></a>
+<br/>
+<figcaption>NUMA</figcaption></figure></p>
+<p>
+        - <strong>COMA (Cache-Only Memory Access)</strong>：<span>NUMA<span class="heti-spacing"> </span></span>的一种特例，没有传统意义上的主存，所有分布式内存都作为缓存使用，数据会根据需要在运行时动态迁移到使用它的节点。
+2. <strong>多计算机系统<span><span class="heti-spacing"> </span>(Multi-computer System)</span></strong>：基于<strong>消息传递<span><span class="heti-spacing"> </span>(Message Passing)</span></strong>。
+    - <strong>特征</strong>：每个处理器拥有独立的私有内存（本地地址空间<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。处理器间通信必须通过显式的消息发送和接收操作来完成。
+    - <strong>内存访问模型</strong>：<strong>NORMA (No-Remote Memory Access)</strong>。
+    - <strong>子分类</strong>：
+        - <strong>MPP (Massively Parallel Processors)</strong>：由数百上千个商用<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>组成，通过高性能的私有互连网络连接，延迟低、带宽大。
+        - <strong>COW (Cluster of Workstations)</strong>：由大量通过商用网络（如以太网）连接的普通<span class="heti-skip"><span class="heti-spacing"> </span>PC<span class="heti-spacing"> </span></span>或工作站组成，性价比高。</p>
+<h3 id="并行处理的挑战-page-35-38">并行处理的挑战<span><span class="heti-spacing"> </span>(page 35-38)</span><a class="headerlink" href="#并行处理的挑战-page-35-38" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>开发<span class="heti-skip"><span class="heti-spacing"> </span>TLP<span class="heti-spacing"> </span></span>面临两大挑战，都可以用<strong>阿姆达尔定律<span><span class="heti-spacing"> </span>(Amdahl's Law)</span></strong> 来解释：</p>
+<ol>
+<li><strong>程序中有限的并行性</strong>：程序中总有一部分是无法并行的串行代码，这部分会成为性能提升的瓶颈。</li>
+<li><strong>高昂的通信成本</strong>：处理器间的数据同步和通信会带来额外的开销和延迟。</li>
+</ol>
+<details class="example" open="open">
+<summary><span>Amdahl<span class="heti-spacing"> </span></span>定律应用分析<span><span class="heti-spacing"> </span>(page 36-38)</span></summary>
+<p><strong>问题<span><span class="heti-spacing"> </span>1</span></strong>：希望用<span class="heti-skip"><span class="heti-spacing"> </span>100<span class="heti-spacing"> </span></span>个处理器达到<span class="heti-skip"><span class="heti-spacing"> </span>80<span class="heti-spacing"> </span></span>倍的加速比。程序中允许的串行部分比例是多少？</p>
+<p><strong>公式</strong>：
+<span class="arithmatex">\(Speedup = \frac{1}{(1 - F_{parallel}) + \frac{F_{parallel}}{N}}\)</span></p>
+<p><strong>计算</strong>：
+<span class="arithmatex">\(80 = \frac{1}{(1 - F_{parallel}) + \frac{F_{parallel}}{100}}\)</span>
+解得 <span class="arithmatex">\(F_{parallel} \approx 0.9975\)</span></p>
+<p><strong>结论</strong>：串行部分只能占 <code>1 - 0.9975 = 0.25%</code>。这说明要达到高加速比，程序必须高度并行化。</p>
+<p><strong>问题<span><span class="heti-spacing"> </span>2</span></strong>：略<span><span class="heti-spacing"> </span>(page 37)</span></p>
+<p><strong>问题<span><span class="heti-spacing"> </span>3</span></strong>：在一个<span class="heti-skip"><span class="heti-spacing"> </span>32<span class="heti-spacing"> </span></span>核系统中，远程内存访问延迟为<span><span class="heti-spacing"> </span>100ns</span>，处理器时钟为<span class="heti-skip"><span class="heti-spacing"> </span>4GHz (<span class="heti-spacing"> </span></span>周期<span><span class="heti-spacing"> </span>0.25ns)</span>，基础<span class="heti-skip"><span class="heti-spacing"> </span>CPI<span class="heti-spacing"> </span></span>为<span><span class="heti-spacing"> </span>0.5</span>。如果<span class="heti-skip"><span class="heti-spacing"> </span>0.2%<span class="heti-spacing"> </span></span>的指令涉及远程访存，那么与无通信的理想情况相比，性能下降了多少？</p>
+<p><strong>计算</strong>：
+- <strong>远程访存成本</strong>：<span><span class="arithmatex">\(100ns / 0.25ns = 400\)</span><span class="heti-spacing"> </span></span>周期。
+- <strong>实际<span><span class="heti-spacing"> </span>CPI</span></strong>：<span class="arithmatex">\(CPI_{actual} = CPI_{base} + \mathrm{Remote\_freq} \times \mathrm{Remote\_cost} = 0.5 + 0.2\% \times 400 = 0.5 + 0.8 = 1.3\)</span>
+- <strong>性能比<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>理想<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>实际<span><span class="heti-spacing"> </span>)</span></strong>：<span class="arithmatex">\(SP = \frac{\mathrm{Cycles}_{ideal}}{\mathrm{Cycles}_{actual}} = \frac{IC \times CPI_{base}}{IC \times CPI_{actual}} = \frac{0.5}{1.3} \approx 0.38\)</span></p>
+<p>另一种理解是，无通信时的执行时间与有通信时的执行时间之比：
+<span class="arithmatex">\(\frac{\mathrm{Time\_with\_comm}}{\mathrm{Time\_no\_comm}} = \frac{CPI_{actual}}{CPI_{base}} = \frac{1.3}{0.5} = 2.6\)</span></p>
+<p><strong>结论</strong>：通信开销使得处理器速度慢了<span class="heti-skip"><span class="heti-spacing"> </span>2.6<span class="heti-spacing"> </span></span>倍。</p>
+</details>
+<h2 id="多处理器系统中的存储一致性-page-39-70">多处理器系统中的存储一致性<span><span class="heti-spacing"> </span>(page 39-70)</span><a class="headerlink" href="#多处理器系统中的存储一致性-page-39-70" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>在共享内存多处理器系统中，缓存的引入带来了新的严峻挑战：<strong>缓存一致性<span><span class="heti-spacing"> </span>(Cache Coherence)</span></strong>。</p>
+<h3 id="缓存一致性-vs-内存一致性-page-41-67">缓存一致性<span class="heti-skip"><span class="heti-spacing"> </span>vs.<span class="heti-spacing"> </span></span>内存一致性<span><span class="heti-spacing"> </span>(page 41, 67)</span><a class="headerlink" href="#缓存一致性-vs-内存一致性-page-41-67" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>这两个概念密切相关但有所区别，是理解多处理器系统的关键。</p>
+<details class="definition" open="open">
+<summary>缓存一致性与内存一致性</summary>
+<ul>
+<li><strong>缓存一致性<span><span class="heti-spacing"> </span>(Cache Coherence)</span></strong>：关注的是“<strong>一个内存地址的值</strong>”。它确保任何处理器对某个内存地址的<strong>读</strong>操作，总能得到<strong>最新写入</strong>的值，无论这个值是被哪个处理器写入的，也无论这个值存储在哪个缓存中。它保证了数据的“单一视图”。</li>
+<li>
+<p><strong>核心要求</strong>：</p>
+<ol>
+<li>写传播<span><span class="heti-spacing"> </span>(Write Propagation)</span>：一个处理器的写操作最终要对其他处理器可见。</li>
+<li>事务串行化<span><span class="heti-spacing"> </span>(Transaction Serialization)</span>：所有处理器看到的对同一个内存位置的写操作顺序是一致的。</li>
+</ol>
+</li>
+<li>
+<p><strong>内存一致性<span><span class="heti-spacing"> </span>(Memory Consistency)</span></strong>：关注的是“<strong>不同内存地址的操作顺序</strong>”。它定义了不同处理器对不同内存地址的读写操作，在其他处理器看来，其发生的顺序规则。例如，如果处理器<span class="heti-skip"><span class="heti-spacing"> </span>P1<span class="heti-spacing"> </span></span>先写<span class="heti-skip"><span class="heti-spacing"> </span>A<span class="heti-spacing"> </span></span>再写<span><span class="heti-spacing"> </span>B</span>，内存一致性模型决定了其他处理器是否必须先看到<span class="heti-skip"><span class="heti-spacing"> </span>A<span class="heti-spacing"> </span></span>的新值，再看到<span class="heti-skip"><span class="heti-spacing"> </span>B<span class="heti-spacing"> </span></span>的新值。</p>
+</li>
+</ul>
+<p><strong>关系</strong>：缓存一致性保证了单个存储单元的原子性，而内存一致性定义了跨不同存储单元的操作顺序。一个系统需要同时满足两者才能正确工作。</p>
+</details>
+<h3 id="缓存一致性协议-Cache-Coherence-Protocols-page-43-66-todo">缓存一致性协议<span><span class="heti-spacing"> </span>(Cache Coherence Protocols) (page 43-66) [todo]</span><a class="headerlink" href="#缓存一致性协议-Cache-Coherence-Protocols-page-43-66-todo" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>迁移<span><span class="heti-spacing"> </span>(Migration)</span></strong> 和 <strong>复制<span><span class="heti-spacing"> </span>(Replication)</span></strong> 是缓存的两个基本优势，但也正因如此引发了一致性问题。当一个数据块被多个缓存复制后，其中一个副本被修改，就造成了数据不一致。</li>
+</ul>
+<p>为解决缓存一致性问题，硬件实现了缓存一致性协议。主要有两类协议：</p>
+<ol>
+<li><strong>总线侦听协议<span><span class="heti-spacing"> </span>(Bus Snooping Protocol)</span></strong><ul>
+<li><strong>适用场景</strong>：基于总线的<span class="heti-skip"><span class="heti-spacing"> </span>UMA<span class="heti-spacing"> </span></span>系统。</li>
+<li><strong>工作原理</strong>：所有缓存控制器都“侦听”共享总线上的事务。当一个处理器要写入其缓存中的一个数据块时，它会通过总线广播一个消息。其他缓存控制器侦听到这个消息后，根据协议采取相应行动。</li>
+<li><strong>两种策略</strong>：<ul>
+<li><strong>写使无效<span><span class="heti-spacing"> </span>(Write-Invalidate)</span></strong>：广播一个“无效”消息，使其他缓存中该数据块的副本失效。这是最常用的策略。</li>
+<li><strong>写更新<span><span class="heti-spacing"> </span>(Write-Update/Broadcast)</span></strong>：广播新的数据，更新其他缓存中的副本。这会消耗更多总线带宽。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>基于目录协议<span><span class="heti-spacing"> </span>(Directory Based Protocol)</span></strong><ul>
+<li><strong>适用场景</strong>：基于互连网络的大规模<span class="heti-skip"><span class="heti-spacing"> </span>NUMA<span class="heti-spacing"> </span></span>系统。</li>
+<li><strong>工作原理</strong>：不依赖广播。系统维护一个“目录”（可以集中或分布式<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，记录了每个内存块的状态以及它被哪些缓存所持有。当需要进行写操作时，控制器查询目录，只向持有该数据块副本的特定处理器发送点对点的无效或更新消息。</li>
+<li><strong>优势</strong>：避免了总线广播的瓶颈，具有更好的可扩展性。</li>
+</ul>
+</li>
+</ol>
+<h4 id="深入写无效侦听协议-MSI-MESI-MOESI-page-51-65">深入写无效侦听协议<span><span class="heti-spacing"> </span>(MSI, MESI, MOESI) (page 51-65)</span><a class="headerlink" href="#深入写无效侦听协议-MSI-MESI-MOESI-page-51-65" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>写无效协议通过为每个缓存块维护一个状态来实现。</p>
+<ul>
+<li><strong><span>MSI<span class="heti-spacing"> </span></span>协议</strong>：最基础的协议，包含三个状态。<ul>
+<li><strong>M (Modified)</strong>：块已被当前处理器修改，与内存不一致。当前处理器是该块的唯一所有者。</li>
+<li><strong>S (Shared)</strong>：块是干净的（与内存一致<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，可能在多个缓存中存在副本。</li>
+<li><strong>I (Invalid)</strong>：块的内容是无效的。</li>
+</ul>
+</li>
+</ul>
+<details class="example" open="open">
+<summary><span>MSI<span class="heti-spacing"> </span></span>协议工作流程<span><span class="heti-spacing"> </span>(page 55-58)</span></summary>
+<p>考虑三个处理器<span class="heti-skip"><span class="heti-spacing"> </span>C0, C1, C2<span class="heti-spacing"> </span></span>和内存地址<span><span class="heti-spacing"> </span>A104</span>。初始时<span class="heti-skip"><span class="heti-spacing"> </span>C0, C1, C2<span class="heti-spacing"> </span></span>中都没有<span><span class="heti-spacing"> </span>A104</span>。
+1. <strong><span>C1<span class="heti-spacing"> </span></span>读<span><span class="heti-spacing"> </span>A104</span></strong><span>: C1<span class="heti-spacing"> </span></span>发生<span><span class="heti-spacing"> </span>Read Miss</span>。它通过总线向内存请求数据。内存返回数据，<span>C1<span class="heti-spacing"> </span></span>将其缓存块置为 <strong>S (Shared)</strong> 状态。
+2. <strong><span>C0<span class="heti-spacing"> </span></span>读<span><span class="heti-spacing"> </span>A104</span></strong><span>: C0<span class="heti-spacing"> </span></span>发生<span><span class="heti-spacing"> </span>Read Miss</span>。它也通过总线请求数据。内存返回数据，<span>C0<span class="heti-spacing"> </span></span>将其缓存块置为 <strong>S (Shared)</strong> 状态。此时<span class="heti-skip"><span class="heti-spacing"> </span>C0<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>C1<span class="heti-spacing"> </span></span>都持有<span class="heti-skip"><span class="heti-spacing"> </span>A104<span class="heti-spacing"> </span></span>的共享副本。
+3. <strong><span>C1<span class="heti-spacing"> </span></span>写<span><span class="heti-spacing"> </span>A104</span></strong><span>: C1<span class="heti-spacing"> </span></span>发生<span class="heti-skip"><span class="heti-spacing"> </span>Write Hit (<span class="heti-spacing"> </span></span>因为本地有副本<span><span class="heti-spacing"> </span>)</span>。它在总线上广播一个“写无效”请求。
+    - C0 侦听到该请求，将其 A104 的副本置为 <strong>I (Invalid)</strong> 状态。
+    - C1 将自己的副本状态从 S 更新为 <strong>M (Modified)</strong>，并修改数据。现在<span class="heti-skip"><span class="heti-spacing"> </span>C1<span class="heti-spacing"> </span></span>独占了修改后的数据。
+4. <strong><span>C2<span class="heti-spacing"> </span></span>读<span><span class="heti-spacing"> </span>A104</span></strong><span>: C2<span class="heti-spacing"> </span></span>发生<span><span class="heti-spacing"> </span>Read Miss</span>，在总线发出读请求。
+    - C1 侦听到这个读请求，发现自己持有该块的 <strong>M</strong> 状态副本。它会<strong>中止<span><span class="heti-spacing"> </span>(abort)</span></strong> 内存的响应，自己将数据写回内存，然后将自己的状态从 <strong>M</strong> 变为 <strong>S</strong>，并将数据提供给<span class="heti-skip"><span class="heti-spacing"> </span>C2<span class="heti-spacing"> </span></span>和内存。
+    - C2 获得数据，将缓存块置为 <strong>S</strong> 状态。</p>
+</details>
+<ul>
+<li><strong><span>MESI<span class="heti-spacing"> </span></span>协议</strong>：<span>MSI<span class="heti-spacing"> </span></span>的一个重要扩展，增加了 <strong>E (Exclusive)</strong> 状态，以优化“读<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>修改<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>写”序列。<ul>
+<li><strong>E (Exclusive)</strong>：块是干净的（与内存一致<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，且只存在于当前缓存中。</li>
+<li><strong>优势</strong>：当处理器要写入一个处于 <strong>E</strong> 状态的块时，它可以<strong>静默地<span><span class="heti-spacing"> </span>(silently)</span></strong> 将状态变为 <strong>M</strong> 并修改数据，<strong>无需</strong>在总线上广播无效消息。这减少了总线流量，提升了性能。</li>
+<li>只有当一个处于<span class="heti-skip"><span class="heti-spacing"> </span>E<span class="heti-spacing"> </span></span>状态的块被其他处理器读取时，它才会变为<span class="heti-skip"><span class="heti-spacing"> </span>S<span class="heti-spacing"> </span></span>状态。</li>
+</ul>
+</li>
+</ul>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/PicGo//PicGo_exe/MESI-demo.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/PicGo//PicGo_exe/MESI-demo.png" src="https://raw.githubusercontent.com/darstib/public_imgs/PicGo//PicGo_exe/MESI-demo.png" width="600"/></a>
+<br/>
+<figcaption>MESI-demo</figcaption>
+</figure>
+<ul>
+<li><strong><span>MOESI<span class="heti-spacing"> </span></span>协议</strong>：<span>MESI<span class="heti-spacing"> </span></span>的进一步扩展，增加了 <strong>O (Owned)</strong> 状态。<ul>
+<li><strong>O (Owned)</strong>：块已被修改（脏<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，与内存不一致，但可能存在于其他缓存中（作为<span class="heti-skip"><span class="heti-spacing"> </span>S<span class="heti-spacing"> </span></span>状态的副本<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。持有 <strong>O</strong> 状态的缓存是“所有者”，负责在其他处理器请求时提供数据。</li>
+<li><strong>优势</strong>：允许将脏数据直接从一个缓存转发到另一个缓存，而无需先写回内存。这进一步减少了内存写回的延迟和带宽消耗。</li>
+</ul>
+</li>
+</ul>
+<h3 id="内存一致性模型-page-67-70">内存一致性模型<span><span class="heti-spacing"> </span>(page 67-70)</span><a class="headerlink" href="#内存一致性模型-page-67-70" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>顺序一致性<span><span class="heti-spacing"> </span>(Sequential Consistency, SC)</span></strong>：最强、最直观的模型。<ul>
+<li><strong>要求</strong>：所有内存操作的执行结果，等同于所有处理器的操作以某种单一顺序交错执行的结果，且每个处理器内部的操作顺序保持不变。</li>
+<li><strong>缺点</strong>：过于严格，限制了许多硬件优化（如乱序执行、写缓冲<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，导致性能下降。</li>
+</ul>
+</li>
+<li><strong>松散一致性模型<span><span class="heti-spacing"> </span>(Relaxed Consistency Models)</span></strong>：<ul>
+<li><strong>核心思想</strong>：允许读写操作乱序完成，以获取更高性能，但提供<strong>同步操作<span><span class="heti-spacing"> </span>(Synchronization Operations)</span></strong>（如 <code>acquire</code> 和 <code>release</code>）来在必要时强制执行顺序。</li>
+<li><strong>类型</strong>：通过放宽<span><span class="heti-spacing"> </span>R</span>→W, W→R, W→W, R→<span>R<span class="heti-spacing"> </span></span>的顺序限制，派生出多种模型，如<span class="heti-skip"><span class="heti-spacing"> </span>Total Store Ordering (TSO), Partial Store Order (PSO), Weak Ordering, Release Consistency (RC)<span class="heti-spacing"> </span></span>等。程序员需要使用同步原语来确保程序的正确性。</li>
+</ul>
+</li>
+</ul>
+<h2 id="特定领域架构-DSA-page-71-77">特定领域架构<span><span class="heti-spacing"> </span>(DSA) (page 71-77)</span><a class="headerlink" href="#特定领域架构-DSA-page-71-77" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<details class="definition" open="open">
+<summary>特定领域架构<span><span class="heti-spacing"> </span>(Domain-Specific Architectures, DSA)</span></summary>
+<p><span>DSA<span class="heti-spacing"> </span></span>是指为特定应用领域（如机器学习、图形处理）定制设计的计算机体系结构。与追求通用性的<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>不同，<span>DSA<span class="heti-spacing"> </span></span>通过牺牲通用性来换取在特定任务上的极高性能和能效。</p>
+</details>
+<ul>
+<li><strong>设计准则</strong>：<ul>
+<li>使用专用存储器，最小化数据搬运。</li>
+<li>将资源更多地投入到算术单元或更大的存储器上。</li>
+<li>使用与领域匹配的最简单的并行形式。</li>
+<li>将数据大小和类型简化到领域所需的最低程度。</li>
+<li>提供领域专用的编程语言或库。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：卷积神经网络<ul>
+<li>批次</li>
+<li>量化</li>
+<li>设定卷积核</li>
+<li>……</li>
+</ul>
+</li>
+</ul>
+<h3 id="案例谷歌-TPU-Tensor-Processing-Unit-page-74-77">案例：谷歌<span><span class="heti-spacing"> </span>TPU (Tensor Processing Unit) (page 74-77)</span><a class="headerlink" href="#案例谷歌-TPU-Tensor-Processing-Unit-page-74-77" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>TPU<span class="heti-spacing"> </span></span>是为深度神经网络（DNN）设计的典型<span><span class="heti-spacing"> </span>DSA</span>。</p>
+<ul>
+<li><strong>核心设计</strong>：<ul>
+<li><strong>大型矩阵乘法单元</strong>：其核心是一个 <code>256x256</code> 的<strong>脉动阵列<span><span class="heti-spacing"> </span>(Systolic Array)</span></strong>，可以在一个周期内执行<span class="heti-skip"><span class="heti-spacing"> </span>65536<span class="heti-spacing"> </span></span>次<span class="heti-skip"><span class="heti-spacing"> </span>8-bit<span class="heti-spacing"> </span></span>乘累加运算。</li>
+<li><strong>专用存储</strong>：拥有大容量的片上软件管理暂存器（Scratchpad<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，如<span class="heti-skip"><span class="heti-spacing"> </span>24MiB<span class="heti-spacing"> </span></span>的统一缓冲和<span class="heti-skip"><span class="heti-spacing"> </span>4MiB<span class="heti-spacing"> </span></span>的累加器缓冲，以减少对主存的访问。</li>
+<li><strong>简化数据类型</strong>：主要使用<span class="heti-skip"><span class="heti-spacing"> </span>8-bit<span class="heti-spacing"> </span></span>整数进行量化计算，极大提升了能效。</li>
+<li><strong>简单并行</strong>：利用二维<span class="heti-skip"><span class="heti-spacing"> </span>SIMD<span class="heti-spacing"> </span></span>并行（脉动阵列<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>专用<span><span class="heti-spacing"> </span>ISA</span></strong>：指令集直接对应于神经网络操作，如<code>MatrixMatrixMultiply</code><span><span class="heti-spacing"> </span>,</span> <code>Activate</code>。</li>
+<li><strong>专用软件栈</strong>：通过<span class="heti-skip"><span class="heti-spacing"> </span>TensorFlow<span class="heti-spacing"> </span></span>框架进行编程。</li>
+</ul>
+</li>
+</ul>
+<p><span>TPU<span class="heti-spacing"> </span></span>的设计完美体现了<span class="heti-skip"><span class="heti-spacing"> </span>DSA<span class="heti-spacing"> </span></span>的思想，通过对计算模式、数据类型和并行方式的特化，实现了远超通用<span class="heti-skip"><span class="heti-spacing"> </span>CPU<span class="heti-spacing"> </span></span>的性能和能效。</p>
+<h2 id="总结-page-129-page-78">总结<span><span class="heti-spacing"> </span>(page 129; page 78)</span><a class="headerlink" href="#总结-page-129-page-78" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<ul>
+<li><strong><span>SIMD<span class="heti-spacing"> </span></span>架构</strong> 通过向量处理器、阵列处理器和现代<span><span class="heti-spacing"> </span>GPU</span>，高效地开发<strong>数据级并行</strong>，在科学计算和媒体处理等领域表现出色。其能效高于<span><span class="heti-spacing"> </span>MIMD</span>，且允许程序员以一种更接近串行的方式思考。</li>
+<li><strong><span>MIMD<span class="heti-spacing"> </span></span>架构</strong> 通过多核、多处理器系统来开发<strong>线程级并行</strong>，是应对后摩尔定律时代性能挑战的主流方式。它带来了复杂的内存系统设计问题。</li>
+<li><strong>存储一致性</strong>是多处理器系统设计的核心挑战，它被分解为<strong>缓存一致性</strong>和<strong>内存一致性</strong>两个层面。<ul>
+<li><strong>缓存一致性协议</strong>确保数据值的统一，主要有适用于<span class="heti-skip"><span class="heti-spacing"> </span>UMA<span class="heti-spacing"> </span></span>的<strong>侦听协议</strong>（如<span><span class="heti-spacing"> </span>MSI, MESI</span>）和适用于<span class="heti-skip"><span class="heti-spacing"> </span>NUMA<span class="heti-spacing"> </span></span>的<strong>目录协议</strong>。</li>
+<li><strong>内存一致性模型</strong>定义操作的顺序，从严格的<strong>顺序一致性</strong>到高性能的<strong>松散一致性模型</strong>。</li>
+</ul>
+</li>
+<li><strong>DSA</strong> 作为一种新的设计范式，通过为特定领域定制硬件，正成为未来体系结构发展的重要方向。</li>
+</ul>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年9月20日 18:33:45 CST">2025年9月20日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年6月14日 00:21:22 CST">2025年6月14日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: 计算机系统 III：存储层次结构 (Memory Hierarchy)" class="md-footer__link md-footer__link--prev" href="../3-Cache/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                计算机系统 III：存储层次结构 (Memory Hierarchy)
+              </div>
+</div>
+</a>
+<a aria-label="下一页: 主存储器" class="md-footer__link md-footer__link--next" href="../5-MM/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                主存储器
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

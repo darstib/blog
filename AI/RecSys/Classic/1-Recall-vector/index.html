@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/AI/RecSys/Classic/1-Recall-vector/" rel="canonical"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>1 Recall vector - Darstib's KG!</title>
+<link href="../../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#Deep-retrieval">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              1 Recall vector
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../note/">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../../note/">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Deep-retrieval">
+<span class="md-ellipsis">
+      
+        Deep retrieval
+      
+    </span>
+</a>
+<nav aria-label="Deep retrieval" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#物品-路径索引">
+<span class="md-ellipsis">
+      
+        物品-路径索引
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#预估模型">
+<span class="md-ellipsis">
+      
+        预估模型
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#线上召回">
+<span class="md-ellipsis">
+      
+        线上召回
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#模型训练">
+<span class="md-ellipsis">
+      
+        模型训练
+      
+    </span>
+</a>
+<nav aria-label="模型训练" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#损失函数">
+<span class="md-ellipsis">
+      
+        损失函数
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#物品表征">
+<span class="md-ellipsis">
+      
+        物品表征
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#路径更新">
+<span class="md-ellipsis">
+      
+        路径更新
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Word2vecItem2vec">
+<span class="md-ellipsis">
+      
+        Word2vec/Item2vec
+      
+    </span>
+</a>
+<nav aria-label="Word2vec/Item2vec" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Skip-gramSG">
+<span class="md-ellipsis">
+      
+        Skip-gram(SG)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#CBOW">
+<span class="md-ellipsis">
+      
+        CBOW
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Item2vec">
+<span class="md-ellipsis">
+      
+        Item2vec
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Airbnb">
+<span class="md-ellipsis">
+      
+        Airbnb
+      
+    </span>
+</a>
+<nav aria-label="Airbnb" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Listing-embedding">
+<span class="md-ellipsis">
+      
+        Listing embedding
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Type-embedding">
+<span class="md-ellipsis">
+      
+        Type embedding
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Twin-Tower">
+<span class="md-ellipsis">
+      
+        Twin Tower
+      
+    </span>
+</a>
+<nav aria-label="Twin Tower" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Factorized-Machine-FM">
+<span class="md-ellipsis">
+      
+        Factorized Machine (FM)
+      
+    </span>
+</a>
+<nav aria-label="Factorized Machine (FM)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#线性模型">
+<span class="md-ellipsis">
+      
+        线性模型
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#二阶交叉特征">
+<span class="md-ellipsis">
+      
+        二阶交叉特征
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#特征分离">
+<span class="md-ellipsis">
+      
+        特征分离
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#经典双塔模型">
+<span class="md-ellipsis">
+      
+        经典双塔模型
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#双塔模型变体">
+<span class="md-ellipsis">
+      
+        双塔模型变体
+      
+    </span>
+</a>
+<nav aria-label="双塔模型变体" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#SENet-双塔模型">
+<span class="md-ellipsis">
+      
+        SENet 双塔模型
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#多目标双塔模型">
+<span class="md-ellipsis">
+      
+        多目标双塔模型
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Youtube-双塔模型">
+<span class="md-ellipsis">
+      
+        Youtube 双塔模型
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#召回和更新">
+<span class="md-ellipsis">
+      
+        召回和更新
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#模型训练和样本选取">
+<span class="md-ellipsis">
+      
+        模型训练和样本选取
+      
+    </span>
+</a>
+<nav aria-label="模型训练和样本选取" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#样本选取">
+<span class="md-ellipsis">
+      
+        样本选取
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Listwise-训练">
+<span class="md-ellipsis">
+      
+        Listwise 训练
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#自监督学习">
+<span class="md-ellipsis">
+      
+        自监督学习
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#训练损失">
+<span class="md-ellipsis">
+      
+        训练损失
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Product-Neural-Network-PNN">
+<span class="md-ellipsis">
+      
+        Product Neural Network (PNN)
+      
+    </span>
+</a>
+<nav aria-label="Product Neural Network (PNN)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#架构概览">
+<span class="md-ellipsis">
+      
+        架构概览
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#线性模块">
+<span class="md-ellipsis">
+      
+        线性模块
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#非线性模块">
+<span class="md-ellipsis">
+      
+        非线性模块
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#求解-p">
+<span class="md-ellipsis">
+      
+        求解 p
+      
+    </span>
+</a>
+<nav aria-label="求解 p" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IPNN">
+<span class="md-ellipsis">
+      
+        IPNN
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#OPNN">
+<span class="md-ellipsis">
+      
+        OPNN
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#DCN">
+<span class="md-ellipsis">
+      
+        DCN
+      
+    </span>
+</a>
+<nav aria-label="DCN" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#交叉层">
+<span class="md-ellipsis">
+      
+        交叉层
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#交叉网络">
+<span class="md-ellipsis">
+      
+        交叉网络
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#LHUC">
+<span class="md-ellipsis">
+      
+        LHUC
+      
+    </span>
+</a>
+<nav aria-label="LHUC" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#语音识别中的-LHUC">
+<span class="md-ellipsis">
+      
+        语音识别中的 LHUC
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#推荐系统中的-LHUC">
+<span class="md-ellipsis">
+      
+        推荐系统中的 LHUC
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#FiBiNet">
+<span class="md-ellipsis">
+      
+        FiBiNet
+      
+    </span>
+</a>
+<nav aria-label="FiBiNet" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#SENet">
+<span class="md-ellipsis">
+      
+        SENet
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Bilinear-Cross">
+<span class="md-ellipsis">
+      
+        Bilinear Cross
+      
+    </span>
+</a>
+<nav aria-label="Bilinear Cross" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Inner-Product">
+<span class="md-ellipsis">
+      
+        Inner Product
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Hadamard-Product">
+<span class="md-ellipsis">
+      
+        Hadamard Product
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../../tags/#tag:notes">notes</a>
+</nav>
+<h1>1 Recall vector</h1>
+<p>基于向量的召回。</p>
+<h2 id="Deep-retrieval">Deep retrieval<a class="headerlink" href="#Deep-retrieval" title="Permanent link">¶</a></h2>
+<div class="admonition info">
+<p class="admonition-title">参考字节跳动的<a href="https://arxiv.org/abs/2007.07203"><span><span class="heti-spacing"> </span>[2020] Deep Retrieval: Learning A Retrievable Structure for Large-Scale Recommendations</span></a>。</p>
+</div>
+<p>简要来说，在前面的学习中，我们使用过向量作为物品和用户中间的关联中介，下面将要介绍使用路径作为物品和用户的中介。 </p>
+<h3 id="物品-路径索引">物品<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>路径索引<a class="headerlink" href="#物品-路径索引" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>deep retrieval<span class="heti-spacing"> </span></span>将物品表征为路径，在训练阶段一个物品可以表示为多条路径；在召回时一条路径可以指向多个物品。我们期望建立 <code>Path -&gt; List&lt;Item&gt;</code> 的索引，<u>基于用户本身特征寻找路径</u>，最后映射到对应的物品进行召回。</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/29_250829-093615.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/29_250829-093615.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/29_250829-093615.png"/></a>
+<br/>
+<figcaption>item - path</figcaption>
+</figure>
+<h3 id="预估模型">预估模型<a class="headerlink" href="#预估模型" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在已知用户特征<span class="heti-skip"><span class="heti-spacing"> </span>x<span class="heti-spacing"> </span></span>的情况下，我们希望为用户召回一些物品，可以看成是希望找到对应的路径，召回路径对应的物品即可。类似于序列模型的生成，我们逐步去计算前往每一个节点的概率（例如上图中三层<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/29_250829-094431.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/29_250829-094431.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/29_250829-094431.png"/></a>
+<br/>
+<figcaption>预估模型图示</figcaption>
+</figure>
+<ul>
+<li><span class="arithmatex">\(p_{1} = p(l_{1}|x), p_{2} = p(l_{2} | x, l_{1}), p_{3} = p(l_{3}|x, l_{1}, l_{2})\)</span></li>
+<li><span class="arithmatex">\(P = p_{1} \cdot p_{2} \cdot p_{3}\)</span></li>
+</ul>
+<p>这样我们找到了预估模型对于用户<span class="heti-skip"><span class="heti-spacing"> </span>x<span class="heti-spacing"> </span></span>应该在路径<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\([l_{1}, l_{2}, l_{3}]\)</span><span class="heti-spacing"> </span></span>的概率<span><span class="heti-spacing"> </span>P</span>，用于学习评估。对于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p_{1}, p_{2},p_{3}\)</span><span class="heti-spacing"> </span></span>这样的“概率”，神经网络很擅长做这些，也即可以认为通过神经网络，基于已有前缀路径的条件下去为当前层每个节点计算条件概率，取概率最<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>较高者。</p>
+<h3 id="线上召回">线上召回<a class="headerlink" href="#线上召回" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>有了上面的准备，我们可以基于用户特征找到一条或多条路径，召回路径背后对应的物品。</p>
+<p>假设每层节点数为<span><span class="heti-spacing"> </span>k</span>，哪怕只有三层的模型路径数也达到了<span><span class="heti-spacing"> </span><span class="arithmatex">\(k^{3}\)</span></span>，计算量相当恐怖。基于此处为逐层搜索路径，我们很容易想到<span><span class="heti-spacing"> </span>beam search</span>。当 <code>BEAM_SIZE=1</code> 时，即每一步都“贪心地 ”选择概率最高的那条路径。当 <code>BEAM_SIZE=k &gt;1</code> 时，也即我们在每一层都保留<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>条路径，在下一层扩展后计算对应的分数并保留<span class="heti-skip"><span class="heti-spacing"> </span>top-k<span class="heti-spacing"> </span></span>路径<heti-adjacent class="heti-adjacent-half">。</heti-adjacent>（注意每层节点数不一定是<span><span class="heti-spacing"> </span>k</span>）</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/31_250831-212545.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/31_250831-212545.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/31_250831-212545.png"/></a>
+<br/>
+<figcaption>beam search</figcaption>
+</figure>
+<p>对于召回的物品数量如果超过了限制，利用简单的排序模型筛选掉一部分即可。</p>
+<h3 id="模型训练">模型训练<a class="headerlink" href="#模型训练" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<h4 id="损失函数">损失函数<a class="headerlink" href="#损失函数" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>训练时需要同时学习<strong>神经网络参数和物品表征</strong>（神经网络用于评估、选取物品；物品表征即物品与路径之间的映射关系，路径可以对应多个物品，物品也可以对应多条路径<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。训练时 <u>只使用正样本<span><span class="heti-spacing"> </span>j</span></u> ，对应路径为<span><span class="heti-spacing"> </span>J</span>，则损失函数为：</p>
+<div class="arithmatex">\[
+\mathrm{loss}(x, [a, b, c])=-\log\left(\Sigma_{j=1}^Jp(a_j,b_j,c_j\mid\mathbf{x})\right)
+\]</div>
+<p>可以认为，如果用户表现出对物品<span class="heti-skip"><span class="heti-spacing"> </span>i<span class="heti-spacing"> </span></span>的兴趣，就提高其对应路径<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(path_{j}\)</span><span class="heti-spacing"> </span></span>的关联程度。</p>
+<h4 id="物品表征">物品表征<a class="headerlink" href="#物品表征" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>上面的神经网络本质学习的是用户与路径的关系<span><span class="heti-spacing"> </span><span class="arithmatex">\(score(\text{user,path})=p(\text{path}|\text{user})\)</span></span>；物品与路径的关系也依托与此，记为<span><span class="heti-spacing"> </span><span class="arithmatex">\(score(\text{item, path}) = \sum_{user}p(\text{path|user}) \times  click(\text{item, user})\)</span></span>，依据<span class="heti-skip"><span class="heti-spacing"> </span>score<span class="heti-spacing"> </span></span>选取<span class="heti-skip"><span class="heti-spacing"> </span>top-k<span class="heti-spacing"> </span></span>作为物品<span class="heti-skip"><span class="heti-spacing"> </span>item<span class="heti-spacing"> </span></span>的表征。</p>
+<h4 id="路径更新">路径更新<a class="headerlink" href="#路径更新" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>为了避免过多的物品聚集在一条路径上，我们引入正则项；在论文中使用了路径上物品数量的<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>次方作为正则罚项<span><span class="heti-spacing"> </span>reg(path)</span>。
+假设我们已经将物品表征为 J 条路径 <span class="arithmatex">\(\{path_{j}\}, j \in [J]\)</span>，随机选择 <span class="arithmatex">\(l \in [J]\)</span>，对于 <span class="arithmatex">\(\{path_{j}\}_{j\neq l}\)</span> 保持不变，更新 <span class="arithmatex">\(path_{l}\)</span>：</p>
+<div class="arithmatex">\[
+\mathrm{path}_l\leftarrow\arg\min_{\mathrm{path}_l}\underline{\mathrm{loss}(\mathrm{item},\Pi)}+\alpha\cdot\mathrm{reg}(\mathrm{path}_l).
+\]</div>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\text{loss}(\text{item}, \Pi)\)</span><span class="heti-spacing"> </span></span>表征了物品与这一批路径的相关性，后者则是对这条路径上物品数量的罚项，避免过多物品聚集在一起。</p>
+<h2 id="Word2vecItem2vec">Word2vec/Item2vec<a class="headerlink" href="#Word2vecItem2vec" title="Permanent link">¶</a></h2>
+<div class="admonition quote">
+<p class="admonition-title">“You shall know a word by the company it keeps” (<a href="https://languagelog.ldc.upenn.edu/myl/Firth1957.pdf">J. R. Firth 1957</a>)</p>
+</div>
+<p>一个单词的含义由其周边单词决定，因此我们关注单词与一定距离（窗口）内单词的关系。</p>
+<p>经过<span><span class="heti-spacing"> </span>wordnet</span>（维护成本高、难以捕捉特定情况下的含义<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、仅<span><span class="heti-spacing"> </span>one-hot code</span>（不利于计算相似性，维护成本高）探索，我们期望使用<span><span class="heti-spacing"> </span>dense word vectors</span> （即现在<span class="heti-skip"><span class="heti-spacing"> </span>embedding<span class="heti-spacing"> </span></span>使用的稠密向量）来表达单词，<span>word2vec<span class="heti-spacing"> </span></span>是其中一种算法。</p>
+<p><span>Word2vec<span class="heti-spacing"> </span></span>包含两个模型，<strong><span>Skip-gram<span class="heti-spacing"> </span></span>与<span><span class="heti-spacing"> </span>CBOW</span></strong>。</p>
+<h3 id="Skip-gramSG">Skip-gram(SG)<a class="headerlink" href="#Skip-gramSG" title="Permanent link">¶</a></h3>
+<p>考虑一串富含语义的文本，对于某一个中心单词<span><span class="heti-spacing"> </span>(center)</span>，及其周边词<span><span class="heti-spacing"> </span>(outsides)</span>，我们希望他们以当前顺序排列这一事实最大化，基于条件概率和极大似然估计有：</p>
+<div class="arithmatex">\[
+max\prod_c\prod_oP(o|c)
+\]</div>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/24_1756037476258.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/24_1756037476258.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/24_1756037476258.png"/></a>
+</figure>
+<p>取其负对数似然，考虑模型参数并针对时间步缩放有：</p>
+<div class="arithmatex">\[
+\min_{\theta } -\frac{1}{T}\sum_{t=1}^{T}\sum_{-m\leq j\leq m}\log P\big(w_{t+j}\mid w_{t};\theta\big)
+\]</div>
+<p>上式即为<strong><span>skip-gram<span class="heti-spacing"> </span></span>的损失函数</strong>，通过最小化损失函数找到合适的<span><span class="heti-spacing"> </span><span class="arithmatex">\(\theta\)</span></span>，其中可以获取词向量，如下图所示</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/24_1756036728557.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/24_1756036728557.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/24_1756036728557.png"/></a>
+<br/>
+<figcaption><span>word2vec<span class="heti-spacing"> </span></span>示意图</figcaption>
+</figure>
+<ul>
+<li><span>Input Layer:<span class="heti-spacing"> </span></span>输入为<span class="heti-skip"><span class="heti-spacing"> </span>1xV<span class="heti-spacing"> </span></span>的<span><span class="heti-spacing"> </span>one-hot code</span> ，其中<span class="heti-skip"><span class="heti-spacing"> </span>V<span class="heti-spacing"> </span></span>为单词表长度，故而代表了某一个单词；这里我们输入中心词对应的<span><span class="heti-spacing"> </span>one-hot code</span><ul>
+<li><span><span class="arithmatex">\(W_I\)</span>: VxN<span class="heti-spacing"> </span></span>的参数矩阵，其中<span class="heti-skip"><span class="heti-spacing"> </span>N<span class="heti-spacing"> </span></span>表示期望单词嵌入的向量空间维度；<span><span class="arithmatex">\(W_{I}\)</span><span class="heti-spacing"> </span></span>的每一行对应一个单词作为中心词的词向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(v_{c}\)</span></span></li>
+</ul>
+</li>
+<li><span>Hidden Layer:<span class="heti-spacing"> </span></span>取出的中心词的词向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(v_{c} \in \mathbb{R}^{1 \times N}\)</span></span><ul>
+<li><span><span class="arithmatex">\(W_{O}\)</span>: NxV<span class="heti-spacing"> </span></span>的参数矩阵，<span>N<span class="heti-spacing"> </span></span>的含义不变；<span><span class="arithmatex">\(W_{O}\)</span><span class="heti-spacing"> </span></span>的每一列对应一个单词作为周边词的词向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(u_{o}\)</span></span></li>
+</ul>
+</li>
+<li><span>Output Layer:<span class="heti-spacing"> </span></span>根据矩阵运算可知输出层的每一项目对应于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(v_{c}u_{o}\)</span><span class="heti-spacing"> </span></span>即中心词与周边词的内积，我们期望其能够表征词之间的相似度；为了转变为概率，还需要对结果进行<span><span class="heti-spacing"> </span>softmax</span>：<span class="arithmatex">\(P(o|c)=\frac{\exp(u_o^Tv_c)}{\sum_{w\in V}\exp(u_w^Tv_c)}\)</span></li>
+</ul>
+<p>使用<span class="heti-skip"><span class="heti-spacing"> </span>softmax<span class="heti-spacing"> </span></span>又不可避免地来到<a href="../0-Introduction/#负采样">负采样</a>，再抄一遍：</p>
+<div class="arithmatex">\[J_{neg-sample}(u_{o},v_{c},U)=-\log\sigma(u_{o}^{T}v_{c})-\sum_{k\in K}\log\sigma(-u_{k}^{T}v_{c})\]</div>
+<details class="note" open="open">
+<summary>层序<span><span class="heti-spacing"> </span>Softmax (Hierarchical Softmax)</span></summary>
+<p>在信息论中，哈夫曼编码依托于哈夫曼树构造，越频繁出现的节点距离根节点的距离越近；对于每个节点的出边（自上而下的边<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，左边用<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>编码，右边用<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>编码：</p>
+<figure markdown="span">
+</figure></details>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://pic1.zhimg.com/v2-fbf3eef57250753f93eb5a56ed569f30_1440w.jpg"><img alt="https://pic1.zhimg.com/v2-fbf3eef57250753f93eb5a56ed569f30_1440w.jpg" src="https://pic1.zhimg.com/v2-fbf3eef57250753f93eb5a56ed569f30_1440w.jpg"/></a>
+<br/>
+<figcaption>https://zhuanlan.zhihu.com/p/612506559</figcaption></p>
+<blockquote>
+<p>我们知道<span class="heti-skip"><span class="heti-spacing"> </span>Softmax<span class="heti-spacing"> </span></span>一般用于多分类问题（<span>word2vec<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>next word prediction<span class="heti-spacing"> </span></span>即为一个多分类问题<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，而基于哈夫曼树（或者说满足特定分布的决策树）我们将其转变为多个二分类问题，代替了<span class="heti-skip"><span class="heti-spacing"> </span>word2vec<span class="heti-spacing"> </span></span>模型的<span class="heti-skip"><span class="heti-spacing"> </span>OutputMatrix<span class="heti-spacing"> </span></span>部分。</p>
+<p>层序<span class="heti-skip"><span class="heti-spacing"> </span>Softmax<span class="heti-spacing"> </span></span>能够将计算量由<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(|V|) \rightarrow O(\log |V|)\)</span></span>，其中<span class="heti-skip"><span class="heti-spacing"> </span>V<span class="heti-spacing"> </span></span>为词表。</p>
+</blockquote>
+<h3 id="CBOW">CBOW<a class="headerlink" href="#CBOW" title="Permanent link">¶</a></h3>
+<p>依据前文描述可以发现，<span>skip-gram<span class="heti-spacing"> </span></span>期望通过中心词预测周边词；而<span class="heti-skip"><span class="heti-spacing"> </span>CBOW<span class="heti-spacing"> </span></span>期望能够通过周边词预测中心词（模型结构不变，各层的维度对应进行修改即可）</p>
+<h3 id="Item2vec">Item2vec<a class="headerlink" href="#Item2vec" title="Permanent link">¶</a></h3>
+<p><span>Item2Vec<span class="heti-spacing"> </span></span>的原理同样十分简单，它是基于<span class="heti-skip"><span class="heti-spacing"> </span>Skip-Gram<span class="heti-spacing"> </span></span>模型的物品向量训练方法；在提出<span class="heti-skip"><span class="heti-spacing"> </span>Item2vec<span class="heti-spacing"> </span></span>的论文中，物品相连的训练基于物品集合，而丢弃了集合内部物品的时间、空间关系；论文中使用<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(u_i, u_{i}+v_{i}, [u_{i}+v_{i}]\)</span><span class="heti-spacing"> </span></span>三种方式表示物品向量。</p>
+<h2 id="Airbnb">Airbnb<a class="headerlink" href="#Airbnb" title="Permanent link">¶</a></h2>
+<h3 id="Listing-embedding">Listing embedding<a class="headerlink" href="#Listing-embedding" title="Permanent link">¶</a></h3>
+<p><span>Airbnb<span class="heti-spacing"> </span></span>是全球最大的短租平台，包含了数百万种不同的房源<span><span class="heti-spacing"> </span>(listing)</span>。类似于语言序列，用户对于房源的<strong>点击</strong>也是一种序列，这使得基于<span class="heti-skip"><span class="heti-spacing"> </span>Word2vec<span class="heti-spacing"> </span></span>学习<span class="heti-skip"><span class="heti-spacing"> </span>listing embedding<span class="heti-spacing"> </span></span>变得容易（适用于短期实时<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<div class="arithmatex">\[
+\operatorname*{argmax}_\theta\sum_{(l,c)\in\mathcal{D}_p}\sigma(\mathbf{v}_c^{\prime}\mathbf{v}_l)+\sum_{(l,c)\in\mathcal{D}_n}\sigma(-\mathbf{v}_c^{\prime}\mathbf{v}_l)
+\]</div>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/25_1756106452926.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/25_1756106452926.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/25_1756106452926.png"/></a>
+<br/>
+<figcaption>listing embedding</figcaption>
+</figure>
+<p>有些不同的是：</p>
+<div class="admonition question">
+<p class="admonition-title">最终用户预订的房间应该有其优势，应该被推荐</p>
+</div>
+<p>将<span class="heti-skip"><span class="heti-spacing"> </span>booked listing<span class="heti-spacing"> </span></span>作为全局正样本加入优化目标中；</p>
+<div class="admonition question">
+<p class="admonition-title">用户预定房间往往在一个地区附近，故连续点击中地区非常靠近，而负样本<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D_{n}\)</span><span class="heti-spacing"> </span></span>从全部房间源中选择</p>
+</div>
+<p>从<span class="heti-skip"><span class="heti-spacing"> </span>central listing<span class="heti-spacing"> </span></span>的同一地区也采样一些负样本；</p>
+<div class="admonition question">
+<p class="admonition-title">房源更新比单词快的多，需要面临冷启动问题</p>
+</div>
+<p>要求房主提供地区、价格、类型等信息，在已经<span class="heti-skip"><span class="heti-spacing"> </span>embedding<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>listing<span class="heti-spacing"> </span></span>中寻找最相似的若干个，取平均作为新房源的<span><span class="heti-spacing"> </span>embedding</span>。</p>
+<p>最终优化目标变为：</p>
+<div class="arithmatex">\[
+\operatorname*{argmax}_{\theta}\sum_{(l,c)\in\mathcal{D}_p}\log\sigma(\mathbf{v}_c^{\prime}\mathbf{v}_l)+\sum_{(l,c)\in\mathcal{D}_n}\log\sigma(-\mathbf{v}_c^{\prime}\mathbf{v}_l)+\log\sigma(\mathbf{v}_c^{\prime}\mathbf{v}_{l_b})+\sum_{(l,m_n)\in\mathcal{D}_{m_n}}\log\sigma(-\mathbf{v}_{m_n}^{\prime}\mathbf{v}_l)
+\]</div>
+<h3 id="Type-embedding">Type embedding<a class="headerlink" href="#Type-embedding" title="Permanent link">¶</a></h3>
+<p>基于点击的<span class="heti-skip"><span class="heti-spacing"> </span>embedding<span class="heti-spacing"> </span></span>适用于短期，而在长期中失去了联系（例如用户在一个月前预订了房间而现在又需要预订，且在此期间偏好可能发生了较大改变<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。就像<span class="heti-skip"><span class="heti-spacing"> </span>User/Item CF<span class="heti-spacing"> </span></span>只是考虑了<span class="heti-skip"><span class="heti-spacing"> </span>User<span class="heti-spacing"> </span></span>与<span class="heti-skip"><span class="heti-spacing"> </span>Item<span class="heti-spacing"> </span></span>的交互，我们希望如同在<span class="heti-skip"><span class="heti-spacing"> </span>FM<span class="heti-spacing"> </span></span>中：用户<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>房源本身的属性也能够帮助我们进行嵌入。</p>
+<p>不同的是作为同一类物品，房源的属性信息较为同一，易于获取（地理位置、面积、床数量、价格<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；因此能够适当获取一些用户信息即可；这些信息构成<span><span class="heti-spacing"> </span>Listing-type / User-type</span> 。显然可能不同的房源具有相同的<span><span class="heti-spacing"> </span>Listing-type</span>，也可以一定程度上缓解数据稀疏的问题。</p>
+<p>之后仍然是利用<span class="heti-skip"><span class="heti-spacing"> </span>skip-gram<span class="heti-spacing"> </span></span>模型，对<span class="heti-skip"><span class="heti-spacing"> </span>Listing-type / User-type<span class="heti-spacing"> </span></span>分别设定目标函数优化</p>
+<ul>
+<li><span>Listing-type<span class="heti-spacing"> </span></span>训练使用<span class="heti-skip"><span class="heti-spacing"> </span>listing<span class="heti-spacing"> </span></span>作为“中心词”，<span>user<span class="heti-spacing"> </span></span>作为“周边词”</li>
+<li><span>User-type<span class="heti-spacing"> </span></span>训练使用<span class="heti-skip"><span class="heti-spacing"> </span>user<span class="heti-spacing"> </span></span>作为“中心词”，<span>listing<span class="heti-spacing"> </span></span>作为“周边词”</li>
+</ul>
+<p><span>Airbnb<span class="heti-spacing"> </span></span>还考虑了房主拒绝用户（用户评级过低、只接受女性等）的情况，将其作为负样本。</p>
+<h2 id="Twin-Tower">Twin Tower<a class="headerlink" href="#Twin-Tower" title="Permanent link">¶</a></h2>
+<p>在<span class="heti-skip"><span class="heti-spacing"> </span>Skip-gram<span class="heti-spacing"> </span></span>模型中，<u><span>one-hot code<span class="heti-spacing"> </span></span>只是编码了对应的用户<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>物品（可以认为只是用户<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>物品<span><span class="heti-spacing"> </span>ID</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，而没有利用任何用户<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>物品的自身属性</u> 。为此，我们希望能够将用户<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>物品的本身特征也通过<span class="heti-skip"><span class="heti-spacing"> </span>embedding layer<span class="heti-spacing"> </span></span>或其他方式得到一段向量，与依据<span class="heti-skip"><span class="heti-spacing"> </span>ID<span class="heti-spacing"> </span></span>得到的向量进行拼接，最后通过神经网络等得到同样长度的表征向量。</p>
+<h3 id="Factorized-Machine-FM">Factorized Machine (FM)<a class="headerlink" href="#Factorized-Machine-FM" title="Permanent link">¶</a></h3>
+<div class="admonition extra">
+<p class="admonition-title">在神经网络出现后因子分解机逐渐被替代，但是其思想仍可一看。</p>
+</div>
+<p>面对用户<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>物品特有的属性（如有用户的性别、物品的体积、用户的年龄和物品的年龄概念不同<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，简单的内积不能够很好地分析之间的联系，特征交叉变得更为重要。基于神经网络等等，我们可以分别获得用户和物品的特征向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(\{\mathbf{x_u}\}_{u \in U}, \{\mathbf{x_i}\}_{i \in I}\)</span></span>，合并为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mathbf{x} = [x_{1}, x_{2}, \dots, x_{n}]\)</span></span> 。</p>
+<h4 id="线性模型">线性模型<a class="headerlink" href="#线性模型" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>线性模型将预测视为特征的加权和（<span>n+1<span class="heti-spacing"> </span></span>个参数，只有加法<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<div class="arithmatex">\[
+p\:=\:b+\sum_{i=1}^nw_ix_i.
+\]</div>
+<h4 id="二阶交叉特征">二阶交叉特征<a class="headerlink" href="#二阶交叉特征" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>为了让模型的预测更加准去，引入更多的特征交互的信息提升模型表达能力：  </p>
+<div class="arithmatex">\[
+p\:=\:b\:+\:\sum_{i=1}^nw_ix_i\:+\:\sum_{i=1}^n\sum_{j=i+1}^nu_{ij}x_ix_j
+\]</div>
+<p>但是此时参数数量达到了<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(n^{2})\)</span></span> ；考虑由<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\([u_{ij}]\)</span><span class="heti-spacing"> </span></span>构成的对称矩阵<span><span class="heti-spacing"> </span>U</span>（同时联想到<span class="heti-skip"><span class="heti-spacing"> </span>SVM<span class="heti-spacing"> </span></span>中核技巧<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，我们同样尝试将其分解为<span><span class="heti-spacing"> </span><span class="arithmatex">\(U = VV^{T}\)</span></span>，其中<span><span class="heti-spacing"> </span><span class="arithmatex">\(V \in \mathbb{R}^{n \times k}, u_{ij} = v_{i}^{T}v_{j}\)</span></span>（其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(v_{i}\)</span><span class="heti-spacing"> </span></span>可以对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_{i}\)</span><span class="heti-spacing"> </span></span>求解嵌入向量得到<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，那么二阶交叉表示为（参数数量降低至<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(kn)\)</span></span>）</p>
+<div class="arithmatex">\[
+p\:=\:b\:+\:\sum_{i=1}^nw_ix_i\:+\:\sum_{i=1}^n\sum_{j=i+1}^n(v_i^Tv_j)x_ix_j
+\]</div>
+<p>进一步的，二阶交叉特征计算的时间复杂度为<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(kn^{2})\)</span></span>；但是基于其实际在求和一个矩阵的上半部分，有：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+&amp;\sum_{i=1}^{n}\sum_{j=i+1}^{n}\left(\mathbf{v}_{i},\mathbf{v}_{j}\right)x_{i}x_{j}\\=&amp;\frac{1}{2}\sum_{i=1}^{n}\sum_{j=1}^{n}\left(\mathbf{v}_{i},\mathbf{v}_{j}\right)x_{i}x_{j}-\frac{1}{2}\sum_{i=1}^{n}\left(\mathbf{v}_{i},\mathbf{v}_{i}\right)x_{i}x_{i}\\=&amp;\frac{1}{2}\left(\sum_{i=1}^{n}\sum_{j=1}^{n}\sum_{i=1}^{k}n_{i,j}n_{j,j}x_{i}x_{j}-\sum_{i=1}^{n}\sum_{i=1}^{k}n_{i,j}n_{i,j}x_{i}x_{i}\right)\\=&amp;\frac{1}{2}\sum_{j=1}^{k}\left(\left(\sum_{i=1}^{n}v_{i,j}x_{i}\right)\left(\sum_{j=1}^{n}v_{i,j}x_{i}\right)-\sum_{i=1}^{n}v_{i,j}^{2}x_{i}^{2}\right)\\=&amp;\frac{1}{2}\sum_{i=1}^{k}\left(\left(\sum_{i=1}^{n}v_{i,j}x_{i}\right)^{2}-\sum_{i=1}^{n}v_{i,j}^{2}x_{i}^{2}\right)
+\end{aligned}
+\]</div>
+<p>这样计算的时间复杂度减少到<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(kn)\)</span></span>。</p>
+<ul>
+<li><strong>优点</strong>：<ul>
+<li>通过向量内积自适应调整交叉权重，同时不再需要强调是非零特征</li>
+<li>优化后计算效率高，在稀疏场景下能够自动挖掘长尾低频物品，因而召回和排序阶段均适用（细节有所不同）</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：<ul>
+<li>最多到特征的二阶交叉，再高阶的无能为力</li>
+</ul>
+</li>
+</ul>
+<h4 id="特征分离">特征分离<a class="headerlink" href="#特征分离" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>将用户和物品特征拆分开有：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+&amp;\frac12\sum_{f=1}^k\left(\left(\sum_{i=1}^nv_{i,f}x_i\right)^2-\sum_{i=1}^nv_{i,f}^2x_i^2\right)\\
+=&amp;\frac12\sum_{f=1}^k\left(\left(\sum_{u\in U}v_{u,f}x_u+\sum_{t\in I}v_{t,f}x_t\right)^2-\sum_{u\in U}v_{u,f}^2x_u^2-\sum_{t\in I}v_{t,f}^2x_t^2\right)\\
+=&amp;\frac12\sum_{f=1}^k\left(\left(\sum_{u\in U}v_{u,f}x_u\right)^2+\left(\sum_{t\in I}v_{t,f}x_t\right)^2+2\sum_{u\in U}v_{u,f}x_u\sum_{t\in I}v_{t,f}x_t-\sum_{u\in U}v_{u,f}^2x_u^2-\sum_{t\in I}v_{t,f}^2x_t^2\right)\end{aligned}
+\]</div>
+<p>在召回时我们总是对同一个用户的请求进行分析，因而用户内部的特征交互是无影响的（不改变召回时的分数排序<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，消去得到：</p>
+<div class="arithmatex">\[
+\mathrm{score}_{FM}\sum_{t\in I}w_tx_t+\frac12\sum_{f=1}^k\left(\left(\sum_{t\in I}v_{t,f}x_t\right)^2-\sum_{t\in I}v_{t,f}^2x_t^2\right)+\sum_{f=1}^k\left(\sum_{u\in U}v_{u,f}x_u\sum_{t\in I}v_{t,f}x_t\right) = V_{user}\cdot V_{item}
+\]</div>
+<p>其中</p>
+<div class="arithmatex">\[
+\begin{aligned}&amp;V_{user}=[1;\sum_{u\in U}v_ux_u]\\&amp;V_{item}=[\sum_{t\in I}w_tx_t+\frac12\sum_{f=1}^k((\sum_{t\in I}v_{t,f}x_t)^2-\sum_{t\in I}v_{t,f}^2x_t^2);\sum_{t\in I}v_tx_t]\end{aligned}
+\]</div>
+<p>这表明物品和用户的特征交互可以被分别编码到两个独立向量中，展示了“双塔模型”的可行性。</p>
+<details class="extra">
+<summary>推荐系统中的双塔模型源自<span><span class="heti-spacing"> </span>DSSM(Deep Structured Semantic Model)</span></summary>
+<p><span>DSSM(Deep Structured Semantic Model)<span class="heti-spacing"> </span></span>是由微软研究院于<span class="heti-skip"><span class="heti-spacing"> </span>CIKM<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>2013<span class="heti-spacing"> </span></span>年提出的一篇工作，该模型主要用来解决<span class="heti-skip"><span class="heti-spacing"> </span>NLP<span class="heti-spacing"> </span></span>领域语义相似度任务，利用深度神经网络将文本表示为低维度的向量，用来提升搜索场景下文档和<span class="heti-skip"><span class="heti-spacing"> </span>query<span class="heti-spacing"> </span></span>匹配的问题。<span>DSSM<span class="heti-spacing"> </span></span>模型的原理主要是：通过用户搜索行为中<span class="heti-skip"><span class="heti-spacing"> </span>query<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>doc<span class="heti-spacing"> </span></span>的日志数据，通过深度学习网络将<span class="heti-skip"><span class="heti-spacing"> </span>query<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>doc<span class="heti-spacing"> </span></span>映射到到共同维度的语义空间中，通过最大化<span class="heti-skip"><span class="heti-spacing"> </span>query<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>doc<span class="heti-spacing"> </span></span>语义向量之间的余弦相似度，从而训练得到隐含语义模型，即<span class="heti-skip"><span class="heti-spacing"> </span>query<span class="heti-spacing"> </span></span>侧特征的<span class="heti-skip"><span class="heti-spacing"> </span>embedding<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>doc<span class="heti-spacing"> </span></span>侧特征的<span><span class="heti-spacing"> </span>embedding</span>，进而可以获取语句的低维语义向量表达<span><span class="heti-spacing"> </span>sentence embedding</span>，可以预测两句话的语义相似度。模型结构如下所示：</p>
+<figure markdown="span">
+</figure></details>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/04_1756954654006.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/04_1756954654006.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/04_1756954654006.png"/></a>
+<br/>
+<figcaption>DSSM</figcaption></p>
+<h3 id="经典双塔模型">经典双塔模型<a class="headerlink" href="#经典双塔模型" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>由于用户和物品的特有特征不一致，以及<span class="heti-skip"><span class="heti-spacing"> </span>FM<span class="heti-spacing"> </span></span>分解暂时可行性，用户和物品可以分别训练形成<strong>双塔模型</strong>：</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/27_250827-174116.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/27_250827-174116.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/27_250827-174116.png"/></a>
+<br/>
+<figcaption>双塔模型</figcaption>
+</figure>
+<details class="extra">
+<summary>下面的“双塔”模型不适合召回</summary>
+<figure markdown="span">
+</figure></details>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/27_250827-175405.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/27_250827-175405.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/27_250827-175405.png"/></a>
+<br/>
+<figcaption>前期融合</figcaption></p>
+<blockquote>
+<p>因为图中用户<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>物品的向量<span class="heti-skip"><span class="heti-spacing"> </span>a/b<span class="heti-spacing"> </span></span>在前期就进行了融合，不能够使用最近邻算法找回<span><span class="heti-spacing"> </span>top-k</span>；该模型应该用于排序模型等可以计算所有用户与物品相似度的层。</p>
+</blockquote>
+<h3 id="双塔模型变体">双塔模型变体<a class="headerlink" href="#双塔模型变体" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>双塔模型在实际推荐系统的召回阶段应用非常广泛，因为其模型结构简单且后期融合的特点在面对海量的数据下能够保持非常快的召回速度。但是模型结构简单也可能导致很多特征信息在早期传递过程中损失。现在也有了一些变体以解决上述问题。</p>
+<h4 id="SENet-双塔模型"><span>SENet<span class="heti-spacing"> </span></span>双塔模型<a class="headerlink" href="#SENet-双塔模型" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p><a href="#SENet"><span>SENet<span class="heti-spacing"> </span></span></a>是一种对特征进行交叉筛选的网络，将其添加进入双塔模型中形成<span class="heti-skip"><span class="heti-spacing"> </span>SENet<span class="heti-spacing"> </span></span>双塔：</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/03_1756909714106.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/03_1756909714106.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/03_1756909714106.png"/></a>
+<br/>
+<figcaption>twin tower with SENet</figcaption>
+</figure>
+<p>利用<span class="heti-skip"><span class="heti-spacing"> </span>SENet<span class="heti-spacing"> </span></span>能够自适应学习特征的重要性，可以一定程度过滤掉长尾且低质的特征，</p>
+<h4 id="多目标双塔模型">多目标双塔模型<a class="headerlink" href="#多目标双塔模型" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>针对点击率、点赞率、评论率等多种指标，多目标双塔模型能够共享信息的同时针对不同目标分别优化损失，如下图所示：</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/04_1756950869243.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/04_1756950869243.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/04_1756950869243.png"/></a>
+<br/>
+<figcaption>twin tower with multi-object</figcaption>
+</figure>
+<p>针对不同的目标，用户塔和物品塔分别使用一个<span class="heti-skip"><span class="heti-spacing"> </span>DNN<span class="heti-spacing"> </span></span>来捕捉特征，同一个塔的<span class="heti-skip"><span class="heti-spacing"> </span>DNN<span class="heti-spacing"> </span></span>共享输入信息。</p>
+<h4 id="Youtube-双塔模型"><span>Youtube<span class="heti-spacing"> </span></span>双塔模型<a class="headerlink" href="#Youtube-双塔模型" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<div class="admonition info">
+<p class="admonition-title">参考论文<a href="https://research.google/pubs/sampling-bias-corrected-neural-modeling-for-large-corpus-item-recommendations/"><span><span class="heti-spacing"> </span>Sampling-Bias-Corrected Neural Modeling for Large Corpus Item Recommendations</span></a></p>
+</div>
+<p><span>Youtube<span class="heti-spacing"> </span></span>双塔模型的结构上没有较大的新奇之处，样本为三元组<span><span class="heti-spacing"> </span>{user, item, reward}:</span></p>
+<div class="arithmatex">\[
+\mathcal{T}:=\{(x_i,y_i,r_i)\}_{i=1}^T
+\]</div>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/04_1756954375384.jpg"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/04_1756954375384.jpg" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/04_1756954375384.jpg"/></a>
+<br/>
+<figcaption>youtube twin-tower</figcaption>
+</figure>
+<p>模型输出为<span class="heti-skip"><span class="heti-spacing"> </span>x<span class="heti-spacing"> </span></span>与<span class="heti-skip"><span class="heti-spacing"> </span>y<span class="heti-spacing"> </span></span>的相似度：<span class="arithmatex">\(s(x,y)=\langle u(x,\theta),v(y,\theta)\rangle\)</span>。类似于<a href="../0-Introduction/#YoutubeDNN"><span class="heti-skip"><span class="heti-spacing"> </span>YoutubeDNN<span class="heti-spacing"> </span></span></a>对输出进行<span class="heti-skip"><span class="heti-spacing"> </span>Softmax<span class="heti-spacing"> </span></span>得到概率分布：<span class="arithmatex">\(\mathcal{P}(y\mid x;\theta)=\frac{e^{s(x,y)}}{\sum_{j\in[M]}e^{s(x,y_j)}}\)</span>。考虑奖励<span><span class="heti-spacing"> </span>r</span>，加权负对数似然函数为：</p>
+<div class="arithmatex">\[
+L_T(\theta):=-\frac1T\sum_{i\in[T]}r_i\cdot\log\left(\mathcal{P}\left(y_i\mid x_i;\theta\right)\right)
+\]</div>
+<p>同样的，使用<a href="../0-Introduction/#负采样">负采样</a>来减小开销并进行进行<strong>纠偏</strong>（<span class="arithmatex">\(s^c\left(x_i,y_j\right)=s\left(x_i,y_j\right)-\log\left(p_j\right)\)</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，物品<span class="heti-skip"><span class="heti-spacing"> </span>y<span class="heti-spacing"> </span></span>被选中概率和更新后的损失函数为（之后基于<span class="heti-skip"><span class="heti-spacing"> </span>SGD<span class="heti-spacing"> </span></span>训练<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<div class="arithmatex">\[
+\begin{aligned} 
+L_B(\theta):=-\frac1B\sum_{i\in[B]}r_i\cdot\log\left(\mathcal{P}_B^c\left(y_i\mid x_i;\theta\right)\right) \\
+s.t. \quad\mathcal{P}_B^c\left(y_i\mid x_i;\theta\right)=\frac{e^{s^c(x_i,y_i)}}{e^{s^c(x_i,y_i)}+\sum_{j\in[B],j\neq i}e^{s^c(x_i,y_j)}}
+\end{aligned}
+\]</div>
+<p>在<span class="heti-skip"><span class="heti-spacing"> </span>"3 MODELING FRAMEWORK"<span class="heti-spacing"> </span></span>小节的结尾处，提及了两个小<span><span class="heti-spacing"> </span>trick (Normalization an Temperature)</span>：</p>
+<ol>
+<li>对<span class="heti-skip"><span class="heti-spacing"> </span>user<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>item<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>embedding<span class="heti-spacing"> </span></span>进行归一化（等价于将<span class="heti-skip"><span class="heti-spacing"> </span>s(x,y)<span class="heti-spacing"> </span></span>操作由内积改为求余弦相似度<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</li>
+</ol>
+<div class="arithmatex">\[
+u(x,\theta)\leftarrow=\frac{u(x,\theta)}{||u(x,\theta)||_2}, v(x,\theta)\leftarrow=\frac{v(x,\theta)}{||v(x,\theta)||_2}
+\]</div>
+<p>原因在于用户和物品的嵌入向量的欧氏距离可以表示为：</p>
+<div class="arithmatex">\[
+||user_{emb}-item_{emb}||=\sqrt{||user_{emb}||^2+||item_{emb}||^2-2&lt;user_{emb},item_{emb}&gt;}
+\]</div>
+<p>将嵌入向量归一化，这可以得到：</p>
+<div class="arithmatex">\[
+||user_{emb}-item_{emb}||=\sqrt{2-2&lt;user_{emb},item_{emb}&gt;}
+\]</div>
+<p>此时内积将转化为欧氏距离，而进行近似最近邻<span class="heti-skip"><span class="heti-spacing"> </span>(Approximate Nearest Neighbor, ANN)<span class="heti-spacing"> </span></span>搜索时一般使用的就是欧氏距离，这样的转换保证了训练与检索时的一致性。</p>
+<ol start="2">
+<li>对内积进行温度调控</li>
+</ol>
+<div class="arithmatex">\[
+s(x,y)=\langle u(x,\theta),v(y,\theta)\rangle/\tau 
+\]</div>
+<p>论文中提到除以一个超参数是为了让<span class="heti-skip"><span class="heti-spacing"> </span>softmax<span class="heti-spacing"> </span></span>的结果更加明显<span><span class="heti-spacing"> </span>(sharpen)</span> ，</p>
+<h3 id="召回和更新">召回和更新<a class="headerlink" href="#召回和更新" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li>离线存储：物品向量（数量大、较稳定）</li>
+<li>
+<p>线上计算：用户向量（变化频繁）</p>
+</li>
+<li>
+<p>全量更新：利用昨天的数据，在原有参数基础上训练<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>轮，每天数据（TFRecord）只用一遍；发布新的用户塔和物品向量</p>
+</li>
+<li>增量更新：每隔一小段时间，实时收集线上数据做流式处理，对模型做<span><span class="heti-spacing"> </span>online learning</span>（只更新<span class="heti-skip"><span class="heti-spacing"> </span>embedding layer<span class="heti-spacing"> </span></span>参数<heti-adjacent class="heti-adjacent-half">，</heti-adjacent>）</li>
+</ul>
+<p>在实际工业生产中，增量更新得到的模型只在下一个增量更新模型出现前使用，且在全量更新时使用的是昨天的所有数据（随机打乱比按时间顺序更好<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，增量更新得到的模型直接舍弃</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/28_250828-081414.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/28_250828-081414.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/28_250828-081414.png"/></a>
+<br/>
+<figcaption>全量更新与增量更新</figcaption>
+</figure>
+<h3 id="模型训练和样本选取">模型训练和样本选取<a class="headerlink" href="#模型训练和样本选取" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><span>Pointwise :<span class="heti-spacing"> </span></span>独立看待正负样本<ul>
+<li>将召回视为简单的二分类模型</li>
+</ul>
+</li>
+<li><span>Pairwise:<span class="heti-spacing"> </span></span>一对正负样本<ul>
+<li>鼓励<span><span class="heti-spacing"> </span><span class="arithmatex">\(cos(a, b^+) &gt; cos(a, b^-)+m\)</span></span> ，<span>m<span class="heti-spacing"> </span></span>为超参数</li>
+</ul>
+</li>
+<li><span>Listwise:<span class="heti-spacing"> </span></span>一个正样本，多个负样本<ul>
+<li>使用<span><span class="heti-spacing"> </span>softmax</span>，交叉熵损失来综合多个负样本</li>
+</ul>
+</li>
+</ul>
+<h4 id="样本选取">样本选取<a class="headerlink" href="#样本选取" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>对于正样本，一般选择曝光给用户并点击后的样本即可；对于负样本：</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/27_250827-180933.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/27_250827-180933.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/27_250827-180933.png"/></a>
+<br/>
+<figcaption>负样本选取</figcaption>
+</figure>
+<ul>
+<li>未被召回的样本是数据库中的大多数样本，容易被模型区分，故为<strong>简单负样本</strong>；</li>
+<li>召回后在排序过程中被筛选的样本已经在一定程度上符合用户兴趣了，较难被模型区分，故为<strong>困难负样本</strong>；</li>
+<li>曝光但是未被用户点击，并不能够说明用户不感兴趣，而可能是用户更加偏好点击了的那些而已<ul>
+<li>需要明确每个阶段的目的：召回是排除用户基本不感兴趣的物品，排序是找到用户最感兴趣的物品</li>
+<li>应该作为排序模型的负样本而非召回模型</li>
+</ul>
+</li>
+</ul>
+<h4 id="Listwise-训练"><span>Listwise<span class="heti-spacing"> </span></span>训练<a class="headerlink" href="#Listwise-训练" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>依据经验正负样本比例为<span class="heti-skip"><span class="heti-spacing"> </span>1:2 ~ 1:3<span class="heti-spacing"> </span></span>较为合适，所有使用<span class="heti-skip"><span class="heti-spacing"> </span>Listwise<span class="heti-spacing"> </span></span>的训练模式较多；使用<span class="heti-skip"><span class="heti-spacing"> </span>softmax<span class="heti-spacing"> </span></span>后我们期望正样本对应的预估概率接近<span><span class="heti-spacing"> </span>1</span>，其他接近<span><span class="heti-spacing"> </span>0</span>，结合使用交叉熵损失得到双塔模型整体训练损失为：</p>
+<div class="arithmatex">\[
+L_{main}[i]\:=\:-\log\left(\frac{\exp(\cos(a_i,b_i)-\log p_i)}{\sum_{j=1}^n\exp(\cos(a_i,b_j)-\log p_j)}\right)
+\]</div>
+<p>由于按照<span class="heti-skip"><span class="heti-spacing"> </span>batch<span class="heti-spacing"> </span></span>进行训练，对所有物品取平均：<span class="arithmatex">\(\frac1n\sum_{i=1}^nL_\text{main}[i]\)</span></p>
+<h4 id="自监督学习">自监督学习<a class="headerlink" href="#自监督学习" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>针对低曝光的物品的向量表征，通过自监督学习能够让长尾物品的曝光变得更准（只训练物品塔<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<p>针对物品<span><span class="heti-spacing"> </span>i,j</span>，使用不同的（小幅度）特征变换，经过共享参数的物品塔（即参数实时更新同步）生成嵌入向量，同一物品生成的向量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(b_{i}', b_{i}''\)</span><span class="heti-spacing"> </span></span>相似度应该是高的，而不同物品生成的向量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(b_{i}', b_{j}'\)</span><span class="heti-spacing"> </span></span>相似度应该是低的。</p>
+<details class="note" open="open">
+<summary>特征变换</summary>
+<ul>
+<li>random mask<ul>
+<li>随机选取离散特征进行掩码，设置为<span><span class="heti-spacing"> </span>default</span></li>
+<li>相当于完全丢弃了某一特征所有属性</li>
+</ul>
+</li>
+<li>dropout<ul>
+<li>随机选取多值离散特征，随机丢弃一部分</li>
+</ul>
+</li>
+<li>complementary<ul>
+<li>将特征均匀分为两组，任意一组特征保留实际值，另一组特征使用<span class="heti-skip"><span class="heti-spacing"> </span>default<span class="heti-spacing"> </span></span>即可作为一种特征变换</li>
+</ul>
+</li>
+<li>Associated mask<ul>
+<li>将一组“互相关联”的特征都掩码，关联度使用互信息<span class="heti-skip"><span class="heti-spacing"> </span>(mutual information)<span class="heti-spacing"> </span></span>来衡量</li>
+<li>效果好，但是复杂、维护难</li>
+</ul>
+</li>
+</ul>
+</details>
+<p>这么一来，如果我们对<span class="heti-skip"><span class="heti-spacing"> </span>n<span class="heti-spacing"> </span></span>个物品做两种特征变换得到<span><span class="heti-spacing"> </span><span class="arithmatex">\(b', b''\)</span></span>，那么<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(b_{i}'\)</span><span class="heti-spacing"> </span></span>与<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(b_{i}''\)</span><span class="heti-spacing"> </span></span>取余弦相似度应该接近<span><span class="heti-spacing"> </span>1</span>，<span><span class="arithmatex">\(b_{i}'\)</span><span class="heti-spacing"> </span></span>与<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(b_{j}'', j\neq i\)</span><span class="heti-spacing"> </span></span>的余弦相似度应该接近<span><span class="heti-spacing"> </span>0</span>，这类似于前面提到的<span class="heti-skip"><span class="heti-spacing"> </span>batch<span class="heti-spacing"> </span></span>负样本，同样是使用<span class="heti-skip"><span class="heti-spacing"> </span>softmax + CrossEntropyLoss<span class="heti-spacing"> </span></span>进行训练。推导不难得到损失函数（由于物品热度不影响此处的抽样，不做纠偏<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<div class="arithmatex">\[
+L_\text{self}[i]\:=\:-\log\left(\frac{\exp(\cos(\mathbf{b}_i^{\prime},\mathbf{b}_i^{\prime\prime}))}{\sum_{j=1}^m\exp\left(\cos\left(\mathbf{b}_i^{\prime},\mathbf{b}_j^{\prime\prime}\right)\right)}\right)
+\]</div>
+<p>同样是对<span class="heti-skip"><span class="heti-spacing"> </span>batch<span class="heti-spacing"> </span></span>取平均<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac1m\sum_{i=1}^mL_\text{self}[i]\)</span></span></p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/28_1756372744545.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/28_1756372744545.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2508/28_1756372744545.png"/></a>
+<br/>
+<figcaption>特征变化构建样本</figcaption>
+</figure>
+<h4 id="训练损失">训练损失<a class="headerlink" href="#训练损失" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>综合双塔模型训练和物品塔训练，随机选取<span class="heti-skip"><span class="heti-spacing"> </span>n<span class="heti-spacing"> </span></span>个用户<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>物品对作为一个<span><span class="heti-spacing"> </span>batch</span>，对双塔模型进行训练；再随机选取<span class="heti-skip"><span class="heti-spacing"> </span>m<span class="heti-spacing"> </span></span>个物品作为一个<span><span class="heti-spacing"> </span>batch</span>，对物品塔使用自监督学习进行训练<heti-adjacent class="heti-adjacent-half">：</heti-adjacent>（<span><span class="arithmatex">\(\alpha\)</span><span class="heti-spacing"> </span></span>为超参数）</p>
+<div class="arithmatex">\[
+\frac1n\sum_{i=1}^nL_{\mathrm{main}}[i]+\boxed{\alpha}\cdotp\frac1m\sum_{j=1}^mL_{\mathrm{self}}[j].
+\]</div>
+<h2 id="Product-Neural-Network-PNN">Product Neural Network (PNN)<a class="headerlink" href="#Product-Neural-Network-PNN" title="Permanent link">¶</a></h2>
+<p><span>FNN<span class="heti-spacing"> </span></span>将神经网络的高阶隐式交叉加到了<span class="heti-skip"><span class="heti-spacing"> </span>FM<span class="heti-spacing"> </span></span>的二阶特征交叉上，一定程度上说明了<span class="heti-skip"><span class="heti-spacing"> </span>DNN<span class="heti-spacing"> </span></span>做特征交叉的有效性。</p>
+<p><span>PNN<span class="heti-spacing"> </span></span>虽然也用了<span class="heti-skip"><span class="heti-spacing"> </span>DNN<span class="heti-spacing"> </span></span>来对特征进行交叉组合，但是并不是直接将低阶特征放入<span class="heti-skip"><span class="heti-spacing"> </span>DNN<span class="heti-spacing"> </span></span>中，而是设计了<span class="heti-skip"><span class="heti-spacing"> </span>Product<span class="heti-spacing"> </span></span>层先对低阶特征进行充分的交叉组合之后再送入到<span class="heti-skip"><span class="heti-spacing"> </span>DNN<span class="heti-spacing"> </span></span>中去。</p>
+<p><span>PNN<span class="heti-spacing"> </span></span>模型其实是对<span class="heti-skip"><span class="heti-spacing"> </span>IPNN<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>OPNN<span class="heti-spacing"> </span></span>的总称，两者分别对应的是不同的<span class="heti-skip"><span class="heti-spacing"> </span>Product<span class="heti-spacing"> </span></span>实现方法，前者采用的是<span><span class="heti-spacing"> </span>inner product</span>，后者采用的是<span><span class="heti-spacing"> </span>outer product</span>。</p>
+<h3 id="架构概览">架构概览<a class="headerlink" href="#架构概览" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/07_1757208873236.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/07_1757208873236.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/07_1757208873236.png"/></a>
+<br/>
+<figcaption>arch of PNN</figcaption>
+</figure>
+<details class="info">
+<summary>字段<span><span class="heti-spacing"> </span>(field)</span></summary>
+<p>在推荐系统中，特征通常会被组织成不同的字段（field<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，每个字段代表一类相关的特征。</p>
+<p>通常<span class="heti-skip"><span class="heti-spacing"> </span>field<span class="heti-spacing"> </span></span>是独热码（高维稀疏向量，下一步一般先嵌入为低维稠密向量<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，下面是一个示例：</p>
+<figure markdown="span">
+</figure></details>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/07_250907-101242.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/07_250907-101242.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/07_250907-101242.png"/></a>
+<br/>
+<figcaption>fields in one-hot code</figcaption></p>
+<p>上图是<span class="heti-skip"><span class="heti-spacing"> </span>PNN<span class="heti-spacing"> </span></span>的架构概览图，我们特别关注<span><span class="heti-spacing"> </span>Product Layer</span>，其余部分没有啥特点<sub><span><span class="heti-spacing"> </span>~</span>（如果还看不懂得反思一下了）</sub>~。</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/07_1757208846518.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/07_1757208846518.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/07_1757208846518.png"/></a>
+<br/>
+<figcaption>product layer &amp; embedding layer</figcaption>
+</figure>
+<p><span>Product layer<span class="heti-spacing"> </span></span>由线性部分和非线性部分构成（<span><span class="arithmatex">\(f_{n} = W_{0}^{n}x[\mathrm{start_{n}: end_{n}}] \in \mathbb{R}^{M}, n \in [1..N]\)</span><span class="heti-spacing"> </span></span><sup id="fnref:1"><a class="footnote-ref" href="#fn:1"><span>1<span class="heti-spacing"> </span></span></a></sup>表示特征向量，<span>N<span class="heti-spacing"> </span></span>为特征数量，<span>M<span class="heti-spacing"> </span></span>为嵌入维度<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<details class="info">
+<summary>Tensor matrix inner product <span class="arithmatex">\(\odot\)</span></summary>
+<p>记符号<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\odot\)</span><span class="heti-spacing"> </span></span>在矩阵间使用时为：
+<span class="arithmatex">\(A\odot B\triangleq\sum_{i,j}A_{i,j}B_{i,j}\)</span></p>
+</details>
+<h3 id="线性模块">线性模块<a class="headerlink" href="#线性模块" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>线性模块输入由一阶特征（未经过显示特征交叉处理）直接获取<span><span class="heti-spacing"> </span><span class="arithmatex">\(<span class="arithmatex">\(z = (z_{1}, z_{2}, \dots, z_{N}) \triangleq (f_{1}, f_{2}, \dots, f_{N})\)</span>\)</span></p>
+<p>计算<span><span class="heti-spacing"> </span><span class="arithmatex">\(<span class="arithmatex">\(l_{z}^{d} = W_{z}^{d} \odot z = \sum_{i =1}^{N}\sum_{j = 1}^{M}(W_{z}^{d})_{i,j} \cdot z_{i, j}, d \in [1..D_{1}]\)</span>\)</span>
+得到 <span class="arithmatex">\(<span class="arithmatex">\(l_z=(l_z^1,l_z^2,...,l_z^{D_1}) \in \mathbb{R}^{D_{1}}\)</span>\)</p>
+<h3 id="非线性模块">非线性模块<a class="headerlink" href="#非线性模块" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>非线性模块输入由高阶特征（经过显示特征交叉处理） <span class="arithmatex">\(<span class="arithmatex">\(p = \{p_{i, j}\} \in \mathbb{R}^{N\times N}\)</span>\)
+计算 <span class="arithmatex">\(<span class="arithmatex">\(l_{p}^{d}=W_{p}^{d} \odot p = \sum_{i =1}^{N}\sum_{j = 1}^{M}(W_{z}^{d})_{i,j} \cdot p_{i, j}\)</span>\)
+得到 <span class="arithmatex">\(<span class="arithmatex">\(l_p=(l_p^1,l_p^2,...,l_p^{D_1}) \in \mathbb{R}^{D1}\)</span>\)</p>
+<h3 id="求解-p">求解<span><span class="heti-spacing"> </span>p</span><a class="headerlink" href="#求解-p" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>第一个隐藏层的计算为：<span class="arithmatex">\(l_{1} = \mathrm{relu}(l_{z} + l_{p} + b_{1})\)</span>，剩下的任务在于如何计算<span><span class="heti-spacing"> </span><span class="arithmatex">\(p_{i, j}\)</span></span> 。在<span class="heti-skip"><span class="heti-spacing"> </span>IPNN<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>OPNN<span class="heti-spacing"> </span></span>中有所区别。</p>
+<h4 id="IPNN">IPNN<a class="headerlink" href="#IPNN" title="Permanent link">¶</a></h4>
+<p><span>IPNN<span class="heti-spacing"> </span></span>取<span><span class="heti-spacing"> </span><span class="arithmatex">\(p_{i, j} = \left&lt; f_{i}, f_{j} \right&gt;\)</span></span> ，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(l_{p}^{d}=\sum_{i =1}^{N}\sum_{j = 1}^{M}(W_{z}^{d})_{i,j} \cdot p_{i, j} = \sum_{i =1}^{N}\sum_{j = 1}^{M}(W_{z}^{d})_{i,j} \cdot \left&lt; f_{i}, f_{j} \right&gt;\)</span></span>；结合<span class="heti-skip"><span class="heti-spacing"> </span>FM<span class="heti-spacing"> </span></span>中的<a href="#二阶交叉特征">二阶交叉特征</a> 操作有：</p>
+<div class="arithmatex">\[
+\begin{aligned}l_{p}^{d}&amp;=\sum_{i=1}^N\sum_{j=1}^N(W_p^d)_{i,j}p_{i,j}\\
+&amp;=\sum_{i=1}^N\sum_{j=1}^N\theta^d\theta^d&lt;f_i,f_j&gt;\\
+&amp;=\sum_{i=1}^N\sum_{j=1}^N&lt;\theta^d f_i,\theta^d f_j&gt;\\
+&amp;=&lt;\sum_{i=1}^N\theta^d f_i,\sum_{j=1}^N\theta^d f_j&gt;\\
+&amp;=||\sum_{i=1}^N\theta^d f_i||^2\end{aligned}
+\]</div>
+<h4 id="OPNN">OPNN<a class="headerlink" href="#OPNN" title="Permanent link">¶</a></h4>
+<p><span>OPNN<span class="heti-spacing"> </span></span>取<span><span class="heti-spacing"> </span><span class="arithmatex">\(p_{i, j} = f_{i}f_{j}^{T}\)</span></span> ，此时<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((W_{p}^{d})_{i, j}\)</span><span class="heti-spacing"> </span></span>应该是一个<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(N\times N\)</span><span class="heti-spacing"> </span></span>的矩阵，并改为矩阵内积：</p>
+<div class="arithmatex">\[
+l_p^n=W_p^n\odot p=\sum_{i=1}^N\sum_{j=1}^N(W_p^n)_{i,j}\odot p_{i,j}
+\]</div>
+<blockquote>
+<p>论文中也有优化而稍微修改了计算方式，这里按下不表。</p>
+</blockquote>
+<h2 id="DCN">DCN<a class="headerlink" href="#DCN" title="Permanent link">¶</a></h2>
+<p>在前面我们提到了很多“神经网络”，具体实现有非常多种，往往结合不同类型“层”堆叠成“网”。下面讨论<span><span class="heti-spacing"> </span>Deep&amp;Cross Network (DCN)</span> 。</p>
+<details class="extra">
+<summary>下面介绍的实际为<a href="https://arxiv.org/pdf/2008.13535"><span><span class="heti-spacing"> </span>DCN v2</span></a></summary>
+<p>基于<a href="https://arxiv.org/pdf/1708.05123"><span class="heti-skip"><span class="heti-spacing"> </span>DCN<span class="heti-spacing"> </span></span></a>实现，但是现在基本使用<span class="heti-skip"><span class="heti-spacing"> </span>v2<span class="heti-spacing"> </span></span>版本</p>
+</details>
+<h3 id="交叉层">交叉层<a class="headerlink" href="#交叉层" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在<span class="heti-skip"><span class="heti-spacing"> </span>DCN<span class="heti-spacing"> </span></span>中需要使用交叉层。</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-170904.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-170904.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-170904.png"/></a>
+<br/>
+<figcaption>交叉层</figcaption>
+</figure>
+<p>上图中红色方框内部分为一个交叉层：对于输入<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_{i}\)</span></span>，经过全连接层后得到<span><span class="heti-spacing"> </span>y</span>，与最初的输入执行<span class="heti-skip"><span class="heti-spacing"> </span>Hadamard<span class="heti-spacing"> </span></span>乘积（逐元素相乘，运算后维度保持不变，之后使用<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\odot\)</span><span class="heti-spacing"> </span></span>表示）得到<span><span class="heti-spacing"> </span>z</span>，最后与<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_{i}\)</span><span class="heti-spacing"> </span></span>相加得到<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_{i+1}\)</span></span>，公式表示为：</p>
+<div class="arithmatex">\[
+\mathbf{X}_{i+1} = \mathbf{X}_{0} \odot (W \cdot \mathbf{X}_{i} + b) + \mathbf{X}_{i}
+\]</div>
+<h3 id="交叉网络">交叉网络<a class="headerlink" href="#交叉网络" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>将上述交叉层堆叠形成交叉网络：</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-171913.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-171913.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-171913.png"/></a>
+<br/>
+<figcaption>交叉网络</figcaption>
+</figure>
+<p>将交叉网络与全连接层相结合，共同构成深度交叉网络<span><span class="heti-spacing"> </span>(DCN)</span>，可以在召回和排序模型中使用。</p>
+<h2 id="LHUC">LHUC<a class="headerlink" href="#LHUC" title="Permanent link">¶</a></h2>
+<p><span>LHUC(Learning Hidden Unit Contributions)<span class="heti-spacing"> </span></span>起源于语音识别领域，快手将其应用于推荐系统精排中，称为<span><span class="heti-spacing"> </span>PPNet</span>。</p>
+<h3 id="语音识别中的-LHUC">语音识别中的<span><span class="heti-spacing"> </span>LHUC</span><a class="headerlink" href="#语音识别中的-LHUC" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-195505.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-195505.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-195505.png"/></a>
+<br/>
+<figcaption>LHUC in Speech recognition</figcaption>
+</figure>
+<p>对于收到的语音信号和已有的说话者特征进行处理后进行<span class="heti-skip"><span class="heti-spacing"> </span>Hadamard<span class="heti-spacing"> </span></span>乘积得到输出，多层重复可以得到最终的输出。其中神经网络一般由多个全连接层构成，最后使用<span class="heti-skip"><span class="heti-spacing"> </span>sigmoid<span class="heti-spacing"> </span></span>的两倍来将输出向量的每个元素控制在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((0, 2)\)</span><span class="heti-spacing"> </span></span>范围内，用于对语音信号进行对应的放缩（两倍是经验性的一个抉择<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<h3 id="推荐系统中的-LHUC">推荐系统中的<span><span class="heti-spacing"> </span>LHUC</span><a class="headerlink" href="#推荐系统中的-LHUC" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>推荐系统中网络结构基本一致，对应使用物品特征和用户特征即可，用于精排阶段。</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-200244.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-200244.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-200244.png"/></a>
+<br/>
+<figcaption>LHUC in RecSys</figcaption>
+</figure>
+<h2 id="FiBiNet">FiBiNet<a class="headerlink" href="#FiBiNet" title="Permanent link">¶</a></h2>
+<p><a href="https://arxiv.org/abs/1905.09433"><span>FiBiNet<span class="heti-spacing"> </span></span></a>将<span class="heti-skip"><span class="heti-spacing"> </span>SENet<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>Bilinear Cross<span class="heti-spacing"> </span></span>进行了结合：</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-204336.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-204336.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-204336.png"/></a>
+<br/>
+<figcaption>FiBiNet</figcaption>
+</figure>
+<h3 id="SENet">SENet<a class="headerlink" href="#SENet" title="Permanent link">¶</a></h3>
+<p><span>SENet<span class="heti-spacing"> </span></span>是<a href="https://arxiv.org/abs/1709.01507"><span class="heti-skip"><span class="heti-spacing"> </span>Squeeze-and-Excitation Networks<span class="heti-spacing"> </span></span></a>的缩写，是一种自适应特征提取的注意力机制。给定<span class="heti-skip"><span class="heti-spacing"> </span>m<span class="heti-spacing"> </span></span>个离散特征，将其嵌入为向量（嵌入维度可以各不相同，出于简单暂时记为<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>维<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<ol>
+<li><span>Squeeze:<span class="heti-spacing"> </span></span>针对每个特征做<span><span class="heti-spacing"> </span>AvgPool</span>，即对特征向量元素求平均，得到<span class="heti-skip"><span class="heti-spacing"> </span>mx1<span class="heti-spacing"> </span></span>向量</li>
+<li><span>Excitation:<span class="heti-spacing"> </span></span>经过<span><span class="heti-spacing"> </span>FC+ReLU</span> 、<span>FC+Sigmoid<span class="heti-spacing"> </span></span>得到新的<span class="heti-skip"><span class="heti-spacing"> </span>mx1<span class="heti-spacing"> </span></span>向量，这个向量表征了特征的重要性</li>
+<li><span>Re-weight:<span class="heti-spacing"> </span></span>使用新向量对离散特征的嵌入向量做乘积得到新的整体嵌入向量</li>
+</ol>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-201403.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-201403.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-201403.png"/></a>
+<br/>
+<figcaption>SENet</figcaption>
+</figure>
+<p>不严谨地说，这里表征特征的嵌入向量即为一个<span><span class="heti-spacing"> </span>Field</span>，<span>SENet<span class="heti-spacing"> </span></span>即是对离散特征做<span class="heti-skip"><span class="heti-spacing"> </span>field-wise<span class="heti-spacing"> </span></span>加权；这有利于将大量低频无用的特征进行抛弃，强化高频有效特征的作用。</p>
+<h3 id="Bilinear-Cross">Bilinear Cross<a class="headerlink" href="#Bilinear-Cross" title="Permanent link">¶</a></h3>
+<p>目前我们使用的特征交叉方式有（都要求<span class="heti-skip"><span class="heti-spacing"> </span>field<span class="heti-spacing"> </span></span>的长度一致<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<ul>
+<li>内积<span><span class="heti-spacing"> </span>(Inner Product)</span>（余弦相似度本质没啥区别，只是归一化了）<ul>
+<li>从<span class="heti-skip"><span class="heti-spacing"> </span>m<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>field<span class="heti-spacing"> </span></span>中可以得到<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{m^{2}}{2}\)</span><span class="heti-spacing"> </span></span>个实数</li>
+</ul>
+</li>
+<li>Hadamard Product<ul>
+<li>从<span class="heti-skip"><span class="heti-spacing"> </span>m<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>field<span class="heti-spacing"> </span></span>中可以得到<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{m^{2}}{2}\)</span><span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>维向量</li>
+</ul>
+</li>
+</ul>
+<p><span>Bilinear Cross<span class="heti-spacing"> </span></span>能够支持不同长度的特征做做特征交叉，核心在于在中间添加一个参数矩阵。基于乘积方法分为内积版本和哈达玛乘积版本。</p>
+<h4 id="Inner-Product">Inner Product<a class="headerlink" href="#Inner-Product" title="Permanent link">¶</a></h4>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-203514.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-203514.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-203514.png"/></a>
+<br/>
+<figcaption>bilinear cross with inner product</figcaption>
+</figure>
+<p>如上图所示，特征交叉最后得到<span><span class="heti-spacing"> </span><span class="arithmatex">\(f_{ij} = x_{i}^{T} \cdot W_{ij} \cdot x_{j}\)</span></span> ；由于参数矩阵有可能较大，一般不会对所有特征做交叉，人工选取重要特征再来做交叉。</p>
+<h4 id="Hadamard-Product">Hadamard Product<a class="headerlink" href="#Hadamard-Product" title="Permanent link">¶</a></h4>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-203848.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-203848.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2509/02_250902-203848.png"/></a>
+<br/>
+<figcaption>Bilinear Cross with hadamard product</figcaption>
+</figure>
+<p>将第一个符号改为哈达玛乘积，可得到<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{m^{2}}{2}\)</span><span class="heti-spacing"> </span></span>个向量。</p>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn:1">
+<p>虽然已有<a href="https://www.sciengine.com/doi/pdf/624840dd0b9f425c8eed1caa54a31c1e">先例</a>使用<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\([n]\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\([n]-1\)</span><span class="heti-spacing"> </span></span>表示<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\{1, \dots, n\}\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\{0, 1, \dots, n-1\}\)</span><span class="heti-spacing"> </span></span>的整数集合，但是感觉不够灵活和方便；</p>
+<p>参考<span class="heti-skip"><span class="heti-spacing"> </span>rust<span class="heti-spacing"> </span></span>语法，使用<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(1..N\)</span><span class="heti-spacing"> </span></span>表示<span><span class="heti-spacing"> </span><span class="arithmatex">\(\{1, \dots, N-1\}\)</span></span>，而<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(1..=N\)</span><span class="heti-spacing"> </span></span>表示<span><span class="heti-spacing"> </span><span class="arithmatex">\(\{1, \dots, N\}\)</span></span>（仅个人使用，非普遍接受写法） <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月1日 22:41:59 CST">2026年7月1日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年9月10日 17:09:27 CST">2025年9月10日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../../js/katex.js"></script>
+<script src="../../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

@@ -1,0 +1,2395 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/tutorial/begin/Obsidian_begin/" rel="canonical"/>
+<link href="../Mkdocs_begin/" rel="prev"/>
+<link href="../Python_begin/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>Obsidian begin - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#Obsidian_begin">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Obsidian begin
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../note/">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../note/">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Tutorial
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../python_learn/crypto/">
+<span class="md-ellipsis">
+    
+  
+    python_learn
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_5_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    Begin
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_5_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Begin
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Emmet_begin/">
+<span class="md-ellipsis">
+    
+  
+    Emmet begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Mkdocs_begin/">
+<span class="md-ellipsis">
+    
+  
+    Mkdocs begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    Obsidian begin
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    Obsidian begin
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I-引言">
+<span class="md-ellipsis">
+      
+        I 引言
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II-阅读设置">
+<span class="md-ellipsis">
+      
+        II 阅读设置
+      
+    </span>
+</a>
+<nav aria-label="II 阅读设置" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II1-基本设置">
+<span class="md-ellipsis">
+      
+        II.1 基本设置
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III-使用教程">
+<span class="md-ellipsis">
+      
+        III 使用教程
+      
+    </span>
+</a>
+<nav aria-label="III 使用教程" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III1-链接">
+<span class="md-ellipsis">
+      
+        III.1 链接
+      
+    </span>
+</a>
+<nav aria-label="III.1 链接" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III11-内部链接">
+<span class="md-ellipsis">
+      
+        III.1.1 内部链接
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III12-外部链接">
+<span class="md-ellipsis">
+      
+        III.1.2 外部链接
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III13-反向链接">
+<span class="md-ellipsis">
+      
+        III.1.3 反向链接
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III14-嵌入文件">
+<span class="md-ellipsis">
+      
+        III.1.4 嵌入文件
+      
+    </span>
+</a>
+<nav aria-label="III.1.4 嵌入文件" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III141-图片音频">
+<span class="md-ellipsis">
+      
+        III.1.4.1 图片&amp;音频
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III142-PDF">
+<span class="md-ellipsis">
+      
+        III.1.4.2 PDF
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III143-嵌入笔记">
+<span class="md-ellipsis">
+      
+        III.1.4.3 嵌入笔记
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III144-链接笔记">
+<span class="md-ellipsis">
+      
+        III.1.4.4 链接笔记
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III145-iframe">
+<span class="md-ellipsis">
+      
+        III.1.4.5 iframe
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III2-创建表格">
+<span class="md-ellipsis">
+      
+        III.2 创建表格
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III3-标签">
+<span class="md-ellipsis">
+      
+        III.3 标签
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III4-关系图谱">
+<span class="md-ellipsis">
+      
+        III.4 关系图谱
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III5-任务列表">
+<span class="md-ellipsis">
+      
+        III.5 任务列表
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III6-脚注">
+<span class="md-ellipsis">
+      
+        III.6 脚注
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III7-文件大纲目录">
+<span class="md-ellipsis">
+      
+        III.7 文件大纲（目录）
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III8-模板">
+<span class="md-ellipsis">
+      
+        III.8 模板
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III9-日记">
+<span class="md-ellipsis">
+      
+        III.9 日记
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III10-笔记重组">
+<span class="md-ellipsis">
+      
+        III.10 笔记重组
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III11-PPT">
+<span class="md-ellipsis">
+      
+        III.11 PPT
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III12-块链接与块引用">
+<span class="md-ellipsis">
+      
+        III.12 块链接与块引用
+      
+    </span>
+</a>
+<nav aria-label="III.12 块链接与块引用" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III121-块链接">
+<span class="md-ellipsis">
+      
+        III.12.1 块链接
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III122-块引用">
+<span class="md-ellipsis">
+      
+        III.12.2 块引用
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III123-手动创建块-ID">
+<span class="md-ellipsis">
+      
+        III.12.3 手动创建块 ID
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III13-LaTeX">
+<span class="md-ellipsis">
+      
+        III.13 LaTeX
+      
+    </span>
+</a>
+<nav aria-label="III.13 LaTeX" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III131-符号类">
+<span class="md-ellipsis">
+      
+        III.13.1 符号类
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III132-命令">
+<span class="md-ellipsis">
+      
+        III.13.2 命令
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III133-不等式">
+<span class="md-ellipsis">
+      
+        III.13.3 （不）等式
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III134-插件-latex-suite">
+<span class="md-ellipsis">
+      
+        III.13.4 插件-latex suite
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III135-空格">
+<span class="md-ellipsis">
+      
+        III.13.5 空格
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III14-标注-Callouts">
+<span class="md-ellipsis">
+      
+        III.14 标注 (Callouts)
+      
+    </span>
+</a>
+<nav aria-label="III.14 标注 (Callouts)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III141-基本使用">
+<span class="md-ellipsis">
+      
+        III.14.1 基本使用
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III142-自定义">
+<span class="md-ellipsis">
+      
+        III.14.2 自定义
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III143-Admonitions-插件">
+<span class="md-ellipsis">
+      
+        III.14.3 Admonitions （插件）
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV-插件推荐">
+<span class="md-ellipsis">
+      
+        IV 插件推荐：
+      
+    </span>
+</a>
+<nav aria-label="IV 插件推荐：" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV1-Admonition">
+<span class="md-ellipsis">
+      
+        IV.1 Admonition
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV2-Calendar">
+<span class="md-ellipsis">
+      
+        IV.2 Calendar
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV3-Easy-Typing">
+<span class="md-ellipsis">
+      
+        IV.3 Easy Typing
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV4-Latex-Suite">
+<span class="md-ellipsis">
+      
+        IV.4 Latex Suite
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV5-Mousewheel-Image-zoom">
+<span class="md-ellipsis">
+      
+        IV.5 Mousewheel Image zoom
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV6-Number-Headings">
+<span class="md-ellipsis">
+      
+        IV.6 Number Headings
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV7-Paste-image-rename">
+<span class="md-ellipsis">
+      
+        IV.7 Paste image rename
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV8-Paste-URL-into-selection">
+<span class="md-ellipsis">
+      
+        IV.8 Paste URL into selection
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV9-PDF">
+<span class="md-ellipsis">
+      
+        IV.9 PDF++
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV10-Style-Settings">
+<span class="md-ellipsis">
+      
+        IV.10 Style Settings
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV11-Typewriter-Mode">
+<span class="md-ellipsis">
+      
+        IV.11 Typewriter Mode
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Python_begin/">
+<span class="md-ellipsis">
+    
+  
+    Python begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Requirements_begin/">
+<span class="md-ellipsis">
+    
+  
+    Requirements begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Typst_begin/">
+<span class="md-ellipsis">
+    
+  
+    Typst begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Url_begin/">
+<span class="md-ellipsis">
+    
+  
+    Url begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Utools_begin/">
+<span class="md-ellipsis">
+    
+  
+    Utools begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../chrome_begin/">
+<span class="md-ellipsis">
+    
+  
+    Chrome begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../logisim_begin/">
+<span class="md-ellipsis">
+    
+  
+    Logisim begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../vim_begin/">
+<span class="md-ellipsis">
+    
+  
+    Vim begin
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../zsh_begin/">
+<span class="md-ellipsis">
+    
+  
+    Zsh begin
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../skill_learn/">
+<span class="md-ellipsis">
+    
+  
+    Skill_learn
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I-引言">
+<span class="md-ellipsis">
+      
+        I 引言
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II-阅读设置">
+<span class="md-ellipsis">
+      
+        II 阅读设置
+      
+    </span>
+</a>
+<nav aria-label="II 阅读设置" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II1-基本设置">
+<span class="md-ellipsis">
+      
+        II.1 基本设置
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III-使用教程">
+<span class="md-ellipsis">
+      
+        III 使用教程
+      
+    </span>
+</a>
+<nav aria-label="III 使用教程" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III1-链接">
+<span class="md-ellipsis">
+      
+        III.1 链接
+      
+    </span>
+</a>
+<nav aria-label="III.1 链接" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III11-内部链接">
+<span class="md-ellipsis">
+      
+        III.1.1 内部链接
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III12-外部链接">
+<span class="md-ellipsis">
+      
+        III.1.2 外部链接
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III13-反向链接">
+<span class="md-ellipsis">
+      
+        III.1.3 反向链接
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III14-嵌入文件">
+<span class="md-ellipsis">
+      
+        III.1.4 嵌入文件
+      
+    </span>
+</a>
+<nav aria-label="III.1.4 嵌入文件" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III141-图片音频">
+<span class="md-ellipsis">
+      
+        III.1.4.1 图片&amp;音频
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III142-PDF">
+<span class="md-ellipsis">
+      
+        III.1.4.2 PDF
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III143-嵌入笔记">
+<span class="md-ellipsis">
+      
+        III.1.4.3 嵌入笔记
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III144-链接笔记">
+<span class="md-ellipsis">
+      
+        III.1.4.4 链接笔记
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III145-iframe">
+<span class="md-ellipsis">
+      
+        III.1.4.5 iframe
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III2-创建表格">
+<span class="md-ellipsis">
+      
+        III.2 创建表格
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III3-标签">
+<span class="md-ellipsis">
+      
+        III.3 标签
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III4-关系图谱">
+<span class="md-ellipsis">
+      
+        III.4 关系图谱
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III5-任务列表">
+<span class="md-ellipsis">
+      
+        III.5 任务列表
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III6-脚注">
+<span class="md-ellipsis">
+      
+        III.6 脚注
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III7-文件大纲目录">
+<span class="md-ellipsis">
+      
+        III.7 文件大纲（目录）
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III8-模板">
+<span class="md-ellipsis">
+      
+        III.8 模板
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III9-日记">
+<span class="md-ellipsis">
+      
+        III.9 日记
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III10-笔记重组">
+<span class="md-ellipsis">
+      
+        III.10 笔记重组
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III11-PPT">
+<span class="md-ellipsis">
+      
+        III.11 PPT
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III12-块链接与块引用">
+<span class="md-ellipsis">
+      
+        III.12 块链接与块引用
+      
+    </span>
+</a>
+<nav aria-label="III.12 块链接与块引用" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III121-块链接">
+<span class="md-ellipsis">
+      
+        III.12.1 块链接
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III122-块引用">
+<span class="md-ellipsis">
+      
+        III.12.2 块引用
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III123-手动创建块-ID">
+<span class="md-ellipsis">
+      
+        III.12.3 手动创建块 ID
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III13-LaTeX">
+<span class="md-ellipsis">
+      
+        III.13 LaTeX
+      
+    </span>
+</a>
+<nav aria-label="III.13 LaTeX" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III131-符号类">
+<span class="md-ellipsis">
+      
+        III.13.1 符号类
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III132-命令">
+<span class="md-ellipsis">
+      
+        III.13.2 命令
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III133-不等式">
+<span class="md-ellipsis">
+      
+        III.13.3 （不）等式
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III134-插件-latex-suite">
+<span class="md-ellipsis">
+      
+        III.13.4 插件-latex suite
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III135-空格">
+<span class="md-ellipsis">
+      
+        III.13.5 空格
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III14-标注-Callouts">
+<span class="md-ellipsis">
+      
+        III.14 标注 (Callouts)
+      
+    </span>
+</a>
+<nav aria-label="III.14 标注 (Callouts)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III141-基本使用">
+<span class="md-ellipsis">
+      
+        III.14.1 基本使用
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III142-自定义">
+<span class="md-ellipsis">
+      
+        III.14.2 自定义
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III143-Admonitions-插件">
+<span class="md-ellipsis">
+      
+        III.14.3 Admonitions （插件）
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV-插件推荐">
+<span class="md-ellipsis">
+      
+        IV 插件推荐：
+      
+    </span>
+</a>
+<nav aria-label="IV 插件推荐：" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV1-Admonition">
+<span class="md-ellipsis">
+      
+        IV.1 Admonition
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV2-Calendar">
+<span class="md-ellipsis">
+      
+        IV.2 Calendar
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV3-Easy-Typing">
+<span class="md-ellipsis">
+      
+        IV.3 Easy Typing
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV4-Latex-Suite">
+<span class="md-ellipsis">
+      
+        IV.4 Latex Suite
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV5-Mousewheel-Image-zoom">
+<span class="md-ellipsis">
+      
+        IV.5 Mousewheel Image zoom
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV6-Number-Headings">
+<span class="md-ellipsis">
+      
+        IV.6 Number Headings
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV7-Paste-image-rename">
+<span class="md-ellipsis">
+      
+        IV.7 Paste image rename
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV8-Paste-URL-into-selection">
+<span class="md-ellipsis">
+      
+        IV.8 Paste URL into selection
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV9-PDF">
+<span class="md-ellipsis">
+      
+        IV.9 PDF++
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV10-Style-Settings">
+<span class="md-ellipsis">
+      
+        IV.10 Style Settings
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV11-Typewriter-Mode">
+<span class="md-ellipsis">
+      
+        IV.11 Typewriter Mode
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Tutorial
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    Begin
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:begin">begin</a>
+</nav>
+<hr/>
+<h1 id="Obsidian_begin">Obsidian_begin<a class="headerlink" href="#Obsidian_begin" title="Permanent link">¶</a></h1>
+<details class="summary">
+<summary>Summary</summary>
+<p><span>Obsidian<span class="heti-spacing"> </span></span>是一款流行的笔记软件，以其灵活性和可定制性而闻名。</p>
+<ul>
+<li><strong>笔记组织：</strong> <span>Obsidian<span class="heti-spacing"> </span></span>使用双向链接系统，允许用户轻松地将笔记相互连接，形成一个知识网络。</li>
+<li><strong>可定制性：</strong> <span>Obsidian<span class="heti-spacing"> </span></span>提供广泛的插件和主题，用户可以根据自己的需求定制软件。</li>
+<li><strong><span>Markdown<span class="heti-spacing"> </span></span>支持：</strong> <span>Obsidian<span class="heti-spacing"> </span></span>支持<span class="heti-skip"><span class="heti-spacing"> </span>Markdown<span class="heti-spacing"> </span></span>语法，使笔记书写和格式化变得容易。</li>
+<li><strong>离线使用：</strong> <span>Obsidian<span class="heti-spacing"> </span></span>可以在没有互联网连接的情况下使用，确保笔记的隐私和安全性。</li>
+</ul>
+</details>
+<!-- more -->
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>由于部分<span><span class="heti-spacing"> </span>obsidian</span>（后文可能简称<span><span class="heti-spacing"> </span>ob</span>） 的格式在<span class="heti-skip"><span class="heti-spacing"> </span>mkdocs<span class="heti-spacing"> </span></span>上无法很好地显现出来，你可以下载<a download="download" href="../attachments/obsidian_begin.zip"><span class="heti-skip"><span class="heti-spacing"> </span>obsidian_begin.zip<span class="heti-spacing"> </span></span></a>跟着操作或在<a href="../attachments/Obsidian_begin.pdf" obsidian_begin.pdf:download="Obsidian_begin.pdf:download"><span class="heti-skip"><span class="heti-spacing"> </span>Obsidian_begin.pdf<span class="heti-spacing"> </span></span></a>查看效果。</p>
+</div>
+<h2 id="I-引言"><span>I<span class="heti-spacing"> </span></span>引言<a class="headerlink" href="#I-引言" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<div class="admonition wiki">
+<p class="admonition-title">Wiki</p>
+<p><span>Obsidian<span class="heti-spacing"> </span></span>是使用<span class="heti-skip"><span class="heti-spacing"> </span>Markdown<span class="heti-spacing"> </span></span>语法的闭源笔记软件。用户可以在笔记间建立双向链接，并且可以探索这些笔记连接形成的关系图谱。该软件旨在帮助用户以一种灵活的、非线性的方式来组织和构架他们的想法和知识。</p>
+</div>
+<p>基本的下载、创建、导入笔记在 <a href="https://publish.obsidian.md/help-zh/%E7%94%B1%E6%AD%A4%E5%BC%80%E5%A7%8B#%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97">入门指南</a> 十分清晰，不加赘述。</p>
+<details class="help">
+<summary><a href="https://obsidian.vip/zh/"><span>obsidian<span class="heti-spacing"> </span></span>文档咖啡豆版</a></summary>
+<p><a href="https://obsidian.vip/zh/"><span>obsidian<span class="heti-spacing"> </span></span>文档咖啡豆版</a> 真的是一个很好地探索<span class="heti-skip"><span class="heti-spacing"> </span>obsidian<span class="heti-spacing"> </span></span>的文档，这里更多收纳的是我个人的包括但不限于从其中取得的实现；美中不足的是该网站搜索出来后跳转愚笨（不知道是不是我这里的问题<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，可以用<a href="../attachments/Obsidian_begin-12.png">搜索引擎解决</a>。</p>
+</details>
+<h2 id="II-阅读设置"><span>II<span class="heti-spacing"> </span></span>阅读设置<a class="headerlink" href="#II-阅读设置" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p><span>obsidian<span class="heti-spacing"> </span></span>高度可定制化（<span>css/js<span class="heti-spacing"> </span></span>大佬可以把这个软件外观变得花里胡哨的）是其一大特点，下面的设置能够提高阅读体验；提示，在<span class="heti-skip"><span class="heti-spacing"> </span>ob<span class="heti-spacing"> </span></span>中按住 <code>ctrl</code> （或者<span class="heti-skip"><span class="heti-spacing"> </span>mac<span class="heti-spacing"> </span></span>对应键<heti-adjacent class="heti-adjacent-half">？</heti-adjacent>）可以预览链接笔记内容；如果希望预览网页，可以添加一个 <code>Surfing</code> 插件，详见后文。</p>
+<h3 id="II1-基本设置"><span>II.1<span class="heti-spacing"> </span></span>基本设置<a class="headerlink" href="#II1-基本设置" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li>关于<ul>
+<li><a href="../attachments/Obsidian_begin-7.png">设置语言为中文</a>；</li>
+</ul>
+</li>
+<li>编辑器<ul>
+<li>都很容易明白，自主抉择，基本都可以勾选；</li>
+</ul>
+</li>
+<li>文件与链接<ul>
+<li><a href="../attachments/Obsidian_begin-8.png">如图</a>，建议是使用相对地址，因为笔记难以避免会移动；</li>
+</ul>
+</li>
+<li>插件<ul>
+<li>核心插件官方文档很齐全了；</li>
+<li>社区插件在墙外，<a href="https://pkmer.cn/Pkmer-Docs/10-obsidian/obsidian%E7%A4%BE%E5%8C%BA%E6%8F%92%E4%BB%B6/obsidian%E7%A4%BE%E5%8C%BA%E6%8F%92%E4%BB%B6/"><span>pkmer<span class="heti-spacing"> </span></span></a>是一个解决办法，也可以在<a href="https://obsidian.md/plugins">这里</a>下载；</li>
+</ul>
+</li>
+<li>外观（部分效果需要重启<span class="heti-skip"><span class="heti-spacing"> </span>obsidian<span class="heti-spacing"> </span></span>实现）<ul>
+<li><a href="../attachments/Obsidian_begin-9.png">如图</a>，可以设置主题颜色，同时管理中可以选择自己喜欢的主题使用，热门主题往往是有进一步定制化的可能性，可能使用 <code>sytle settings</code> 插件。</li>
+<li>字体可以<a href="https://obsidian.vip/zh/best-practices/obsidian-font-LXGW.html">设置使用霞鹭文楷</a> ，记得放在最上边；</li>
+<li>往下滑，可以看见<a href="../attachments/Obsidian_begin-10.png"><span class="heti-skip"><span class="heti-spacing"> </span>CSS<span class="heti-spacing"> </span></span>代码片段</a>；这里允许我们使用自己的<span class="heti-skip"><span class="heti-spacing"> </span>css<span class="heti-spacing"> </span></span>来覆盖软件本身的一些设置；<ul>
+<li>简单使用：<ul>
+<li>点击上图中右上角“文件夹图标”，将<span class="heti-skip"><span class="heti-spacing"> </span>xx.css<span class="heti-spacing"> </span></span>文件放入其中；</li>
+<li>返回来，点击“刷新图标”，将对应开关打开，再次刷新；</li>
+<li>此时应当呈现应有的效果了，如没有，重启<span class="heti-skip"><span class="heti-spacing"> </span>ob<span class="heti-spacing"> </span></span>试试；</li>
+<li>如果某些插件也有类似效果可能会冲突；</li>
+</ul>
+</li>
+<li><a href="../attachments/snippets.zip">snippets</a><ul>
+<li>custom-admonitions：用于自定义插件<a href="../attachments/Obsidian_begin-11.png"><span><span class="heti-spacing"> </span>admonitions</span></a>；</li>
+<li>img_center：使得<strong>本地</strong>图片居中显示，图床图片暂时没能实现；当然可能有的主题本身支持这一功能，择需使用；</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>快捷键<ul>
+<li>自行设置，比如可以让 <code>Alt+1</code> 表示一级标题，依次类推……</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>如果你只是来使用<span class="heti-skip"><span class="heti-spacing"> </span>obsidian<span class="heti-spacing"> </span></span>阅读已有的笔记，那么暂时够了。</p>
+</blockquote>
+<h2 id="III-使用教程"><span>III<span class="heti-spacing"> </span></span>使用教程<a class="headerlink" href="#III-使用教程" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="III1-链接"><span>III.1<span class="heti-spacing"> </span></span>链接<a class="headerlink" href="#III1-链接" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>最让我惊喜的是这里显示文件并不考虑大小写、不讲究路径，它会在全库中按名字搜索（当然考虑到移植性，能加当加<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，也可在左下角 <code>设置&gt;文件与链接</code> 中如下设置，这样拖进来的文件就会给出相对路径（当然也可以设置绝对路径，但是考虑到文件可能移动，相对路径往往是一个比较好的选择）</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Obsidian_begin-1.png"><img alt="|675" src="../attachments/Obsidian_begin-1.png"/></a></p>
+<h4 id="III11-内部链接"><span>III.1.1<span class="heti-spacing"> </span></span>内部链接<a class="headerlink" href="#III11-内部链接" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>在<span class="heti-skip"><span class="heti-spacing"> </span>Markdown<span class="heti-spacing"> </span></span>中我们使用  <code>[]()</code>  来构成链接，而在<span class="heti-skip"><span class="heti-spacing"> </span>Obsidian<span class="heti-spacing"> </span></span>中我们可以使用<span class="heti-skip"><span class="heti-spacing"> </span>Wiki<span class="heti-spacing"> </span></span>链接，如下，也是在 <code>设置&gt;文件与链接</code> 中</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Obsidian_begin.png"><img alt="" src="../attachments/Obsidian_begin.png"/></a></p>
+<p>通过 <code>[[]]</code> 我们可以构造一个内部链接（即链接到库内部的文件的链接）</p>
+<p>例如：输入两个 <code>[</code> ，<strong>我们就可以在弹出的文件名中选择文件再敲击</strong><code>enter</code>即可</p>
+<p>详细用法敲两个 <code>[</code> 在下方能看见，不再赘述</p>
+<p>此外， <code>[[文件名#标题名]]</code> 可以将超链接指向具体段落</p>
+<p><code>[[文件名#标题|显示内容]]</code> 可以将显示出来的内容做出修改</p>
+<blockquote>
+<p>但是仍建议使用标准<span class="heti-skip"><span class="heti-spacing"> </span>markdown<span class="heti-spacing"> </span></span>以提高移植性，而 <code>[[]]</code> 的快捷方式依旧适用，<span>ob<span class="heti-spacing"> </span></span>会自动进行转换；后面的教程仍使用 <code>[[]]</code> 也无妨，等同于 <code>[]()</code>。</p>
+</blockquote>
+<h4 id="III12-外部链接"><span>III.1.2<span class="heti-spacing"> </span></span>外部链接<a class="headerlink" href="#III12-外部链接" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>通过 <code>[文本](url)</code> 我们可以很容易地构建一个外部链接，例如我们上面已经见过的<a href="https://markdown.com.cn/"><span class="heti-skip"><span class="heti-spacing"> </span>Markdown<span class="heti-spacing"> </span></span>官方教程</a> 。</p>
+<h4 id="III13-反向链接"><span>III.1.3<span class="heti-spacing"> </span></span>反向链接<a class="headerlink" href="#III13-反向链接" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>开启了 <code>核心插件-反向链接</code> 后，会默认在文章底部给出当前引用该文章的来源，你可以看看那里引用了这篇文章。</p>
+<h4 id="III14-嵌入文件"><span>III.1.4<span class="heti-spacing"> </span></span>嵌入文件<a class="headerlink" href="#III14-嵌入文件" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>^id</p>
+<h5 id="III141-图片音频"><span>III.1.4.1<span class="heti-spacing"> </span></span>图片<span class="heti-skip"><span class="heti-spacing"> </span>&amp;<span class="heti-spacing"> </span></span>音频<a class="headerlink" href="#III141-图片音频" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h5>
+<p>可以将图片或者音频等附件嵌入到你的笔记中</p>
+<p>嵌入文件的语法为<span><span class="heti-spacing"> </span></span><code>![[文件名.文件扩展名]]</code></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/sllh.png"><img alt="|500" src="../attachments/sllh.png"/></a></p>
+<p>拖动图片到笔记中时，图片会自动嵌入笔记，并且<span class="heti-skip"><span class="heti-spacing"> </span>Obsidian<span class="heti-spacing"> </span></span>会将图片文件复制到默认的附件文件夹中；配合<span class="heti-skip"><span class="heti-spacing"> </span>Paste image rename<span class="heti-spacing"> </span></span>插件，我们可以更加好的去整理图片附件。</p>
+<p>一般的嵌入，使用<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>![[image.png|100x100]]</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>这样的语法可以控制大小</p>
+<p>如果要根据图像的宽高比例进行缩放，请省略高度，如<span><span class="heti-spacing"> </span></span><code>![[image.png|100]]</code>。</p>
+<p>一个好用的插件是 <strong>mousewheel image zoom</strong> 让我们可以滚动鼠标滚轮放缩图片</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/obsidian_begin-6.jpg"><img alt="|500" src="../attachments/obsidian_begin-6.jpg"/></a></p>
+<h5 id="III142-PDF">III.1.4.2 PDF<a class="headerlink" href="#III142-PDF" title="Permanent link">¶</a></h5>
+<p>可以通过相同的语法将<span class="heti-skip"><span class="heti-spacing"> </span>PDF<span class="heti-spacing"> </span></span>文件嵌入到笔记中</p>
+<p>除此之外，可以通过<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>![[My File.pdf#page=number]]</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>这样的形式直接指定嵌入<span class="heti-skip"><span class="heti-spacing"> </span>PDF<span class="heti-spacing"> </span></span>文件的页码</p>
+<h5 id="III143-嵌入笔记"><span>III.1.4.3<span class="heti-spacing"> </span></span>嵌入笔记<a class="headerlink" href="#III143-嵌入笔记" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h5>
+<p><code>![Typst_begin](Typst_begin.md#基本介绍)</code> 效果如下（网站上不一定能够显示正确可以在<span class="heti-skip"><span class="heti-spacing"> </span>Obsidian<span class="heti-spacing"> </span></span>中自己尝试新建另一个文档，随便写一点东西，然后将路径修改即可<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../Typst_begin/#基本介绍"><img alt="Typst_begin" src="../Typst_begin/#基本介绍"/></a></p>
+<h5 id="III144-链接笔记"><span>III.1.4.4<span class="heti-spacing"> </span></span>链接笔记<a class="headerlink" href="#III144-链接笔记" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h5>
+<p><a href="https://publish.obsidian.md/help-zh/%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/%E4%BD%BF%E7%94%A8+obsidian+URI"><span>Obsidian URI<span class="heti-spacing"> </span></span></a><span><span class="heti-spacing"> </span></span>可以让你在其他应用或<span class="heti-skip"><span class="heti-spacing"> </span>Obsidian<span class="heti-spacing"> </span></span>的其他库中打开当前库的某篇笔记。</p>
+<p>比如，你可以通过以下方式跳转到某个库中的某篇笔记（请注意<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><a href="https://publish.obsidian.md/help-zh/%E6%89%A9%E5%B1%95+Obsidian/Obsidian+URI"><span class="heti-skip"><span class="heti-spacing"> </span>URI<span class="heti-spacing"> </span></span>的编码</a><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<p><code>[打开某篇笔记](obsidian://open?path=D:%2Fpath%2Fto%2Ffile.md)</code></p>
+<h5 id="III145-iframe">III.1.4.5 iframe<a class="headerlink" href="#III145-iframe" title="Permanent link">¶</a></h5>
+<p>由于<span class="heti-skip"><span class="heti-spacing"> </span>Markdown<span class="heti-spacing"> </span></span>兼容<span><span class="heti-spacing"> </span>HTML</span>，因此你可以使用“iframe”将网页嵌入到笔记中，效果如下</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>当然我认为在<span class="heti-skip"><span class="heti-spacing"> </span>obsidian<span class="heti-spacing"> </span></span>中，更好的方法还是直接放超链接，并且按住 <code>Ctrl</code> 将鼠标放在链接上就能预览。</p>
+</div>
+<p><iframe border="0" frameborder="0" height="420" src="https:/darstib.github.io/" width="720">
+</iframe>
+</p>
+<p>一些网站并不允许你直接嵌入它们的页面。比如，你就不能通过<span class="heti-skip"><span class="heti-spacing"> </span>YouTube<span class="heti-spacing"> </span></span>视频页面的<span class="heti-skip"><span class="heti-spacing"> </span>URL<span class="heti-spacing"> </span></span>来嵌入该页面。但是，这些网站一般都提供了用于嵌入的<span><span class="heti-spacing"> </span>URL</span>，比如你可以通过<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>https://www.youtube.com/embed/VIDEO_ID</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>这样的专用<span class="heti-skip"><span class="heti-spacing"> </span>URL<span class="heti-spacing"> </span></span>来嵌入<span class="heti-skip"><span class="heti-spacing"> </span>YouTube<span class="heti-spacing"> </span></span>的视频页面。</p>
+<p>如果你想嵌入一个网站，可以尝试在搜索引擎上<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>{网页名} 嵌入 iframe</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>等关键词，这样能帮助你更快速的嵌入某个网站。</p>
+<p>比如，你可以利用搜索结果给出的代码快速插入<span><span class="heti-spacing"> </span>Twitter</span>：</p>
+<div class="highlight"><span class="filename">HTML</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos="1 "></span></a><span class="p">&lt;</span><span class="nt">iframe</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos" data-linenos="2 "></span></a>    <span class="na">border</span><span class="o">=</span><span class="s">0</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><a href="#__codelineno-0-3"><span class="linenos" data-linenos="3 "></span></a>    <span class="na">frameborder</span><span class="o">=</span><span class="s">0</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><a href="#__codelineno-0-4"><span class="linenos" data-linenos="4 "></span></a>    <span class="na">height</span><span class="o">=</span><span class="s">250</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><a href="#__codelineno-0-5"><span class="linenos" data-linenos="5 "></span></a>    <span class="na">width</span><span class="o">=</span><span class="s">550</span>  
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><a href="#__codelineno-0-6"><span class="linenos" data-linenos="6 "></span></a>    <span class="na">src</span><span class="o">=</span><span class="s">"https://twitframe.com/show?url=https%3A%2F%2Ftwitter.com%2Fjack%2Fstatus%2F20"</span><span class="p">&gt;</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><a href="#__codelineno-0-7"><span class="linenos" data-linenos="7 "></span></a><span class="p">&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<h3 id="III2-创建表格"><span>III.2<span class="heti-spacing"> </span></span>创建表格<a class="headerlink" href="#III2-创建表格" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><code>Ctrl+T</code> 创建表格，<code>ctrl+方向键</code> 增加表格（这是自己设置的）其余慢慢探索</p>
+<table>
+<thead>
+<tr>
+<th>Header1</th>
+<th>Header2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content</td>
+<td>Content</td>
+</tr>
+</tbody>
+</table>
+<h3 id="III3-标签"><span>III.3<span class="heti-spacing"> </span></span>标签<a class="headerlink" href="#III3-标签" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>加上标签无疑能使的我们寻找笔记更加方便</p>
+<p>既可以随时随地 <code>#标签</code> （注意无空格）设立标签，又可以像本文一样在开头加上 <strong>文档属性</strong></p>
+<p>同时可以 <code>#tag/subtag</code> 的形式构建子标签，还是很方便的</p>
+<p>由于我换掉了快捷键，只能 <code>ctrl+shift+p</code> 呼出面板后搜索放出标签列表了</p>
+<h3 id="III4-关系图谱"><span>III.4<span class="heti-spacing"> </span></span>关系图谱<a class="headerlink" href="#III4-关系图谱" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在笔记多了后文章之间相互链接形成的图谱，左侧类似于 <code>fork</code> 的图标既是，还可在右上方三点出打开与本文直接相关的局部图谱</p>
+<h3 id="III5-任务列表"><span>III.5<span class="heti-spacing"> </span></span>任务列表<a class="headerlink" href="#III5-任务列表" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="highlight"><span class="filename">Markdown</span><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos" data-linenos="1 "></span></a><span class="k">- [x]</span> 支持 <span class="ni">#标签</span> ，[链接]()，**样式**
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><a href="#__codelineno-1-2"><span class="linenos" data-linenos="2 "></span></a><span class="k">- [x]</span> 要求包含列表标志（有序表无序表均可，比如 <span class="sb">`1.[x]`</span> 同样可以）
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><a href="#__codelineno-1-3"><span class="linenos" data-linenos="3 "></span></a><span class="k">- [x]</span> 这是一个已经完成的项目
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><a href="#__codelineno-1-4"><span class="linenos" data-linenos="4 "></span></a><span class="k">-</span><span class="w"> </span>[?] 这也是一个已完成的项目（实际上你可以在其中使用任何字符）
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><a href="#__codelineno-1-5"><span class="linenos" data-linenos="5 "></span></a><span class="k">- [ ]</span> 这是一个未完成的项目
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a><a href="#__codelineno-1-6"><span class="linenos" data-linenos="6 "></span></a><span class="k">- [ ]</span> 在预览模式下单击选框可以切换项目完成状态
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> 支持<span><span class="heti-spacing"> </span></span><a href="https://publish.obsidian.md/#%E6%A0%87%E7%AD%BE"><span><span class="heti-spacing"> </span>#tag</span></a><span><span class="heti-spacing"> </span></span>，<a href="https://obsidian.md/">链接</a>，<strong>样式</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> 要求包含列表标志（有序表无序表均可，比如<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>1.[x]</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>同样可以）</li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> 这是一个已经完成的项目</li>
+<li><span>[a]<span class="heti-spacing"> </span></span>这也是一个已完成的项目（实际上你可以在其中使用任何字符）</li>
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> 这是一个未完成的项目</li>
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> 在预览<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>阅读模式下单击选框可以切换项目完成状态</li>
+</ul>
+<p>使用<span class="heti-skip"><span class="heti-spacing"> </span>Minimal<span class="heti-spacing"> </span></span>主题我发现有更加花哨的用法，我用它来列举自己每天干了什么事情，相当于一个总结吧。</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><a href="#__codelineno-2-1"><span class="linenos" data-linenos=" 1 "></span></a>- [*] 这是一个较有意义的项目 
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><a href="#__codelineno-2-2"><span class="linenos" data-linenos=" 2 "></span></a>- [x] 这是一个已经完成的项目
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><a href="#__codelineno-2-3"><span class="linenos" data-linenos=" 3 "></span></a>- [/] 这是一个有待继续的项目
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><a href="#__codelineno-2-4"><span class="linenos" data-linenos=" 4 "></span></a>- [?] 这是一个存在问题的项目
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><a href="#__codelineno-2-5"><span class="linenos" data-linenos=" 5 "></span></a>- [!] 这是一个十分重要的项目
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><a href="#__codelineno-2-6"><span class="linenos" data-linenos=" 6 "></span></a>- ["] 这是一个有所受益的项目
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a><a href="#__codelineno-2-7"><span class="linenos" data-linenos=" 7 "></span></a>- [-] 这是一个无关紧要的项目
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a><a href="#__codelineno-2-8"><span class="linenos" data-linenos=" 8 "></span></a>- [&lt;] 这是一个公事公办的项目
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a><a href="#__codelineno-2-9"><span class="linenos" data-linenos=" 9 "></span></a>- [&gt;] 这是一个休闲娱乐的项目
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a><a href="#__codelineno-2-10"><span class="linenos" data-linenos="10 "></span></a>- [ ] 这是一个尚未开始的项目
+</span></code></pre></div>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Obsidian_begin-6.png"><img alt="" src="../attachments/Obsidian_begin-6.png"/></a></p>
+<h3 id="III6-脚注"><span>III.6<span class="heti-spacing"> </span></span>脚注<a class="headerlink" href="#III6-脚注" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>脚注的用法很简单，只需要在段落中需要插入脚注的地方标注一个符号，再在段落后对这个符号进行解释即可。比如这是一个简单的脚注，<sup id="fnref:1"><a class="footnote-ref" href="#fn:1"><span>1<span class="heti-spacing"> </span></span></a></sup>这是一个长一些的脚注。<sup id="fnref:长脚注"><a class="footnote-ref" href="#fn:长脚注">2</a></sup></p>
+<h3 id="III7-文件大纲目录"><span>III.7<span class="heti-spacing"> </span></span>文件大纲（目录）<a class="headerlink" href="#III7-文件大纲目录" title="Permanent link">¶</a></h3>
+<p>设置为 <code>ctrl+o</code> 打开本文大纲（outline<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，顺便也能看看标签</p>
+<h3 id="III8-模板"><span>III.8<span class="heti-spacing"> </span></span>模板<a class="headerlink" href="#III8-模板" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>首先我们在核心插件 <code>模板</code> 中可以看见我们模板的文件夹名（我设置为 <code>templates</code>）</p>
+<p>接着在其中设立可能会常用的模板。</p>
+<p>例如我创建博客模板：</p>
+<div class="highlight"><span class="filename">blog</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><a href="#__codelineno-3-1"><span class="linenos" data-linenos="1 "></span></a>---
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><a href="#__codelineno-3-2"><span class="linenos" data-linenos="2 "></span></a>date: "{{date:YYYY-MM-DD}}"
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><a href="#__codelineno-3-3"><span class="linenos" data-linenos="3 "></span></a>tags:
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a><a href="#__codelineno-3-4"><span class="linenos" data-linenos="4 "></span></a><span class="gu">- begin</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a><a href="#__codelineno-3-5"><span class="linenos" data-linenos="5 "></span></a><span class="gu">---</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a><a href="#__codelineno-3-6"><span class="linenos" data-linenos="6 "></span></a>***
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a><a href="#__codelineno-3-7"><span class="linenos" data-linenos="7 "></span></a>&lt;!-- more --&gt;
+</span></code></pre></div>
+<p>那么当我写博客文章时，就可以点左边的 <code>模板</code> 引入，引入后就会将模板中的代码复制到此处。</p>
+<h3 id="III9-日记"><span>III.9<span class="heti-spacing"> </span></span>日记<a class="headerlink" href="#III9-日记" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>点击左方的 <code>日记</code> ，选择模板，就可以开始记下日记了。</p>
+<h3 id="III10-笔记重组"><span>III.10<span class="heti-spacing"> </span></span>笔记重组<a class="headerlink" href="#III10-笔记重组" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>主要用途就是将笔记进行合并、部分移植等操作，具体看 <a href="https://publish.obsidian.md/help-zh/%E6%8F%92%E4%BB%B6/%E7%AC%94%E8%AE%B0%E9%87%8D%E7%BB%84">官方的教程</a> 。</p>
+<h3 id="III11-PPT">III.11 PPT<a class="headerlink" href="#III11-PPT" title="Permanent link">¶</a></h3>
+<p>即我们可以使用 <code>---</code> 分隔笔记内容，之后打开命令面板，输入 “幻灯片” 并选中，则可以进入一个简易的幻灯片情景。</p>
+<h3 id="III12-块链接与块引用"><span>III.12<span class="heti-spacing"> </span></span>块链接与块引用<a class="headerlink" href="#III12-块链接与块引用" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<h4 id="III121-块链接"><span>III.12.1<span class="heti-spacing"> </span></span>块链接<a class="headerlink" href="#III121-块链接" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>链接某个笔记文件中的块，你首先需要输入<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>[[文件名</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>来唤起弹窗，在选择相应的文件后，通过输入<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>^</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>进入块选择界面。随后，你需要继续输入关键词来选择你所需要链接的块。</p>
+<p>选择好了以后，按下回车键，对于该块的链接就创建好了。块链接会以<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>[[filename#^dcf64c]]</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>的形式出现，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>dcf64c</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>则是你所链接的块的<span><span class="heti-spacing"> </span>ID</span>。</p>
+<p>如果你忘了想链接的块在哪个文件里，你可以通过输入<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>[[^^</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>在库的所有笔记文件中查找该块。由于这种查找方式涉及库中所有笔记文件，当你的库很大时，查找就需要花费一些时间。</p>
+<p>比如，<a href="./#^id">点击这里</a> 可以链接到前文的段落。</p>
+<h4 id="III122-块引用"><span>III.12.2<span class="heti-spacing"> </span></span>块引用<a class="headerlink" href="#III122-块引用" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>与<a href="https://publish.obsidian.md/help-zh/%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/%E5%B5%8C%E5%85%A5%E6%96%87%E4%BB%B6">嵌入文件</a>一样，你可以通过在块链接前加上<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>!</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>来进行块引用，即块的嵌入。</p>
+<p>比如前面用的 <code>![Typst_begin](Typst_begin.md#基本介绍)</code>。</p>
+<p>一个块可以是一个段落、一个引用、一个列表等等。一般来说，前后有空行包围的东西就是块。</p>
+<h4 id="III123-手动创建块-ID"><span>III.12.3<span class="heti-spacing"> </span></span>手动创建块<span><span class="heti-spacing"> </span>ID</span><a class="headerlink" href="#III123-手动创建块-ID" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>如果你想手动创建可读性强的块<span><span class="heti-spacing"> </span>ID</span>，你可以在块的末尾手动加上<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>^你的-id</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>这样的语法。需要注意的是，对于一般的段落，手动创建的<span class="heti-skip"><span class="heti-spacing"> </span>ID<span class="heti-spacing"> </span></span>和块最后一个字符（即段落最后一个字符）间需要有一个或多个空格。</p>
+<p>如果想为表格这样比较复杂的块手动创建<span><span class="heti-spacing"> </span>ID</span>，你需要将手动创建的<span class="heti-skip"><span class="heti-spacing"> </span>ID<span class="heti-spacing"> </span></span>放置在该块之后，同时确保手动创建的块<span class="heti-skip"><span class="heti-spacing"> </span>ID<span class="heti-spacing"> </span></span>前后都是空行。</p>
+<p>比如：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">header1</th>
+<th style="text-align: center;">header2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+</tr>
+</tbody>
+</table>
+<p>^table1</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="#^table1"><img alt="引用上面的表格" src="#^table1"/></a></p>
+<p>当你手动创建了块<span class="heti-skip"><span class="heti-spacing"> </span>ID<span class="heti-spacing"> </span></span>后再链接或引用该块时，<span>Obsidian<span class="heti-spacing"> </span></span>会自动使用你手动创建的块<span class="heti-skip"><span class="heti-spacing"> </span>ID<span class="heti-spacing"> </span></span>而不是随机生成的块<span><span class="heti-spacing"> </span>ID</span>。</p>
+<p>需要注意的是，手动创建的块<span class="heti-skip"><span class="heti-spacing"> </span>ID<span class="heti-spacing"> </span></span>仅支持字母、数字、破折号。</p>
+<h3 id="III13-LaTeX">III.13 LaTeX<a class="headerlink" href="#III13-LaTeX" title="Permanent link">¶</a></h3>
+<p>我们使用 <code>$ $</code> 包裹数学公式来让其更加美观</p>
+<p>例如，<code>$a^2 + b^2 =c^2$</code> 的效果就是</p>
+<blockquote>
+<p><span><span class="arithmatex">\(a^2 + b^2 =c^2\)</span><span class="heti-spacing"> </span></span>注意，空格会被忽略</p>
+</blockquote>
+<p>下面我们将放置一些基本的<span class="heti-skip"><span class="heti-spacing"> </span>LaTeX<span class="heti-spacing"> </span></span>语法</p>
+<h4 id="III131-符号类"><span>III.13.1<span class="heti-spacing"> </span></span>符号类<a class="headerlink" href="#III131-符号类" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<ul>
+<li><code>%</code> 表示注释，相信不难理解注释是什么意思</li>
+<li><code>$</code> 包裹数学公式</li>
+<li><code>^</code> 表示上标，类指数</li>
+<li><code>_</code> 表示下标，类底数</li>
+<li>
+<p><code>{}</code> 用于将内容包裹，便式将公式一体化</p>
+<p>（例如，<code>$F_n = F_{n-1} + F_{n-2}$</code> 就是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(F_n = F_{n-1} + F_{n-2}\)</span><span class="heti-spacing"> </span></span>样的）</p>
+</li>
+</ul>
+<h4 id="III132-命令"><span>III.13.2<span class="heti-spacing"> </span></span>命令<a class="headerlink" href="#III132-命令" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p><span>LaTeX<span class="heti-spacing"> </span></span>为了更好地输出键盘上所没有的符号（例如<span><span class="heti-spacing"> </span>α</span>、β （此处使用微软输入法打出来的<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，就像我们使用的中文输入法一样给它们定义了一套命令</p>
+<p>比方说，我们在<span class="heti-skip"><span class="heti-spacing"> </span>LaTeX<span class="heti-spacing"> </span></span>中只需用类似于 <code>\mu</code> 的命令即可输出 <code>μ</code> 这一符号并且可与上述的上下角标相兼容</p>
+<p>在<a href="https://oeis.org/wiki/List_of_LaTeX_mathematical_symbols"><span class="heti-skip"><span class="heti-spacing"> </span>List_of_LaTeX_mathematical_symbols<span class="heti-spacing"> </span></span></a>中可以看到几乎详尽的命令，此处列出微积分中常用的符号；<a href="https://www.cmor-faculty.rice.edu/~heinken/latex/symbols.pdf">这里</a> 是一个<span class="heti-skip"><span class="heti-spacing"> </span>PDF<span class="heti-spacing"> </span></span>版。</p>
+<div class="arithmatex">\[
+-\alpha
+-A
+-\beta
+-B
+-\gamma
+-\Gamma
+-\delta
+-\Delta
+-\epsilon
+-\varepsilon
+-\zeta
+-\eta
+-\theta
+-\vartheta
+-\iota
+-\kappa
+-\Theta 
+-\lambda
+-\Lambda
+-\mu
+-\nu
+-\xi
+-\Xi
+-\pi
+-\Pi
+-o
+-O
+-\rho
+-\sigma
+-\Sigma
+-\tau
+-\phi
+-\varphi
+-\Phi
+-\chi
+-\psi
+-\Psi
+-\omega
+-\Omega
+\]</div>
+<div class="arithmatex">\[
+-\triangle
+-\pm
+-\mp
+-\int  \, dx
+-\sin
+-\cos
+-\arcsin
+-\arccos
+-\infty
+-\to
+-\lim_{ n \to \infty } 
+-\int_{-\infty}^{\infty}  \, dx  \, dx 
+-\ln
+-\lg
+-\log
+\]</div>
+<h4 id="III133-不等式">III.13.3 （不）等式<a class="headerlink" href="#III133-不等式" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>如果我们想要输出大且复杂的（不）等式，我们可以借助<code>\begin{equation} &amp; \end{equation}</code> 包裹，使之更为突出</p>
+<p>这是行内公式<span><span class="heti-spacing"> </span><span class="arithmatex">\(x = \frac{-b \pm \sqrt{b^2 - 4 ac}} {2 a}\)</span></span> （个人经验，在<span class="heti-skip"><span class="heti-spacing"> </span>obsidian<span class="heti-spacing"> </span></span>中 <code>$</code> 符号与数学公式紧贴，与周边文字空一格为佳）</p>
+<p>这是行间公式</p>
+<div class="arithmatex">\[
+x = \frac{-b \pm \sqrt{b^2 - 4ac}} {2a} 
+\]</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>不同场合触发条件有所不同，例如在<span class="heti-skip"><span class="heti-spacing"> </span>obsidian<span class="heti-spacing"> </span></span>中我们可能需要用 <code>$$……$$</code> 将公式包裹而可以忽略 <code>\begin</code> 之类的</p>
+<p>Caution: LATEX mostly ignores your spaces in mathematics, but it can’t handle blank lines in equations — <strong>don’t put blank lines in your mathematics.</strong></p>
+</div>
+<h4 id="III134-插件-latex-suite"><span>III.13.4<span class="heti-spacing"> </span></span>插件<span><span class="heti-spacing"> </span>-latex suite</span><a class="headerlink" href="#III134-插件-latex-suite" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>每次都手打命令自然也是挺累的，<span>obsidian<span class="heti-spacing"> </span></span>中有这么一个插件可以帮助我们快速输出</p>
+<p>例如：一个比较复杂的一阶线性非齐次方程的通解我们可以比较快的写出来</p>
+<div class="arithmatex">\[
+y=e^{ -\int p(x) \, dx  }\left[ \int q(x)e^{ \int p(x) \, dx  } \, dx  \right]
+\]</div>
+<p><code>LaTeX suite</code> 具体使用教程甚多，不加赘述（值得一提的是，这个插件本质是一个关键词替换，我们可以自定义更换的对象，甚至可以在数学公式之外使用，详见文末<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<h4 id="III135-空格"><span>III.13.5<span class="heti-spacing"> </span></span>空格<a class="headerlink" href="#III135-空格" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>直接敲空格会被自动忽略</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97.png"><img alt="" src="../attachments/%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97.png"/></a></p>
+<h3 id="III14-标注-Callouts"><span>III.14<span class="heti-spacing"> </span></span>标注<span><span class="heti-spacing"> </span>(Callouts)</span><a class="headerlink" href="#III14-标注-Callouts" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<h4 id="III141-基本使用"><span>III.14.1<span class="heti-spacing"> </span></span>基本使用<a class="headerlink" href="#III141-基本使用" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>使用标注可以在不打乱笔记行文的情况下添加额外内容，将 <code>[!title]</code> 加入到引用开头。</p>
+<p>一个简单的用法如下：</p>
+<div class="highlight"><span class="filename">example</span><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><a href="#__codelineno-4-1"><span class="linenos" data-linenos="1 "></span></a><span class="k">&gt; </span><span class="ge">[!TIP] 小技巧</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><a href="#__codelineno-4-2"><span class="linenos" data-linenos="2 "></span></a><span class="k">&gt;</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><a href="#__codelineno-4-3"><span class="linenos" data-linenos="3 "></span></a><span class="ge">&gt; 这里将介绍一些小技巧。</span>
+</span></code></pre></div>
+<p>但是在<span class="heti-skip"><span class="heti-spacing"> </span>Mkdocs<span class="heti-spacing"> </span></span>中只有这样的效果：</p>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p>这里将介绍一些小技巧。</p>
+</div>
+<p>所以……当你在看我其它的笔记时，就当用这个来判断注释块的内容吧。</p>
+<p>除了 <code>TIP</code> ，<span>callout<span class="heti-spacing"> </span></span>还支持许多图标；</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Type</th>
+<th style="text-align: center;">Aliases</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">note</td>
+<td style="text-align: center;">note, seealso</td>
+</tr>
+<tr>
+<td style="text-align: center;">abstract</td>
+<td style="text-align: center;">abstract, summary, tldr</td>
+</tr>
+<tr>
+<td style="text-align: center;">info</td>
+<td style="text-align: center;">info, todo</td>
+</tr>
+<tr>
+<td style="text-align: center;">tip</td>
+<td style="text-align: center;">tip, hint, important</td>
+</tr>
+<tr>
+<td style="text-align: center;">success</td>
+<td style="text-align: center;">success, check, done</td>
+</tr>
+<tr>
+<td style="text-align: center;">question</td>
+<td style="text-align: center;">question, help, faq</td>
+</tr>
+<tr>
+<td style="text-align: center;">warning</td>
+<td style="text-align: center;">warning, caution, attention</td>
+</tr>
+<tr>
+<td style="text-align: center;">failure</td>
+<td style="text-align: center;">failure, fail, missing</td>
+</tr>
+<tr>
+<td style="text-align: center;">danger</td>
+<td style="text-align: center;">danger, error</td>
+</tr>
+<tr>
+<td style="text-align: center;">bug</td>
+<td style="text-align: center;">bug</td>
+</tr>
+<tr>
+<td style="text-align: center;">example</td>
+<td style="text-align: center;">example</td>
+</tr>
+<tr>
+<td style="text-align: center;">quote</td>
+<td style="text-align: center;">quote, cite</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>你可以在 <a href="https://publish.obsidian.md/help-zh/%E7%BC%96%E8%BE%91%E4%B8%8E%E6%A0%BC%E5%BC%8F%E5%8C%96/%E6%A0%87%E6%B3%A8">这里</a> 看到各自的效果；</p>
+</blockquote>
+<p>此外，还可以：</p>
+<details class="info">
+<summary>Info</summary>
+<p>这里是一些信息。</p>
+</details>
+<p>注意看 <code>[!INFO]-</code> 中多了一个 <code>-</code> ，表示折叠；如果希望初始为展开状态，使用 <code>+</code> 即可。</p>
+<p>当然，支持嵌套：</p>
+<div class="admonition question">
+<p class="admonition-title">标注可以嵌套吗？</p>
+<div class="admonition todo">
+<p class="admonition-title">可以。</p>
+<div class="admonition example">
+<p class="admonition-title"> 你甚至可以使用多层嵌套。</p>
+</div>
+</div>
+</div>
+<h4 id="III142-自定义"><span>III.14.2<span class="heti-spacing"> </span></span>自定义<a class="headerlink" href="#III142-自定义" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<div class="highlight"><span class="filename">custom</span><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><a href="#__codelineno-5-1"><span class="linenos" data-linenos="1 "></span></a><span class="p">.</span><span class="nc">callout</span><span class="o">[</span><span class="nt">data-callout</span><span class="o">=</span><span class="s2">"custom-name"</span><span class="o">]</span><span class="w"> </span><span class="p">{</span><span class="c">/* 自定义，你可以自选一个英文或中文词，英文要全部小写*/</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a><a href="#__codelineno-5-2"><span class="linenos" data-linenos="2 "></span></a><span class="w">    </span><span class="nv">--callout-color</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="c">/* RGB 色号，一个可找的地方 https://www.zhongguose.com/ */</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a><a href="#__codelineno-5-3"><span class="linenos" data-linenos="3 "></span></a><span class="w">    </span><span class="nv">--callout-icon</span><span class="p">:</span><span class="w"> </span><span class="n">lucide-icons</span><span class="w"> </span><span class="n">ID</span><span class="o">|</span><span class="n">SVG</span><span class="p">;</span><span class="c">/* 建议使用ID，简洁且一目了然 */</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a><a href="#__codelineno-5-4"><span class="linenos" data-linenos="4 "></span></a><span class="p">}</span>
+</span></code></pre></div>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span>ID<span class="heti-spacing"> </span></span>呢就是图标名称，<span>SVG<span class="heti-spacing"> </span></span>就不必说了，他们都可以在<a href="https://lucide.dev/icons"><span class="heti-skip"><span class="heti-spacing"> </span>Lucide<span class="heti-spacing"> </span></span></a>上找到：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Obsidian_begin-3.png"><img alt="" src="../attachments/Obsidian_begin-3.png"/></a></p>
+<p>下面是一个测试样例：</p>
+<div class="highlight"><span class="filename">democase</span><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><a href="#__codelineno-6-1"><span class="linenos" data-linenos="1 "></span></a><span class="p">.</span><span class="nc">callout</span><span class="o">[</span><span class="nt">data-callout</span><span class="o">=</span><span class="s2">"democase"</span><span class="o">]</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a><a href="#__codelineno-6-2"><span class="linenos" data-linenos="2 "></span></a><span class="w">    </span><span class="nv">--callout-color</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">123</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">;</span><span class="w"> </span><span class="c">/* 蓝色 */</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a><a href="#__codelineno-6-3"><span class="linenos" data-linenos="3 "></span></a><span class="w">    </span><span class="nv">--callout-icon</span><span class="p">:</span><span class="w"> </span><span class="n">tv</span><span class="p">;</span><span class="w"> </span><span class="c">/* 建议使用，简洁且一目了然 */</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4"></a><a href="#__codelineno-6-4"><span class="linenos" data-linenos="4 "></span></a><span class="w">    </span><span class="c">/* --callout-icon: &lt;svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tv"&gt;&lt;rect width="20" height="15" x="2" y="7" rx="2" ry="2"/&gt;&lt;polyline points="17 2 12 7 7 2"/&gt;&lt;/svg&gt;; */</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5"></a><a href="#__codelineno-6-5"><span class="linenos" data-linenos="5 "></span></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition demo">
+<p>这里是一个演示用例。</p>
+</div>
+<blockquote>
+<p>值得注意的是，截止<span><span class="heti-spacing"> </span>2024/08/11</span>，目前实际使用的<span class="heti-skip"><span class="heti-spacing"> </span>Lucide<span class="heti-spacing"> </span></span>版本为<span><span class="heti-spacing"> </span>v0.268.0</span>；在此之后创建或者修改的图标都可能出现问题。</p>
+</blockquote>
+<h4 id="III143-Admonitions-插件">III.14.3 Admonitions （插件）<a class="headerlink" href="#III143-Admonitions-插件" title="Permanent link">¶</a></h4>
+<p>这个插件据说是在官方的标注方式出来前制作的，而且达到上述效果更加简单：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Obsidian_begin-2.png"><img alt="" src="../attachments/Obsidian_begin-2.png"/></a></p>
+<p>但是一个很大的问题……<span>Mkdocs<span class="heti-spacing"> </span></span>上看起来更加奇怪了：</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a><a href="#__codelineno-7-1"><span class="linenos" data-linenos=" 1 "></span></a>title: 下面是一些例子
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a><a href="#__codelineno-7-2"><span class="linenos" data-linenos=" 2 "></span></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a><a href="#__codelineno-7-3"><span class="linenos" data-linenos=" 3 "></span></a>````ad-note
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a><a href="#__codelineno-7-4"><span class="linenos" data-linenos=" 4 "></span></a>title: 这是一个笔记 
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5"></a><a href="#__codelineno-7-5"><span class="linenos" data-linenos=" 5 "></span></a>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6"></a><a href="#__codelineno-7-6"><span class="linenos" data-linenos=" 6 "></span></a>我们定义一个欢迎函数
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7"></a><a href="#__codelineno-7-7"><span class="linenos" data-linenos=" 7 "></span></a>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8"></a><a href="#__codelineno-7-8"><span class="linenos" data-linenos=" 8 "></span></a>~~~py
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9"></a><a href="#__codelineno-7-9"><span class="linenos" data-linenos=" 9 "></span></a>def welcome(name: string):
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10"></a><a href="#__codelineno-7-10"><span class="linenos" data-linenos="10 "></span></a>    print(f"welcome to here, {name}.")
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11"></a><a href="#__codelineno-7-11"><span class="linenos" data-linenos="11 "></span></a>~~~
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12"></a><a href="#__codelineno-7-12"><span class="linenos" data-linenos="12 "></span></a>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13"></a><a href="#__codelineno-7-13"><span class="linenos" data-linenos="13 "></span></a>```c
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14"></a><a href="#__codelineno-7-14"><span class="linenos" data-linenos="14 "></span></a>void welcome(string name){
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15"></a><a href="#__codelineno-7-15"><span class="linenos" data-linenos="15 "></span></a>    cout &lt;&lt; "welcome to here, " &lt;&lt; name &lt;&lt; " ."&lt;&lt; endl;
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16"></a><a href="#__codelineno-7-16"><span class="linenos" data-linenos="16 "></span></a>}
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17"></a><a href="#__codelineno-7-17"><span class="linenos" data-linenos="17 "></span></a>````
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18"></a><a href="#__codelineno-7-18"><span class="linenos" data-linenos="18 "></span></a>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19"></a><a href="#__codelineno-7-19"><span class="linenos" data-linenos="19 "></span></a>!!! help
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20"></a><a href="#__codelineno-7-20"><span class="linenos" data-linenos="20 "></span></a>
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21"></a><a href="#__codelineno-7-21"><span class="linenos" data-linenos="21 "></span></a>    icon: bars
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22"></a><a href="#__codelineno-7-22"><span class="linenos" data-linenos="22 "></span></a>    title: 这是一个设置内容
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23"></a><a href="#__codelineno-7-23"><span class="linenos" data-linenos="23 "></span></a>
+</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24"></a><a href="#__codelineno-7-24"><span class="linenos" data-linenos="24 "></span></a>    ↑这个位置的图标可以自定义
+</span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25"></a><a href="#__codelineno-7-25"><span class="linenos" data-linenos="25 "></span></a>
+</span><span id="__span-7-26"><a id="__codelineno-7-26" name="__codelineno-7-26"></a><a href="#__codelineno-7-26"><span class="linenos" data-linenos="26 "></span></a>    - aaa
+</span><span id="__span-7-27"><a id="__codelineno-7-27" name="__codelineno-7-27"></a><a href="#__codelineno-7-27"><span class="linenos" data-linenos="27 "></span></a>    - bbb
+</span><span id="__span-7-28"><a id="__codelineno-7-28" name="__codelineno-7-28"></a><a href="#__codelineno-7-28"><span class="linenos" data-linenos="28 "></span></a>    - ccc
+</span><span id="__span-7-29"><a id="__codelineno-7-29" name="__codelineno-7-29"></a><a href="#__codelineno-7-29"><span class="linenos" data-linenos="29 "></span></a>
+</span><span id="__span-7-30"><a id="__codelineno-7-30" name="__codelineno-7-30"></a><a href="#__codelineno-7-30"><span class="linenos" data-linenos="30 "></span></a>!!! info "$e^{i \pi}+1=0$"
+</span><span id="__span-7-31"><a id="__codelineno-7-31" name="__codelineno-7-31"></a><a href="#__codelineno-7-31"><span class="linenos" data-linenos="31 "></span></a>
+</span><span id="__span-7-32"><a id="__codelineno-7-32" name="__codelineno-7-32"></a><a href="#__codelineno-7-32"><span class="linenos" data-linenos="32 "></span></a>    icon: brain
+</span><span id="__span-7-33"><a id="__codelineno-7-33" name="__codelineno-7-33"></a><a href="#__codelineno-7-33"><span class="linenos" data-linenos="33 "></span></a>
+</span><span id="__span-7-34"><a id="__codelineno-7-34" name="__codelineno-7-34"></a><a href="#__codelineno-7-34"><span class="linenos" data-linenos="34 "></span></a>    你可以在名称中使用 latex 数学公式。
+</span></code></pre></div>
+<p>但是，还有反转：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Obsidian_begin-4.png"><img alt="" src="../attachments/Obsidian_begin-4.png"/></a></p>
+<p><span>Admonition<span class="heti-spacing"> </span></span>允许我们自定义，而其又支持官方的<span class="heti-skip"><span class="heti-spacing"> </span>Callout<span class="heti-spacing"> </span></span>格式；所以我们在这里进行自定义更方便，也更不容易出问题。</p>
+<hr/>
+<p>到此，我们已经掌握了这个软件的绝大多数功能了，并发现可以做一些日常事务了。现在，开动吧！</p>
+<h2 id="IV-插件推荐"><span>IV<span class="heti-spacing"> </span></span>插件推荐：<a class="headerlink" href="#IV-插件推荐" title="Permanent link">¶</a></h2>
+<h3 id="IV1-Admonition">IV.1 Admonition<a class="headerlink" href="#IV1-Admonition" title="Permanent link">¶</a></h3>
+<p>在官方支持<span class="heti-skip"><span class="heti-spacing"> </span>callouts<span class="heti-spacing"> </span></span>之前的服务，现在也可以用于加强观感等，如支持展开收纳；
+支持自定义，如：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Obsidian_begin-5.png"><img alt="|300" src="../attachments/Obsidian_begin-5.png"/></a></p>
+<h3 id="IV2-Calendar">IV.2 Calendar<a class="headerlink" href="#IV2-Calendar" title="Permanent link">¶</a></h3>
+<p>支持日历（倒是用处不大<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；支持日记：写日记确实坚持不下来，但是可以每天用无序列表记录一下干了什么，下面是一个模板参考（其中的特殊格式可以看后文的“标注<span><span class="heti-spacing"> </span>(Callouts)</span>”部分噢<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<div class="highlight"><span class="filename">diary template</span><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a><a href="#__codelineno-8-1"><span class="linenos" data-linenos=" 1 "></span></a>---
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a><a href="#__codelineno-8-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="gu">time: {{time:HH:mm}} </span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a><a href="#__codelineno-8-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="gu">---</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4"></a><a href="#__codelineno-8-4"><span class="linenos" data-linenos=" 4 "></span></a>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5"></a><a href="#__codelineno-8-5"><span class="linenos" data-linenos=" 5 "></span></a>---
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6"></a><a href="#__codelineno-8-6"><span class="linenos" data-linenos=" 6 "></span></a>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7"></a><a href="#__codelineno-8-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="k">-</span><span class="w"> </span>[*] 这是一个较有意义的项目 
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8"></a><a href="#__codelineno-8-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="k">- [x]</span> 这是一个已经完成的项目
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9"></a><a href="#__codelineno-8-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="k">-</span><span class="w"> </span>[/] 这是一个有待继续的项目
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10"></a><a href="#__codelineno-8-10"><span class="linenos" data-linenos="10 "></span></a><span class="k">-</span><span class="w"> </span>[?] 这是一个存在问题的项目
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11"></a><a href="#__codelineno-8-11"><span class="linenos" data-linenos="11 "></span></a><span class="k">-</span><span class="w"> </span>[!]  这是一个十分重要的项目
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12"></a><a href="#__codelineno-8-12"><span class="linenos" data-linenos="12 "></span></a><span class="k">-</span><span class="w"> </span>["] 这是一个有所受益的项目
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13"></a><a href="#__codelineno-8-13"><span class="linenos" data-linenos="13 "></span></a><span class="k">-</span><span class="w"> </span>[-] 这是一个无关紧要的项目
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14"></a><a href="#__codelineno-8-14"><span class="linenos" data-linenos="14 "></span></a><span class="k">-</span><span class="w"> </span>[&lt;] 这是一个公事公办的项目
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15"></a><a href="#__codelineno-8-15"><span class="linenos" data-linenos="15 "></span></a><span class="k">-</span><span class="w"> </span>[&gt;] 这是一个休闲娱乐的项目
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16"></a><a href="#__codelineno-8-16"><span class="linenos" data-linenos="16 "></span></a><span class="k">- [ ]</span> 这是一个尚未开始的项目
+</span></code></pre></div>
+<h3 id="IV3-Easy-Typing">IV.3 Easy Typing<a class="headerlink" href="#IV3-Easy-Typing" title="Permanent link">¶</a></h3>
+<p>内容还挺多的，总结来说就是增强编辑体验，具体可看<a href="https://github.com/Yaozhuwa/easy-typing-obsidian"><span><span class="heti-spacing"> </span>easy-typing-obsidian</span></a> 。</p>
+<h3 id="IV4-Latex-Suite">IV.4 Latex Suite<a class="headerlink" href="#IV4-Latex-Suite" title="Permanent link">¶</a></h3>
+<p>本意是让我们写<span class="heti-skip"><span class="heti-spacing"> </span>latex<span class="heti-spacing"> </span></span>格式的内容更加方便；但是因为其实现本质是关键词替换（如将<span><span class="heti-spacing"> </span>pi=&gt;\pi</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，所以仿照其自带的内容，我们可以有更多地自定义的可能：</p>
+<div class="highlight"><span class="filename">Latex_suite.js</span><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a><a href="#__codelineno-9-1"><span class="linenos" data-linenos="1 "></span></a><span class="c1">// Callouts</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a><a href="#__codelineno-9-2"><span class="linenos" data-linenos="2 "></span></a><span class="p">{</span><span class="nx">trigger</span><span class="o">:</span><span class="w"> </span><span class="s2">"&gt;note"</span><span class="p">,</span><span class="w"> </span><span class="nx">replacement</span><span class="o">:</span><span class="w"> </span><span class="s2">"&gt; [!NOTE]\n&gt;\n&gt; $0"</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="o">:</span><span class="w"> </span><span class="s2">"tA"</span><span class="p">},</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3"></a><a href="#__codelineno-9-3"><span class="linenos" data-linenos="3 "></span></a><span class="p">{</span><span class="nx">trigger</span><span class="o">:</span><span class="w"> </span><span class="s2">"&gt;abs"</span><span class="p">,</span><span class="w"> </span><span class="nx">replacement</span><span class="o">:</span><span class="w"> </span><span class="s2">"&gt; [!ABSTRACT]\n&gt;\n&gt; $0"</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="o">:</span><span class="w"> </span><span class="s2">"tA"</span><span class="p">},</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4"></a><a href="#__codelineno-9-4"><span class="linenos" data-linenos="4 "></span></a><span class="p">{</span><span class="nx">trigger</span><span class="o">:</span><span class="w"> </span><span class="s2">"&gt;sum"</span><span class="p">,</span><span class="w"> </span><span class="nx">replacement</span><span class="o">:</span><span class="w"> </span><span class="s2">"&gt; [!SUMMARY]\n&gt;\n&gt; $0"</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="o">:</span><span class="w"> </span><span class="s2">"tA"</span><span class="p">},</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5"></a><a href="#__codelineno-9-5"><span class="linenos" data-linenos="5 "></span></a><span class="p">{</span><span class="nx">trigger</span><span class="o">:</span><span class="w"> </span><span class="s2">"&gt;tldr"</span><span class="p">,</span><span class="w"> </span><span class="nx">replacement</span><span class="o">:</span><span class="w"> </span><span class="s2">"&gt; [!TLDR]\n&gt;\n&gt; $0"</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="o">:</span><span class="w"> </span><span class="s2">"tA"</span><span class="p">},</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6"></a><a href="#__codelineno-9-6"><span class="linenos" data-linenos="6 "></span></a><span class="p">{</span><span class="nx">trigger</span><span class="o">:</span><span class="w"> </span><span class="s2">"&gt;info"</span><span class="p">,</span><span class="w"> </span><span class="nx">replacement</span><span class="o">:</span><span class="w"> </span><span class="s2">"&gt; [!INFO]\n&gt;\n&gt; $0"</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="o">:</span><span class="w"> </span><span class="s2">"tA"</span><span class="p">},</span>
+</span></code></pre></div>
+<p>例如，当我们键入 <code>&gt;note</code> 时，会自动将其替换为后面的内容，效果如下：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/obsidian_begin.mp4"><img alt="obsidian_begin" src="../attachments/obsidian_begin.mp4"/></a></p>
+<p>个人使用的<a download="download" href="../attachments/Latex_Suite.js"><span><span class="heti-spacing"> </span>Latex_Suite.js</span></a>（点击下载，如果失败了可以看<a href="https://github.com/Darstib/blog"><span class="heti-skip"><span class="heti-spacing"> </span>GitHub<span class="heti-spacing"> </span></span>仓库 </a>，在<span class="heti-skip"><span class="heti-spacing"> </span>docs/posts/begin/attachments<span class="heti-spacing"> </span></span>中<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<h3 id="IV5-Mousewheel-Image-zoom">IV.5 Mousewheel Image zoom<a class="headerlink" href="#IV5-Mousewheel-Image-zoom" title="Permanent link">¶</a></h3>
+<p>使用鼠标滚轮放缩图片。</p>
+<h3 id="IV6-Number-Headings">IV.6 Number Headings<a class="headerlink" href="#IV6-Number-Headings" title="Permanent link">¶</a></h3>
+<p>标题自动加序号，比较建议写完了再加，而不是让它自动加；自动加有点不太聪明的样子……</p>
+<h3 id="IV7-Paste-image-rename">IV.7 Paste image rename<a class="headerlink" href="#IV7-Paste-image-rename" title="Permanent link">¶</a></h3>
+<p>粘贴图片自动重命名；注意，如果是拖进来的图片不会，应当是你从剪贴板中粘贴下来的图片。</p>
+<h3 id="IV8-Paste-URL-into-selection">IV.8 Paste URL into selection<a class="headerlink" href="#IV8-Paste-URL-into-selection" title="Permanent link">¶</a></h3>
+<p>选取一段文字，粘贴的如果是一段链接就变为超链接的格式，比较方便。</p>
+<h3 id="IV9-PDF">IV.9 PDF++<a class="headerlink" href="#IV9-PDF" title="Permanent link">¶</a></h3>
+<p>按照它的<a href="https://ryotaushio.github.io/obsidian-pdf-plus/">文档</a>去看吧，比较适合看<span class="heti-skip"><span class="heti-spacing"> </span>pdf<span class="heti-spacing"> </span></span>时做笔记。</p>
+<h3 id="IV10-Style-Settings">IV.10 Style Settings<a class="headerlink" href="#IV10-Style-Settings" title="Permanent link">¶</a></h3>
+<p>便捷设置样式，用过就知道了，直接讲也难说清楚；许多设计到呈现样式（如<a href="https://github.com/PKM-er/Blue-topaz-example"><span class="heti-skip"><span class="heti-spacing"> </span>blue topaz<span class="heti-spacing"> </span></span></a>主体）的插件安装后会在<span class="heti-skip"><span class="heti-spacing"> </span>style settings<span class="heti-spacing"> </span></span>中出现相关选项。</p>
+<h3 id="IV11-Typewriter-Mode">IV.11 Typewriter Mode<a class="headerlink" href="#IV11-Typewriter-Mode" title="Permanent link">¶</a></h3>
+<p>让你的编辑的那一行始终在屏幕的固定位置，不用跟着抬头低头了。</p>
+<div class="admonition bug">
+<p class="admonition-title">Bug</p>
+<p>这个插件在编辑表格时有一些故障，体现在会自动贴到顶端去。</p>
+</div>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn:1">
+<p>脚注很有用！ <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn:长脚注">
+<p>这是一个可以写长段落或者代码的地方。
+    你可以使用缩进在脚注中纳入其他段落
+    <code>{ 代码 }</code> 这样你就可以在脚注中添加任意数量的段落了。 <a class="footnote-backref" href="#fnref:长脚注" title="Jump back to footnote 2 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年5月5日 21:53:10 CST">2025年5月5日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2024年4月14日 14:11:34 CST">2024年4月14日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: Mkdocs begin" class="md-footer__link md-footer__link--prev" href="../Mkdocs_begin/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                Mkdocs begin
+              </div>
+</div>
+</a>
+<a aria-label="下一页: Python begin" class="md-footer__link md-footer__link--next" href="../Python_begin/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                Python begin
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

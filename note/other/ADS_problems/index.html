@@ -1,0 +1,3124 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/note/other/ADS_problems/" rel="canonical"/>
+<link href="../ADS_PPT/" rel="prev"/>
+<link href="../FDS-questions/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>ADS problems - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#AVL-Tree">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              ADS problems
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Note
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs188/">
+<span class="md-ellipsis">
+    
+  
+    cs188
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../physics/">
+<span class="md-ellipsis">
+    
+  
+    physics
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-II/">
+<span class="md-ellipsis">
+    
+  
+    CSys-II
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-III/">
+<span class="md-ellipsis">
+    
+  
+    CSys-III
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DEM/">
+<span class="md-ellipsis">
+    
+  
+    DEM
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DMA/">
+<span class="md-ellipsis">
+    
+  
+    DMA
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs70/">
+<span class="md-ellipsis">
+    
+  
+    cs70
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3_9" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    other
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3_9" id="__nav_3_9_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_9_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_9">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    other
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../ADS_PPT/">
+<span class="md-ellipsis">
+    
+  
+    ADS PPT
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    ADS problems
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    ADS problems
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#AVL-Tree">
+<span class="md-ellipsis">
+      
+        AVL Tree
+      
+    </span>
+</a>
+<nav aria-label="AVL Tree" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Splay-Tree--Amortize">
+<span class="md-ellipsis">
+      
+        Splay Tree &amp; Amortize
+      
+    </span>
+</a>
+<nav aria-label="Splay Tree &amp; Amortize" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_1">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_1">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Rad-Black-Tree">
+<span class="md-ellipsis">
+      
+        Rad Black Tree
+      
+    </span>
+</a>
+<nav aria-label="Rad Black Tree" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_2">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_2">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Bplus-Tree">
+<span class="md-ellipsis">
+      
+        Bplus Tree
+      
+    </span>
+</a>
+<nav aria-label="Bplus Tree" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_3">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_3">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Leftist-Heap">
+<span class="md-ellipsis">
+      
+        Leftist Heap
+      
+    </span>
+</a>
+<nav aria-label="Leftist Heap" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_4">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_4">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Skew-Heap">
+<span class="md-ellipsis">
+      
+        Skew Heap
+      
+    </span>
+</a>
+<nav aria-label="Skew Heap" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_5">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_5">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Binomial-Queue">
+<span class="md-ellipsis">
+      
+        Binomial Queue
+      
+    </span>
+</a>
+<nav aria-label="Binomial Queue" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_6">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_6">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Inverted-File-Index">
+<span class="md-ellipsis">
+      
+        Inverted File Index
+      
+    </span>
+</a>
+<nav aria-label="Inverted File Index" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_7">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Backtracing">
+<span class="md-ellipsis">
+      
+        Backtracing
+      
+    </span>
+</a>
+<nav aria-label="Backtracing" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_8">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_7">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Divide-and-Conquer">
+<span class="md-ellipsis">
+      
+        Divide and Conquer
+      
+    </span>
+</a>
+<nav aria-label="Divide and Conquer" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_9">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_8">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Dynamic-Programming">
+<span class="md-ellipsis">
+      
+        Dynamic Programming
+      
+    </span>
+</a>
+<nav aria-label="Dynamic Programming" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_10">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_9">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Greedy-Algothrim">
+<span class="md-ellipsis">
+      
+        Greedy Algothrim
+      
+    </span>
+</a>
+<nav aria-label="Greedy Algothrim" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_11">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_10">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#NP">
+<span class="md-ellipsis">
+      
+        NP
+      
+    </span>
+</a>
+<nav aria-label="NP" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_12">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_11">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Approximate">
+<span class="md-ellipsis">
+      
+        Approximate
+      
+    </span>
+</a>
+<nav aria-label="Approximate" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_13">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_12">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Local-Search">
+<span class="md-ellipsis">
+      
+        Local Search
+      
+    </span>
+</a>
+<nav aria-label="Local Search" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_14">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Randomized-Algorithms">
+<span class="md-ellipsis">
+      
+        Randomized Algorithms
+      
+    </span>
+</a>
+<nav aria-label="Randomized Algorithms" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_15">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_13">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Parallel-Algorithms">
+<span class="md-ellipsis">
+      
+        Parallel Algorithms
+      
+    </span>
+</a>
+<nav aria-label="Parallel Algorithms" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_16">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_14">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#External-sort">
+<span class="md-ellipsis">
+      
+        External sort
+      
+    </span>
+</a>
+<nav aria-label="External sort" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_17">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_15">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Other">
+<span class="md-ellipsis">
+      
+        Other
+      
+    </span>
+</a>
+<nav aria-label="Other" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_18">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_16">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../FDS-questions/">
+<span class="md-ellipsis">
+    
+  
+    FDS questions
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#AVL-Tree">
+<span class="md-ellipsis">
+      
+        AVL Tree
+      
+    </span>
+</a>
+<nav aria-label="AVL Tree" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Splay-Tree--Amortize">
+<span class="md-ellipsis">
+      
+        Splay Tree &amp; Amortize
+      
+    </span>
+</a>
+<nav aria-label="Splay Tree &amp; Amortize" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_1">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_1">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Rad-Black-Tree">
+<span class="md-ellipsis">
+      
+        Rad Black Tree
+      
+    </span>
+</a>
+<nav aria-label="Rad Black Tree" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_2">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_2">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Bplus-Tree">
+<span class="md-ellipsis">
+      
+        Bplus Tree
+      
+    </span>
+</a>
+<nav aria-label="Bplus Tree" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_3">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_3">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Leftist-Heap">
+<span class="md-ellipsis">
+      
+        Leftist Heap
+      
+    </span>
+</a>
+<nav aria-label="Leftist Heap" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_4">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_4">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Skew-Heap">
+<span class="md-ellipsis">
+      
+        Skew Heap
+      
+    </span>
+</a>
+<nav aria-label="Skew Heap" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_5">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_5">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Binomial-Queue">
+<span class="md-ellipsis">
+      
+        Binomial Queue
+      
+    </span>
+</a>
+<nav aria-label="Binomial Queue" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_6">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_6">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Inverted-File-Index">
+<span class="md-ellipsis">
+      
+        Inverted File Index
+      
+    </span>
+</a>
+<nav aria-label="Inverted File Index" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_7">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Backtracing">
+<span class="md-ellipsis">
+      
+        Backtracing
+      
+    </span>
+</a>
+<nav aria-label="Backtracing" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_8">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_7">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Divide-and-Conquer">
+<span class="md-ellipsis">
+      
+        Divide and Conquer
+      
+    </span>
+</a>
+<nav aria-label="Divide and Conquer" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_9">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_8">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Dynamic-Programming">
+<span class="md-ellipsis">
+      
+        Dynamic Programming
+      
+    </span>
+</a>
+<nav aria-label="Dynamic Programming" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_10">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_9">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Greedy-Algothrim">
+<span class="md-ellipsis">
+      
+        Greedy Algothrim
+      
+    </span>
+</a>
+<nav aria-label="Greedy Algothrim" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_11">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_10">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#NP">
+<span class="md-ellipsis">
+      
+        NP
+      
+    </span>
+</a>
+<nav aria-label="NP" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_12">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_11">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Approximate">
+<span class="md-ellipsis">
+      
+        Approximate
+      
+    </span>
+</a>
+<nav aria-label="Approximate" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_13">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_12">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Local-Search">
+<span class="md-ellipsis">
+      
+        Local Search
+      
+    </span>
+</a>
+<nav aria-label="Local Search" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_14">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Randomized-Algorithms">
+<span class="md-ellipsis">
+      
+        Randomized Algorithms
+      
+    </span>
+</a>
+<nav aria-label="Randomized Algorithms" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_15">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_13">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Parallel-Algorithms">
+<span class="md-ellipsis">
+      
+        Parallel Algorithms
+      
+    </span>
+</a>
+<nav aria-label="Parallel Algorithms" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_16">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_14">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#External-sort">
+<span class="md-ellipsis">
+      
+        External sort
+      
+    </span>
+</a>
+<nav aria-label="External sort" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_17">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_15">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Other">
+<span class="md-ellipsis">
+      
+        Other
+      
+    </span>
+</a>
+<nav aria-label="Other" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#判断题_18">
+<span class="md-ellipsis">
+      
+        判断题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#选择题_16">
+<span class="md-ellipsis">
+      
+        选择题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Note
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    other
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:notes">notes</a>
+</nav>
+<h1>ADS problems</h1>
+<p>主要是<span class="heti-skip"><span class="heti-spacing"> </span>ADS<span class="heti-spacing"> </span></span>作业题<span class="heti-skip"><span class="heti-spacing"> </span>&amp;<span class="heti-spacing"> </span></span>考试题，<code>(multi)</code> 表示 “题目表示多选” 。</p>
+<p>判断<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>选择题答案在每题对应部分的最后，截图中的答案有概率错误；最后给的答案几经周转其实也不能说一定正确（我会声明或在最后给出的答案前加上 <code>-</code> 符号；例如 <code>-F</code> <heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，请自主甄别。</p>
+<blockquote>
+<p><a href="https://zhoutimemachine.github.io/note/courses/ads-hw-review/"><span>Jianjun Zhou's Notebook<span class="heti-spacing"> </span></span></a>中出现的题目大概率不会再出现在此处（除非我对题解有新的想法<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>我觉得这道题不错<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>我这道题错了<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+</blockquote>
+<h2 id="AVL-Tree">AVL Tree<a class="headerlink" href="#AVL-Tree" title="Permanent link">¶</a></h2>
+<div class="admonition tip">
+<p class="admonition-title"><span>AVL tree<span class="heti-spacing"> </span></span>节点数与树高的关系，下面以空树高<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>为例子：</p>
+<ul>
+<li>最大节点数<span class="heti-skip"><span class="heti-spacing"> </span>N(h)<span class="heti-spacing"> </span></span>当然是满二叉树情况下出现，为<span><span class="heti-spacing"> </span><span class="arithmatex">\(N(h) = 2^{h}-1\)</span>;</span></li>
+<li>最小节点数<span class="heti-skip"><span class="heti-spacing"> </span>n(h)<span class="heti-spacing"> </span></span>有递推式： <span class="arithmatex">\(n(h) = n(h-1)+n(h-2)+1\)</span>; n(0)=0, n(1)=1</li>
+</ul>
+</div>
+<hr/>
+<h3 id="判断题">判断题<a class="headerlink" href="#判断题" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Every subtree of an AVL tree is also an AVL tree.</p>
+</div>
+<p><strong>T</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Consider an AVL tree. Immediately after we insert a node (without restoring the tree balance), the parent of the newly inserted node may become imbalanced.</p>
+</div>
+<p>假设一下<span><span class="heti-spacing"> </span>the parent of the newly inserted node</span> （注意，不是<span><span class="heti-spacing"> </span>the grandparent of the newly inserted node</span>）原来有<span class="heti-skip"><span class="heti-spacing"> </span>0/1<span class="heti-spacing"> </span></span>个子节点，都不可能<span><span class="heti-spacing"> </span>imbalanced</span> 。</p>
+<p><strong>F</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-4.png"><img alt="" src="../attachments/ADS_problems-4.png"/></a></p>
+</div>
+<p><span>4<span class="heti-spacing"> </span></span>是<span><span class="heti-spacing"> </span>trouble maker</span>，<span>1<span class="heti-spacing"> </span></span>是<span><span class="heti-spacing"> </span>trouble finder</span>。</p>
+<p><strong>F</strong></p>
+<hr/>
+<h3 id="选择题">选择题<a class="headerlink" href="#选择题" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-6.png"><img alt="" src="../attachments/ADS_problems-6.png"/></a></p>
+</div>
+<p><strong>D</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>(multi) Suppose that immediately after we delete a node from an AVL tree (without restoring the tree balance), some node u becomes imbalanced. Let T be the subtree rooted at u. How will the height of T change after we rebalance u? (Note that the root of T changes after rebalancing.)</p>
+<p>A.increases by 1 ; 
+B.does not change ; 
+C.decreases by 1 ; 
+D.(this question does only have three choices)</p>
+</div>
+<p>理解<span class="heti-skip"><span class="heti-spacing"> </span>"Let T be the subtree rooted at u"<span class="heti-spacing"> </span></span>是（让<span class="heti-skip"><span class="heti-spacing"> </span>T<span class="heti-spacing"> </span></span>是以<span class="heti-skip"><span class="heti-spacing"> </span>u<span class="heti-spacing"> </span></span>为根的子树，即<span class="heti-skip"><span class="heti-spacing"> </span>u<span class="heti-spacing"> </span></span>本身在<span class="heti-skip"><span class="heti-spacing"> </span>T<span class="heti-spacing"> </span></span>中即可<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；同时注意是删除，起初惯性认为是插入，单走一个<span><span class="heti-spacing"> </span>C</span> 。</p>
+<p><strong>BC</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Consider an AVL tree of height 5. Which of the followings are the possible number of nodes in this tree? We assume that the height of a single node is 1.</p>
+<p>A.10 B.20 C.30 D.35</p>
+</div>
+<p>见开头的<span><span class="heti-spacing"> </span>tip</span> ，后面几题类似。</p>
+<p><strong>BC</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>If the depth of an AVL tree is 6 (the depth of an empty tree is defined to be -1), then the minimum possible number of nodes in this tree is:</p>
+<p>A.13 ; B.17 ; C.20 ; D.33</p>
+</div>
+<p><strong>D</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>If there are 21 nodes in an AVL tree, then the maximum depth of the tree is __. The depth of an empty tree is defined to be 0.</p>
+<p>A.6 ; B.4 ; C.7 ; D.5</p>
+</div>
+<p>按照之前的结论反向推理：<span>AVL<span class="heti-spacing"> </span></span>树要高<span><span class="heti-spacing"> </span>x</span>，至少要<span class="heti-skip"><span class="heti-spacing"> </span>y<span class="heti-spacing"> </span></span>个节点。当然，要注意树深度的定义。要高<span><span class="heti-spacing"> </span>6</span>，至少<span class="heti-skip"><span class="heti-spacing"> </span>20<span class="heti-spacing"> </span></span>个节点；要高<span><span class="heti-spacing"> </span>7</span>，至少<span class="heti-skip"><span class="heti-spacing"> </span>33<span class="heti-spacing"> </span></span>节点。</p>
+<p><strong>A</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>For the result of accessing the keys 3, 9, 1, 5 in order in the splay tree in the following figure, which one of the following statements is FALSE?</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-19.png"><img alt="" src="../attachments/ADS_problems-19.png"/></a></p>
+<p>A. 5 is the root ; B. 1 and 9 are siblings ; </p>
+<p>C. 6 and 10 are siblings ; D. 3 is the parent of 4</p>
+</div>
+<p>这个图真太难画了，不过熟练的话还是能在几分钟内画出来的（我的做法是在某一次变换中没有用到的子树用特殊形状表示节约时间<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<p><strong>D</strong></p>
+<hr/>
+<h2 id="Splay-Tree--Amortize">Splay Tree &amp; Amortize<a class="headerlink" href="#Splay-Tree--Amortize" title="Permanent link">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">摊还分析（势能法）</p>
+<ul>
+<li>开销大的操作应当倾向让势能降，开销小的操作应当倾向让势能升；</li>
+<li>势能高倾向于让某些操作开销大，势能低倾向于让某些操作开销小；</li>
+<li>Φ(final) &gt;= Φ(initial)；更严格地说，</li>
+</ul>
+<p>势能应当是针对某一数据结构的形态来定义的；每一步操作后的势能都应当不小于初始的势能，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(\phi(D_{i})\geq \phi(D_{0})\)</span></span></p>
+<p>worst-case bound &gt;= amortized bound &gt;= average-case bound</p>
+</div>
+<hr/>
+<div class="admonition note">
+<p class="admonition-title">Splay tree deletion</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-41.png"><img alt="" src="../attachments/ADS_problems-41.png"/></a></p>
+</div>
+<hr/>
+<h3 id="判断题_1">判断题<a class="headerlink" href="#判断题_1" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Let T be a BST. If we perform a splay operation on the node with the minimum key, then the root of the resulting tree has no left child.</p>
+</div>
+<p>在<span class="heti-skip"><span class="heti-spacing"> </span>splay tree<span class="heti-spacing"> </span></span>中，最小值被<span><span class="heti-spacing"> </span>splay</span> （即通过旋转，直到为根节点）时，作为根节点，自然没有左节点。</p>
+<p><strong>T</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Suppose that the insertion operation of some data structure has a worst-case cost of Θ(n) and an amortized cost of <span class="arithmatex">\(O(\log n)\)</span>. Starting with the empty structure, if we perform m insertion operations consecutively, the total cost may be as large as Θ(<span class="arithmatex">\(m^2\)</span>).</p>
+</div>
+<p><span>amortized cost<span class="heti-spacing"> </span></span>给出一个保证：对于<strong>任意组合的一个连续<span class="heti-skip"><span class="heti-spacing"> </span>n<span class="heti-spacing"> </span></span>次操作</strong>，若其总用时为<span><span class="heti-spacing"> </span>T(n)</span>，那么用时上限<span><span class="heti-spacing"> </span><span class="arithmatex">\(amorized cost = \frac{T(n)}{n}\)</span></span> 。</p>
+<p><strong>F</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>The height of a splay tree with n nodes can be as large as Θ(n).</p>
+</div>
+<p>例如连续插入<span class="heti-skip"><span class="heti-spacing"> </span>123456789<span class="heti-spacing"> </span></span>到一个空树中。</p>
+<p><strong>T</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Suppose we have a potential function Φ such that for all Φ(Di​)≥Φ(D0​) for all i, but <span class="arithmatex">\(Φ(D0)\neq0\)</span>. Then there exists a potential Φ′ such that Φ′(D0​)=0, Φ′(Di​)≥0 for all i≥1, and the amortized costs using Φ′ are the same as the amortized costs using Φ.</p>
+</div>
+<p><strong>T</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>amortized bounds are weaker than the corresponding worst-case bounds, because there is no guarantee for any single operation.</p>
+</div>
+<p><span class="arithmatex">\(worst-case \geq amortized \geq average-case\)</span></p>
+<p><strong>T</strong></p>
+<hr/>
+<h3 id="选择题_1">选择题<a class="headerlink" href="#选择题_1" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-59.png"><img alt="" src="../attachments/ADS_problems-59.png"/></a></p>
+</div>
+<p><strong>D</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-26.png"><img alt="" src="../attachments/ADS_problems-26.png"/></a></p>
+</div>
+<p>连续插入递增<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>减数列，<span>splay tree<span class="heti-spacing"> </span></span>会成一条链表。</p>
+<p><strong>D</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-7.png"><img alt="" src="../attachments/ADS_problems-7.png"/></a></p>
+</div>
+<p>前面也提到了，<span>splay tree<span class="heti-spacing"> </span></span>最坏的高度可以是<span><span class="heti-spacing"> </span>h = n</span>，而<span class="heti-skip"><span class="heti-spacing"> </span>findkey(4)<span class="heti-spacing"> </span></span>在第二次之后一定是<span class="heti-skip"><span class="heti-spacing"> </span>O(1)<span class="heti-spacing"> </span></span>时间，故总共<span><span class="heti-spacing"> </span>O(n+m)</span></p>
+<p><strong>B</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>(multi) Consider the dynamic array given in class. Which of the following potential functions will yield an amortized cost of O(1) for insertion? Select all the potential functions that work. To be rigorous, you may multiply all the following functions by a constant that is large enough. (Hint: recall that a good potential function must satisfy two certain conditions.)</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-8.png"><img alt="" src="../attachments/ADS_problems-8.png"/></a></p>
+</div>
+<p>动态数组是说：起初数组大小为<span><span class="heti-spacing"> </span>1</span>；当数组被填满后，将数组中的所有内容拷贝到另一个、大小为双倍的数组中。</p>
+<p>回顾势能函数的要求（上面有<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，开销大的操作自然是发生在了填充最后一个数、数组转移的时候。</p>
+<p>故选择 <strong>E</strong> （题目说的多选😇）</p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-9.png"><img alt="" src="../attachments/ADS_problems-9.png"/></a></p>
+</div>
+<p>同样画出图来就好，刚好是一颗完美二叉搜索树，可以用<a href="https://www.cs.usfca.edu/~galles/visualization/SplayTree.html"><span class="heti-skip"><span class="heti-spacing"> </span>Splay Tree Visualzation (usfca.edu)<span class="heti-spacing"> </span></span></a>模拟。</p>
+<p><strong>C</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>When doing amortized analysis, which one of the following statements is FALSE?</p>
+<p>A. Aggregate analysis shows that for all n, a sequence of n operations takes worst-case time T(n) in total. Then the amortized cost per operation is therefore T(n)/n</p>
+<p>B. For potential method, a good potential function should always assume its maximum at the start of the sequence</p>
+<p>C. For accounting method, when an operation's amortized cost exceeds its actual cost, we save the difference as credit to pay for later operations whose amortized cost is less than their actual cost</p>
+<p>D. The difference between aggregate analysis and accounting method is that the later one assumes that the amortized costs of the operations may differ from each other</p>
+</div>
+<p>势能函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(\Phi(x) \geq \Phi(initial)\)</span></span> ，即在开始时应当是最小的；其它是对的，平时关注较少，稍加注意。</p>
+<blockquote>
+<p>对于三种摊还分析方法的辨析，我比较认同<a href="https://sh17c.top/LessonsNotes/D2CX_AdvancedDataStructure/Chap01/#14">时清川的个人主页</a> 的看法。</p>
+</blockquote>
+<p><strong>B</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-35.png"><img alt="" src="../attachments/ADS_problems-35.png"/></a></p>
+</div>
+<p>因为从<span class="heti-skip"><span class="heti-spacing"> </span>A<span class="heti-spacing"> </span></span>中<span class="heti-skip"><span class="heti-spacing"> </span>pop<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>push B<span class="heti-spacing"> </span></span>操作了两遍，所以<span><span class="heti-spacing"> </span><span class="arithmatex">\(\Phi = 2|S_{A}|\)</span></span> （没有答案验证，但是知道<span class="heti-skip"><span class="heti-spacing"> </span>A<span class="heti-spacing"> </span></span>是错误的，大致可以判断答案是<span><span class="heti-spacing"> </span>B</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<p><strong>B</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-69.png"><img alt="" src="../attachments/ADS_problems-69.png"/></a> </p>
+</div>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-68.png"><img alt="" src="../attachments/ADS_problems-68.png"/></a></p>
+<hr/>
+<h2 id="Rad-Black-Tree">Rad Black Tree<a class="headerlink" href="#Rad-Black-Tree" title="Permanent link">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Properties of RBTree</p>
+<ol>
+<li>Every node is either red or black.</li>
+<li>The root is black.</li>
+<li>Every leaf (<code>NIL</code>) is black.</li>
+<li>if a node is red, then both its children are black.</li>
+<li>For each node, all simple paths from the node to descendant leaves contain the same number of black nodes.</li>
+</ol>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<ul>
+<li><strong>红黑树不存在只有一个非叶子节点的红色节点。</strong></li>
+<li><strong>一个度为<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>的节点，它本身一定是黑色的，且它唯一的孩子一定是红色的。</strong></li>
+<li><strong>一个有<span class="heti-skip"><span class="heti-spacing"> </span>N<span class="heti-spacing"> </span></span>个内部节点（不包括<span><span class="heti-spacing"> </span>NIL</span>）的红黑树，其最大高度为<span><span class="heti-spacing"> </span><span class="arithmatex">\(2\log_{2}(N+1)\)</span></span>。</strong></li>
+<li><strong><code>NIL</code><span><span class="heti-spacing"> </span></span>节点被一个红色节点置换并不会改变一颗红黑树的黑高。</strong></li>
+<li><strong>红色节点不能相邻（因为红色节点子节点只能是黑色）</strong></li>
+</ul>
+</div>
+<p>关于红黑树，可以看看</p>
+<ul>
+<li><a href="https://blog.csdn.net/cy973071263/article/details/122543826">【数据结构】史上最好理解的红黑树讲解，让你彻底搞懂红黑树</a>；<ul>
+<li>将红黑树等价为<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>阶<span class="heti-skip"><span class="heti-spacing"> </span>B<span class="heti-spacing"> </span></span>树</li>
+</ul>
+</li>
+<li>对于红黑树的删除，如果还没理解的可以再看<a href="https://www.bilibili.com/video/BV16m421u7Tb/?spm_id_from=333.337.search-card.all.click&amp;vd_source=fbab6fd162a49f932342b74e9297a94a"><span><span class="heti-spacing"> </span>Deletion in RB Tree</span></a><ul>
+<li>引入 “双黑节点”的概念，总结如下：</li>
+</ul>
+</li>
+</ul>
+<p>先视为正常的二叉树删除：如果被删除的点有两个子节点，则找到直接（前驱<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>后驱<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，替换后，再删除直接（前驱<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>后驱<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。之后的删除分为以下分支情况：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-5.png"><img alt="" src="../attachments/ADS_problems-5.png"/></a></p>
+<p>红色虚线框中，<span>s<span class="heti-spacing"> </span></span>表示被删除的黑色节点的兄弟（sibling<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，<span>p<span class="heti-spacing"> </span></span>表示共有的父节点（parent<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，<span>r<span class="heti-spacing"> </span></span>表示<span class="heti-skip"><span class="heti-spacing"> </span>s<span class="heti-spacing"> </span></span>的红色节点，图示如下：</p>
+<div style="text-align: center;">
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/Darstib/image_hosting/main/img/delete_in_rbtree.png"><img alt="图片" src="https://raw.githubusercontent.com/Darstib/image_hosting/main/img/delete_in_rbtree.png" width="300"/></a>
+</div>
+<hr/>
+<h3 id="判断题_2">判断题<a class="headerlink" href="#判断题_2" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>The number of nodes, including the external nodes (NIL), in a red black tree must be odd.</p>
+</div>
+<p>算上<span><span class="heti-spacing"> </span>NIL</span> ，红黑树一定是满二叉树（Full Binary Tree<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，节点数一定为奇数。</p>
+<p><strong>T</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Consider a node u of a Red-black tree in extended version. Let <span class="arithmatex">\(h_{L}\)</span> ​ and <span class="arithmatex">\(h_{R}\)</span> ​ be the height of the left and right subtrees of u, respectively. (We assume that the height of a single node is 1.) We have <span class="arithmatex">\(\frac{1}{2}\leq\frac{h_{L}}{h_{R}}\leq2.\)</span></p>
+</div>
+<p>这是红黑树性质的目的，保持“树”形态。</p>
+<p><strong>T</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Is it true that the DELETE operation in a RED-BLACK tree of n nodes requires Ω(logn) rotations in the worst case?</p>
+</div>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-32.png"><img alt="" src="../attachments/ADS_problems-32.png"/></a></p>
+<p><strong>F</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-53.png"><img alt="" src="../attachments/ADS_problems-53.png"/></a></p>
+</div>
+<p>应该只有<span class="heti-skip"><span class="heti-spacing"> </span>13<span class="heti-spacing"> </span></span>颜色发生了变化。</p>
+<p><strong>F</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-63.png"><img alt="" src="../attachments/ADS_problems-63.png"/></a></p>
+</div>
+<p>Red node can only have two or no internal black note(s).</p>
+<p><strong>F</strong></p>
+<hr/>
+<h3 id="选择题_2">选择题<a class="headerlink" href="#选择题_2" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>(multi) Let u be an internal node in a red black tree. Suppose that one child of u is an internal node v, and the other is an external node (NIL). Which of the following statements are correct?</p>
+<p>A.u must be red. B.u must be black.</p>
+<p>C.v must be red. D.Both children of v are NIL</p>
+</div>
+<p>红黑树的性质</p>
+<p><strong>BCD</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>In the red-black tree that results after successively inserting the keys 41; 38; 31; 12; 19; 8 into an initially empty red-black tree, which one of the following statements is FALSE?</p>
+<p>A. 38 is the root</p>
+<p>B. 19 and 41 are siblings, and they are both red</p>
+<p>C. 12 and 31 are siblings, and they are both black</p>
+<p>D. 8 is red</p>
+</div>
+<p>建议还是手绘一遍，如果结果不对看<a href="https://www.cs.usfca.edu/~galles/visualization/RedBlack.html"><span class="heti-skip"><span class="heti-spacing"> </span>RB<span class="heti-spacing"> </span></span>树模拟</a> 找原因；依旧是借用<a href="https://zhoutimemachine.github.io/note/courses/ads-hw-review/#hw2"><span class="heti-skip"><span class="heti-spacing"> </span>Jianjun Zhou's Notebook<span class="heti-spacing"> </span></span></a>的图：</p>
+<div style="text-align: center;">
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://zhoutimemachine.github.io/note/courses/imgs/ads/ads_hw_2.2.png"><img alt="图片" src="https://zhoutimemachine.github.io/note/courses/imgs/ads/ads_hw_2.2.png" width="300"/></a>
+</div>
+<p><strong>B</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Two red-black trees are said to be different if they have different tree structures or different node colors. How many different red-black trees are there with 3 internal nodes?</p>
+<p>A. 1; B. 2; C.3; D. more than 3;</p>
+</div>
+<p><strong>2</strong></p>
+<hr/>
+<h2 id="Bplus-Tree">Bplus Tree<a class="headerlink" href="#Bplus-Tree" title="Permanent link">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">property of B+ Tree</p>
+<ul>
+<li>The root is either a leaf or has between 2 and M children.</li>
+<li>All nonleaf nodes (except the root) have between ⌈M/2⌉ and M children.</li>
+<li>All leaves are at the same depth.</li>
+<li>在空间最浪费的情况下是一棵<span><span class="heti-spacing"> </span></span>⌈M/2⌉<span><span class="heti-spacing"> </span></span>叉树，所以<span class="heti-skip"><span class="heti-spacing"> </span>B+<span class="heti-spacing"> </span></span>树的深度是<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(⌈log_{⌈M/2⌉}​N⌉)\)</span>.</span></li>
+</ul>
+</div>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-42.png"><img alt="" src="../attachments/ADS_problems-42.png"/></a></p>
+<p>由上图我们可以看出来，内部节点的值是 “右侧的指针能够访问到的最小值”。</p>
+<hr/>
+<h3 id="判断题_3">判断题<a class="headerlink" href="#判断题_3" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Consider an insertion in a B+ tree. We may need to update some keys stored in some internal nodes even if no leaf is split during the insertion.</p>
+</div>
+<p>想要更新<span class="heti-skip"><span class="heti-spacing"> </span>internal nodes<span class="heti-spacing"> </span></span>的值<span class="heti-skip"><span class="heti-spacing"> </span>&lt;-<span class="heti-spacing"> </span></span>叶节点的第一个值改变<span class="heti-skip"><span class="heti-spacing"> </span>&lt;-<span class="heti-spacing"> </span></span>新插入值插入叶节点第一个值（不可能，如果插入值小于某个叶节点第一个值，就会插入到前一个叶节点中）或者叶节点分裂（不合题意<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，故不可能。</p>
+<p><strong>F</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>A B+ tree of order 3 is also called a 2-3 tree. Consider a 2-3 tree with 3 internal nodes. Its leaves can have a maximum number of 18 keys in total.</p>
+</div>
+<p><strong>T</strong></p>
+<hr/>
+<h3 id="选择题_3">选择题<a class="headerlink" href="#选择题_3" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>For a B+ tree with order M and N keys, the time complexity of find operations is <span class="arithmatex">\(O(\log_MN)\)</span></p>
+</div>
+<p>节点内部还得搜一遍呢。</p>
+<p><strong>F</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Consider a B+ tree of order M. What is the maximum number of elements that are stored in an internal node?</p>
+<p>A.M ; B.M−1 ; C.M+1 ; D.M/2</p>
+</div>
+<p>注意是一个内部节点。</p>
+<p><strong>B</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>(multi) Consider a deletion in a B+ tree. Suppose that no underflow occurs after the deletion. How many elements in the internal nodes may be updated? Select all possible answers.</p>
+<p>A.0 ; B.1 ; C.2 ; D.&gt;2</p>
+</div>
+<p>借<span class="heti-skip"><span class="heti-spacing"> </span>PPT<span class="heti-spacing"> </span></span>上的图一用：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-42.png"><img alt="" src="../attachments/ADS_problems-42.png"/></a></p>
+<p>不难发现，对于叶节点上的每个值，在内部节点中至多出现一次；在不发生<span class="heti-skip"><span class="heti-spacing"> </span>underflow<span class="heti-spacing"> </span></span>的条件下，如果删除的是上面黑色的值，内部节点不会更新；如果删除红色的值，则对应值所在节点更新，至多更新一次。</p>
+<p><strong>AB</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Insert 3, 1, 4, 5, 9, 2, 6, 8, 7, 0 into an initially empty 2-3 tree (with splitting). Which one of the following statements is FALSE?</p>
+<p>A. 7 and 8 are in the same node</p>
+<p>B. the parent of the node containing 5 has 3 children</p>
+<p>C. the first key stored in the root is 6</p>
+<p>D. there are 5 leaf nodes</p>
+</div>
+<p>学会手绘；我们学习的<span class="heti-skip"><span class="heti-spacing"> </span>B+ tree<span class="heti-spacing"> </span></span>和网上似乎有所不同，不建议使用网上的模拟。</p>
+<div style="text-align: center;">
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://zhoutimemachine.github.io/note/courses/imgs/ads/ads_hw_2.3.png"><img alt="图片" src="https://zhoutimemachine.github.io/note/courses/imgs/ads/ads_hw_2.3.png" width="500"/></a>
+</div>
+<p><strong>A</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Which of the following statements concerning a B+ tree of order M is TRUE?</p>
+<p>A. the root always has between 2 and M children</p>
+<p>B. not all leaves are at the same depth</p>
+<p>C. leaves and nonleaf nodes have some key values in common</p>
+<p>D. all nonleaf nodes have between ⌈M/2⌉ and M children</p>
+</div>
+<p>A，考虑仅有根。B，所有叶必然同深。D，考虑根这个<span><span class="heti-spacing"> </span>nonleaf node</span>。</p>
+<p><strong>C</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>When insert three keys into a non-empty 2-3 tree, and if the tree gains height when the first key is in, then it is possible that the 2-3 tree will gain more height after the insertions of the next two keys.</p>
+</div>
+<p><strong>F</strong></p>
+<hr/>
+<h2 id="Leftist-Heap">Leftist Heap<a class="headerlink" href="#Leftist-Heap" title="Permanent link">¶</a></h2>
+<h3 id="判断题_4">判断题<a class="headerlink" href="#判断题_4" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>In the leftist heap, the null path length of the right path will be less than or equal to the null path length of any other path originating from the root.</p>
+</div>
+<p><span>right path<span class="heti-spacing"> </span></span>是最短的。</p>
+<p><strong>T</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>A binary heap must be a leftist heap.</p>
+</div>
+<p><strong>T</strong></p>
+<hr/>
+<h3 id="选择题_4">选择题<a class="headerlink" href="#选择题_4" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-12.png"><img alt="" src="../attachments/ADS_problems-12.png"/></a></p>
+</div>
+<p>左式堆的合并，如果是选择判断，可能 <a href="https://note.isshikih.top/cour_note/D2CX_AdvancedDataStructure/Lec04/#%E8%BF%AD%E4%BB%A3%E5%BC%8F">迭代式</a> 的演示图更方便理解，例如<a href="https://en.wikipedia.org/wiki/Leftist_tree#Example"><span><span class="heti-spacing"> </span>Leftist tree - Wikipedia</span></a>：</p>
+<div style="text-align: center;">
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://upload.wikimedia.org/wikipedia/commons/2/2a/HBLT_4.jpg"><img alt="图片" src="https://upload.wikimedia.org/wikipedia/commons/2/2a/HBLT_4.jpg" width="500"/></a>
+</div>
+<p><strong>D</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-20.png"><img alt="" src="../attachments/ADS_problems-20.png"/></a></p>
+</div>
+<p>题目来自<a href="https://zhoutimemachine.github.io/note/courses/ads-hw-review/#hw4:~:text=%EF%BC%8C%E5%A6%82%E4%B8%8B%E5%9B%BE-,Q2%2D2,-.%20We%20can"><span><span class="heti-spacing"> </span>Jianjun Zhou's Notebook</span></a> ，在<a href="https://www.uio.no/studier/emner/matnat/ifi/INF4130/h17/losningsforslag/losningsforslag-ukeoppgave8.pdf"><span class="heti-skip"><span class="heti-spacing"> </span>losningsforslag-ukeoppgave8.pdf (uio.no)<span class="heti-spacing"> </span></span></a>的<span class="heti-skip"><span class="heti-spacing"> </span>Exercise 2<span class="heti-spacing"> </span></span>找到了过程，the worst case time complexity is O(N).</p>
+<p><strong>D</strong></p>
+<hr/>
+<h2 id="Skew-Heap">Skew Heap<a class="headerlink" href="#Skew-Heap" title="Permanent link">¶</a></h2>
+<p><span class="arithmatex">\(T_{amortized} = O(log N)\)</span></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-11.png"><img alt="" src="../attachments/ADS_problems-11.png"/></a>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-10.png"><img alt="" src="../attachments/ADS_problems-10.png"/></a></p>
+<p>根据<span class="heti-skip"><span class="heti-spacing"> </span>heavy node<span class="heti-spacing"> </span></span>的定义，我们有以下三个性质：</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ol>
+<li>如果一个节点是<span><span class="heti-spacing"> </span>heavy node</span>，并且在其右子树发生了合并（包括翻转<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，那么它<strong>一定</strong>变为一个<span><span class="heti-spacing"> </span>light node</span>；</li>
+<li>如果一个节点是<span><span class="heti-spacing"> </span>light node</span>，并且在其右子树发生了合并（包括翻转<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，那么它<strong>可能</strong>变为一个<span><span class="heti-spacing"> </span>heavy node</span>；</li>
+<li>合并过程中，如果一个节点的<span class="heti-skip"><span class="heti-spacing"> </span>heavy/light<span class="heti-spacing"> </span></span>发生变化，那么它<strong>原先</strong>一定在堆的最右侧路径上；</li>
+</ol>
+</div>
+<p>迭代式合并<span class="heti-skip"><span class="heti-spacing"> </span>Skew heap<span class="heti-spacing"> </span></span>也适用，参考<a href="https://en.wikipedia.org/wiki/Skew_heap#Non-recursive_merging"><span><span class="heti-spacing"> </span>Skew heap - Wikipedia</span></a> 。</p>
+<hr/>
+<h3 id="判断题_5">判断题<a class="headerlink" href="#判断题_5" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>The result of inserting keys 1 to <span class="arithmatex">\(2^k−1\)</span> for any k &gt; 4 in order into an initially empty skew heap is always a full binary tree.</p>
+</div>
+<blockquote>
+<p>解释来自<a href="https://note.isshikih.top/cour_note/D2CX_AdvancedDataStructure/Lec04/#%E5%90%88%E7%90%86%E6%80%A7%E5%88%86%E6%9E%90"><span class="heti-skip"><span class="heti-spacing"> </span>Lecture 4 | Leftist Heap &amp; Skew Heap - Isshiki<span class="heti-spacing"> </span></span>修<span><span class="heti-spacing"> </span>'s Notebook</span> </a></p>
+</blockquote>
+<p>首先，从插入的元素的数量来看，是满足满二叉树的必要条件的。</p>
+<p>而根据我们上面描述的，跳过肯定成立的初始情况，我们可以做一个简单的归纳，过程并不完整与严谨，但是大概就是这么个意思。</p>
+<p>对于一个满二叉树，我们现在要插入一个数，显然这个数比树里任何一个都要大。而当这个数被插入后，它成为整个堆，或者说整个树最左侧的一条。而在接下来的交换过程中，它会不断被甩来甩去，最终经过<span class="heti-skip"><span class="heti-spacing"> </span>2^k<span class="heti-spacing"> </span></span>次后被甩到最右边，也就是迎接它的第一个孩子。显然，对于该层的所有节点来说都需要<span class="heti-skip"><span class="heti-spacing"> </span>2^k<span class="heti-spacing"> </span></span>次才会进入到最右侧路径。</p>
+<p>（这个过程可以类比二进制数的自增，你可以根据这个节点的每个前驱分别是左孩子还是右孩子来分配对应的位子是<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>0</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>还是<span><span class="heti-spacing"> </span></span><code>1</code><heti-adjacent class="heti-adjacent-half">。</heti-adjacent>）</p>
+<p><strong>T</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>For a skewed heap with n nodes, the number of nodes on its right path must be O(logn).</p>
+</div>
+<p>对于<span><span class="heti-spacing"> </span>skewed heap</span>，其以<span class="heti-skip"><span class="heti-spacing"> </span>light node<span class="heti-spacing"> </span></span>为根的子树可以看作是一个<span><span class="heti-spacing"> </span>leftist heap</span> ，满足题设；但是对于<span><span class="heti-spacing"> </span>heavy node</span> ，则不然。</p>
+<blockquote>
+<p>The right path of a skew heap can be <strong>arbitrarily</strong> long. <strong>T</strong></p>
+</blockquote>
+<p><strong>F</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>For a skew heap with N nodes, the worst-case running time of all operations (insert/delete min/merge) is O(N).</p>
+</div>
+<p><strong>T</strong></p>
+<hr/>
+<h3 id="选择题_5">选择题<a class="headerlink" href="#选择题_5" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-29.png"><img alt="" src="../attachments/ADS_problems-29.png"/></a></p>
+</div>
+<p><span>ACD<span class="heti-spacing"> </span></span>肯定对的，<span>B<span class="heti-spacing"> </span></span>的话考虑<span class="heti-skip"><span class="heti-spacing"> </span>right path<span class="heti-spacing"> </span></span>不是<span class="heti-skip"><span class="heti-spacing"> </span>O(log N)<span class="heti-spacing"> </span></span>的情况。</p>
+<p><strong>B</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Merge the two skew heaps in the following figure. Which one of the following statements is FALSE?</p>
+<p>A. 15 is the right child of 8 ; B. 14 is the right child of 6</p>
+<p>C. 1 is the root ; D. 9 is the right child of 3</p>
+<p></p><div style="text-align: center;"><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://zhoutimemachine.github.io/note/courses/imgs/ads/ads_hw_4.2.jpg"><img alt="图片" src="https://zhoutimemachine.github.io/note/courses/imgs/ads/ads_hw_4.2.jpg" width="300"/></a></div>
+</div>
+<p><span>skew heap<span class="heti-spacing"> </span></span>练习手绘过程，结果如下：</p>
+<div style="text-align: center;">
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://zhoutimemachine.github.io/note/courses/imgs/ads/ads_hw_4.5.png"><img alt="图片" src="https://zhoutimemachine.github.io/note/courses/imgs/ads/ads_hw_4.5.png" width="300"/></a>
+</div>
+<p><strong>A</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-28.png"><img alt="" src="../attachments/ADS_problems-28.png"/></a></p>
+</div>
+<blockquote>
+<p>参见上面的<span><span class="heti-spacing"> </span>note</span>。</p>
+</blockquote>
+<p><strong>D</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>If a leftist heap can be implemented recursively, so can its counterpart skew heap.</p>
+</div>
+<p><strong>F</strong></p>
+<hr/>
+<h2 id="Binomial-Queue">Binomial Queue<a class="headerlink" href="#Binomial-Queue" title="Permanent link">¶</a></h2>
+<p>二项堆理解起来很简单，维护一个森林，具有如下性质：</p>
+<ol>
+<li>森林中的树具有堆性质，且不存在两颗相同的树（如果存在，则合并<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；</li>
+<li>每颗树的节点数为<span><span class="heti-spacing"> </span><span class="arithmatex">\(2^k\)</span></span> ，称为<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>阶二项树<span><span class="heti-spacing"> </span><span class="arithmatex">\(B_{k}\)</span></span>；</li>
+<li><span><span class="arithmatex">\(B_{k}\)</span><span class="heti-spacing"> </span></span>的根的子节点数为<span><span class="heti-spacing"> </span>k</span>，且依次为<span><span class="heti-spacing"> </span><span class="arithmatex">\(B_{k-1}, B_{k-2} \dots B_{0}\)</span></span>；</li>
+<li><span><span class="arithmatex">\(B_{K}\)</span><span class="heti-spacing"> </span></span>每一层节点数量为二项式展开系数。</li>
+</ol>
+<p>二项堆是一个具有不重复但同构的若干棵树的森林，不妨将其视为二进制数进行合并；对于其他操作：Insert（单节点森林与原森林合并<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、DeleteMin（由于性质<span><span class="heti-spacing"> </span>3</span>，删除根节点后，其他子树仍然是二项树，合并以维护二项堆性质<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<p>对于合并，理论比较简单，实现起来还是有些绕的，见<a href="https://note.isshikih.top/cour_note/D2CX_AdvancedDataStructure/Lec05/#%E9%98%9F%E5%88%97%E5%90%88%E5%B9%B6"><span><span class="heti-spacing"> </span>Lecture 5 | Binomial Queue</span></a></p>
+<div class="admonition help">
+<p class="admonition-title">Help</p>
+<p><a href="https://www.youtube.com/watch?v=6JxvKfSV9Ns"><span>Fibonacci Heaps or "How to invent an extremely clever data structure" - YouTube<span class="heti-spacing"> </span></span></a>是一个很好的讲解<span class="heti-skip"><span class="heti-spacing"> </span>Fibonacci Queue<span class="heti-spacing"> </span></span>的视频，其中也提到了<span><span class="heti-spacing"> </span>binomial queue</span>。</p>
+</div>
+<hr/>
+<h3 id="判断题_6">判断题<a class="headerlink" href="#判断题_6" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>To implement a binomial queue, the subtrees of a binomial tree are linked in increasing sizes.</p>
+</div>
+<p>子树之间使用<span class="heti-skip"><span class="heti-spacing"> </span>NextSibling<span class="heti-spacing"> </span></span>链接，但是<span class="heti-skip"><span class="heti-spacing"> </span>PPT<span class="heti-spacing"> </span></span>上是这样的……</p>
+<p>图解给插右边：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-37.png"><img alt="" src="../attachments/ADS_problems-37.png"/></a></p>
+<p>代码给插左边：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-38.png"><img alt="" src="../attachments/ADS_problems-38.png"/></a></p>
+<p>有可能就是没有顺序（不保真<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，但是答案就是这个命题错误。</p>
+<p><strong>F</strong></p>
+<hr/>
+<h3 id="选择题_6">选择题<a class="headerlink" href="#选择题_6" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-36.png"><img alt="" src="../attachments/ADS_problems-36.png"/></a></p>
+</div>
+<p>没看懂怎么建堆然后删除<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>的，做出来的人和我说“先把<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>删了再建堆不就好了”；有道理，但如果真是这样的话这题也是该似了。</p>
+<p><strong>D</strong></p>
+<hr/>
+<h2 id="Inverted-File-Index">Inverted File Index<a class="headerlink" href="#Inverted-File-Index" title="Permanent link">¶</a></h2>
+<h3 id="判断题_7">判断题<a class="headerlink" href="#判断题_7" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-76.png"><img alt="" src="../attachments/ADS_problems-76.png"/></a></p>
+</div>
+<p><strong>C</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Stop words should be ignored when creating inverted file indices, since they appear rarely in articles, and are not useful for indexing</p>
+</div>
+<p>停用词是用的太多而没有搜索意义的词，如<span><span class="heti-spacing"> </span>"a" "the"</span>。</p>
+<p><strong>F</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>In distributed indexing, document-partitioned strategy is to store on each node all the documents that contain the terms in a certain range.</p>
+</div>
+<p><strong>F</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>When evaluating the performance of data retrieval, it is important to measure the relevancy of the answer set.</p>
+</div>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-15.png"><img alt="" src="../attachments/ADS_problems-15.png"/></a></p>
+<p><strong>F</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Precision is more important than recall when evaluating the explosive detection in airport security.</p>
+</div>
+<p>这种结合现实的，那就是要看是“宁错杀不放过”（召回率）还是“宁缺毋滥”（准确率<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<p><strong>F</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-39.png"><img alt="" src="../attachments/ADS_problems-39.png"/></a></p>
+</div>
+<p><del>宁错杀，不放过</del></p>
+<p><strong>F</strong></p>
+<hr/>
+<p><del>接下来是系列题</del> 不建议纠缠，意义不大，凭感觉吧。</p>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>While accessing a term by hashing in an inverted file index, range searches are expensive.</p>
+</div>
+<p><strong>T</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>While accessing a term by hashing in an inverted file index, range searches are inexpensive.</p>
+</div>
+<p><strong>F</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>While accessing a term stored in a B+ tree in an inverted file index, range searchings are expensive</p>
+</div>
+<p><strong>F</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-55.png"><img alt="" src="../attachments/ADS_problems-55.png"/></a></p>
+</div>
+<p>英语不太好，关键在于怎么理解<span><span class="heti-spacing"> </span>"Retrieved False Spam"</span>：
+- 按照上课的同样语境应该表示 “没能召回的‘垃圾邮件’”，那么答案是 D；
+- 起初我以为是“召回<strong>认为</strong>不是垃圾邮件”，那么应该是<span><span class="heti-spacing"> </span>45%</span>，但是没有这个选项，那应该还是第一种理解。</p>
+<p><strong>-D</strong></p>
+<hr/>
+<h2 id="Backtracing">Backtracing<a class="headerlink" href="#Backtracing" title="Permanent link">¶</a></h2>
+<h3 id="判断题_8">判断题<a class="headerlink" href="#判断题_8" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Reall that in class we solved the "good path" problem using dfs + pruning. Note that this problem can also be solved by bfs + pruning. For any instance, dfs + prunning is at least as fast as bfs + pruning. (Hint: consider a case where leaves may have different depth.)</p>
+</div>
+<p>我要是<span class="heti-skip"><span class="heti-spacing"> </span>leftist tree<span class="heti-spacing"> </span></span>你用<span class="heti-skip"><span class="heti-spacing"> </span>dfs<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>bfs<span class="heti-spacing"> </span></span>能一样吗？</p>
+<p><strong>F</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>It is guaranteed that an exhaustive search can always find the solution in finite time. </p>
+</div>
+<p>我们在<span class="heti-skip"><span class="heti-spacing"> </span>backtracing<span class="heti-spacing"> </span></span>的伪代码中是存在这么一种情况的：如果在<span class="heti-skip"><span class="heti-spacing"> </span>game tree<span class="heti-spacing"> </span></span>的某一层的所有节点尝试后都<span class="heti-skip"><span class="heti-spacing"> </span>check<span class="heti-spacing"> </span></span>失败，说明不存在解。</p>
+<p>也就是说，不是所有的问题都能够<span><span class="heti-spacing"> </span>"find the solution"</span>。</p>
+<p><strong>F</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>In a Turnpike Reconstruction Problem, given distance set D = { 1,2,3,4,5,6 } ,(x1,…, x4) = (0, 1, 4, 6) is the only solution provided that x1 = 0.</p>
+</div>
+<p>这个点的分布中心对称一下显然也可以；当然，万一是<span><span class="heti-spacing"> </span>{0, 2, 4, 6}</span>，那就是对的了。</p>
+<p><strong>F</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>For the Turnpike reconstruction algorithm of N points, assuming that the distance set D is maintained as an AVL tree, the running time is <span class="arithmatex">\(O(N^2logN)\)</span> if no backtracking happens.</p>
+</div>
+<p><strong>T</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>What makes the time complexity analysis of a backtracking algorithm very difficult is that the sizes of solution spaces may vary.</p>
+</div>
+<p><strong>F</strong></p>
+<p>What makes the time complexity analysis of a backtracking algorithm very difficult is that the number of solutions that do satisfy the restriction is hard to estimate.（True）</p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>The 4-queen problem has exactly 2 distinct solutions.</p>
+</div>
+<p><strong>T</strong></p>
+<hr/>
+<h3 id="选择题_7">选择题<a class="headerlink" href="#选择题_7" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-33.png"><img alt="" src="../attachments/ADS_problems-33.png"/></a></p>
+</div>
+<p><strong>C</strong></p>
+<hr/>
+<h2 id="Divide-and-Conquer">Divide and Conquer<a class="headerlink" href="#Divide-and-Conquer" title="Permanent link">¶</a></h2>
+<h3 id="判断题_9">判断题<a class="headerlink" href="#判断题_9" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>The asymptotic upper bound for the recurrence T(n) = 2T(⌊n/2⌋ + 17) + n is T(n) = O(n log n).</p>
+</div>
+<p>别管什么向下和内部常数了，<span>n<span class="heti-spacing"> </span></span>很大的时候可以忽视。</p>
+<p><strong>T</strong></p>
+<hr/>
+<h3 id="选择题_8">选择题<a class="headerlink" href="#选择题_8" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-64.png"><img alt="" src="../attachments/ADS_problems-64.png"/></a></p>
+</div>
+<p><strong>D</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-21.png"><img alt="" src="../attachments/ADS_problems-21.png"/></a></p>
+</div>
+<p><strong>A</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems.png"><img alt="" src="../attachments/ADS_problems.png"/></a></p>
+</div>
+<p>不难得到最后<span><span class="heti-spacing"> </span>AB best, C =&gt; <span class="arithmatex">\(O(N^{\log_{2}3})\)</span> ; D =&gt; <span class="arithmatex">\(O(N\log^2N)\)</span></span> ；如何比较<span><span class="heti-spacing"> </span>CD</span>？取商极限。</p>
+<p><strong>C</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-22.png"><img alt="" src="../attachments/ADS_problems-22.png"/></a></p>
+</div>
+<blockquote>
+<p><a href="https://cs.stackexchange.com/questions/96422/how-to-solve-tn-2t%E2%88%9Anlog-n-with-the-master-theorem">recurrence relation - How to solve T(n)=2T(√n)+log n with the master theorem?</a></p>
+</blockquote>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-23.png"><img alt="" src="../attachments/ADS_problems-23.png"/></a></p>
+<p><strong>D</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-34.png"><img alt="" src="../attachments/ADS_problems-34.png"/></a></p>
+</div>
+<p>针对<span class="heti-skip"><span class="heti-spacing"> </span>C<span class="heti-spacing"> </span></span>项，注意到：<span class="arithmatex">\(\frac{af\left( \frac{n}{b} \right)}{f(n)}=2* \frac{\frac{n}{2} / lg\left( \frac{n}{2} \right)}{n / lg(n)} = \frac{lg(n)}{lg(n)-lg(2)} \rightarrow 1\)</span> ；由于是趋近，不符合形式二的第三个情况；趋近项目为<span><span class="heti-spacing"> </span>1</span>，不存在<span class="heti-skip"><span class="heti-spacing"> </span>k/K<span class="heti-spacing"> </span></span>符合前两个情况。故不存在。</p>
+<p><strong>C</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/351069411406d61c114dd993dc88187e_.png"><img alt="" src="../attachments/351069411406d61c114dd993dc88187e_.png"/></a></p>
+</div>
+<p>先看下面的这个推导：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/f11de4fefb90d294cce8264143c886d.png"><img alt="" src="../attachments/f11de4fefb90d294cce8264143c886d.png"/></a></p>
+<p>同理我们可以得到：</p>
+<p><span class="arithmatex">\(T(n)=T(n^{1/k})+\log m = \log n \sum_{i=0}^{\log \log n}\frac{1}{k^i}\)</span></p>
+<p>那么题目中的内容就可以：</p>
+<div class="arithmatex">\[
+\begin{align}
+T(n)&amp;=T(n^{1/2})+T(n^{1/3})+T(n^{1/6})+\log n \\&amp;= \log n \sum_{i=0}^{\log \log n}\left(\frac{1}{2^i}+\frac{1}{3^i}+\frac{1}{6^i} \right) = \log n\log \log n 
+\end{align}
+\]</div>
+<p><strong>E</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-77.png"><img alt="" src="../attachments/ADS_problems-77.png"/></a></p>
+</div>
+<p><strong>C</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>How many of the following sorting methods use(s) Divide and Conquer algorithm?</p>
+<ul>
+<li>Heap Sort</li>
+<li>Insertion Sort</li>
+<li>Merge Sort</li>
+<li>Quick Sort</li>
+<li>Selection Sort</li>
+<li>Shell Sort</li>
+</ul>
+</div>
+<p>分治算法的排序方法有<span><span class="heti-spacing"> </span></span><strong>2</strong><span><span class="heti-spacing"> </span></span>个：<strong>Merge Sort</strong><span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span></span><strong>Quick Sort</strong></p>
+<p><strong>2</strong></p>
+<hr/>
+<h2 id="Dynamic-Programming">Dynamic Programming<a class="headerlink" href="#Dynamic-Programming" title="Permanent link">¶</a></h2>
+<h3 id="判断题_10">判断题<a class="headerlink" href="#判断题_10" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>In dynamic programming algorithms, some results of subproblems have to be stored even they do not compose the optimal solution of a larger problem.</p>
+</div>
+<p><strong>T</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-40.png"><img alt="" src="../attachments/ADS_problems-40.png"/></a></p>
+</div>
+<p><span>k<span class="heti-spacing"> </span></span>表示只考虑前<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>个节点得到的最短路。</p>
+<p><strong>F</strong></p>
+<hr/>
+<h3 id="选择题_9">选择题<a class="headerlink" href="#选择题_9" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-24.png"><img alt="" src="../attachments/ADS_problems-24.png"/></a></p>
+</div>
+<p>题目选项不难（<span>D<span class="heti-spacing"> </span></span>处应该为<span><span class="heti-spacing"> </span><span class="arithmatex">\(R_{N-i}\)</span></span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，但是其他选项值得看一下。</p>
+<p><strong>D</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-25.png"><img alt="" src="../attachments/ADS_problems-25.png"/></a></p>
+</div>
+<p>显然<span class="heti-skip"><span class="heti-spacing"> </span>j<span class="heti-spacing"> </span></span>从大到小推导。</p>
+<p><strong>B</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-30.png"><img alt="" src="../attachments/ADS_problems-30.png"/></a>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-31.png"><img alt="" src="../attachments/ADS_problems-31.png"/></a></p>
+</div>
+<p>只能说<span class="heti-skip"><span class="heti-spacing"> </span>ABD<span class="heti-spacing"> </span></span>肯定对的，<span>C<span class="heti-spacing"> </span></span>不会。</p>
+<p><strong>C</strong></p>
+<hr/>
+<h2 id="Greedy-Algothrim">Greedy Algothrim<a class="headerlink" href="#Greedy-Algothrim" title="Permanent link">¶</a></h2>
+<h3 id="判断题_11">判断题<a class="headerlink" href="#判断题_11" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Let S be the set of activities in Activity Selection Problem. Then the earliest finish activity am​ must be included in all the maximum-size subset of mutually compatible activities of S.</p>
+</div>
+<p>贪婪解不一定是最优解，最优解不一定是贪婪解。</p>
+<p><strong>F</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Consider the data compression problem we discussed in the class this week. The optimal Σ-tree must be full. That is, every internal node of the tree must have two children.</p>
+</div>
+<p>应该就是指哈夫曼树，必定为满二叉树。</p>
+<p><strong>T</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Greedy algorithm works only if the local optimum is equal to the global optimum.</p>
+</div>
+<p><strong>T</strong></p>
+<hr/>
+<h3 id="选择题_10">选择题<a class="headerlink" href="#选择题_10" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-65.png"><img alt="" src="../attachments/ADS_problems-65.png"/></a></p>
+</div>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>(multi) <a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-17.png"><img alt="" src="../attachments/ADS_problems-17.png"/></a></p>
+</div>
+<p>可能有的人有些误解：频率最高的那个字<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>词一定是用一个<span class="heti-skip"><span class="heti-spacing"> </span>bit<span class="heti-spacing"> </span></span>编码的。</p>
+<p>但是不然。以频率最高为<span class="heti-skip"><span class="heti-spacing"> </span>0.4<span class="heti-spacing"> </span></span>为例：如果前面的合并过程中，有一个合并后的父节点频率为 <code>[0.4, 0.6)</code> ，即确保除这两个占大头外，还有一些字母可以被合并；那么<span class="heti-skip"><span class="heti-spacing"> </span>0.4<span class="heti-spacing"> </span></span>的字母都可能使用两个及以上的<span class="heti-skip"><span class="heti-spacing"> </span>bit<span class="heti-spacing"> </span></span>编码。</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>判断使用一位<span class="heti-skip"><span class="heti-spacing"> </span>bit<span class="heti-spacing"> </span></span>编码的条件：</p>
+<ol>
+<li>频率最高，记作<span><span class="heti-spacing"> </span><span class="arithmatex">\(f_0\)</span></span>；</li>
+<li>若频率第二高者为<span><span class="heti-spacing"> </span><span class="arithmatex">\(f_{1}\)</span></span>，则有<span><span class="heti-spacing"> </span><span class="arithmatex">\(1-f_{0}-f_{1} \leq f_{0}\)</span></span>；因为只有这样，在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f_{0}\)</span><span class="heti-spacing"> </span></span>被合并之前，只有一个其他所有频率合并而成的聚合体，<span><span class="arithmatex">\(f_{0}\)</span><span class="heti-spacing"> </span></span>自然就可以<span class="heti-skip"><span class="heti-spacing"> </span>1bit<span class="heti-spacing"> </span></span>编码了。</li>
+</ol>
+</div>
+<p><strong>BC</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-18.png"><img alt="" src="../attachments/ADS_problems-18.png"/></a></p>
+</div>
+<p>因为取<span><span class="heti-spacing"> </span>max</span>，我们希望每个都不要太大，所以早结束的早开始干（<del>怎么这么像我赶<span class="heti-skip"><span class="heti-spacing"> </span>ddl<span class="heti-spacing"> </span></span>的样子</del><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；还有，这个题目又™的放在多选题里。</p>
+<p><strong>A</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-58.png"><img alt="" src="../attachments/ADS_problems-58.png"/></a></p>
+</div>
+<p><span class="arithmatex">\(\# characters = \frac{\#node+1}{2}\)</span></p>
+<p><strong>C</strong></p>
+<hr/>
+<h2 id="NP">NP<a class="headerlink" href="#NP" title="Permanent link">¶</a></h2>
+<h3 id="判断题_12">判断题<a class="headerlink" href="#判断题_12" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>If a problem can be solved by dynamic programming, it must be solved in polynomial time.</p>
+</div>
+<blockquote>
+<p><a href="https://cs.stackexchange.com/questions/52763/why-is-the-dynamic-programming-algorithm-of-the-knapsack-problem-not-polynomial">Why is the dynamic programming algorithm of the knapsack problem not polynomial?</a> </p>
+</blockquote>
+<ul>
+<li>动态规划算法的时间复杂度可以是多项式时间，也可以是伪多项式时间。伪多项式时间是指算法的时间复杂度是多项式的，但其复杂度依赖于输入的数值大小，而不是输入的规模。</li>
+</ul>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-45.png"><img alt="" src="../attachments/ADS_problems-45.png"/></a></p>
+<p><strong>F</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-43.png"><img alt="" src="../attachments/ADS_problems-43.png"/></a></p>
+</div>
+<p><strong>T</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>If a Probelm X is in P, then the problem <span class="arithmatex">\(\bar{X}\)</span> is also in P.</p>
+</div>
+<p><strong>T</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Suppose that <span class="arithmatex">\(X≤_{p}​Y\)</span>. If X is not in P, then Y is not in P.</p>
+</div>
+<p>也许其逆否命题更加好判断。</p>
+<p><strong>T</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-44.png"><img alt="" src="../attachments/ADS_problems-44.png"/></a></p>
+</div>
+<p><span>myc<span class="heti-spacing"> </span></span>老师为了让大家记住也是煞费苦心了。</p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Let X be a problem in NP. We know that both yes-instances (instances for which the answer is yes) and no-instances of X must have certificates.</p>
+</div>
+<blockquote>
+<p><a href="https://en.wikipedia.org/wiki/Certificate_(complexity)">Certificate (complexity)</a></p>
+</blockquote>
+<p><span>no-instances<span class="heti-spacing"> </span></span>不一定需要<span><span class="heti-spacing"> </span>certificates</span>。</p>
+<p><strong>F</strong></p>
+<hr/>
+<h3 id="选择题_11">选择题<a class="headerlink" href="#选择题_11" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-67.png"><img alt="" src="../attachments/ADS_problems-67.png"/></a></p>
+</div>
+<p><span>A.<span class="heti-spacing"> </span></span>需要<span><span class="heti-spacing"> </span>iff</span>
+C. <a href="https://en.wikipedia.org/wiki/Co-NP">co-NP</a></p>
+<p><strong>A</strong></p>
+<hr/>
+<h2 id="Approximate">Approximate<a class="headerlink" href="#Approximate" title="Permanent link">¶</a></h2>
+<h3 id="判断题_13">判断题<a class="headerlink" href="#判断题_13" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>There are inputs that force any on-line bin-packing algorithm to use at least 5/3 the optimal number of bins.</p>
+</div>
+<p><strong>T</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Unless P = NP, there is no <span class="arithmatex">\(\rho\)</span> -approximation for center-selection problem for any <span class="arithmatex">\(\rho\)</span> &lt; 2.</p>
+</div>
+<p><span>PPT<span class="heti-spacing"> </span></span>上原话。</p>
+<p><strong>T</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Suppose ALG is an α-approximation algorithm for an optimization problem ∏ whose approximation ratio is tight. Then for every ε&gt;0 there is no (α−ε)-approximation algorithm for ∏ unless P = NP. </p>
+</div>
+<p>不应该随意扩大上面的断言；对于某一算法最优近似可能是有下界的，但是不能够保证所有算法对某一问题的近似下界都是同样的或者更高的。</p>
+<p><strong>F</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>For any instance, a 2-approximation algorithm must give a solution better than a 3-approximation algorithm.</p>
+</div>
+<p><strong>F</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>As we know there is a 2-approximation algorithm for the Vertex Cover problem. Then we must be able to obtain a 2-approximation algorithm for the Clique problem, since the Clique problem can be polynomially reduced to the Vertex Cover problem.</p>
+</div>
+<p>解释见<a href="https://zhoutimemachine.github.io/note/courses/ads-hw-review/#hw11"><span><span class="heti-spacing"> </span>Q1-2</span></a></p>
+<p><strong>F</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-46.png"><img alt="" src="../attachments/ADS_problems-46.png"/></a></p>
+</div>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>To solve the vertex cover problem, there is a greedy algorithm that collects the vertex with the highest degree (i.e., the one covering the largest number of edges) and remove it from the graph at each stage. This greedy algorithm achieves an approximation ratio of 2.</p>
+</div>
+<p>偷了一个过程来：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/tmp.jpeg"><img alt="" src="../attachments/tmp.jpeg"/></a></p>
+<p>结论是（不保真<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：没有有限的近似比；即没有对应的贪婪近似算法。</p>
+<p><strong>F</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>In the bin packing problem, we are asked to pack a list of items L to the minimum number of bins of capacity 1. For the instance L, let FF(L) denote the number of bins used by the algorithm <strong>First Fit</strong>. The instance L′ is derived from L by deleting one item from L. Then FF(L′) is at most of FF(L).</p>
+</div>
+<p><strong>F</strong></p>
+<hr/>
+<h3 id="选择题_12">选择题<a class="headerlink" href="#选择题_12" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-47.png"><img alt="" src="../attachments/ADS_problems-47.png"/></a></p>
+</div>
+<p>长得像<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\land\)</span><span class="heti-spacing"> </span></span>的最小生成树<span><span class="heti-spacing"> </span>=&gt; pre-order, post-order</span> 。</p>
+<p><strong>C</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-56.png"><img alt="" src="../attachments/ADS_problems-56.png"/></a></p>
+</div>
+<blockquote>
+<p>来自某大佬的推导：</p>
+</blockquote>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-57.png"><img alt="" src="../attachments/ADS_problems-57.png"/></a></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-70.png"><img alt="" src="../attachments/ADS_problems-70.png"/></a></p>
+</div>
+<p>（看见这题，看见<span><span class="heti-spacing"> </span>yds</span>，就知道该跳了）</p>
+<p><strong>-B</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-72.png"><img alt="" src="../attachments/ADS_problems-72.png"/></a></p>
+</div>
+<p><strong>C</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-74.png"><img alt="" src="../attachments/ADS_problems-74.png"/></a></p>
+</div>
+<p><span>D<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>B,C<span class="heti-spacing"> </span></span>都矛盾了，不选你选谁？</p>
+<p><strong>D</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-78.png"><img alt="" src="../attachments/ADS_problems-78.png"/></a></p>
+</div>
+<p><span>D.<span class="heti-spacing"> </span></span>有向无环图就是一颗树，一定能够在多项式时间找到最长路径；<span>BC<span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span>ppt<span class="heti-spacing"> </span></span>结论。</p>
+<p><strong>D</strong></p>
+<hr/>
+<h2 id="Local-Search">Local Search<a class="headerlink" href="#Local-Search" title="Permanent link">¶</a></h2>
+<h3 id="判断题_14">判断题<a class="headerlink" href="#判断题_14" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-48.png"><img alt="" src="../attachments/ADS_problems-48.png"/></a></p>
+</div>
+<p>最少显然是<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>个点，且一定有中心的那个点；只要它不是第一个被删除的点，那么它一定不会被删除，一定会找到最优解。</p>
+<p><strong>T</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-49.png"><img alt="" src="../attachments/ADS_problems-49.png"/></a></p>
+</div>
+<p>证明是不会的，但是上面的<a href="https://zhoutimemachine.github.io/note/courses/ads-hw-review/#hw12">右边</a> 给出了很好的反例，说明了题目中使用的<span class="heti-skip"><span class="heti-spacing"> </span>local search<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>k-center problem<span class="heti-spacing"> </span></span>中的可控性较差。</p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Starting from the following configuration of a Hopfield Neural Network, the state-filpping algorithm will terminiate at a stable configuration after at most 32 iterations.
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-61.png"><img alt="" src="../attachments/ADS_problems-61.png"/></a></p>
+</div>
+<p><strong>T</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>In local search, if the optimization function has a constant value in a neighborhood, there will be a problem.</p>
+</div>
+<p><strong>T</strong></p>
+<hr/>
+<h2 id="Randomized-Algorithms">Randomized Algorithms<a class="headerlink" href="#Randomized-Algorithms" title="Permanent link">¶</a></h2>
+<h3 id="判断题_15">判断题<a class="headerlink" href="#判断题_15" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-50.png"><img alt="" src="../attachments/ADS_problems-50.png"/></a></p>
+</div>
+<p>如果<span class="heti-skip"><span class="heti-spacing"> </span>a<span class="heti-spacing"> </span></span>本身已经排序完成才正确。</p>
+<p><strong>F</strong></p>
+<hr/>
+<h3 id="选择题_13">选择题<a class="headerlink" href="#选择题_13" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>The Online Hiring Algorithm ( hire only once )（题目给了伪代码，这里节省空间）. Assume that the quality input C[] is uniformly random. When N=271 and k=90, the probability of hiring the Nth candidate is __.</p>
+</div>
+<p>在伪代码中，我们将<span class="heti-skip"><span class="heti-spacing"> </span>Best<span class="heti-spacing"> </span></span>初始值赋值为<span><span class="heti-spacing"> </span>N</span>；所以只需要所有比<span class="heti-skip"><span class="heti-spacing"> </span>N<span class="heti-spacing"> </span></span>厉害的人都在前<span class="heti-skip"><span class="heti-spacing"> </span>K<span class="heti-spacing"> </span></span>个或者前<span class="heti-skip"><span class="heti-spacing"> </span>N-1<span class="heti-spacing"> </span></span>个人中最厉害的都在前<span class="heti-skip"><span class="heti-spacing"> </span>K<span class="heti-spacing"> </span></span>个且<span class="heti-skip"><span class="heti-spacing"> </span>N<span class="heti-spacing"> </span></span>自己就是最厉害的：</p>
+<p><span class="arithmatex">\(Pr[S_{N-1}]=\frac{K}{N} + \frac{K}{N-1}* \frac{1}{N}=\frac{1}{3}\)</span></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-60.png"><img alt="" src="../attachments/ADS_problems-60.png"/></a></p>
+</div>
+<p><strong>F</strong></p>
+<hr/>
+<h2 id="Parallel-Algorithms">Parallel Algorithms<a class="headerlink" href="#Parallel-Algorithms" title="Permanent link">¶</a></h2>
+<h3 id="判断题_16">判断题<a class="headerlink" href="#判断题_16" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<blockquote>
+<p>In order to solve  the maximum finding problem by a parallel  algorithm  with T(n)=O(1) , we need work load <span class="arithmatex">\(W(n)=Ω(n^2)\)</span> in return.</p>
+</blockquote>
+<p><span>random sampling<span class="heti-spacing"> </span></span>可以<span><span class="heti-spacing"> </span>W(n)=O(n)</span>；而此处又使用了<span><span class="heti-spacing"> </span>Ω</span>。</p>
+<p><strong>F</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-52.png"><img alt="" src="../attachments/ADS_problems-52.png"/></a></p>
+</div>
+<p>T(n) = O(log(n)); W(n)=O(n)</p>
+<p><strong>F</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Recall the discussion about the Maximum Finding Problem (that is, to find the maximum among n numbers in an array), Common CRCW memory strategy is used to assure T(n)=O(1) for the parallel algorithm. Actually, we can also apply Arbitrary CRCW memory strategy to keep O(1) time complexity. Now let us consider a new memory strategy, namely the <strong>C</strong>oncurrent <strong>R</strong>ead <strong>O</strong>wner <strong>W</strong>rite (CROW). It means that each memory has an official "owner". Only the "owner" can write to the corresponding memory. Then there is no parallel algorithm that can solve the problem with T(n)=O(1) using CROW memory strategy.</p>
+</div>
+<p><strong>T</strong></p>
+<hr/>
+<h3 id="选择题_14">选择题<a class="headerlink" href="#选择题_14" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-54.png"><img alt="" src="../attachments/ADS_problems-54.png"/></a></p>
+</div>
+<p>对于<span class="heti-skip"><span class="heti-spacing"> </span>D<span class="heti-spacing"> </span></span>选项：</p>
+<ul>
+<li>如果最长的任务的长度<span class="heti-skip"><span class="heti-spacing"> </span>lm<span class="heti-spacing"> </span></span>超过了所有任务的总长度<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>机器数得到的平均长度<span><span class="heti-spacing"> </span>la</span>，那么<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(C_{max}\)</span><span class="heti-spacing"> </span></span>就是这个最长的长度<span><span class="heti-spacing"> </span>lm</span>；</li>
+<li>如果最长的任务不超过，那么最终取得<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(C_{max}\)</span><span class="heti-spacing"> </span></span>的那台机器的最后一个任务的长度<span class="heti-skip"><span class="heti-spacing"> </span>l<span class="heti-spacing"> </span></span>一定不超过<span><span class="heti-spacing"> </span>lm</span>；如果想要<span><span class="heti-spacing"> </span><span class="arithmatex">\(lm &gt; 2OPT(C_max) \geq 2*la\)</span></span> ；则<span class="heti-skip"><span class="heti-spacing"> </span>l<span class="heti-spacing"> </span></span>前面的任务总长度超过<span><span class="heti-spacing"> </span>la</span>；又一定有一台机器目前的总任务长度小于<span><span class="heti-spacing"> </span>la</span>；那么此时仍旧能够进行<span><span class="heti-spacing"> </span>local search</span>，不应该<span><span class="heti-spacing"> </span>terminate</span>。</li>
+</ul>
+<p><strong>D</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-66.png"><img alt="" src="../attachments/ADS_problems-66.png"/></a></p>
+</div>
+<p>将依次进行的<span class="heti-skip"><span class="heti-spacing"> </span>merge<span class="heti-spacing"> </span></span>进行了并行，工作量不变，而只有<span class="heti-skip"><span class="heti-spacing"> </span>O(log(n))<span class="heti-spacing"> </span></span>层，每层<span><span class="heti-spacing"> </span>O(log(n))</span>。</p>
+<p><strong>A</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-75.png"><img alt="" src="../attachments/ADS_problems-75.png"/></a></p>
+</div>
+<p><strong>A</strong></p>
+<hr/>
+<h2 id="External-sort">External sort<a class="headerlink" href="#External-sort" title="Permanent link">¶</a></h2>
+<h3 id="判断题_17">判断题<a class="headerlink" href="#判断题_17" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>In external sorting, a k-way merging is usually used in order to reduce the number of passes and we will take the k as large as possible as long as we have enough amount of tapes. </p>
+</div>
+<blockquote>
+<p><a href="https://note.isshikih.top/cour_note/D2CX_AdvancedDataStructure/Lec15/#%E5%B9%B6%E8%A1%8C%E4%BC%98%E5%8C%96">并行优化</a></p>
+</blockquote>
+<p><strong>F</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>In general, for a k-way merge we need 2k input buffers and 2 output buffers for parallel operations in external sorting.</p>
+</div>
+<p><strong>T</strong></p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>In general, for a 3-way merge we need 6 input buffers and 2 output buffers for decreasing the number of passes.</p>
+</div>
+<p>目的不是减少<span><span class="heti-spacing"> </span># passes</span> ；而是为了并行。</p>
+<p><strong>F</strong></p>
+<hr/>
+<h3 id="选择题_15">选择题<a class="headerlink" href="#选择题_15" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Given 100,000,000 records of 256 bytes each, and the size of the internal memory is 128MB.  If simple 2-way merges are used, how many passes do we have to do?</p>
+</div>
+<ol>
+<li>先看起初最多能放多少个排列对象：<span class="arithmatex">\(\frac{128*10^6}{256}=5*10^5\)</span>；</li>
+<li>再看最少能够获得多少顺串（runs<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：<span class="arithmatex">\(\frac{10^8}{5*10^5}=200\)</span></li>
+<li>对于平均的<span><span class="heti-spacing"> </span>k way merge</span>，我们至少需要<span><span class="heti-spacing"> </span><span class="arithmatex">\(1+\lceil \log_{k}\#runs \rceil\)</span></span>，代入数据得<span><span class="heti-spacing"> </span>9</span>。</li>
+</ol>
+<p>故答案为<span><span class="heti-spacing"> </span>9</span> 。</p>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-51.png"><img alt="" src="../attachments/ADS_problems-51.png"/></a></p>
+</div>
+<blockquote>
+<p>帮我理解了<span class="heti-skip"><span class="heti-spacing"> </span>buffer<span class="heti-spacing"> </span></span>的意思；答案来自<a href="https://zhoutimemachine.github.io/note/courses/ads-hw-review/#hw15"><span><span class="heti-spacing"> </span>Jianjun Zhou's Notebook</span></a></p>
+</blockquote>
+<hr/>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-73.png"><img alt="" src="../attachments/ADS_problems-73.png"/></a></p>
+</div>
+<p>T(N,k) = <span class="arithmatex">\(n\log_{k}(n)*\log_{2}k = n\log(n)\)</span></p>
+<p><strong>A</strong></p>
+<hr/>
+<h2 id="Other">Other<a class="headerlink" href="#Other" title="Permanent link">¶</a></h2>
+<blockquote>
+<p>不知道放哪里的题。</p>
+</blockquote>
+<h3 id="判断题_18">判断题<a class="headerlink" href="#判断题_18" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-62.png"><img alt="" src="../attachments/ADS_problems-62.png"/></a></p>
+</div>
+<hr/>
+<h3 id="选择题_16">选择题<a class="headerlink" href="#选择题_16" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/ADS_problems-71.png"><img alt="" src="../attachments/ADS_problems-71.png"/></a></p>
+</div>
+<p><span>A<span class="heti-spacing"> </span></span>肯定对；<span>B/C<span class="heti-spacing"> </span></span>等价，所以我选了<span><span class="heti-spacing"> </span>D</span>。</p>
+<p><strong>D</strong></p>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月11日 20:51:50 CST">2025年3月11日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2024年11月13日 12:01:00 CST">2024年11月13日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: ADS PPT" class="md-footer__link md-footer__link--prev" href="../ADS_PPT/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                ADS PPT
+              </div>
+</div>
+</a>
+<a aria-label="下一页: FDS questions" class="md-footer__link md-footer__link--next" href="../FDS-questions/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                FDS questions
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

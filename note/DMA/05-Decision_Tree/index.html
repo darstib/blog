@@ -1,0 +1,2581 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/note/DMA/05-Decision_Tree/" rel="canonical"/>
+<link href="../04-Naive_Bayes/" rel="prev"/>
+<link href="../06-logistic/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>05 Decision Tree - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#决策树的定义-page-2-3">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              05 Decision Tree
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Note
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs188/">
+<span class="md-ellipsis">
+    
+  
+    cs188
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../physics/">
+<span class="md-ellipsis">
+    
+  
+    physics
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-II/">
+<span class="md-ellipsis">
+    
+  
+    CSys-II
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-III/">
+<span class="md-ellipsis">
+    
+  
+    CSys-III
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DEM/">
+<span class="md-ellipsis">
+    
+  
+    DEM
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3_7" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    DMA
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_7_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    DMA
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../01-Intro/">
+<span class="md-ellipsis">
+    
+  
+    01 Intro
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../02-Perceptron/">
+<span class="md-ellipsis">
+    
+  
+    02 Perceptron
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../03-KNN/">
+<span class="md-ellipsis">
+    
+  
+    03 KNN
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../04-Naive_Bayes/">
+<span class="md-ellipsis">
+    
+  
+    04 Naive Bayes
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    05 Decision Tree
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    05 Decision Tree
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#决策树的定义-page-2-3">
+<span class="md-ellipsis">
+      
+        决策树的定义 (page 2-3)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例子-page-4-5">
+<span class="md-ellipsis">
+      
+        例子 (page 4-5)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#分类与回归-page-6">
+<span class="md-ellipsis">
+      
+        分类与回归 (page 6)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#决策树-解决分类问题的一般方法-page-7-8">
+<span class="md-ellipsis">
+      
+        决策树-解决分类问题的一般方法 (page 7-8)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#决策树学习的步骤-page-9">
+<span class="md-ellipsis">
+      
+        决策树学习的步骤 (page 9)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#决策树与条件概率分布-page-10-12">
+<span class="md-ellipsis">
+      
+        决策树与条件概率分布 (page 10-12)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#决策树算法-page-14">
+<span class="md-ellipsis">
+      
+        决策树算法 (page 14)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#决策树CLS算法-page-15-23">
+<span class="md-ellipsis">
+      
+        决策树CLS算法 (page 15-23)
+      
+    </span>
+</a>
+<nav aria-label="决策树CLS算法 (page 15-23)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#CLS基本思想-page-15">
+<span class="md-ellipsis">
+      
+        CLS基本思想 (page 15)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#CLS算法的问题-page-20-23">
+<span class="md-ellipsis">
+      
+        CLS算法的问题 (page 20-23)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#决策树ID3算法-page-24">
+<span class="md-ellipsis">
+      
+        决策树ID3算法 (page 24)
+      
+    </span>
+</a>
+<nav aria-label="决策树ID3算法 (page 24)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#熵-Entropy-page-25-27">
+<span class="md-ellipsis">
+      
+        熵 (Entropy) (page 25-27)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#信息增益-Information-Gain-page-28-29">
+<span class="md-ellipsis">
+      
+        信息增益 (Information Gain) (page 28-29)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#信息增益的算法-page-31-32">
+<span class="md-ellipsis">
+      
+        信息增益的算法 (page 31-32)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#信息增益例题-page-33-35">
+<span class="md-ellipsis">
+      
+        信息增益例题 (page 33-35)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#信息增益比-page-36">
+<span class="md-ellipsis">
+      
+        信息增益比 (page 36)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#决策树的生成-page-37-42">
+<span class="md-ellipsis">
+      
+        决策树的生成 (page 37-42)
+      
+    </span>
+</a>
+<nav aria-label="决策树的生成 (page 37-42)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ID3算法的生成过程-page-38-41">
+<span class="md-ellipsis">
+      
+        ID3算法的生成过程 (page 38-41)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#C45算法的生成过程-page-42">
+<span class="md-ellipsis">
+      
+        C4.5算法的生成过程 (page 42)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#决策树面临的问题-page-43-46">
+<span class="md-ellipsis">
+      
+        决策树面临的问题 (page 43-46)
+      
+    </span>
+</a>
+<nav aria-label="决策树面临的问题 (page 43-46)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#过度拟合-Overfitting">
+<span class="md-ellipsis">
+      
+        过度拟合 (Overfitting)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#连续值处理">
+<span class="md-ellipsis">
+      
+        连续值处理
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#决策树的剪枝-page-47-51">
+<span class="md-ellipsis">
+      
+        决策树的剪枝 (page 47-51)
+      
+    </span>
+</a>
+<nav aria-label="决策树的剪枝 (page 47-51)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#损失函数">
+<span class="md-ellipsis">
+      
+        损失函数
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#剪枝过程">
+<span class="md-ellipsis">
+      
+        剪枝过程
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#CART-Classification-and-Regression-Trees-page-52">
+<span class="md-ellipsis">
+      
+        CART (Classification and Regression Trees) (page 52)
+      
+    </span>
+</a>
+<nav aria-label="CART (Classification and Regression Trees) (page 52)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#CART-回归树的生成-page-55-57">
+<span class="md-ellipsis">
+      
+        CART-回归树的生成 (page 55-57)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#CART-分类树的生成-page-58-60">
+<span class="md-ellipsis">
+      
+        CART-分类树的生成 (page 58-60)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#CART的剪枝-page-66-73">
+<span class="md-ellipsis">
+      
+        CART的剪枝 (page 66-73)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#习题">
+<span class="md-ellipsis">
+      
+        习题
+      
+    </span>
+</a>
+<nav aria-label="习题" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#习题-51">
+<span class="md-ellipsis">
+      
+        习题 5.1
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#习题-52">
+<span class="md-ellipsis">
+      
+        习题 5.2
+      
+    </span>
+</a>
+<nav aria-label="习题 5.2" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#python-代码及运行结果">
+<span class="md-ellipsis">
+      
+        python 代码及运行结果
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../06-logistic/">
+<span class="md-ellipsis">
+    
+  
+    06 logistic
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../07-SVM/">
+<span class="md-ellipsis">
+    
+  
+    07 SVM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../08-Adaboost/">
+<span class="md-ellipsis">
+    
+  
+    08 Adaboost
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../09-Expect_Max/">
+<span class="md-ellipsis">
+    
+  
+    09 Expect Max
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../14-Cluster_Methods/">
+<span class="md-ellipsis">
+    
+  
+    14 Cluster Methods
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../15-SVD/">
+<span class="md-ellipsis">
+    
+  
+    15 SVD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../16-PCA/">
+<span class="md-ellipsis">
+    
+  
+    16 PCA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../19-MCMC/">
+<span class="md-ellipsis">
+    
+  
+    19 MCMC
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../21-PageRank/">
+<span class="md-ellipsis">
+    
+  
+    21 PageRank
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../appendix-UML/">
+<span class="md-ellipsis">
+    
+  
+    appendix UML
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../appendix-grad/">
+<span class="md-ellipsis">
+    
+  
+    Appendix grad
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../appendix-martirx_derivation/">
+<span class="md-ellipsis">
+    
+  
+    矩阵求导术（上/下）
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs70/">
+<span class="md-ellipsis">
+    
+  
+    cs70
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../other/">
+<span class="md-ellipsis">
+    
+  
+    other
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#决策树的定义-page-2-3">
+<span class="md-ellipsis">
+      
+        决策树的定义 (page 2-3)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#例子-page-4-5">
+<span class="md-ellipsis">
+      
+        例子 (page 4-5)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#分类与回归-page-6">
+<span class="md-ellipsis">
+      
+        分类与回归 (page 6)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#决策树-解决分类问题的一般方法-page-7-8">
+<span class="md-ellipsis">
+      
+        决策树-解决分类问题的一般方法 (page 7-8)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#决策树学习的步骤-page-9">
+<span class="md-ellipsis">
+      
+        决策树学习的步骤 (page 9)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#决策树与条件概率分布-page-10-12">
+<span class="md-ellipsis">
+      
+        决策树与条件概率分布 (page 10-12)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#决策树算法-page-14">
+<span class="md-ellipsis">
+      
+        决策树算法 (page 14)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#决策树CLS算法-page-15-23">
+<span class="md-ellipsis">
+      
+        决策树CLS算法 (page 15-23)
+      
+    </span>
+</a>
+<nav aria-label="决策树CLS算法 (page 15-23)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#CLS基本思想-page-15">
+<span class="md-ellipsis">
+      
+        CLS基本思想 (page 15)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#CLS算法的问题-page-20-23">
+<span class="md-ellipsis">
+      
+        CLS算法的问题 (page 20-23)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#决策树ID3算法-page-24">
+<span class="md-ellipsis">
+      
+        决策树ID3算法 (page 24)
+      
+    </span>
+</a>
+<nav aria-label="决策树ID3算法 (page 24)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#熵-Entropy-page-25-27">
+<span class="md-ellipsis">
+      
+        熵 (Entropy) (page 25-27)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#信息增益-Information-Gain-page-28-29">
+<span class="md-ellipsis">
+      
+        信息增益 (Information Gain) (page 28-29)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#信息增益的算法-page-31-32">
+<span class="md-ellipsis">
+      
+        信息增益的算法 (page 31-32)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#信息增益例题-page-33-35">
+<span class="md-ellipsis">
+      
+        信息增益例题 (page 33-35)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#信息增益比-page-36">
+<span class="md-ellipsis">
+      
+        信息增益比 (page 36)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#决策树的生成-page-37-42">
+<span class="md-ellipsis">
+      
+        决策树的生成 (page 37-42)
+      
+    </span>
+</a>
+<nav aria-label="决策树的生成 (page 37-42)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ID3算法的生成过程-page-38-41">
+<span class="md-ellipsis">
+      
+        ID3算法的生成过程 (page 38-41)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#C45算法的生成过程-page-42">
+<span class="md-ellipsis">
+      
+        C4.5算法的生成过程 (page 42)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#决策树面临的问题-page-43-46">
+<span class="md-ellipsis">
+      
+        决策树面临的问题 (page 43-46)
+      
+    </span>
+</a>
+<nav aria-label="决策树面临的问题 (page 43-46)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#过度拟合-Overfitting">
+<span class="md-ellipsis">
+      
+        过度拟合 (Overfitting)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#连续值处理">
+<span class="md-ellipsis">
+      
+        连续值处理
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#决策树的剪枝-page-47-51">
+<span class="md-ellipsis">
+      
+        决策树的剪枝 (page 47-51)
+      
+    </span>
+</a>
+<nav aria-label="决策树的剪枝 (page 47-51)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#损失函数">
+<span class="md-ellipsis">
+      
+        损失函数
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#剪枝过程">
+<span class="md-ellipsis">
+      
+        剪枝过程
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#CART-Classification-and-Regression-Trees-page-52">
+<span class="md-ellipsis">
+      
+        CART (Classification and Regression Trees) (page 52)
+      
+    </span>
+</a>
+<nav aria-label="CART (Classification and Regression Trees) (page 52)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#CART-回归树的生成-page-55-57">
+<span class="md-ellipsis">
+      
+        CART-回归树的生成 (page 55-57)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#CART-分类树的生成-page-58-60">
+<span class="md-ellipsis">
+      
+        CART-分类树的生成 (page 58-60)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#CART的剪枝-page-66-73">
+<span class="md-ellipsis">
+      
+        CART的剪枝 (page 66-73)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#习题">
+<span class="md-ellipsis">
+      
+        习题
+      
+    </span>
+</a>
+<nav aria-label="习题" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#习题-51">
+<span class="md-ellipsis">
+      
+        习题 5.1
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#习题-52">
+<span class="md-ellipsis">
+      
+        习题 5.2
+      
+    </span>
+</a>
+<nav aria-label="习题 5.2" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#python-代码及运行结果">
+<span class="md-ellipsis">
+      
+        python 代码及运行结果
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Note
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    DMA
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:notes">notes</a>
+</nav>
+<h1>05 Decision Tree</h1>
+<p>决策树（Decision Tree）是机器学习领域中一种非常基础且应用广泛的算法。它既可以用于<strong>分类</strong>问题，也可以用于<strong>回归</strong>问题。其核心思想源于人类在做决策时，往往会根据一系列问题（或条件）进行判断，最终得出一个结论。决策树模型就是将这个过程进行了形式化和算法化。</p>
+<h2 id="决策树的定义-page-2-3">决策树的定义<span><span class="heti-spacing"> </span>(page 2-3)</span><a class="headerlink" href="#决策树的定义-page-2-3" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<details class="definition" open="open">
+<summary>决策树</summary>
+<p><strong>决策树<span><span class="heti-spacing"> </span>(decision tree)</span></strong> 是一种基本的<strong>分类</strong>与<strong>回归</strong>方法。其模型呈树形结构，可以被看作是一系列 <code>if-then</code> 规则的集合，具有很强的可解释性。</p>
+</details>
+<p>决策树主要由以下几个部分构成：</p>
+<ul>
+<li><strong>结点<span><span class="heti-spacing"> </span>(Node)</span></strong>:<ul>
+<li><strong>内部结点<span><span class="heti-spacing"> </span>(Internal Node)</span></strong><span>:<span class="heti-spacing"> </span></span>每个内部结点代表对一个<strong>特征</strong>或<strong>属性</strong>的测试。它通常包含一个问题，例如“年龄是否小于<span><span class="heti-spacing"> </span>30</span><heti-adjacent class="heti-adjacent-quarter">？</heti-adjacent>”或“是否有房<heti-adjacent class="heti-adjacent-quarter">？</heti-adjacent>”。</li>
+<li><strong>叶结点<span><span class="heti-spacing"> </span>(Leaf Node)</span></strong><span>:<span class="heti-spacing"> </span></span>也称为<strong>终端结点<span><span class="heti-spacing"> </span>(Terminal Node)</span></strong>，代表一个<strong>类别</strong>（在分类树中）或一个具体的<strong>数值</strong>（在回归树中<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。它代表了最终的决策结果。</li>
+</ul>
+</li>
+<li><strong>有向边<span><span class="heti-spacing"> </span>(Directed Edge)</span></strong><span>:<span class="heti-spacing"> </span></span>代表根据内部结点测试结果划分出的不同分支。每条边通常对应着特征的一个可能取值。</li>
+</ul>
+<p>整个决策过程从<strong>根结点<span><span class="heti-spacing"> </span>(Root Node)</span></strong> 开始，将待分类的实例（数据）的某个特征代入根结点的测试条件中，根据测试结果，沿着对应的分支向下传递。这个过程在后续的内部结点上递归地进行，直到实例被分配到某一个叶结点为止。该叶结点的标签就是这个实例的预测结果。</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/08_250608-170013.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/08_250608-170013.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/08_250608-170013.png" width="500"/></a>
+<br/>
+<figcaption>决策树示例</figcaption>
+</figure>
+<p><em>上图直观地展示了决策树的组成部分。从根结点开始，根据特征 <code>x(1)</code> 的取值将数据划分，接着在子结点上根据特征 <code>x(2)</code> 继续划分，最终到达叶结点 <code>+1</code> 或 <code>-1</code>，完成分类。</em></p>
+<h2 id="例子-page-4-5">例子<span><span class="heti-spacing"> </span>(page 4-5)</span><a class="headerlink" href="#例子-page-4-5" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>为了更好地理解决策树的工作原理，我们可以看一个生活化的例子。</p>
+<details class="example" open="open">
+<summary>相亲决策</summary>
+<p>母亲要给女儿介绍一个男朋友，女儿通过一系列问题来决定是否要去见他。</p>
+<ul>
+<li><strong>女儿</strong><span>:<span class="heti-spacing"> </span></span>多大年纪了？</li>
+<li><strong>母亲</strong>: 26。 (<code>年龄 &lt;= 30</code>)</li>
+<li><strong>女儿</strong><span>:<span class="heti-spacing"> </span></span>长的帅不帅？</li>
+<li><strong>母亲</strong><span>:<span class="heti-spacing"> </span></span>挺帅的。 (<code>长相 = 帅或中等</code>)</li>
+<li><strong>女儿</strong><span>:<span class="heti-spacing"> </span></span>收入高不？</li>
+<li><strong>母亲</strong><span>:<span class="heti-spacing"> </span></span>不算很高，中等情况。 (<code>收入 = 中等</code>)</li>
+<li><strong>女儿</strong><span>:<span class="heti-spacing"> </span></span>是公务员不？</li>
+<li><strong>母亲</strong><span>:<span class="heti-spacing"> </span></span>是，在税务局上班呢。 (<code>公务员 = 是</code>)</li>
+<li><strong>女儿</strong><span>:<span class="heti-spacing"> </span></span>那好，我去见见。 (<code>决策 = 见</code>)</li>
+</ul>
+<p>这个对话过程就可以用一棵决策树来表示，在这个决策树中：</p>
+<ul>
+<li><strong>内部结点</strong>（绿色圆形<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：代表判断条件，如“年龄”<heti-adjacent class="heti-adjacent-quarter">、</heti-adjacent>“长相”<heti-adjacent class="heti-adjacent-quarter">、</heti-adjacent>“收入”<heti-adjacent class="heti-adjacent-quarter">、</heti-adjacent>“公务员”。</li>
+<li><strong>叶结点</strong>（橙色方框<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：代表最终决策，即“见”或“不见”。</li>
+</ul>
+</details>
+<h2 id="分类与回归-page-6">分类与回归<span><span class="heti-spacing"> </span>(page 6)</span><a class="headerlink" href="#分类与回归-page-6" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>决策树可以处理两种主要的机器学习任务，其根本区别在于目标变量（也就是我们希望预测的那个值 <code>y</code>）的类型。</p>
+<ul>
+<li><strong>分类树<span><span class="heti-spacing"> </span>(Classification Tree)</span></strong><span>:<span class="heti-spacing"> </span></span>用于处理<strong>离散型</strong>目标变量。例如，在动物分类的数据集中<heti-adjacent class="heti-adjacent-quarter">，</heti-adjacent>“类标号”（如哺乳动物、爬行类、鸟类）就是离散的。分类树的叶结点输出的是一个类别。</li>
+<li><strong>回归树<span><span class="heti-spacing"> </span>(Regression Tree)</span></strong><span>:<span class="heti-spacing"> </span></span>用于处理<strong>连续型</strong>目标变量。例如，预测房价、股票价格或温度，这些目标变量都是连续的数值。回归树的叶结点输出的是一个具体的数值，通常是该叶结点所有样本目标值的平均值。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>在上图中，特征（X）包括体温、表皮覆盖等，而目标属性（y）“类标号”是离散的，因此构建的是一棵分类树。如果目标是预测动物的“平均寿命”（一个连续值<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，那么就需要构建一棵回归树。</p>
+</div>
+<h2 id="决策树-解决分类问题的一般方法-page-7-8">决策树<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>解决分类问题的一般方法<span><span class="heti-spacing"> </span>(page 7-8)</span><a class="headerlink" href="#决策树-解决分类问题的一般方法-page-7-8" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>构建和使用一个分类模型，通常遵循以下两个主要步骤：</p>
+<ol>
+<li>
+<p><strong>模型构建<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>归纳过程<span><span class="heti-spacing"> </span>)</span></strong>:</p>
+<ul>
+<li>这个阶段也称为<strong>学习</strong>或<strong>训练</strong>。</li>
+<li>我们使用一个带有已知类别标签的<strong>训练集<span><span class="heti-spacing"> </span>(Training Set)</span></strong>。</li>
+<li>学习算法通过对训练集的归纳，自动地构建出一个分类模型（例如，一棵决策树<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。这个过程的目标是找到能够最好地拟合训练数据的规则。</li>
+</ul>
+</li>
+<li>
+<p><strong>预测应用<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>推论过程<span><span class="heti-spacing"> </span>)</span></strong>:</p>
+<ul>
+<li>这个阶段也称为<strong>测试</strong>或<strong>推理</strong>。</li>
+<li>我们使用已经构建好的模型，对没有类别标签的<strong>测试集<span><span class="heti-spacing"> </span>(Test Set)</span></strong> 或新数据进行预测。</li>
+<li>模型根据新数据的特征，推论出其最可能的类别。</li>
+</ul>
+</li>
+</ol>
+<h2 id="决策树学习的步骤-page-9">决策树学习的步骤<span><span class="heti-spacing"> </span>(page 9)</span><a class="headerlink" href="#决策树学习的步骤-page-9" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>决策树的学习过程，本质上是通过一系列规则对数据进行分类的过程。这个过程通常包含以下三个核心步骤：</p>
+<ol>
+<li><strong>特征选择<span><span class="heti-spacing"> </span>(Feature Selection)</span></strong>:<ul>
+<li>特征选择是决定用哪个特征来划分当前数据集。如果把决策树的构建看作是盖房子，特征选择就是决定先用哪根柱子作支撑。</li>
+<li>好的特征能够将不同类别的数据尽可能地分离开。</li>
+<li>选择的标准通常是使得划分后的数据集“纯度”最高。后续会介绍如何用<strong>信息增益</strong>、<strong>信息增益比</strong>或<strong>基尼指数</strong>来度量。</li>
+</ul>
+</li>
+<li><strong>决策树的生成<span><span class="heti-spacing"> </span>(Tree Generation)</span></strong>:<ul>
+<li>这是一个递归的过程。从根结点开始，基于特征选择的结果，对数据集进行划分，生成子结点。</li>
+<li>对每个子结点，重复特征选择和划分的过程，直到满足停止条件。</li>
+<li>停止条件通常是：<ul>
+<li>当前结点所有样本都属于同一类别。</li>
+<li>没有剩余特征可供划分。</li>
+<li>达到预设的树深度或叶结点样本数。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>决策树的剪枝<span><span class="heti-spacing"> </span>(Tree Pruning)</span></strong>:<ul>
+<li>直接根据训练数据生成的决策树可能会非常复杂，对训练数据拟合得很好，但在新数据上表现不佳，这种现象称为<strong>过拟合<span><span class="heti-spacing"> </span>(Overfitting)</span></strong>。</li>
+<li>剪枝是为了简化决策树，去掉一些不必要的枝叶，以提高模型的<strong>泛化能力</strong><sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>。</li>
+</ul>
+</li>
+</ol>
+<h2 id="决策树与条件概率分布-page-10-12">决策树与条件概率分布<span><span class="heti-spacing"> </span>(page 10-12)</span><a class="headerlink" href="#决策树与条件概率分布-page-10-12" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>从概率论的角度看，决策树的学习过程实际上是在划分特征空间，并估计每个划分单元上的条件概率分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(P(Y|X)\)</span></span>。</p>
+<ul>
+<li><strong>特征空间划分</strong><span>:<span class="heti-spacing"> </span></span>决策树的每个内部结点和它引出的分支，都在对特征空间进行一次划分。例如，一个特征 <code>年龄 &lt; 30</code> 将整个特征空间分成了两部分。</li>
+<li><strong>路径与单元</strong><span>:<span class="heti-spacing"> </span></span>从根结点到每个叶结点的路径，唯一地定义了特征空间中的一个<strong>单元<span><span class="heti-spacing"> </span>(cell)</span></strong> 或<strong>区域<span><span class="heti-spacing"> </span>(region)</span></strong>。这些单元互不相交，并覆盖了整个特征空间。</li>
+<li><strong>条件概率</strong><span>:<span class="heti-spacing"> </span></span>在每个单元（即每个叶结点）内，都定义了一个类的概率分布。这个分布通常是通过该单元内训练样本的类别频率来估计的。例如，一个叶结点包含<span class="heti-skip"><span class="heti-spacing"> </span>8<span class="heti-spacing"> </span></span>个“是”类样本和<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>个“否”类样本，那么可以估计在该单元内<span><span class="heti-spacing"> </span><span class="arithmatex">\(P(Y=\text{"是"}) = 0.8\)</span></span>，<span class="arithmatex">\(P(Y=\text{"否"}) = 0.2\)</span>。</li>
+</ul>
+<details class="env" open="open">
+<summary>视图的对应关系</summary>
+<ul>
+<li><strong><span>(a)<span class="heti-spacing"> </span></span>特征空间划分</strong><span>:<span class="heti-spacing"> </span></span>将二维特征空间 <code>(x(1), x(2))</code> 划分为<span class="heti-skip"><span class="heti-spacing"> </span>5<span class="heti-spacing"> </span></span>个互不相交的矩形单元。每个单元内的 <code>+1</code> 或 <code>-1</code> 代表该区域的多数类别。</li>
+<li><strong><span>(b)<span class="heti-spacing"> </span></span>条件概率分布</strong><span>:<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>(a)<span class="heti-spacing"> </span></span>的划分基础上，展示了给定特征 <code>X</code>（即某个单元）条件下，类别 <code>Y</code> 为 <code>+1</code> 的条件概率<span><span class="heti-spacing"> </span><span class="arithmatex">\(P(Y=+1|X)\)</span></span>。概率越高，立方体的高度越高。</li>
+<li><strong><span>(c)<span class="heti-spacing"> </span></span>决策树</strong><span>:<span class="heti-spacing"> </span></span>是一棵与<span class="heti-skip"><span class="heti-spacing"> </span>(a)<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>(b)<span class="heti-spacing"> </span></span>完全对应的决策树。树的每个分支都对应一次空间划分。</li>
+</ul>
+</details>
+<p>决策树学习的本质是从训练数据中归纳出一组分类规则。理想情况下，我们希望找到一个与训练数据矛盾尽可能小、同时又具有良好泛化能力的决策树。</p>
+<h2 id="决策树算法-page-14">决策树算法<span><span class="heti-spacing"> </span>(page 14)</span><a class="headerlink" href="#决策树算法-page-14" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>决策树的发展历史中，涌现出了一系列经典算法，它们在特征选择、树的生成和剪枝等方面各有侧重。</p>
+<details class="wiki" open="open">
+<summary>著名决策树算法</summary>
+<ul>
+<li><strong>CLS (Concept Learning System)</strong><span>: 1966<span class="heti-spacing"> </span></span>年由<span class="heti-skip"><span class="heti-spacing"> </span>Hunt<span class="heti-spacing"> </span></span>等人提出，是决策树算法的早期原型。</li>
+<li><strong>ID3 (Iterative Dichotomiser 3)</strong><span>: 1979<span class="heti-spacing"> </span></span>年由<span class="heti-skip"><span class="heti-spacing"> </span>Ross Quinlan<span class="heti-spacing"> </span></span>提出，以<strong>信息增益</strong>作为特征选择的标准，是决策树发展史上的一个里程碑。</li>
+<li><strong>C4.5</strong><span>: Quinlan<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>ID3<span class="heti-spacing"> </span></span>基础上于<span class="heti-skip"><span class="heti-spacing"> </span>1993<span class="heti-spacing"> </span></span>年提出的改进算法。它使用<strong>信息增益比</strong>来克服<span class="heti-skip"><span class="heti-spacing"> </span>ID3<span class="heti-spacing"> </span></span>偏向于选择多值特征的缺点，并且可以处理连续值特征和缺失值。</li>
+<li><strong>CART (Classification and Regression Trees)</strong><span>:<span class="heti-spacing"> </span></span>由<span class="heti-skip"><span class="heti-spacing"> </span>Breiman<span class="heti-spacing"> </span></span>等人在<span class="heti-skip"><span class="heti-spacing"> </span>1984<span class="heti-spacing"> </span></span>年提出。它非常独特，生成的决策树都是<strong>二叉树</strong>。对于分类树，它使用<strong>基尼指数</strong>作为划分标准；对于回归树，它使用<strong>平方误差最小化</strong>。</li>
+</ul>
+</details>
+<h2 id="决策树CLS算法-page-15-23">决策树<span class="heti-skip"><span class="heti-spacing"> </span>CLS<span class="heti-spacing"> </span></span>算法<span><span class="heti-spacing"> </span>(page 15-23)</span><a class="headerlink" href="#决策树CLS算法-page-15-23" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>CLS（Concept Learning System）是最早的决策树学习算法之一，为后来的<span class="heti-skip"><span class="heti-spacing"> </span>ID3<span class="heti-spacing"> </span></span>等算法奠定了基础。</p>
+<h3 id="CLS基本思想-page-15"><span>CLS<span class="heti-spacing"> </span></span>基本思想<span><span class="heti-spacing"> </span>(page 15)</span><a class="headerlink" href="#CLS基本思想-page-15" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>CLS<span class="heti-spacing"> </span></span>采用“分而治之”的策略，其基本思想可以概括为：</p>
+<ol>
+<li>从一个空树开始，将整个训练样本集视为根结点。</li>
+<li>选择一个属性作为测试属性，根据该属性的不同取值，将样本集分割成若干子集。</li>
+<li>对每个子集：<ul>
+<li>如果子集中的所有样本都属于同一类别，则将该子集标记为叶结点，其类别即为该样本的类别。</li>
+<li>如果子集为空，也标记为叶结点，类别通常设为其父结点中最多的类别。</li>
+<li>如果子集包含多种类别的样本，则将该子集视为一个新的内部结点，并递归地选择新的属性对其进行划分。</li>
+</ul>
+</li>
+<li>重复此过程，直到所有子集都被正确分类或没有属性可用。</li>
+</ol>
+<details class="tip" open="open">
+<summary><span>CLS<span class="heti-spacing"> </span></span>算法步骤<span><span class="heti-spacing"> </span>(page 19)</span></summary>
+<ol>
+<li><strong>初始化</strong><span>:<span class="heti-spacing"> </span></span>生成一棵空决策树和完整的训练样本属性集。</li>
+<li><strong>终止条件检查</strong><span>:<span class="heti-spacing"> </span></span>若当前训练集 <code>T</code> 中所有样本都属于同一类，则生成一个叶结点，算法终止。</li>
+<li><strong>属性选择</strong><span>:<span class="heti-spacing"> </span></span>否则，根据某种策略选择一个属性 <code>A</code> 作为测试属性，生成一个测试结点。</li>
+<li><strong>数据划分</strong><span>:<span class="heti-spacing"> </span></span>根据属性 <code>A</code> 的不同取值<span><span class="heti-spacing"> </span>{<span class="arithmatex">\(v_1, v_2, \dots, v_m\)</span>}</span>，将 <code>T</code> 划分为 <code>m</code> 个子集<span><span class="heti-spacing"> </span>{<span class="arithmatex">\(T_1, T_2, \dots, T_m\)</span>}</span>。</li>
+<li><strong>属性移除</strong><span>:<span class="heti-spacing"> </span></span>从属性表中删除属性 <code>A</code>。</li>
+<li><strong>递归</strong><span>:<span class="heti-spacing"> </span></span>对每个子集 <code>T_i</code>，递归调用<span class="heti-skip"><span class="heti-spacing"> </span>CLS<span class="heti-spacing"> </span></span>算法（从步骤<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>开始<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+</ol>
+</details>
+<h3 id="CLS算法的问题-page-20-23"><span>CLS<span class="heti-spacing"> </span></span>算法的问题<span><span class="heti-spacing"> </span>(page 20-23)</span><a class="headerlink" href="#CLS算法的问题-page-20-23" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>CLS<span class="heti-spacing"> </span></span>算法的一个核心问题是：<strong>它没有明确规定如何选择最佳的测试属性</strong>。在步骤<span class="heti-skip"><span class="heti-spacing"> </span>3<span class="heti-spacing"> </span></span>中，如果只是随机选择或按固定顺序选择，生成的决策树的结构和效率可能会天差地别。</p>
+<details class="example" open="open">
+<summary>属性选择的重要性</summary>
+<p>假设有一个学生膳食与缺钙情况的数据集（page 21<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<ul>
+<li>如果选择“鸡肉”<heti-adjacent class="heti-adjacent-quarter">、</heti-adjacent>“猪肉”<heti-adjacent class="heti-adjacent-quarter">、</heti-adjacent>“牛肉”等属性来构建树，可能会得到一棵非常复杂、深度很大的树（page 22<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>而如果首先选择“牛奶”这个属性，我们可能会发现，喝牛奶的学生都不缺钙，不喝牛奶的学生大部分都缺钙。这样，仅用一个属性就得到了一个非常简洁且有效的划分（page 23<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+</ul>
+<p>实践证明，测试属性的选择顺序对决策树的规模和性能有举足轻重的影响。一个好的选择标准是后续<span><span class="heti-spacing"> </span>ID3</span>、<span>C4.5<span class="heti-spacing"> </span></span>等算法改进的关键。</p>
+</details>
+<h2 id="决策树ID3算法-page-24">决策树<span class="heti-skip"><span class="heti-spacing"> </span>ID3<span class="heti-spacing"> </span></span>算法<span><span class="heti-spacing"> </span>(page 24)</span><a class="headerlink" href="#决策树ID3算法-page-24" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p><span>ID3<span class="heti-spacing"> </span></span>算法由<span class="heti-skip"><span class="heti-spacing"> </span>Ross Quinlan<span class="heti-spacing"> </span></span>于<span class="heti-skip"><span class="heti-spacing"> </span>1979<span class="heti-spacing"> </span></span>年提出，它正是为了解决<span class="heti-skip"><span class="heti-spacing"> </span>CLS<span class="heti-spacing"> </span></span>算法中“如何选择最佳属性”的问题。<span>ID3<span class="heti-spacing"> </span></span>的核心是使用<strong>信息增益<span><span class="heti-spacing"> </span>(Information Gain)</span></strong> 作为特征选择的准则。</p>
+<p>要理解信息增益，首先需要了解信息论中的两个基本概念：<strong>信息量</strong>和<strong>熵</strong>。</p>
+<details class="note" open="open">
+<summary>信息与不确定性</summary>
+<p>信息的核心价值在于<strong>消除不确定性</strong>。一个事件发生的概率越小，它所包含的信息量就越大。例如<heti-adjacent class="heti-adjacent-quarter">，</heti-adjacent>“太阳从东边升起”这件事几乎不含信息量，因为它是一个确定性事件。</p>
+</details>
+<h3 id="熵-Entropy-page-25-27">熵<span><span class="heti-spacing"> </span>(Entropy) (page 25-27)</span><a class="headerlink" href="#熵-Entropy-page-25-27" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在信息论中，<strong>熵</strong>是度量随机变量不确定性的指标。一个系统越混乱、越不确定，其熵值就越高。</p>
+<details class="definition" open="open">
+<summary>信息量与熵</summary>
+<ul>
+<li>
+<p><strong>信息量</strong><span>:<span class="heti-spacing"> </span></span>事件<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(a_i\)</span><span class="heti-spacing"> </span></span>发生的概率为<span><span class="heti-spacing"> </span><span class="arithmatex">\(p(a_i)\)</span></span>，则它的信息量定义为：</p>
+<div class="arithmatex">\[
+I(a_i) = \log_2 \frac{1}{p(a_i)} = -\log_2 p(a_i)
+\]</div>
+</li>
+<li>
+<p><strong>熵<span><span class="heti-spacing"> </span>(Entropy)</span></strong><span>:<span class="heti-spacing"> </span></span>对于一个有<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>个可能取值的离散随机变量<span><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span></span>，其概率分布为<span><span class="heti-spacing"> </span><span class="arithmatex">\(P(X=x_i) = p_i\)</span></span>，则<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>的熵定义为所有可能事件信息量的数学期望：</p>
+<div class="arithmatex">\[
+H(X) = -\sum_{i=1}^{n} p_i \log_2 p_i
+\]</div>
+<p>这里的对数底数通常取<span><span class="heti-spacing"> </span>2</span>，此时熵的单位是<strong>比特<span><span class="heti-spacing"> </span>(bit)</span></strong>。</p>
+</li>
+</ul>
+</details>
+<p><strong>熵的特性</strong>：</p>
+<ul>
+<li><strong>范围</strong><span>:<span class="heti-spacing"> </span></span>对于有<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>个取值的随机变量，其熵的范围是<span><span class="heti-spacing"> </span><span class="arithmatex">\(0 \le H(X) \le \log_2 n\)</span></span>。</li>
+<li><strong>最大熵</strong><span>:<span class="heti-spacing"> </span></span>当所有事件等概率发生时（即均匀分布<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，系统不确定性最大，熵达到最大值<span><span class="heti-spacing"> </span><span class="arithmatex">\(\log_2 n\)</span></span>。</li>
+<li><strong>最小熵</strong><span>:<span class="heti-spacing"> </span></span>当某个事件的概率为<span><span class="heti-spacing"> </span>1</span>，其余为<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>时（即确定性系统<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，系统不确定性最小，熵为<span><span class="heti-spacing"> </span>0</span>。</li>
+</ul>
+<p>下图展示了二分类问题（伯努利分布）中，熵与概率<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p\)</span><span class="heti-spacing"> </span></span>的关系。当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p=0.5\)</span><span class="heti-spacing"> </span></span>时，不确定性最大，熵达到峰值<span><span class="heti-spacing"> </span>1</span>。</p>
+<h3 id="信息增益-Information-Gain-page-28-29">信息增益<span><span class="heti-spacing"> </span>(Information Gain) (page 28-29)</span><a class="headerlink" href="#信息增益-Information-Gain-page-28-29" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><strong>信息增益</strong>表示在得知特征 <code>A</code> 的信息后，导致数据集 <code>D</code> 的类别不确定性减少的程度。不确定性的减少量越大，说明特征 <code>A</code> 的分类能力越强。</p>
+<p>要计算信息增益，我们首先需要定义<strong>条件熵<span><span class="heti-spacing"> </span>(Conditional Entropy)</span></strong>。</p>
+<details class="definition" open="open">
+<summary>条件熵与信息增益</summary>
+<ul>
+<li>
+<p><strong>条件熵<span><span class="heti-spacing"> </span><span class="arithmatex">\(H(Y|X)\)</span></span></strong><span>:<span class="heti-spacing"> </span></span>表示在已知随机变量 <code>X</code> 的条件下，随机变量 <code>Y</code> 的不确定性。其计算公式为：</p>
+<div class="arithmatex">\[
+H(Y|X) = \sum_{i=1}^{n} p(X=x_i) H(Y|X=x_i)
+\]</div>
+<p>它是在 <code>X</code> 取不同值的情况下 <code>Y</code> 的熵的加权平均。</p>
+</li>
+<li>
+<p><strong>信息增益<span><span class="heti-spacing"> </span><span class="arithmatex">\(g(D, A)\)</span></span></strong><span>:<span class="heti-spacing"> </span></span>定义为数据集 <code>D</code> 的<strong>经验熵</strong> <span><span class="arithmatex">\(H(D)\)</span><span class="heti-spacing"> </span></span>与在特征 <code>A</code> 给定条件下的<strong>经验条件熵</strong> <span><span class="arithmatex">\(H(D|A)\)</span><span class="heti-spacing"> </span></span>之差：</p>
+<div class="arithmatex">\[
+g(D, A) = H(D) - H(D|A)
+\]</div>
+</li>
+</ul>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li><span><span class="arithmatex">\(H(D)\)</span><span class="heti-spacing"> </span></span>度量了在不知道任何特征信息时，对数据集 <code>D</code> 进行分类的不确定性。</li>
+<li><span><span class="arithmatex">\(H(D|A)\)</span><span class="heti-spacing"> </span></span>度量了在知道了特征 <code>A</code> 的取值后，对数据集 <code>D</code> 进行分类的剩余不确定性。</li>
+<li>两者的差值<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(g(D, A)\)</span><span class="heti-spacing"> </span></span>就是特征 <code>A</code> 为分类带来的信息量。<span>ID3<span class="heti-spacing"> </span></span>算法在每一步都选择使信息增益最大的特征作为划分标准。</li>
+<li>信息增益在信息论中也被称为<strong>互信息<span><span class="heti-spacing"> </span>(Mutual Information)</span></strong>。</li>
+</ul>
+</div>
+<h3 id="信息增益的算法-page-31-32">信息增益的算法<span><span class="heti-spacing"> </span>(page 31-32)</span><a class="headerlink" href="#信息增益的算法-page-31-32" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="tip" open="open">
+<summary>信息增益计算步骤</summary>
+<p><strong>输入</strong><span>:<span class="heti-spacing"> </span></span>训练数据集<span><span class="heti-spacing"> </span><span class="arithmatex">\(D\)</span></span>，特征<span><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span></span>。</p>
+<p><strong>输出</strong><span>:<span class="heti-spacing"> </span></span>特征<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>对数据集<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D\)</span><span class="heti-spacing"> </span></span>的信息增益<span><span class="heti-spacing"> </span><span class="arithmatex">\(g(D, A)\)</span></span>。</p>
+<ol>
+<li>
+<p><strong>计算数据集的经验熵<span><span class="heti-spacing"> </span><span class="arithmatex">\(H(D)\)</span></span></strong>
+    假设数据集 <span class="arithmatex">\(D\)</span> 有 <span class="arithmatex">\(K\)</span> 个类别 <span class="arithmatex">\(C_k\)</span>， <span class="arithmatex">\(|C_k|\)</span> 是属于第 <span class="arithmatex">\(k\)</span> 类的样本数， <span class="arithmatex">\(|D|\)</span> 是总样本数。</p>
+<div class="arithmatex">\[
+H(D) = -\sum_{k=1}^{K} \frac{|C_k|}{|D|} \log_2 \frac{|C_k|}{|D|}
+\]</div>
+</li>
+<li>
+<p><strong>计算特征<span class="heti-skip"><span class="heti-spacing"> </span>A<span class="heti-spacing"> </span></span>对数据集<span class="heti-skip"><span class="heti-spacing"> </span>D<span class="heti-spacing"> </span></span>的经验条件熵<span><span class="heti-spacing"> </span><span class="arithmatex">\(H(D|A)\)</span></span></strong>
+    假设特征 <span class="arithmatex">\(A\)</span> 有 <span class="arithmatex">\(n\)</span> 个不同的取值 <span class="arithmatex">\(\{a_1, a_2, \dots, a_n\}\)</span>，根据这些取值将 <span class="arithmatex">\(D\)</span> 划分为 <span class="arithmatex">\(n\)</span> 个子集 <span class="arithmatex">\(\{D_1, D_2, \dots, D_n\}\)</span>。<span class="arithmatex">\(|D_i|\)</span> 是 <span class="arithmatex">\(A=a_i\)</span> 的样本数。<span class="arithmatex">\(|D_{ik}|\)</span> 是子集 <span class="arithmatex">\(D_i\)</span> 中属于类别 <span class="arithmatex">\(C_k\)</span> 的样本数。</p>
+<div class="arithmatex">\[
+H(D|A) = \sum_{i=1}^{n} \frac{|D_i|}{|D|} H(D_i) = -\sum_{i=1}^{n} \frac{|D_i|}{|D|} \sum_{k=1}^{K} \frac{|D_{ik}|}{|D_i|} \log_2 \frac{|D_{ik}|}{|D_i|}
+\]</div>
+</li>
+<li>
+<p><strong>计算信息增益</strong></p>
+<div class="arithmatex">\[
+g(D, A) = H(D) - H(D|A)
+\]</div>
+</li>
+</ol>
+</details>
+<h3 id="信息增益例题-page-33-35">信息增益例题<span><span class="heti-spacing"> </span>(page 33-35)</span><a class="headerlink" href="#信息增益例题-page-33-35" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="example" open="open">
+<summary>贷款申请数据</summary>
+<p>我们使用贷款申请样本数据表（共<span class="heti-skip"><span class="heti-spacing"> </span>15<span class="heti-spacing"> </span></span>个样本<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，来演示如何选择第一个划分特征。</p>
+<p>目标：选择“年龄”<heti-adjacent class="heti-adjacent-quarter">、</heti-adjacent>“有工作”<heti-adjacent class="heti-adjacent-quarter">、</heti-adjacent>“有自己的房子”<heti-adjacent class="heti-adjacent-quarter">、</heti-adjacent>“信贷情况”这四个特征中信息增益最大的一个。</p>
+<ol>
+<li>
+<p><strong>计算经验熵<span><span class="heti-spacing"> </span><span class="arithmatex">\(H(D)\)</span></span></strong>
+    数据集中，9个样本被批准贷款（是），6个被拒绝（否）。</p>
+<div class="arithmatex">\[
+H(D) = -\left( \frac{9}{15} \log_2 \frac{9}{15} + \frac{6}{15} \log_2 \frac{6}{15} \right) \approx 0.971
+\]</div>
+</li>
+<li>
+<p><strong>计算各特征的信息增益</strong></p>
+<ul>
+<li>
+<p><strong><span>A1:<span class="heti-spacing"> </span></span>年龄</strong> <span>(<span class="heti-spacing"> </span></span>青年、中年、老年<span><span class="heti-spacing"> </span>)</span></p>
+<ul>
+<li>青年<span class="heti-skip"><span class="heti-spacing"> </span>(5<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>): 2<span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span>, 3<span class="heti-spacing"> </span></span>否<span><span class="heti-spacing"> </span>-&gt; <span class="arithmatex">\(H(D_1) = 0.971\)</span></span></li>
+<li>中年<span class="heti-skip"><span class="heti-spacing"> </span>(5<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>): 3<span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span>, 2<span class="heti-spacing"> </span></span>否<span><span class="heti-spacing"> </span>-&gt; <span class="arithmatex">\(H(D_2) = 0.971\)</span></span></li>
+<li>老年<span class="heti-skip"><span class="heti-spacing"> </span>(5<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>): 4<span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span>, 1<span class="heti-spacing"> </span></span>否<span><span class="heti-spacing"> </span>-&gt; <span class="arithmatex">\(H(D_3) = 0.722\)</span></span>
+<span class="arithmatex">\(g(D, A_1) = H(D) - \left[ \frac{5}{15}H(D_1) + \frac{5}{15}H(D_2) + \frac{5}{15}H(D_3) \right] \approx 0.083\)</span></li>
+</ul>
+</li>
+<li>
+<p><strong><span>A2:<span class="heti-spacing"> </span></span>有工作</strong> <span>(<span class="heti-spacing"> </span></span>是、否<span><span class="heti-spacing"> </span>)</span></p>
+<ul>
+<li>是<span class="heti-skip"><span class="heti-spacing"> </span>(5<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>): 5<span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span>, 0<span class="heti-spacing"> </span></span>否<span><span class="heti-spacing"> </span>-&gt; <span class="arithmatex">\(H(D_1) = 0\)</span></span></li>
+<li>否<span class="heti-skip"><span class="heti-spacing"> </span>(10<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>): 4<span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span>, 6<span class="heti-spacing"> </span></span>否<span><span class="heti-spacing"> </span>-&gt; <span class="arithmatex">\(H(D_2) = 0.971\)</span></span>
+<span class="arithmatex">\(g(D, A_2) = H(D) - \left[ \frac{5}{15}H(D_1) + \frac{10}{15}H(D_2) \right] \approx 0.324\)</span></li>
+</ul>
+</li>
+<li>
+<p><strong><span>A3:<span class="heti-spacing"> </span></span>有自己的房子</strong> <span>(<span class="heti-spacing"> </span></span>是、否<span><span class="heti-spacing"> </span>)</span></p>
+<ul>
+<li>是<span class="heti-skip"><span class="heti-spacing"> </span>(6<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>): 6<span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span>, 0<span class="heti-spacing"> </span></span>否<span><span class="heti-spacing"> </span>-&gt; <span class="arithmatex">\(H(D_1) = 0\)</span></span></li>
+<li>否<span class="heti-skip"><span class="heti-spacing"> </span>(9<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>): 3<span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span>, 6<span class="heti-spacing"> </span></span>否<span><span class="heti-spacing"> </span>-&gt; <span class="arithmatex">\(H(D_2) = 0.918\)</span></span>
+<span class="arithmatex">\(g(D, A_3) = H(D) - \left[ \frac{6}{15}H(D_1) + \frac{9}{15}H(D_2) \right] \approx 0.420\)</span></li>
+</ul>
+</li>
+<li>
+<p><strong><span>A4:<span class="heti-spacing"> </span></span>信贷情况</strong> <span>(<span class="heti-spacing"> </span></span>一般、好、非常好<span><span class="heti-spacing"> </span>)</span></p>
+<ul>
+<li>一般<span class="heti-skip"><span class="heti-spacing"> </span>(5<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>): 1<span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span>, 4<span class="heti-spacing"> </span></span>否</li>
+<li>好<span class="heti-skip"><span class="heti-spacing"> </span>(6<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>): 4<span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span>, 2<span class="heti-spacing"> </span></span>否</li>
+<li>非常好<span class="heti-skip"><span class="heti-spacing"> </span>(4<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>): 4<span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span>, 0<span class="heti-spacing"> </span></span>否
+<span class="arithmatex">\(g(D, A_4) = \dots \approx 0.363\)</span></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>比较信息增益</strong>
+    比较四个特征的信息增益值：<span class="arithmatex">\(g(D, A_3) &gt; g(D, A_4) &gt; g(D, A_2) &gt; g(D, A_1)\)</span>。</p>
+</li>
+</ol>
+<p><strong>结论</strong><span>:<span class="heti-spacing"> </span></span>特征 <strong><span>A3 (<span class="heti-spacing"> </span></span>有自己的房子<span><span class="heti-spacing"> </span>)</span></strong> 的信息增益最大，因此<span class="heti-skip"><span class="heti-spacing"> </span>ID3<span class="heti-spacing"> </span></span>算法会选择它作为根结点进行划分。</p>
+</details>
+<h2 id="信息增益比-page-36">信息增益比<span><span class="heti-spacing"> </span>(page 36)</span><a class="headerlink" href="#信息增益比-page-36" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>虽然信息增益是一个很好的度量，但它有一个固有的<strong>偏见</strong>：<strong>倾向于选择取值数目较多的特征</strong>。极端情况下，如果一个特征的每个取值都唯一对应一个样本（如“<span>ID<span class="heti-spacing"> </span></span>号”<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，那么它的条件熵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(H(D|A)\)</span><span class="heti-spacing"> </span></span>将为<span><span class="heti-spacing"> </span>0</span>，信息增益达到最大值。但这样的特征对新数据的预测毫无意义。</p>
+<p>为了校正这个问题，<span>C4.5<span class="heti-spacing"> </span></span>算法引入了<strong>信息增益比<span><span class="heti-spacing"> </span>(Information Gain Ratio)</span></strong>。</p>
+<details class="definition" open="open">
+<summary>信息增益比</summary>
+<p>信息增益比<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(g_R(D, A)\)</span><span class="heti-spacing"> </span></span>定义为信息增益<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(g(D, A)\)</span><span class="heti-spacing"> </span></span>与特征<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>本身的<strong>熵</strong>（也称为<strong>固有值<span><span class="heti-spacing"> </span>(Intrinsic Value)</span></strong>）<span><span class="arithmatex">\(H_A(D)\)</span><span class="heti-spacing"> </span></span>之比：</p>
+<div class="arithmatex">\[
+g_R(D, A) = \frac{g(D, A)}{H_A(D)}
+\]</div>
+<p>其中，<span><span class="arithmatex">\(H_A(D)\)</span><span class="heti-spacing"> </span></span>的计算方式为：</p>
+<div class="arithmatex">\[
+H_A(D) = -\sum_{i=1}^{n} \frac{|D_i|}{|D|} \log_2 \frac{|D_i|}{|D|}
+\]</div>
+<p>这里<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>是特征<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>的取值个数。特征<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>的取值越多，其熵<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(H_A(D)\)</span><span class="heti-spacing"> </span></span>通常也越大，这就对信息增益起到了<strong>惩罚</strong>作用，从而平衡了特征选择。</p>
+</details>
+<h2 id="决策树的生成-page-37-42">决策树的生成<span><span class="heti-spacing"> </span>(page 37-42)</span><a class="headerlink" href="#决策树的生成-page-37-42" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>决策树的生成是一个递归调用特征选择和数据划分的过程。</p>
+<h3 id="ID3算法的生成过程-page-38-41"><span>ID3<span class="heti-spacing"> </span></span>算法的生成过程<span><span class="heti-spacing"> </span>(page 38-41)</span><a class="headerlink" href="#ID3算法的生成过程-page-38-41" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="tip" open="open">
+<summary><span>ID3<span class="heti-spacing"> </span></span>算法</summary>
+<p><strong>输入</strong><span>:<span class="heti-spacing"> </span></span>训练数据集<span><span class="heti-spacing"> </span><span class="arithmatex">\(D\)</span></span>，特征集<span><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span></span>，阈值<span><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon\)</span></span>。
+<strong>输出</strong><span>:<span class="heti-spacing"> </span></span>决策树<span><span class="heti-spacing"> </span><span class="arithmatex">\(T\)</span></span>。</p>
+<ol>
+<li><strong>若<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D\)</span><span class="heti-spacing"> </span></span>中所有实例属于同一类<span><span class="heti-spacing"> </span><span class="arithmatex">\(C_k\)</span></span></strong>，则<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(T\)</span><span class="heti-spacing"> </span></span>为单结点树，类标记为<span><span class="heti-spacing"> </span><span class="arithmatex">\(C_k\)</span></span>，返回<span><span class="heti-spacing"> </span><span class="arithmatex">\(T\)</span></span>。</li>
+<li><strong>若特征集<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>为空</strong>，则<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(T\)</span><span class="heti-spacing"> </span></span>为单结点树，类标记为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D\)</span><span class="heti-spacing"> </span></span>中实例数最多的类，返回<span><span class="heti-spacing"> </span><span class="arithmatex">\(T\)</span></span>。</li>
+<li><strong>否则</strong>，计算<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>中各特征对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D\)</span><span class="heti-spacing"> </span></span>的信息增益，选择信息增益最大的特征<span><span class="heti-spacing"> </span><span class="arithmatex">\(A_g\)</span></span>。</li>
+<li><strong>若<span><span class="heti-spacing"> </span><span class="arithmatex">\(g(D, A_g) &lt; \epsilon\)</span></span></strong> <span>(<span class="heti-spacing"> </span></span>信息增益小于阈值<span><span class="heti-spacing"> </span>)</span>，则<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(T\)</span><span class="heti-spacing"> </span></span>为单结点树，类标记为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D\)</span><span class="heti-spacing"> </span></span>中实例数最多的类，返回<span><span class="heti-spacing"> </span><span class="arithmatex">\(T\)</span></span>。</li>
+<li><strong>否则</strong>，对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A_g\)</span><span class="heti-spacing"> </span></span>的每一个可能值<span><span class="heti-spacing"> </span><span class="arithmatex">\(a_i\)</span></span>，将<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D\)</span><span class="heti-spacing"> </span></span>分割为非空子集<span><span class="heti-spacing"> </span><span class="arithmatex">\(D_i\)</span></span>。以<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D_i\)</span><span class="heti-spacing"> </span></span>中实例数最多的类作为标记，构建子结点。</li>
+<li>对第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>个子结点，以<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D_i\)</span><span class="heti-spacing"> </span></span>为训练集，以<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A - \{A_g\}\)</span><span class="heti-spacing"> </span></span>为特征集，递归调用步骤<span><span class="heti-spacing"> </span>1-5</span>，得到子树<span><span class="heti-spacing"> </span><span class="arithmatex">\(T_i\)</span></span>，返回<span><span class="heti-spacing"> </span><span class="arithmatex">\(T_i\)</span></span>。</li>
+</ol>
+</details>
+<h3 id="C45算法的生成过程-page-42"><span>C4.5<span class="heti-spacing"> </span></span>算法的生成过程<span><span class="heti-spacing"> </span>(page 42)</span><a class="headerlink" href="#C45算法的生成过程-page-42" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>C4.5<span class="heti-spacing"> </span></span>算法的生成过程与<span class="heti-skip"><span class="heti-spacing"> </span>ID3<span class="heti-spacing"> </span></span>非常相似，主要区别在于特征选择标准：</p>
+<ul>
+<li><strong>将步骤<span class="heti-skip"><span class="heti-spacing"> </span>3<span class="heti-spacing"> </span></span>中的“信息增益”替换为“信息增益比”</strong>。</li>
+</ul>
+<details class="attention" open="open">
+<summary><span>C4.5<span class="heti-spacing"> </span></span>的策略</summary>
+<p><span>C4.5<span class="heti-spacing"> </span></span>并非总是选择信息增益比最大的特征。它通常采用一种启发式方法：先从候选特征中找出信息增益高于平均值的特征，再从这些特征中选择信息增益比最高的。这样做可以避免对取值数目较少的特征产生不公平。</p>
+</details>
+<h2 id="决策树面临的问题-page-43-46">决策树面临的问题<span><span class="heti-spacing"> </span>(page 43-46)</span><a class="headerlink" href="#决策树面临的问题-page-43-46" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="过度拟合-Overfitting">过度拟合<span><span class="heti-spacing"> </span>(Overfitting)</span><a class="headerlink" href="#过度拟合-Overfitting" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>这是决策树乃至许多机器学习模型都需要面对的核心问题。</p>
+<ul>
+<li><strong>理想的决策树</strong>应该是叶子结点少、深度小，即模型简单且有效。但寻找全局最优的决策树是一个<strong><span>NP<span class="heti-spacing"> </span></span>难题</strong>。</li>
+<li>决策树生成算法倾向于不断生长，直到能完美划分训练数据为止。这会导致树过于复杂，学习到了训练数据中的噪声和偶然性，从而在新的、未见过的数据上表现很差。</li>
+<li><strong>训练误差<span><span class="heti-spacing"> </span>(Training Error)</span></strong><span>:<span class="heti-spacing"> </span></span>模型在训练数据上的误差。</li>
+<li><strong>泛化误差<span><span class="heti-spacing"> </span>(Generalization Error)</span></strong><span>:<span class="heti-spacing"> </span></span>模型在未知数据上的期望误差。</li>
+<li><strong>过拟合</strong>的典型表现就是<strong>训练误差很低，但泛化误差很高</strong>。</li>
+</ul>
+<p>为了解决过拟合，需要采用<strong>剪枝<span><span class="heti-spacing"> </span>(Pruning)</span></strong> 技术。</p>
+<h3 id="连续值处理">连续值处理<a class="headerlink" href="#连续值处理" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>ID3<span class="heti-spacing"> </span></span>等算法原生只支持离散特征。当遇到连续值特征（如年龄、收入）时，<span>C4.5<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>CART<span class="heti-spacing"> </span></span>等算法采用<strong>二元分割<span><span class="heti-spacing"> </span>(Binary Split)</span></strong> 的方法。</p>
+<ol>
+<li>将该连续特征的所有取值进行排序。</li>
+<li>遍历所有可能的<strong>分割点</strong>（通常是相邻两个取值的中点<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>对每个分割点，计算其信息增益（或基尼指数等<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，将其视为一个二分问题（如 年龄<span class="heti-skip"><span class="heti-spacing"> </span>&lt;= t<span class="heti-spacing"> </span></span>和 年龄<span><span class="heti-spacing"> </span>&gt; t</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>选择能使信息增益最大的那个分割点作为该特征的最佳划分点。</li>
+</ol>
+<h2 id="决策树的剪枝-page-47-51">决策树的剪枝<span><span class="heti-spacing"> </span>(page 47-51)</span><a class="headerlink" href="#决策树的剪枝-page-47-51" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>剪枝是决策树学习算法中对付“过拟合”的主要手段。其基本策略是<strong>通过极小化决策树整体的损失函数来实现</strong>。</p>
+<h3 id="损失函数">损失函数<a class="headerlink" href="#损失函数" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>决策树的损失函数（或称代价函数）需要平衡模型的<strong>拟合优度</strong>和<strong>复杂度</strong>。</p>
+<p>结点上的经验熵为：<span class="arithmatex">\(H_{t}(T) = -\sum_{k=1}^{K} \frac{N_{tk}}{N_{t}}\log \frac{N_{tk}}{N_{t}}\)</span></p>
+<details class="definition" open="open">
+<summary>决策树损失函数</summary>
+<p>设树<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(T\)</span><span class="heti-spacing"> </span></span>的叶结点个数为<span><span class="heti-spacing"> </span><span class="arithmatex">\(|T|\)</span></span>，叶结点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span><span class="heti-spacing"> </span></span>有<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(N_t\)</span><span class="heti-spacing"> </span></span>个样本，其经验熵为<span><span class="heti-spacing"> </span><span class="arithmatex">\(H_t(T)\)</span></span>。损失函数定义为：</p>
+<div class="arithmatex">\[
+C_\alpha(T) = \sum_{t=1}^{|T|} N_t H_t(T) + \alpha |T|
+\]</div>
+<p>也可以写作：</p>
+<div class="arithmatex">\[
+C_\alpha(T) = C(T) + \alpha |T|
+\]</div>
+<ul>
+<li><span><span class="arithmatex">\(C(T) = \sum_{t=1}^{|T|} N_t H_t(T)\)</span><span class="heti-spacing"> </span></span>代表模型的<strong>训练误差</strong>，反映了模型对训练数据的拟合程度。树越复杂，<span><span class="arithmatex">\(C(T)\)</span><span class="heti-spacing"> </span></span>越小。</li>
+<li><span><span class="arithmatex">\(|T|\)</span><span class="heti-spacing"> </span></span>代表模型的<strong>复杂度</strong>。</li>
+<li><span><span class="arithmatex">\(\alpha \ge 0\)</span><span class="heti-spacing"> </span></span>是一个超参数，用于权衡拟合度与复杂度。<span><span class="arithmatex">\(\alpha\)</span><span class="heti-spacing"> </span></span>越大，模型就越倾向于选择更简单的树（叶结点更少<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+</ul>
+</details>
+<details class="extra" open="open">
+<summary>正则化的极大似然估计</summary>
+<p>损失函数（结构风险）的最小化等价于<strong>正则化的极大似然估计</strong>（最大后验估计<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。<span><span class="arithmatex">\(C(T)\)</span><span class="heti-spacing"> </span></span>实际上与对数似然函数的负值成正比： <span class="arithmatex">\(\log L(T) = \sum_{t}\sum_{k} N_{tk}\log \frac{N_{tk}}{N_{t}} = - C(T)\)</span>，而<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha |T|\)</span><span class="heti-spacing"> </span></span>是正则化项。因此，剪枝的过程就是在控制模型的复杂度，防止过拟合。</p>
+</details>
+<h3 id="剪枝过程">剪枝过程<a class="headerlink" href="#剪枝过程" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>剪枝过程是一个<strong>自底向上</strong>的回缩过程。</p>
+<ol>
+<li>首先生成一棵完整的决策树<span><span class="heti-spacing"> </span><span class="arithmatex">\(T\)</span></span>。</li>
+<li>递归地从树的叶结点向上回缩。</li>
+<li>考察任意一个内部结点，比较<strong>剪枝前</strong>（该结点和其子树存在）和<strong>剪枝后</strong>（该结点变成一个叶结点）的损失函数值。<ul>
+<li>设剪枝前的子树为<span><span class="heti-spacing"> </span><span class="arithmatex">\(T_B\)</span></span>，剪枝后的结点为<span><span class="heti-spacing"> </span><span class="arithmatex">\(T_A\)</span></span>。</li>
+<li><strong>如果<span><span class="heti-spacing"> </span><span class="arithmatex">\(C_\alpha(T_A) \le C_\alpha(T_B)\)</span></span></strong>，则说明剪枝是值得的，可以减少模型复杂度且不会过多地增加误差，于是执行剪枝。</li>
+</ul>
+</li>
+<li>重复这个过程，直到无法继续回缩，得到损失函数最小的子树<span><span class="heti-spacing"> </span><span class="arithmatex">\(T_\alpha\)</span></span>。</li>
+</ol>
+<h2 id="CART-Classification-and-Regression-Trees-page-52">CART (Classification and Regression Trees) (page 52)<a class="headerlink" href="#CART-Classification-and-Regression-Trees-page-52" title="Permanent link">¶</a></h2>
+<p><span>CART<span class="heti-spacing"> </span></span>算法由<span class="heti-skip"><span class="heti-spacing"> </span>Breiman<span class="heti-spacing"> </span></span>等人在<span class="heti-skip"><span class="heti-spacing"> </span>1984<span class="heti-spacing"> </span></span>年提出，是目前应用最广泛的决策树算法之一，像<span class="heti-skip"><span class="heti-spacing"> </span>Scikit-learn<span class="heti-spacing"> </span></span>库中的决策树实现就是基于<span class="heti-skip"><span class="heti-spacing"> </span>CART<span class="heti-spacing"> </span></span>的优化版本。</p>
+<details class="wiki" open="open">
+<summary><span>CART<span class="heti-spacing"> </span></span>算法特点</summary>
+<ul>
+<li><strong>二叉树结构</strong><span>:<span class="heti-spacing"> </span></span>无论是分类还是回归，<span>CART<span class="heti-spacing"> </span></span>生成的都是二叉树。它每次只将当前结点的数据集一分为二。</li>
+<li><strong>回归树</strong><span>:<span class="heti-spacing"> </span></span>使用<strong>平方误差最小化准则</strong>进行特征选择。</li>
+<li><strong>分类树</strong><span>:<span class="heti-spacing"> </span></span>使用<strong>基尼指数<span><span class="heti-spacing"> </span>(Gini Index)</span></strong> 最小化准则进行特征选择。</li>
+<li><strong>剪枝</strong><span>:<span class="heti-spacing"> </span></span>采用一种名为“代价复杂度剪枝”（Cost-Complexity Pruning）的精巧策略。</li>
+</ul>
+</details>
+<h3 id="CART-回归树的生成-page-55-57"><span>CART-<span class="heti-spacing"> </span></span>回归树的生成<span><span class="heti-spacing"> </span>(page 55-57)</span><a class="headerlink" href="#CART-回归树的生成-page-55-57" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>假设我们有一个连续的目标变量<span><span class="heti-spacing"> </span><span class="arithmatex">\(Y\)</span></span>。<span>CART<span class="heti-spacing"> </span></span>回归树的目标是将输入空间（特征空间）划分为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(M\)</span><span class="heti-spacing"> </span></span>个区域<span><span class="heti-spacing"> </span><span class="arithmatex">\(R_m\)</span></span>，并且在每个区域内给出一个恒定的预测值<span><span class="heti-spacing"> </span><span class="arithmatex">\(c_m\)</span></span>。</p>
+<ul>
+<li>
+<p><strong>预测模型</strong>:
+    $$
+    f(x) = \sum_{m=1}^{M} c_m I(x \in R_m)
+    $$
+    其中 <span class="arithmatex">\(I(\cdot)\)</span> 是指示函数。</p>
+</li>
+<li>
+<p><strong>最优预测值</strong><span>:<span class="heti-spacing"> </span></span>在一个区域<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(R_m\)</span><span class="heti-spacing"> </span></span>内，使平方误差最小的预测值<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(c_m\)</span><span class="heti-spacing"> </span></span>是该区域内所有样本<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(y_i\)</span><span class="heti-spacing"> </span></span>值的<strong>平均值</strong>。
+    $$
+    \hat{c}_m = \text{ave}(y_i | x_i \in R_m)
+    $$</p>
+</li>
+<li>
+<p><strong>如何划分</strong><span>:<span class="heti-spacing"> </span></span>寻找最优的切分变量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(j\)</span><span class="heti-spacing"> </span></span>和切分点<span><span class="heti-spacing"> </span><span class="arithmatex">\(s\)</span></span>，使得划分后的两个区域的平方误差之和最小。
+    $$
+    \min_{j,s} \left[ \min_{c_1} \sum_{x_i \in R_1(j,s)} (y_i - c_1)^2 + \min_{c_2} \sum_{x_i \in R_2(j,s)} (y_i - c_2)^2 \right]
+    $$
+    其中 <span class="arithmatex">\(R_1(j,s)=\{x|x^{(j)}\leq s\}\)</span> 和 <span class="arithmatex">\(R_2(j,s)=\{x|x^{(j)}&gt;s\}\)</span> 。</p>
+</li>
+</ul>
+<details class="tip" open="open">
+<summary>最小二乘回归树生成算法</summary>
+<ol>
+<li><strong>选择最优切分</strong><span>:<span class="heti-spacing"> </span></span>遍历所有特征<span><span class="heti-spacing"> </span><span class="arithmatex">\(j\)</span></span>，再对每个特征的所有可能取值<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(s\)</span><span class="heti-spacing"> </span></span>进行扫描，找到使平方误差和最小的最优对<span><span class="heti-spacing"> </span><span class="arithmatex">\((j^*, s^*)\)</span></span>。</li>
+<li><strong>划分区域</strong><span>:<span class="heti-spacing"> </span></span>使用<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((j^*, s^*)\)</span><span class="heti-spacing"> </span></span>将当前区域划分为两个子区域。</li>
+<li><strong>确定输出值</strong><span>:<span class="heti-spacing"> </span></span>计算每个子区域的输出值（均值<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>递归</strong><span>:<span class="heti-spacing"> </span></span>对两个子区域递归调用步骤<span><span class="heti-spacing"> </span>1-3</span>，直到满足停止条件（如叶结点样本数小于阈值<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>生成树</strong><span>:<span class="heti-spacing"> </span></span>将输入空间划分为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(M\)</span><span class="heti-spacing"> </span></span>个区域，生成最终的回归树。</li>
+</ol>
+</details>
+<h3 id="CART-分类树的生成-page-58-60"><span>CART-<span class="heti-spacing"> </span></span>分类树的生成<span><span class="heti-spacing"> </span>(page 58-60)</span><a class="headerlink" href="#CART-分类树的生成-page-58-60" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>CART<span class="heti-spacing"> </span></span>分类树使用<strong>基尼指数<span><span class="heti-spacing"> </span>(Gini Index)</span></strong> 来代替熵作为衡量数据“不纯度”的指标。</p>
+<details class="definition" open="open">
+<summary>基尼指数</summary>
+<ul>
+<li>
+<p><strong>概率分布的基尼指数</strong><span>:<span class="heti-spacing"> </span></span>对于有<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(K\)</span><span class="heti-spacing"> </span></span>个类别的概率分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(p = (p_1, \dots, p_K)\)</span></span>，其基尼指数为：</p>
+<div class="arithmatex">\[
+\text{Gini}(p) = \sum_{k=1}^{K} p_k (1-p_k) = 1 - \sum_{k=1}^{K} p_k^2
+\]</div>
+<p>基尼指数的直观含义是：从数据集中随机抽取两个样本，其类别标记不一致的概率。基尼指数越小，数据集的纯度越高。</p>
+</li>
+<li>
+<p><strong>数据集<span class="heti-skip"><span class="heti-spacing"> </span>D<span class="heti-spacing"> </span></span>的基尼指数</strong>:</p>
+<div class="arithmatex">\[
+\text{Gini}(D) = 1 - \sum_{k=1}^{K} \left( \frac{|C_k|}{|D|} \right)^2
+\]</div>
+</li>
+<li>
+<p><strong>特征<span class="heti-skip"><span class="heti-spacing"> </span>A<span class="heti-spacing"> </span></span>划分下的基尼指数</strong><span>:<span class="heti-spacing"> </span></span>如果特征<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>的某个取值<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(a\)</span><span class="heti-spacing"> </span></span>将数据集<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D\)</span><span class="heti-spacing"> </span></span>划分为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D_1\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(D_2\)</span></span>，则此次划分的基尼指数为：</p>
+<div class="arithmatex">\[
+\text{Gini}(D, A) = \frac{|D_1|}{|D|} \text{Gini}(D_1) + \frac{|D_2|}{|D|} \text{Gini}(D_2)
+\]</div>
+</li>
+</ul>
+</details>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/08_250608-201624.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/08_250608-201624.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/08_250608-201624.png" width="500"/></a>
+<br/>
+<figcaption>该图显示了在二分类问题中，基尼指数、熵的一半和分类误差率的关系。基尼指数和熵的性质相似，都可以很好地度量不纯度，且计算上基尼指数比熵（涉及对数运算）更简单。</figcaption>
+</figure>
+<details class="tip" open="open">
+<summary><span>CART<span class="heti-spacing"> </span></span>分类树生成算法</summary>
+<ol>
+<li><strong>计算基尼指数</strong><span>:<span class="heti-spacing"> </span></span>对每个特征<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>的每个可能切分点<span><span class="heti-spacing"> </span><span class="arithmatex">\(a\)</span></span>，计算将数据集<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D\)</span><span class="heti-spacing"> </span></span>分为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D_1\)</span> (A=a)<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(D_2\)</span> (A!=a)<span class="heti-spacing"> </span></span>后的基尼指数<span><span class="heti-spacing"> </span><span class="arithmatex">\(\text{Gini}(D, A)\)</span></span>。</li>
+<li><strong>选择最优切分</strong><span>:<span class="heti-spacing"> </span></span>在所有可能的特征和切分点中，选择使基尼指数最小的组合作为最优切分。</li>
+<li><strong>分配数据</strong><span>:<span class="heti-spacing"> </span></span>将数据集分配到两个子结点中。</li>
+<li><strong>递归</strong><span>:<span class="heti-spacing"> </span></span>对两个子结点递归调用步骤<span><span class="heti-spacing"> </span>1-3</span>，直到满足停止条件。</li>
+<li><strong>生成树</strong><span>:<span class="heti-spacing"> </span></span>生成最终的<span class="heti-skip"><span class="heti-spacing"> </span>CART<span class="heti-spacing"> </span></span>分类树。</li>
+</ol>
+</details>
+<h3 id="CART的剪枝-page-66-73"><span>CART<span class="heti-spacing"> </span></span>的剪枝<span><span class="heti-spacing"> </span>(page 66-73)</span><a class="headerlink" href="#CART的剪枝-page-66-73" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>CART<span class="heti-spacing"> </span></span>的剪枝策略非常系统化，分为两个步骤：</p>
+<ol>
+<li>
+<p><strong>生成子树序列</strong>:</p>
+<ul>
+<li>首先，生成一棵足够大的决策树<span><span class="heti-spacing"> </span><span class="arithmatex">\(T_0\)</span></span>。</li>
+<li>然后，通过代价复杂度剪枝，生成一个嵌套的子树序列<span><span class="heti-spacing"> </span><span class="arithmatex">\(\{T_0, T_1, \dots, T_n\}\)</span></span>。这个序列是通过不断增加正则化参数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha\)</span><span class="heti-spacing"> </span></span>得到的。</li>
+<li>对于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(T_0\)</span><span class="heti-spacing"> </span></span>中的每个内部结点<span><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span></span>，计算一个“剪枝效用”指标<span><span class="heti-spacing"> </span><span class="arithmatex">\(g(t)\)</span></span>：
+    $$
+    g(t) = \frac{C(t) - C(T_t)}{|T_t| - 1}
+    $$
+    其中 <span class="arithmatex">\(C(t)\)</span> 是将 <span class="arithmatex">\(t\)</span> 作为叶结点的误差，<span class="arithmatex">\(C(T_t)\)</span> 是以 <span class="arithmatex">\(t\)</span> 为根的子树的误差，<span class="arithmatex">\(|T_t|\)</span> 是子树 <span class="arithmatex">\(T_t\)</span> 的叶结点数。<span class="arithmatex">\(g(t)\)</span> 表示剪掉子树 <span class="arithmatex">\(T_t\)</span> 后，整体误差率的增加程度与复杂度减少程度的比值。</li>
+<li>在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(T_0\)</span><span class="heti-spacing"> </span></span>中剪去<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(g(t)\)</span><span class="heti-spacing"> </span></span>最小的结点，得到<span><span class="heti-spacing"> </span><span class="arithmatex">\(T_1\)</span></span>。在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(T_1\)</span><span class="heti-spacing"> </span></span>中再剪去<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(g(t)\)</span><span class="heti-spacing"> </span></span>最小的结点，得到<span><span class="heti-spacing"> </span><span class="arithmatex">\(T_2\)</span></span>，如此往复，直到只剩下根结点。</li>
+</ul>
+</li>
+<li>
+<p><strong>交叉验证选择最优子树</strong>:</p>
+<ul>
+<li>使用一个独立的<strong>验证集<span><span class="heti-spacing"> </span>(Validation Set)</span></strong>。</li>
+<li>对子树序列中的每一棵树<span><span class="heti-spacing"> </span><span class="arithmatex">\(T_k\)</span></span>，在验证集上计算其误差（如平方误差或基尼指数<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>选择在验证集上误差最小的那棵树作为最终的最优决策树<span><span class="heti-spacing"> </span><span class="arithmatex">\(T_\alpha\)</span></span>。</li>
+</ul>
+</li>
+</ol>
+<p>这种方法通过将剪枝过程和最优树选择分离开，有效地避免了使用同一份数据既剪枝又评估的陷阱，找到了在拟合度和复杂度之间达到最佳平衡的模型。</p>
+<h2 id="习题">习题<a class="headerlink" href="#习题" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="习题-51">习题<span><span class="heti-spacing"> </span>5.1</span><a class="headerlink" href="#习题-51" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="question" open="open">
+<summary>Question</summary>
+<p>根据表<span class="heti-skip"><span class="heti-spacing"> </span>5.1<span class="heti-spacing"> </span></span>所给的训练数据集，利用信息增益比（<span>C4.5<span class="heti-spacing"> </span></span>算法）生成决策树。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">ID</th>
+<th style="text-align: center;">年龄</th>
+<th style="text-align: center;">有工作</th>
+<th style="text-align: center;">有自己的房子</th>
+<th style="text-align: center;">信贷情况</th>
+<th style="text-align: center;">类别</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">青年</td>
+<td style="text-align: center;">否</td>
+<td style="text-align: center;">否</td>
+<td style="text-align: center;">一般</td>
+<td style="text-align: center;">否</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">青年</td>
+<td style="text-align: center;">否</td>
+<td style="text-align: center;">否</td>
+<td style="text-align: center;">好</td>
+<td style="text-align: center;">否</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">青年</td>
+<td style="text-align: center;">是</td>
+<td style="text-align: center;">否</td>
+<td style="text-align: center;">好</td>
+<td style="text-align: center;">是</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">青年</td>
+<td style="text-align: center;">是</td>
+<td style="text-align: center;">是</td>
+<td style="text-align: center;">一般</td>
+<td style="text-align: center;">是</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">青年</td>
+<td style="text-align: center;">否</td>
+<td style="text-align: center;">否</td>
+<td style="text-align: center;">一般</td>
+<td style="text-align: center;">否</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">中年</td>
+<td style="text-align: center;">否</td>
+<td style="text-align: center;">否</td>
+<td style="text-align: center;">一般</td>
+<td style="text-align: center;">否</td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">中年</td>
+<td style="text-align: center;">否</td>
+<td style="text-align: center;">否</td>
+<td style="text-align: center;">好</td>
+<td style="text-align: center;">否</td>
+</tr>
+<tr>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">中年</td>
+<td style="text-align: center;">是</td>
+<td style="text-align: center;">是</td>
+<td style="text-align: center;">好</td>
+<td style="text-align: center;">是</td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">中年</td>
+<td style="text-align: center;">否</td>
+<td style="text-align: center;">是</td>
+<td style="text-align: center;">非常好</td>
+<td style="text-align: center;">是</td>
+</tr>
+<tr>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">中年</td>
+<td style="text-align: center;">否</td>
+<td style="text-align: center;">是</td>
+<td style="text-align: center;">非常好</td>
+<td style="text-align: center;">是</td>
+</tr>
+<tr>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">老年</td>
+<td style="text-align: center;">否</td>
+<td style="text-align: center;">是</td>
+<td style="text-align: center;">非常好</td>
+<td style="text-align: center;">是</td>
+</tr>
+<tr>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">老年</td>
+<td style="text-align: center;">否</td>
+<td style="text-align: center;">是</td>
+<td style="text-align: center;">好</td>
+<td style="text-align: center;">是</td>
+</tr>
+<tr>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">老年</td>
+<td style="text-align: center;">是</td>
+<td style="text-align: center;">否</td>
+<td style="text-align: center;">好</td>
+<td style="text-align: center;">是</td>
+</tr>
+<tr>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">老年</td>
+<td style="text-align: center;">是</td>
+<td style="text-align: center;">否</td>
+<td style="text-align: center;">非常好</td>
+<td style="text-align: center;">是</td>
+</tr>
+<tr>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">老年</td>
+<td style="text-align: center;">否</td>
+<td style="text-align: center;">否</td>
+<td style="text-align: center;">一般</td>
+<td style="text-align: center;">否</td>
+</tr>
+</tbody>
+</table>
+</details>
+<p>分别以<span><span class="heti-spacing"> </span>A1</span>（年龄）, A2（有工作）, A3（有自己的房子）, A4（信贷情况）代表<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>个特征<span class="heti-skip"><span class="heti-spacing"> </span>,<span class="heti-spacing"> </span></span>计算各特征对数据集<span class="heti-skip"><span class="heti-spacing"> </span>D<span class="heti-spacing"> </span></span>的信息增益比<span class="heti-skip"><span class="heti-spacing"> </span>,<span class="heti-spacing"> </span></span>有（保留<span class="heti-skip"><span class="heti-spacing"> </span>3<span class="heti-spacing"> </span></span>位小数<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<p><span class="arithmatex">\((1)\ g_R(D, A_1) = \frac{g(D, A_1)}{H_{A_1}(D)} = \frac{0.083}{3*( - \frac{5}{15}log_2{\frac{5}{15}})} = 0.052\)</span></p>
+<p><span class="arithmatex">\((2)\ g_R(D, A_2) = \frac{g(D, A_2)}{H_{A_2}(D)} = \frac{0.324}{-\frac{5}{15}log_2{\frac{5}{15}} - \frac{10}{15}log_2{\frac{10}{15}}} = 0.353\)</span></p>
+<p><span class="arithmatex">\((3)\ g_R(D, A_3) = \frac{g(D, A_3)}{H_{A_3}(D)} = \frac{0.420}{-\frac{6}{15}log_2{\frac{6}{15}} - \frac{9}{15}log_2{\frac{9}{15}}} = 0.433\)</span></p>
+<p><span class="arithmatex">\((4)\ g_R(D, A_4) = \frac{g(D, A_4)}{H_{A_4}(D)} = \frac{0.363}{-\frac{5}{15}log_2{\frac{5}{15}} - \frac{6}{15}log_2{\frac{6}{15}} - \frac{4}{15}log_2{\frac{4}{15}}} = 0.232\)</span></p>
+<p>由于特征 <strong><span>A3 (<span class="heti-spacing"> </span></span>有自己的房子<span><span class="heti-spacing"> </span>)</span></strong> 的信息增益比最大<span class="heti-skip"><span class="heti-spacing"> </span>,<span class="heti-spacing"> </span></span>所以选择特征<span class="heti-skip"><span class="heti-spacing"> </span>A3<span class="heti-spacing"> </span></span>作为根结点的特征。</p>
+<p>它将训练集<span class="heti-skip"><span class="heti-spacing"> </span>D<span class="heti-spacing"> </span></span>划分为两个子集<span class="heti-skip"><span class="heti-spacing"> </span>D1 (A3<span class="heti-spacing"> </span></span>取值为<span class="heti-skip"><span class="heti-spacing"> </span>"<span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span>")<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>D2 (A3<span class="heti-spacing"> </span></span>取值为<span class="heti-skip"><span class="heti-spacing"> </span>"<span class="heti-spacing"> </span></span>否<span><span class="heti-spacing"> </span>")</span>。由于<span class="heti-skip"><span class="heti-spacing"> </span>D1<span class="heti-spacing"> </span></span>只有同一类的样本点<span class="heti-skip"><span class="heti-spacing"> </span>,<span class="heti-spacing"> </span></span>所以它成为一个叶结点<span class="heti-skip"><span class="heti-spacing"> </span>,<span class="heti-spacing"> </span></span>结点的类标记为<span class="heti-skip"><span class="heti-spacing"> </span>"<span class="heti-spacing"> </span></span>是<span><span class="heti-spacing"> </span>"</span>。对于<span class="heti-skip"><span class="heti-spacing"> </span>D2<span class="heti-spacing"> </span></span>则需从特征<span class="heti-skip"><span class="heti-spacing"> </span>A1 (<span class="heti-spacing"> </span></span>年龄<span class="heti-skip"><span class="heti-spacing"> </span>), A2 (<span class="heti-spacing"> </span></span>有工作<span class="heti-skip"><span class="heti-spacing"> </span>), A4 (<span class="heti-spacing"> </span></span>信贷情况<span class="heti-skip"><span class="heti-spacing"> </span>)<span class="heti-spacing"> </span></span>中选择新的特征。</p>
+<p>计算各个特征的信息增益比<span><span class="heti-spacing"> </span>:</span></p>
+<p><span class="arithmatex">\(g_R(D_2, A_1) = \frac{g(D_2, A_1)}{H_{A_1}(D_2)} = \frac{0.251}{-\frac{4}{9}log_2{\frac{4}{9}} - \frac{2}{9}log_2{\frac{2}{9}} - \frac{3}{9}log_2{\frac{3}{9}}} = 0.164\)</span></p>
+<p><span class="arithmatex">\(g_R(D_2, A_2) = \frac{g(D_2, A_2)}{H_{A_2}(D_2)} = \frac{0.918}{-\frac{3}{9}log_2{\frac{3}{9}} - \frac{6}{9}log_2{\frac{6}{9}}} = 1.000\)</span></p>
+<p><span class="arithmatex">\(g_R(D_2, A_4) = \frac{g(D_2, A_4)}{H_{A_4}(D_2)} = \frac{0.474}{-\frac{4}{9}log_2{\frac{4}{9}} - \frac{4}{9}log_2{\frac{4}{9}} - \frac{1}{9}log_2{\frac{1}{9}}} = 0.340\)</span></p>
+<p>选择信息增益比最大的特征 <strong><span>A2 (<span class="heti-spacing"> </span></span>有工作<span><span class="heti-spacing"> </span>)</span></strong> 作为结点的特征<span class="heti-skip"><span class="heti-spacing"> </span>,<span class="heti-spacing"> </span></span>从这一结点引出两个子结点<span class="heti-skip"><span class="heti-spacing"> </span>:<span class="heti-spacing"> </span></span>一个是对应<span class="heti-skip"><span class="heti-spacing"> </span>"<span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span>" (<span class="heti-spacing"> </span></span>有工作<span class="heti-skip"><span class="heti-spacing"> </span>)<span class="heti-spacing"> </span></span>的子结点<span class="heti-skip"><span class="heti-spacing"> </span>,<span class="heti-spacing"> </span></span>包含<span class="heti-skip"><span class="heti-spacing"> </span>3<span class="heti-spacing"> </span></span>个样本<span class="heti-skip"><span class="heti-spacing"> </span>,<span class="heti-spacing"> </span></span>它们属于同一类<span class="heti-skip"><span class="heti-spacing"> </span>,<span class="heti-spacing"> </span></span>所以这是一个叶结点<span class="heti-skip"><span class="heti-spacing"> </span>,<span class="heti-spacing"> </span></span>类标记为<span class="heti-skip"><span class="heti-spacing"> </span>"<span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span>";<span class="heti-spacing"> </span></span>另一个是对应<span class="heti-skip"><span class="heti-spacing"> </span>"<span class="heti-spacing"> </span></span>否<span class="heti-skip"><span class="heti-spacing"> </span>" (<span class="heti-spacing"> </span></span>无工作<span class="heti-skip"><span class="heti-spacing"> </span>)<span class="heti-spacing"> </span></span>的子结点<span class="heti-skip"><span class="heti-spacing"> </span>,<span class="heti-spacing"> </span></span>包含<span class="heti-skip"><span class="heti-spacing"> </span>6<span class="heti-spacing"> </span></span>个样本<span class="heti-skip"><span class="heti-spacing"> </span>,<span class="heti-spacing"> </span></span>它们也属于同一类<span class="heti-skip"><span class="heti-spacing"> </span>,<span class="heti-spacing"> </span></span>所以这也是一个叶结点<span class="heti-skip"><span class="heti-spacing"> </span>,<span class="heti-spacing"> </span></span>类标记为<span class="heti-skip"><span class="heti-spacing"> </span>"<span class="heti-spacing"> </span></span>否<span><span class="heti-spacing"> </span>"</span>。</p>
+<p>这样生成一个如下图所示的决策树。该决策树只用了两个特征<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>有两个内部节点<span><span class="heti-spacing"> </span>)</span>：</p>
+<pre class="mermaid"><code>graph LR
+    A[有自己的房子] --&gt;|是| B(是)
+    A --&gt;|否| C[有工作]
+    C --&gt;|是| D(是)
+    C --&gt;|否| E(否)</code></pre>
+<h3 id="习题-52">习题<span><span class="heti-spacing"> </span>5.2</span><a class="headerlink" href="#习题-52" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="question" open="open">
+<summary>Question</summary>
+<p>已知如表<span class="heti-skip"><span class="heti-spacing"> </span>5.2<span class="heti-spacing"> </span></span>所示的训练数据，试用平方误差损失准则生成一个二叉回归树。  </p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><span class="arithmatex">\(x_{i}\)</span> ​</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">5</th>
+<th style="text-align: center;">6</th>
+<th style="text-align: center;">7</th>
+<th style="text-align: center;">8</th>
+<th style="text-align: center;">9</th>
+<th style="text-align: center;">10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><span class="arithmatex">\(y_i\)</span> ​</td>
+<td style="text-align: center;">4.50</td>
+<td style="text-align: center;">4.75</td>
+<td style="text-align: center;">4.91</td>
+<td style="text-align: center;">5.34</td>
+<td style="text-align: center;">5.80</td>
+<td style="text-align: center;">7.05</td>
+<td style="text-align: center;">7.90</td>
+<td style="text-align: center;">8.23</td>
+<td style="text-align: center;">8.70</td>
+<td style="text-align: center;">9.00</td>
+</tr>
+</tbody>
+</table>
+</details>
+<ol>
+<li>由数据表可知，<span>j<span class="heti-spacing"> </span></span>只能取<span><span class="heti-spacing"> </span>1</span>，选择最优切分点<span><span class="heti-spacing"> </span>s</span>，遍历求解</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">s</th>
+<th style="text-align: center;"><span class="arithmatex">\(\sum_{x_i \in R_1(1, s)}(y_i - \hat{c}_1)^2 + \sum_{x_i \in R_2(1, s)}(y_i - \hat{c}_2)^2\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">22.648</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">17.702</td>
+</tr>
+<tr>
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">..</td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">21.328</td>
+</tr>
+<tr>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">所有的点都在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(R_1\)</span><span class="heti-spacing"> </span></span>内，则输入空间不变</td>
+</tr>
+</tbody>
+</table>
+<ol start="2">
+<li>则当<span class="heti-skip"><span class="heti-spacing"> </span>j = 1, s = 5<span class="heti-spacing"> </span></span>时取得最小值，将输入空间划分为两个区域<span class="heti-skip"><span class="heti-spacing"> </span>x &lt;= 5<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>x &gt; 5</span>。</li>
+<li>接着，对两个子区域按上述过程递归计算，设定阈值为<span><span class="heti-spacing"> </span>0.2</span>（自调整<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；后续过程比较繁琐，考虑使用<span class="heti-skip"><span class="heti-spacing"> </span>python<span class="heti-spacing"> </span></span>完成，结果为：</li>
+</ol>
+<div class="arithmatex">\[f(x)=\begin{cases}4.72&amp;x\leq3\\5.57&amp;3&lt;x\leq5\\7.05&amp;5&lt;x\leq6\\7.9&amp;6&lt;x\leq7\\8.23&amp;7&lt;x\leq8\\8.85&amp;x&gt;8&amp;\end{cases}\]</div>
+<h4 id="python-代码及运行结果"><span>python<span class="heti-spacing"> </span></span>代码及运行结果<a class="headerlink" href="#python-代码及运行结果" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<div class="admonition env">
+<p class="admonition-title">Env</p>
+<ul>
+<li>python=3.11.11</li>
+<li>numpy=2.1.2</li>
+</ul>
+</div>
+<div class="highlight"><span class="filename">LeastSquareRegTree.py</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos="  1 "></span></a><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos" data-linenos="  2 "></span></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><a href="#__codelineno-0-3"><span class="linenos" data-linenos="  3 "></span></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><a href="#__codelineno-0-4"><span class="linenos" data-linenos="  4 "></span></a><span class="k">class</span><span class="w"> </span><span class="nc">Node</span><span class="p">:</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><a href="#__codelineno-0-5"><span class="linenos" data-linenos="  5 "></span></a><span class="w">    </span><span class="sd">"""Tree node for least squares regression tree."""</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><a href="#__codelineno-0-6"><span class="linenos" data-linenos="  6 "></span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">feature</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><a href="#__codelineno-0-7"><span class="linenos" data-linenos="  7 "></span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="k">else</span> <span class="n">value</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><a href="#__codelineno-0-8"><span class="linenos" data-linenos="  8 "></span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">feature</span> <span class="o">=</span> <span class="n">feature</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">feature</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="k">else</span> <span class="n">feature</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a><a href="#__codelineno-0-9"><span class="linenos" data-linenos="  9 "></span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">left</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><a href="#__codelineno-0-10"><span class="linenos" data-linenos=" 10 "></span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">right</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a><a href="#__codelineno-0-11"><span class="linenos" data-linenos=" 11 "></span></a>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a><a href="#__codelineno-0-12"><span class="linenos" data-linenos=" 12 "></span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a><a href="#__codelineno-0-13"><span class="linenos" data-linenos=" 13 "></span></a><span class="w">        </span><span class="sd">"""Convert node to JSON string representation."""</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a><a href="#__codelineno-0-14"><span class="linenos" data-linenos=" 14 "></span></a>        <span class="k">def</span><span class="w"> </span><span class="nf">custom_default</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a><a href="#__codelineno-0-15"><span class="linenos" data-linenos=" 15 "></span></a>            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Node</span><span class="p">):</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a><a href="#__codelineno-0-16"><span class="linenos" data-linenos=" 16 "></span></a>                <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__dict__</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17"></a><a href="#__codelineno-0-17"><span class="linenos" data-linenos=" 17 "></span></a>            <span class="c1"># Handle numpy types by converting to Python standard types</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18"></a><a href="#__codelineno-0-18"><span class="linenos" data-linenos=" 18 "></span></a>            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19"></a><a href="#__codelineno-0-19"><span class="linenos" data-linenos=" 19 "></span></a>                <span class="n">obj</span><span class="p">,(</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20"></a><a href="#__codelineno-0-20"><span class="linenos" data-linenos=" 20 "></span></a>                    <span class="n">np</span><span class="o">.</span><span class="n">int_</span><span class="p">,</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21"></a><a href="#__codelineno-0-21"><span class="linenos" data-linenos=" 21 "></span></a>                    <span class="n">np</span><span class="o">.</span><span class="n">intc</span><span class="p">,</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22"></a><a href="#__codelineno-0-22"><span class="linenos" data-linenos=" 22 "></span></a>                    <span class="n">np</span><span class="o">.</span><span class="n">intp</span><span class="p">,</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23"></a><a href="#__codelineno-0-23"><span class="linenos" data-linenos=" 23 "></span></a>                    <span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">,</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24"></a><a href="#__codelineno-0-24"><span class="linenos" data-linenos=" 24 "></span></a>                    <span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">,</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25"></a><a href="#__codelineno-0-25"><span class="linenos" data-linenos=" 25 "></span></a>                    <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26"></a><a href="#__codelineno-0-26"><span class="linenos" data-linenos=" 26 "></span></a>                    <span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27"></a><a href="#__codelineno-0-27"><span class="linenos" data-linenos=" 27 "></span></a>                    <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28"></a><a href="#__codelineno-0-28"><span class="linenos" data-linenos=" 28 "></span></a>                    <span class="n">np</span><span class="o">.</span><span class="n">uint16</span><span class="p">,</span>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29"></a><a href="#__codelineno-0-29"><span class="linenos" data-linenos=" 29 "></span></a>                    <span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">,</span>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30"></a><a href="#__codelineno-0-30"><span class="linenos" data-linenos=" 30 "></span></a>                    <span class="n">np</span><span class="o">.</span><span class="n">uint64</span><span class="p">,),</span>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31"></a><a href="#__codelineno-0-31"><span class="linenos" data-linenos=" 31 "></span></a>            <span class="p">):</span>
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32"></a><a href="#__codelineno-0-32"><span class="linenos" data-linenos=" 32 "></span></a>                <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33"></a><a href="#__codelineno-0-33"><span class="linenos" data-linenos=" 33 "></span></a>            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float_</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)):</span>
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34"></a><a href="#__codelineno-0-34"><span class="linenos" data-linenos=" 34 "></span></a>                <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35"></a><a href="#__codelineno-0-35"><span class="linenos" data-linenos=" 35 "></span></a>            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36"></a><a href="#__codelineno-0-36"><span class="linenos" data-linenos=" 36 "></span></a>                <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37"></a><a href="#__codelineno-0-37"><span class="linenos" data-linenos=" 37 "></span></a>            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38"></a><a href="#__codelineno-0-38"><span class="linenos" data-linenos=" 38 "></span></a>        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">custom_default</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39"></a><a href="#__codelineno-0-39"><span class="linenos" data-linenos=" 39 "></span></a>
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40"></a><a href="#__codelineno-0-40"><span class="linenos" data-linenos=" 40 "></span></a>
+</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41"></a><a href="#__codelineno-0-41"><span class="linenos" data-linenos=" 41 "></span></a><span class="k">class</span><span class="w"> </span><span class="nc">LeastSquareRegTree</span><span class="p">:</span>
+</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42"></a><a href="#__codelineno-0-42"><span class="linenos" data-linenos=" 42 "></span></a><span class="w">    </span><span class="sd">"""Least squares regression tree implementation."""</span>
+</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43"></a><a href="#__codelineno-0-43"><span class="linenos" data-linenos=" 43 "></span></a>
+</span><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44"></a><a href="#__codelineno-0-44"><span class="linenos" data-linenos=" 44 "></span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_X</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">min_samples_split</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45"></a><a href="#__codelineno-0-45"><span class="linenos" data-linenos=" 45 "></span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">train_X</span><span class="p">)</span>
+</span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46"></a><a href="#__codelineno-0-46"><span class="linenos" data-linenos=" 46 "></span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">train_y</span><span class="p">)</span>
+</span><span id="__span-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47"></a><a href="#__codelineno-0-47"><span class="linenos" data-linenos=" 47 "></span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">feature_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span><span id="__span-0-48"><a id="__codelineno-0-48" name="__codelineno-0-48"></a><a href="#__codelineno-0-48"><span class="linenos" data-linenos=" 48 "></span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">=</span> <span class="n">epsilon</span>
+</span><span id="__span-0-49"><a id="__codelineno-0-49" name="__codelineno-0-49"></a><a href="#__codelineno-0-49"><span class="linenos" data-linenos=" 49 "></span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">min_samples_split</span> <span class="o">=</span> <span class="n">min_samples_split</span>
+</span><span id="__span-0-50"><a id="__codelineno-0-50" name="__codelineno-0-50"></a><a href="#__codelineno-0-50"><span class="linenos" data-linenos=" 50 "></span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="__span-0-51"><a id="__codelineno-0-51" name="__codelineno-0-51"></a><a href="#__codelineno-0-51"><span class="linenos" data-linenos=" 51 "></span></a>
+</span><span id="__span-0-52"><a id="__codelineno-0-52" name="__codelineno-0-52"></a><a href="#__codelineno-0-52"><span class="linenos" data-linenos=" 52 "></span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">feature_count</span><span class="p">):</span>
+</span><span id="__span-0-53"><a id="__codelineno-0-53" name="__codelineno-0-53"></a><a href="#__codelineno-0-53"><span class="linenos" data-linenos=" 53 "></span></a>        <span class="n">j</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">min_error</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_best_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">feature_count</span><span class="p">)</span>
+</span><span id="__span-0-54"><a id="__codelineno-0-54" name="__codelineno-0-54"></a><a href="#__codelineno-0-54"><span class="linenos" data-linenos=" 54 "></span></a>        <span class="n">tree</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">feature</span><span class="o">=</span><span class="n">j</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">X</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">left</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="__span-0-55"><a id="__codelineno-0-55" name="__codelineno-0-55"></a><a href="#__codelineno-0-55"><span class="linenos" data-linenos=" 55 "></span></a>        <span class="n">left_mask</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">X</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+</span><span id="__span-0-56"><a id="__codelineno-0-56" name="__codelineno-0-56"></a><a href="#__codelineno-0-56"><span class="linenos" data-linenos=" 56 "></span></a>        <span class="n">right_mask</span> <span class="o">=</span> <span class="o">~</span><span class="n">left_mask</span>
+</span><span id="__span-0-57"><a id="__codelineno-0-57" name="__codelineno-0-57"></a><a href="#__codelineno-0-57"><span class="linenos" data-linenos=" 57 "></span></a>        <span class="n">X_left</span><span class="p">,</span> <span class="n">y_left</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">left_mask</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">left_mask</span><span class="p">]</span>
+</span><span id="__span-0-58"><a id="__codelineno-0-58" name="__codelineno-0-58"></a><a href="#__codelineno-0-58"><span class="linenos" data-linenos=" 58 "></span></a>        <span class="n">X_right</span><span class="p">,</span> <span class="n">y_right</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">right_mask</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">right_mask</span><span class="p">]</span>
+</span><span id="__span-0-59"><a id="__codelineno-0-59" name="__codelineno-0-59"></a><a href="#__codelineno-0-59"><span class="linenos" data-linenos=" 59 "></span></a>
+</span><span id="__span-0-60"><a id="__codelineno-0-60" name="__codelineno-0-60"></a><a href="#__codelineno-0-60"><span class="linenos" data-linenos=" 60 "></span></a>        <span class="k">if</span> <span class="n">min_error</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_left</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_samples_split</span><span class="p">:</span>
+</span><span id="__span-0-61"><a id="__codelineno-0-61" name="__codelineno-0-61"></a><a href="#__codelineno-0-61"><span class="linenos" data-linenos=" 61 "></span></a>            <span class="n">tree</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>  <span class="c1"># Convert numpy types to Python standard types</span>
+</span><span id="__span-0-62"><a id="__codelineno-0-62" name="__codelineno-0-62"></a><a href="#__codelineno-0-62"><span class="linenos" data-linenos=" 62 "></span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-0-63"><a id="__codelineno-0-63" name="__codelineno-0-63"></a><a href="#__codelineno-0-63"><span class="linenos" data-linenos=" 63 "></span></a>            <span class="n">tree</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fit</span><span class="p">(</span><span class="n">X_left</span><span class="p">,</span> <span class="n">y_left</span><span class="p">,</span> <span class="n">feature_count</span><span class="p">)</span>
+</span><span id="__span-0-64"><a id="__codelineno-0-64" name="__codelineno-0-64"></a><a href="#__codelineno-0-64"><span class="linenos" data-linenos=" 64 "></span></a>        <span class="k">if</span> <span class="n">min_error</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_right</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_samples_split</span><span class="p">:</span>
+</span><span id="__span-0-65"><a id="__codelineno-0-65" name="__codelineno-0-65"></a><a href="#__codelineno-0-65"><span class="linenos" data-linenos=" 65 "></span></a>            <span class="n">tree</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">c2</span><span class="p">)</span>  <span class="c1"># Convert numpy types to Python standard types</span>
+</span><span id="__span-0-66"><a id="__codelineno-0-66" name="__codelineno-0-66"></a><a href="#__codelineno-0-66"><span class="linenos" data-linenos=" 66 "></span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-0-67"><a id="__codelineno-0-67" name="__codelineno-0-67"></a><a href="#__codelineno-0-67"><span class="linenos" data-linenos=" 67 "></span></a>            <span class="n">tree</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fit</span><span class="p">(</span><span class="n">X_right</span><span class="p">,</span> <span class="n">y_right</span><span class="p">,</span> <span class="n">feature_count</span><span class="p">)</span>
+</span><span id="__span-0-68"><a id="__codelineno-0-68" name="__codelineno-0-68"></a><a href="#__codelineno-0-68"><span class="linenos" data-linenos=" 68 "></span></a>
+</span><span id="__span-0-69"><a id="__codelineno-0-69" name="__codelineno-0-69"></a><a href="#__codelineno-0-69"><span class="linenos" data-linenos=" 69 "></span></a>        <span class="k">return</span> <span class="n">tree</span>
+</span><span id="__span-0-70"><a id="__codelineno-0-70" name="__codelineno-0-70"></a><a href="#__codelineno-0-70"><span class="linenos" data-linenos=" 70 "></span></a>
+</span><span id="__span-0-71"><a id="__codelineno-0-71" name="__codelineno-0-71"></a><a href="#__codelineno-0-71"><span class="linenos" data-linenos=" 71 "></span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-0-72"><a id="__codelineno-0-72" name="__codelineno-0-72"></a><a href="#__codelineno-0-72"><span class="linenos" data-linenos=" 72 "></span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_count</span><span class="p">)</span>
+</span><span id="__span-0-73"><a id="__codelineno-0-73" name="__codelineno-0-73"></a><a href="#__codelineno-0-73"><span class="linenos" data-linenos=" 73 "></span></a>        <span class="k">return</span> <span class="bp">self</span>
+</span><span id="__span-0-74"><a id="__codelineno-0-74" name="__codelineno-0-74"></a><a href="#__codelineno-0-74"><span class="linenos" data-linenos=" 74 "></span></a>
+</span><span id="__span-0-75"><a id="__codelineno-0-75" name="__codelineno-0-75"></a><a href="#__codelineno-0-75"><span class="linenos" data-linenos=" 75 "></span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+</span><span id="__span-0-76"><a id="__codelineno-0-76" name="__codelineno-0-76"></a><a href="#__codelineno-0-76"><span class="linenos" data-linenos=" 76 "></span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-0-77"><a id="__codelineno-0-77" name="__codelineno-0-77"></a><a href="#__codelineno-0-77"><span class="linenos" data-linenos=" 77 "></span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"tree is empty"</span><span class="p">)</span>
+</span><span id="__span-0-78"><a id="__codelineno-0-78" name="__codelineno-0-78"></a><a href="#__codelineno-0-78"><span class="linenos" data-linenos=" 78 "></span></a>
+</span><span id="__span-0-79"><a id="__codelineno-0-79" name="__codelineno-0-79"></a><a href="#__codelineno-0-79"><span class="linenos" data-linenos=" 79 "></span></a>        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</span><span id="__span-0-80"><a id="__codelineno-0-80" name="__codelineno-0-80"></a><a href="#__codelineno-0-80"><span class="linenos" data-linenos=" 80 "></span></a>        <span class="n">predictions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span id="__span-0-81"><a id="__codelineno-0-81" name="__codelineno-0-81"></a><a href="#__codelineno-0-81"><span class="linenos" data-linenos=" 81 "></span></a>        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">sample</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+</span><span id="__span-0-82"><a id="__codelineno-0-82" name="__codelineno-0-82"></a><a href="#__codelineno-0-82"><span class="linenos" data-linenos=" 82 "></span></a>            <span class="n">predictions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_predict_sample</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="p">)</span>
+</span><span id="__span-0-83"><a id="__codelineno-0-83" name="__codelineno-0-83"></a><a href="#__codelineno-0-83"><span class="linenos" data-linenos=" 83 "></span></a>        <span class="k">return</span> <span class="n">predictions</span>
+</span><span id="__span-0-84"><a id="__codelineno-0-84" name="__codelineno-0-84"></a><a href="#__codelineno-0-84"><span class="linenos" data-linenos=" 84 "></span></a>
+</span><span id="__span-0-85"><a id="__codelineno-0-85" name="__codelineno-0-85"></a><a href="#__codelineno-0-85"><span class="linenos" data-linenos=" 85 "></span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_predict_sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sample</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+</span><span id="__span-0-86"><a id="__codelineno-0-86" name="__codelineno-0-86"></a><a href="#__codelineno-0-86"><span class="linenos" data-linenos=" 86 "></span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">Node</span><span class="p">):</span>
+</span><span id="__span-0-87"><a id="__codelineno-0-87" name="__codelineno-0-87"></a><a href="#__codelineno-0-87"><span class="linenos" data-linenos=" 87 "></span></a>            <span class="k">return</span> <span class="n">node</span>
+</span><span id="__span-0-88"><a id="__codelineno-0-88" name="__codelineno-0-88"></a><a href="#__codelineno-0-88"><span class="linenos" data-linenos=" 88 "></span></a>
+</span><span id="__span-0-89"><a id="__codelineno-0-89" name="__codelineno-0-89"></a><a href="#__codelineno-0-89"><span class="linenos" data-linenos=" 89 "></span></a>        <span class="k">if</span> <span class="n">sample</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">feature</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+</span><span id="__span-0-90"><a id="__codelineno-0-90" name="__codelineno-0-90"></a><a href="#__codelineno-0-90"><span class="linenos" data-linenos=" 90 "></span></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_predict_sample</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+</span><span id="__span-0-91"><a id="__codelineno-0-91" name="__codelineno-0-91"></a><a href="#__codelineno-0-91"><span class="linenos" data-linenos=" 91 "></span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-0-92"><a id="__codelineno-0-92" name="__codelineno-0-92"></a><a href="#__codelineno-0-92"><span class="linenos" data-linenos=" 92 "></span></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_predict_sample</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+</span><span id="__span-0-93"><a id="__codelineno-0-93" name="__codelineno-0-93"></a><a href="#__codelineno-0-93"><span class="linenos" data-linenos=" 93 "></span></a>    <span class="c1"># Implements equation 5.21 from the textbook to find the split that minimizes squared error.</span>
+</span><span id="__span-0-94"><a id="__codelineno-0-94" name="__codelineno-0-94"></a><a href="#__codelineno-0-94"><span class="linenos" data-linenos=" 94 "></span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_find_best_split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">feature_count</span><span class="p">):</span>
+</span><span id="__span-0-95"><a id="__codelineno-0-95" name="__codelineno-0-95"></a><a href="#__codelineno-0-95"><span class="linenos" data-linenos=" 95 "></span></a>        <span class="n">n_samples</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</span><span id="__span-0-96"><a id="__codelineno-0-96" name="__codelineno-0-96"></a><a href="#__codelineno-0-96"><span class="linenos" data-linenos=" 96 "></span></a>        <span class="n">min_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+</span><span id="__span-0-97"><a id="__codelineno-0-97" name="__codelineno-0-97"></a><a href="#__codelineno-0-97"><span class="linenos" data-linenos=" 97 "></span></a>        <span class="n">best_feature</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="__span-0-98"><a id="__codelineno-0-98" name="__codelineno-0-98"></a><a href="#__codelineno-0-98"><span class="linenos" data-linenos=" 98 "></span></a>        <span class="n">best_split</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="__span-0-99"><a id="__codelineno-0-99" name="__codelineno-0-99"></a><a href="#__codelineno-0-99"><span class="linenos" data-linenos=" 99 "></span></a>        <span class="n">best_c1</span> <span class="o">=</span> <span class="n">best_c2</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="__span-0-100"><a id="__codelineno-0-100" name="__codelineno-0-100"></a><a href="#__codelineno-0-100"><span class="linenos" data-linenos="100 "></span></a>
+</span><span id="__span-0-101"><a id="__codelineno-0-101" name="__codelineno-0-101"></a><a href="#__codelineno-0-101"><span class="linenos" data-linenos="101 "></span></a>        <span class="k">for</span> <span class="n">feature_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">feature_count</span><span class="p">):</span>
+</span><span id="__span-0-102"><a id="__codelineno-0-102" name="__codelineno-0-102"></a><a href="#__codelineno-0-102"><span class="linenos" data-linenos="102 "></span></a>            <span class="n">sorted_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="n">feature_idx</span><span class="p">])</span>
+</span><span id="__span-0-103"><a id="__codelineno-0-103" name="__codelineno-0-103"></a><a href="#__codelineno-0-103"><span class="linenos" data-linenos="103 "></span></a>            <span class="n">sorted_X</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">sorted_idx</span><span class="p">]</span>
+</span><span id="__span-0-104"><a id="__codelineno-0-104" name="__codelineno-0-104"></a><a href="#__codelineno-0-104"><span class="linenos" data-linenos="104 "></span></a>            <span class="n">sorted_y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">sorted_idx</span><span class="p">]</span>
+</span><span id="__span-0-105"><a id="__codelineno-0-105" name="__codelineno-0-105"></a><a href="#__codelineno-0-105"><span class="linenos" data-linenos="105 "></span></a>            <span class="n">unique_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">sorted_X</span><span class="p">[:,</span> <span class="n">feature_idx</span><span class="p">])</span>
+</span><span id="__span-0-106"><a id="__codelineno-0-106" name="__codelineno-0-106"></a><a href="#__codelineno-0-106"><span class="linenos" data-linenos="106 "></span></a>
+</span><span id="__span-0-107"><a id="__codelineno-0-107" name="__codelineno-0-107"></a><a href="#__codelineno-0-107"><span class="linenos" data-linenos="107 "></span></a>            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">unique_values</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+</span><span id="__span-0-108"><a id="__codelineno-0-108" name="__codelineno-0-108"></a><a href="#__codelineno-0-108"><span class="linenos" data-linenos="108 "></span></a>                <span class="n">split_value</span> <span class="o">=</span> <span class="p">(</span><span class="n">unique_values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">unique_values</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+</span><span id="__span-0-109"><a id="__codelineno-0-109" name="__codelineno-0-109"></a><a href="#__codelineno-0-109"><span class="linenos" data-linenos="109 "></span></a>                <span class="n">split_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">sorted_X</span><span class="p">[:,</span> <span class="n">feature_idx</span><span class="p">],</span> <span class="n">split_value</span><span class="p">)</span>
+</span><span id="__span-0-110"><a id="__codelineno-0-110" name="__codelineno-0-110"></a><a href="#__codelineno-0-110"><span class="linenos" data-linenos="110 "></span></a>
+</span><span id="__span-0-111"><a id="__codelineno-0-111" name="__codelineno-0-111"></a><a href="#__codelineno-0-111"><span class="linenos" data-linenos="111 "></span></a>                <span class="k">if</span> <span class="n">split_idx</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">split_idx</span> <span class="o">==</span> <span class="n">n_samples</span><span class="p">:</span>
+</span><span id="__span-0-112"><a id="__codelineno-0-112" name="__codelineno-0-112"></a><a href="#__codelineno-0-112"><span class="linenos" data-linenos="112 "></span></a>                    <span class="k">continue</span>  <span class="c1"># Skip if split would result in empty partition</span>
+</span><span id="__span-0-113"><a id="__codelineno-0-113" name="__codelineno-0-113"></a><a href="#__codelineno-0-113"><span class="linenos" data-linenos="113 "></span></a>
+</span><span id="__span-0-114"><a id="__codelineno-0-114" name="__codelineno-0-114"></a><a href="#__codelineno-0-114"><span class="linenos" data-linenos="114 "></span></a>                <span class="n">left_y</span> <span class="o">=</span> <span class="n">sorted_y</span><span class="p">[:</span><span class="n">split_idx</span><span class="p">]</span>
+</span><span id="__span-0-115"><a id="__codelineno-0-115" name="__codelineno-0-115"></a><a href="#__codelineno-0-115"><span class="linenos" data-linenos="115 "></span></a>                <span class="n">right_y</span> <span class="o">=</span> <span class="n">sorted_y</span><span class="p">[</span><span class="n">split_idx</span><span class="p">:]</span>
+</span><span id="__span-0-116"><a id="__codelineno-0-116" name="__codelineno-0-116"></a><a href="#__codelineno-0-116"><span class="linenos" data-linenos="116 "></span></a>                <span class="n">c1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">left_y</span><span class="p">)</span>
+</span><span id="__span-0-117"><a id="__codelineno-0-117" name="__codelineno-0-117"></a><a href="#__codelineno-0-117"><span class="linenos" data-linenos="117 "></span></a>                <span class="n">c2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">right_y</span><span class="p">)</span>
+</span><span id="__span-0-118"><a id="__codelineno-0-118" name="__codelineno-0-118"></a><a href="#__codelineno-0-118"><span class="linenos" data-linenos="118 "></span></a>                <span class="n">error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">left_y</span> <span class="o">-</span> <span class="n">c1</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">right_y</span> <span class="o">-</span> <span class="n">c2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-0-119"><a id="__codelineno-0-119" name="__codelineno-0-119"></a><a href="#__codelineno-0-119"><span class="linenos" data-linenos="119 "></span></a>
+</span><span id="__span-0-120"><a id="__codelineno-0-120" name="__codelineno-0-120"></a><a href="#__codelineno-0-120"><span class="linenos" data-linenos="120 "></span></a>                <span class="k">if</span> <span class="n">error</span> <span class="o">&lt;</span> <span class="n">min_error</span><span class="p">:</span>
+</span><span id="__span-0-121"><a id="__codelineno-0-121" name="__codelineno-0-121"></a><a href="#__codelineno-0-121"><span class="linenos" data-linenos="121 "></span></a>                    <span class="n">min_error</span> <span class="o">=</span> <span class="n">error</span>
+</span><span id="__span-0-122"><a id="__codelineno-0-122" name="__codelineno-0-122"></a><a href="#__codelineno-0-122"><span class="linenos" data-linenos="122 "></span></a>                    <span class="n">best_feature</span> <span class="o">=</span> <span class="n">feature_idx</span>
+</span><span id="__span-0-123"><a id="__codelineno-0-123" name="__codelineno-0-123"></a><a href="#__codelineno-0-123"><span class="linenos" data-linenos="123 "></span></a>                    <span class="n">best_split</span> <span class="o">=</span> <span class="n">sorted_idx</span><span class="p">[</span><span class="n">split_idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># Index in original array</span>
+</span><span id="__span-0-124"><a id="__codelineno-0-124" name="__codelineno-0-124"></a><a href="#__codelineno-0-124"><span class="linenos" data-linenos="124 "></span></a>                    <span class="n">best_c1</span> <span class="o">=</span> <span class="n">c1</span>
+</span><span id="__span-0-125"><a id="__codelineno-0-125" name="__codelineno-0-125"></a><a href="#__codelineno-0-125"><span class="linenos" data-linenos="125 "></span></a>                    <span class="n">best_c2</span> <span class="o">=</span> <span class="n">c2</span>
+</span><span id="__span-0-126"><a id="__codelineno-0-126" name="__codelineno-0-126"></a><a href="#__codelineno-0-126"><span class="linenos" data-linenos="126 "></span></a>
+</span><span id="__span-0-127"><a id="__codelineno-0-127" name="__codelineno-0-127"></a><a href="#__codelineno-0-127"><span class="linenos" data-linenos="127 "></span></a>        <span class="k">return</span> <span class="n">best_feature</span><span class="p">,</span> <span class="n">best_split</span><span class="p">,</span> <span class="n">min_error</span><span class="p">,</span> <span class="n">best_c1</span><span class="p">,</span> <span class="n">best_c2</span>
+</span><span id="__span-0-128"><a id="__codelineno-0-128" name="__codelineno-0-128"></a><a href="#__codelineno-0-128"><span class="linenos" data-linenos="128 "></span></a>
+</span><span id="__span-0-129"><a id="__codelineno-0-129" name="__codelineno-0-129"></a><a href="#__codelineno-0-129"><span class="linenos" data-linenos="129 "></span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-0-130"><a id="__codelineno-0-130" name="__codelineno-0-130"></a><a href="#__codelineno-0-130"><span class="linenos" data-linenos="130 "></span></a>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="p">)</span>
+</span><span id="__span-0-131"><a id="__codelineno-0-131" name="__codelineno-0-131"></a><a href="#__codelineno-0-131"><span class="linenos" data-linenos="131 "></span></a>
+</span><span id="__span-0-132"><a id="__codelineno-0-132" name="__codelineno-0-132"></a><a href="#__codelineno-0-132"><span class="linenos" data-linenos="132 "></span></a>
+</span><span id="__span-0-133"><a id="__codelineno-0-133" name="__codelineno-0-133"></a><a href="#__codelineno-0-133"><span class="linenos" data-linenos="133 "></span></a><span class="n">train_X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
+</span><span id="__span-0-134"><a id="__codelineno-0-134" name="__codelineno-0-134"></a><a href="#__codelineno-0-134"><span class="linenos" data-linenos="134 "></span></a><span class="n">train_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">4.50</span><span class="p">,</span> <span class="mf">4.75</span><span class="p">,</span> <span class="mf">4.91</span><span class="p">,</span> <span class="mf">5.34</span><span class="p">,</span> <span class="mf">5.80</span><span class="p">,</span> <span class="mf">7.05</span><span class="p">,</span> <span class="mf">7.90</span><span class="p">,</span> <span class="mf">8.23</span><span class="p">,</span> <span class="mf">8.70</span><span class="p">,</span> <span class="mf">9.00</span><span class="p">])</span>
+</span><span id="__span-0-135"><a id="__codelineno-0-135" name="__codelineno-0-135"></a><a href="#__codelineno-0-135"><span class="linenos" data-linenos="135 "></span></a><span class="n">model</span> <span class="o">=</span> <span class="n">LeastSquareRegTree</span><span class="p">(</span><span class="n">train_X</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+</span><span id="__span-0-136"><a id="__codelineno-0-136" name="__codelineno-0-136"></a><a href="#__codelineno-0-136"><span class="linenos" data-linenos="136 "></span></a><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</span><span id="__span-0-137"><a id="__codelineno-0-137" name="__codelineno-0-137"></a><a href="#__codelineno-0-137"><span class="linenos" data-linenos="137 "></span></a><span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="highlight"><span class="filename">output</span><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><a href="#__codelineno-1-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="w">   </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><a href="#__codelineno-1-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">   </span><span class="nt">"feature"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><a href="#__codelineno-1-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">   </span><span class="nt">"left"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><a href="#__codelineno-1-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">      </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a><a href="#__codelineno-1-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">      </span><span class="nt">"feature"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a><a href="#__codelineno-1-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">      </span><span class="nt">"left"</span><span class="p">:</span><span class="w"> </span><span class="mf">4.72</span><span class="p">,</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a><a href="#__codelineno-1-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">      </span><span class="nt">"right"</span><span class="p">:</span><span class="w"> </span><span class="mf">5.57</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a><a href="#__codelineno-1-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">   </span><span class="p">},</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a><a href="#__codelineno-1-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">   </span><span class="nt">"right"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11"></a><a href="#__codelineno-1-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">      </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12"></a><a href="#__codelineno-1-12"><span class="linenos" data-linenos="12 "></span></a><span class="w">      </span><span class="nt">"feature"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13"></a><a href="#__codelineno-1-13"><span class="linenos" data-linenos="13 "></span></a><span class="w">      </span><span class="nt">"left"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14"></a><a href="#__codelineno-1-14"><span class="linenos" data-linenos="14 "></span></a><span class="w">         </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15"></a><a href="#__codelineno-1-15"><span class="linenos" data-linenos="15 "></span></a><span class="w">         </span><span class="nt">"feature"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16"></a><a href="#__codelineno-1-16"><span class="linenos" data-linenos="16 "></span></a><span class="w">         </span><span class="nt">"left"</span><span class="p">:</span><span class="w"> </span><span class="mf">7.05</span><span class="p">,</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17"></a><a href="#__codelineno-1-17"><span class="linenos" data-linenos="17 "></span></a><span class="w">         </span><span class="nt">"right"</span><span class="p">:</span><span class="w"> </span><span class="mf">7.9</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18"></a><a href="#__codelineno-1-18"><span class="linenos" data-linenos="18 "></span></a><span class="w">      </span><span class="p">},</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19"></a><a href="#__codelineno-1-19"><span class="linenos" data-linenos="19 "></span></a><span class="w">      </span><span class="nt">"right"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20"></a><a href="#__codelineno-1-20"><span class="linenos" data-linenos="20 "></span></a><span class="w">         </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21"></a><a href="#__codelineno-1-21"><span class="linenos" data-linenos="21 "></span></a><span class="w">         </span><span class="nt">"feature"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22"></a><a href="#__codelineno-1-22"><span class="linenos" data-linenos="22 "></span></a><span class="w">         </span><span class="nt">"left"</span><span class="p">:</span><span class="w"> </span><span class="mf">8.23</span><span class="p">,</span>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23"></a><a href="#__codelineno-1-23"><span class="linenos" data-linenos="23 "></span></a><span class="w">         </span><span class="nt">"right"</span><span class="p">:</span><span class="w"> </span><span class="mf">8.85</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24"></a><a href="#__codelineno-1-24"><span class="linenos" data-linenos="24 "></span></a><span class="w">      </span><span class="p">}</span>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25"></a><a href="#__codelineno-1-25"><span class="linenos" data-linenos="25 "></span></a><span class="w">   </span><span class="p">}</span>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26"></a><a href="#__codelineno-1-26"><span class="linenos" data-linenos="26 "></span></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn:1">
+<p><strong>泛化能力<span><span class="heti-spacing"> </span>(Generalization Ability)</span></strong><span>:<span class="heti-spacing"> </span></span>指的是机器学习模型在处理未曾见过的（即非训练集的）新数据时表现出的准确性。 <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年10月12日 23:48:09 CST">2025年10月12日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年6月17日 10:27:55 CST">2025年6月17日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: 04 Naive Bayes" class="md-footer__link md-footer__link--prev" href="../04-Naive_Bayes/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                04 Naive Bayes
+              </div>
+</div>
+</a>
+<a aria-label="下一页: 06 logistic" class="md-footer__link md-footer__link--next" href="../06-logistic/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                06 logistic
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

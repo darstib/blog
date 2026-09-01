@@ -1,0 +1,2752 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/note/DEM/Lec06/" rel="canonical"/>
+<link href="../Lec05/" rel="prev"/>
+<link href="../Lec07/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>第六讲：多臂老虎机算法基础与应用 - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#第六讲多臂老虎机算法基础与应用">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              第六讲：多臂老虎机算法基础与应用
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Note
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs188/">
+<span class="md-ellipsis">
+    
+  
+    cs188
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../physics/">
+<span class="md-ellipsis">
+    
+  
+    physics
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-II/">
+<span class="md-ellipsis">
+    
+  
+    CSys-II
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-III/">
+<span class="md-ellipsis">
+    
+  
+    CSys-III
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3_6" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    DEM
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    DEM
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec01/">
+<span class="md-ellipsis">
+    
+  
+    第一讲 数据要素市场简介
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec02/">
+<span class="md-ellipsis">
+    
+  
+    第二讲：数据合规与安全
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec03/">
+<span class="md-ellipsis">
+    
+  
+    第三讲：非合作博弈论基础（一）
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec04/">
+<span class="md-ellipsis">
+    
+  
+    第四讲：非合作博弈论基础 (二)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec05/">
+<span class="md-ellipsis">
+    
+  
+    第五讲：合作博弈与数据估值
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    第六讲：多臂老虎机算法基础与应用
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    第六讲：多臂老虎机算法基础与应用
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I-一般的机器学习任务-page-3-4">
+<span class="md-ellipsis">
+      
+        I 一般的机器学习任务 (page 3-4)
+      
+    </span>
+</a>
+<nav aria-label="I 一般的机器学习任务 (page 3-4)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I1-基于模式识别的学习问题">
+<span class="md-ellipsis">
+      
+        I.1 基于模式识别的学习问题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I2-基于决策的学习问题">
+<span class="md-ellipsis">
+      
+        I.2 基于决策的学习问题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II-随机多臂老虎机问题-引入-page-5-6">
+<span class="md-ellipsis">
+      
+        II 随机多臂老虎机问题: 引入 (page 5-6)
+      
+    </span>
+</a>
+<nav aria-label="II 随机多臂老虎机问题: 引入 (page 5-6)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II1-问题描述">
+<span class="md-ellipsis">
+      
+        II.1 问题描述
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II2-其它场景和问题本质">
+<span class="md-ellipsis">
+      
+        II.2 其它场景和问题本质
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III-基本概念-page-7-9">
+<span class="md-ellipsis">
+      
+        III 基本概念 (page 7-9)
+      
+    </span>
+</a>
+<nav aria-label="III 基本概念 (page 7-9)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III1-例子与组成要素">
+<span class="md-ellipsis">
+      
+        III.1 例子与组成要素
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III2-反馈类型分类">
+<span class="md-ellipsis">
+      
+        III.2 反馈类型分类
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III3-奖励类型分类">
+<span class="md-ellipsis">
+      
+        III.3 奖励类型分类
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV-随机多臂老虎机问题模型-page-10">
+<span class="md-ellipsis">
+      
+        IV 随机多臂老虎机问题模型 (page 10)
+      
+    </span>
+</a>
+<nav aria-label="IV 随机多臂老虎机问题模型 (page 10)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV1-关键定义">
+<span class="md-ellipsis">
+      
+        IV.1 关键定义
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V-遗憾分析-page-11-13">
+<span class="md-ellipsis">
+      
+        V 遗憾分析 (page 11-13)
+      
+    </span>
+</a>
+<nav aria-label="V 遗憾分析 (page 11-13)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V1-遗憾-Regret-的定义">
+<span class="md-ellipsis">
+      
+        V.1 遗憾 (Regret) 的定义
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V2-遗憾界-Regret-Bound">
+<span class="md-ellipsis">
+      
+        V.2 遗憾界 (Regret Bound)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI-Hoeffding-不等式-page-14-16">
+<span class="md-ellipsis">
+      
+        VI Hoeffding 不等式 (page 14-16)
+      
+    </span>
+</a>
+<nav aria-label="VI Hoeffding 不等式 (page 14-16)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI1-直观解释">
+<span class="md-ellipsis">
+      
+        VI.1 直观解释
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI2-与多臂老虎机问题的关联">
+<span class="md-ellipsis">
+      
+        VI.2 与多臂老虎机问题的关联
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI3-置信区间-Confidence-Interval">
+<span class="md-ellipsis">
+      
+        VI.3 置信区间 (Confidence Interval)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VII-贪心算法-page-17-21">
+<span class="md-ellipsis">
+      
+        VII 贪心算法 (page 17-21)
+      
+    </span>
+</a>
+<nav aria-label="VII 贪心算法 (page 17-21)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VII1-基本思想">
+<span class="md-ellipsis">
+      
+        VII.1 基本思想
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VII2-贪心算法的遗憾分析">
+<span class="md-ellipsis">
+      
+        VII.2 贪心算法的遗憾分析
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VII3-贪心算法的缺点">
+<span class="md-ellipsis">
+      
+        VII.3 贪心算法的缺点
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VIII-epsilon-贪心算法-page-22-23">
+<span class="md-ellipsis">
+      
+        VIII \(\epsilon\)-贪心算法 (page 22-23)
+      
+    </span>
+</a>
+<nav aria-label="VIII \(\epsilon\)-贪心算法 (page 22-23)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VIII1-核心思想">
+<span class="md-ellipsis">
+      
+        VIII.1 核心思想
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VIII2-epsilon-贪心算法的遗憾界">
+<span class="md-ellipsis">
+      
+        VIII.2 \(\epsilon\)-贪心算法的遗憾界
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IX-上置信界算法-Upper-Confidence-Bound-UCB-page-24-26">
+<span class="md-ellipsis">
+      
+        IX 上置信界算法 (Upper Confidence Bound, UCB) (page 24-26)
+      
+    </span>
+</a>
+<nav aria-label="IX 上置信界算法 (Upper Confidence Bound, UCB) (page 24-26)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IX1-核心思想">
+<span class="md-ellipsis">
+      
+        IX.1 核心思想
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IX2-UCB-算法流程">
+<span class="md-ellipsis">
+      
+        IX.2 UCB 算法流程
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IX3-UCB-置信界理解">
+<span class="md-ellipsis">
+      
+        IX.3 UCB 置信界理解
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IX4-UCB-算法的遗憾界">
+<span class="md-ellipsis">
+      
+        IX.4 UCB 算法的遗憾界
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#X-汤普森采样算法-Thompson-Sampling-TS-page-27-31">
+<span class="md-ellipsis">
+      
+        X 汤普森采样算法 (Thompson Sampling, TS) (page 27-31)
+      
+    </span>
+</a>
+<nav aria-label="X 汤普森采样算法 (Thompson Sampling, TS) (page 27-31)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#X1-历史与发展">
+<span class="md-ellipsis">
+      
+        X.1 历史与发展
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#X2-基本思想">
+<span class="md-ellipsis">
+      
+        X.2 基本思想
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#X3-汤普森采样算法流程">
+<span class="md-ellipsis">
+      
+        X.3 汤普森采样算法流程
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#X4-具体解释">
+<span class="md-ellipsis">
+      
+        X.4 具体解释
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#X5-适用性">
+<span class="md-ellipsis">
+      
+        X.5 适用性
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#X6-TS-算法的遗憾界">
+<span class="md-ellipsis">
+      
+        X.6 TS 算法的遗憾界
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XI-对抗性多臂老虎机-Adversarial-Multi-Armed-Bandit-Ad-MAB">
+<span class="md-ellipsis">
+      
+        XI 对抗性多臂老虎机 (Adversarial Multi-Armed Bandit, Ad-MAB)
+      
+    </span>
+</a>
+<nav aria-label="XI 对抗性多臂老虎机 (Adversarial Multi-Armed Bandit, Ad-MAB)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XI1-基本模型-page-33-34">
+<span class="md-ellipsis">
+      
+        XI.1 基本模型 (page 33-34)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XI2-遗憾的定义-page-35-36">
+<span class="md-ellipsis">
+      
+        XI.2 遗憾的定义 (page 35-36)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XI3-跟风算法-Follow-The-Leader-FTL-page-37-38">
+<span class="md-ellipsis">
+      
+        XI.3 跟风算法 (Follow-The-Leader, FTL) (page 37-38)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XI4-随机化是无憾的必要条件-page-39-43">
+<span class="md-ellipsis">
+      
+        XI.4 随机化是无憾的必要条件 (page 39-43)
+      
+    </span>
+</a>
+<nav aria-label="XI.4 随机化是无憾的必要条件 (page 39-43)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XI41-一个简单的例子">
+<span class="md-ellipsis">
+      
+        XI.4.1 一个简单的例子
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XI42-算法分析">
+<span class="md-ellipsis">
+      
+        XI.4.2 算法分析
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XII-乘性权重更新-Multiplicative-Weights-Update-MWU-算法-page-44-47">
+<span class="md-ellipsis">
+      
+        XII 乘性权重更新 (Multiplicative Weights Update, MWU) 算法 (page 44-47)
+      
+    </span>
+</a>
+<nav aria-label="XII 乘性权重更新 (Multiplicative Weights Update, MWU) 算法 (page 44-47)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XII1-更一般的情况">
+<span class="md-ellipsis">
+      
+        XII.1 更一般的情况
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XII2-MWU-算法分析-page-48-52">
+<span class="md-ellipsis">
+      
+        XII.2 MWU 算法分析 (page 48-52)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XII3-MWU-的评注-page-53">
+<span class="md-ellipsis">
+      
+        XII.3 MWU 的评注 (page 53)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XIII-多臂老虎机的应用">
+<span class="md-ellipsis">
+      
+        XIII 多臂老虎机的应用
+      
+    </span>
+</a>
+<nav aria-label="XIII 多臂老虎机的应用" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XIII1-基本思想-page-55">
+<span class="md-ellipsis">
+      
+        XIII.1 基本思想 (page 55)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XIII2-动态定价问题-page-56-58">
+<span class="md-ellipsis">
+      
+        XIII.2 动态定价问题 (page 56-58)
+      
+    </span>
+</a>
+<nav aria-label="XIII.2 动态定价问题 (page 56-58)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XIII21-经典场景">
+<span class="md-ellipsis">
+      
+        XIII.2.1 经典场景
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XIII22-二分搜索-Naive-Approach">
+<span class="md-ellipsis">
+      
+        XIII.2.2 二分搜索 (Naive Approach)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XIII23-遗憾的最小化">
+<span class="md-ellipsis">
+      
+        XIII.2.3 遗憾的最小化
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XIII24-二分搜索的缺点">
+<span class="md-ellipsis">
+      
+        XIII.2.4 二分搜索的缺点
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XIII3-改进算法-page-59-62">
+<span class="md-ellipsis">
+      
+        XIII.3 改进算法 (page 59-62)
+      
+    </span>
+</a>
+<nav aria-label="XIII.3 改进算法 (page 59-62)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XIII31-改进算法的分析-page-63-66">
+<span class="md-ellipsis">
+      
+        XIII.3.1 改进算法的分析 (page 63-66)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec07/">
+<span class="md-ellipsis">
+    
+  
+    第七讲：拍卖与机制设计基础
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec08/">
+<span class="md-ellipsis">
+    
+  
+    第八讲：最优机制
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec09/">
+<span class="md-ellipsis">
+    
+  
+    第九讲：数据交易定价
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec10/">
+<span class="md-ellipsis">
+    
+  
+    第十讲：贝叶斯劝说
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DMA/">
+<span class="md-ellipsis">
+    
+  
+    DMA
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs70/">
+<span class="md-ellipsis">
+    
+  
+    cs70
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../other/">
+<span class="md-ellipsis">
+    
+  
+    other
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I-一般的机器学习任务-page-3-4">
+<span class="md-ellipsis">
+      
+        I 一般的机器学习任务 (page 3-4)
+      
+    </span>
+</a>
+<nav aria-label="I 一般的机器学习任务 (page 3-4)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I1-基于模式识别的学习问题">
+<span class="md-ellipsis">
+      
+        I.1 基于模式识别的学习问题
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I2-基于决策的学习问题">
+<span class="md-ellipsis">
+      
+        I.2 基于决策的学习问题
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II-随机多臂老虎机问题-引入-page-5-6">
+<span class="md-ellipsis">
+      
+        II 随机多臂老虎机问题: 引入 (page 5-6)
+      
+    </span>
+</a>
+<nav aria-label="II 随机多臂老虎机问题: 引入 (page 5-6)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II1-问题描述">
+<span class="md-ellipsis">
+      
+        II.1 问题描述
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II2-其它场景和问题本质">
+<span class="md-ellipsis">
+      
+        II.2 其它场景和问题本质
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III-基本概念-page-7-9">
+<span class="md-ellipsis">
+      
+        III 基本概念 (page 7-9)
+      
+    </span>
+</a>
+<nav aria-label="III 基本概念 (page 7-9)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III1-例子与组成要素">
+<span class="md-ellipsis">
+      
+        III.1 例子与组成要素
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III2-反馈类型分类">
+<span class="md-ellipsis">
+      
+        III.2 反馈类型分类
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III3-奖励类型分类">
+<span class="md-ellipsis">
+      
+        III.3 奖励类型分类
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV-随机多臂老虎机问题模型-page-10">
+<span class="md-ellipsis">
+      
+        IV 随机多臂老虎机问题模型 (page 10)
+      
+    </span>
+</a>
+<nav aria-label="IV 随机多臂老虎机问题模型 (page 10)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IV1-关键定义">
+<span class="md-ellipsis">
+      
+        IV.1 关键定义
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V-遗憾分析-page-11-13">
+<span class="md-ellipsis">
+      
+        V 遗憾分析 (page 11-13)
+      
+    </span>
+</a>
+<nav aria-label="V 遗憾分析 (page 11-13)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V1-遗憾-Regret-的定义">
+<span class="md-ellipsis">
+      
+        V.1 遗憾 (Regret) 的定义
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#V2-遗憾界-Regret-Bound">
+<span class="md-ellipsis">
+      
+        V.2 遗憾界 (Regret Bound)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI-Hoeffding-不等式-page-14-16">
+<span class="md-ellipsis">
+      
+        VI Hoeffding 不等式 (page 14-16)
+      
+    </span>
+</a>
+<nav aria-label="VI Hoeffding 不等式 (page 14-16)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI1-直观解释">
+<span class="md-ellipsis">
+      
+        VI.1 直观解释
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI2-与多臂老虎机问题的关联">
+<span class="md-ellipsis">
+      
+        VI.2 与多臂老虎机问题的关联
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VI3-置信区间-Confidence-Interval">
+<span class="md-ellipsis">
+      
+        VI.3 置信区间 (Confidence Interval)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VII-贪心算法-page-17-21">
+<span class="md-ellipsis">
+      
+        VII 贪心算法 (page 17-21)
+      
+    </span>
+</a>
+<nav aria-label="VII 贪心算法 (page 17-21)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VII1-基本思想">
+<span class="md-ellipsis">
+      
+        VII.1 基本思想
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VII2-贪心算法的遗憾分析">
+<span class="md-ellipsis">
+      
+        VII.2 贪心算法的遗憾分析
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VII3-贪心算法的缺点">
+<span class="md-ellipsis">
+      
+        VII.3 贪心算法的缺点
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VIII-epsilon-贪心算法-page-22-23">
+<span class="md-ellipsis">
+      
+        VIII \(\epsilon\)-贪心算法 (page 22-23)
+      
+    </span>
+</a>
+<nav aria-label="VIII \(\epsilon\)-贪心算法 (page 22-23)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VIII1-核心思想">
+<span class="md-ellipsis">
+      
+        VIII.1 核心思想
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VIII2-epsilon-贪心算法的遗憾界">
+<span class="md-ellipsis">
+      
+        VIII.2 \(\epsilon\)-贪心算法的遗憾界
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IX-上置信界算法-Upper-Confidence-Bound-UCB-page-24-26">
+<span class="md-ellipsis">
+      
+        IX 上置信界算法 (Upper Confidence Bound, UCB) (page 24-26)
+      
+    </span>
+</a>
+<nav aria-label="IX 上置信界算法 (Upper Confidence Bound, UCB) (page 24-26)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IX1-核心思想">
+<span class="md-ellipsis">
+      
+        IX.1 核心思想
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IX2-UCB-算法流程">
+<span class="md-ellipsis">
+      
+        IX.2 UCB 算法流程
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IX3-UCB-置信界理解">
+<span class="md-ellipsis">
+      
+        IX.3 UCB 置信界理解
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#IX4-UCB-算法的遗憾界">
+<span class="md-ellipsis">
+      
+        IX.4 UCB 算法的遗憾界
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#X-汤普森采样算法-Thompson-Sampling-TS-page-27-31">
+<span class="md-ellipsis">
+      
+        X 汤普森采样算法 (Thompson Sampling, TS) (page 27-31)
+      
+    </span>
+</a>
+<nav aria-label="X 汤普森采样算法 (Thompson Sampling, TS) (page 27-31)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#X1-历史与发展">
+<span class="md-ellipsis">
+      
+        X.1 历史与发展
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#X2-基本思想">
+<span class="md-ellipsis">
+      
+        X.2 基本思想
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#X3-汤普森采样算法流程">
+<span class="md-ellipsis">
+      
+        X.3 汤普森采样算法流程
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#X4-具体解释">
+<span class="md-ellipsis">
+      
+        X.4 具体解释
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#X5-适用性">
+<span class="md-ellipsis">
+      
+        X.5 适用性
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#X6-TS-算法的遗憾界">
+<span class="md-ellipsis">
+      
+        X.6 TS 算法的遗憾界
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XI-对抗性多臂老虎机-Adversarial-Multi-Armed-Bandit-Ad-MAB">
+<span class="md-ellipsis">
+      
+        XI 对抗性多臂老虎机 (Adversarial Multi-Armed Bandit, Ad-MAB)
+      
+    </span>
+</a>
+<nav aria-label="XI 对抗性多臂老虎机 (Adversarial Multi-Armed Bandit, Ad-MAB)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XI1-基本模型-page-33-34">
+<span class="md-ellipsis">
+      
+        XI.1 基本模型 (page 33-34)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XI2-遗憾的定义-page-35-36">
+<span class="md-ellipsis">
+      
+        XI.2 遗憾的定义 (page 35-36)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XI3-跟风算法-Follow-The-Leader-FTL-page-37-38">
+<span class="md-ellipsis">
+      
+        XI.3 跟风算法 (Follow-The-Leader, FTL) (page 37-38)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XI4-随机化是无憾的必要条件-page-39-43">
+<span class="md-ellipsis">
+      
+        XI.4 随机化是无憾的必要条件 (page 39-43)
+      
+    </span>
+</a>
+<nav aria-label="XI.4 随机化是无憾的必要条件 (page 39-43)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XI41-一个简单的例子">
+<span class="md-ellipsis">
+      
+        XI.4.1 一个简单的例子
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XI42-算法分析">
+<span class="md-ellipsis">
+      
+        XI.4.2 算法分析
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XII-乘性权重更新-Multiplicative-Weights-Update-MWU-算法-page-44-47">
+<span class="md-ellipsis">
+      
+        XII 乘性权重更新 (Multiplicative Weights Update, MWU) 算法 (page 44-47)
+      
+    </span>
+</a>
+<nav aria-label="XII 乘性权重更新 (Multiplicative Weights Update, MWU) 算法 (page 44-47)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XII1-更一般的情况">
+<span class="md-ellipsis">
+      
+        XII.1 更一般的情况
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XII2-MWU-算法分析-page-48-52">
+<span class="md-ellipsis">
+      
+        XII.2 MWU 算法分析 (page 48-52)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XII3-MWU-的评注-page-53">
+<span class="md-ellipsis">
+      
+        XII.3 MWU 的评注 (page 53)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XIII-多臂老虎机的应用">
+<span class="md-ellipsis">
+      
+        XIII 多臂老虎机的应用
+      
+    </span>
+</a>
+<nav aria-label="XIII 多臂老虎机的应用" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XIII1-基本思想-page-55">
+<span class="md-ellipsis">
+      
+        XIII.1 基本思想 (page 55)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XIII2-动态定价问题-page-56-58">
+<span class="md-ellipsis">
+      
+        XIII.2 动态定价问题 (page 56-58)
+      
+    </span>
+</a>
+<nav aria-label="XIII.2 动态定价问题 (page 56-58)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XIII21-经典场景">
+<span class="md-ellipsis">
+      
+        XIII.2.1 经典场景
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XIII22-二分搜索-Naive-Approach">
+<span class="md-ellipsis">
+      
+        XIII.2.2 二分搜索 (Naive Approach)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XIII23-遗憾的最小化">
+<span class="md-ellipsis">
+      
+        XIII.2.3 遗憾的最小化
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XIII24-二分搜索的缺点">
+<span class="md-ellipsis">
+      
+        XIII.2.4 二分搜索的缺点
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XIII3-改进算法-page-59-62">
+<span class="md-ellipsis">
+      
+        XIII.3 改进算法 (page 59-62)
+      
+    </span>
+</a>
+<nav aria-label="XIII.3 改进算法 (page 59-62)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#XIII31-改进算法的分析-page-63-66">
+<span class="md-ellipsis">
+      
+        XIII.3.1 改进算法的分析 (page 63-66)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Note
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    DEM
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:notes">notes</a>
+</nav>
+<h1 id="第六讲多臂老虎机算法基础与应用">第六讲：多臂老虎机算法基础与应用<a class="headerlink" href="#第六讲多臂老虎机算法基础与应用" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h1>
+<h2 id="I-一般的机器学习任务-page-3-4"><span>I<span class="heti-spacing"> </span></span>一般的机器学习任务<span><span class="heti-spacing"> </span>(page 3-4)</span><a class="headerlink" href="#I-一般的机器学习任务-page-3-4" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>机器学习任务通常分为两大类：基于模式识别的学习问题和基于决策的学习问题。</p>
+<h3 id="I1-基于模式识别的学习问题"><span>I.1<span class="heti-spacing"> </span></span>基于模式识别的学习问题<a class="headerlink" href="#I1-基于模式识别的学习问题" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>这类问题通常具有以下特点：</p>
+<ul>
+<li><strong>学习环境给定</strong>：输入数据（如图片、语言）和对应的输出标签是预先确定的。</li>
+<li><strong>监督学习</strong>：通过学习特征到标签的映射关系来完成任务。</li>
+<li><strong>示例</strong>：<ul>
+<li>图像识别<span><span class="heti-spacing"> </span>(Image recognition)</span></li>
+<li>语音识别<span><span class="heti-spacing"> </span>(Speech recognition)</span></li>
+<li>文本生成<span><span class="heti-spacing"> </span>(Next token/word prediction for language models)</span></li>
+<li>推荐系统中的偏好学习<span><span class="heti-spacing"> </span>(Preference learning for recommendations)</span></li>
+</ul>
+</li>
+</ul>
+<h3 id="I2-基于决策的学习问题"><span>I.2<span class="heti-spacing"> </span></span>基于决策的学习问题<a class="headerlink" href="#I2-基于决策的学习问题" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>与模式识别不同，基于决策的学习问题关注在动态环境中通过决策过程获得的奖励或代价来学习最优策略。</p>
+<ul>
+<li><strong>学习环境动态</strong>：环境会根据智能体的行为而变化。</li>
+<li><strong>通过决策学习</strong>：通过在决策过程中获得的奖励或代价来学习，例如<span><span class="heti-spacing"> </span>AlphaGo</span>。</li>
+<li><strong>强化学习</strong>：基于决策的学习问题属于强化学习的范畴。</li>
+<li><strong>多臂老虎机</strong>：是强化学习的一种特殊情况，<strong>无状态转移</strong>，即每次决策都是独立的，不受之前状态的影响。</li>
+</ul>
+<details class="definition" open="open">
+<summary>多臂老虎机<span><span class="heti-spacing"> </span>(Multi-Armed Bandit, MAB)</span></summary>
+<p>多臂老虎机问题是一类经典的强化学习问题，其核心在于在有限的时间步内，在多个“臂”（或称为“动作”<heti-adjacent class="heti-adjacent-quarter">、</heti-adjacent>“选项”）之间做出选择，以最大化累积奖励。每个臂的奖励服从一个未知分布，智能体需要通过“探索”（尝试未知的臂以获取更多信息）和“利用”（选择已知表现最好的臂以获得奖励）来权衡。</p>
+</details>
+<h2 id="II-随机多臂老虎机问题-引入-page-5-6"><span>II<span class="heti-spacing"> </span></span>随机多臂老虎机问题<span class="heti-skip"><span class="heti-spacing"> </span>:<span class="heti-spacing"> </span></span>引入<span><span class="heti-spacing"> </span>(page 5-6)</span><a class="headerlink" href="#II-随机多臂老虎机问题-引入-page-5-6" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="II1-问题描述"><span>II.1<span class="heti-spacing"> </span></span>问题描述<a class="headerlink" href="#II1-问题描述" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>想象一个赌徒面对多台老虎机。每台老虎机代表一个“臂”或“动作选择”。</p>
+<ul>
+<li><strong><span>K<span class="heti-spacing"> </span></span>个臂<span><span class="heti-spacing"> </span>(Arms / Actions)</span></strong>：赌徒可以选择拉动<span class="heti-skip"><span class="heti-spacing"> </span>K<span class="heti-spacing"> </span></span>台老虎机中的任意一台。</li>
+<li><strong>随机奖励<span><span class="heti-spacing"> </span>(Reward)</span></strong>：每次拉动一个臂，都会获得一个随机奖励，这个奖励来源于该老虎机预设好的一个未知概率分布<span><span class="heti-spacing"> </span>(<span class="arithmatex">\(D_k\)</span>)</span>。</li>
+<li><strong>目标</strong>：在总共玩<span class="heti-skip"><span class="heti-spacing"> </span>T<span class="heti-spacing"> </span></span>轮的情况下，赌徒如何选择拉动哪个臂，以最大化总奖励？</li>
+</ul>
+<div class="arithmatex">\[
+1: r_1 \sim D_1 \quad 2: r_2 \sim D_2 \quad \dots \quad k: r_k \sim D_k
+\]</div>
+<h3 id="II2-其它场景和问题本质"><span>II.2<span class="heti-spacing"> </span></span>其它场景和问题本质<a class="headerlink" href="#II2-其它场景和问题本质" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>多臂老虎机问题是一个抽象模型，可以应用于多种现实场景：</p>
+<ul>
+<li><strong>新闻网站<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>推荐系统<span><span class="heti-spacing"> </span>)</span></strong>：选择推荐哪条新闻给用户，以最大化用户点击率。</li>
+<li><strong>动态定价</strong>：为商品选择一个价格，以最大化销售收益。</li>
+<li><strong>投资组合</strong>：选择投资哪个股票，以最大化涨跌收益。</li>
+</ul>
+<p>问题的本质是<strong>权衡探索<span class="heti-skip"><span class="heti-spacing"> </span>(explore)<span class="heti-spacing"> </span></span>和利用<span><span class="heti-spacing"> </span>(exploit)</span></strong>。</p>
+<ul>
+<li><strong>探索</strong>：尝试新的、未知表现的臂，以获取更多关于其奖励分布的信息。</li>
+<li><strong>利用</strong>：选择目前已知表现最好的臂，以最大化当前奖励。</li>
+</ul>
+<details class="example" open="open">
+<summary>新闻网站推荐示例</summary>
+<p>对于新闻网站的推荐，可以先尝试几次随机推荐来探索用户的喜好（探索<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，然后利用这几次尝试学习到的结果做出比较准确的推荐（利用<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+</details>
+<h2 id="III-基本概念-page-7-9"><span>III<span class="heti-spacing"> </span></span>基本概念<span><span class="heti-spacing"> </span>(page 7-9)</span><a class="headerlink" href="#III-基本概念-page-7-9" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>多臂老虎机问题中的一些关键概念：</p>
+<h3 id="III1-例子与组成要素"><span>III.1<span class="heti-spacing"> </span></span>例子与组成要素<a class="headerlink" href="#III1-例子与组成要素" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>不同的应用场景中，<strong>动作</strong>和<strong>奖励</strong>的具体含义不同：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">例子</th>
+<th style="text-align: center;">动作</th>
+<th style="text-align: center;">奖励</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">投资组合</td>
+<td style="text-align: center;">选择一个股票买入</td>
+<td style="text-align: center;">股票的涨跌</td>
+</tr>
+<tr>
+<td style="text-align: center;">动态定价</td>
+<td style="text-align: center;">选择一个价格交易</td>
+<td style="text-align: center;">商品销售的收益</td>
+</tr>
+<tr>
+<td style="text-align: center;">新闻网站</td>
+<td style="text-align: center;">展示一则新闻</td>
+<td style="text-align: center;">是否被用户点击</td>
+</tr>
+</tbody>
+</table>
+<h3 id="III2-反馈类型分类"><span>III.2<span class="heti-spacing"> </span></span>反馈类型分类<a class="headerlink" href="#III2-反馈类型分类" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>根据智能体能够获得的环境反馈程度，可以将<span class="heti-skip"><span class="heti-spacing"> </span>MAB<span class="heti-spacing"> </span></span>问题分为不同类型：</p>
+<ul>
+<li><strong>完全反馈<span><span class="heti-spacing"> </span>(Full feedback)</span></strong>：智能体能看见所有臂的奖励。例如，在投资组合中，你可以看到所有股票的涨跌。</li>
+<li><strong>部分反馈<span><span class="heti-spacing"> </span>(Partial feedback)</span></strong>：智能体能看见部分臂的奖励。例如，在动态定价中，你可以看到任何更低（或更高）的价格是否被接受或拒绝。</li>
+<li><strong>老虎机反馈<span><span class="heti-spacing"> </span>(Bandit feedback)</span></strong>：智能体只能看见自己选择的臂的奖励。这是最常见也是最困难的情况。例如，在新闻网站上，你只能知道用户是否点击了你展示的那条新闻，而不知道如果展示其他新闻会怎样。</li>
+</ul>
+<h3 id="III3-奖励类型分类"><span>III.3<span class="heti-spacing"> </span></span>奖励类型分类<a class="headerlink" href="#III3-奖励类型分类" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>根据奖励的生成机制，奖励可以分为：</p>
+<ul>
+<li><strong>随机奖励<span class="heti-skip"><span class="heti-spacing"> </span>/ IID<span class="heti-spacing"> </span></span>奖励<span><span class="heti-spacing"> </span>(Random / IID rewards)</span></strong>：每次奖励都是从一个未知但固定的概率分布中独立同分布地抽取。这是随机多臂老虎机问题的基础。</li>
+<li><strong>对抗性奖励<span><span class="heti-spacing"> </span>(Adversarial rewards)</span></strong>：奖励可以由一个“对手”有针对性地选择，这意味着对手可能会根据玩家的策略来调整奖励，从而增加问题的难度。这属于对抗性多臂老虎机问题。</li>
+</ul>
+<h2 id="IV-随机多臂老虎机问题模型-page-10"><span>IV<span class="heti-spacing"> </span></span>随机多臂老虎机问题模型<span><span class="heti-spacing"> </span>(page 10)</span><a class="headerlink" href="#IV-随机多臂老虎机问题模型-page-10" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>在随机多臂老虎机问题中，智能体在每一步<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t = 1, 2, \dots, T\)</span><span class="heti-spacing"> </span></span>中执行以下操作：</p>
+<ol>
+<li><strong>选择臂</strong>：玩家选择一个臂<span><span class="heti-spacing"> </span><span class="arithmatex">\(a_t \in \mathcal{A} = \{a_1, \dots, a_K\}\)</span></span>。</li>
+<li><strong>获得奖励</strong>：玩家获得该臂对应的随机奖励<span><span class="heti-spacing"> </span><span class="arithmatex">\(r_t \sim R(a_t)\)</span></span>，其中<span><span class="heti-spacing"> </span><span class="arithmatex">\(r_t \in\)</span></span>。</li>
+<li><strong>调整策略</strong>：玩家根据过往轮次的奖励情况调整选择策略，以实现奖励最大化。</li>
+</ol>
+<h3 id="IV1-关键定义"><span>IV.1<span class="heti-spacing"> </span></span>关键定义<a class="headerlink" href="#IV1-关键定义" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>奖励分布的均值</strong>：臂<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(a_k\)</span><span class="heti-spacing"> </span></span>的奖励分布均值记为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mu(a_k) = \mathbb{E}[R(a_k)]\)</span></span>，其中<span><span class="heti-spacing"> </span><span class="arithmatex">\(k \in [K]\)</span></span>。</li>
+<li><strong>最优臂的奖励均值</strong>：所有臂中奖励均值最高的臂<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(a^*\)</span><span class="heti-spacing"> </span></span>的奖励均值记为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mu^* = \max_{a \in \mathcal{A}} \mu(a)\)</span></span>。</li>
+<li><strong>均值差异</strong>：任意臂<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(a\)</span><span class="heti-spacing"> </span></span>与最优臂之间的奖励均值差异记为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\Delta(a) = \mu^* - \mu(a)\)</span></span>。这个差异表示选择臂<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(a\)</span><span class="heti-spacing"> </span></span>相较于选择最优臂所造成的期望损失。</li>
+</ul>
+<h2 id="V-遗憾分析-page-11-13"><span>V<span class="heti-spacing"> </span></span>遗憾分析<span><span class="heti-spacing"> </span>(page 11-13)</span><a class="headerlink" href="#V-遗憾分析-page-11-13" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="V1-遗憾-Regret-的定义"><span>V.1<span class="heti-spacing"> </span></span>遗憾<span class="heti-skip"><span class="heti-spacing"> </span>(Regret)<span class="heti-spacing"> </span></span>的定义<a class="headerlink" href="#V1-遗憾-Regret-的定义" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>为了评估多臂老虎机算法的性能，我们使用<strong>遗憾<span><span class="heti-spacing"> </span>(regret)</span></strong> 来度量实际选择和最优选择之间的差异。设计<span class="heti-skip"><span class="heti-spacing"> </span>MAB<span class="heti-spacing"> </span></span>算法的目标是最大化累积奖励，这实际上等价于找到最优臂。因此，分析<span class="heti-skip"><span class="heti-spacing"> </span>MAB<span class="heti-spacing"> </span></span>算法的性能就是分析算法能否找到最优臂以及其遗憾的大小。</p>
+<ol>
+<li>
+<p><strong>伪遗憾<span><span class="heti-spacing"> </span>(Pseudo-regret)</span></strong>：
+    伪遗憾是指选择最优臂的期望收益减去实际收益。它量化了在 T 轮游戏中，由于没有始终选择最优臂而损失的累计期望奖励。</p>
+<div class="arithmatex">\[
+R(T) = \sum_{t=1}^{T} (\mu^* - \mu(a_t)) = \mu^* \cdot T - \sum_{t=1}^{T} \mu(a_t)
+\]</div>
+</li>
+<li>
+<p><strong>期望遗憾<span><span class="heti-spacing"> </span>(Expected regret)</span></strong>：
+    期望遗憾是伪遗憾的期望值，记作 <span class="arithmatex">\(\mathbb{E}[R(T)]\)</span>。由于玩家的策略可能存在随机性，因此 <span class="arithmatex">\(\mu(a_t)\)</span> 也可能是随机变量，所以计算其期望更为合理。
+    显然，最大化奖励的目标可以等价为<strong>最小化遗憾</strong>的目标。</p>
+</li>
+</ol>
+<h3 id="V2-遗憾界-Regret-Bound"><span>V.2<span class="heti-spacing"> </span></span>遗憾界<span><span class="heti-spacing"> </span>(Regret Bound)</span><a class="headerlink" href="#V2-遗憾界-Regret-Bound" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在<span class="heti-skip"><span class="heti-spacing"> </span>MAB<span class="heti-spacing"> </span></span>问题中，我们常常关注算法的<strong>遗憾界<span><span class="heti-spacing"> </span>(regret bound)</span></strong>。一个好的遗憾界通常是<strong>次线性的<span><span class="heti-spacing"> </span>(sub-linear)</span></strong>，这意味着算法能够逐渐学到最优臂，使得平均遗憾趋近于<span><span class="heti-spacing"> </span>0</span>。</p>
+<div class="arithmatex">\[
+\frac{\text{regret bound}}{T} \to 0, \quad T \to \infty
+\]</div>
+<p>次线性遗憾意味着算法随着时间能够越来越接近最优策略，因为总遗憾的增长速度慢于总游戏轮数。</p>
+<h2 id="VI-Hoeffding-不等式-page-14-16"><span>VI Hoeffding<span class="heti-spacing"> </span></span>不等式<span><span class="heti-spacing"> </span>(page 14-16)</span><a class="headerlink" href="#VI-Hoeffding-不等式-page-14-16" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p><span>Hoeffding<span class="heti-spacing"> </span></span>不等式是一种强大的<strong>集中不等式<span><span class="heti-spacing"> </span>(concentration inequalities)</span></strong>，它描述了独立随机变量的和（或平均值）与其期望值偏离的概率。</p>
+<details class="theorem" open="open">
+<summary><span>Hoeffding<span class="heti-spacing"> </span></span>不等式</summary>
+<p>假设<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X_1, X_2, \dots, X_n\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\([0,1]\)</span><span class="heti-spacing"> </span></span>上的独立随机变量，样本均值为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\bar{X}_n = \frac{1}{n} \sum_{i=1}^n X_i\)</span></span>，且<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mu = \mathbb{E}[\bar{X}_n]\)</span></span>。对于任意<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon &gt; 0\)</span><span class="heti-spacing"> </span></span>有：</p>
+<div class="arithmatex">\[
+ P(|\mu - \bar{X}_n| \ge \epsilon) \le 2\exp(-2n\epsilon^2)
+ \]</div>
+</details>
+<h3 id="VI1-直观解释"><span>VI.1<span class="heti-spacing"> </span></span>直观解释<a class="headerlink" href="#VI1-直观解释" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>该不等式表明，样本均值与实际均值之间的差距很小的概率是很大的<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>即<span><span class="heti-spacing"> </span><span class="arithmatex">\(P(|\mu - \bar{X}_n| \le \text{small}) \ge 1 - \text{small}\)</span>)</span>。此外，随机变量的个数越多<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>越大<span><span class="heti-spacing"> </span>)</span>，样本均值偏离实际均值的概率就越小。</p>
+<h3 id="VI2-与多臂老虎机问题的关联"><span>VI.2<span class="heti-spacing"> </span></span>与多臂老虎机问题的关联<a class="headerlink" href="#VI2-与多臂老虎机问题的关联" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>将<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(X_1, \dots, X_n\)</span><span class="heti-spacing"> </span></span>视为选择一个臂<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>次得到的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>个奖励。<span>Hoeffding<span class="heti-spacing"> </span></span>不等式表明，当臂被选择的次数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>很大时，采样出的奖励均值<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\bar{X}_n\)</span><span class="heti-spacing"> </span></span>和臂的真实均值<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mu\)</span><span class="heti-spacing"> </span></span>是非常接近的。这为我们估计臂的真实奖励均值提供了理论基础。</p>
+<h3 id="VI3-置信区间-Confidence-Interval"><span>VI.3<span class="heti-spacing"> </span></span>置信区间<span><span class="heti-spacing"> </span>(Confidence Interval)</span><a class="headerlink" href="#VI3-置信区间-Confidence-Interval" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>基于<span class="heti-skip"><span class="heti-spacing"> </span>Hoeffding<span class="heti-spacing"> </span></span>不等式，我们可以定义置信区间<span><span class="heti-spacing"> </span><span class="arithmatex">\([ \mu - \epsilon, \mu + \epsilon ]\)</span></span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon\)</span><span class="heti-spacing"> </span></span>是<strong>置信半径<span><span class="heti-spacing"> </span>(confidence radius)</span></strong>。
+如果令 <span class="arithmatex">\(\epsilon = \sqrt{\frac{\alpha \log T}{n}}\)</span>，则有：</p>
+<div class="arithmatex">\[
+P\left(\left|\mu - \bar{X}_n\right| \ge \sqrt{\frac{\alpha \log T}{n}}\right) \le 2T^{-2\alpha}, \quad \forall \alpha &gt; 0
+\]</div>
+<p>在后续的讨论中，通常取<span><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha = 2\)</span></span>。这个置信半径在<span class="heti-skip"><span class="heti-spacing"> </span>UCB<span class="heti-spacing"> </span></span>算法中会用到。</p>
+<h2 id="VII-贪心算法-page-17-21"><span>VII<span class="heti-spacing"> </span></span>贪心算法<span><span class="heti-spacing"> </span>(page 17-21)</span><a class="headerlink" href="#VII-贪心算法-page-17-21" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="VII1-基本思想"><span>VII.1<span class="heti-spacing"> </span></span>基本思想<a class="headerlink" href="#VII1-基本思想" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>为了找到表现最好的臂，一种朴素的思路是：首先将所有臂都尝试一遍（探索阶段<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，然后选择表现最好的臂，并在后续的所有时间步中保持这种选择（利用阶段<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。贪心算法采用“完全偏向利用”的策略，其基本逻辑是始终选择当前估计奖励最高的臂，并利用历史经验更新对每个臂的奖励估计值。</p>
+<details class="tip" open="open">
+<summary>贪心算法流程</summary>
+<ol>
+<li><strong>探索阶段</strong>：将每个臂各尝试<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(N\)</span><span class="heti-spacing"> </span></span>次。</li>
+<li><strong>利用阶段</strong>：<ul>
+<li>对于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t &gt; KN\)</span><span class="heti-spacing"> </span></span>的每一轮：<ul>
+<li>选择平均奖励最高的臂<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{a} = \arg \max_a Q_t(a)\)</span></span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q_t(a)\)</span><span class="heti-spacing"> </span></span>是臂<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(a\)</span><span class="heti-spacing"> </span></span>在第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span><span class="heti-spacing"> </span></span>轮前的平均奖励估计。</li>
+<li>观察奖励<span><span class="heti-spacing"> </span><span class="arithmatex">\(r_t\)</span></span>。</li>
+<li>更新所选臂的计数和平均奖励：
+    <span class="arithmatex">\(N_{t+1}(\hat{a}) = N_t(\hat{a}) + 1\)</span>, 
+    <span class="arithmatex">\(Q_{t+1}(\hat{a}) = Q_t(\hat{a}) + \frac{r_t - Q_t(\hat{a})}{N_{t+1}(\hat{a})}\)</span></li>
+</ul>
+</li>
+<li>注意<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(N_t(\hat{a})\)</span><span class="heti-spacing"> </span></span>表示第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span><span class="heti-spacing"> </span></span>轮前臂<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{a}\)</span><span class="heti-spacing"> </span></span>被选过的次数。对于未被选中的臂，其<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(N\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q\)</span><span class="heti-spacing"> </span></span>值不变。</li>
+</ul>
+</li>
+</ol>
+</details>
+<h3 id="VII2-贪心算法的遗憾分析"><span>VII.2<span class="heti-spacing"> </span></span>贪心算法的遗憾分析<a class="headerlink" href="#VII2-贪心算法的遗憾分析" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="theorem" open="open">
+<summary>贪心算法的遗憾界</summary>
+<p>贪心算法的遗憾界为<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(T^{2/3}(K \log T)^{1/3})\)</span></span>。</p>
+</details>
+<p>分析过程通常分为探索阶段和利用阶段：</p>
+<ol>
+<li><strong>探索阶段的遗憾</strong>：探索阶段会产生遗憾，因为我们可能没有选择最优臂，这个阶段的遗憾上限是<span><span class="heti-spacing"> </span><span class="arithmatex">\(R(\text{exploration}) \le N(K-1)\)</span></span>。</li>
+<li>
+<p><strong>利用阶段的遗憾</strong>：利用阶段的遗憾分析较为复杂，通常考虑两种情况：</p>
+<ul>
+<li><strong>事件<span><span class="heti-spacing"> </span><span class="arithmatex">\(E\)</span></span></strong>：所有臂<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(a\)</span><span class="heti-spacing"> </span></span>的采样期望奖励<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q(a)\)</span><span class="heti-spacing"> </span></span>与真实期望<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mu(a)\)</span><span class="heti-spacing"> </span></span>之间的差距不大。即满足<span><span class="heti-spacing"> </span><span class="arithmatex">\(| \mu(a) - Q(a) | \le \sqrt{\frac{2 \log T}{N}}\)</span></span>。在这种情况下，遗憾较小。</li>
+<li><strong>事件<span><span class="heti-spacing"> </span><span class="arithmatex">\(\bar{E}\)</span></span></strong>：事件<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(E\)</span><span class="heti-spacing"> </span></span>的补集，即存在至少一个臂的采样期望与真实期望差距较大。这种情况下，算法可能错误地选择了次优臂，导致遗憾较大，但这种事件发生的概率应该很小。</li>
+</ul>
+<p>通过<span class="heti-skip"><span class="heti-spacing"> </span>Hoeffding<span class="heti-spacing"> </span></span>不等式，可以证明<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathbb{P}(\bar{E})\)</span><span class="heti-spacing"> </span></span>的概率非常小，例如<span><span class="heti-spacing"> </span><span class="arithmatex">\(2T^{-4}\)</span></span>。
+最终，通过对 <span class="arithmatex">\(\mathbb{E}[R(\text{exploitation})]\)</span> 的分析，结合探索阶段的遗憾，可以得到总遗憾界。</p>
+<ul>
+<li>对于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(K=2\)</span><span class="heti-spacing"> </span></span>的情况（只有两个臂<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：
+    若 <span class="arithmatex">\(N = T^{2/3}(\log T)^{1/3}\)</span>，则 <span class="arithmatex">\(\mathbb{E}[R(T)] \le O(T^{2/3}(\log T)^{1/3})\)</span>。</li>
+<li>对于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(K&gt;2\)</span><span class="heti-spacing"> </span></span>的情况：
+    若 <span class="arithmatex">\(N = (\frac{T}{K})^{2/3}(\log T)^{1/3}\)</span>，则 <span class="arithmatex">\(\mathbb{E}[R(T)] \le O(T^{2/3}(K \log T)^{1/3})\)</span>。</li>
+</ul>
+</li>
+</ol>
+<h3 id="VII3-贪心算法的缺点"><span>VII.3<span class="heti-spacing"> </span></span>贪心算法的缺点<a class="headerlink" href="#VII3-贪心算法的缺点" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>贪心算法存在两个主要问题：</p>
+<ul>
+<li><strong>“探索”阶段的尝试带来遗憾</strong>：在探索阶段，算法盲目地尝试每个臂，这可能会导致不必要的损失。</li>
+<li><strong>“利用”阶段陷于局部最优</strong>：一旦进入利用阶段，算法会始终选择当前估计奖励最高的臂。如果这个估计是基于少量样本的，并且不够准确，算法可能会长时间停留在次优臂上，无法发现真正的最优臂。</li>
+</ul>
+<h2 id="VIII-epsilon-贪心算法-page-22-23"><span>VIII <span class="arithmatex">\(\epsilon\)</span>-<span class="heti-spacing"> </span></span>贪心算法<span><span class="heti-spacing"> </span>(page 22-23)</span><a class="headerlink" href="#VIII-epsilon-贪心算法-page-22-23" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>为了解决贪心算法的上述问题，<span><span class="arithmatex">\(\epsilon\)</span>-<span class="heti-spacing"> </span></span>贪心算法引入了随机性，在“探索”与“利用”之间实现了较好的权衡。</p>
+<h3 id="VIII1-核心思想"><span>VIII.1<span class="heti-spacing"> </span></span>核心思想<a class="headerlink" href="#VIII1-核心思想" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li>以<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(1 - \epsilon\)</span><span class="heti-spacing"> </span></span>的概率选择当前已在最优的臂<span><span class="heti-spacing"> </span><span class="arithmatex">\(a' = \arg \max_a Q_t(a)\)</span></span>（<strong>利用</strong><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>以<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon\)</span><span class="heti-spacing"> </span></span>的概率随机选择一个臂（<strong>探索</strong><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+</ul>
+<p>前一步代表对当前知识的“利用”，后一步代表对可能最优的“探索”，从而避免陷入局部最优。通过调整<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon\)</span><span class="heti-spacing"> </span></span>值<span><span class="heti-spacing"> </span>(<span class="arithmatex">\(0 \le \epsilon \le 1\)</span>)</span>，可以控制探索和利用之间的平衡。</p>
+<ul>
+<li>较小的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon\)</span><span class="heti-spacing"> </span></span>值倾向于更多的利用。</li>
+<li>较大的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon\)</span><span class="heti-spacing"> </span></span>值倾向于更多的探索。</li>
+</ul>
+<p>通常会将<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon\)</span><span class="heti-spacing"> </span></span>设置成一个较小的值，例如<span><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon = 0.1\)</span></span>。</p>
+<details class="tip" open="open">
+<summary><span><span class="arithmatex">\(\epsilon\)</span>-<span class="heti-spacing"> </span></span>贪心算法流程</summary>
+<ol>
+<li>对于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t = 1, 2, \dots, T\)</span><span class="heti-spacing"> </span></span>轮（既有利用又有探索，是与前面贪心算法的重要区别<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</li>
+<li>生成一个随机数<span><span class="heti-spacing"> </span><span class="arithmatex">\(p \in [0, \epsilon_{t}]\)</span></span>。</li>
+<li>如果<span><span class="heti-spacing"> </span><span class="arithmatex">\(p &lt; \epsilon_t\)</span></span>（或<span><span class="heti-spacing"> </span><span class="arithmatex">\(p &lt; \epsilon\)</span></span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：<ul>
+<li><strong>探索</strong>：随机选择一个臂<span><span class="heti-spacing"> </span><span class="arithmatex">\(a_t\)</span></span>。</li>
+</ul>
+</li>
+<li>否则：<ul>
+<li><strong>利用</strong>：选择<span><span class="heti-spacing"> </span><span class="arithmatex">\(a_t = \arg \max_a Q_t(a)\)</span></span>。</li>
+</ul>
+</li>
+<li>观察奖励<span><span class="heti-spacing"> </span><span class="arithmatex">\(r_t\)</span></span>。</li>
+<li>更新所选臂的计数和平均奖励：
+    <span class="arithmatex">\(N_{t+1}(a_t) = N_t(a_t) + 1\)</span>
+    <span class="arithmatex">\(Q_{t+1}(a_t) = Q_t(a_t) + \frac{r_t - Q_t(a_t)}{N_{t+1}(a_t)}\)</span></li>
+</ol>
+</details>
+<h3 id="VIII2-epsilon-贪心算法的遗憾界"><span>VIII.2 <span class="arithmatex">\(\epsilon\)</span>-<span class="heti-spacing"> </span></span>贪心算法的遗憾界<a class="headerlink" href="#VIII2-epsilon-贪心算法的遗憾界" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>通过选择合适的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon\)</span><span class="heti-spacing"> </span></span>值，可以证明<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon\)</span>-<span class="heti-spacing"> </span></span>贪心算法的遗憾界：</p>
+<details class="theorem" open="open">
+<summary><span><span class="arithmatex">\(\epsilon\)</span>-<span class="heti-spacing"> </span></span>贪心算法遗憾界</summary>
+<p>令<span><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon_t = t^{-1/3}(K \log t)^{1/3}\)</span></span>，则<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon\)</span>-<span class="heti-spacing"> </span></span>贪心算法的遗憾界为<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(T^{2/3}(K \log T)^{1/3})\)</span></span>。</p>
+</details>
+<p><strong>优势</strong>：该算法简单易实现，并且可以通过调整<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon\)</span><span class="heti-spacing"> </span></span>灵活控制探索与利用。</p>
+<h2 id="IX-上置信界算法-Upper-Confidence-Bound-UCB-page-24-26"><span>IX<span class="heti-spacing"> </span></span>上置信界算法<span><span class="heti-spacing"> </span>(Upper Confidence Bound, UCB) (page 24-26)</span><a class="headerlink" href="#IX-上置信界算法-Upper-Confidence-Bound-UCB-page-24-26" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p><span><span class="arithmatex">\(\epsilon\)</span>-<span class="heti-spacing"> </span></span>贪心策略存在一个问题：虽然每个动作都有被选择的概率，但是这种选择太过于随机，导致最优臂被访问的概率较低，这并不能有助于智能体很大概率地发现最优选择。<strong>上置信界算法<span><span class="heti-spacing"> </span>(UCB)</span></strong> 很好地改进了这一点。</p>
+<h3 id="IX1-核心思想"><span>IX.1<span class="heti-spacing"> </span></span>核心思想<a class="headerlink" href="#IX1-核心思想" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>UCB<span class="heti-spacing"> </span></span>算法是一种经典的基于置信区间的探索<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>利用策略。其核心思想是为每个臂的奖励估计构建一个<strong>置信区间上界</strong>，并选择上界最大的臂。通过这种方式，算法能够自动平衡探索和利用。</p>
+<h3 id="IX2-UCB-算法流程"><span>IX.2 UCB<span class="heti-spacing"> </span></span>算法流程<a class="headerlink" href="#IX2-UCB-算法流程" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="tip" open="open">
+<summary><span>UCB<span class="heti-spacing"> </span></span>算法流程</summary>
+<ol>
+<li><strong>初始化</strong>：对于每个候选臂<span><span class="heti-spacing"> </span><span class="arithmatex">\(k = 1, \dots, K\)</span></span>，设置其初始估计奖励<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q_1(a_k) = 0\)</span><span class="heti-spacing"> </span></span>和选择次数<span><span class="heti-spacing"> </span><span class="arithmatex">\(N_1(a_k) = 0\)</span></span>。</li>
+<li><strong>预探索阶段</strong>：在开始的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(K\)</span><span class="heti-spacing"> </span></span>轮中，顺序选择每个臂一次，进行初始化探索（即当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t \le K\)</span><span class="heti-spacing"> </span></span>时<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>主循环</strong>：对于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t = 1, \dots, T\)</span><span class="heti-spacing"> </span></span>轮：<ul>
+<li>如果<span><span class="heti-spacing"> </span><span class="arithmatex">\(t \le K\)</span></span>，则顺序选择每个臂（初始化<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>否则：<ul>
+<li>选择<span><span class="heti-spacing"> </span><span class="arithmatex">\(a_t = \arg \max_a \left( Q_t(a) + \sqrt{\frac{2 \ln t}{N_t(a)}} \right)\)</span></span>。</li>
+</ul>
+</li>
+<li>观察奖励<span><span class="heti-spacing"> </span><span class="arithmatex">\(r_t\)</span></span>。</li>
+<li>更新所选臂的计数和平均奖励：
+    <span class="arithmatex">\(N_{t+1}(a_t) = N_t(a_t) + 1\)</span>
+    <span class="arithmatex">\(Q_{t+1}(a_t) = Q_t(a_t) + \frac{r_t - Q_t(a_t)}{N_{t+1}(a_t)}\)</span></li>
+</ul>
+</li>
+</ol>
+</details>
+<h3 id="IX3-UCB-置信界理解"><span>IX.3 UCB<span class="heti-spacing"> </span></span>置信界理解<a class="headerlink" href="#IX3-UCB-置信界理解" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>UCB<span class="heti-spacing"> </span></span>算法选择的表达式<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q_t(a) + \sqrt{\frac{2 \ln t}{N_t(a)}}\)</span><span class="heti-spacing"> </span></span>可以直观理解为：
+- <strong>前一项<span><span class="heti-spacing"> </span><span class="arithmatex">\(Q_t(a)\)</span></span></strong>：代表臂<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(a\)</span><span class="heti-spacing"> </span></span>的估计奖励（利用<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，这个值越大说明对应臂的历史表现越好。
+- <strong>后一项<span><span class="heti-spacing"> </span><span class="arithmatex">\(\sqrt{\frac{2 \ln t}{N_t(a)}}\)</span></span></strong>：代表置信区间的半径（探索<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，它会随着选择次数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(N_t(a)\)</span><span class="heti-spacing"> </span></span>的增加而变小。该值越大，说明对该臂的估计不确定性越大，因此鼓励玩家尝试较少被选择的臂，避免陷入局部最优。</p>
+<p>因此，选择上置信界最大的臂，意味着算法会偏向于选择表现较好（<span><span class="arithmatex">\(Q_t(a)\)</span><span class="heti-spacing"> </span></span>大）或是较少被选择（<span><span class="arithmatex">\(N_t(a)\)</span><span class="heti-spacing"> </span></span>小，导致不确定性项大）的臂，从而算法能够逐渐收敛到最优臂。</p>
+<h3 id="IX4-UCB-算法的遗憾界"><span>IX.4 UCB<span class="heti-spacing"> </span></span>算法的遗憾界<a class="headerlink" href="#IX4-UCB-算法的遗憾界" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>UCB<span class="heti-spacing"> </span></span>算法同时考虑了估计奖励与不确定性，较好地平衡了探索与利用，因此可以得到更好的遗憾界：</p>
+<details class="theorem" open="open">
+<summary><span>UCB<span class="heti-spacing"> </span></span>算法遗憾界</summary>
+<p><span>UCB<span class="heti-spacing"> </span></span>算法的遗憾界为<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(\sqrt{KT \log T})\)</span></span>。</p>
+</details>
+<p>与贪心算法和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon\)</span>-<span class="heti-spacing"> </span></span>贪心算法相比，<span>UCB<span class="heti-spacing"> </span></span>的遗憾界对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(T\)</span><span class="heti-spacing"> </span></span>的依赖是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\sqrt{T}\)</span><span class="heti-spacing"> </span></span>而不是<span><span class="heti-spacing"> </span><span class="arithmatex">\(T^{2/3}\)</span></span>，这是一个理论上的改进，表明其收敛速度更快。</p>
+<h2 id="X-汤普森采样算法-Thompson-Sampling-TS-page-27-31"><span>X<span class="heti-spacing"> </span></span>汤普森采样算法<span><span class="heti-spacing"> </span>(Thompson Sampling, TS) (page 27-31)</span><a class="headerlink" href="#X-汤普森采样算法-Thompson-Sampling-TS-page-27-31" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="X1-历史与发展"><span>X.1<span class="heti-spacing"> </span></span>历史与发展<a class="headerlink" href="#X1-历史与发展" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>汤普森采样<span class="heti-skip"><span class="heti-spacing"> </span>(Thompson Sampling, TS)<span class="heti-spacing"> </span></span>最早于<span class="heti-skip"><span class="heti-spacing"> </span>1933<span class="heti-spacing"> </span></span>年由<span class="heti-skip"><span class="heti-spacing"> </span>William R. Thompson<span class="heti-spacing"> </span></span>提出。尽管其历史悠久，但相关的理论分析工作直到<span class="heti-skip"><span class="heti-spacing"> </span>2015<span class="heti-spacing"> </span></span>年前后才逐渐完善。</p>
+<h3 id="X2-基本思想"><span>X.2<span class="heti-spacing"> </span></span>基本思想<a class="headerlink" href="#X2-基本思想" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>汤普森采样是一种基于贝叶斯方法的探索<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>利用策略。</p>
+<ul>
+<li><strong>维护先验概率分布</strong>：为每个臂维护一个先验概率分布，表示对该臂奖励概率的信念。</li>
+<li><strong>采样选择</strong>：每次选择臂时，从每个臂的后验概率分布中进行采样，选择采样值最高的臂。</li>
+<li><strong>更新后验分布</strong>：根据获得的奖励更新所选臂的后验概率分布，从而在探索和利用之间取得平衡。</li>
+</ul>
+<h3 id="X3-汤普森采样算法流程"><span>X.3<span class="heti-spacing"> </span></span>汤普森采样算法流程<a class="headerlink" href="#X3-汤普森采样算法流程" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在二值奖励（成功<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>失败）场景下，通常使用<span class="heti-skip"><span class="heti-spacing"> </span>Beta<span class="heti-spacing"> </span></span>分布作为奖励概率的共轭先验。</p>
+<details class="tip" open="open">
+<summary>汤普森采样算法流程<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>基于<span class="heti-skip"><span class="heti-spacing"> </span>Beta<span class="heti-spacing"> </span></span>分布<span><span class="heti-spacing"> </span>)</span></summary>
+<ol>
+<li><strong>初始化</strong>：对于每个候选臂<span><span class="heti-spacing"> </span><span class="arithmatex">\(k = 1, \dots, K\)</span></span>，设置成功计数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(S_1(a_k) = 0\)</span><span class="heti-spacing"> </span></span>和失败计数<span><span class="heti-spacing"> </span><span class="arithmatex">\(F_1(a_k) = 0\)</span></span>。</li>
+<li><strong>主循环</strong>：对于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t = 1, \dots, T\)</span><span class="heti-spacing"> </span></span>轮：<ul>
+<li>对于每个臂<span><span class="heti-spacing"> </span><span class="arithmatex">\(k = 1, \dots, K\)</span></span>：<ul>
+<li>从<span class="heti-skip"><span class="heti-spacing"> </span>Beta(<span class="arithmatex">\(S_t(a_k) + 1, F_t(a_k) + 1\)</span>)<span class="heti-spacing"> </span></span>分布中采样一个值<span><span class="heti-spacing"> </span><span class="arithmatex">\(\theta_t(a_k)\)</span></span>。</li>
+</ul>
+</li>
+<li>选择<span><span class="heti-spacing"> </span><span class="arithmatex">\(a_t = \arg \max_a \theta_t(a)\)</span></span>（选择采样值最高的臂<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>观察奖励<span><span class="heti-spacing"> </span><span class="arithmatex">\(r_t\)</span></span>。</li>
+<li><strong>更新参数</strong>：<ul>
+<li>如果<span><span class="heti-spacing"> </span><span class="arithmatex">\(r_t = 1\)</span></span>（成功<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，则更新<span><span class="heti-spacing"> </span><span class="arithmatex">\(S_{t+1}(a_t) = S_t(a_t) + 1\)</span></span>。</li>
+<li>否则（失败，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(r_t = 0\)</span></span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，则更新<span><span class="heti-spacing"> </span><span class="arithmatex">\(F_{t+1}(a_t) = F_t(a_t) + 1\)</span></span>。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</details>
+<h3 id="X4-具体解释"><span>X.4<span class="heti-spacing"> </span></span>具体解释<a class="headerlink" href="#X4-具体解释" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong><span>Beta<span class="heti-spacing"> </span></span>分布<span><span class="heti-spacing"> </span>B(<span class="arithmatex">\(\alpha, \beta\)</span>)</span></strong>：作为每个臂选择的概率分布。参数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\beta\)</span><span class="heti-spacing"> </span></span>分别表示伯努利试验中的成功和失败次数。<span><span class="arithmatex">\(\alpha\)</span><span class="heti-spacing"> </span></span>越大，分布越集中于<span><span class="heti-spacing"> </span>1</span>；<span><span class="arithmatex">\(\beta\)</span><span class="heti-spacing"> </span></span>越大，分布越接近于<span><span class="heti-spacing"> </span>0</span>。</li>
+<li><strong>采样与选择</strong>：在每一个时间步中，对于每个臂，都从其当前的<span class="heti-skip"><span class="heti-spacing"> </span>Beta<span class="heti-spacing"> </span></span>后验分布中采样一个值。选择采样值最高的臂，这意味着算法倾向于选择那些目前看来最有潜力提供高奖励的臂。</li>
+<li><strong>参数更新</strong>：根据获得的奖励，更新所选臂的<span class="heti-skip"><span class="heti-spacing"> </span>Beta<span class="heti-spacing"> </span></span>分布参数。如果成功<span><span class="heti-spacing"> </span>(<span class="arithmatex">\(r_t=1\)</span>)</span>，则增加成功次数<span><span class="heti-spacing"> </span><span class="arithmatex">\(S_t(a)\)</span></span>；如果失败<span><span class="heti-spacing"> </span>(<span class="arithmatex">\(r_t=0\)</span>)</span>，则增加失败次数<span><span class="heti-spacing"> </span><span class="arithmatex">\(F_t(a)\)</span></span>。这种更新机制使得对表现好的臂的信念增强，对表现差的臂的信念减弱。</li>
+</ul>
+<h3 id="X5-适用性"><span>X.5<span class="heti-spacing"> </span></span>适用性<a class="headerlink" href="#X5-适用性" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ol>
+<li><strong>只能用<span class="heti-skip"><span class="heti-spacing"> </span>Beta<span class="heti-spacing"> </span></span>分布吗？</strong><ul>
+<li>并非如此。只要是<strong>共轭先验分布</strong>（即先验分布和后验分布属于同一个分布族<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，都可以用于汤普森采样。<span>Beta<span class="heti-spacing"> </span></span>分布是伯努利奖励的共轭先验。</li>
+</ul>
+</li>
+<li><strong>只能用于奖励<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(r_t \in \{0, 1\}\)</span><span class="heti-spacing"> </span></span>的情况吗？</strong><ul>
+<li>不。如果奖励<span><span class="heti-spacing"> </span><span class="arithmatex">\(r_t \in\)</span></span>，可以将其视为概率，并以<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(r_t\)</span><span class="heti-spacing"> </span></span>为概率从<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\{0,1\}\)</span><span class="heti-spacing"> </span></span>中抽取一个数作为反馈（即进行伯努利试验<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>对于更一般的高斯奖励等，也有对应的高斯共轭先验。</li>
+</ul>
+</li>
+</ol>
+<h3 id="X6-TS-算法的遗憾界"><span>X.6 TS<span class="heti-spacing"> </span></span>算法的遗憾界<a class="headerlink" href="#X6-TS-算法的遗憾界" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>汤普森采样算法简洁优雅，并且在理论上和实验中都表现出色。</p>
+<details class="theorem" open="open">
+<summary><span>TS<span class="heti-spacing"> </span></span>算法遗憾界</summary>
+<p><span>TS<span class="heti-spacing"> </span></span>算法的遗憾界为<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(\sqrt{KT \log T})\)</span></span>。</p>
+</details>
+<p>这与<span class="heti-skip"><span class="heti-spacing"> </span>UCB<span class="heti-spacing"> </span></span>算法的遗憾界一致，并且实证中通常表现比<span class="heti-skip"><span class="heti-spacing"> </span>UCB<span class="heti-spacing"> </span></span>算法更好。</p>
+<h2 id="XI-对抗性多臂老虎机-Adversarial-Multi-Armed-Bandit-Ad-MAB"><span>XI<span class="heti-spacing"> </span></span>对抗性多臂老虎机<span><span class="heti-spacing"> </span>(Adversarial Multi-Armed Bandit, Ad-MAB)</span><a class="headerlink" href="#XI-对抗性多臂老虎机-Adversarial-Multi-Armed-Bandit-Ad-MAB" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="XI1-基本模型-page-33-34"><span>XI.1<span class="heti-spacing"> </span></span>基本模型<span><span class="heti-spacing"> </span>(page 33-34)</span><a class="headerlink" href="#XI1-基本模型-page-33-34" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>对抗性多臂老虎机<span class="heti-skip"><span class="heti-spacing"> </span>(Adversarial MAB)<span class="heti-spacing"> </span></span>问题是<span class="heti-skip"><span class="heti-spacing"> </span>MAB<span class="heti-spacing"> </span></span>问题的一种变体，其关键区别在于<strong>奖励<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>或代价<span class="heti-skip"><span class="heti-spacing"> </span>)<span class="heti-spacing"> </span></span>是由一个对手动态生成的</strong>，而不是从固定的随机分布中产生。这种情况下，奖励可能会针对玩家的策略进行调整，从而产生了对抗性。</p>
+<p><strong>基本模型如下</strong>：
+在每一步 <span class="arithmatex">\(t = 1, 2, \dots, T\)</span> 中：</p>
+<ol>
+<li><strong>玩家选择概率分布</strong>：玩家选择一个行动集合<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\([n] = \{1, \dots, n\}\)</span><span class="heti-spacing"> </span></span>上的概率分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(p_t\)</span></span>。</li>
+<li><strong>对手选择代价向量</strong>：对手在已知<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p_t\)</span><span class="heti-spacing"> </span></span>的情况下，选择一个代价向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(c_t \in^n\)</span></span>，即为每一个行动选择一个代价。</li>
+<li><strong>玩家选择行动并观察代价</strong>：玩家根据概率分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p_t\)</span><span class="heti-spacing"> </span></span>选择一个行动<span><span class="heti-spacing"> </span><span class="arithmatex">\(i_t \sim p_t\)</span></span>，并观察到所选行动的代价<span><span class="heti-spacing"> </span><span class="arithmatex">\(c_t(i_t)\)</span></span>。</li>
+<li><strong>玩家学习</strong>：玩家根据观察到的代价学习，以调整未来的策略。</li>
+</ol>
+<details class="note" open="open">
+<summary>注意</summary>
+<ol>
+<li><strong>玩家的目标</strong>：选取一个策略序列<span><span class="heti-spacing"> </span><span class="arithmatex">\(p_1, p_2, \dots, p_T\)</span></span>，使得总代价最小（这与此前最大化奖励的目标相对<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。即最小化期望代价<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mathbb{E}_{i_t \sim p_t} \left[ \sum_{t=1}^T c_t(i_t) \right]\)</span></span>。</li>
+<li><strong>对手的角色</strong>：对手不一定非要实际存在，这只是一个最坏结果分析。</li>
+<li><strong>反馈情况</strong>：此处玩家不仅能学到选择的行动的代价，事实上可以学到所有行动的代价（在某些模型中，如乘性权重更新<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，因此是<strong>全反馈</strong>的情况，与随机多臂老虎机中的老虎机反馈情况不同。</li>
+</ol>
+</details>
+<h3 id="XI2-遗憾的定义-page-35-36"><span>XI.2<span class="heti-spacing"> </span></span>遗憾的定义<span><span class="heti-spacing"> </span>(page 35-36)</span><a class="headerlink" href="#XI2-遗憾的定义-page-35-36" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在对抗性<span class="heti-skip"><span class="heti-spacing"> </span>MAB<span class="heti-spacing"> </span></span>中，由于对手会动态生成代价，传统的伪遗憾定义（与事后最优作差）可能不再适用，因为事后最优指的是假设我们事先知道所有轮次的代价序列并能做出最优选择，这在对抗性环境中过于强大的基准。</p>
+<details class="example" open="open">
+<summary>不合理的伪遗憾示例</summary>
+<p>设行动集合为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\{1, 2\}\)</span></span>。在每一轮<span><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span></span>，对手按如下步骤选择代价向量：
+假设算法选择行动 1 的概率至少为 <span class="arithmatex">\(1/2\)</span>，那么 <span class="arithmatex">\(c_t = (1, 0)\)</span>（即选择行动 1 代价为 1，选择行动 2 代价为 0）。
+反之，如果选择行动 1 的概率小于 <span class="arithmatex">\(1/2\)</span>，则 <span class="arithmatex">\(c_t = (0, 1)\)</span>。</p>
+<p>在此情况下，在线算法的期望代价至少为<span><span class="heti-spacing"> </span><span class="arithmatex">\(T/2\)</span></span>。而在事先知晓代价向量的情况下，最优算法（总是选择代价为<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>的行动）的期望代价为<span><span class="heti-spacing"> </span><span class="arithmatex">\(0\)</span></span>。
+这导致与事后最优（固定行动）比较可能出现线性级别的遗憾 (<span class="arithmatex">\(T/2 - 0 = T/2\)</span>)，表明这个基准太强了。</p>
+</details>
+<p>因此，在对抗性<span class="heti-skip"><span class="heti-spacing"> </span>MAB<span class="heti-spacing"> </span></span>中，遗憾被重新定义为：<strong>在线算法与最优固定行动的事后代价之差</strong>。</p>
+<details class="definition" open="open">
+<summary>对抗性<span class="heti-skip"><span class="heti-spacing"> </span>MAB<span class="heti-spacing"> </span></span>遗憾定义</summary>
+<p>对于固定的代价向量序列<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(c_1, c_2, \dots, c_T\)</span><span class="heti-spacing"> </span></span>和决策序列<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p_1, p_2, \dots, p_T\)</span><span class="heti-spacing"> </span></span>的遗憾为：</p>
+<div class="arithmatex">\[
+R_T = \mathbb{E}_{i_t \sim p_t} \left[ \sum_{t=1}^T c_t(i_t) \right] - \min_{i \in [n]} \sum_{t=1}^T c_t(i)
+\]</div>
+</details>
+<ul>
+<li><strong>合理性</strong>：这种定义相对更合理，它比较的是在线算法的性能与假设从一开始就知道哪个固定行动是最好的并始终选择它所获得的性能。</li>
+<li><strong>无憾<span class="heti-skip"><span class="heti-spacing"> </span>(No-regret)<span class="heti-spacing"> </span></span>算法</strong>：如果平均遗憾<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{R_T}{T} \to 0\)</span><span class="heti-spacing"> </span></span>当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(T \to \infty\)</span><span class="heti-spacing"> </span></span>时（即<span><span class="heti-spacing"> </span><span class="arithmatex">\(\lim_{ T \to \infty } \frac{R_{T}}{T} = 0\)</span></span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，则称算法是无憾的。这等价于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(R_T\)</span><span class="heti-spacing"> </span></span>关于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(T\)</span><span class="heti-spacing"> </span></span>是<strong>次线性的</strong>。</li>
+<li>这种定义保证了存在自然的算法可以实现无憾，但实现无憾并非平凡。</li>
+</ul>
+<h3 id="XI3-跟风算法-Follow-The-Leader-FTL-page-37-38"><span>XI.3<span class="heti-spacing"> </span></span>跟风算法<span><span class="heti-spacing"> </span>(Follow-The-Leader, FTL) (page 37-38)</span><a class="headerlink" href="#XI3-跟风算法-Follow-The-Leader-FTL-page-37-38" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>跟风算法<span class="heti-skip"><span class="heti-spacing"> </span>(Follow-The-Leader, FTL)<span class="heti-spacing"> </span></span>是一种最简单的在线学习算法。</p>
+<details class="definition" open="open">
+<summary>跟风算法<span><span class="heti-spacing"> </span>(FTL)</span></summary>
+<p>跟风算法指在每一个时间点<span><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span></span>，选择最小累积代价<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\sum_{s=1}^{t-1} c_s(i)\)</span><span class="heti-spacing"> </span></span>的行动<span><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span></span>。</p>
+<details class="note" open="open">
+<summary><span>FTL<span class="heti-spacing"> </span></span>不是无憾的。</summary>
+</details>
+</details>
+<details class="example" open="open">
+<summary><span>FTL<span class="heti-spacing"> </span></span>不是无憾的示例</summary>
+<p>考虑一个含有两个行动<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\{1, 2\}\)</span><span class="heti-spacing"> </span></span>的例子：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><span class="arithmatex">\(t\)</span></th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">5</th>
+<th style="text-align: center;">...</th>
+<th style="text-align: center;"><span class="arithmatex">\(T\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><span class="arithmatex">\(c_t(1)\)</span></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">*</td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex">\(c_t(2)\)</span></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">*</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t=1\)</span><span class="heti-spacing"> </span></span>时，<span>FTL<span class="heti-spacing"> </span></span>会选择行动<span><span class="heti-spacing"> </span>2</span>（累积代价为<span><span class="heti-spacing"> </span>0</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t=2\)</span><span class="heti-spacing"> </span></span>时，<span>FTL<span class="heti-spacing"> </span></span>会选择行动<span><span class="heti-spacing"> </span>1</span>（累积代价为<span><span class="heti-spacing"> </span><span class="arithmatex">\(c_1(1)=1\)</span> vs <span class="arithmatex">\(c_1(2)=0\)</span></span>，所以选择<span><span class="heti-spacing"> </span>2</span>。<ul>
+<li>因此<span class="heti-skip"><span class="heti-spacing"> </span>, FTL<span class="heti-spacing"> </span></span>的总代价为<span><span class="heti-spacing"> </span><span class="arithmatex">\(T\)</span></span>，而最优固定行动算法的代价为<span><span class="heti-spacing"> </span><span class="arithmatex">\(T/2\)</span></span>，平均遗憾为<span><span class="heti-spacing"> </span><span class="arithmatex">\(1/2\)</span></span>，故不是无憾算法。</li>
+</ul>
+</li>
+</ul>
+</details>
+<h3 id="XI4-随机化是无憾的必要条件-page-39-43"><span>XI.4<span class="heti-spacing"> </span></span>随机化是无憾的必要条件<span><span class="heti-spacing"> </span>(page 39-43)</span><a class="headerlink" href="#XI4-随机化是无憾的必要条件-page-39-43" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>事实上，<u>任意的确定性算法在对抗性<span class="heti-skip"><span class="heti-spacing"> </span>MAB<span class="heti-spacing"> </span></span>中都会有线性级别的遗憾</u> 。</p>
+<ul>
+<li><strong>对手的推断</strong>：如果采用确定性算法，对手可以完全推断出玩家每一步的选择。</li>
+<li><strong>代价设置</strong>：对手可以设置玩家选择的行动代价为<span><span class="heti-spacing"> </span>1</span>，其余行动代价为<span><span class="heti-spacing"> </span>0</span>。</li>
+<li><strong>总代价</strong>：这样玩家的总代价为<span><span class="heti-spacing"> </span><span class="arithmatex">\(T\)</span></span>，而最优固定行动的总代价最高为<span><span class="heti-spacing"> </span><span class="arithmatex">\(T/n\)</span></span>（因为有<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>种可能的行动<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。遗憾为<span><span class="heti-spacing"> </span><span class="arithmatex">\(T - T/n = T(1-1/n)\)</span></span>，是线性遗憾。</li>
+</ul>
+<p>因此，需要引入<strong>随机化</strong>来避免对手的推断。如果采用随机策略，对手只能推断出玩家的概率分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(p_t\)</span></span>，而不能推断出具体的行动<span><span class="heti-spacing"> </span><span class="arithmatex">\(i_t \sim p_t\)</span></span>，因此对手无法完美利用玩家的算法。</p>
+<p>下面通过一个简单的例子引入一种无憾算法：<strong>乘性权重算法<span><span class="heti-spacing"> </span>(Multiplicative Weights Update, MWU)</span></strong>。</p>
+<h4 id="XI41-一个简单的例子"><span>XI.4.1<span class="heti-spacing"> </span></span>一个简单的例子<a class="headerlink" href="#XI41-一个简单的例子" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>考虑一个简化的在线学习场景：</p>
+<ul>
+<li>每个行动的代价都可能为<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>或<span><span class="heti-spacing"> </span>1</span>。</li>
+<li>存在一个<strong>完美的行动</strong>，其代价永远为<span><span class="heti-spacing"> </span>0</span>（但玩家一开始不知道哪个是完美行动<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>问题：是否存在次线性遗憾的算法？</li>
+</ul>
+<p><strong>观察</strong>：</p>
+<ul>
+<li>只要一个行动出现了非零代价，那就可以永远排除它，但我们并不知道剩余行动中哪个最好。</li>
+</ul>
+<p><strong>算法设计</strong>：</p>
+<ul>
+<li>对于每一步<span><span class="heti-spacing"> </span><span class="arithmatex">\(t = 1, 2, \dots, T\)</span></span>，记录截至目前从未出现过代价<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>的行动。</li>
+<li>然后在这些“好”的行动中根据均匀分布随机选择一个行动。</li>
+</ul>
+<h4 id="XI42-算法分析"><span>XI.4.2<span class="heti-spacing"> </span></span>算法分析<a class="headerlink" href="#XI42-算法分析" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>设<span><span class="heti-spacing"> </span><span class="arithmatex">\(S_{\text{good}} = \{i \in [n] \mid \text{行动 } i \text{ 从未出现过代价 } 1\}\)</span></span>，其大小为<span><span class="heti-spacing"> </span><span class="arithmatex">\(k = |S_{\text{good}}|\)</span></span>。</p>
+<ul>
+<li>因此每个<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i \in S_{\text{good}}\)</span><span class="heti-spacing"> </span></span>下一轮选中概率为<span><span class="heti-spacing"> </span><span class="arithmatex">\(1/k\)</span></span>。</li>
+<li>每个<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i \notin S_{\text{good}}\)</span><span class="heti-spacing"> </span></span>的概率为<span><span class="heti-spacing"> </span><span class="arithmatex">\(0\)</span></span>。</li>
+</ul>
+<p>对于任意的<span><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon \in (0,1)\)</span></span>，下面两种情况之一一定会发生：
+1. <strong>情况<span><span class="heti-spacing"> </span>1</span></strong>：<span><span class="arithmatex">\(S_{\text{good}}\)</span><span class="heti-spacing"> </span></span>中至多有<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon k\)</span><span class="heti-spacing"> </span></span>个行动有代价<span><span class="heti-spacing"> </span>1</span>。此时这一阶段的期望代价至多为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon\)</span></span>。
+2. <strong>情况<span><span class="heti-spacing"> </span>2</span></strong>：<span><span class="arithmatex">\(S_{\text{good}}\)</span><span class="heti-spacing"> </span></span>中至少有<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon k\)</span><span class="heti-spacing"> </span></span>个行动有代价<span><span class="heti-spacing"> </span>1</span>。每次出现这种情况时，下一步就可以排除掉至少<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon k\)</span><span class="heti-spacing"> </span></span>个行动。因此这种情况最多出现<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\log_{1-\epsilon} \frac{1}{n}\)</span><span class="heti-spacing"> </span></span>次（即<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\ln n}{-\ln(1-\epsilon)}\)</span><span class="heti-spacing"> </span></span>次<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<p><strong>总的遗憾</strong>：
+- 在情况 1 下，每轮的期望代价是 <span class="arithmatex">\(\epsilon\)</span>，T 轮总代价为 <span class="arithmatex">\(T\epsilon\)</span>。
+- 在情况 2 下，每次发生都会排除掉一批行动，总共发生次数有限。每次排除行动，最坏情况导致1的代价。
+结合两种情况，总的遗憾至多为：</p>
+<div class="arithmatex">\[
+R_T = T \times \epsilon + \log_{1-\epsilon} \frac{1}{n} \times 1 = T\epsilon + \frac{\ln n}{-\ln(1-\epsilon)}
+\]</div>
+<p>由于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(-\ln(1-\epsilon) \ge \epsilon\)</span><span class="heti-spacing"> </span></span>对于<span><span class="heti-spacing"> </span><span class="arithmatex">\(0 &lt; \epsilon &lt; 1\)</span></span>，因此：</p>
+<div class="arithmatex">\[
+R_T \le T\epsilon + \frac{\ln n}{\epsilon}
+\]</div>
+<p>为了最小化这个上限，我们可以令<span><span class="heti-spacing"> </span><span class="arithmatex">\(T\epsilon = \frac{\ln n}{\epsilon}\)</span></span>，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon^2 = \frac{\ln n}{T}\)</span></span>，所以<span><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon = \sqrt{\frac{\ln n}{T}}\)</span></span>。</p>
+<p>此时，将<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon\)</span><span class="heti-spacing"> </span></span>代回遗憾界，我们得到：</p>
+<div class="arithmatex">\[
+R_T \le T \sqrt{\frac{\ln n}{T}} + \frac{\ln n}{\sqrt{\frac{\ln n}{T}}} = \sqrt{T \ln n} + \sqrt{T \ln n} = 2\sqrt{T \ln n}
+\]</div>
+<p>即<strong>次线性遗憾</strong> <span class="arithmatex">\(O(\sqrt{T \ln n})\)</span>。</p>
+<h2 id="XII-乘性权重更新-Multiplicative-Weights-Update-MWU-算法-page-44-47"><span>XII<span class="heti-spacing"> </span></span>乘性权重更新<span class="heti-skip"><span class="heti-spacing"> </span>(Multiplicative Weights Update, MWU)<span class="heti-spacing"> </span></span>算法<span><span class="heti-spacing"> </span>(page 44-47)</span><a class="headerlink" href="#XII-乘性权重更新-Multiplicative-Weights-Update-MWU-算法-page-44-47" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="XII1-更一般的情况"><span>XII.1<span class="heti-spacing"> </span></span>更一般的情况<a class="headerlink" href="#XII1-更一般的情况" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在更一般的情况下，代价可以是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\([0,1]\)</span><span class="heti-spacing"> </span></span>中的任意值，并且不一定存在完美策略（代价永远为<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>的行动<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。因此，需要对算法进行修改。</p>
+<details class="tip" open="open">
+<summary>乘性权重更新<span class="heti-skip"><span class="heti-spacing"> </span>(MWU)<span class="heti-spacing"> </span></span>算法流程</summary>
+<ol>
+<li><strong>初始化</strong>：对于每个行动<span><span class="heti-spacing"> </span><span class="arithmatex">\(i = 1, \dots, n\)</span></span>，设置其初始权重<span><span class="heti-spacing"> </span><span class="arithmatex">\(w_1(i) = 1\)</span></span>。</li>
+<li><strong>主循环</strong>：对于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t = 1, \dots, T\)</span><span class="heti-spacing"> </span></span>轮：<ul>
+<li>计算当前所有行动的总权重<span><span class="heti-spacing"> </span><span class="arithmatex">\(W_t = \sum_{i \in [n]} w_t(i)\)</span></span>。</li>
+<li>根据概率<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p_t(i) = \frac{w_t(i)}{W_t}\)</span><span class="heti-spacing"> </span></span>选择行动<span><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span></span>。</li>
+<li>观察代价向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(c_t \in^n\)</span></span>（此处为全反馈<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>对于所有行动<span><span class="heti-spacing"> </span><span class="arithmatex">\(i \in [n]\)</span></span>，更新其权重：
+    <span class="arithmatex">\(w_{t+1}(i) = w_t(i) \cdot (1 - \epsilon \cdot c_t(i))\)</span></li>
+</ul>
+</li>
+</ol>
+</details>
+<p><strong>直观解释</strong>：<span>MWU<span class="heti-spacing"> </span></span>算法的直观思想是根据每个行动在之前阶段的表现来决定下一阶段的权重。表现好的行动（代价小）权重增加，表现差的行动（代价大）权重减少。这里的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon\)</span><span class="heti-spacing"> </span></span>是一个学习率或衰减因子。</p>
+<p><strong>问题</strong>：乘性权重算法是否是无憾的呢？</p>
+<details class="theorem" open="open">
+<summary>乘性权重更新<span class="heti-skip"><span class="heti-spacing"> </span>(MWU)<span class="heti-spacing"> </span></span>算法遗憾界</summary>
+<p>乘性权重算法在之前的问题设定（全反馈、对抗性代价）下的遗憾至多为<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(\sqrt{T \ln n})\)</span></span>。</p>
+</details>
+<h3 id="XII2-MWU-算法分析-page-48-52"><span>XII.2 MWU<span class="heti-spacing"> </span></span>算法分析<span><span class="heti-spacing"> </span>(page 48-52)</span><a class="headerlink" href="#XII2-MWU-算法分析-page-48-52" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><strong>关键</strong>：将期望代价与总权重的下降关联起来。
+第 <span class="arithmatex">\(t\)</span> 轮的期望代价 <span class="arithmatex">\(\bar{C}_t\)</span> 为：</p>
+<div class="arithmatex">\[
+\bar{C}_t = \sum_{i=1}^n p_t(i) c_t(i) = \sum_{i=1}^n \frac{w_t(i)}{W_t} c_t(i) = \frac{1}{W_t} \sum_{i=1}^n w_t(i) c_t(i)
+\]</div>
+<p>事实上，这正比于总权重的下降。下面通过一系列引理和推论来证明其遗憾界。</p>
+<details class="lemma" open="open">
+<summary>引理<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>权重下降与期望代价的关系<span><span class="heti-spacing"> </span>)</span></summary>
+<p><span class="arithmatex">\(W_{t+1} \le W_t e^{-\epsilon \bar{C}_t}\)</span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(W_t = \sum_{i=1}^n w_t(i)\)</span><span class="heti-spacing"> </span></span>是第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span><span class="heti-spacing"> </span></span>轮的总权重，<span><span class="arithmatex">\(\bar{C}_t\)</span><span class="heti-spacing"> </span></span>是第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span><span class="heti-spacing"> </span></span>轮的期望代价。</p>
+<p><strong>证明</strong>：直接根据权重更新法则：</p>
+<div class="arithmatex">\[
+\begin{align*}
+W_{t+1} &amp;= \sum_{i=1}^n w_{t+1}(i) \\
+&amp;= \sum_{i=1}^n w_t(i) \cdot (1 - \epsilon c_t(i)) \\
+&amp;= W_t - \epsilon \sum_{i=1}^n w_t(i) c_t(i) \\
+&amp;= W_t - \epsilon W_t \bar{C}_t \\
+&amp;= W_t (1 - \epsilon \bar{C}_t)
+\end{align*}
+\]</div>
+<p>又因为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(1-x \le e^{-x}\)</span><span class="heti-spacing"> </span></span>对于任意实数<span><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span></span>，所以<span><span class="heti-spacing"> </span><span class="arithmatex">\(1 - \epsilon \bar{C}_t \le e^{-\epsilon \bar{C}_t}\)</span></span>。
+因此，<span class="arithmatex">\(W_{t+1} \le W_t e^{-\epsilon \bar{C}_t}\)</span>。</p>
+</details>
+<p>不断应用上述引理，可以得到如下推论：</p>
+<details class="theorem" open="open">
+<summary>推论<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>总权重上限<span><span class="heti-spacing"> </span>)</span></summary>
+<p><span class="arithmatex">\(W_{T+1} \le W_1 e^{-\epsilon \sum_{t=1}^T \bar{C}_t} = n e^{-\epsilon \sum_{t=1}^T \bar{C}_t}\)</span>。
+（因为初始权重 <span class="arithmatex">\(w_1(i)=1\)</span>，所以 <span class="arithmatex">\(W_1 = n\)</span>）</p>
+</details>
+<p>另一个引理给出权重下限：</p>
+<details class="lemma" open="open">
+<summary>引理<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>权重下限<span><span class="heti-spacing"> </span>)</span></summary>
+<p>对于任意的行动<span><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span></span>，都有<span><span class="heti-spacing"> </span><span class="arithmatex">\(W_{T+1} \ge w_{T+1}(i) \ge e^{-T\epsilon^2} \cdot e^{-\epsilon \sum_{t=1}^T c_t(i)}\)</span></span>。</p>
+<p><strong>证明</strong>：
+$$
+\begin{align<em>}
+w_{T+1}(i) &amp;= w_1(i) \cdot \prod_{t=1}^T (1 - \epsilon c_t(i)) \
+&amp;= 1 \cdot \prod_{t=1}^T (1 - \epsilon c_t(i)) \
+&amp;\ge \prod_{t=1}^T e^{-\epsilon c_t(i) - \epsilon^2 c_t^2(i)} \quad \text{ (利用 } 1-x \ge e^{-x-x^2} \text{ 当 x 较小时)} \
+&amp;\ge e^{-\epsilon \sum_{t=1}^T c_t(i) - \epsilon^2 \sum_{t=1}^T c_t^2(i)} \
+&amp;\ge e^{-\epsilon \sum_{t=1}^T c_t(i) - \epsilon^2 T} \quad \text{ (因为 } c_t(i) \in \Rightarrow c_t^2(i) \le c_t(i) \le 1 \text{，所以 } \sum c_t^2(i) \le T \text{)} \
+&amp;= e^{-T\epsilon^2} \cdot e^{-\epsilon \sum_{t=1}^T c_t(i)}
+\end{align</em>}
+$$
+这步放缩比较激进，但非常有效。</p>
+</details>
+<p><strong>综合上述结论</strong>：
+我们有 <span class="arithmatex">\(W_{T+1} \le n e^{-\epsilon \sum_{t=1}^T \bar{C}_t}\)</span> 和 <span class="arithmatex">\(W_{T+1} \ge e^{-T\epsilon^2} \cdot e^{-\epsilon \sum_{t=1}^T c_t(i)}\)</span>。
+结合这两个不等式，对于最优固定行动 <span class="arithmatex">\(i^*\)</span>：</p>
+<div class="arithmatex">\[
+n e^{-\epsilon \sum_{t=1}^T \bar{C}_t} \ge e^{-T\epsilon^2} \cdot e^{-\epsilon \sum_{t=1}^T c_t(i^*)}
+\]</div>
+<p>取对数并整理：</p>
+<div class="arithmatex">\[
+\ln n - \epsilon \sum_{t=1}^T \bar{C}_t \ge -T\epsilon^2 - \epsilon \sum_{t=1}^T c_t(i^*)
+\]</div>
+<div class="arithmatex">\[
+\epsilon \sum_{t=1}^T \bar{C}_t - \epsilon \sum_{t=1}^T c_t(i^*) \le \ln n + T\epsilon^2
+\]</div>
+<div class="arithmatex">\[
+\sum_{t=1}^T \bar{C}_t - \sum_{t=1}^T c_t(i^*) \le \frac{\ln n}{\epsilon} + T\epsilon
+\]</div>
+<p>回想遗憾的定义<span><span class="heti-spacing"> </span><span class="arithmatex">\(R_T = \sum_{t=1}^T \bar{C}_t - \min_{i \in [n]} \sum_{t=1}^T c_t(i)\)</span></span>。
+所以，MWU 算法的遗憾 <span class="arithmatex">\(R_T \le \frac{\ln n}{\epsilon} + T\epsilon\)</span>。</p>
+<p>为了最小化这个遗憾上界，我们令<span><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\ln n}{\epsilon} = T\epsilon\)</span></span>，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon^2 = \frac{\ln n}{T}\)</span></span>，从而<span><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon = \sqrt{\frac{\ln n}{T}}\)</span></span>。</p>
+<p>代入遗憾界，得到：</p>
+<div class="arithmatex">\[
+R_T \le \frac{\ln n}{\sqrt{\frac{\ln n}{T}}} + T\sqrt{\frac{\ln n}{T}} = \sqrt{T \ln n} + \sqrt{T \ln n} = 2\sqrt{T \ln n}
+\]</div>
+<p>因此，<span>MWU<span class="heti-spacing"> </span></span>算法的遗憾至多为<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(\sqrt{T \ln n})\)</span></span>。</p>
+<h3 id="XII3-MWU-的评注-page-53"><span>XII.3 MWU<span class="heti-spacing"> </span></span>的评注<span><span class="heti-spacing"> </span>(page 53)</span><a class="headerlink" href="#XII3-MWU-的评注-page-53" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><span>MWU<span class="heti-spacing"> </span></span>算法对于<strong>任意的代价序列</strong>都是无憾的，这就是<strong>对抗性</strong>的意义。上述证明也不依赖于任何对代价序列的假设。</li>
+<li>如果使用指数形式的权重更新<span><span class="heti-spacing"> </span><span class="arithmatex">\(w_{t+1}(i) = w_t(i) e^{-\epsilon c_t(i)}\)</span></span><heti-adjacent class="heti-adjacent-half">，</heti-adjacent>（因为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(e^{-\epsilon} \approx 1-\epsilon\)</span><span class="heti-spacing"> </span></span>当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon\)</span><span class="heti-spacing"> </span></span>较小时<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，可以进行类似的分析，得到的算法称为 <strong><span>Hedge<span class="heti-spacing"> </span></span>算法</strong>。</li>
+<li>如果从全反馈（<span>MWU<span class="heti-spacing"> </span></span>假设可以看到所有行动的代价）更换为老虎机反馈（只能看到所选行动的代价<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，算法思路不变，得到的算法称为 <strong><span>Exp3<span class="heti-spacing"> </span></span>算法</strong>。<span>Exp3 (Exponential-weight algorithm for Exploration and Exploitation)<span class="heti-spacing"> </span></span>是对抗性<span class="heti-skip"><span class="heti-spacing"> </span>MAB<span class="heti-spacing"> </span></span>中处理部分反馈的经典算法。</li>
+</ul>
+<h2 id="XIII-多臂老虎机的应用"><span>XIII<span class="heti-spacing"> </span></span>多臂老虎机的应用<a class="headerlink" href="#XIII-多臂老虎机的应用" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="XIII1-基本思想-page-55"><span>XIII.1<span class="heti-spacing"> </span></span>基本思想<span><span class="heti-spacing"> </span>(page 55)</span><a class="headerlink" href="#XIII1-基本思想-page-55" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>多臂老虎机提供了一种处理具有不确定性问题的“万金油”方法。它在数据市场相关文献中有着广泛的应用：</p>
+<ul>
+<li><strong>在线定价问题</strong>：数据卖家不确定数据对于买家的价值，可以使用随机多臂老虎机建模解决。</li>
+<li><strong>数据获取问题</strong>：数据买家不确定数据市场上哪些数据对于自己的训练任务最有效，可以使用随机或对抗性多臂老虎机建模解决。</li>
+</ul>
+<h3 id="XIII2-动态定价问题-page-56-58"><span>XIII.2<span class="heti-spacing"> </span></span>动态定价问题<span><span class="heti-spacing"> </span>(page 56-58)</span><a class="headerlink" href="#XIII2-动态定价问题-page-56-58" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<h4 id="XIII21-经典场景"><span>XIII.2.1<span class="heti-spacing"> </span></span>经典场景<a class="headerlink" href="#XIII21-经典场景" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>下面给出一个在线定价最经典文献中的一个简化场景，其解决方法与上述随机和对抗性多臂老虎机算法都有所不同：
+- <strong>来源</strong><heti-adjacent class="heti-adjacent-half">：</heti-adjacent>《The Value of Knowing a Demand Curve<heti-adjacent class="heti-adjacent-half">》</heti-adjacent>，R. Kleinberg and T. Leighton, FOCS 2003。
+- <strong>问题描述</strong>：假设你要出售一份数据。你知道会有<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(N\)</span><span class="heti-spacing"> </span></span>个人来购买你的数据，并且每个人对数据的估值<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(v\)</span><span class="heti-spacing"> </span></span>都完全一致，都在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\([0,1]\)</span><span class="heti-spacing"> </span></span>中。买家是逐个到达的，你需要提供一个价格<span><span class="heti-spacing"> </span><span class="arithmatex">\(p\)</span></span>。如果买家估值<span><span class="heti-spacing"> </span><span class="arithmatex">\(v \ge p\)</span></span>，买家就会购买你的数据；否则，买家会离开。
+- <strong>目标</strong>：你希望尽快地学习到估值<span><span class="heti-spacing"> </span><span class="arithmatex">\(v\)</span></span>，并且误差范围是<span><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon = \frac{1}{N}\)</span></span>。</p>
+<h4 id="XIII22-二分搜索-Naive-Approach"><span>XIII.2.2<span class="heti-spacing"> </span></span>二分搜索<span><span class="heti-spacing"> </span>(Naive Approach)</span><a class="headerlink" href="#XIII22-二分搜索-Naive-Approach" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>最朴素的想法是通过二分搜索迅速达到这一精度。</p>
+<ul>
+<li><strong>过程</strong>：你最多需要<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\log_2 N\)</span><span class="heti-spacing"> </span></span>次搜索来实现对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(v\)</span><span class="heti-spacing"> </span></span>的这一精度估计。每次将价格区间减半，直到估值<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(v\)</span><span class="heti-spacing"> </span></span>被定位到一个足够小的区间内。</li>
+<li><strong>总收益</strong>：如果在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\log N\)</span><span class="heti-spacing"> </span></span>次搜索后确定了<span><span class="heti-spacing"> </span><span class="arithmatex">\(p \ge v - \frac{1}{N}\)</span></span>，那么在剩余的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(N - \log N\)</span><span class="heti-spacing"> </span></span>轮中，每次出售数据你可以获得约<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(v\)</span><span class="heti-spacing"> </span></span>的收益。
+    总收益近似为：
+    $$
+    0 \quad (\text{前 } \log N \text{ 轮}) + (N - \log N) \left(v - \frac{2}{N}\right) \approx vN - v \log N - 2
+    $$</li>
+<li><strong>遗憾</strong>：二分搜索的遗憾为：
+    $$
+    R \approx vN - (vN - v \log N - 2) = v \log N + 2
+    $$</li>
+</ul>
+<h4 id="XIII23-遗憾的最小化"><span>XIII.2.3<span class="heti-spacing"> </span></span>遗憾的最小化<a class="headerlink" href="#XIII23-遗憾的最小化" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>问题是，这是最小的可能遗憾吗？</p>
+<details class="theorem" open="open">
+<summary><strong>定理</strong>：存在一个算法，使得其遗憾至多为<span><span class="heti-spacing"> </span><span class="arithmatex">\(1 + 2 \log \log N\)</span></span>。</summary>
+</details>
+<p>这表明二分搜索的遗憾<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(O(\log N)\)</span><span class="heti-spacing"> </span></span>并不是最优的，存在更好的算法。</p>
+<h4 id="XIII24-二分搜索的缺点"><span>XIII.2.4<span class="heti-spacing"> </span></span>二分搜索的缺点<a class="headerlink" href="#XIII24-二分搜索的缺点" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<ul>
+<li>尽管二分搜索在没有任何先验信息的情况下能搜索到<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(N\)</span><span class="heti-spacing"> </span></span>的最快算法，但当猜测的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p_i &gt; v\)</span><span class="heti-spacing"> </span></span>时，卖家一分钱也赚不到。</li>
+<li>也就是说，二分搜索在向上探索的时候可能过于激进，因此改进的算法需要在探索时更加保守！</li>
+</ul>
+<h3 id="XIII3-改进算法-page-59-62"><span>XIII.3<span class="heti-spacing"> </span></span>改进算法<span><span class="heti-spacing"> </span>(page 59-62)</span><a class="headerlink" href="#XIII3-改进算法-page-59-62" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>为了实现<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(O(\log \log N)\)</span><span class="heti-spacing"> </span></span>的遗憾，需要一个更保守的探索策略。</p>
+<details class="tip" open="open">
+<summary>改进算法流程<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>动态定价<span><span class="heti-spacing"> </span>)</span></summary>
+<ol>
+<li><strong>初始化探索区间</strong>：在第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>阶段，我们保持一个探索区间<span><span class="heti-spacing"> </span><span class="arithmatex">\([a_i, b_i]\)</span></span>。初始时，设置<span><span class="heti-spacing"> </span><span class="arithmatex">\(a_1 = 0, b_1 = 1\)</span></span>，并设置<span><span class="heti-spacing"> </span><span class="arithmatex">\(\Delta_1 = \frac{1}{2}\)</span></span>。</li>
+<li><strong>提供价格</strong>：为第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>个买家提供价格<span><span class="heti-spacing"> </span><span class="arithmatex">\(p_i = a_i + \Delta_i\)</span></span>。</li>
+<li>
+<ul>
+<li><strong>如果买家接受价格<span><span class="heti-spacing"> </span><span class="arithmatex">\(p_i\)</span></span></strong>：这表明<span><span class="heti-spacing"> </span><span class="arithmatex">\(v \ge p_i\)</span></span>。我们将探索区间的下限更新为<span><span class="heti-spacing"> </span><span class="arithmatex">\(p_i\)</span></span>，上限不变，并保持<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\Delta\)</span><span class="heti-spacing"> </span></span>值不变。
+    <span class="arithmatex">\(a_{i+1} = p_i, \quad b_{i+1} = b_i, \quad \Delta_{i+1} = \Delta_i\)</span></li>
+</ul>
+<p><strong>根据接受<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>拒绝更新区间</strong>：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Lec06-1.png"><img alt="" src="../attachments/Lec06-1.png"/></a></p>
+<ul>
+<li>
+<p><strong>如果买家拒绝价格<span><span class="heti-spacing"> </span><span class="arithmatex">\(p_i\)</span></span></strong>：这表明<span><span class="heti-spacing"> </span><span class="arithmatex">\(v &lt; p_i\)</span></span>。我们将探索区间的上限更新为<span><span class="heti-spacing"> </span><span class="arithmatex">\(p_i\)</span></span>，下限不变，同时将<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\Delta\)</span><span class="heti-spacing"> </span></span>值平方（更保守地探索<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。
+    <span class="arithmatex">\(a_{i+1} = a_i, \quad b_{i+1} = p_i, \quad \Delta_{i+1} = (\Delta_i)^2\)</span></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Lec06-2.png"><img alt="" src="../attachments/Lec06-2.png"/></a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>停止条件</strong>：当区间长度<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(b_i - a_i \le \frac{1}{N}\)</span><span class="heti-spacing"> </span></span>时，此后价格均取<span><span class="heti-spacing"> </span><span class="arithmatex">\(a_i\)</span></span>，不再改变。</p>
+</li>
+</ol>
+</details>
+<h4 id="XIII31-改进算法的分析-page-63-66"><span>XIII.3.1<span class="heti-spacing"> </span></span>改进算法的分析<span><span class="heti-spacing"> </span>(page 63-66)</span><a class="headerlink" href="#XIII31-改进算法的分析-page-63-66" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<details class="theorem" open="open">
+<summary>改进算法遗憾界</summary>
+<p>改进的算法的遗憾至多为<span><span class="heti-spacing"> </span><span class="arithmatex">\(1 + 2 \log \log N\)</span></span>。</p>
+</details>
+<p><strong>证明思路</strong>：</p>
+<ol>
+<li><strong>最终阶段的遗憾</strong>：当区间长度<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(b_i - a_i \le \frac{1}{N}\)</span><span class="heti-spacing"> </span></span>后，总的遗憾最多为<span><span class="heti-spacing"> </span>1</span>。</li>
+<li><strong>重点分析</strong>：因此，重点在于分析达到这一步之前的遗憾。</li>
+<li><strong><span><span class="arithmatex">\(\Delta\)</span><span class="heti-spacing"> </span></span>更新次数</strong>：<ul>
+<li><span><span class="arithmatex">\(\Delta_i\)</span><span class="heti-spacing"> </span></span>的更新规律是<span><span class="heti-spacing"> </span><span class="arithmatex">\(\Delta_{i+1} = (\Delta_i)^2\)</span></span>。初始<span><span class="heti-spacing"> </span><span class="arithmatex">\(\Delta_1 = \frac{1}{2}\)</span></span>。</li>
+<li>所以<span><span class="heti-spacing"> </span><span class="arithmatex">\(\Delta_i = (\frac{1}{2})^{2^{i-1}} = 2^{-2^{i-1}}\)</span></span>。</li>
+<li>当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\Delta_i\)</span><span class="heti-spacing"> </span></span>减小到<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{1}{N}\)</span><span class="heti-spacing"> </span></span>时，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(2^{-2^{i-1}} = \frac{1}{N}\)</span></span>，取对数：
+    <span class="arithmatex">\(-2^{i-1} = -\log_2 N \Rightarrow 2^{i-1} = \log_2 N \Rightarrow i-1 = \log_2 (\log_2 N) \Rightarrow i = 1 + \log_2 (\log_2 N)\)</span>。</li>
+<li>因此，<span><span class="arithmatex">\(\Delta\)</span><span class="heti-spacing"> </span></span>的更新次数大约是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\log \log N\)</span><span class="heti-spacing"> </span></span>次。</li>
+</ul>
+</li>
+</ol>
+<details class="lemma" open="open">
+<summary>引理<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>任意步长<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\Delta_i\)</span><span class="heti-spacing"> </span></span>内的遗憾<span><span class="heti-spacing"> </span>)</span></summary>
+<p>任意的步长<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\Delta_i\)</span><span class="heti-spacing"> </span></span>内产生的遗憾至多为<span><span class="heti-spacing"> </span>2</span>。</p>
+<ul>
+<li><strong>如果直接被拒绝</strong>：如果以价格<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p_i = a_i + \Delta_i\)</span><span class="heti-spacing"> </span></span>尝试出售，但被买家拒绝，那么损失是<span><span class="heti-spacing"> </span><span class="arithmatex">\(\Delta_i\)</span></span>（因为实际价值<span><span class="heti-spacing"> </span><span class="arithmatex">\(v &lt; p_i\)</span></span>，但我们收到了<span><span class="heti-spacing"> </span>0</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。此时，我们知道<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(v\)</span><span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\([a_i, p_i)\)</span><span class="heti-spacing"> </span></span>区间，更新<span><span class="heti-spacing"> </span><span class="arithmatex">\(\Delta_{i+1} = \Delta_i^2\)</span></span>。如果拒绝一直发生，直到<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\Delta_i\)</span><span class="heti-spacing"> </span></span>变得非常小，则总遗憾是几何级数收敛，至多为<span><span class="heti-spacing"> </span><span class="arithmatex">\(1\)</span></span>。</li>
+<li><strong>如果发生出售</strong>：如果买家接受了价格<span><span class="heti-spacing"> </span><span class="arithmatex">\(p_i\)</span></span>，那么我们获得了<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p_i\)</span><span class="heti-spacing"> </span></span>的收益，但真正的最优收益是<span><span class="heti-spacing"> </span><span class="arithmatex">\(v\)</span></span>。此时的遗憾是<span><span class="heti-spacing"> </span><span class="arithmatex">\(v - p_i\)</span></span>。在接受的情况下，我们更新<span><span class="heti-spacing"> </span><span class="arithmatex">\(a_{i+1} = p_i\)</span></span>，并保持<span><span class="heti-spacing"> </span><span class="arithmatex">\(\Delta_{i+1} = \Delta_i\)</span></span>。由于<span><span class="heti-spacing"> </span><span class="arithmatex">\(v \ge p_i\)</span></span>，且<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(v\)</span><span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\([a_i, b_i]\)</span><span class="heti-spacing"> </span></span>之间，因此<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p_i = a_i + \Delta_i \le v \le b_i\)</span>.<span class="heti-spacing"> </span></span>最多出售<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\sqrt{\Delta_i}}{\Delta_{i+1}}\)</span><span class="heti-spacing"> </span></span>次，因为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\Delta_i\)</span><span class="heti-spacing"> </span></span>保持不变直到拒绝，而下次拒绝又会使<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\Delta\)</span><span class="heti-spacing"> </span></span>减小。这个部分有点复杂，附件描述为<span class="heti-skip"><span class="heti-spacing"> </span>"<span class="heti-spacing"> </span></span>则最多出售<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\frac{\sqrt{\Delta_i}}{\Delta_{i+1}}\)</span><span class="heti-spacing"> </span></span>次，因为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\Delta_{i-1} = \sqrt{\Delta_i}\)</span></span>，如果超出这个次数，那么<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\Delta_{i-1}\)</span><span class="heti-spacing"> </span></span>在前面的步骤不会更新<span><span class="heti-spacing"> </span>"</span>，这可能是笔误，更合理的解释是，由于<span><span class="heti-spacing"> </span><span class="arithmatex">\(a_{i+1} = p_i\)</span></span>，每次成功的出售会将探索区间的下界推高，总共推高距离约为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\Delta_i\)</span></span>，并且每次<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\Delta\)</span><span class="heti-spacing"> </span></span>在接受时不变，在拒绝时平方，所以每个<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\Delta\)</span><span class="heti-spacing"> </span></span>阶段的出售次数是有限的。附件中的<span class="heti-skip"><span class="heti-spacing"> </span>"<span class="arithmatex">\(\frac{\sqrt{\Delta_i}}{\Delta_i} \times \sqrt{\Delta_i} = 1\)</span>"<span class="heti-spacing"> </span></span>是一个简化。
+    每个 <span class="arithmatex">\(\Delta_i\)</span> 阶段的遗憾上限是 <span class="arithmatex">\(1\)</span>。</li>
+</ul>
+</details>
+<p>综合上述两个引理，可以得到改进算法的遗憾为<span><span class="heti-spacing"> </span><span class="arithmatex">\(1 + 2 \log \log N\)</span></span>。</p>
+<p>这个<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(1 + 2 \log \log N\)</span><span class="heti-spacing"> </span></span>的遗憾界远优于二分搜索的<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(\log N)\)</span></span>，表明了算法在探索与利用之间的有效平衡，尤其是在处理估值不确定性时的保守策略。保守策略。</p>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年4月2日 11:20:22 CST">2026年4月2日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月28日 21:39:51 CST">2025年7月28日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: 第五讲：合作博弈与数据估值" class="md-footer__link md-footer__link--prev" href="../Lec05/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                第五讲：合作博弈与数据估值
+              </div>
+</div>
+</a>
+<a aria-label="下一页: 第七讲：拍卖与机制设计基础" class="md-footer__link md-footer__link--next" href="../Lec07/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                第七讲：拍卖与机制设计基础
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

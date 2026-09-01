@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/AI/LLM/Transformer/" rel="canonical"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>Transformer - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#Embedding-and-Positional-Encoding">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Transformer
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../note/">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../note/">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Embedding-and-Positional-Encoding">
+<span class="md-ellipsis">
+      
+        Embedding and Positional Encoding
+      
+    </span>
+</a>
+<nav aria-label="Embedding and Positional Encoding" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#todo-Embedding">
+<span class="md-ellipsis">
+      
+        [todo] Embedding
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Positional-Encoding">
+<span class="md-ellipsis">
+      
+        Positional Encoding
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#朴素的想法">
+<span class="md-ellipsis">
+      
+        朴素的想法
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Attention">
+<span class="md-ellipsis">
+      
+        Attention
+      
+    </span>
+</a>
+<nav aria-label="Attention" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#生物学中的注意力提示">
+<span class="md-ellipsis">
+      
+        生物学中的注意力提示
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Scaled-Dot-Product-Attention">
+<span class="md-ellipsis">
+      
+        Scaled Dot-Product Attention
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Self-Attention">
+<span class="md-ellipsis">
+      
+        Self-Attention
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Cross-Attention">
+<span class="md-ellipsis">
+      
+        Cross-Attention
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Causal-Attention">
+<span class="md-ellipsis">
+      
+        Causal-Attention
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Multi-head-Attention">
+<span class="md-ellipsis">
+      
+        Multi-head Attention
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Seq2Seq">
+<span class="md-ellipsis">
+      
+        Seq2Seq
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Encoder">
+<span class="md-ellipsis">
+      
+        Encoder
+      
+    </span>
+</a>
+<nav aria-label="Encoder" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#residual-connect">
+<span class="md-ellipsis">
+      
+        residual connect
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#LayerNorm">
+<span class="md-ellipsis">
+      
+        LayerNorm
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#FeedForward">
+<span class="md-ellipsis">
+      
+        FeedForward
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Decoder">
+<span class="md-ellipsis">
+      
+        Decoder
+      
+    </span>
+</a>
+<nav aria-label="Decoder" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Generation">
+<span class="md-ellipsis">
+      
+        Generation
+      
+    </span>
+</a>
+<nav aria-label="Generation" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Greedy-Search">
+<span class="md-ellipsis">
+      
+        Greedy Search
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Beam-Search">
+<span class="md-ellipsis">
+      
+        Beam Search
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Sampling">
+<span class="md-ellipsis">
+      
+        Sampling
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Teacher-forcing">
+<span class="md-ellipsis">
+      
+        Teacher forcing
+      
+    </span>
+</a>
+<nav aria-label="Teacher forcing" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Exposure-Bias">
+<span class="md-ellipsis">
+      
+        Exposure Bias
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#todo-Contrastive-Learning">
+<span class="md-ellipsis">
+      
+        [todo] Contrastive Learning
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1>Transformer</h1>
+<div class="admonition quote">
+<p class="admonition-title">Quote</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://www.bilibili.com/video/BV1XH4y1T76e">从编解码和词嵌入开始，一步一步理解<span><span class="heti-spacing"> </span>Transformer</span></a></li>
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://adaning.github.io/posts/6744.html"><span>Transformer<span class="heti-spacing"> </span></span>精讲</a><span><span class="heti-spacing"> </span>or</span><a href="https://www.yuque.com/zhangqiang-studyisalifestyle/it-technology/transformer-the-illustrated-transformer"><span><span class="heti-spacing"> </span>The Illustrated Transformer</span></a><span><span class="heti-spacing"> </span>or</span><a href="https://deeprevision.github.io/posts/001-transformer/"><span><span class="heti-spacing"> </span>The Transformer Blueprint</span></a></li>
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://transformers.run/"><span>Hello! · Transformers<span class="heti-spacing"> </span></span>快速入门</a></li>
+</ul>
+</div>
+<div class="admonition wiki">
+<p class="admonition-title"><a href="https://en.wikipedia.org/wiki/Transformer_(deep_learning)">Transformer (deep learning)</a></p>
+<p>In <a href="https://en.wikipedia.org/wiki/Deep_learning">deep learning</a>, the <strong>transformer</strong> is an <a href="https://en.wikipedia.org/wiki/Artificial_neural_network">artificial neural network</a> architecture based on the multi-head <a href="https://en.wikipedia.org/wiki/Attention_(machine_learning)">attention</a> mechanism, in which text is converted to numerical representations called <a href="https://en.wikipedia.org/wiki/Large_language_model#Tokenization">tokens</a>, and each token is converted into a vector via lookup from a <a href="https://en.wikipedia.org/wiki/Word_embedding">word embedding</a> table.</p>
+</div>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773124649411.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773124649411.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773124649411.png" width="600"/></a>
+<br/>
+<figcaption>https://deeprevision.github.io/posts/001-transformer/</figcaption>
+</figure>
+<p>这篇文章不是针对 <a href="https://arxiv.org/abs/1706.03762"><em>Attention Is All You Need</em></a> 这篇论文的解读，而是对整个架构的解读；也即，不止会提到论文中使用了什么技术，还会对模块进行分析。</p>
+<h2 id="Embedding-and-Positional-Encoding">Embedding and Positional Encoding<a class="headerlink" href="#Embedding-and-Positional-Encoding" title="Permanent link">¶</a></h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://zhuanlan.zhihu.com/p/372279569"><span>Transformer<span class="heti-spacing"> </span></span>修炼之道（一<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、Input Embedding</a></li>
+</ul>
+</div>
+<blockquote>
+<p>在<span class="heti-skip"><span class="heti-spacing"> </span>NLP<span class="heti-spacing"> </span></span>中，常将一类语言经过 <strong>BPE(byte-pair encoding)</strong> 处理后的进行分词得到“子词”(Sub-word)，一般称为 <strong>Token</strong>；<span>Token<span class="heti-spacing"> </span></span>将会被根据一张训练得到的映射表被编码为 <strong>Embedding</strong>，以此输入到模型中。在<span class="heti-skip"><span class="heti-spacing"> </span>DL<span class="heti-spacing"> </span></span>中普遍用 <strong>Word Embedding</strong> 做词嵌入。</p>
+</blockquote>
+<h3 id="todo-Embedding">[todo] Embedding<a class="headerlink" href="#todo-Embedding" title="Permanent link">¶</a></h3>
+<h3 id="Positional-Encoding">Positional Encoding<a class="headerlink" href="#Positional-Encoding" title="Permanent link">¶</a></h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://www.cnblogs.com/rossiXYZ/p/18744797#13-%E8%A7%A3%E5%86%B3%E6%80%9D%E8%B7%AF">探秘<span class="heti-skip"><span class="heti-spacing"> </span>Transformer<span class="heti-spacing"> </span></span>之（8）<span>---<span class="heti-spacing"> </span></span>位置编码<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>罗西的思考<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>博客园</a>（非常细致）</li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://zhuanlan.zhihu.com/p/454482273"><span>Transformer<span class="heti-spacing"> </span></span>学习笔记一：Positional Encoding（位置编码<heti-adjacent class="heti-adjacent-half">）</heti-adjacent></a>（相对精简）</li>
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://0809zheng.github.io/2022/07/01/posencode.html"><span>Transformer<span class="heti-spacing"> </span></span>中的位置编码<span class="heti-skip"><span class="heti-spacing"> </span>(Position Encoding) -<span class="heti-spacing"> </span></span>郑之杰的个人网站</a></li>
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://kexue.fm/archives/8130">让研究人员绞尽脑汁的<span class="heti-skip"><span class="heti-spacing"> </span>Transformer<span class="heti-spacing"> </span></span>位置编码</a></li>
+</ul>
+</div>
+<p>在<span class="heti-skip"><span class="heti-spacing"> </span>Transformer<span class="heti-spacing"> </span></span>中，<span>Input/Target sequence<span class="heti-spacing"> </span></span>在进行词嵌入后，还需要加上一个<span><span class="heti-spacing"> </span>positional encoding</span>（即位置编码或者说位置嵌入<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。<span>Transformer<span class="heti-spacing"> </span></span>为了捕捉长序列上的语义关系和并行化处理，舍弃了顺序处理序列的模式；在后面学习注意力机制的时候，会发现<span class="heti-skip"><span class="heti-spacing"> </span>Attention<span class="heti-spacing"> </span></span>过程中，对序列中的每个<span class="heti-skip"><span class="heti-spacing"> </span>token<span class="heti-spacing"> </span></span>都是池化操作（即位置无关的，证明过程可见<a href="https://www.cnblogs.com/rossiXYZ/p/18744797#%E4%BD%8D%E7%BD%AE%E4%B8%8D%E5%8F%98%E6%80%A7">探秘<span class="heti-skip"><span class="heti-spacing"> </span>Transformer<span class="heti-spacing"> </span></span>之（8）<span>---<span class="heti-spacing"> </span></span>位置编码</a><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；所以在训练的过程中丢失了位置信息。</p>
+<p>而在<span class="heti-skip"><span class="heti-spacing"> </span>NLP<span class="heti-spacing"> </span></span>任务中，语序是非常重要的。<del>看来<span><span class="heti-spacing"> </span>Attention is not all you need</span>。</del></p>
+<div class="admonition quote">
+<p class="admonition-title"><a href="https://www.cnblogs.com/rossiXYZ/p/18744797#13-%E8%A7%A3%E5%86%B3%E6%80%9D%E8%B7%AF">探秘<span class="heti-skip"><span class="heti-spacing"> </span>Transformer<span class="heti-spacing"> </span></span>之（8）<span>---<span class="heti-spacing"> </span></span>位置编码<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>罗西的思考<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>博客园</a></p>
+<p>既然<span class="heti-skip"><span class="heti-spacing"> </span>Transformer<span class="heti-spacing"> </span></span>中的自注意力机制无法捕捉输入元素序列的顺序，因此我们需要对位置关系进行建模，把单词的顺序合并到<span class="heti-skip"><span class="heti-spacing"> </span>Transformer<span class="heti-spacing"> </span></span>架构中，从而打破这种置换不变性，于是<span class="heti-skip"><span class="heti-spacing"> </span>Transformer<span class="heti-spacing"> </span></span>作者提出了<span class="heti-skip"><span class="heti-spacing"> </span>Position Embedding<span class="heti-spacing"> </span></span>的方法，也就是“位置向量”或者说“位置编码”。</p>
+<p>位置编码的作用就是<strong>给每个位置都加上一个唯一的位置编码向量，即将词序信息向量化</strong>。对于输入的每个单词，每个单词都有对应的向量（与位置无关<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。为了给每个位置都加上一个唯一的位置编码向量码，需要使用另一个<strong>具有相同维度的向量</strong>，其中每个向量唯一地代表句子中的一个位置。然后通过将词嵌入与其相应的位置嵌入求和来形成<span class="heti-skip"><span class="heti-spacing"> </span>Transformer<span class="heti-spacing"> </span></span>层的输入，即输入模型的整个<span class="heti-skip"><span class="heti-spacing"> </span>Embedding<span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span>Word Embedding<span class="heti-spacing"> </span></span>与<span class="heti-skip"><span class="heti-spacing"> </span>Positional Embedding<span class="heti-spacing"> </span></span>直接相加之后的结果。模型会将这个结果矩阵作为输入提供给后续层。</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://www.zhihu.com/question/485476372"><span>transformer<span class="heti-spacing"> </span></span>中使用的<span class="heti-skip"><span class="heti-spacing"> </span>position embedding<span class="heti-spacing"> </span></span>为什么是加法而非<span><span class="heti-spacing"> </span>concat</span>？</a></li>
+</ul>
+</div>
+<p>目前而言，位置编码有两大类：</p>
+<ul>
+<li>绝对位置编码<span><span class="heti-spacing"> </span>Absolute Position Encoding (APE)</span></li>
+<li>相对位置编码<span><span class="heti-spacing"> </span>Relative Position Encoding (RPE)</span></li>
+</ul>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/11_1773197037211.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/11_1773197037211.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/11_1773197037211.png"/></a>
+</figure>
+<p>在<a href="https://www.cnblogs.com/rossiXYZ/p/18744797#14-%E5%BA%94%E5%85%B7%E5%A4%87%E7%9A%84%E6%80%A7%E8%B4%A8">探秘<span class="heti-skip"><span class="heti-spacing"> </span>Transformer<span class="heti-spacing"> </span></span>之（8）<span>---<span class="heti-spacing"> </span></span>位置编码<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>应具备的性质</a> 部分结合文献探讨了位置编码的需求和演化，这里进行简要的分析：</p>
+<h3 id="朴素的想法">朴素的想法<a class="headerlink" href="#朴素的想法" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li>用整型值作为位置值：第一个<span class="heti-skip"><span class="heti-spacing"> </span>token<span class="heti-spacing"> </span></span>标记<span><span class="heti-spacing"> </span>1</span>，第二个标记<span><span class="heti-spacing"> </span>2</span>……<ul>
+<li>优点：简单、计算快</li>
+<li>缺点：如果遇到比训练更长的序列，不利于泛化；长度太大的序列位置值也会很大，对原本的嵌入影响会很大</li>
+</ul>
+</li>
+<li>用归一化值作为位置值：第一个<span class="heti-skip"><span class="heti-spacing"> </span>token<span class="heti-spacing"> </span></span>标记<span><span class="heti-spacing"> </span>0</span>，最后一个标记<span><span class="heti-spacing"> </span>1</span>，其余等距划分<ul>
+<li>缺点：在长度不同的序列同一位置具备不同的位置编码，相对位置信息不同，混淆了语义信息</li>
+</ul>
+</li>
+<li>用二进制作为位置值：考虑位置编码需要与词嵌入结果相加，维度需要为<span><span class="heti-spacing"> </span><span class="arithmatex">\(D_{in}\)</span></span><ul>
+<li>缺点：位置变化不连续、不一致</li>
+<li>例如<span><span class="heti-spacing"> </span><span class="arithmatex">\(D_{in}=2\)</span></span>，则位置可以表示为<span><span class="heti-spacing"> </span>[0,0]</span>、[0,1]、[1,0]、[1,1]；而<span class="heti-skip"><span class="heti-spacing"> </span>[0, 0] -&gt; [0, 1]<span class="heti-spacing"> </span></span>与<span class="heti-skip"><span class="heti-spacing"> </span>[0, 1] -&gt; [1, 0]<span class="heti-spacing"> </span></span>在嵌入空间上显然是不同的</li>
+</ul>
+</li>
+<li>用三角函数作为位置值：<ul>
+<li>回顾上面，我们需要位置编码满足：位置值有界、适应不同长度的序列、位置变化是连续、平滑的，显然将每个分量设置为一个三角函数可以满足</li>
+<li>对于第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span><span class="heti-spacing"> </span></span>个<span><span class="heti-spacing"> </span>token</span>，可以构造一个由不同频率的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\sin/\cos\)</span><span class="heti-spacing"> </span></span>分量组成的位置向量</li>
+</ul>
+</li>
+<li>在一些文献中对编码提出了额外的要求，进一步将波长拉长、使用<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\sin/\cos\)</span><span class="heti-spacing"> </span></span>交替来表示位置……不过那都是那个领域的研究人员的工作了，下面直接来看<span class="heti-skip"><span class="heti-spacing"> </span>Transformer<span class="heti-spacing"> </span></span>中的三角函数式位置编码。</li>
+</ul>
+<p>在前面对位置编码的要求逐步提高、逐一候选下，<span>Transformer<span class="heti-spacing"> </span></span>的位置编码使用的正是三角函数式位置编码，一般称为<span class="heti-skip"><span class="heti-spacing"> </span>Sinusoidal<span class="heti-spacing"> </span></span>位置编码：</p>
+<p>记<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span><span class="heti-spacing"> </span></span>为<span class="heti-skip"><span class="heti-spacing"> </span>token<span class="heti-spacing"> </span></span>在序列中的位置，<span><span class="arithmatex">\(PE_t \in \mathbb{R}^{D_{in}}\)</span><span class="heti-spacing"> </span></span>表示其位置编码，则第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>个分量可以表示为：</p>
+<div class="arithmatex">\[
+PE_t^{(i)}=
+\begin{cases}
+\sin(w_k t), &amp; \text{if } i=2k \\
+\cos(w_k t), &amp; \text{if } i=2k+1
+\end{cases}
+\quad
+\text{where } w_k=\frac{1}{10000^{2k/D_{in}}},\ i \in \left\{0, 1, ..., \frac{D_{in}}{2}-1\right\}
+\]</div>
+<p>这样的编码有一些较好的性质：</p>
+<ul>
+<li>性质一：两个位置编码的点积<span class="heti-skip"><span class="heti-spacing"> </span>(dot product)<span class="heti-spacing"> </span></span>仅取决于偏移量<span><span class="heti-spacing"> </span><span class="arithmatex">\(\Delta t\)</span></span>，也即两个位置编码的点积可以反应出两个位置编码间的相对距离，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(PE_t^T * PE_{t+\triangle t}=\sum_{i=0}^{\frac{D_{in}}2-1}\cos(w_i\bigtriangleup t)\)</span></span><ul>
+<li>这意味着虽然当前编码的是绝对位置，但是也能从中学习到相对位置信息</li>
+</ul>
+</li>
+<li>性质二：位置编码的点积是无向的，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(PE_t^T * PE_{t+\triangle t}=PE_t^T * PE_{t-\triangle t}\)</span></span>，不难由性质一推出</li>
+<li>性质三：对于相差较远的两个位置，他们的编码相差也会较大，利于理解和区分词序</li>
+</ul>
+<h2 id="Attention">Attention<a class="headerlink" href="#Attention" title="Permanent link">¶</a></h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://zh-v2.d2l.ai/chapter_attention-mechanisms/index.html"><span>10.<span class="heti-spacing"> </span></span>注意力机制 — 动手学深度学习<span><span class="heti-spacing"> </span>2.0.0 documentation</span></a></li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://www.53ai.com/news/qianyanjishu/1079.html">神经网络算法<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>一文搞懂<span class="heti-skip"><span class="heti-spacing"> </span>Transformer<span class="heti-spacing"> </span></span>中的三种注意力机制<span class="heti-skip"><span class="heti-spacing"> </span>- 53AI-AI<span class="heti-spacing"> </span></span>知识库<span class="heti-skip"><span class="heti-spacing"> </span>|<span class="heti-spacing"> </span></span>企业<span class="heti-skip"><span class="heti-spacing"> </span>AI<span class="heti-spacing"> </span></span>知识库<span class="heti-skip"><span class="heti-spacing"> </span>|<span class="heti-spacing"> </span></span>大模型知识库<span><span class="heti-spacing"> </span>|AIHub</span></a></li>
+</ul>
+</div>
+<h3 id="生物学中的注意力提示">生物学中的注意力提示<a class="headerlink" href="#生物学中的注意力提示" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>“是否包含自主性提示”将注意力机制与全连接层或汇聚层区别开来。在注意力机制的背景下，自主性提示被称为查询（query<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。给定任何查询，注意力机制通过注意力汇聚（attention pooling）将选择引导至感官输入（sensory inputs，例如中间特征表示<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。在注意力机制中，这些感官输入被称为值（value<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。更通俗的解释，每个值都与一个键（key）配对，这可以想象为感官输入的非自主提示。如图<span class="heti-skip"><span class="heti-spacing"> </span>10.1.3<span class="heti-spacing"> </span></span>所示，可以通过设计注意力汇聚的方式，便于给定的查询（自主性提示）与键（非自主性提示）进行匹配，这将引导得出最匹配的值（感官输入<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773125446445.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773125446445.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773125446445.png"/></a>
+<br/>
+<figcaption>图<span class="heti-skip"><span class="heti-spacing"> </span>10.1.3<span class="heti-spacing"> </span></span>注意力机制通过注意力汇聚将查询（自主性提示）和键（非自主性提示）结合在一起，实现对值（感官输入）的选择倾向</figcaption>
+</figure>
+<p>用数学语言表示，假设有查询<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(q \in \mathbb{R}^q\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\)</span><span class="heti-spacing"> </span></span>对键和值<span><span class="heti-spacing"> </span><span class="arithmatex">\((k_i \in \mathbb R^k, v_i \in \mathbb R^v)\)</span></span>，并使用，则注意力汇聚可以表示为：</p>
+<div class="arithmatex">\[
+f(\mathbf{q},(\mathbf{k}_1,\mathbf{v}_1),\ldots,(\mathbf{k}_m,\mathbf{v}_m))=\sum_{i=1}^m\mathbf{softmax}(a(\mathbf{q},\mathbf{k}_i))\mathbf{v}_i\in\mathbb{R}^v
+\]</div>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(a(q, k_i)\)</span><span class="heti-spacing"> </span></span>表示注意力评分，<span>softmax<span class="heti-spacing"> </span></span>操作是为了归一化为加权求和。</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773128097593.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773128097593.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773128097593.png"/></a>
+<br/>
+<figcaption>图<span class="heti-skip"><span class="heti-spacing"> </span>10.3.1<span class="heti-spacing"> </span></span>计算注意力汇聚的输出为值的加权和</figcaption>
+</figure>
+<h3 id="Scaled-Dot-Product-Attention">Scaled Dot-Product Attention<a class="headerlink" href="#Scaled-Dot-Product-Attention" title="Permanent link">¶</a></h3>
+<p>在<span class="heti-skip"><span class="heti-spacing"> </span>NLP<span class="heti-spacing"> </span></span>任务中，往往将输入进行嵌入，再经过<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(W_q, W_k, W_v\)</span><span class="heti-spacing"> </span></span>投影得到<span><span class="heti-spacing"> </span><span class="arithmatex">\(Q, K, V\)</span></span>；在<span class="heti-skip"><span class="heti-spacing"> </span>Transformer<span class="heti-spacing"> </span></span>中，使用 <strong>缩放点积注意力机制<span><span class="heti-spacing"> </span>(Scaled Dot-Product Attention)</span></strong> 计算注意力评分：</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773127778538.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773127778538.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773127778538.png" width="600"/></a>
+<br/>
+<figcaption>https://www.bilibili.com/video/BV1XH4y1T76e</figcaption>
+</figure>
+<p>即先计算点积，再进行缩放。除以<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\sqrt{D_{out}}\)</span><span class="heti-spacing"> </span></span>是基于概率分布下，<span><span class="arithmatex">\(Q\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(K\)</span><span class="heti-spacing"> </span></span>的点积均值为<span><span class="heti-spacing"> </span>0</span>，方差则为<span><span class="heti-spacing"> </span><span class="arithmatex">\(D_{out}\)</span></span>。</p>
+<h3 id="Self-Attention">Self-Attention<a class="headerlink" href="#Self-Attention" title="Permanent link">¶</a></h3>
+<p>对于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q, K, V\)</span><span class="heti-spacing"> </span></span>来自同一输入的情况，称为 <strong>self-attention（自注意力）</strong>。</p>
+<h3 id="Cross-Attention">Cross-Attention<a class="headerlink" href="#Cross-Attention" title="Permanent link">¶</a></h3>
+<p>如果<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q\)</span><span class="heti-spacing"> </span></span>与<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(K, V\)</span><span class="heti-spacing"> </span></span>来自于不同的输入，则属于交叉注意力机制。</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773131456495.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773131456495.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773131456495.png" width="600"/></a>
+<br/>
+<figcaption>https://www.bilibili.com/video/BV1XH4y1T76e</figcaption>
+</figure>
+<h3 id="Causal-Attention">Causal-Attention<a class="headerlink" href="#Causal-Attention" title="Permanent link">¶</a></h3>
+<p>在推理<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>生成阶段，模型需要完成“预测下一个词元”的任务；但是此时不应该看到“当前要生成的词本身以及后面的词”的信息，因此引入掩码机制，即将不应该看到的词的注意力评分调整为<span><span class="heti-spacing"> </span>0</span>。</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773136292995.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773136292995.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773136292995.png" width="600"/></a>
+<br/>
+<figcaption>https://www.kaggle.com/code/aisuko/causal-self-attention</figcaption>
+</figure>
+<h3 id="Multi-head-Attention">Multi-head Attention<a class="headerlink" href="#Multi-head-Attention" title="Permanent link">¶</a></h3>
+<p>多头注意力，简单而言是对于同一组输入有多组<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(W_q, W_k, W_v\)</span><span class="heti-spacing"> </span></span>以及后续的注意力操作（称为注意力头；这里可以使用各种注意力机制，如<span><span class="heti-spacing"> </span>cross-attention</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；每个注意力头得到一个输出<span><span class="heti-spacing"> </span><span class="arithmatex">\(Z^{(i)}\)</span></span>，拼接后得到<span><span class="heti-spacing"> </span><span class="arithmatex">\(Z\)</span></span>，最后经过线性变换（全连接层）<span><span class="arithmatex">\(W\)</span><span class="heti-spacing"> </span></span>得到最终的输出<span><span class="heti-spacing"> </span><span class="arithmatex">\(Y\)</span></span>：</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_260310-164701.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_260310-164701.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_260310-164701.png" width="600"/></a>
+<br/>
+<figcaption>https://www.bilibili.com/video/BV1XH4y1T76e</figcaption>
+</figure>
+<p>在这个视频中，<span>UP<span class="heti-spacing"> </span></span>将注意力机制类比为<span><span class="heti-spacing"> </span>CNN</span>，而多头注意力就是多个卷积核，希望能够从不同的“角度”捕捉不同的信息。</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773126382284.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773126382284.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773126382284.png" width="600"/></a>
+<br/>
+<figcaption>https://lilianweng.github.io/posts/2018-06-24-attention/</figcaption>
+</figure>
+<p>所以，让我们区分一下：</p>
+<ul>
+<li><strong>Scaled Dot-Product Attention</strong> 是一种计算注意力评分（也即注意力权重）的方法</li>
+<li><strong>Self/Cross/Causal-Attention</strong> 是不同的、应用<span class="heti-skip"><span class="heti-spacing"> </span>Scaled Dot-Product Attention<span class="heti-spacing"> </span></span>的组件</li>
+<li><strong>Multi-head attention</strong> 则在三种组件的基础上进行了改进，捕获多个层次的信息</li>
+</ul>
+<h2 id="Seq2Seq">Seq2Seq<a class="headerlink" href="#Seq2Seq" title="Permanent link">¶</a></h2>
+<div class="admonition quote">
+<p class="admonition-title">Quote</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://www.kexue.fm/archives/6933">从语言模型到<span><span class="heti-spacing"> </span>Seq2Seq</span>：<span>Transformer<span class="heti-spacing"> </span></span>如戏，全靠<span><span class="heti-spacing"> </span>Mask</span></a></li>
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://www.kexue.fm/archives/7259"><span>Seq2Seq<span class="heti-spacing"> </span></span>中<span class="heti-skip"><span class="heti-spacing"> </span>Exposure Bias<span class="heti-spacing"> </span></span>现象的浅析与对策</a></li>
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://www.kexue.fm/archives/7818/">TeaForN：让<span class="heti-skip"><span class="heti-spacing"> </span>Teacher Forcing<span class="heti-spacing"> </span></span>更有“远见”一些</a></li>
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://zhuanlan.zhihu.com/p/633431594"><strong>通俗易懂地理解<span><span class="heti-spacing"> </span>Gumbel Softmax</span></strong></a></li>
+</ul>
+</div>
+<p><span>Transformer<span class="heti-spacing"> </span></span>基于<span class="heti-skip"><span class="heti-spacing"> </span>Seq2Seq<span class="heti-spacing"> </span></span>模型，通常而言将会包括<span class="heti-skip"><span class="heti-spacing"> </span>Encoder<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>Decoder<span class="heti-spacing"> </span></span>两部分：</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773125130734.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773125130734.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773125130734.png" width="600"/></a>
+<br/>
+<figcaption>https://jalammar.github.io/illustrated-transformer/</figcaption>
+</figure>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><a href="https://zh.d2l.ai/chapter_recurrent-modern/encoder-decoder.html"><span>9.6.<span class="heti-spacing"> </span></span>编码器<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>解码器架构 — 动手学深度学习<span><span class="heti-spacing"> </span>2.0.0 documentation</span></a></p>
+<p>正如我们在<a href="https://zh.d2l.ai/chapter_recurrent-modern/machine-translation-and-dataset.html#sec-machine-translation"><span class="heti-skip"><span class="heti-spacing"> </span>9.5<span class="heti-spacing"> </span></span>节</a> 中所讨论的，机器翻译是序列转换模型的一个核心问题，其输入和输出都是长度可变的序列。为了处理这种类型的输入和输出，我们可以设计一个包含两个主要组件的架构：第一个组件是一个编码器（encoder<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：它接受一个长度可变的序列作为输入，并将其转换为具有固定形状的编码状态。第二个组件是解码器（decoder<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：它将固定形状的编码状态映射到长度可变的序列。这被称为编码器<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>解码器（encoder-decoder）架构，如<a href="https://zh.d2l.ai/chapter_recurrent-modern/encoder-decoder.html#fig-encoder-decoder">图<span class="heti-skip"><span class="heti-spacing"> </span>9.6.1<span class="heti-spacing"> </span></span></a>所示。</p>
+<figure markdown="span">
+</figure></div>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773123859673.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773123859673.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773123859673.png"/></a>
+<br/>
+<figcaption>图<span class="heti-skip"><span class="heti-spacing"> </span>9.6.1<span class="heti-spacing"> </span></span>编码器<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>解码器架构</figcaption></p>
+<p>而在<span class="heti-skip"><span class="heti-spacing"> </span>Encoder<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>Decoder<span class="heti-spacing"> </span></span>中往往会由多层（在论文中使用了<span class="heti-skip"><span class="heti-spacing"> </span>6<span class="heti-spacing"> </span></span>层）神经网络构成；<span>Encoder<span class="heti-spacing"> </span></span>作用就是用来编码整个输入的序列，<span>Decoder<span class="heti-spacing"> </span></span>的作用则是对<span class="heti-skip"><span class="heti-spacing"> </span>Encoder<span class="heti-spacing"> </span></span>的序列编码进行解码。</p>
+<p>有了前面的基础，我们可以轻松地理解<span class="heti-skip"><span class="heti-spacing"> </span>Transformer<span class="heti-spacing"> </span></span>的架构；下面将具体展开对<span class="heti-skip"><span class="heti-spacing"> </span>Encoder<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>Decoder<span class="heti-spacing"> </span></span>的分析：</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773134129707.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773134129707.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773134129707.png" width="600"/></a>
+<br/>
+<figcaption>https://www.53ai.com/news/qianyanjishu/1079.html</figcaption>
+</figure>
+<h2 id="Encoder">Encoder<a class="headerlink" href="#Encoder" title="Permanent link">¶</a></h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://adaning.github.io/posts/6744.html#toc-heading-9"><span>Transformer<span class="heti-spacing"> </span></span>精讲<span class="heti-skip"><span class="heti-spacing"> </span>- Encoder Side | DaNing<span class="heti-spacing"> </span></span>的博客</a></li>
+</ul>
+</div>
+<p>先来看<span class="heti-skip"><span class="heti-spacing"> </span>Encoder<span class="heti-spacing"> </span></span>部分（即上图的左侧<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<ol>
+<li>首先针对原始的输入<span><span class="heti-spacing"> </span><span class="arithmatex">\(I\)</span></span>（例如，一句话<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，经过<span class="heti-skip"><span class="heti-spacing"> </span>Input Embedding<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>Positional Encoding<span class="heti-spacing"> </span></span>得到<span><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span></span></li>
+<li>在<span class="heti-skip"><span class="heti-spacing"> </span>Encoder<span class="heti-spacing"> </span></span>的每一层神经网络，<span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>依次经过多头自注意力层、残差连接与层归一化；前馈神经网络、残差连接与归一化，得到<span class="heti-skip"><span class="heti-spacing"> </span>Encoder<span class="heti-spacing"> </span></span>的输出<span><span class="heti-spacing"> </span><span class="arithmatex">\(E\)</span></span></li>
+</ol>
+<p>多头注意力在前面已经分析过，编码器部分使用的是多头自注意力，目的是能够充分利用上下文信息进行编码。</p>
+<h3 id="residual-connect">residual connect<a class="headerlink" href="#residual-connect" title="Permanent link">¶</a></h3>
+<h3 id="LayerNorm">LayerNorm<a class="headerlink" href="#LayerNorm" title="Permanent link">¶</a></h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://zhuanlan.zhihu.com/p/456863215"><span>Transformer<span class="heti-spacing"> </span></span>学习笔记三</a></li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><a href="https://transformers.run/c1/attention/#322-%E5%B1%82%E5%BD%92%E4%B8%80%E5%8C%96"><span>Transformers<span class="heti-spacing"> </span></span>快速入门<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>层归一化</a></p>
+<p>层归一化（Layer Normalization）负责将一个批次（batch）输入中的每一个都标准化为均值为零且具有单位方差。跳跃连接则是将张量直接传递给模型的下一层而不进行处理，并将其添加到处理后的张量中。</p>
+<p>目前有层后归一化和层前归一化两种常见的向<span class="heti-skip"><span class="heti-spacing"> </span>Transformer<span class="heti-spacing"> </span></span>编码器<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>解码器中添加归一化的方式，如图<span class="heti-skip"><span class="heti-spacing"> </span>3-5<span class="heti-spacing"> </span></span>所示：</p>
+<ul>
+<li><strong>层后归一化（Post layer normalization，Post-Norm）</strong>：<span>Transformer<span class="heti-spacing"> </span></span>论文中使用的方式，将层归一化放在跳跃连接之间。但是因为梯度可能会发散，这种做法很难训练，还需要结合学习率预热（learning rate warm-up）等技巧；</li>
+<li><strong>层前归一化（Pre layer normalization, Pre-Norm）</strong>：<strong>目前主流的做法</strong>，将层归一化放置于跳跃连接的范围内。这种做法通常训练过程会更加稳定，并且不需要任何学习率预热。</li>
+</ul>
+<figure markdown="span">
+</figure></div>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773147936995.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773147936995.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2603/10_1773147936995.png"/></a></p>
+<h3 id="FeedForward">FeedForward<a class="headerlink" href="#FeedForward" title="Permanent link">¶</a></h3>
+<h2 id="Decoder">Decoder<a class="headerlink" href="#Decoder" title="Permanent link">¶</a></h2>
+<p>对于<span class="heti-skip"><span class="heti-spacing"> </span>Decoder<span class="heti-spacing"> </span></span>部分（即上图的右侧<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<ol>
+<li>同样是针对原始的输出<span><span class="heti-spacing"> </span><span class="arithmatex">\(O\)</span></span>（例如，要续写的内容<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，经过<span class="heti-skip"><span class="heti-spacing"> </span>Output Embedding<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>Positional Encoding<span class="heti-spacing"> </span></span>得到<span><span class="heti-spacing"> </span><span class="arithmatex">\(X\)</span></span></li>
+<li>在<span class="heti-skip"><span class="heti-spacing"> </span>Decoder<span class="heti-spacing"> </span></span>的每一层神经网络，<span><span class="arithmatex">\(X\)</span><span class="heti-spacing"> </span></span>依次经过多头因果注意力层、残差连接与归一化；多头交叉注意力、残差连接与归一化；前馈神经网络、残差连接与归一化，得到<span class="heti-skip"><span class="heti-spacing"> </span>Decoder<span class="heti-spacing"> </span></span>的输出<span><span class="heti-spacing"> </span><span class="arithmatex">\(D\)</span></span></li>
+<li>最后经过线性变换和<span class="heti-skip"><span class="heti-spacing"> </span>Softmax<span class="heti-spacing"> </span></span>得到输出各个词的概率。</li>
+</ol>
+<h3 id="Generation">Generation<a class="headerlink" href="#Generation" title="Permanent link">¶</a></h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://jianzhnie.github.io/llmtech/#/inference/%E8%A7%A3%E7%A0%81%E7%AD%96%E7%95%A5%E9%AB%98%E7%BA%A7%E6%96%B9%E6%B3%95">解码策略高级方法</a></li>
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://zhuanlan.zhihu.com/p/653926703"><span>LLM<span class="heti-spacing"> </span></span>之<span><span class="heti-spacing"> </span>Generate/Inference</span>（生成<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>推理）中参数与解码策略原理及其代码实现</a></li>
+</ul>
+</div>
+<h4 id="Greedy-Search">Greedy Search<a class="headerlink" href="#Greedy-Search" title="Permanent link">¶</a></h4>
+<blockquote>
+<p><strong>对于词表</strong> <span class="arithmatex">\(\mathcal{D}\)</span> <strong>，要生成长度为</strong> <span class="arithmatex">\(l\)</span> <strong>的序列</strong></p>
+</blockquote>
+<p><strong>在</strong> <a href="https://zh-v2.d2l.ai/chapter_recurrent-modern/seq2seq.html"><span>9.7.<span class="heti-spacing"> </span></span>序列到序列学习（seq2seq）</a> <strong>中的训练和预测阶段，</strong>循环神经网络编码器<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>解码器是逐词元地预测输出序列，一般而言是每个时间步选取生成概率最大的词元，也即<strong>贪心搜索</strong>（时间复杂度为<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(|\mathcal D| l)\)</span></span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；<strong>但是局部最优不等于全局最优，在时间步<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>选取<span class="heti-skip"><span class="heti-spacing"> </span>C<span class="heti-spacing"> </span></span>可能会有更好的序列：</strong></p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://cdn.nlark.com/yuque/0/2026/svg/38866291/1768618764138-9a539d32-d018-4390-a595-278f16f2aa42.svg"><img alt="https://cdn.nlark.com/yuque/0/2026/svg/38866291/1768618764138-9a539d32-d018-4390-a595-278f16f2aa42.svg" src="https://cdn.nlark.com/yuque/0/2026/svg/38866291/1768618764138-9a539d32-d018-4390-a595-278f16f2aa42.svg"/></a>
+<br/>
+<figcaption>在每个时间步，贪心搜索选择具有最高条件概率的词元</figcaption>
+</figure>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://cdn.nlark.com/yuque/0/2026/svg/38866291/1768619302487-bc7edb73-fd9d-4f36-9cc5-9b2507e7e44b.svg"><img alt="https://cdn.nlark.com/yuque/0/2026/svg/38866291/1768619302487-bc7edb73-fd9d-4f36-9cc5-9b2507e7e44b.svg" src="https://cdn.nlark.com/yuque/0/2026/svg/38866291/1768619302487-bc7edb73-fd9d-4f36-9cc5-9b2507e7e44b.svg"/></a>
+<br/>
+<figcaption>对于前一图，说明可能存在更优的序列</figcaption>
+</figure>
+<p><strong>为了找到全局最优，唯有将所有可能的序列找出并进行比较，也即穷举搜索；但是搜索时间<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>空间复杂度为</strong> <span class="arithmatex">\(O(|\mathcal{D}|^l)\)</span> <strong>，这对于稍大的词表和稍长的序列显然都是不可接受的。</strong></p>
+<h4 id="Beam-Search">Beam Search<a class="headerlink" href="#Beam-Search" title="Permanent link">¶</a></h4>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://zh-v2.d2l.ai/chapter_recurrent-modern/beam-search.html"><span>9.8.<span class="heti-spacing"> </span></span>束搜索 — 动手学深度学习<span><span class="heti-spacing"> </span>2.0.0 documentation</span></a><ul class="task-list">
+<li><a href="https://www.bilibili.com/video/BV1B44y1C7m1/"><span>63<span class="heti-spacing"> </span></span>束搜索【动手学深度学习<span><span class="heti-spacing"> </span>v2</span>】</a></li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://zhuanlan.zhihu.com/p/114669778">十分钟读懂<span><span class="heti-spacing"> </span>Beam Search 1</span>：基础</a> <strong>（代码讲解）</strong></li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://zhuanlan.zhihu.com/p/537164040">使用<span class="heti-skip"><span class="heti-spacing"> </span>Transformers<span class="heti-spacing"> </span></span>做限制集束搜索（Constrained Beam Search）的文本生成</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p><strong>束搜索则在贪心搜索和穷举搜索进行了折中，基本模型如下：</strong></p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://cdn.nlark.com/yuque/0/2026/svg/38866291/1768619781844-c620052c-0ba3-490a-ad4a-9f1664cc4df8.svg"><img alt="https://cdn.nlark.com/yuque/0/2026/svg/38866291/1768619781844-c620052c-0ba3-490a-ad4a-9f1664cc4df8.svg" src="https://cdn.nlark.com/yuque/0/2026/svg/38866291/1768619781844-c620052c-0ba3-490a-ad4a-9f1664cc4df8.svg"/></a>
+<br/>
+<figcaption>束搜索过程（束宽：2，输出序列的最大长度：3）</figcaption>
+</figure>
+<p><strong>在每个时间步中，对于词表中的每个词元获得生成概率后进行排序，并只保留概率最大的前<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>个词元对应的路径（<span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>为超参数，束宽<span><span class="heti-spacing"> </span>(beam size)</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；不难发现，这类似于同时执行了“贪心算法”“次贪心算法”“次次贪心算法”，所以时间复杂度为</strong> <span class="arithmatex">\(O(k*|\mathcal D|l)\)</span> <strong>，在正确率和时间复杂度上做出权衡。</strong></p>
+<h4 id="Sampling">Sampling<a class="headerlink" href="#Sampling" title="Permanent link">¶</a></h4>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://zhuanlan.zhihu.com/p/115076102">十分钟读懂<span><span class="heti-spacing"> </span>Beam Search 2</span>：一些改进</a></li>
+</ul>
+</div>
+<p><strong>Beam Search</strong> 的问题：针对同一段文字，让当时的<span><span class="heti-spacing"> </span>GPT-2</span>（使用<span class="heti-skip"><span class="heti-spacing"> </span>Beam Search<span class="heti-spacing"> </span></span>策略）和人类续写同一段文本，分析续写内容的词频分布情况：人类选择的词（橙线）并不是像机器选择的（蓝线）那样总是那些条件概率最大的词。这些概率大的词会发生正反馈，产生循环。</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/20_260120-095715.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/20_260120-095715.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/20_260120-095715.png"/></a>
+<br/>
+<figcaption>https://arxiv.org/pdf/1904.09751  - Figure2</figcaption>
+</figure>
+<p>为此，研究人员设计了多种采样方式，即避免在选择最后的输出序列时只选择概率最大的那条路（往往会涉及到“温度”这一概念<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<ul>
+<li>random sampling</li>
+<li>Nucleus sampling</li>
+<li>Top-k sampling</li>
+</ul>
+<h3 id="Teacher-forcing">Teacher forcing<a class="headerlink" href="#Teacher-forcing" title="Permanent link">¶</a></h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<ul class="task-list">
+<li><a href="https://en.wikipedia.org/wiki/Teacher_forcing">https://en.wikipedia.org/wiki/Teacher_forcing</a></li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://zhuanlan.zhihu.com/p/644211164">https://zhuanlan.zhihu.com/p/644211164</a></li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://kexue.fm/archives/7259">https://kexue.fm/archives/7259</a></li>
+</ul>
+</div>
+<p>本来是<strong>训练</strong> <span>RNN<span class="heti-spacing"> </span></span>时的一种算法；</p>
+<ul>
+<li>训练时，采用<span><span class="heti-spacing"> </span>Autoregressive mode</span>：在每一步模型预测完成后都会使用真实的标签<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\tilde{y}\)</span><span class="heti-spacing"> </span></span>替代模型实际的输出<span><span class="heti-spacing"> </span><span class="arithmatex">\(y\)</span></span>，附在原输入<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((x)\)</span><span class="heti-spacing"> </span></span>后作为新的输入<span><span class="heti-spacing"> </span><span class="arithmatex">\((x, \tilde{y})\)</span></span>；<ul>
+<li>如下图<span><span class="heti-spacing"> </span>b)</span>，就好比上数学课老师带着我们一步一步推导答案，能够在推到下一步时确保前面都是对的</li>
+</ul>
+</li>
+<li>预测时，采用<span><span class="heti-spacing"> </span>Teacher Forcing mode</span>：则不会替代模型的实际输出<span><span class="heti-spacing"> </span><span class="arithmatex">\(y\)</span></span>，也就是将模型的实际输出<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(y\)</span><span class="heti-spacing"> </span></span>附在原输入后作为新的输入<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((x, y)\)</span><span class="heti-spacing"> </span></span>生成下一个<span><span class="heti-spacing"> </span>token</span>；<ul>
+<li>如下图<span><span class="heti-spacing"> </span>a)</span>，就好比开始自己写答案，有可能都对，也有可能一步错步步错，或者过程错但是结果对</li>
+</ul>
+</li>
+</ul>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://cdn.nlark.com/yuque/0/2026/png/38866291/1773063849660-4a4ca9d1-26b4-40f7-b54d-1c4ace6be6af.png"><img alt="https://cdn.nlark.com/yuque/0/2026/png/38866291/1773063849660-4a4ca9d1-26b4-40f7-b54d-1c4ace6be6af.png" src="https://cdn.nlark.com/yuque/0/2026/png/38866291/1773063849660-4a4ca9d1-26b4-40f7-b54d-1c4ace6be6af.png"/></a>
+</figure>
+<h4 id="Exposure-Bias">Exposure Bias<a class="headerlink" href="#Exposure-Bias" title="Permanent link">¶</a></h4>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://zhuanlan.zhihu.com/p/644211164">https://zhuanlan.zhihu.com/p/644211164</a></li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://kexue.fm/archives/7259">https://kexue.fm/archives/7259</a></li>
+</ul>
+</div>
+<p>在<span class="heti-skip"><span class="heti-spacing"> </span>Teacher Forcing<span class="heti-spacing"> </span></span>模式下，模型训练时和测试时的任务不对等、差异称为“曝光误差”；就好比学生只在教师的带领下一步步解题，却从来不自己进行练习和批改，便学不会如何去找到正确的解题过程。</p>
+<p>在<span class="heti-skip"><span class="heti-spacing"> </span>2015<span class="heti-spacing"> </span></span>年，谷歌提出“计划采样”<span>(scheduled sampling)<span class="heti-spacing"> </span></span>的方案，即在<span class="heti-skip"><span class="heti-spacing"> </span>Autoregressive mode<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>Teacher Forcing<span class="heti-spacing"> </span></span>进行过渡：也即概率选择<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(y\)</span> or <span class="arithmatex">\(\tilde y\)</span><span class="heti-spacing"> </span></span>放在原输入<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>之后作为下一个<span class="heti-skip"><span class="heti-spacing"> </span>token<span class="heti-spacing"> </span></span>生成任务的输入。这个概率随着训练的进行而改变：前期模型能力较差，需要更多的指导；后期模型能力渐强，需要更多的练习。</p>
+<h2 id="todo-Contrastive-Learning">[todo] Contrastive Learning<a class="headerlink" href="#todo-Contrastive-Learning" title="Permanent link">¶</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://zhuanlan.zhihu.com/p/346686467">对比学习（Contrastive Learning）综述</a></li>
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://zhuanlan.zhihu.com/p/630101991">对比学习（Contrastive Learning）概述</a></li>
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://zhuanlan.zhihu.com/p/17807595253">对比学习<span class="heti-skip"><span class="heti-spacing"> </span>batch size<span class="heti-spacing"> </span></span>优化<span><span class="heti-spacing"> </span>- GradCache</span></a></li>
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Ting Chen, Simon Kornblith, Mohammad Norouzi, and Geoffrey E. Hinton. 2020. A Simple Framework for Contrastive Learning of Visual Representations. In ICML.</strong></li>
+</ul>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月1日 22:41:59 CST">2026年7月1日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2024年6月29日 21:37:49 CST">2024年6月29日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

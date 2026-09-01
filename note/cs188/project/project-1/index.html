@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/note/cs188/project/project-1/" rel="canonical"/>
+<link href="../project-0/" rel="prev"/>
+<link href="../project-2/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>Search - Darstib's KG!</title>
+<link href="../../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#Search">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Search
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../../">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../../">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Note
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3_2" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    cs188
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    cs188
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../note/">
+<span class="md-ellipsis">
+    
+  
+    note
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3_2_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    project
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3_2_3" id="__nav_3_2_3_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_2_3_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_2_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    project
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../project-0/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    Search
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    Search
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#explain">
+<span class="md-ellipsis">
+      
+        explain
+      
+    </span>
+</a>
+<nav aria-label="explain" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Q1---Q4">
+<span class="md-ellipsis">
+      
+        Q1 - Q4
+      
+    </span>
+</a>
+<nav aria-label="Q1 - Q4" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#explore">
+<span class="md-ellipsis">
+      
+        explore
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#right">
+<span class="md-ellipsis">
+      
+        right
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Q5-3-pts-Finding-All-the-Corners-Lecture-3">
+<span class="md-ellipsis">
+      
+        Q5 (3 pts): Finding All the Corners (Lecture 3)
+      
+    </span>
+</a>
+<nav aria-label="Q5 (3 pts): Finding All the Corners (Lecture 3)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#explore_1">
+<span class="md-ellipsis">
+      
+        explore
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#right_1">
+<span class="md-ellipsis">
+      
+        right
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Q6-7">
+<span class="md-ellipsis">
+      
+        Q6-7
+      
+    </span>
+</a>
+<nav aria-label="Q6-7" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#explore_2">
+<span class="md-ellipsis">
+      
+        explore
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#right_2">
+<span class="md-ellipsis">
+      
+        right
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Q8-3-pts-Suboptimal-Search">
+<span class="md-ellipsis">
+      
+        Q8 (3 pts): Suboptimal Search
+      
+    </span>
+</a>
+<nav aria-label="Q8 (3 pts): Suboptimal Search" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#right_3">
+<span class="md-ellipsis">
+      
+        right
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pass">
+<span class="md-ellipsis">
+      
+        pass
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../project-2/">
+<span class="md-ellipsis">
+    
+  
+    MultiAgent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../project-3/">
+<span class="md-ellipsis">
+    
+  
+    Logic
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../project-4/">
+<span class="md-ellipsis">
+    
+  
+    Tracing
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../README_en/">
+<span class="md-ellipsis">
+    
+  
+    intro in English
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../physics/">
+<span class="md-ellipsis">
+    
+  
+    physics
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CSys-II/">
+<span class="md-ellipsis">
+    
+  
+    CSys-II
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CSys-III/">
+<span class="md-ellipsis">
+    
+  
+    CSys-III
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../DEM/">
+<span class="md-ellipsis">
+    
+  
+    DEM
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../DMA/">
+<span class="md-ellipsis">
+    
+  
+    DMA
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../cs70/">
+<span class="md-ellipsis">
+    
+  
+    cs70
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../other/">
+<span class="md-ellipsis">
+    
+  
+    other
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#explain">
+<span class="md-ellipsis">
+      
+        explain
+      
+    </span>
+</a>
+<nav aria-label="explain" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Q1---Q4">
+<span class="md-ellipsis">
+      
+        Q1 - Q4
+      
+    </span>
+</a>
+<nav aria-label="Q1 - Q4" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#explore">
+<span class="md-ellipsis">
+      
+        explore
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#right">
+<span class="md-ellipsis">
+      
+        right
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Q5-3-pts-Finding-All-the-Corners-Lecture-3">
+<span class="md-ellipsis">
+      
+        Q5 (3 pts): Finding All the Corners (Lecture 3)
+      
+    </span>
+</a>
+<nav aria-label="Q5 (3 pts): Finding All the Corners (Lecture 3)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#explore_1">
+<span class="md-ellipsis">
+      
+        explore
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#right_1">
+<span class="md-ellipsis">
+      
+        right
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Q6-7">
+<span class="md-ellipsis">
+      
+        Q6-7
+      
+    </span>
+</a>
+<nav aria-label="Q6-7" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#explore_2">
+<span class="md-ellipsis">
+      
+        explore
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#right_2">
+<span class="md-ellipsis">
+      
+        right
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Q8-3-pts-Suboptimal-Search">
+<span class="md-ellipsis">
+      
+        Q8 (3 pts): Suboptimal Search
+      
+    </span>
+</a>
+<nav aria-label="Q8 (3 pts): Suboptimal Search" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#right_3">
+<span class="md-ellipsis">
+      
+        right
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pass">
+<span class="md-ellipsis">
+      
+        pass
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../../">
+<span class="md-ellipsis">
+    Note
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    cs188
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    project
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../../tags/#tag:cs188">cs188</a>
+<a class="md-tag md-tag-icon" href="../../../../tags/#tag:notes">notes</a>
+</nav>
+<h1 id="Search">Search<a class="headerlink" href="#Search" title="Permanent link">¶</a></h1>
+<div class="admonition prerequisite">
+<p class="admonition-title">Prerequisite</p>
+<ul>
+<li><a href="../../note/02-State_Spaces_Uninformed_Search/">02-State_Spaces_Uninformed_Search</a></li>
+<li><a href="../../note/03-Informed_Search_Astar_and_Heuristics/">03-Informed_Search_Astar_and_Heuristics</a></li>
+<li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj1/">preject 1</a> （若需要认证，可见<a href="https://github.com/Darstib/cs188/tree/main/materials/project/intro_page">仓库</a>）</li>
+</ul>
+</div>
+<h2 id="explain">explain<a class="headerlink" href="#explain" title="Permanent link">¶</a></h2>
+<blockquote>
+<p>前面有很多探索，希望看正确解答可直接看<span><span class="heti-spacing"> </span>"right"</span>；最终结果见<span><span class="heti-spacing"> </span>"pass"</span> 。</p>
+</blockquote>
+<p><span>pacman.py<span class="heti-spacing"> </span></span>的参数对于对于帮助我们进行测试很有用：</p>
+<div class="highlight"><span class="filename">man pacman</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos=" 1 "></span></a>$<span class="w"> </span>python<span class="w"> </span>pacman.py<span class="w"> </span>-h
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos" data-linenos=" 2 "></span></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><a href="#__codelineno-0-3"><span class="linenos" data-linenos=" 3 "></span></a>Usage:<span class="w"> </span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><a href="#__codelineno-0-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">    </span>USAGE:<span class="w">      </span>python<span class="w"> </span>pacman.py<span class="w"> </span>&lt;options&gt;
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><a href="#__codelineno-0-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">    </span>EXAMPLES:<span class="w">   </span><span class="o">(</span><span class="m">1</span><span class="o">)</span><span class="w"> </span>python<span class="w"> </span>pacman.py
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><a href="#__codelineno-0-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">                    </span>-<span class="w"> </span>starts<span class="w"> </span>an<span class="w"> </span>interactive<span class="w"> </span>game
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><a href="#__codelineno-0-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">                </span><span class="o">(</span><span class="m">2</span><span class="o">)</span><span class="w"> </span>python<span class="w"> </span>pacman.py<span class="w"> </span>--layout<span class="w"> </span>smallClassic<span class="w"> </span>--zoom<span class="w"> </span><span class="m">2</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><a href="#__codelineno-0-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">                </span>OR<span class="w">  </span>python<span class="w"> </span>pacman.py<span class="w"> </span>-l<span class="w"> </span>smallClassic<span class="w"> </span>-z<span class="w"> </span><span class="m">2</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a><a href="#__codelineno-0-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">                    </span>-<span class="w"> </span>starts<span class="w"> </span>an<span class="w"> </span>interactive<span class="w"> </span>game<span class="w"> </span>on<span class="w"> </span>a<span class="w"> </span>smaller<span class="w"> </span>board,<span class="w"> </span>zoomed<span class="w"> </span><span class="k">in</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><a href="#__codelineno-0-10"><span class="linenos" data-linenos="10 "></span></a>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a><a href="#__codelineno-0-11"><span class="linenos" data-linenos="11 "></span></a>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a><a href="#__codelineno-0-12"><span class="linenos" data-linenos="12 "></span></a>Options:
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a><a href="#__codelineno-0-13"><span class="linenos" data-linenos="13 "></span></a><span class="w">  </span>-h,<span class="w"> </span>--help<span class="w">            </span>show<span class="w"> </span>this<span class="w"> </span><span class="nb">help</span><span class="w"> </span>message<span class="w"> </span>and<span class="w"> </span><span class="nb">exit</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a><a href="#__codelineno-0-14"><span class="linenos" data-linenos="14 "></span></a><span class="w">  </span>-n<span class="w"> </span>GAMES,<span class="w"> </span>--numGames<span class="o">=</span>GAMES
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a><a href="#__codelineno-0-15"><span class="linenos" data-linenos="15 "></span></a><span class="w">                        </span>the<span class="w"> </span>number<span class="w"> </span>of<span class="w"> </span>GAMES<span class="w"> </span>to<span class="w"> </span>play<span class="w"> </span><span class="o">[</span>Default:<span class="w"> </span><span class="m">1</span><span class="o">]</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a><a href="#__codelineno-0-16"><span class="linenos" data-linenos="16 "></span></a><span class="w">  </span>-l<span class="w"> </span>LAYOUT_FILE,<span class="w"> </span>--layout<span class="o">=</span>LAYOUT_FILE
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17"></a><a href="#__codelineno-0-17"><span class="linenos" data-linenos="17 "></span></a><span class="w">                        </span>the<span class="w"> </span>LAYOUT_FILE<span class="w"> </span>from<span class="w"> </span>which<span class="w"> </span>to<span class="w"> </span>load<span class="w"> </span>the<span class="w"> </span>map<span class="w"> </span>layout
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18"></a><a href="#__codelineno-0-18"><span class="linenos" data-linenos="18 "></span></a><span class="w">                        </span><span class="o">[</span>Default:<span class="w"> </span>mediumClassic<span class="o">]</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19"></a><a href="#__codelineno-0-19"><span class="linenos" data-linenos="19 "></span></a><span class="w">  </span>-p<span class="w"> </span>TYPE,<span class="w"> </span>--pacman<span class="o">=</span>TYPE
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20"></a><a href="#__codelineno-0-20"><span class="linenos" data-linenos="20 "></span></a><span class="w">                        </span>the<span class="w"> </span>agent<span class="w"> </span>TYPE<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>pacmanAgents<span class="w"> </span>module<span class="w"> </span>to<span class="w"> </span>use
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21"></a><a href="#__codelineno-0-21"><span class="linenos" data-linenos="21 "></span></a><span class="w">                        </span><span class="o">[</span>Default:<span class="w"> </span>KeyboardAgent<span class="o">]</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22"></a><a href="#__codelineno-0-22"><span class="linenos" data-linenos="22 "></span></a><span class="w">  </span>-t,<span class="w"> </span>--textGraphics<span class="w">    </span>Display<span class="w"> </span>output<span class="w"> </span>as<span class="w"> </span>text<span class="w"> </span>only
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23"></a><a href="#__codelineno-0-23"><span class="linenos" data-linenos="23 "></span></a><span class="w">  </span>-q,<span class="w"> </span>--quietTextGraphics
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24"></a><a href="#__codelineno-0-24"><span class="linenos" data-linenos="24 "></span></a><span class="w">                        </span>Generate<span class="w"> </span>minimal<span class="w"> </span>output<span class="w"> </span>and<span class="w"> </span>no<span class="w"> </span>graphics
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25"></a><a href="#__codelineno-0-25"><span class="linenos" data-linenos="25 "></span></a><span class="w">  </span>-g<span class="w"> </span>TYPE,<span class="w"> </span>--ghosts<span class="o">=</span>TYPE
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26"></a><a href="#__codelineno-0-26"><span class="linenos" data-linenos="26 "></span></a><span class="w">                        </span>the<span class="w"> </span>ghost<span class="w"> </span>agent<span class="w"> </span>TYPE<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>ghostAgents<span class="w"> </span>module<span class="w"> </span>to<span class="w"> </span>use
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27"></a><a href="#__codelineno-0-27"><span class="linenos" data-linenos="27 "></span></a><span class="w">                        </span><span class="o">[</span>Default:<span class="w"> </span>RandomGhost<span class="o">]</span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28"></a><a href="#__codelineno-0-28"><span class="linenos" data-linenos="28 "></span></a><span class="w">  </span>-k<span class="w"> </span>NUMGHOSTS,<span class="w"> </span>--numghosts<span class="o">=</span>NUMGHOSTS
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29"></a><a href="#__codelineno-0-29"><span class="linenos" data-linenos="29 "></span></a><span class="w">                        </span>The<span class="w"> </span>maximum<span class="w"> </span>number<span class="w"> </span>of<span class="w"> </span>ghosts<span class="w"> </span>to<span class="w"> </span>use<span class="w"> </span><span class="o">[</span>Default:<span class="w"> </span><span class="m">4</span><span class="o">]</span>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30"></a><a href="#__codelineno-0-30"><span class="linenos" data-linenos="30 "></span></a><span class="w">  </span>-z<span class="w"> </span>ZOOM,<span class="w"> </span>--zoom<span class="o">=</span>ZOOM<span class="w">  </span>Zoom<span class="w"> </span>the<span class="w"> </span>size<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>graphics<span class="w"> </span>window<span class="w"> </span><span class="o">[</span>Default:<span class="w"> </span><span class="m">1</span>.0<span class="o">]</span>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31"></a><a href="#__codelineno-0-31"><span class="linenos" data-linenos="31 "></span></a><span class="w">  </span>-f,<span class="w"> </span>--fixRandomSeed<span class="w">   </span>Fixes<span class="w"> </span>the<span class="w"> </span>random<span class="w"> </span>seed<span class="w"> </span>to<span class="w"> </span>always<span class="w"> </span>play<span class="w"> </span>the<span class="w"> </span>same<span class="w"> </span>game
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32"></a><a href="#__codelineno-0-32"><span class="linenos" data-linenos="32 "></span></a><span class="w">  </span>-r,<span class="w"> </span>--recordActions<span class="w">   </span>Writes<span class="w"> </span>game<span class="w"> </span>histories<span class="w"> </span>to<span class="w"> </span>a<span class="w"> </span>file<span class="w"> </span><span class="o">(</span>named<span class="w"> </span>by<span class="w"> </span>the<span class="w"> </span><span class="nb">time</span>
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33"></a><a href="#__codelineno-0-33"><span class="linenos" data-linenos="33 "></span></a><span class="w">                        </span>they<span class="w"> </span>were<span class="w"> </span>played<span class="o">)</span>
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34"></a><a href="#__codelineno-0-34"><span class="linenos" data-linenos="34 "></span></a><span class="w">  </span>--replay<span class="o">=</span>GAMETOREPLAY
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35"></a><a href="#__codelineno-0-35"><span class="linenos" data-linenos="35 "></span></a><span class="w">                        </span>A<span class="w"> </span>recorded<span class="w"> </span>game<span class="w"> </span>file<span class="w"> </span><span class="o">(</span>pickle<span class="o">)</span><span class="w"> </span>to<span class="w"> </span>replay
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36"></a><a href="#__codelineno-0-36"><span class="linenos" data-linenos="36 "></span></a><span class="w">  </span>-a<span class="w"> </span>AGENTARGS,<span class="w"> </span>--agentArgs<span class="o">=</span>AGENTARGS
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37"></a><a href="#__codelineno-0-37"><span class="linenos" data-linenos="37 "></span></a><span class="w">                        </span>Comma<span class="w"> </span>separated<span class="w"> </span>values<span class="w"> </span>sent<span class="w"> </span>to<span class="w"> </span>agent.<span class="w"> </span>e.g.
+</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38"></a><a href="#__codelineno-0-38"><span class="linenos" data-linenos="38 "></span></a><span class="w">                        </span><span class="s2">"opt1=val1,opt2,opt3=val3"</span>
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39"></a><a href="#__codelineno-0-39"><span class="linenos" data-linenos="39 "></span></a><span class="w">  </span>-x<span class="w"> </span>NUMTRAINING,<span class="w"> </span>--numTraining<span class="o">=</span>NUMTRAINING
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40"></a><a href="#__codelineno-0-40"><span class="linenos" data-linenos="40 "></span></a><span class="w">                        </span>How<span class="w"> </span>many<span class="w"> </span>episodes<span class="w"> </span>are<span class="w"> </span>training<span class="w"> </span><span class="o">(</span>suppresses<span class="w"> </span>output<span class="o">)</span>
+</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41"></a><a href="#__codelineno-0-41"><span class="linenos" data-linenos="41 "></span></a><span class="w">                        </span><span class="o">[</span>Default:<span class="w"> </span><span class="m">0</span><span class="o">]</span>
+</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42"></a><a href="#__codelineno-0-42"><span class="linenos" data-linenos="42 "></span></a><span class="w">  </span>--frameTime<span class="o">=</span>FRAMETIME
+</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43"></a><a href="#__codelineno-0-43"><span class="linenos" data-linenos="43 "></span></a><span class="w">                        </span>Time<span class="w"> </span>to<span class="w"> </span>delay<span class="w"> </span>between<span class="w"> </span>frames<span class="p">;</span><span class="w"> </span>&lt;<span class="m">0</span><span class="w"> </span>means<span class="w"> </span>keyboard
+</span><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44"></a><a href="#__codelineno-0-44"><span class="linenos" data-linenos="44 "></span></a><span class="w">                        </span><span class="o">[</span>Default:<span class="w"> </span><span class="m">0</span>.1<span class="o">]</span>
+</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45"></a><a href="#__codelineno-0-45"><span class="linenos" data-linenos="45 "></span></a><span class="w">  </span>-c,<span class="w"> </span>--catchExceptions
+</span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46"></a><a href="#__codelineno-0-46"><span class="linenos" data-linenos="46 "></span></a><span class="w">                        </span>Turns<span class="w"> </span>on<span class="w"> </span>exception<span class="w"> </span>handling<span class="w"> </span>and<span class="w"> </span>timeouts<span class="w"> </span>during<span class="w"> </span>games
+</span><span id="__span-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47"></a><a href="#__codelineno-0-47"><span class="linenos" data-linenos="47 "></span></a><span class="w">  </span>--timeout<span class="o">=</span>TIMEOUT<span class="w">     </span>Maximum<span class="w"> </span>length<span class="w"> </span>of<span class="w"> </span><span class="nb">time</span><span class="w"> </span>an<span class="w"> </span>agent<span class="w"> </span>can<span class="w"> </span>spend<span class="w"> </span>computing<span class="w"> </span><span class="k">in</span>
+</span><span id="__span-0-48"><a id="__codelineno-0-48" name="__codelineno-0-48"></a><a href="#__codelineno-0-48"><span class="linenos" data-linenos="48 "></span></a><span class="w">                        </span>a<span class="w"> </span>single<span class="w"> </span>game<span class="w"> </span><span class="o">[</span>Default:<span class="w"> </span><span class="m">30</span><span class="o">]</span>
+</span></code></pre></div>
+<p>若加入下列语句，测试运行：</p>
+<div class="highlight"><span class="filename">Python</span><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos" data-linenos="1 "></span></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Start:"</span><span class="p">,</span> <span class="n">problem</span><span class="o">.</span><span class="n">getStartState</span><span class="p">())</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><a href="#__codelineno-1-2"><span class="linenos" data-linenos="2 "></span></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Is the start a goal?"</span><span class="p">,</span> <span class="n">problem</span><span class="o">.</span><span class="n">isGoalState</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">getStartState</span><span class="p">()))</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><a href="#__codelineno-1-3"><span class="linenos" data-linenos="3 "></span></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Start's successors:"</span><span class="p">,</span> <span class="n">problem</span><span class="o">.</span><span class="n">getSuccessors</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">getStartState</span><span class="p">()))</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><a href="#__codelineno-1-4"><span class="linenos" data-linenos="4 "></span></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><a href="#__codelineno-1-5"><span class="linenos" data-linenos="5 "></span></a><span class="c1"># Start: (5, 5)</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a><a href="#__codelineno-1-6"><span class="linenos" data-linenos="6 "></span></a><span class="c1"># Is the start a goal? False</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a><a href="#__codelineno-1-7"><span class="linenos" data-linenos="7 "></span></a><span class="c1"># Start's successors: [((5, 4), 'South', 1), ((4, 5), 'West', 1)]</span>
+</span></code></pre></div>
+<p>窥见了<span class="heti-skip"><span class="heti-spacing"> </span>problem/state<span class="heti-spacing"> </span></span>的结构，其中<span class="heti-skip"><span class="heti-spacing"> </span>successors<span class="heti-spacing"> </span></span>是两个<span><span class="heti-spacing"> </span>successor</span>，其内容依次代表：(state，action，cost) =&gt; （坐标，方向，步长<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<p>随便补全<span class="heti-skip"><span class="heti-spacing"> </span>dfs<span class="heti-spacing"> </span></span>观察<a href="../attachments/project-1.png">地图</a>：</p>
+<div class="highlight"><span class="filename">dfs test</span><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><a href="#__codelineno-2-1"><span class="linenos" data-linenos="1 "></span></a><span class="k">def</span><span class="w"> </span><span class="nf">depthFirstSearch</span><span class="p">(</span><span class="n">problem</span><span class="p">:</span> <span class="n">SearchProblem</span><span class="p">):</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><a href="#__codelineno-2-2"><span class="linenos" data-linenos="2 "></span></a>    <span class="k">return</span> <span class="p">[]</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><a href="#__codelineno-2-3"><span class="linenos" data-linenos="3 "></span></a>    <span class="n">util</span><span class="o">.</span><span class="n">raiseNotDefined</span><span class="p">()</span>
+</span></code></pre></div>
+<p>可以看出来<heti-adjacent class="heti-adjacent-quarter">，</heti-adjacent>“坐标原点”在左下角，是经典的“<span>2D<span class="heti-spacing"> </span></span>函数坐标”而非“矩阵坐标”。</p>
+<h3 id="Q1---Q4">Q1 - Q4<a class="headerlink" href="#Q1---Q4" title="Permanent link">¶</a></h3>
+<h4 id="explore">explore<a class="headerlink" href="#explore" title="Permanent link">¶</a></h4>
+<p>根据以前所学，<span>dfs<span class="heti-spacing"> </span></span>尝试<span><span class="heti-spacing"> </span>Q1</span>：</p>
+<div class="highlight"><span class="filename">dfs</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><a href="#__codelineno-3-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="k">def</span><span class="w"> </span><span class="nf">depthFirstSearch</span><span class="p">(</span><span class="n">problem</span><span class="p">:</span> <span class="n">SearchProblem</span><span class="p">):</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><a href="#__codelineno-3-2"><span class="linenos" data-linenos=" 2 "></span></a>    <span class="n">reached</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>  <span class="c1"># 记录已经访问过的节点</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><a href="#__codelineno-3-3"><span class="linenos" data-linenos=" 3 "></span></a>    <span class="n">_stack</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">Stack</span><span class="p">()</span>  <span class="c1"># 用栈来实现DFS</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a><a href="#__codelineno-3-4"><span class="linenos" data-linenos=" 4 "></span></a>    <span class="n">_stack</span><span class="o">.</span><span class="n">push</span><span class="p">(</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a><a href="#__codelineno-3-5"><span class="linenos" data-linenos=" 5 "></span></a>        <span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">getStartState</span><span class="p">(),</span> <span class="p">[])</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a><a href="#__codelineno-3-6"><span class="linenos" data-linenos=" 6 "></span></a>    <span class="p">)</span>  <span class="c1"># 将初始状态（坐标，到达该坐标需要的方向组）压入栈中</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a><a href="#__codelineno-3-7"><span class="linenos" data-linenos=" 7 "></span></a>    <span class="k">while</span> <span class="ow">not</span> <span class="n">_stack</span><span class="o">.</span><span class="n">isEmpty</span><span class="p">():</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a><a href="#__codelineno-3-8"><span class="linenos" data-linenos=" 8 "></span></a>        <span class="n">state</span><span class="p">,</span> <span class="n">actions</span> <span class="o">=</span> <span class="n">_stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9"></a><a href="#__codelineno-3-9"><span class="linenos" data-linenos=" 9 "></span></a>        <span class="k">if</span> <span class="n">problem</span><span class="o">.</span><span class="n">isGoalState</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10"></a><a href="#__codelineno-3-10"><span class="linenos" data-linenos="10 "></span></a>            <span class="k">return</span> <span class="n">actions</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11"></a><a href="#__codelineno-3-11"><span class="linenos" data-linenos="11 "></span></a>        <span class="k">if</span> <span class="n">state</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">reached</span><span class="p">:</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12"></a><a href="#__codelineno-3-12"><span class="linenos" data-linenos="12 "></span></a>            <span class="n">reached</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13"></a><a href="#__codelineno-3-13"><span class="linenos" data-linenos="13 "></span></a>            <span class="k">for</span> <span class="n">successor</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">problem</span><span class="o">.</span><span class="n">getSuccessors</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14"></a><a href="#__codelineno-3-14"><span class="linenos" data-linenos="14 "></span></a>                <span class="n">new_path</span> <span class="o">=</span> <span class="n">actions</span> <span class="o">+</span> <span class="p">[</span><span class="n">action</span><span class="p">]</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15"></a><a href="#__codelineno-3-15"><span class="linenos" data-linenos="15 "></span></a>                <span class="n">_stack</span><span class="o">.</span><span class="n">push</span><span class="p">((</span><span class="n">successor</span><span class="p">,</span> <span class="n">new_path</span><span class="p">))</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16"></a><a href="#__codelineno-3-16"><span class="linenos" data-linenos="16 "></span></a>    <span class="k">return</span> <span class="n">actions</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17"></a><a href="#__codelineno-3-17"><span class="linenos" data-linenos="17 "></span></a>    <span class="n">util</span><span class="o">.</span><span class="n">raiseNotDefined</span><span class="p">()</span>
+</span></code></pre></div>
+<p><a href="../attachments/project-1-1.png">顺利通过<span><span class="heti-spacing"> </span>Q1</span></a>。</p>
+<h4 id="right">right<a class="headerlink" href="#right" title="Permanent link">¶</a></h4>
+<p>下一个？<span>NO!<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>note02<span class="heti-spacing"> </span></span>中我们知道三个搜索算法总体差不多，且这里都是<span><span class="heti-spacing"> </span>graph search:</span></p>
+<div class="admonition quote">
+<p>Now it’s time to write <strong>full-fledged generic search</strong> functions to help Pacman plan routes! Pseudocode for the search algorithms you’ll write can be found in the lecture slides.</p>
+</div>
+<div class="highlight"><span class="filename">pseudocode for graph search in note03</span><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><a href="#__codelineno-4-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="n">function</span> <span class="n">GRAPH</span><span class="o">-</span><span class="n">SEARCH</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span> <span class="n">frontier</span><span class="p">)</span> <span class="k">return</span> <span class="n">a</span> <span class="n">solution</span> <span class="ow">or</span> <span class="n">failure</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><a href="#__codelineno-4-2"><span class="linenos" data-linenos=" 2 "></span></a>    <span class="n">reached</span> <span class="err">←</span> <span class="n">an</span> <span class="n">empty</span> <span class="nb">set</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><a href="#__codelineno-4-3"><span class="linenos" data-linenos=" 3 "></span></a>    <span class="n">frontier</span> <span class="err">←</span> <span class="n">INSERT</span><span class="p">(</span><span class="n">MAKE</span><span class="o">-</span><span class="n">NODE</span><span class="p">(</span><span class="n">INITIAL</span><span class="o">-</span><span class="n">STATE</span><span class="p">[</span><span class="n">problem</span><span class="p">]),</span> <span class="n">frontier</span><span class="p">)</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a><a href="#__codelineno-4-4"><span class="linenos" data-linenos=" 4 "></span></a>    <span class="k">while</span> <span class="ow">not</span> <span class="n">IS</span><span class="o">-</span><span class="n">EMPTY</span><span class="p">(</span><span class="n">frontier</span><span class="p">)</span> <span class="n">do</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a><a href="#__codelineno-4-5"><span class="linenos" data-linenos=" 5 "></span></a>        <span class="n">node</span> <span class="err">←</span> <span class="n">POP</span><span class="p">(</span><span class="n">frontier</span><span class="p">)</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a><a href="#__codelineno-4-6"><span class="linenos" data-linenos=" 6 "></span></a>        <span class="k">if</span> <span class="n">problem</span><span class="o">.</span><span class="n">IS</span><span class="o">-</span><span class="n">GOAL</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">STATE</span><span class="p">)</span> <span class="n">then</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7"></a><a href="#__codelineno-4-7"><span class="linenos" data-linenos=" 7 "></span></a>            <span class="k">return</span> <span class="n">node</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8"></a><a href="#__codelineno-4-8"><span class="linenos" data-linenos=" 8 "></span></a>        <span class="n">end</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9"></a><a href="#__codelineno-4-9"><span class="linenos" data-linenos=" 9 "></span></a>        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">STATE</span> <span class="ow">is</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">reached</span> <span class="n">then</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10"></a><a href="#__codelineno-4-10"><span class="linenos" data-linenos="10 "></span></a>            <span class="n">add</span> <span class="n">node</span><span class="o">.</span><span class="n">STATE</span> <span class="ow">in</span> <span class="n">reached</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11"></a><a href="#__codelineno-4-11"><span class="linenos" data-linenos="11 "></span></a>            <span class="k">for</span> <span class="n">each</span> <span class="n">child</span><span class="o">-</span><span class="n">node</span> <span class="ow">in</span> <span class="n">EXPAND</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span> <span class="n">do</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12"></a><a href="#__codelineno-4-12"><span class="linenos" data-linenos="12 "></span></a>                <span class="n">frontier</span> <span class="err">←</span> <span class="n">INSERT</span><span class="p">(</span><span class="n">child</span><span class="o">-</span><span class="n">node</span><span class="p">,</span> <span class="n">frontier</span><span class="p">)</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13"></a><a href="#__codelineno-4-13"><span class="linenos" data-linenos="13 "></span></a>            <span class="n">end</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14"></a><a href="#__codelineno-4-14"><span class="linenos" data-linenos="14 "></span></a>        <span class="n">end</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15"></a><a href="#__codelineno-4-15"><span class="linenos" data-linenos="15 "></span></a>    <span class="n">end</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16"></a><a href="#__codelineno-4-16"><span class="linenos" data-linenos="16 "></span></a>    <span class="k">return</span> <span class="n">failure</span>
+</span></code></pre></div>
+<p>所以我们照猫画虎，给出：</p>
+<div class="highlight"><span class="filename">graphSearch</span><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><a href="#__codelineno-5-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="k">def</span><span class="w"> </span><span class="nf">graphSearch</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span> <span class="n">frontier</span><span class="p">):</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a><a href="#__codelineno-5-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="w">    </span><span class="sd">"""</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a><a href="#__codelineno-5-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="sd">    Implements the graph search algorithm using the provided frontier data structure.</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a><a href="#__codelineno-5-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="sd">    """</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a><a href="#__codelineno-5-5"><span class="linenos" data-linenos=" 5 "></span></a>    <span class="n">reached</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a><a href="#__codelineno-5-6"><span class="linenos" data-linenos=" 6 "></span></a>    <span class="n">frontier</span><span class="o">.</span><span class="n">push</span><span class="p">((</span><span class="n">problem</span><span class="o">.</span><span class="n">getStartState</span><span class="p">(),</span> <span class="p">[]))</span>  <span class="c1"># take (state, actions) as node</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a><a href="#__codelineno-5-7"><span class="linenos" data-linenos=" 7 "></span></a>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8"></a><a href="#__codelineno-5-8"><span class="linenos" data-linenos=" 8 "></span></a>    <span class="k">while</span> <span class="ow">not</span> <span class="n">frontier</span><span class="o">.</span><span class="n">isEmpty</span><span class="p">():</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9"></a><a href="#__codelineno-5-9"><span class="linenos" data-linenos=" 9 "></span></a>        <span class="n">state</span><span class="p">,</span> <span class="n">actions</span> <span class="o">=</span> <span class="n">frontier</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10"></a><a href="#__codelineno-5-10"><span class="linenos" data-linenos="10 "></span></a>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11"></a><a href="#__codelineno-5-11"><span class="linenos" data-linenos="11 "></span></a>        <span class="k">if</span> <span class="n">problem</span><span class="o">.</span><span class="n">isGoalState</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12"></a><a href="#__codelineno-5-12"><span class="linenos" data-linenos="12 "></span></a>            <span class="k">return</span> <span class="n">actions</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13"></a><a href="#__codelineno-5-13"><span class="linenos" data-linenos="13 "></span></a>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14"></a><a href="#__codelineno-5-14"><span class="linenos" data-linenos="14 "></span></a>        <span class="k">if</span> <span class="n">state</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">reached</span><span class="p">:</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15"></a><a href="#__codelineno-5-15"><span class="linenos" data-linenos="15 "></span></a>            <span class="n">reached</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16"></a><a href="#__codelineno-5-16"><span class="linenos" data-linenos="16 "></span></a>            <span class="k">for</span> <span class="n">successor</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">problem</span><span class="o">.</span><span class="n">getSuccessors</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17"></a><a href="#__codelineno-5-17"><span class="linenos" data-linenos="17 "></span></a>                <span class="n">new_path</span> <span class="o">=</span> <span class="n">actions</span> <span class="o">+</span> <span class="p">[</span><span class="n">action</span><span class="p">]</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18"></a><a href="#__codelineno-5-18"><span class="linenos" data-linenos="18 "></span></a>                <span class="n">frontier</span><span class="o">.</span><span class="n">push</span><span class="p">((</span><span class="n">successor</span><span class="p">,</span> <span class="n">new_path</span><span class="p">))</span>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19"></a><a href="#__codelineno-5-19"><span class="linenos" data-linenos="19 "></span></a>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20"></a><a href="#__codelineno-5-20"><span class="linenos" data-linenos="20 "></span></a>    <span class="k">return</span> <span class="kc">None</span>  <span class="c1"># No solution found</span>
+</span></code></pre></div>
+<p>显然，这里的<span class="heti-skip"><span class="heti-spacing"> </span>frontier<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>DFS<span class="heti-spacing"> </span></span>中就是<span><span class="heti-spacing"> </span>Stack</span>，在<span class="heti-skip"><span class="heti-spacing"> </span>BFS<span class="heti-spacing"> </span></span>中就是<span><span class="heti-spacing"> </span>Queue</span>；在<span class="heti-skip"><span class="heti-spacing"> </span>UCS/ <span class="arithmatex">\(A^*S\)</span><span class="heti-spacing"> </span></span>中是<span><span class="heti-spacing"> </span>PriorityQueue</span>。</p>
+<p>前两个好说；<span>PrigirityQueue<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>push<span class="heti-spacing"> </span></span>与前二者参数就不同，自然是报错了；但是注意到<span class="heti-skip"><span class="heti-spacing"> </span>util.py<span class="heti-spacing"> </span></span>中的：</p>
+<div class="highlight"><span class="filename">PriorityQueueWithFunction</span><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><a href="#__codelineno-6-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="k">class</span><span class="w"> </span><span class="nc">PriorityQueueWithFunction</span><span class="p">(</span><span class="n">PriorityQueue</span><span class="p">):</span> <span class="c1"># success PriorityQueue</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a><a href="#__codelineno-6-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="w">    </span><span class="sd">"""</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a><a href="#__codelineno-6-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="sd">    Implements a priority queue with the same push/pop signature of the</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4"></a><a href="#__codelineno-6-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="sd">    Queue and the Stack classes. This is designed for drop-in replacement for</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5"></a><a href="#__codelineno-6-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="sd">    those two classes. The caller has to provide a priority function, which</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6"></a><a href="#__codelineno-6-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="sd">    extracts each item's priority.</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7"></a><a href="#__codelineno-6-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="sd">    """</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8"></a><a href="#__codelineno-6-8"><span class="linenos" data-linenos=" 8 "></span></a>    <span class="k">def</span><span class="w">  </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">priorityFunction</span><span class="p">):</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9"></a><a href="#__codelineno-6-9"><span class="linenos" data-linenos=" 9 "></span></a>        <span class="s2">"priorityFunction (item) -&gt; priority"</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10"></a><a href="#__codelineno-6-10"><span class="linenos" data-linenos="10 "></span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">priorityFunction</span> <span class="o">=</span> <span class="n">priorityFunction</span>      <span class="c1"># store the priority function</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11"></a><a href="#__codelineno-6-11"><span class="linenos" data-linenos="11 "></span></a>        <span class="n">PriorityQueue</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>        <span class="c1"># super-class initializer</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12"></a><a href="#__codelineno-6-12"><span class="linenos" data-linenos="12 "></span></a>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13"></a><a href="#__codelineno-6-13"><span class="linenos" data-linenos="13 "></span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14"></a><a href="#__codelineno-6-14"><span class="linenos" data-linenos="14 "></span></a>        <span class="s2">"Adds an item to the queue with priority from the priority function"</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15"></a><a href="#__codelineno-6-15"><span class="linenos" data-linenos="15 "></span></a>        <span class="n">PriorityQueue</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">priorityFunction</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+</span></code></pre></div>
+<p>根据注释我们可以看出来这就是对<span class="heti-skip"><span class="heti-spacing"> </span>PriorityQueue<span class="heti-spacing"> </span></span>的封装了，唯一不同的是我们需要使用一个<span class="heti-skip"><span class="heti-spacing"> </span>priorityFunction(item)<span class="heti-spacing"> </span></span>来实例化它（按照<span class="heti-skip"><span class="heti-spacing"> </span>Stack<span class="heti-spacing"> </span></span>类中的使用，<span>item<span class="heti-spacing"> </span></span>应该指我们设定的元组<span><span class="heti-spacing"> </span>node</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；再看：</p>
+<div class="highlight"><span class="filename">getCostOfActions</span><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a><a href="#__codelineno-7-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="k">class</span><span class="w"> </span><span class="nc">SearchProblem</span><span class="p">:</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a><a href="#__codelineno-7-2"><span class="linenos" data-linenos=" 2 "></span></a>    <span class="o">...</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a><a href="#__codelineno-7-3"><span class="linenos" data-linenos=" 3 "></span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">getCostOfActions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">actions</span><span class="p">):</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a><a href="#__codelineno-7-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">        </span><span class="sd">"""</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5"></a><a href="#__codelineno-7-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="sd">         actions: A list of actions to take</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6"></a><a href="#__codelineno-7-6"><span class="linenos" data-linenos=" 6 "></span></a>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7"></a><a href="#__codelineno-7-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="sd">        This method returns the total cost of a particular sequence of actions.</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8"></a><a href="#__codelineno-7-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="sd">        The sequence must be composed of legal moves.</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9"></a><a href="#__codelineno-7-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="sd">        """</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10"></a><a href="#__codelineno-7-10"><span class="linenos" data-linenos="10 "></span></a>        <span class="n">util</span><span class="o">.</span><span class="n">raiseNotDefined</span><span class="p">()</span>
+</span></code></pre></div>
+<p>用这个方法获取<span><span class="heti-spacing"> </span>cost</span>，作为<span class="heti-skip"><span class="heti-spacing"> </span>UCS minheap<span class="heti-spacing"> </span></span>的依据；而<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A^*S\)</span><span class="heti-spacing"> </span></span>多加了一个<span class="heti-skip"><span class="heti-spacing"> </span>heuristic value<span class="heti-spacing"> </span></span>即可；你说巧不巧，<span>aStarSearch<span class="heti-spacing"> </span></span>的参数就有这么一个函数，<a href="../attachments/project-1-2.png"><span>Q1 - Q4<span class="heti-spacing"> </span></span>通过</a> 。</p>
+<h3 id="Q5-3-pts-Finding-All-the-Corners-Lecture-3">Q5 (3 pts): Finding All the Corners (Lecture 3)<a class="headerlink" href="#Q5-3-pts-Finding-All-the-Corners-Lecture-3" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>完成这题使用了<span><span class="heti-spacing"> </span>bfs</span>，所以需要先运行 <code>$ python pacman.py -l tinyCorners -p SearchAgent -a fn=bfs</code> 确保通过。</p>
+</blockquote>
+<h4 id="explore_1">explore<a class="headerlink" href="#explore_1" title="Permanent link">¶</a></h4>
+<p>这关实现一个<span class="heti-skip"><span class="heti-spacing"> </span>CornersProblem<span class="heti-spacing"> </span></span>类；首先我们看 <code>class CornersProblem(search.SearchProblem):</code> 其继承了我们之前<span class="heti-skip"><span class="heti-spacing"> </span>search.py<span class="heti-spacing"> </span></span>中的<span class="heti-skip"><span class="heti-spacing"> </span>SearchProblem<span class="heti-spacing"> </span></span>定好的模板，所以我们应当参考<span class="heti-skip"><span class="heti-spacing"> </span>Q1-Q4<span class="heti-spacing"> </span></span>所期望的功能来实现它；又在该文件中搜 <code>search.SearchProblem</code> ，找到了 <code>class PositionSearchProblem(search.SearchProblem):</code> 这个兄弟，还是实现好的；那么我们继续照猫画虎：</p>
+<div class="highlight"><span class="filename">Corners Problem</span><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a><a href="#__codelineno-8-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="k">def</span><span class="w"> </span><span class="nf">getStartState</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a><a href="#__codelineno-8-2"><span class="linenos" data-linenos=" 2 "></span></a>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">startingPosition</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a><a href="#__codelineno-8-3"><span class="linenos" data-linenos=" 3 "></span></a>    <span class="n">util</span><span class="o">.</span><span class="n">raiseNotDefined</span><span class="p">()</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4"></a><a href="#__codelineno-8-4"><span class="linenos" data-linenos=" 4 "></span></a>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5"></a><a href="#__codelineno-8-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="k">def</span><span class="w"> </span><span class="nf">isGoalState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6"></a><a href="#__codelineno-8-6"><span class="linenos" data-linenos=" 6 "></span></a>    <span class="c1"># 暂时不会，让其始终返回False</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7"></a><a href="#__codelineno-8-7"><span class="linenos" data-linenos=" 7 "></span></a>    <span class="n">util</span><span class="o">.</span><span class="n">raiseNotDefined</span><span class="p">()</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8"></a><a href="#__codelineno-8-8"><span class="linenos" data-linenos=" 8 "></span></a>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9"></a><a href="#__codelineno-8-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="k">def</span><span class="w"> </span><span class="nf">getSuccessors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10"></a><a href="#__codelineno-8-10"><span class="linenos" data-linenos="10 "></span></a>    <span class="n">successors</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11"></a><a href="#__codelineno-8-11"><span class="linenos" data-linenos="11 "></span></a>    <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="p">[</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12"></a><a href="#__codelineno-8-12"><span class="linenos" data-linenos="12 "></span></a>        <span class="n">Directions</span><span class="o">.</span><span class="n">NORTH</span><span class="p">,</span>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13"></a><a href="#__codelineno-8-13"><span class="linenos" data-linenos="13 "></span></a>        <span class="n">Directions</span><span class="o">.</span><span class="n">SOUTH</span><span class="p">,</span>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14"></a><a href="#__codelineno-8-14"><span class="linenos" data-linenos="14 "></span></a>        <span class="n">Directions</span><span class="o">.</span><span class="n">EAST</span><span class="p">,</span>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15"></a><a href="#__codelineno-8-15"><span class="linenos" data-linenos="15 "></span></a>        <span class="n">Directions</span><span class="o">.</span><span class="n">WEST</span><span class="p">,</span>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16"></a><a href="#__codelineno-8-16"><span class="linenos" data-linenos="16 "></span></a>    <span class="p">]:</span>
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17"></a><a href="#__codelineno-8-17"><span class="linenos" data-linenos="17 "></span></a>        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">state</span>
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18"></a><a href="#__codelineno-8-18"><span class="linenos" data-linenos="18 "></span></a>        <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="n">Actions</span><span class="o">.</span><span class="n">directionToVector</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19"></a><a href="#__codelineno-8-19"><span class="linenos" data-linenos="19 "></span></a>        <span class="n">nextx</span><span class="p">,</span> <span class="n">nexty</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">dx</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">dy</span><span class="p">)</span>
+</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20"></a><a href="#__codelineno-8-20"><span class="linenos" data-linenos="20 "></span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">walls</span><span class="p">[</span><span class="n">nextx</span><span class="p">][</span><span class="n">nexty</span><span class="p">]:</span>
+</span><span id="__span-8-21"><a id="__codelineno-8-21" name="__codelineno-8-21"></a><a href="#__codelineno-8-21"><span class="linenos" data-linenos="21 "></span></a>            <span class="n">nextState</span> <span class="o">=</span> <span class="p">(</span><span class="n">nextx</span><span class="p">,</span> <span class="n">nexty</span><span class="p">)</span>
+</span><span id="__span-8-22"><a id="__codelineno-8-22" name="__codelineno-8-22"></a><a href="#__codelineno-8-22"><span class="linenos" data-linenos="22 "></span></a>            <span class="c1"># cost = self.costFn(nextState)</span>
+</span><span id="__span-8-23"><a id="__codelineno-8-23" name="__codelineno-8-23"></a><a href="#__codelineno-8-23"><span class="linenos" data-linenos="23 "></span></a>            <span class="n">cost</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span id="__span-8-24"><a id="__codelineno-8-24" name="__codelineno-8-24"></a><a href="#__codelineno-8-24"><span class="linenos" data-linenos="24 "></span></a>            <span class="n">successors</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">nextState</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">cost</span><span class="p">))</span>
+</span><span id="__span-8-25"><a id="__codelineno-8-25" name="__codelineno-8-25"></a><a href="#__codelineno-8-25"><span class="linenos" data-linenos="25 "></span></a>    <span class="bp">self</span><span class="o">.</span><span class="n">_expanded</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># DO NOT CHANGE</span>
+</span><span id="__span-8-26"><a id="__codelineno-8-26" name="__codelineno-8-26"></a><a href="#__codelineno-8-26"><span class="linenos" data-linenos="26 "></span></a>    <span class="k">return</span> <span class="n">successors</span>
+</span></code></pre></div>
+<p>我们让<span class="heti-skip"><span class="heti-spacing"> </span>IsGoalState<span class="heti-spacing"> </span></span>始终返回<span><span class="heti-spacing"> </span>False</span>，那么<span class="heti-skip"><span class="heti-spacing"> </span>pacman<span class="heti-spacing"> </span></span>始终没有一条路径可以走，必然静止不动；运行 <code>$ python pacman.py -l tinyCorners -p SearchAgent -a fn=bfs,prob=CornersProblem</code> <a href="../attachments/project-1-3.png">看看</a>。</p>
+<p>那么我们该怎么写<span class="heti-skip"><span class="heti-spacing"> </span>IsGoalState<span class="heti-spacing"> </span></span>呢？</p>
+<h4 id="right_1">right<a class="headerlink" href="#right_1" title="Permanent link">¶</a></h4>
+<blockquote>
+<p>下面内容参考<a href="https://github.com/szzxljr/CS188_Course_Projects/blob/7beea60ec9037fa5b750d211c90d814a954cbdfe/proj1search/searchAgents.py#L241"><span class="heti-skip"><span class="heti-spacing"> </span>szzxljr<span class="heti-spacing"> </span></span>的代码</a>，其实也体现在后面的<span class="heti-skip"><span class="heti-spacing"> </span>FoodSearchProblem<span class="heti-spacing"> </span></span>中。</p>
+</blockquote>
+<p>我们假想我们上述的<span class="heti-skip"><span class="heti-spacing"> </span>node<span class="heti-spacing"> </span></span>不仅带着位置信息和动作，还带着一个<span><span class="heti-spacing"> </span>corners</span>；每经过一个对应的<span><span class="heti-spacing"> </span>corner</span>，我们就丢掉这个<span><span class="heti-spacing"> </span>corner</span>；当我们丢完时，就达到目标了；但是直接<span class="heti-skip"><span class="heti-spacing"> </span>(state, actions, corners)<span class="heti-spacing"> </span></span>是不行的<sup id="fnref:1"><a class="footnote-ref" href="#fn:1"><span><span class="heti-spacing"> </span>1</span></a></sup>。所以我们将其和原<span class="heti-skip"><span class="heti-spacing"> </span>state<span class="heti-spacing"> </span></span>作为新元组，即<span><span class="heti-spacing"> </span>state &lt;= (state, corners):</span></p>
+<div class="highlight"><span class="filename">right Corners Problem</span><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a><a href="#__codelineno-9-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="k">def</span><span class="w"> </span><span class="nf">getStartState</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a><a href="#__codelineno-9-2"><span class="linenos" data-linenos=" 2 "></span></a>    <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">startingPosition</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">corners</span><span class="p">)</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3"></a><a href="#__codelineno-9-3"><span class="linenos" data-linenos=" 3 "></span></a>    <span class="n">util</span><span class="o">.</span><span class="n">raiseNotDefined</span><span class="p">()</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4"></a><a href="#__codelineno-9-4"><span class="linenos" data-linenos=" 4 "></span></a>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5"></a><a href="#__codelineno-9-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="k">def</span><span class="w"> </span><span class="nf">isGoalState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6"></a><a href="#__codelineno-9-6"><span class="linenos" data-linenos=" 6 "></span></a>    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7"></a><a href="#__codelineno-9-7"><span class="linenos" data-linenos=" 7 "></span></a>    <span class="n">util</span><span class="o">.</span><span class="n">raiseNotDefined</span><span class="p">()</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8"></a><a href="#__codelineno-9-8"><span class="linenos" data-linenos=" 8 "></span></a>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9"></a><a href="#__codelineno-9-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="k">def</span><span class="w"> </span><span class="nf">getSuccessors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10"></a><a href="#__codelineno-9-10"><span class="linenos" data-linenos="10 "></span></a>    <span class="n">successors</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11"></a><a href="#__codelineno-9-11"><span class="linenos" data-linenos="11 "></span></a>    <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="p">[</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12"></a><a href="#__codelineno-9-12"><span class="linenos" data-linenos="12 "></span></a>        <span class="n">Directions</span><span class="o">.</span><span class="n">NORTH</span><span class="p">,</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13"></a><a href="#__codelineno-9-13"><span class="linenos" data-linenos="13 "></span></a>        <span class="n">Directions</span><span class="o">.</span><span class="n">SOUTH</span><span class="p">,</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14"></a><a href="#__codelineno-9-14"><span class="linenos" data-linenos="14 "></span></a>        <span class="n">Directions</span><span class="o">.</span><span class="n">EAST</span><span class="p">,</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15"></a><a href="#__codelineno-9-15"><span class="linenos" data-linenos="15 "></span></a>        <span class="n">Directions</span><span class="o">.</span><span class="n">WEST</span><span class="p">,</span>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16"></a><a href="#__codelineno-9-16"><span class="linenos" data-linenos="16 "></span></a>    <span class="p">]:</span>
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17"></a><a href="#__codelineno-9-17"><span class="linenos" data-linenos="17 "></span></a>        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18"></a><a href="#__codelineno-9-18"><span class="linenos" data-linenos="18 "></span></a>        <span class="n">corners</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19"></a><a href="#__codelineno-9-19"><span class="linenos" data-linenos="19 "></span></a>        <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="n">Actions</span><span class="o">.</span><span class="n">directionToVector</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20"></a><a href="#__codelineno-9-20"><span class="linenos" data-linenos="20 "></span></a>        <span class="n">nextx</span><span class="p">,</span> <span class="n">nexty</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">dx</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">dy</span><span class="p">)</span>
+</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21"></a><a href="#__codelineno-9-21"><span class="linenos" data-linenos="21 "></span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">walls</span><span class="p">[</span><span class="n">nextx</span><span class="p">][</span><span class="n">nexty</span><span class="p">]:</span>
+</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22"></a><a href="#__codelineno-9-22"><span class="linenos" data-linenos="22 "></span></a>            <span class="n">nextState0</span> <span class="o">=</span> <span class="p">(</span><span class="n">nextx</span><span class="p">,</span> <span class="n">nexty</span><span class="p">)</span>
+</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23"></a><a href="#__codelineno-9-23"><span class="linenos" data-linenos="23 "></span></a>            <span class="n">corners</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span> <span class="o">!=</span> <span class="n">nextState0</span><span class="p">,</span> <span class="n">corners</span><span class="p">))</span>
+</span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24"></a><a href="#__codelineno-9-24"><span class="linenos" data-linenos="24 "></span></a>            <span class="c1"># cost = self.costFn(nextState0) # accoding to the hint, cost is 1</span>
+</span><span id="__span-9-25"><a id="__codelineno-9-25" name="__codelineno-9-25"></a><a href="#__codelineno-9-25"><span class="linenos" data-linenos="25 "></span></a>            <span class="n">cost</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26"></a><a href="#__codelineno-9-26"><span class="linenos" data-linenos="26 "></span></a>            <span class="n">successors</span><span class="o">.</span><span class="n">append</span><span class="p">(((</span><span class="n">nextState0</span><span class="p">,</span> <span class="n">corners</span><span class="p">),</span> <span class="n">action</span><span class="p">,</span> <span class="n">cost</span><span class="p">))</span>
+</span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27"></a><a href="#__codelineno-9-27"><span class="linenos" data-linenos="27 "></span></a>    <span class="c1"># print(successors)</span>
+</span><span id="__span-9-28"><a id="__codelineno-9-28" name="__codelineno-9-28"></a><a href="#__codelineno-9-28"><span class="linenos" data-linenos="28 "></span></a>    <span class="bp">self</span><span class="o">.</span><span class="n">_expanded</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># DO NOT CHANGE</span>
+</span><span id="__span-9-29"><a id="__codelineno-9-29" name="__codelineno-9-29"></a><a href="#__codelineno-9-29"><span class="linenos" data-linenos="29 "></span></a>    <span class="k">return</span> <span class="n">successors</span>
+</span></code></pre></div>
+<p><a href="../attachments/project-1-4.png"><span>Q5<span class="heti-spacing"> </span></span>通过</a></p>
+<h3 id="Q6-7">Q6-7<a class="headerlink" href="#Q6-7" title="Permanent link">¶</a></h3>
+<h4 id="explore_2">explore<a class="headerlink" href="#explore_2" title="Permanent link">¶</a></h4>
+<p><span>Q6<span class="heti-spacing"> </span></span>其实就是让我们想一个比较好的 <code>def cornersHeuristic(state: Any, problem: CornersProblem):</code> 函数；在数学中描述“距离”的<a href="https://www.wikiwand.com/zh/articles/%E8%8C%83%E6%95%B0">范数</a>就比较适合先试试手；曼哈顿距离也是其中一种，且<span class="heti-skip"><span class="heti-spacing"> </span>SearchAgent.py<span class="heti-spacing"> </span></span>中有实现：</p>
+<div class="highlight"><span class="filename">manhattanHeuristic</span><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a><a href="#__codelineno-10-1"><span class="linenos" data-linenos="1 "></span></a><span class="k">def</span><span class="w"> </span><span class="nf">manhattanHeuristic</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">problem</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="p">{}):</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2"></a><a href="#__codelineno-10-2"><span class="linenos" data-linenos="2 "></span></a>    <span class="s2">"The Manhattan distance heuristic for a PositionSearchProblem"</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3"></a><a href="#__codelineno-10-3"><span class="linenos" data-linenos="3 "></span></a>    <span class="n">xy1</span> <span class="o">=</span> <span class="n">position</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4"></a><a href="#__codelineno-10-4"><span class="linenos" data-linenos="4 "></span></a>    <span class="n">xy2</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">goal</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5"></a><a href="#__codelineno-10-5"><span class="linenos" data-linenos="5 "></span></a>    <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">xy1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">xy2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="nb">abs</span><span class="p">(</span><span class="n">xy1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">xy2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span></code></pre></div>
+<p>我们可以计算此时相比于剩下的<span class="heti-skip"><span class="heti-spacing"> </span>corner<span class="heti-spacing"> </span></span>的曼哈顿距离，并取最小者即可：</p>
+<div class="highlight"><span class="filename">cornerHeuristic using min manhattanDistance</span><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a><a href="#__codelineno-11-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="k">def</span><span class="w"> </span><span class="nf">manhattanDistance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2"></a><a href="#__codelineno-11-2"><span class="linenos" data-linenos=" 2 "></span></a>    <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">n</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="nb">abs</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">n</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3"></a><a href="#__codelineno-11-3"><span class="linenos" data-linenos=" 3 "></span></a>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4"></a><a href="#__codelineno-11-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="k">def</span><span class="w"> </span><span class="nf">cornersHeuristic</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">problem</span><span class="p">:</span> <span class="n">CornersProblem</span><span class="p">):</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5"></a><a href="#__codelineno-11-5"><span class="linenos" data-linenos=" 5 "></span></a>    <span class="n">corners</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">corners</span>  <span class="c1"># These are the corner coordinates</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6"></a><a href="#__codelineno-11-6"><span class="linenos" data-linenos=" 6 "></span></a>    <span class="n">walls</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">walls</span>  <span class="c1"># These are the walls of the maze, as a Grid (game.py)</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7"></a><a href="#__codelineno-11-7"><span class="linenos" data-linenos=" 7 "></span></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8"></a><a href="#__codelineno-11-8"><span class="linenos" data-linenos=" 8 "></span></a>        <span class="k">return</span> <span class="mi">0</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9"></a><a href="#__codelineno-11-9"><span class="linenos" data-linenos=" 9 "></span></a>    <span class="n">min_distance</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">"inf"</span><span class="p">)</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10"></a><a href="#__codelineno-11-10"><span class="linenos" data-linenos="10 "></span></a>    <span class="k">for</span> <span class="n">corner</span> <span class="ow">in</span> <span class="n">state</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11"></a><a href="#__codelineno-11-11"><span class="linenos" data-linenos="11 "></span></a>        <span class="n">tmp</span> <span class="o">=</span> <span class="n">manhattanDistance</span><span class="p">(</span><span class="n">corner</span><span class="p">,</span> <span class="n">state</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12"></a><a href="#__codelineno-11-12"><span class="linenos" data-linenos="12 "></span></a>        <span class="n">min_distance</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">min_distance</span><span class="p">,</span> <span class="n">tmp</span><span class="p">)</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13"></a><a href="#__codelineno-11-13"><span class="linenos" data-linenos="13 "></span></a>    <span class="k">return</span> <span class="n">min_distance</span>
+</span></code></pre></div>
+<p><a href="../attachments/project-1-5.png"><span>Q6<span class="heti-spacing"> </span></span>半通过</a></p>
+<h4 id="right_2">right<a class="headerlink" href="#right_2" title="Permanent link">¶</a></h4>
+<p>但是想想，<span>manhattenDistance<span class="heti-spacing"> </span></span>本身就一定不比实际需要的步数多，应当取最大值来贴近；同时发现<span class="heti-skip"><span class="heti-spacing"> </span>util.py<span class="heti-spacing"> </span></span>中实现了曼哈顿距离：</p>
+<div class="highlight"><span class="filename">cornerHeuristic using max manhattanDistance</span><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a><a href="#__codelineno-12-1"><span class="linenos" data-linenos="1 "></span></a><span class="k">def</span><span class="w"> </span><span class="nf">cornersHeuristic</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">problem</span><span class="p">:</span> <span class="n">CornersProblem</span><span class="p">):</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a><a href="#__codelineno-12-2"><span class="linenos" data-linenos="2 "></span></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3"></a><a href="#__codelineno-12-3"><span class="linenos" data-linenos="3 "></span></a>        <span class="k">return</span> <span class="mi">0</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4"></a><a href="#__codelineno-12-4"><span class="linenos" data-linenos="4 "></span></a>    <span class="n">max_distance</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5"></a><a href="#__codelineno-12-5"><span class="linenos" data-linenos="5 "></span></a>    <span class="k">for</span> <span class="n">corner</span> <span class="ow">in</span> <span class="n">state</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6"></a><a href="#__codelineno-12-6"><span class="linenos" data-linenos="6 "></span></a>        <span class="c1"># tmp = manhattanDistance(corner, state[0])</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7"></a><a href="#__codelineno-12-7"><span class="linenos" data-linenos="7 "></span></a>        <span class="n">tmp</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">manhattanDistance</span><span class="p">(</span><span class="n">corner</span><span class="p">,</span> <span class="n">state</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8"></a><a href="#__codelineno-12-8"><span class="linenos" data-linenos="8 "></span></a>        <span class="n">max_distance</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">max_distance</span><span class="p">,</span> <span class="n">tmp</span><span class="p">)</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9"></a><a href="#__codelineno-12-9"><span class="linenos" data-linenos="9 "></span></a>    <span class="k">return</span> <span class="n">max_distance</span>
+</span></code></pre></div>
+<p><a href="../attachments/project-1-6.png"><span>Q6<span class="heti-spacing"> </span></span>通过</a></p>
+<p><span>Q7<span class="heti-spacing"> </span></span>也是同理，之前是<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>个豆子在四个角落，现在是若干个豆子在某某个位置；所以思路基本一致（其中的<span class="heti-skip"><span class="heti-spacing"> </span>mazeDistance<span class="heti-spacing"> </span></span>是后来看了其他人的题解发现的<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<div class="highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1"></a><a href="#__codelineno-13-1"><span class="linenos" data-linenos="1 "></span></a><span class="k">def</span><span class="w"> </span><span class="nf">foodHeuristic</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">]],</span> <span class="n">problem</span><span class="p">:</span> <span class="n">FoodSearchProblem</span><span class="p">):</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2"></a><a href="#__codelineno-13-2"><span class="linenos" data-linenos="2 "></span></a>    <span class="n">position</span><span class="p">,</span> <span class="n">foodGrid</span> <span class="o">=</span> <span class="n">state</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3"></a><a href="#__codelineno-13-3"><span class="linenos" data-linenos="3 "></span></a>    <span class="n">distances</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4"></a><a href="#__codelineno-13-4"><span class="linenos" data-linenos="4 "></span></a>    <span class="k">for</span> <span class="n">food</span> <span class="ow">in</span> <span class="n">foodGrid</span><span class="o">.</span><span class="n">asList</span><span class="p">():</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5"></a><a href="#__codelineno-13-5"><span class="linenos" data-linenos="5 "></span></a>        <span class="n">distances</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mazeDistance</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">food</span><span class="p">,</span> <span class="n">problem</span><span class="o">.</span><span class="n">startingGameState</span><span class="p">))</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6"></a><a href="#__codelineno-13-6"><span class="linenos" data-linenos="6 "></span></a>    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">distances</span><span class="p">)</span>
+</span></code></pre></div>
+<p><a href="../attachments/project-1-7.png"><span>Q7<span class="heti-spacing"> </span></span>通过</a></p>
+<h3 id="Q8-3-pts-Suboptimal-Search">Q8 (3 pts): Suboptimal Search<a class="headerlink" href="#Q8-3-pts-Suboptimal-Search" title="Permanent link">¶</a></h3>
+<h4 id="right_3">right<a class="headerlink" href="#right_3" title="Permanent link">¶</a></h4>
+<p>根据提示，我们先补全<span><span class="heti-spacing"> </span>AnyFoodSearchProblem</span>：</p>
+<div class="highlight"><span class="filename">AnyFoodSearchProblem</span><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1"></a><a href="#__codelineno-14-1"><span class="linenos" data-linenos="1 "></span></a><span class="k">class</span><span class="w"> </span><span class="nc">AnyFoodSearchProblem</span><span class="p">(</span><span class="n">PositionSearchProblem</span><span class="p">):</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2"></a><a href="#__codelineno-14-2"><span class="linenos" data-linenos="2 "></span></a>    <span class="o">...</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3"></a><a href="#__codelineno-14-3"><span class="linenos" data-linenos="3 "></span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">isGoalState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]):</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4"></a><a href="#__codelineno-14-4"><span class="linenos" data-linenos="4 "></span></a>    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">state</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5"></a><a href="#__codelineno-14-5"><span class="linenos" data-linenos="5 "></span></a>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">food</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="c1"># 去看这个成员的定义就懂了</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6"></a><a href="#__codelineno-14-6"><span class="linenos" data-linenos="6 "></span></a>    <span class="n">util</span><span class="o">.</span><span class="n">raiseNotDefined</span><span class="p">()</span>
+</span></code></pre></div>
+<p>也就是说，这个类在此实现的功能就是检查某个位置食物是否被吃了。</p>
+<p><span>Q8<span class="heti-spacing"> </span></span>本身更简单了，<code>Returns a path (a list of actions) to the closest dot, starting from gameState</code> ，在每一步成本都为<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>的情况下，最近既是成本最小，<span>uniformCostSearch<span class="heti-spacing"> </span></span>即可：</p>
+<div class="highlight"><span class="filename">findPathToClosestDot</span><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1"></a><a href="#__codelineno-15-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="k">def</span><span class="w"> </span><span class="nf">findPathToClosestDot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gameState</span><span class="p">:</span> <span class="n">pacman</span><span class="o">.</span><span class="n">GameState</span><span class="p">):</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2"></a><a href="#__codelineno-15-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="w">    </span><span class="sd">"""</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3"></a><a href="#__codelineno-15-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="sd">    Returns a path (a list of actions) to the closest dot, starting from</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4"></a><a href="#__codelineno-15-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="sd">    gameState.</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5"></a><a href="#__codelineno-15-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="sd">    """</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6"></a><a href="#__codelineno-15-6"><span class="linenos" data-linenos=" 6 "></span></a>    <span class="c1"># Here are some useful elements of the startState</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7"></a><a href="#__codelineno-15-7"><span class="linenos" data-linenos=" 7 "></span></a>    <span class="n">startPosition</span> <span class="o">=</span> <span class="n">gameState</span><span class="o">.</span><span class="n">getPacmanPosition</span><span class="p">()</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8"></a><a href="#__codelineno-15-8"><span class="linenos" data-linenos=" 8 "></span></a>    <span class="n">food</span> <span class="o">=</span> <span class="n">gameState</span><span class="o">.</span><span class="n">getFood</span><span class="p">()</span>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9"></a><a href="#__codelineno-15-9"><span class="linenos" data-linenos=" 9 "></span></a>    <span class="n">walls</span> <span class="o">=</span> <span class="n">gameState</span><span class="o">.</span><span class="n">getWalls</span><span class="p">()</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10"></a><a href="#__codelineno-15-10"><span class="linenos" data-linenos="10 "></span></a>    <span class="n">problem</span> <span class="o">=</span> <span class="n">AnyFoodSearchProblem</span><span class="p">(</span><span class="n">gameState</span><span class="p">)</span>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11"></a><a href="#__codelineno-15-11"><span class="linenos" data-linenos="11 "></span></a>
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12"></a><a href="#__codelineno-15-12"><span class="linenos" data-linenos="12 "></span></a>    <span class="s2">"*** YOUR CODE HERE ***"</span>
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13"></a><a href="#__codelineno-15-13"><span class="linenos" data-linenos="13 "></span></a>    <span class="k">return</span> <span class="n">search</span><span class="o">.</span><span class="n">uniformCostSearch</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14"></a><a href="#__codelineno-15-14"><span class="linenos" data-linenos="14 "></span></a>    <span class="n">util</span><span class="o">.</span><span class="n">raiseNotDefined</span><span class="p">()</span>
+</span></code></pre></div>
+<p><a href="../attachments/project-1-8.png"><span>Q8<span class="heti-spacing"> </span></span>通过</a></p>
+<h2 id="pass">pass<a class="headerlink" href="#pass" title="Permanent link">¶</a></h2>
+<ul>
+<li><a href="../attachments/project-1-9.png"><span>project-1<span class="heti-spacing"> </span></span>全部通过</a></li>
+<li><a href="https://github.com/Darstib/cs188/tree/main/project/solution">全代码</a></li>
+</ul>
+<div class="admonition summary">
+<p class="admonition-title">Summary</p>
+<p>多看相关注释和已有的类似实现；开始前清楚自己能用哪些东西。</p>
+</div>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn:1">
+<p>我们需要和之前实现的<span class="heti-skip"><span class="heti-spacing"> </span>BFS<span class="heti-spacing"> </span></span>接口，这个<span class="heti-skip"><span class="heti-spacing"> </span>node<span class="heti-spacing"> </span></span>应该只有两个成员。 <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月11日 20:51:50 CST">2025年3月11日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2024年9月4日 01:29:36 CST">2024年9月4日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: Tutorial" class="md-footer__link md-footer__link--prev" href="../project-0/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                Tutorial
+              </div>
+</div>
+</a>
+<a aria-label="下一页: MultiAgent" class="md-footer__link md-footer__link--next" href="../project-2/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                MultiAgent
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../../js/katex.js"></script>
+<script src="../../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

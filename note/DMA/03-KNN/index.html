@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/note/DMA/03-KNN/" rel="canonical"/>
+<link href="../02-Perceptron/" rel="prev"/>
+<link href="../04-Naive_Bayes/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>03 KNN - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#k-近邻法-k-Nearest-Neighbors-kNN-page-2-3">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              03 KNN
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Note
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs188/">
+<span class="md-ellipsis">
+    
+  
+    cs188
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../physics/">
+<span class="md-ellipsis">
+    
+  
+    physics
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-II/">
+<span class="md-ellipsis">
+    
+  
+    CSys-II
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-III/">
+<span class="md-ellipsis">
+    
+  
+    CSys-III
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DEM/">
+<span class="md-ellipsis">
+    
+  
+    DEM
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3_7" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    DMA
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_7_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    DMA
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../01-Intro/">
+<span class="md-ellipsis">
+    
+  
+    01 Intro
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../02-Perceptron/">
+<span class="md-ellipsis">
+    
+  
+    02 Perceptron
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    03 KNN
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    03 KNN
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#k-近邻法-k-Nearest-Neighbors-kNN-page-2-3">
+<span class="md-ellipsis">
+      
+        k 近邻法 (k-Nearest Neighbors, kNN) (page 2-3)
+      
+    </span>
+</a>
+<nav aria-label="k 近邻法 (k-Nearest Neighbors, kNN) (page 2-3)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#定义与工作原理-page-2-3">
+<span class="md-ellipsis">
+      
+        定义与工作原理 (page 2-3)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#k-近邻法的三要素-page-2">
+<span class="md-ellipsis">
+      
+        k 近邻法的三要素 (page 2)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#算法描述-page-4">
+<span class="md-ellipsis">
+      
+        算法描述 (page 4)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#k-近邻法的应用-page-6-7">
+<span class="md-ellipsis">
+      
+        k 近邻法的应用 (page 6-7)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#k-近邻法特点-page-8">
+<span class="md-ellipsis">
+      
+        k 近邻法特点 (page 8)
+      
+    </span>
+</a>
+<nav aria-label="k 近邻法特点 (page 8)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#优点-page-8">
+<span class="md-ellipsis">
+      
+        优点 (page 8)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#缺点-page-8">
+<span class="md-ellipsis">
+      
+        缺点 (page 8)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#kNN-三要素详解">
+<span class="md-ellipsis">
+      
+        kNN 三要素详解
+      
+    </span>
+</a>
+<nav aria-label="kNN 三要素详解" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#k-值的选择-page-9">
+<span class="md-ellipsis">
+      
+        k 值的选择 (page 9)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#分类决策规则-page-10">
+<span class="md-ellipsis">
+      
+        分类决策规则 (page 10)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#距离度量-page-11">
+<span class="md-ellipsis">
+      
+        距离度量 (page 11)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#度量学习-page-14-15考试不涉及">
+<span class="md-ellipsis">
+      
+        度量学习 (page 14-15，考试不涉及)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#kNN-面临的挑战与优化-page-16">
+<span class="md-ellipsis">
+      
+        kNN 面临的挑战与优化 (page 16)
+      
+    </span>
+</a>
+<nav aria-label="kNN 面临的挑战与优化 (page 16)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#kNN-的复杂度挑战">
+<span class="md-ellipsis">
+      
+        kNN 的复杂度挑战
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#kd-树-k-dimensional-tree-page-17-18">
+<span class="md-ellipsis">
+      
+        kd 树 (k-dimensional tree) (page 17-18)
+      
+    </span>
+</a>
+<nav aria-label="kd 树 (k-dimensional tree) (page 17-18)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#构造-kd-树-page-19">
+<span class="md-ellipsis">
+      
+        构造 kd 树 (page 19)
+      
+    </span>
+</a>
+<nav aria-label="构造 kd 树 (page 19)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#构造示例-page-20">
+<span class="md-ellipsis">
+      
+        构造示例 (page 20)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#kd-树的最近邻搜索-page-21">
+<span class="md-ellipsis">
+      
+        kd 树的最近邻搜索 (page 21)
+      
+    </span>
+</a>
+<nav aria-label="kd 树的最近邻搜索 (page 21)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#搜索示例-page-22-25">
+<span class="md-ellipsis">
+      
+        搜索示例 (page 22-25)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#习题-32">
+<span class="md-ellipsis">
+      
+        习题 3.2
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../04-Naive_Bayes/">
+<span class="md-ellipsis">
+    
+  
+    04 Naive Bayes
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../05-Decision_Tree/">
+<span class="md-ellipsis">
+    
+  
+    05 Decision Tree
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../06-logistic/">
+<span class="md-ellipsis">
+    
+  
+    06 logistic
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../07-SVM/">
+<span class="md-ellipsis">
+    
+  
+    07 SVM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../08-Adaboost/">
+<span class="md-ellipsis">
+    
+  
+    08 Adaboost
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../09-Expect_Max/">
+<span class="md-ellipsis">
+    
+  
+    09 Expect Max
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../14-Cluster_Methods/">
+<span class="md-ellipsis">
+    
+  
+    14 Cluster Methods
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../15-SVD/">
+<span class="md-ellipsis">
+    
+  
+    15 SVD
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../16-PCA/">
+<span class="md-ellipsis">
+    
+  
+    16 PCA
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../19-MCMC/">
+<span class="md-ellipsis">
+    
+  
+    19 MCMC
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../21-PageRank/">
+<span class="md-ellipsis">
+    
+  
+    21 PageRank
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../appendix-UML/">
+<span class="md-ellipsis">
+    
+  
+    appendix UML
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../appendix-grad/">
+<span class="md-ellipsis">
+    
+  
+    Appendix grad
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../appendix-martirx_derivation/">
+<span class="md-ellipsis">
+    
+  
+    矩阵求导术（上/下）
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs70/">
+<span class="md-ellipsis">
+    
+  
+    cs70
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../other/">
+<span class="md-ellipsis">
+    
+  
+    other
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#k-近邻法-k-Nearest-Neighbors-kNN-page-2-3">
+<span class="md-ellipsis">
+      
+        k 近邻法 (k-Nearest Neighbors, kNN) (page 2-3)
+      
+    </span>
+</a>
+<nav aria-label="k 近邻法 (k-Nearest Neighbors, kNN) (page 2-3)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#定义与工作原理-page-2-3">
+<span class="md-ellipsis">
+      
+        定义与工作原理 (page 2-3)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#k-近邻法的三要素-page-2">
+<span class="md-ellipsis">
+      
+        k 近邻法的三要素 (page 2)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#算法描述-page-4">
+<span class="md-ellipsis">
+      
+        算法描述 (page 4)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#k-近邻法的应用-page-6-7">
+<span class="md-ellipsis">
+      
+        k 近邻法的应用 (page 6-7)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#k-近邻法特点-page-8">
+<span class="md-ellipsis">
+      
+        k 近邻法特点 (page 8)
+      
+    </span>
+</a>
+<nav aria-label="k 近邻法特点 (page 8)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#优点-page-8">
+<span class="md-ellipsis">
+      
+        优点 (page 8)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#缺点-page-8">
+<span class="md-ellipsis">
+      
+        缺点 (page 8)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#kNN-三要素详解">
+<span class="md-ellipsis">
+      
+        kNN 三要素详解
+      
+    </span>
+</a>
+<nav aria-label="kNN 三要素详解" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#k-值的选择-page-9">
+<span class="md-ellipsis">
+      
+        k 值的选择 (page 9)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#分类决策规则-page-10">
+<span class="md-ellipsis">
+      
+        分类决策规则 (page 10)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#距离度量-page-11">
+<span class="md-ellipsis">
+      
+        距离度量 (page 11)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#度量学习-page-14-15考试不涉及">
+<span class="md-ellipsis">
+      
+        度量学习 (page 14-15，考试不涉及)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#kNN-面临的挑战与优化-page-16">
+<span class="md-ellipsis">
+      
+        kNN 面临的挑战与优化 (page 16)
+      
+    </span>
+</a>
+<nav aria-label="kNN 面临的挑战与优化 (page 16)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#kNN-的复杂度挑战">
+<span class="md-ellipsis">
+      
+        kNN 的复杂度挑战
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#kd-树-k-dimensional-tree-page-17-18">
+<span class="md-ellipsis">
+      
+        kd 树 (k-dimensional tree) (page 17-18)
+      
+    </span>
+</a>
+<nav aria-label="kd 树 (k-dimensional tree) (page 17-18)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#构造-kd-树-page-19">
+<span class="md-ellipsis">
+      
+        构造 kd 树 (page 19)
+      
+    </span>
+</a>
+<nav aria-label="构造 kd 树 (page 19)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#构造示例-page-20">
+<span class="md-ellipsis">
+      
+        构造示例 (page 20)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#kd-树的最近邻搜索-page-21">
+<span class="md-ellipsis">
+      
+        kd 树的最近邻搜索 (page 21)
+      
+    </span>
+</a>
+<nav aria-label="kd 树的最近邻搜索 (page 21)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#搜索示例-page-22-25">
+<span class="md-ellipsis">
+      
+        搜索示例 (page 22-25)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#习题-32">
+<span class="md-ellipsis">
+      
+        习题 3.2
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Note
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    DMA
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:notes">notes</a>
+</nav>
+<h1>03 KNN</h1>
+<p><span>k-<span class="heti-spacing"> </span></span>近邻算法，通常简称为<span><span class="heti-spacing"> </span>kNN</span>，是一种基本且直观的机器学习算法。它既可以用于<strong>分类</strong>任务，也可以用于<strong>回归</strong>任务。它的核心思想非常简单：一个样本的类别由其在特征空间中最近的<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>个邻居的类别决定。</p>
+<details class="wiki" open="open">
+<summary>历史背景</summary>
+<p><span>kNN<span class="heti-spacing"> </span></span>算法由<span class="heti-skip"><span class="heti-spacing"> </span>T. M. Cover<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>P. E. Hart<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>1967<span class="heti-spacing"> </span></span>年的一篇论文中首次提出，是机器学习领域最基础的算法之一。它是一种<strong>非参数</strong><sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>、<strong>基于实例</strong><sup id="fnref:2"><a class="footnote-ref" href="#fn:2"><span>2<span class="heti-spacing"> </span></span></a></sup>的学习方法。</p>
+<p>论文引用<span><span class="heti-spacing"> </span>: T. M. Cover, P. E. Hart, Nearest neighbor pattern classification,</span> <em>IEEE Transactions on Information Theory</em>, 13 (1): 21–27, 1967.</p>
+</details>
+<h2 id="k-近邻法-k-Nearest-Neighbors-kNN-page-2-3"><span>k<span class="heti-spacing"> </span></span>近邻法<span><span class="heti-spacing"> </span>(k-Nearest Neighbors, kNN) (page 2-3)</span><a class="headerlink" href="#k-近邻法-k-Nearest-Neighbors-kNN-page-2-3" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="定义与工作原理-page-2-3">定义与工作原理<span><span class="heti-spacing"> </span>(page 2-3)</span><a class="headerlink" href="#定义与工作原理-page-2-3" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>kNN<span class="heti-spacing"> </span></span>算法的逻辑可以通俗地理解为“物以类聚，人以群分”。</p>
+<details class="definition" open="open">
+<summary><span>kNN<span class="heti-spacing"> </span></span>算法定义</summary>
+<p>给定一个包含标签的训练数据集。当一个新的、没有标签的实例输入时，我们在训练数据集中找到与该实例<strong>特征最相似（即距离最近）</strong>的<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>个实例。然后，根据这<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>个实例的标签进行投票，将得票最多的类别作为新实例的预测类别。</p>
+</details>
+<p>其工作原理可以概括为以下三步：</p>
+<ol>
+<li><strong>准备数据</strong>：存在一个已经标记好类别的训练样本集。</li>
+<li><strong>计算距离</strong>：当输入一个新样本时，计算它与训练集中每一个样本的距离。</li>
+<li><strong>确定邻居并决策</strong>：找出距离最近的<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>个样本（即<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>个近邻<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，然后根据这<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>个邻居的标签，通过多数表决等方式，决定新样本的类别。</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>在实际应用中，<span>k<span class="heti-spacing"> </span></span>的取值通常不大，例如一般不超过<span><span class="heti-spacing"> </span>20</span>。</p>
+</div>
+<h3 id="k-近邻法的三要素-page-2"><span>k<span class="heti-spacing"> </span></span>近邻法的三要素<span><span class="heti-spacing"> </span>(page 2)</span><a class="headerlink" href="#k-近邻法的三要素-page-2" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>要实现<span class="heti-skip"><span class="heti-spacing"> </span>kNN<span class="heti-spacing"> </span></span>算法，必须明确以下三个核心要素：</p>
+<ul>
+<li><strong><span>k<span class="heti-spacing"> </span></span>的选择</strong>：如何选择邻居的数量<span><span class="heti-spacing"> </span>k</span>。</li>
+<li><strong>距离度量</strong>：如何衡量样本之间的“远近”。</li>
+<li><strong>分类决策规则</strong>：如何根据<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>个邻居的标签做出最终决策。</li>
+</ul>
+<h2 id="算法描述-page-4">算法描述<span><span class="heti-spacing"> </span>(page 4)</span><a class="headerlink" href="#算法描述-page-4" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>我们可以将<span class="heti-skip"><span class="heti-spacing"> </span>kNN<span class="heti-spacing"> </span></span>算法用更规范的数学语言来描述。</p>
+<details class="tip" open="open">
+<summary>算法<span class="heti-skip"><span class="heti-spacing"> </span>3.1 (k<span class="heti-spacing"> </span></span>近邻法<span><span class="heti-spacing"> </span>)</span></summary>
+<p><strong>输入</strong>：</p>
+<ol>
+<li>训练数据集<span><span class="heti-spacing"> </span><span class="arithmatex">\(T = \{(x_1, y_1), (x_2, y_2), \dots, (x_N, y_N)\}\)</span></span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_i \in \mathcal{X} \subseteq \mathbb{R}^n\)</span><span class="heti-spacing"> </span></span>是实例的特征向量， <span><span class="arithmatex">\(y_i \in \mathcal{Y} = \{c_1, c_2, \dots, c_K\}\)</span><span class="heti-spacing"> </span></span>是实例的类别。</li>
+<li>新的实例特征向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span></span>。</li>
+</ol>
+<p><strong>输出</strong>：实例<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>的所属类别<span><span class="heti-spacing"> </span><span class="arithmatex">\(y\)</span></span>。</p>
+<p><strong>步骤</strong>：</p>
+<ol start="3">
+<li>根据选定的距离度量，在训练集<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(T\)</span><span class="heti-spacing"> </span></span>中找出与<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>最邻近的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>个点，将这<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>个点构成的集合记作<span><span class="heti-spacing"> </span><span class="arithmatex">\(N_k(x)\)</span></span>。</li>
+<li>在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(N_k(x)\)</span><span class="heti-spacing"> </span></span>中根据分类决策规则（例如多数表决）来确定<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>的类别<span><span class="heti-spacing"> </span><span class="arithmatex">\(y\)</span></span>。对于多数表决，类别<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(y\)</span><span class="heti-spacing"> </span></span>的计算公式如下：</li>
+</ol>
+<div class="arithmatex">\[
+y = \arg\max_{c_j} \sum_{x_i \in N_k(x)} I(y_i = c_j), \quad j=1, 2, \dots, K \quad (3.1)
+\]</div>
+<p>其中，<span><span class="arithmatex">\(I(\cdot)\)</span><span class="heti-spacing"> </span></span>是<strong>指示函数</strong> (indicator function)，当括号内的条件成立时取值为<span><span class="heti-spacing"> </span>1</span>，否则为<span><span class="heti-spacing"> </span>0</span>。这个公式的含义是，找出在<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>个近邻中出现次数最多的那个类别。</p>
+</details>
+<details class="extra" open="open">
+<summary>最近邻算法</summary>
+<p>当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k=1\)</span><span class="heti-spacing"> </span></span>时，<span>kNN<span class="heti-spacing"> </span></span>算法就退化为<strong>最近邻算法<span><span class="heti-spacing"> </span>(Nearest Neighbor Algorithm)</span></strong>。此时，新实例的类别直接由其最近的那个训练样本的类别决定。如下图所示，如果<span><span class="heti-spacing"> </span>k=1</span>，新实例<span><span class="heti-spacing"> </span>x</span>（红色叉）将被归为蓝色五角星一类；如果<span><span class="heti-spacing"> </span>k=7</span>，则其邻域内（红色圆圈）包含了<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>个蓝色三角形和<span class="heti-skip"><span class="heti-spacing"> </span>3<span class="heti-spacing"> </span></span>个蓝色五角星，因此将被归为蓝色三角形一类。</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/07_250607-214412.png"><img alt="k=1 vs k=7" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/07_250607-214412.png" width="400"/></a></p>
+</details>
+<h2 id="k-近邻法的应用-page-6-7"><span>k<span class="heti-spacing"> </span></span>近邻法的应用<span><span class="heti-spacing"> </span>(page 6-7)</span><a class="headerlink" href="#k-近邻法的应用-page-6-7" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p><span>kNN<span class="heti-spacing"> </span></span>算法因其简单直观，在许多领域都有应用，尤其是在分类问题上。例如：</p>
+<ul>
+<li><strong>电影分类</strong>：根据电影的打斗镜头数、爱情镜头数等特征，将其归类为动作片、爱情片等。</li>
+<li><strong>图像识别</strong>：识别图片中的物体，例如将各种鱼的图片进行分类。</li>
+<li><strong>文本分类</strong>：根据文本中词语出现的频率，判断其属于新闻、体育还是娱乐等类别。</li>
+</ul>
+<h2 id="k-近邻法特点-page-8"><span>k<span class="heti-spacing"> </span></span>近邻法特点<span><span class="heti-spacing"> </span>(page 8)</span><a class="headerlink" href="#k-近邻法特点-page-8" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p><span>kNN<span class="heti-spacing"> </span></span>算法有其独特的优缺点。</p>
+<h3 id="优点-page-8">优点<span><span class="heti-spacing"> </span>(page 8)</span><a class="headerlink" href="#优点-page-8" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>简单易懂</strong>：算法原理直观，实现简单。</li>
+<li><strong>适应性强</strong>：可用于分类和回归任务，并且对数据类型没有特殊要求。</li>
+<li><strong>无假设分布</strong>：作为非参数模型，它不对数据分布做任何假设，因此能很好地处理非线性关系的数据。</li>
+</ul>
+<h3 id="缺点-page-8">缺点<span><span class="heti-spacing"> </span>(page 8)</span><a class="headerlink" href="#缺点-page-8" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li><strong>计算成本高</strong>：在预测阶段，需要计算新样本与<strong>所有</strong>训练样本的距离，当训练集非常大时，计算开销巨大。</li>
+<li><strong>对噪声敏感</strong>：特别是当<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>值较小时，模型容易受到噪声数据或异常值的影响，因为决策是基于非常局部的区域。</li>
+<li><strong>需要选择合适的<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>值</strong>：<span>k<span class="heti-spacing"> </span></span>值的选择对模型性能影响巨大。过小的<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>值容易导致<strong>过拟合</strong>，而过大的<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>值容易导致<strong>欠拟合</strong>。</li>
+<li><strong>样本不平衡问题</strong>：当训练集中不同类别的样本数量相差悬殊时，<span>kNN<span class="heti-spacing"> </span></span>倾向于将新样本预测为数量占优的多数类，对少数类的预测效果较差。</li>
+</ul>
+<h2 id="kNN-三要素详解"><span>kNN<span class="heti-spacing"> </span></span>三要素详解<a class="headerlink" href="#kNN-三要素详解" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="k-值的选择-page-9"><span>k<span class="heti-spacing"> </span></span>值的选择<span><span class="heti-spacing"> </span>(page 9)</span><a class="headerlink" href="#k-值的选择-page-9" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>k<span class="heti-spacing"> </span></span>值的选择是一个关键问题，它直接影响模型的复杂度和预测效果。</p>
+<ul>
+<li>
+<p><strong>较小的<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>值</strong>：</p>
+<ul>
+<li>模型会变得更复杂，因为它只考虑了非常局部的实例。</li>
+<li>优点：能够学习到更精细的决策边界。</li>
+<li>缺点：对噪声点非常敏感，容易发生<strong>过拟合</strong>。想象<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k=1\)</span><span class="heti-spacing"> </span></span>时，一个噪声点就可能改变其周围新样本的预测结果。</li>
+</ul>
+</li>
+<li>
+<p><strong>较大的<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>值</strong>：</p>
+<ul>
+<li>模型会变得更简单，因为它考虑了更大范围的实例。</li>
+<li>优点：具有更好的鲁棒性，能够减少噪声的影响。</li>
+<li>缺点：可能会忽略数据中局部、细微的模式，导致决策边界过于平滑，发生<strong>欠拟合</strong>。</li>
+</ul>
+</li>
+</ul>
+<details class="question" open="open">
+<summary>如何选择<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>值？</summary>
+<p>在实际应用中，<span>k<span class="heti-spacing"> </span></span>值通常不大，并且一般通过<strong>交叉验证<span><span class="heti-spacing"> </span>(Cross-validation)</span></strong> 的方法来选取。例如，可以将数据集划分为训练集（如<span><span class="heti-spacing"> </span>90%</span>）和验证集（如<span><span class="heti-spacing"> </span>10%</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，然后尝试一系列的<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>值（如<span><span class="heti-spacing"> </span>k=1, 2, ..., 10</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，用训练集建立模型，在验证集上评估性能，最终选择那个使验证误差最小的<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>值。</p>
+</details>
+<h3 id="分类决策规则-page-10">分类决策规则<span><span class="heti-spacing"> </span>(page 10)</span><a class="headerlink" href="#分类决策规则-page-10" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>最常用的决策规则是<strong>多数表决<span><span class="heti-spacing"> </span>(majority voting rule)</span></strong>。这个规则不仅直观，而且在理论上与<strong>经验风险最小化</strong>相关联。</p>
+<details class="theorem" open="open">
+<summary>多数表决与经验风险最小化</summary>
+<p>假设我们使用 <strong><span>0-1<span class="heti-spacing"> </span></span>损失函数</strong>作为模型的损失函数。这意味着，当分类正确时损失为<span><span class="heti-spacing"> </span>0</span>，分类错误时损失为<span><span class="heti-spacing"> </span>1</span>。</p>
+<p>对于一个给定的实例<span><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span></span>，假设它的<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>个最近邻居的集合是<span><span class="heti-spacing"> </span><span class="arithmatex">\(N_k(x)\)</span></span>。如果我们预测它的类别为<span><span class="heti-spacing"> </span><span class="arithmatex">\(c_j\)</span></span>，那么在这个邻域内的误分类率（即经验风险）可以表示为：</p>
+<div class="arithmatex">\[
+R_{emp}(f) = \frac{1}{k} \sum_{x_i \in N_k(x)} I(y_i \ne c_j)
+\]</div>
+<p>为了最小化这个经验风险，我们只需要最大化分类正确的数量。</p>
+<div class="arithmatex">\[
+\frac{1}{k} \sum_{x_i \in N_k(x)} I(y_i \ne c_j) = 1 - \frac{1}{k} \sum_{x_i \in N_k(x)} I(y_i = c_j)
+\]</div>
+<p>因此，要使误分类率最小，就需要使<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\sum_{x_i \in N_k(x)} I(y_i = c_j)\)</span><span class="heti-spacing"> </span></span>最大化。这正是多数表决规则的数学表达：选择在<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>个邻居中出现次数最多的类别。</p>
+</details>
+<h3 id="距离度量-page-11">距离度量<span><span class="heti-spacing"> </span>(page 11)</span><a class="headerlink" href="#距离度量-page-11" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>距离度量用于衡量特征空间中两个样本点的相似程度。不同的距离度量可能会导致不同的近邻选择，从而影响最终的分类结果。</p>
+<p>常用的距离是 <strong><span><span class="arithmatex">\(L_p\)</span><span class="heti-spacing"> </span></span>距离<span><span class="heti-spacing"> </span>(Lp distance)</span></strong> 或称 <strong>闵可夫斯基距离<span><span class="heti-spacing"> </span>(Minkowski distance)</span></strong>。
+设有两个 n 维向量 <span class="arithmatex">\(x_i = (x_i^{(1)}, x_i^{(2)}, \dots, x_i^{(n)})^T\)</span> 和 <span class="arithmatex">\(x_j = (x_j^{(1)}, x_j^{(2)}, \dots, x_j^{(n)})^T\)</span>，它们之间的 <span class="arithmatex">\(L_p\)</span> 距离定义为：</p>
+<div class="arithmatex">\[
+L_p(x_i, x_j) = \left( \sum_{l=1}^{n} |x_i^{(l)} - x_j^{(l)}|^p \right)^{\frac{1}{p}}
+\]</div>
+<p><span><span class="arithmatex">\(L_p\)</span><span class="heti-spacing"> </span></span>距离在不同的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p\)</span><span class="heti-spacing"> </span></span>值下有不同的特例：</p>
+<ul>
+<li>
+<p><strong>欧式距离<span><span class="heti-spacing"> </span>(Euclidean Distance, <span class="arithmatex">\(p=2\)</span>)</span></strong>：这是最常用的距离度量，代表了两个点在空间中的直线距离。</p>
+<div class="arithmatex">\[
+L_2(x_i, x_j) = \left( \sum_{l=1}^{n} |x_i^{(l)} - x_j^{(l)}|^2 \right)^{\frac{1}{2}}
+\]</div>
+</li>
+<li>
+<p><strong>曼哈顿距离<span><span class="heti-spacing"> </span>(Manhattan Distance, <span class="arithmatex">\(p=1\)</span>)</span></strong>：也称为城市街区距离，表示在标准坐标系下，从一个点到另一个点需要经过的街区距离之和。</p>
+<div class="arithmatex">\[
+L_1(x_i, x_j) = \sum_{l=1}^{n} |x_i^{(l)} - x_j^{(l)}|
+\]</div>
+</li>
+<li>
+<p><strong>切比雪夫距离<span><span class="heti-spacing"> </span>(Chebyshev Distance, <span class="arithmatex">\(p=\infty\)</span>)</span></strong>：当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p \to \infty\)</span><span class="heti-spacing"> </span></span>时， <span><span class="arithmatex">\(L_p\)</span><span class="heti-spacing"> </span></span>距离收敛到此距离，它等于两个点在各个坐标上差值的最大值。</p>
+<div class="arithmatex">\[
+L_\infty(x_i, x_j) = \max_{l} |x_i^{(l)} - x_j^{(l)}|
+\]</div>
+</li>
+</ul>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/07_250607-215149.png"><img alt="Lp distance visualization" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/07_250607-215149.png" width="50%"/></a></p>
+<p>上图直观地展示了二维空间中，到原点的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L_p\)</span><span class="heti-spacing"> </span></span>距离为<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>的点的集合构成的图形。<span><span class="arithmatex">\(p=2\)</span><span class="heti-spacing"> </span></span>是圆形， <span><span class="arithmatex">\(p=1\)</span><span class="heti-spacing"> </span></span>是菱形， <span><span class="arithmatex">\(p=\infty\)</span><span class="heti-spacing"> </span></span>是正方形。</p>
+<details class="example" open="open">
+<summary><span>(<span class="heti-spacing"> </span></span>例<span class="heti-skip"><span class="heti-spacing"> </span>3.1)<span class="heti-spacing"> </span></span>已知二维空间中的<span class="heti-skip"><span class="heti-spacing"> </span>3<span class="heti-spacing"> </span></span>个点： <span class="arithmatex">\(x_1 = (1,1)^T\)</span>, <span class="arithmatex">\(x_2 = (5,1)^T\)</span>, <span class="arithmatex">\(x_3 = (4,4)^T\)</span>。试求在不同<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p\)</span><span class="heti-spacing"> </span></span>值下， <span><span class="arithmatex">\(x_1\)</span><span class="heti-spacing"> </span></span>的最近邻点是哪个？</summary>
+<p><strong>解</strong>:
+1. 计算 <span class="arithmatex">\(x_1\)</span> 和 <span class="arithmatex">\(x_2\)</span> 的 <span class="arithmatex">\(L_p\)</span> 距离：
+    因为 <span class="arithmatex">\(x_1\)</span> 和 <span class="arithmatex">\(x_2\)</span> 只有一个维度不同，所以它们的 <span class="arithmatex">\(L_p\)</span> 距离为：
+    <span class="arithmatex">\(L_p(x_1, x_2) = (|1-5|^p + |1-1|^p)^{1/p} = (|4|^p)^{1/p} = 4\)</span>。这个距离与 <span class="arithmatex">\(p\)</span> 无关。</p>
+<ol start="2">
+<li>
+<p>计算<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_1\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_3\)</span><span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(L_p\)</span><span class="heti-spacing"> </span></span>距离：
+    <span class="arithmatex">\(L_p(x_1, x_3) = (|1-4|^p + |1-4|^p)^{1/p} = (3^p + 3^p)^{1/p} = (2 \cdot 3^p)^{1/p} = 3 \cdot 2^{1/p}\)</span>。</p>
+</li>
+<li>
+<p>比较距离：</p>
+<ul>
+<li>当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p=1\)</span><span class="heti-spacing"> </span></span>时<span><span class="heti-spacing"> </span>, <span class="arithmatex">\(L_1(x_1, x_3) = 3 \cdot 2^1 = 6\)</span></span>。因为<span><span class="heti-spacing"> </span><span class="arithmatex">\(4 &lt; 6\)</span></span>，所以<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_2\)</span><span class="heti-spacing"> </span></span>是最近邻点。</li>
+<li>当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p=2\)</span><span class="heti-spacing"> </span></span>时<span><span class="heti-spacing"> </span>, <span class="arithmatex">\(L_2(x_1, x_3) = 3 \cdot \sqrt{2} \approx 4.24\)</span></span>。因为<span><span class="heti-spacing"> </span><span class="arithmatex">\(4 &lt; 4.24\)</span></span>，所以<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_2\)</span><span class="heti-spacing"> </span></span>仍然是最近邻点。</li>
+<li>当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p=3\)</span><span class="heti-spacing"> </span></span>时<span><span class="heti-spacing"> </span>, <span class="arithmatex">\(L_3(x_1, x_3) = 3 \cdot 2^{1/3} \approx 3.78\)</span></span>。因为<span><span class="heti-spacing"> </span><span class="arithmatex">\(4 &gt; 3.78\)</span></span>，所以 <strong><span class="arithmatex">\(x_3\)</span></strong> 变成了最近邻点。</li>
+</ul>
+</li>
+</ol>
+<p><strong>结论</strong>：距离度量的选择会改变谁是“最近邻”，从而可能改变<span class="heti-skip"><span class="heti-spacing"> </span>kNN<span class="heti-spacing"> </span></span>的预测结果。</p>
+</details>
+<h2 id="度量学习-page-14-15考试不涉及">度量学习<span><span class="heti-spacing"> </span>(page 14-15</span>，考试不涉及<span><span class="heti-spacing"> </span>)</span><a class="headerlink" href="#度量学习-page-14-15考试不涉及" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>既然距离度量如此重要，我们能否不手动选择一个，而是让算法<strong>学习</strong>出一个最适合当前任务的距离度量呢？这就是<strong>度量学习<span><span class="heti-spacing"> </span>(Distance Metric Learning)</span></strong> 的研究内容。</p>
+<p>其核心思想是学习一个距离函数，使得在新的度量下，同类样本之间的距离尽可能小，而异类样本之间的距离尽可能大。一个常见的度量学习方法是学习一个<strong>马氏距离<span><span class="heti-spacing"> </span>(Mahalanobis Distance)</span></strong>。</p>
+<p>马氏距离的形式如下：<span class="arithmatex">\(D_M(x_i, x_j) = \sqrt{(x_i - x_j)^T M (x_i - x_j)}\)</span></p>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(M\)</span><span class="heti-spacing"> </span></span>是一个半正定矩阵。学习马氏距离就等价于学习这个矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(M\)</span></span>。</p>
+<details class="cite" open="open">
+<summary>度量学习模型</summary>
+<ul>
+<li><strong>模型<span><span class="heti-spacing"> </span>1 (Xing et. al 2002)</span></strong>：该模型的目标是最大化异类点对之间的距离之和，同时约束同类点对的距离之和在一个常数（如<span><span class="heti-spacing"> </span>1</span>）以内。</li>
+</ul>
+<div class="arithmatex">\[
+\begin{align}
+\max_{M} \quad &amp; \sum_{i,j} (1-y_{ij}) \sqrt{D_M(x_i, x_j)} \\
+\text{s.t.} \quad &amp; \sum_{i,j} y_{ij} D_M(x_i, x_j) \le 1 \\
+&amp; M \succeq 0 \quad (\text{M为半正定矩阵})
+\end{align}
+\]</div>
+<ul>
+<li><strong>模型<span><span class="heti-spacing"> </span>2 (Weinberger &amp; Saul 2009, LMNN)</span></strong>：该模型的目标是，对于每个样本<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_i\)</span></span>，其目标邻居（同类）要比入侵者（异类）离它更近，并且保持一个安全间隔（margin<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。同时，它也会拉近目标邻居的距离。这是一种基于大间隔思想的度量学习。</li>
+</ul>
+</details>
+<h2 id="kNN-面临的挑战与优化-page-16"><span>kNN<span class="heti-spacing"> </span></span>面临的挑战与优化<span><span class="heti-spacing"> </span>(page 16)</span><a class="headerlink" href="#kNN-面临的挑战与优化-page-16" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p><span>kNN<span class="heti-spacing"> </span></span>算法虽然简单，但在实际应用中面临一些挑战，其中最主要的就是<strong>复杂度</strong>问题。</p>
+<h3 id="kNN-的复杂度挑战"><span>kNN<span class="heti-spacing"> </span></span>的复杂度挑战<a class="headerlink" href="#kNN-的复杂度挑战" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在预测阶段，<span>kNN<span class="heti-spacing"> </span></span>需要：</p>
+<ol>
+<li>计算新样本与训练集中<span class="heti-skip"><span class="heti-spacing"> </span>N<span class="heti-spacing"> </span></span>个样本的距离，时间复杂度为<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(N \cdot d)\)</span></span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(d\)</span><span class="heti-spacing"> </span></span>是特征维度。</li>
+<li>找到距离最近的<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>个样本，如果用排序法，复杂度是<span><span class="heti-spacing"> </span><span class="arithmatex">\(O(N \log N)\)</span></span>。</li>
+</ol>
+<p>当<span class="heti-skip"><span class="heti-spacing"> </span>N<span class="heti-spacing"> </span></span>非常大时，这个计算成本是无法接受的。为了解决这个问题，研究者们提出了使用 <strong><span>kd<span class="heti-spacing"> </span></span>树<span><span class="heti-spacing"> </span>(k-dimensional tree)</span></strong> 等数据结构来加速最近邻的搜索。</p>
+<h2 id="kd-树-k-dimensional-tree-page-17-18"><span>kd<span class="heti-spacing"> </span></span>树<span><span class="heti-spacing"> </span>(k-dimensional tree) (page 17-18)</span><a class="headerlink" href="#kd-树-k-dimensional-tree-page-17-18" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p><span>kd<span class="heti-spacing"> </span></span>树中的“k”指的是<strong>数据空间的维度<span><span class="heti-spacing"> </span>(dimension)</span></strong>，而<span class="heti-skip"><span class="heti-spacing"> </span>kNN<span class="heti-spacing"> </span></span>算法中的“k”指的是<strong>邻居的数量<span><span class="heti-spacing"> </span>(number of neighbors)</span></strong>。两者含义完全不同。</p>
+</div>
+<p><span>kd<span class="heti-spacing"> </span></span>树是一种用于组织<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>维空间中点集的<strong>二叉树</strong>数据结构。它的主要目的是实现高效的最近邻搜索。</p>
+<p><strong>核心思想</strong>：通过轮流选择坐标轴并取中位数点进行切分，不断地将<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>维空间划分为一系列互不重叠的<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>维超矩形区域。树中的每个节点都对应于一个这样的超矩形区域。</p>
+<ul>
+<li>当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k=2\)</span><span class="heti-spacing"> </span></span>时，<span>kd<span class="heti-spacing"> </span></span>树对平面进行划分。</li>
+<li>当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k=3\)</span><span class="heti-spacing"> </span></span>时，<span>kd<span class="heti-spacing"> </span></span>树对三维空间进行划分。</li>
+</ul>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/07_250607-215917.png"><img alt="kd-tree partition" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/07_250607-215917.png" width="600"/></a></p>
+<h3 id="构造-kd-树-page-19">构造<span class="heti-skip"><span class="heti-spacing"> </span>kd<span class="heti-spacing"> </span></span>树<span><span class="heti-spacing"> </span>(page 19)</span><a class="headerlink" href="#构造-kd-树-page-19" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>构造一个平衡的<span class="heti-skip"><span class="heti-spacing"> </span>kd<span class="heti-spacing"> </span></span>树的算法步骤如下：</p>
+<details class="tip" open="open">
+<summary>算法<span class="heti-skip"><span class="heti-spacing"> </span>3.2 (<span class="heti-spacing"> </span></span>构造平衡<span class="heti-skip"><span class="heti-spacing"> </span>kd<span class="heti-spacing"> </span></span>树<span><span class="heti-spacing"> </span>)</span></summary>
+<p><strong>输入</strong>：<span>k<span class="heti-spacing"> </span></span>维空间数据集<span><span class="heti-spacing"> </span><span class="arithmatex">\(T = \{x_1, x_2, \dots, x_N\}\)</span></span></p>
+<p><strong>输出</strong>：<span>kd<span class="heti-spacing"> </span></span>树</p>
+<p><strong>步骤</strong>：</p>
+<ol>
+<li><strong>确定分裂维度</strong>：从根节点开始（深度<span><span class="heti-spacing"> </span><span class="arithmatex">\(j=0\)</span></span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，选择坐标轴<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x^{(l)}\)</span><span class="heti-spacing"> </span></span>作为切分轴，其中<span><span class="heti-spacing"> </span><span class="arithmatex">\(l = j \pmod k + 1\)</span></span>。这意味着，根节点按第<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>维分裂，深度为<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>的节点按第<span class="heti-skip"><span class="heti-spacing"> </span>2<span class="heti-spacing"> </span></span>维分裂，...，深度为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k-1\)</span><span class="heti-spacing"> </span></span>的节点按第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>维分裂，深度为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>的节点再回到第<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>维分裂。</li>
+<li><strong>确定切分点</strong>：在当前数据集的所有点中，计算选定分裂维度<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x^{(l)}\)</span><span class="heti-spacing"> </span></span>上的<strong>中位数</strong>。将这个中位数对应的点作为当前节点。</li>
+<li><strong>划分区域</strong>：用一个通过切分点且垂直于分裂轴<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x^{(l)}\)</span><span class="heti-spacing"> </span></span>的超平面，将当前区域划分为两个子区域。</li>
+<li><strong>递归构造</strong>：将分裂维度坐标值小于中位数的点划分到左子树，大于等于中位数的点划分到右子树，然后对左右子区域递归地执行上述步骤，直到子区域中没有实例为止。</li>
+</ol>
+</details>
+<h4 id="构造示例-page-20">构造示例<span><span class="heti-spacing"> </span>(page 20)</span><a class="headerlink" href="#构造示例-page-20" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<div class="admonition example">
+<p class="admonition-title"><span>(<span class="heti-spacing"> </span></span>例题<span class="heti-skip"><span class="heti-spacing"> </span>3.2)<span class="heti-spacing"> </span></span>给定数据集<span><span class="heti-spacing"> </span><span class="arithmatex">\(T = \{(2,3), (5,4), (9,6), (4,7), (8,1), (7,2)\}\)</span></span>，构造<span class="heti-skip"><span class="heti-spacing"> </span>kd<span class="heti-spacing"> </span></span>树的过程如下：</p>
+</div>
+<ol>
+<li>
+<p><strong>根节点<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>深度<span><span class="heti-spacing"> </span>0)</span></strong>：</p>
+<ul>
+<li>分裂维度<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(l = 0 \pmod 2 + 1 = 1\)</span> (x<span class="heti-spacing"> </span></span>轴<span><span class="heti-spacing"> </span>)</span>。</li>
+<li>所有点的<span class="heti-skip"><span class="heti-spacing"> </span>x<span class="heti-spacing"> </span></span>坐标为。中位数是<span><span class="heti-spacing"> </span>7</span>。选择点 <strong>(7,2)</strong> 作为根节点。</li>
+<li>小于<span class="heti-skip"><span class="heti-spacing"> </span>7<span class="heti-spacing"> </span></span>的点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\{(2,3), (5,4), (4,7)\}\)</span><span class="heti-spacing"> </span></span>进入左子树；大于<span class="heti-skip"><span class="heti-spacing"> </span>7<span class="heti-spacing"> </span></span>的点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\{(9,6), (8,1)\}\)</span><span class="heti-spacing"> </span></span>进入右子树。</li>
+</ul>
+</li>
+<li>
+<p><strong>左子树<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>深度<span><span class="heti-spacing"> </span>1)</span></strong>：</p>
+<ul>
+<li>数据集为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\{(2,3), (5,4), (4,7)\}\)</span></span>。</li>
+<li>分裂维度<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(l = 1 \pmod 2 + 1 = 2\)</span> (y<span class="heti-spacing"> </span></span>轴<span><span class="heti-spacing"> </span>)</span>。</li>
+<li><span>y<span class="heti-spacing"> </span></span>坐标为。中位数是<span><span class="heti-spacing"> </span>4</span>。选择点 <strong>(5,4)</strong> 作为节点。</li>
+<li>小于<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>的点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\{(2,3)\}\)</span><span class="heti-spacing"> </span></span>进入左子树；大于<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>的点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\{(4,7)\}\)</span><span class="heti-spacing"> </span></span>进入右子树。</li>
+</ul>
+</li>
+<li>
+<p><strong>右子树<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>深度<span><span class="heti-spacing"> </span>1)</span></strong>：</p>
+<ul>
+<li>数据集为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\{(9,6), (8,1)\}\)</span></span>。</li>
+<li>分裂维度<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(l = 1 \pmod 2 + 1 = 2\)</span> (y<span class="heti-spacing"> </span></span>轴<span><span class="heti-spacing"> </span>)</span>。</li>
+<li><span>y<span class="heti-spacing"> </span></span>坐标为。中位数是<span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span>或<span><span class="heti-spacing"> </span>6</span>，这里选择 <strong>(9,6)</strong> 作为节点。</li>
+<li>点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\{(8,1)\}\)</span><span class="heti-spacing"> </span></span>进入左子树。</li>
+</ul>
+</li>
+</ol>
+<p>最终形成的<span class="heti-skip"><span class="heti-spacing"> </span>kd<span class="heti-spacing"> </span></span>树和空间划分如下图所示：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/07_250607-220336.png"><img alt="kd-tree construction example" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/07_250607-220336.png" width="800"/></a></p>
+<h3 id="kd-树的最近邻搜索-page-21"><span>kd<span class="heti-spacing"> </span></span>树的最近邻搜索<span><span class="heti-spacing"> </span>(page 21)</span><a class="headerlink" href="#kd-树的最近邻搜索-page-21" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>使用<span class="heti-skip"><span class="heti-spacing"> </span>kd<span class="heti-spacing"> </span></span>树进行最近邻搜索比暴力搜索要高效得多。其过程包含“向下查找”和“向上回溯”两个阶段。</p>
+<details class="tip" open="open">
+<summary>算法<span class="heti-skip"><span class="heti-spacing"> </span>3.3 (<span class="heti-spacing"> </span></span>用<span class="heti-skip"><span class="heti-spacing"> </span>kd<span class="heti-spacing"> </span></span>树的最近邻搜索<span><span class="heti-spacing"> </span>)</span></summary>
+<p><strong>输入</strong>：已构造的<span class="heti-skip"><span class="heti-spacing"> </span>kd<span class="heti-spacing"> </span></span>树，目标点<span><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span></span></p>
+<p><strong>输出</strong>：<span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>的最近邻点</p>
+<p><strong>步骤</strong>：</p>
+<ol>
+<li><strong>向下查找</strong>：从根节点出发，根据目标点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>在当前节点分裂维度上的坐标值，决定是进入左子树还是右子树（小于分裂值进左，大于等于进右<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，递归地向下访问，直到到达一个叶子节点。</li>
+<li><strong>设置当前最优</strong>：将这个叶子节点设为“当前最近邻点”。</li>
+<li><strong>向上回溯</strong>：从该叶子节点开始，递归地向上回溯。在每个节点执行以下操作：
+    a. <strong>更新最近邻</strong>：计算目标点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>与当前节点（回溯到的节点）的距离。如果这个距离小于当前最近邻距离，则更新“当前最近邻点”。
+    b. <strong>检查兄弟区域</strong>：检查当前节点的另一个子区域（兄弟区域）是否可能包含更近的点。判断方法是：<strong>以目标点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>为球心，以当前最近邻距离为半径，画一个超球体。看这个超球体是否与兄弟区域相交。</strong>
+    c. <strong>继续搜索或剪枝</strong>：如果超球体与兄弟区域相交，那么兄弟子树中可能存在更近的点，需要递归地进入该子树进行搜索。如果不相交，那么兄弟子树中不可能有更近的点，可以直接“剪枝”，忽略整个子树。</li>
+<li><strong>结束</strong>：当回溯到根节点时，搜索结束。最后的“当前最近邻点”就是目标点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>的最近邻。</li>
+</ol>
+</details>
+<h4 id="搜索示例-page-22-25">搜索示例<span><span class="heti-spacing"> </span>(page 22-25)</span><a class="headerlink" href="#搜索示例-page-22-25" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p><strong>示例<span><span class="heti-spacing"> </span>1</span>：求点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((2.1, 3.1)^T\)</span><span class="heti-spacing"> </span></span>的最近邻点</strong></p>
+<ol>
+<li><strong>向下查找</strong>：<ul>
+<li>根<span><span class="heti-spacing"> </span>(7,2)</span>，分裂轴<span><span class="heti-spacing"> </span>x=7</span>。2.1 &lt; 7，去左子树。</li>
+<li>节点<span><span class="heti-spacing"> </span>(5,4)</span>，分裂轴<span><span class="heti-spacing"> </span>y=4</span>。3.1 &lt; 4，去左子树。</li>
+<li>到达叶子节点<span><span class="heti-spacing"> </span>(2,3)</span>。</li>
+</ul>
+</li>
+<li><strong>设置当前最优</strong>：当前最近邻点是<span><span class="heti-spacing"> </span>(2,3)</span>，距离为<span><span class="heti-spacing"> </span><span class="arithmatex">\(L_2((2.1,3.1), (2,3)) = \sqrt{0.1^2 + 0.1^2} \approx 0.1414\)</span></span>。</li>
+<li><strong>向上回溯</strong>：<ul>
+<li>回溯到<span><span class="heti-spacing"> </span>(5,4)</span>。以<span class="heti-skip"><span class="heti-spacing"> </span>(2.1,3.1)<span class="heti-spacing"> </span></span>为圆心，<span>0.1414<span class="heti-spacing"> </span></span>为半径的圆，不与<span class="heti-skip"><span class="heti-spacing"> </span>y=4<span class="heti-spacing"> </span></span>的分割线相交。因此，<span>(5,4)<span class="heti-spacing"> </span></span>的右子空间（包含<span class="heti-skip"><span class="heti-spacing"> </span>(4,7)<span class="heti-spacing"> </span></span>的区域）被<strong>剪枝</strong>，无需搜索。</li>
+<li>回溯到<span><span class="heti-spacing"> </span>(7,2)</span>。以<span class="heti-skip"><span class="heti-spacing"> </span>(2.1,3.1)<span class="heti-spacing"> </span></span>为圆心，<span>0.1414<span class="heti-spacing"> </span></span>为半径的圆，不与<span class="heti-skip"><span class="heti-spacing"> </span>x=7<span class="heti-spacing"> </span></span>的分割线相交。因此，<span>(7,2)<span class="heti-spacing"> </span></span>的右子空间被<strong>剪枝</strong>。</li>
+</ul>
+</li>
+<li><strong>结束</strong>：回溯到根，搜索结束。最近邻点为 <strong>(2,3)</strong>。</li>
+</ol>
+<p><strong>示例<span><span class="heti-spacing"> </span>2</span>：求点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((2, 4.5)^T\)</span><span class="heti-spacing"> </span></span>的最近邻点</strong></p>
+<ol>
+<li><strong>向下查找</strong>：<ul>
+<li>根<span><span class="heti-spacing"> </span>(7,2)</span>，x=7。2 &lt; 7，去左。</li>
+<li>节点<span><span class="heti-spacing"> </span>(5,4)</span>，y=4。4.5 &gt; 4，去右。</li>
+<li>到达叶子<span><span class="heti-spacing"> </span>(4,7)</span>。</li>
+</ul>
+</li>
+<li><strong>设置当前最优</strong>：当前最近邻点是<span><span class="heti-spacing"> </span>(4,7)</span>，距离为<span><span class="heti-spacing"> </span><span class="arithmatex">\(L_2((2,4.5), (4,7)) = \sqrt{2^2 + 2.5^2} \approx 3.202\)</span></span>。</li>
+<li><strong>向上回溯</strong>：<ul>
+<li>回溯到<span><span class="heti-spacing"> </span>(5,4)</span>。计算距离<span><span class="heti-spacing"> </span><span class="arithmatex">\(L_2((2,4.5), (5,4)) = \sqrt{3^2 + 0.5^2} \approx 3.041\)</span></span>。这个距离更小！更新最近邻点为 <strong>(5,4)</strong>，最近距离为 <strong>3.041</strong>。</li>
+<li><strong>检查兄弟区域</strong>：以<span class="heti-skip"><span class="heti-spacing"> </span>(2,4.5)<span class="heti-spacing"> </span></span>为圆心，<span>3.041<span class="heti-spacing"> </span></span>为半径的圆，与<span class="heti-skip"><span class="heti-spacing"> </span>(5,4)<span class="heti-spacing"> </span></span>的分割线<span><span class="heti-spacing"> </span>y=4</span> <strong>相交</strong>。因此，必须进入<span class="heti-skip"><span class="heti-spacing"> </span>(5,4)<span class="heti-spacing"> </span></span>的左子树（包含<span class="heti-skip"><span class="heti-spacing"> </span>(2,3)<span class="heti-spacing"> </span></span>的区域）进行搜索。</li>
+</ul>
+</li>
+<li><strong>进入兄弟区域</strong>：<ul>
+<li>从<span class="heti-skip"><span class="heti-spacing"> </span>(5,4)<span class="heti-spacing"> </span></span>的左子节点<span class="heti-skip"><span class="heti-spacing"> </span>(2,3)<span class="heti-spacing"> </span></span>开始搜索。计算距离<span><span class="heti-spacing"> </span><span class="arithmatex">\(L_2((2,4.5), (2,3)) = \sqrt{0^2 + 1.5^2} = 1.5\)</span></span>。这个距离更小！再次更新最近邻点为 <strong>(2,3)</strong>，最近距离为 <strong>1.5</strong>。</li>
+</ul>
+</li>
+<li><strong>继续回溯</strong>：<ul>
+<li>从<span class="heti-skip"><span class="heti-spacing"> </span>(2,3)<span class="heti-spacing"> </span></span>回溯到<span><span class="heti-spacing"> </span>(5,4)</span>，再回溯到根<span><span class="heti-spacing"> </span>(7,2)</span>。计算距离<span><span class="heti-spacing"> </span><span class="arithmatex">\(L_2((2,4.5), (7,2)) = \sqrt{5^2 + 2.5^2} \approx 5.59\)</span></span>，比<span class="heti-skip"><span class="heti-spacing"> </span>1.5<span class="heti-spacing"> </span></span>大，不更新。</li>
+<li><strong>检查兄弟区域</strong>：以<span class="heti-skip"><span class="heti-spacing"> </span>(2,4.5)<span class="heti-spacing"> </span></span>为圆心，<span>1.5<span class="heti-spacing"> </span></span>为半径的圆，不与<span class="heti-skip"><span class="heti-spacing"> </span>(7,2)<span class="heti-spacing"> </span></span>的分割线<span><span class="heti-spacing"> </span>x=7</span> <strong>相交</strong>。因此，根节点的右子树被<strong>剪枝</strong>。</li>
+</ul>
+</li>
+<li><strong>结束</strong>：回溯到根，搜索结束。最终最近邻点为 <strong>(2,3)</strong>，距离为<span><span class="heti-spacing"> </span>1.5</span>。</li>
+</ol>
+<hr/>
+<h2 id="习题-32">习题<span><span class="heti-spacing"> </span>3.2</span><a class="headerlink" href="#习题-32" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>利用例题<span class="heti-skip"><span class="heti-spacing"> </span>3.2<span class="heti-spacing"> </span></span>的构造的<span class="heti-skip"><span class="heti-spacing"> </span>kd<span class="heti-spacing"> </span></span>树求点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x = (3, 4.5)^T\)</span><span class="heti-spacing"> </span></span>的最近邻点。</p>
+<figure markdown="span">
+</figure></div>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/19_250319-094446.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/19_250319-094446.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/19_250319-094446.png"/></a>
+<br/>
+<figcaption>例题<span class="heti-skip"><span class="heti-spacing"> </span>3.2<span class="heti-spacing"> </span></span>中的<span><span class="heti-spacing"> </span>kd-tree</span></figcaption></p>
+<ol>
+<li>二叉树搜索：先从<span class="heti-skip"><span class="heti-spacing"> </span>(7, 2)<span class="heti-spacing"> </span></span>点开始进行二叉查找，然后到达<span><span class="heti-spacing"> </span>(5, 4)</span>，最后到达<span><span class="heti-spacing"> </span>(4, 7)</span>，此时搜索路径中的结点为 <strong>&lt; (7, 2),(5, 4),(4, 7) &gt;</strong>，首先以<span class="heti-skip"><span class="heti-spacing"> </span>(4, 7)<span class="heti-spacing"> </span></span>作为当前最近邻点，计算其到查询点<span class="heti-skip"><span class="heti-spacing"> </span>(3, 4.5)<span class="heti-spacing"> </span></span>的距离为<span><span class="heti-spacing"> </span>2.69</span>。</li>
+<li>回溯查找<heti-adjacent class="heti-adjacent-half">：</heti-adjacent>（1）在得到<span class="heti-skip"><span class="heti-spacing"> </span>(4, 7)<span class="heti-spacing"> </span></span>为查询点的最近点后，回溯到其父结点<span><span class="heti-spacing"> </span>(5, 4)</span>，计算其到查询点<span class="heti-skip"><span class="heti-spacing"> </span>(3, 4.5)<span class="heti-spacing"> </span></span>的距离为<span><span class="heti-spacing"> </span>2.06</span>，小于<span><span class="heti-spacing"> </span>2.69</span>，则父结点<span class="heti-skip"><span class="heti-spacing"> </span>(5, 4)<span class="heti-spacing"> </span></span>比<span class="heti-skip"><span class="heti-spacing"> </span>(4, 7)<span class="heti-spacing"> </span></span>距离查询点更近<heti-adjacent class="heti-adjacent-half">；</heti-adjacent>（2）更新<span class="heti-skip"><span class="heti-spacing"> </span>(5, 4)<span class="heti-spacing"> </span></span>为当前最近邻点，并判断在该父结点的其他子结点空间中是否有距离查询点更近的数据点。以<span class="heti-skip"><span class="heti-spacing"> </span>(3, 4.5)<span class="heti-spacing"> </span></span>为圆心，以<span class="heti-skip"><span class="heti-spacing"> </span>2.06<span class="heti-spacing"> </span></span>为半径画圆，发现该圆和超平面<span class="heti-skip"><span class="heti-spacing"> </span>y = 4<span class="heti-spacing"> </span></span>交割，因此进入<span class="heti-skip"><span class="heti-spacing"> </span>(5, 4)<span class="heti-spacing"> </span></span>结点的左子空间中去搜索<heti-adjacent class="heti-adjacent-half">；</heti-adjacent>（3）计算<span class="heti-skip"><span class="heti-spacing"> </span>(2, 3)<span class="heti-spacing"> </span></span>到查询点<span class="heti-skip"><span class="heti-spacing"> </span>(3, 4.5)<span class="heti-spacing"> </span></span>的距离为<span><span class="heti-spacing"> </span>1.80</span>，小于<span><span class="heti-spacing"> </span>2.06</span>，则点<span class="heti-skip"><span class="heti-spacing"> </span>(2, 3)<span class="heti-spacing"> </span></span>比<span class="heti-skip"><span class="heti-spacing"> </span>(5, 4)<span class="heti-spacing"> </span></span>距离查询点更近，更新<span class="heti-skip"><span class="heti-spacing"> </span>(2, 3)<span class="heti-spacing"> </span></span>为当前最近点。</li>
+<li>最后，再回溯到<span><span class="heti-spacing"> </span>(7, 2)</span>，以<span class="heti-skip"><span class="heti-spacing"> </span>(3, 4.5)<span class="heti-spacing"> </span></span>为圆心，以<span class="heti-skip"><span class="heti-spacing"> </span>1.80<span class="heti-spacing"> </span></span>为半径的圆不与<span class="heti-skip"><span class="heti-spacing"> </span>x = 7<span class="heti-spacing"> </span></span>超平面交割，因此不用进入<span class="heti-skip"><span class="heti-spacing"> </span>(7, 2)<span class="heti-spacing"> </span></span>右子空间进行查找。至此，搜索路径中的结点已经全部回溯完，结束整个搜索，返回最近邻点<span><span class="heti-spacing"> </span>(2, 3)</span>，最近距离为 <strong>1.80</strong>。</li>
+</ol>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn:1">
+<p><strong>非参数方法<span><span class="heti-spacing"> </span>(Non-parametric method)</span></strong>：这类方法不对数据的潜在分布做任何假设。模型结构通常由数据本身决定，因此模型可以变得足够复杂以适应数据，但也可能需要更多的训练数据。 <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn:2">
+<p><strong>基于实例的学习<span><span class="heti-spacing"> </span>(Instance-based learning)</span></strong>：也称为懒惰学习<span><span class="heti-spacing"> </span>(Lazy Learning)</span>。这类算法在训练阶段仅将训练数据存储起来，而将真正的计算推迟到预测阶段。这与急切学习<span class="heti-skip"><span class="heti-spacing"> </span>(Eager Learning)<span class="heti-spacing"> </span></span>算法（如决策树、SVM）形成对比，后者在训练阶段就构建出一个明确的模型。 <a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年10月12日 23:48:09 CST">2025年10月12日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年6月17日 10:27:55 CST">2025年6月17日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: 02 Perceptron" class="md-footer__link md-footer__link--prev" href="../02-Perceptron/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                02 Perceptron
+              </div>
+</div>
+</a>
+<a aria-label="下一页: 04 Naive Bayes" class="md-footer__link md-footer__link--next" href="../04-Naive_Bayes/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                04 Naive Bayes
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

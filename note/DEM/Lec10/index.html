@@ -1,0 +1,1825 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/note/DEM/Lec10/" rel="canonical"/>
+<link href="../Lec09/" rel="prev"/>
+<link href="../../DMA/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>第十讲：贝叶斯劝说 - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#第十讲贝叶斯劝说">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              第十讲：贝叶斯劝说
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Note
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs188/">
+<span class="md-ellipsis">
+    
+  
+    cs188
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../physics/">
+<span class="md-ellipsis">
+    
+  
+    physics
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-II/">
+<span class="md-ellipsis">
+    
+  
+    CSys-II
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-III/">
+<span class="md-ellipsis">
+    
+  
+    CSys-III
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3_6" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    DEM
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    DEM
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec01/">
+<span class="md-ellipsis">
+    
+  
+    第一讲 数据要素市场简介
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec02/">
+<span class="md-ellipsis">
+    
+  
+    第二讲：数据合规与安全
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec03/">
+<span class="md-ellipsis">
+    
+  
+    第三讲：非合作博弈论基础（一）
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec04/">
+<span class="md-ellipsis">
+    
+  
+    第四讲：非合作博弈论基础 (二)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec05/">
+<span class="md-ellipsis">
+    
+  
+    第五讲：合作博弈与数据估值
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec06/">
+<span class="md-ellipsis">
+    
+  
+    第六讲：多臂老虎机算法基础与应用
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec07/">
+<span class="md-ellipsis">
+    
+  
+    第七讲：拍卖与机制设计基础
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec08/">
+<span class="md-ellipsis">
+    
+  
+    第八讲：最优机制
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec09/">
+<span class="md-ellipsis">
+    
+  
+    第九讲：数据交易定价
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    第十讲：贝叶斯劝说
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    第十讲：贝叶斯劝说
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I-贝叶斯劝说背景与例子-page-2-23">
+<span class="md-ellipsis">
+      
+        I 贝叶斯劝说：背景与例子 (page 2-23)
+      
+    </span>
+</a>
+<nav aria-label="I 贝叶斯劝说：背景与例子 (page 2-23)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I1-劝说的概念与价值-page-3-4">
+<span class="md-ellipsis">
+      
+        I.1 劝说的概念与价值 (page 3-4)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I2-劝说的例子与建模思路-page-5">
+<span class="md-ellipsis">
+      
+        I.2 劝说的例子与建模思路 (page 5)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I3-导师写推荐信的例子-page-6-9">
+<span class="md-ellipsis">
+      
+        I.3 导师写推荐信的例子 (page 6-9)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I4-信号机制的例子-page-12-19">
+<span class="md-ellipsis">
+      
+        I.4 信号机制的例子 (page 12-19)
+      
+    </span>
+</a>
+<nav aria-label="I.4 信号机制的例子 (page 12-19)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I41-完全诚实推荐-page-12-13">
+<span class="md-ellipsis">
+      
+        I.4.1 完全诚实推荐 (page 12-13)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I42-完全不诚实推荐-page-14-15">
+<span class="md-ellipsis">
+      
+        I.4.2 完全不诚实推荐 (page 14-15)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I43-部分诚实推荐-page-16-19">
+<span class="md-ellipsis">
+      
+        I.4.3 部分诚实推荐 (page 16-19)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II-模型描述与问题转化-page-24-48">
+<span class="md-ellipsis">
+      
+        II 模型描述与问题转化 (page 24-48)
+      
+    </span>
+</a>
+<nav aria-label="II 模型描述与问题转化 (page 24-48)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II1-贝叶斯劝说的模型描述-page-25-33">
+<span class="md-ellipsis">
+      
+        II.1 贝叶斯劝说的模型描述 (page 25-33)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II2-贝叶斯劝说的目标-page-34-36">
+<span class="md-ellipsis">
+      
+        II.2 贝叶斯劝说的目标 (page 34-36)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II3-贝叶斯可行性-Bayesian-Plausibility-page-37-44">
+<span class="md-ellipsis">
+      
+        II.3 贝叶斯可行性 (Bayesian Plausibility) (page 37-44)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II4-问题转化-page-45-48">
+<span class="md-ellipsis">
+      
+        II.4 问题转化 (page 45-48)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II5-接收者最优行动与发送者期望效用-page-50-51">
+<span class="md-ellipsis">
+      
+        II.5 接收者最优行动与发送者期望效用 (page 50-51)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III-最优信号机制-page-49-68">
+<span class="md-ellipsis">
+      
+        III 最优信号机制 (page 49-68)
+      
+    </span>
+</a>
+<nav aria-label="III 最优信号机制 (page 49-68)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III1-显示原理-Revelation-Principle-page-52-55">
+<span class="md-ellipsis">
+      
+        III.1 显示原理 (Revelation Principle) (page 52-55)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III2-凹包络-Concave-Closure-page-56-57">
+<span class="md-ellipsis">
+      
+        III.2 凹包络 (Concave Closure) (page 56-57)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III3-最优信号机制的解-page-58-59">
+<span class="md-ellipsis">
+      
+        III.3 最优信号机制的解 (page 58-59)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III4-导师写推荐信问题的解-page-60-61">
+<span class="md-ellipsis">
+      
+        III.4 导师写推荐信问题的解 (page 60-61)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III5-贝叶斯劝说与线性规划-Bayesian-Persuasion-and-Linear-Programming-page-62-65">
+<span class="md-ellipsis">
+      
+        III.5 贝叶斯劝说与线性规划 (Bayesian Persuasion and Linear Programming) (page 62-65)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III6-贝叶斯劝说对接收者的影响-page-66-68">
+<span class="md-ellipsis">
+      
+        III.6 贝叶斯劝说对接收者的影响 (page 66-68)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DMA/">
+<span class="md-ellipsis">
+    
+  
+    DMA
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs70/">
+<span class="md-ellipsis">
+    
+  
+    cs70
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../other/">
+<span class="md-ellipsis">
+    
+  
+    other
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I-贝叶斯劝说背景与例子-page-2-23">
+<span class="md-ellipsis">
+      
+        I 贝叶斯劝说：背景与例子 (page 2-23)
+      
+    </span>
+</a>
+<nav aria-label="I 贝叶斯劝说：背景与例子 (page 2-23)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I1-劝说的概念与价值-page-3-4">
+<span class="md-ellipsis">
+      
+        I.1 劝说的概念与价值 (page 3-4)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I2-劝说的例子与建模思路-page-5">
+<span class="md-ellipsis">
+      
+        I.2 劝说的例子与建模思路 (page 5)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I3-导师写推荐信的例子-page-6-9">
+<span class="md-ellipsis">
+      
+        I.3 导师写推荐信的例子 (page 6-9)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I4-信号机制的例子-page-12-19">
+<span class="md-ellipsis">
+      
+        I.4 信号机制的例子 (page 12-19)
+      
+    </span>
+</a>
+<nav aria-label="I.4 信号机制的例子 (page 12-19)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I41-完全诚实推荐-page-12-13">
+<span class="md-ellipsis">
+      
+        I.4.1 完全诚实推荐 (page 12-13)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I42-完全不诚实推荐-page-14-15">
+<span class="md-ellipsis">
+      
+        I.4.2 完全不诚实推荐 (page 14-15)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I43-部分诚实推荐-page-16-19">
+<span class="md-ellipsis">
+      
+        I.4.3 部分诚实推荐 (page 16-19)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II-模型描述与问题转化-page-24-48">
+<span class="md-ellipsis">
+      
+        II 模型描述与问题转化 (page 24-48)
+      
+    </span>
+</a>
+<nav aria-label="II 模型描述与问题转化 (page 24-48)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II1-贝叶斯劝说的模型描述-page-25-33">
+<span class="md-ellipsis">
+      
+        II.1 贝叶斯劝说的模型描述 (page 25-33)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II2-贝叶斯劝说的目标-page-34-36">
+<span class="md-ellipsis">
+      
+        II.2 贝叶斯劝说的目标 (page 34-36)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II3-贝叶斯可行性-Bayesian-Plausibility-page-37-44">
+<span class="md-ellipsis">
+      
+        II.3 贝叶斯可行性 (Bayesian Plausibility) (page 37-44)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II4-问题转化-page-45-48">
+<span class="md-ellipsis">
+      
+        II.4 问题转化 (page 45-48)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II5-接收者最优行动与发送者期望效用-page-50-51">
+<span class="md-ellipsis">
+      
+        II.5 接收者最优行动与发送者期望效用 (page 50-51)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III-最优信号机制-page-49-68">
+<span class="md-ellipsis">
+      
+        III 最优信号机制 (page 49-68)
+      
+    </span>
+</a>
+<nav aria-label="III 最优信号机制 (page 49-68)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III1-显示原理-Revelation-Principle-page-52-55">
+<span class="md-ellipsis">
+      
+        III.1 显示原理 (Revelation Principle) (page 52-55)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III2-凹包络-Concave-Closure-page-56-57">
+<span class="md-ellipsis">
+      
+        III.2 凹包络 (Concave Closure) (page 56-57)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III3-最优信号机制的解-page-58-59">
+<span class="md-ellipsis">
+      
+        III.3 最优信号机制的解 (page 58-59)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III4-导师写推荐信问题的解-page-60-61">
+<span class="md-ellipsis">
+      
+        III.4 导师写推荐信问题的解 (page 60-61)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III5-贝叶斯劝说与线性规划-Bayesian-Persuasion-and-Linear-Programming-page-62-65">
+<span class="md-ellipsis">
+      
+        III.5 贝叶斯劝说与线性规划 (Bayesian Persuasion and Linear Programming) (page 62-65)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III6-贝叶斯劝说对接收者的影响-page-66-68">
+<span class="md-ellipsis">
+      
+        III.6 贝叶斯劝说对接收者的影响 (page 66-68)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Note
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    DEM
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:notes">notes</a>
+</nav>
+<h1 id="第十讲贝叶斯劝说">第十讲：贝叶斯劝说<a class="headerlink" href="#第十讲贝叶斯劝说" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h1>
+<h2 id="I-贝叶斯劝说背景与例子-page-2-23"><span>I<span class="heti-spacing"> </span></span>贝叶斯劝说：背景与例子<span><span class="heti-spacing"> </span>(page 2-23)</span><a class="headerlink" href="#I-贝叶斯劝说背景与例子-page-2-23" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="I1-劝说的概念与价值-page-3-4"><span>I.1<span class="heti-spacing"> </span></span>劝说的概念与价值<span><span class="heti-spacing"> </span>(page 3-4)</span><a class="headerlink" href="#I1-劝说的概念与价值-page-3-4" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>贝叶斯劝说（Bayesian Persuasion）是一种信息设计的理论框架，研究信息发送者如何通过设计信息披露机制来影响接收者的信念和行动，从而最大化发送者自身的效用。</p>
+<p>劝说在我们的日常生活中无处不在。根据<span class="heti-skip"><span class="heti-spacing"> </span>Donald McCloskey<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>Arjo Klamer<span class="heti-spacing"> </span></span>于<span class="heti-skip"><span class="heti-spacing"> </span>1995<span class="heti-spacing"> </span></span>年发表在《The American Economic Review》上的论文《One Quarter of GDP Is Persuasion<heti-adjacent class="heti-adjacent-half">》</heti-adjacent>，四分之一的<span class="heti-skip"><span class="heti-spacing"> </span>GDP<span class="heti-spacing"> </span></span>来源于劝说活动，这充分说明了劝说在经济活动中的重要性。</p>
+<details class="definition" open="open">
+<summary>什么是劝说？</summary>
+<p>劝说（Persuasion）通常指以下行为：</p>
+<ul>
+<li><strong>用言语打动</strong>：通过语言交流，使对方产生共鸣或接受某种观点。</li>
+<li><strong>影响公众行为</strong>：公共关系人员运用多种传播方式，努力影响公众接受组织的观点，或促使公众主动采取某种行动。</li>
+<li><strong>促成行动或同意</strong>：劝说他人做某事或对某事表示同意。</li>
+</ul>
+</details>
+<h3 id="I2-劝说的例子与建模思路-page-5"><span>I.2<span class="heti-spacing"> </span></span>劝说的例子与建模思路<span><span class="heti-spacing"> </span>(page 5)</span><a class="headerlink" href="#I2-劝说的例子与建模思路-page-5" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>劝说活动的例子非常多样，例如：</p>
+<ul>
+<li><strong>广告</strong>：商家通过广告宣传产品，目的是劝说消费者购买。</li>
+<li><strong>演讲</strong>：政治家或公众人物通过演讲争取支持或改变听众观点。</li>
+<li><strong>谈判</strong>：谈判双方通过言语和信息交换，试图劝说对方接受自己的条件。</li>
+<li><strong>导师写推荐信</strong>：导师为学生撰写推荐信，目的是劝说招聘方雇用该学生。</li>
+<li><strong>教师劝学</strong>：例如“我劝各位选这门课……”，目的是劝说学生选择某门课程。</li>
+</ul>
+<details class="example" open="open">
+<summary>贝叶斯劝说的建模思路</summary>
+<p>贝叶斯劝说模型的核心在于：</p>
+<ul>
+<li><strong>信息优势方</strong>：存在一方（信号发送者，如导师、商家）拥有信息优势，即他们知道某种“真实状态”（如学生的能力、产品的真实质量<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，而信息劣势方（信号接收者，如企业、消费者）不了解这种真实状态。</li>
+<li><strong>发送“信号”</strong>：信息优势方通过向信息劣势方发送“信号”（如推荐信的内容、广告词<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，试图影响信息劣势方对真实状态的信念。</li>
+<li><strong>改变行动意愿</strong>：最终目标是期望通过改变接收者的信念，进而改变其行动意愿，使其采取对发送者有利的行动。</li>
+</ul>
+</details>
+<h3 id="I3-导师写推荐信的例子-page-6-9"><span>I.3<span class="heti-spacing"> </span></span>导师写推荐信的例子<span><span class="heti-spacing"> </span>(page 6-9)</span><a class="headerlink" href="#I3-导师写推荐信的例子-page-6-9" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>为了更具体地理解贝叶斯劝说，我们以导师为学生写推荐信为例进行建模：</p>
+<ol>
+<li><strong>参与人（Players）</strong><ul>
+<li><strong>信号发送者（Sender, S）</strong>：导师。导师知道学生的真实能力。</li>
+<li><strong>信号接收者（Receiver, R）</strong>：企业。企业根据导师的推荐信决定是否雇用学生。</li>
+<li><strong>学生</strong>：学生不是博弈参与方，因为他们只被动接受结果，没有自己的策略。</li>
+</ul>
+</li>
+<li><strong>学生类型（真实状态，State of Nature, <span class="arithmatex">\(\omega\)</span>）</strong><ul>
+<li>学生有两种类型：优秀（excellent）或一般（average<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>学生的类型对导师而言是<strong>已知</strong>的。</li>
+<li>对企业而言，学生的类型是<strong>不完全信息</strong>。</li>
+<li>学生的类型是自然按一定的<strong>先验概率</strong>随机抽取的。企业和导师对学生类型有共同的先验分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mu_0\)</span></span>。<ul>
+<li><span><span class="arithmatex">\(\mu_0(\text{average}) = 0.75\)</span> (<span class="heti-spacing"> </span></span>一般学生的先验概率<span><span class="heti-spacing"> </span>)</span></li>
+<li><span><span class="arithmatex">\(\mu_0(\text{excellent}) = 0.25\)</span> (<span class="heti-spacing"> </span></span>优秀学生的先验概率<span><span class="heti-spacing"> </span>)</span></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>效用函数（Utility Functions）</strong><ul>
+<li><strong>导师（发送者）的效用<span><span class="heti-spacing"> </span><span class="arithmatex">\(v(a, \omega)\)</span></span></strong>：<ul>
+<li>导师希望推荐出去的学生越多越好。</li>
+<li>只要企业雇用一个学生，导师就获得效用<span><span class="heti-spacing"> </span>1</span>。</li>
+<li>如果企业不雇用学生，导师获得效用<span><span class="heti-spacing"> </span>0</span>。</li>
+<li>即<span><span class="heti-spacing"> </span><span class="arithmatex">\(v(\text{hiring}, \omega) = 1\)</span></span>， <span class="arithmatex">\(v(\text{not hiring}, \omega) = 0\)</span>，且与学生类型<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\omega\)</span><span class="heti-spacing"> </span></span>无关。</li>
+</ul>
+</li>
+<li><strong>企业（接收者）的效用<span><span class="heti-spacing"> </span><span class="arithmatex">\(u(a, \omega)\)</span></span></strong>：<ul>
+<li>企业希望招收到优秀的学生。</li>
+<li>招收到优秀学生时获得效用<span><span class="heti-spacing"> </span>1</span>。</li>
+<li>招收普通学生时获得效用<span><span class="heti-spacing"> </span>-0.5</span>。</li>
+<li>如果不雇用，效用为<span><span class="heti-spacing"> </span>0</span>（隐含<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>即<span><span class="heti-spacing"> </span><span class="arithmatex">\(u(\text{hiring}, \text{excellent}) = 1\)</span></span>， <span class="arithmatex">\(u(\text{hiring}, \text{average}) = -0.5\)</span>。 <span class="arithmatex">\(u(\text{not hiring}, \omega) = 0\)</span>。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>导师的策略（信号机制，Signaling Scheme）</strong><ul>
+<li>导师的策略是向企业发送“信号”，即通过推荐信的好坏来表明学生的能力。</li>
+<li>信号空间<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(S\)</span><span class="heti-spacing"> </span></span>包含两种可能的推荐信类型：<code>e</code> (excellent，好的推荐信<span class="heti-skip"><span class="heti-spacing"> </span>)<span class="heti-spacing"> </span></span>和<code>a</code><span><span class="heti-spacing"> </span>(average</span>，一般的推荐信<span><span class="heti-spacing"> </span>)</span>。</li>
+<li>导师的策略用两个条件概率分布表示：<span><span class="arithmatex">\(\pi(\cdot | \text{excellent})\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(\pi(\cdot | \text{average})\)</span></span>。<ul>
+<li><span class="arithmatex">\(\pi(e | \text{excellent})\)</span>：学生为优秀类型时，导师写好的推荐信的概率。</li>
+<li><span class="arithmatex">\(\pi(a | \text{excellent})\)</span>：学生为优秀类型时，导师写一般推荐信的概率。</li>
+<li><span class="arithmatex">\(\pi(e | \text{average})\)</span>：学生为一般类型时，导师写好的推荐信的概率。</li>
+<li><span class="arithmatex">\(\pi(a | \text{average})\)</span>：学生为一般类型时，导师写一般推荐信的概率。</li>
+</ul>
+</li>
+<li>导师在学生类型确定后，按照其策略<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\pi(s|\omega)\)</span><span class="heti-spacing"> </span></span>发送信号<span><span class="heti-spacing"> </span><span class="arithmatex">\(s\)</span></span>。</li>
+</ul>
+</li>
+</ol>
+<details class="note" open="open">
+<summary>贝叶斯劝说与信号博弈的区别</summary>
+<p>一个值得注意的点是，导师和企业之间存在长期关系，因此导师的策略是企业在看到推荐信之前就已知的。这意味着导师在游戏开始前<strong>公开承诺</strong>其信号机制，并且无法在游戏过程中偏离。</p>
+<p>这是贝叶斯劝说（Bayesian Persuasion）与传统信号博弈（Signaling Game）的关键区别。在信号博弈中，发送者通常不会预先承诺其策略。这种承诺使得贝叶斯劝说问题可以转化为寻找最优信息披露规则的问题。</p>
+</details>
+<h3 id="I4-信号机制的例子-page-12-19"><span>I.4<span class="heti-spacing"> </span></span>信号机制的例子<span><span class="heti-spacing"> </span>(page 12-19)</span><a class="headerlink" href="#I4-信号机制的例子-page-12-19" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>我们考察几种可能的信号机制，并计算发送者（导师）和接收者（企业）的期望效用。</p>
+<h4 id="I41-完全诚实推荐-page-12-13"><span>I.4.1<span class="heti-spacing"> </span></span>完全诚实推荐<span><span class="heti-spacing"> </span>(page 12-13)</span><a class="headerlink" href="#I41-完全诚实推荐-page-12-13" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<details class="example" open="open">
+<summary>完全诚实推荐</summary>
+<p>在完全诚实推荐中，导师完全诚实地推荐学生：</p>
+<ul>
+<li>对于优秀学生，导师总是写好的推荐信：<span class="arithmatex">\(\pi(e | \text{excellent}) = 1, \quad \pi(a | \text{excellent}) = 0\)</span></li>
+<li>对于一般学生，导师总是写一般的推荐信：<span class="arithmatex">\(\pi(e | \text{average}) = 0, \quad \pi(a | \text{average}) = 1\)</span></li>
+</ul>
+<p><strong>企业行为及效用分析：</strong></p>
+<ul>
+<li><strong>企业收到的信号</strong>：如果收到好的推荐信 <code>e</code>，企业知道学生一定是优秀的；如果收到一般的推荐信 <code>a</code>，企业知道学生是一般的。</li>
+<li><strong>企业决策</strong>：企业会雇用所有收到好的推荐信 <code>e</code> 的学生（因为效用为<span><span class="heti-spacing"> </span>1</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，拒绝所有收到一般的推荐信 <code>a</code> 的学生（因为效用为<span><span class="heti-spacing"> </span>-0.5</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>导师的期望效用</strong>：导师只成功推荐了优秀学生（概率<span><span class="heti-spacing"> </span>0.25</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，因此期望效用为<span><span class="heti-spacing"> </span><span class="arithmatex">\(0.25 \times 1 + 0.75 \times 0 = 0.25\)</span></span>。</li>
+<li><strong>企业的期望效用</strong>：企业只雇用了优秀学生，期望效用为<span><span class="heti-spacing"> </span><span class="arithmatex">\(0.25 \times 1 + 0.75 \times 0 = 0.25\)</span></span>。</li>
+</ul>
+</details>
+<h4 id="I42-完全不诚实推荐-page-14-15"><span>I.4.2<span class="heti-spacing"> </span></span>完全不诚实推荐<span><span class="heti-spacing"> </span>(page 14-15)</span><a class="headerlink" href="#I42-完全不诚实推荐-page-14-15" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<details class="example" open="open">
+<summary>完全不诚实推荐</summary>
+<p>自然地，导师可能会认为诚实推荐能推荐出的学生太少。极端情况下，导师可能会选择为每个学生都写好的推荐信：</p>
+<ul>
+<li>无论学生类型如何，导师都写好的推荐信：
+  <span class="arithmatex">\(\pi(e | \text{excellent}) = 1, \quad \pi(a | \text{excellent}) = 0,\)</span>
+  <span class="arithmatex">\(\pi(e | \text{average}) = 1, \quad \pi(a | \text{average}) = 0\)</span></li>
+</ul>
+<p><strong>企业行为及效用分析：</strong></p>
+<ul>
+<li><strong>企业收到的信号</strong>：此时企业看到的全是好的推荐信 <code>e</code>。由于推荐信不再提供任何关于学生类型的信息，企业只能依赖其先验概率来判断学生的好坏。</li>
+<li><strong>企业对学生类型的信念</strong>：企业看到 <code>e</code> 后，学生是优秀类型的后验概率仍然是先验概率<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mu_0(\text{excellent}) = 0.25\)</span></span>；学生是一般类型的后验概率是<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mu_0(\text{average}) = 0.75\)</span></span>。</li>
+<li><strong>企业雇用一个学生的期望效用</strong>：<span class="arithmatex">\(0.25 \times 1 + 0.75 \times (-0.5) = 0.25 - 0.375 = -0.125\)</span>。</li>
+<li><strong>企业决策</strong>：由于期望效用为负，企业不会雇用任何一个学生（效用为<span><span class="heti-spacing"> </span>0</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li><strong>导师的期望效用</strong>：<span class="arithmatex">\(0\)</span>。</li>
+<li><strong>企业的期望效用</strong>：<span class="arithmatex">\(0\)</span>。</li>
+</ul>
+<p>比较可知，完全不诚实推荐导致导师的效用下降。这表明信息发送者并非总能通过“说谎”来最大化自身效用。</p>
+</details>
+<h4 id="I43-部分诚实推荐-page-16-19"><span>I.4.3<span class="heti-spacing"> </span></span>部分诚实推荐<span><span class="heti-spacing"> </span>(page 16-19)</span><a class="headerlink" href="#I43-部分诚实推荐-page-16-19" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>从之前的例子可以看出，完全诚实和完全不诚实的策略都不是最优的。因此，需要更精妙的设计。</p>
+<details class="example" open="open">
+<summary>部分诚实推荐<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>最优信号机制，将在后续证明<span><span class="heti-spacing"> </span>)</span></summary>
+<p>以下信号机制将在后续被证明是最优的（即导师效用最大化<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<ul>
+<li>对于优秀学生，导师总是写好的推荐信：
+  <span class="arithmatex">\(\pi(e | \text{excellent}) = 1, \quad \pi(a | \text{excellent}) = 0\)</span></li>
+<li>对于一般学生，导师则以<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(2/3\)</span><span class="heti-spacing"> </span></span>的概率写好的推荐信，以<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(1/3\)</span><span class="heti-spacing"> </span></span>的概率写一般的推荐信：
+  <span class="arithmatex">\(\pi(e | \text{average}) = 2/3, \quad \pi(a | \text{average}) = 1/3\)</span></li>
+</ul>
+<p>这意味着，导师会给所有优秀的学生写好的推荐信，对一般的学生则以<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(2/3\)</span><span class="heti-spacing"> </span></span>的概率写好的推荐信。</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Lec10-1.png"><img alt="推荐信信号机制示意图" src="../attachments/Lec10-1.png"/></a></p>
+<p><strong>企业行为及效用分析：</strong></p>
+<ul>
+<li>
+<p><strong>企业看到一般的推荐信 <code>a</code> 时</strong><sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>：
+  此时企业知道学生<strong>一定是一般类型</strong>的（因为优秀学生只收到好的推荐信<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。
+  后验概率：<span class="arithmatex">\(\mu_a(\text{excellent}) = 0, \mu_a(\text{average}) = 1\)</span>。
+  企业雇用学生的期望效用：<span class="arithmatex">\(0 \times 1 + 1 \times (-0.5) = -0.5 &lt; 0\)</span>。
+  因此，企业<strong>不会雇用</strong>收到一般推荐信的学生。</p>
+</li>
+<li>
+<p><strong>企业看到好的推荐信 <code>e</code> 时</strong>：
+  企业需要使用贝叶斯公式更新其信念。首先计算发出 <code>e</code> 信号的总概率 <span class="arithmatex">\(P(e)\)</span>：
+  $$
+  \begin{align}
+  P(e) &amp;= \pi(e | \text{excellent})\mu_0(\text{excellent}) + \pi(e | \text{average})\mu_0(\text{average}) \
+  &amp;= 1 \times 0.25 + (2/3) \times 0.75 \
+  &amp;= 0.25 + 0.5 = 0.75
+  \end{align}
+  $$
+  然后计算收到 <code>e</code> 后，学生是优秀和一般的后验概率：
+  $$
+  \begin{align}
+  \mu_e(\text{excellent}) &amp;= \frac{\pi(e | \text{excellent})\mu_0(\text{excellent})}{P(e)} = \frac{1 \times 0.25}{0.75} = 1/3 \
+  \mu_e(\text{average}) &amp;= \frac{\pi(e | \text{average})\mu_0(\text{average})}{P(e)} = \frac{(2/3) \times 0.75}{0.75} = 2/3
+  \end{align}
+  $$
+  即：当企业看到好的推荐信时，有 <span class="arithmatex">\(1/3\)</span> 的概率认为学生是真的优秀，有 <span class="arithmatex">\(2/3\)</span> 的概率认为学生一般。</p>
+</li>
+</ul>
+<p>企业雇用一个学生的期望效用：
+  <span class="arithmatex">\(<span class="arithmatex">\((1/3) \times 1 + (2/3) \times (-0.5) = 1/3 - 1/3 = 0\)</span>\)</p>
+<ul>
+<li><strong>企业决策</strong>：对于收到好的推荐信 <code>e</code> 的学生，企业雇用和不雇用是无差异的。在这种情况下，我们假设信号接收者会选择有利于信号发送者的决策，即企业会选择<strong>雇用</strong>。</li>
+</ul>
+<p><strong>最终效用：</strong></p>
+<ul>
+<li><strong>导师的期望效用</strong>：
+  导师将所有优秀学生（概率 <span class="arithmatex">\(0.25\)</span>）以及 <span class="arithmatex">\(2/3\)</span> 的一般学生（概率 <span class="arithmatex">\(0.75 \times 2/3 = 0.5\)</span>）推荐进入企业。因此导师的期望效用为 <span class="arithmatex">\(0.25 \times 1 + (0.75 \times 2/3) \times 1 = 0.25 + 0.5 = 0.75\)</span>。</li>
+<li><strong>企业的期望效用</strong>：对于收到 <code>e</code> 的学生，企业选择雇用，但期望效用为<span><span class="heti-spacing"> </span>0</span>。对于收到 <code>a</code> 的学生，企业选择不雇用，期望效用为<span><span class="heti-spacing"> </span>0</span>。因此企业总的期望效用为<span><span class="heti-spacing"> </span>0</span>。</li>
+</ul>
+</details>
+<p><strong>直观理解</strong>：这种部分诚实的机制使得企业在收到“好”信号时恰好处于雇用与不雇用的无差异点。这使得导师在尽可能多地推荐一般学生的同时，还能确保企业选择雇用。如果导师进一步增大一般学生写好推荐信的比例，企业看到好推荐信时会认为一般学生比例太大，因此将倾向于不雇用，使得企业雇用和不雇用不再无差异，导师的效用将受损。因此，使得企业处于无差异点是实现导师效用最大化的关键。</p>
+<h2 id="II-模型描述与问题转化-page-24-48"><span>II<span class="heti-spacing"> </span></span>模型描述与问题转化<span><span class="heti-spacing"> </span>(page 24-48)</span><a class="headerlink" href="#II-模型描述与问题转化-page-24-48" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="II1-贝叶斯劝说的模型描述-page-25-33"><span>II.1<span class="heti-spacing"> </span></span>贝叶斯劝说的模型描述<span><span class="heti-spacing"> </span>(page 25-33)</span><a class="headerlink" href="#II1-贝叶斯劝说的模型描述-page-25-33" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>从导师写推荐信的例子中可以提炼出一般的贝叶斯劝说（Bayesian Persuasion）模型：</p>
+<ul>
+<li><strong>两个参与人</strong>：信号发送者（Sender, S）和信号接收者（Receiver, R<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；</li>
+<li><strong>真实状态（State of Nature）</strong>：自然的真实状态<span><span class="heti-spacing"> </span><span class="arithmatex">\(\omega \in \Omega\)</span></span>。发送者知道状态的实现值，但接收者不知道：<ul>
+<li><span><span class="arithmatex">\(\Omega\)</span><span class="heti-spacing"> </span></span>是一个有限的状态空间；</li>
+<li>双方对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\omega\)</span><span class="heti-spacing"> </span></span>有相同的先验分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mu_0 \in \Delta(\Omega)\)</span></span>；</li>
+<li><span><span class="arithmatex">\(\text{int}(\Delta(\Omega))\)</span><span class="heti-spacing"> </span></span>表示先验分布保证每个状态的概率都是正的（即没有零概率事件<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；</li>
+</ul>
+</li>
+<li><strong>行动空间（Action Space）</strong>：接收者有一组可供选择的行动<span><span class="heti-spacing"> </span><span class="arithmatex">\(a \in A\)</span></span>；</li>
+<li><strong>效用函数（Utility Functions）</strong>：发送者的效用为<span><span class="heti-spacing"> </span><span class="arithmatex">\(v(a, \omega)\)</span></span>，接收者的效用为<span><span class="heti-spacing"> </span><span class="arithmatex">\(u(a, \omega)\)</span></span>；<ul>
+<li>假定双方都是理性的，即追求效用最大化，并且都是按照贝叶斯公式更新信念的。</li>
+</ul>
+</li>
+</ul>
+<details class="env" open="open">
+<summary>博弈的行动顺序（动态博弈）</summary>
+<ol>
+<li><strong>发送者公开承诺信号机制</strong>：发送者首先公开（承诺，commit）一个信号机制<span><span class="heti-spacing"> </span><span class="arithmatex">\((S, \pi(s|\omega))\)</span></span>。<ul>
+<li><span><span class="arithmatex">\(S\)</span><span class="heti-spacing"> </span></span>称为信号实现空间，例如在导师例子中<span><span class="heti-spacing"> </span><span class="arithmatex">\(S = \{e, a\}\)</span></span>。</li>
+<li>信号机制包含信号实现空间<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(S\)</span><span class="heti-spacing"> </span></span>及其在所有现实状态<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\omega \in \Omega\)</span><span class="heti-spacing"> </span></span>下的条件分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(\pi(s|\omega)\)</span></span>。这意味着对于每个真实状态<span><span class="heti-spacing"> </span><span class="arithmatex">\(\omega\)</span></span>，发送者会以概率<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\pi(s|\omega)\)</span><span class="heti-spacing"> </span></span>发送信号<span><span class="heti-spacing"> </span><span class="arithmatex">\(s\)</span></span>。</li>
+<li>接收者知晓此机制，并可以利用贝叶斯公式计算出后验概率<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mu_s(\omega)\)</span></span>。</li>
+</ul>
+</li>
+<li><strong>自然选择真实状态</strong>：自然以分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mu_0\)</span><span class="heti-spacing"> </span></span>选择一个真实状态<span><span class="heti-spacing"> </span><span class="arithmatex">\(\omega \in \Omega\)</span></span>。</li>
+<li><strong>发送者发送信号</strong>：当真实状态为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\omega\)</span><span class="heti-spacing"> </span></span>时，发送者以概率<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\pi(s|\omega)\)</span><span class="heti-spacing"> </span></span>发送信号<span><span class="heti-spacing"> </span><span class="arithmatex">\(s \in S\)</span></span>。</li>
+<li><strong>接收者选择行动</strong>：接收者收到信号<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(s\)</span><span class="heti-spacing"> </span></span>后，形成对状态的后验信念<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mu_s\)</span></span>，并选择一个行动<span><span class="heti-spacing"> </span><span class="arithmatex">\(a \in A\)</span></span>。<ul>
+<li><span><span class="arithmatex">\(a\)</span><span class="heti-spacing"> </span></span>的选择应当最大化接收者的期望效用：<span class="arithmatex">\(a = \arg \max_{a' \in A} E_{\mu_s}[u(a', \omega)]\)</span>。</li>
+<li>如果有多个最大化效用的选择（即接收者无差异<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，假设接收者选择<strong>最大化发送者效用</strong>的行动。<ul>
+<li>在导师例子中，这意味着在雇用和不雇用无差异时，选择雇用学生。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>实现效用</strong>：发送者获得效用<span><span class="heti-spacing"> </span><span class="arithmatex">\(v(a, \omega)\)</span></span>，接收者获得效用<span><span class="heti-spacing"> </span><span class="arithmatex">\(u(a, \omega)\)</span></span>。</li>
+</ol>
+</details>
+<h3 id="II2-贝叶斯劝说的目标-page-34-36"><span>II.2<span class="heti-spacing"> </span></span>贝叶斯劝说的目标<span><span class="heti-spacing"> </span>(page 34-36)</span><a class="headerlink" href="#II2-贝叶斯劝说的目标-page-34-36" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>贝叶斯劝说研究的目标和意义：</p>
+<ul>
+<li><strong>发送者公开承诺</strong>：贝叶斯劝说的第一步就是信号发送者公开承诺其信号机制。<ul>
+<li>这样的情况通常发生在<strong>结果可验证</strong>的场景。例如，企业在雇用后能看出学生的能力，或者消费者在购买产品后能看出产品的实际价值。</li>
+<li>因此，贝叶斯劝说主要在这样的场景下具有实际价值，因为发送者的承诺是可信的，接收者知道发送者无法在信息披露后改变其策略。</li>
+</ul>
+</li>
+<li><strong>双层优化问题</strong>：在贝叶斯劝说模型中，信号发送者优先行动，接收者在看到信号发送者的行动后行动。因此，最优化问题实际是一个双层优化问题：发送者在知道接收者将如何响应其信号机制的前提下，设计最优的信号机制。<ul>
+<li>此时信号发送者和信号接收者的策略相对于对方的策略都是最优的，并且信号接收者的信念通过贝叶斯公式进行了更新。这种均衡被称为<strong>完美贝叶斯均衡（Perfect Bayesian Equilibrium）</strong><sup id="fnref:1"><a class="footnote-ref" href="#fn:1">3</a></sup>。</li>
+</ul>
+</li>
+</ul>
+<p>在理解了贝叶斯劝说的例子、思想以及具体模型后，我们希望研究有关贝叶斯劝说的如下问题：</p>
+<ul>
+<li>发送者是否总是可以通过设计信号机制来影响接收者的行为，从而提升自己的效用？如果不是，什么情况下可以？</li>
+<li>发送者如何设计信号机制以达到最大化自己的效用？最大化效用时信号以及接收者的行为的特点是什么样的？</li>
+<li>接收者是否愿意接受发送者的信号机制？如果不是，什么情况下可以？</li>
+</ul>
+<h3 id="II3-贝叶斯可行性-Bayesian-Plausibility-page-37-44"><span>II.3<span class="heti-spacing"> </span></span>贝叶斯可行性<span><span class="heti-spacing"> </span>(Bayesian Plausibility) (page 37-44)</span><a class="headerlink" href="#II3-贝叶斯可行性-Bayesian-Plausibility-page-37-44" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>为了解决前两个问题，首先要定义贝叶斯可行（Bayesian Plausible）的概念，然后将设计最优信号机制的问题转化为更容易解决的问题。</p>
+<p>给定信号机制<span><span class="heti-spacing"> </span><span class="arithmatex">\((S, \pi(s|\omega))\)</span></span>，任一信号实现<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(s\)</span><span class="heti-spacing"> </span></span>都会导致一个后验概率分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mu_s \in \Delta(\Omega)\)</span></span>，即对任意的<span><span class="heti-spacing"> </span><span class="arithmatex">\(s \in S, \omega \in \Omega\)</span></span>：</p>
+<div class="arithmatex">\[
+\mu_s(\omega) = \frac{\pi(s|\omega)\mu_0(\omega)}{\sum_{\omega' \in \Omega} \pi(s|\omega')\mu_0(\omega')}
+\]</div>
+<p>由于每个信号<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(s\)</span><span class="heti-spacing"> </span></span>都会导致一个后验概率分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mu_s\)</span></span>，所以所有的信号<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(s\)</span><span class="heti-spacing"> </span></span>将导致<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(|S|\)</span><span class="heti-spacing"> </span></span>个后验概率分布，并且所有的后验概率分布本质上都是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\Omega\)</span><span class="heti-spacing"> </span></span>上的分布。根据全概率公式，每个信号<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(s\)</span><span class="heti-spacing"> </span></span>被发出的概率为：</p>
+<div class="arithmatex">\[
+P(s) = \sum_{\omega' \in \Omega} \pi(s|\omega')\mu_0(\omega')
+\]</div>
+<p>因此，所有<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(s\)</span><span class="heti-spacing"> </span></span>将导致一个后验概率分布的分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(\tau \in \Delta(\Delta(\Omega))\)</span></span>，其中概率分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\tau(\mu)\)</span><span class="heti-spacing"> </span></span>支撑中每一个后验概率<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mu \in \Delta(\Omega)\)</span><span class="heti-spacing"> </span></span>的概率为：</p>
+<div class="arithmatex">\[
+\tau(\mu) = \sum_{s: \mu_s=\mu} P(s) = \sum_{s: \mu_s=\mu} \sum_{\omega' \in \Omega} \pi(s|\omega')\mu_0(\omega')
+\]</div>
+<p>如果每个后验概率都不同，则支撑中每一个后验概率<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mu \in \Delta(\Omega)\)</span><span class="heti-spacing"> </span></span>的概率为：</p>
+<div class="arithmatex">\[
+\tau(\mu) = P(s) = \sum_{\omega' \in \Omega} \pi(s|\omega')\mu_0(\omega')
+\]</div>
+<details class="theorem" open="open">
+<summary>贝叶斯可行性<span><span class="heti-spacing"> </span>(Bayesian Plausibility)</span></summary>
+<p>称一个后验概率分布的分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\tau\)</span><span class="heti-spacing"> </span></span>是<strong>贝叶斯可行</strong>的，如果后验概率的期望等于先验概率：</p>
+<div class="arithmatex">\[
+\sum_{\mu \in \text{Supp}(\tau)} \mu \tau(\mu) = \mu_0
+\]</div>
+<p>这里，<span><span class="arithmatex">\(\text{Supp}(\tau)\)</span><span class="heti-spacing"> </span></span>表示分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\tau\)</span><span class="heti-spacing"> </span></span>的支撑集，即所有被分配了正概率的后验分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mu\)</span><span class="heti-spacing"> </span></span>的集合。</p>
+</details>
+<p>例如，检查导师写推荐信的例子中，在最优机制下，信号机制导致的两个后验概率分布分别为：</p>
+<ul>
+<li>收到“好”推荐信 <code>e</code> 后的后验分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mu_e\)</span></span>：
+  <span class="arithmatex">\(\mu_e(\text{excellent}) = 1/3, \quad \mu_e(\text{average}) = 2/3\)</span></li>
+<li>收到“一般”推荐信 <code>a</code> 后的后验分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mu_a\)</span></span>：
+  <span class="arithmatex">\(\mu_a(\text{excellent}) = 0, \quad \mu_a(\text{average}) = 1\)</span></li>
+</ul>
+<p>这两个后验概率分布不相同，因此<span><span class="heti-spacing"> </span><span class="arithmatex">\(\text{Supp}(\tau) = \{\mu_e, \mu_a\}\)</span></span>。二者对应的信号发出概率为：</p>
+<ul>
+<li><span class="arithmatex">\(P(e) = \pi(e | \text{excellent})\mu_0(\text{excellent}) + \pi(e | \text{average})\mu_0(\text{average}) = 1 \times 0.25 + (2/3) \times 0.75 = 0.75\)</span></li>
+<li><span class="arithmatex">\(P(a) = \pi(a | \text{excellent})\mu_0(\text{excellent}) + \pi(a | \text{average})\mu_0(\text{average}) = 0 \times 0.25 + (1/3) \times 0.75 = 0.25\)</span></li>
+</ul>
+<details class="proof">
+<summary> 验证贝叶斯可行性：</summary>
+<ul>
+<li>对于 <code>excellent</code> 状态：
+  $$
+  \begin{align}
+  \tau(\mu_e) \cdot \mu_e(\text{excellent}) + \tau(\mu_a) \cdot \mu_a(\text{excellent}) &amp;= P(e) \cdot \mu_e(\text{excellent}) + P(a) \cdot \mu_a(\text{excellent}) \
+  &amp;= 0.75 \times (1/3) + 0.25 \times 0 \
+  &amp;= 0.25 = \mu_0(\text{excellent})
+  \end{align}
+  $$</li>
+<li>对于 <code>average</code> 状态：
+  $$
+  \begin{align}
+  \tau(\mu_e) \cdot \mu_e(\text{average}) + \tau(\mu_a) \cdot \mu_a(\text{average}) &amp;= P(e) \cdot \mu_e(\text{average}) + P(a) \cdot \mu_a(\text{average}) \
+  &amp;= 0.75 \times (2/3) + 0.25 \times 1 \
+  &amp;= 0.5 + 0.25 = 0.75 = \mu_0(\text{average})
+  \end{align}
+  $$</li>
+</ul>
+<p>事实证明，导师写推荐信的例子满足贝叶斯可行性并非偶然：只要<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\tau\)</span><span class="heti-spacing"> </span></span>是信号机制导致的，信号机制必然贝叶斯可行。对任意的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\omega \in \Omega\)</span><span class="heti-spacing"> </span></span>有：</p>
+<div class="arithmatex">\[
+\begin{align}
+\sum_{\mu \in \text{Supp}(\tau)} \mu(\omega)\tau(\mu) &amp;= \sum_{s \in S} \mu_s(\omega)P(s) \\
+&amp;= \sum_{s \in S} \left( \frac{\pi(s|\omega)\mu_0(\omega)}{\sum_{\omega' \in \Omega} \pi(s|\omega')\mu_0(\omega')} \right) \left( \sum_{\omega' \in \Omega} \pi(s|\omega')\mu_0(\omega') \right) \\
+&amp;= \sum_{s \in S} \pi(s|\omega)\mu_0(\omega) \\
+&amp;= \mu_0(\omega) \sum_{s \in S} \pi(s|\omega) \\
+&amp;= \mu_0(\omega) \times 1 = \mu_0(\omega)
+\end{align}
+\]</div>
+</details>
+<h3 id="II4-问题转化-page-45-48"><span>II.4<span class="heti-spacing"> </span></span>问题转化<span><span class="heti-spacing"> </span>(page 45-48)</span><a class="headerlink" href="#II4-问题转化-page-45-48" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>贝叶斯可行性概念非常重要，因为它帮助我们将原始问题进行转化：</p>
+<details class="theorem" open="open">
+<summary>问题转化定理</summary>
+<p>一个后验概率分布的分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\tau \in \Delta(\Delta(\Omega))\)</span><span class="heti-spacing"> </span></span>是贝叶斯可行的当且仅当存在一个信号机制<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((S, \pi(s|\omega))\)</span><span class="heti-spacing"> </span></span>使得<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\tau\)</span><span class="heti-spacing"> </span></span>是由该信号机制导致的。</p>
+<details class="proof">
+<summary><strong>证明草图：</strong></summary>
+<ul>
+<li><strong>“当”的部分</strong>：上文已经说明，任何信号机制导致的后验概率分布的分布都是贝叶斯可行的。</li>
+<li><strong>“仅当”的部分</strong>：需要从一个贝叶斯可行的后验概率分布的分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(\tau\)</span></span> <strong>构造出</strong>一个信号机制<span><span class="heti-spacing"> </span><span class="arithmatex">\((S, \pi(s|\omega))\)</span></span>。
+  定义信号空间 <span class="arithmatex">\(S = \text{Supp}(\tau)\)</span>（即，每一个可行的后验分布 <span class="arithmatex">\(\mu_s\)</span> 对应一个信号 <span class="arithmatex">\(s\)</span>）。
+  对任意的 <span class="arithmatex">\(s \in S\)</span> 和 <span class="arithmatex">\(\omega \in \Omega\)</span>，定义发送信号的条件概率为：
+  $$
+  \pi(s|\omega) = \frac{\tau(\mu_s)\mu_s(\omega)}{\mu_0(\omega)}
+  $$</li>
+</ul>
+</details>
+<p>（读者可以自行验证这构造出了一个合理的信号机制，即<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\sum_s \pi(s|\omega) = 1\)</span><span class="heti-spacing"> </span></span>且<span><span class="heti-spacing"> </span><span class="arithmatex">\(\pi(s|\omega) \ge 0\)</span></span><heti-adjacent class="heti-adjacent-half">。</heti-adjacent>）</p>
+</details>
+<p><strong>总结问题转化：</strong></p>
+<ul>
+<li>因此，一个信号机制<strong>等价于</strong>一个贝叶斯可行的后验概率分布的分布。</li>
+<li>进而，一个贝叶斯可行的后验概率分布的分布可以导致接收者行动的分布，因为一个后验概率分布就对应接收者的一个最优行动。</li>
+<li>显然，只要接收者行动分布一定，那么发送者的效用也是确定的。</li>
+<li>因此，设计最优信号机制的问题可以<strong>转化为</strong>设计一个贝叶斯可行的后验概率分布的分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(\tau\)</span></span>，使得发送者的效用最大化。</li>
+</ul>
+<h3 id="II5-接收者最优行动与发送者期望效用-page-50-51"><span>II.5<span class="heti-spacing"> </span></span>接收者最优行动与发送者期望效用<span><span class="heti-spacing"> </span>(page 50-51)</span><a class="headerlink" href="#II5-接收者最优行动与发送者期望效用-page-50-51" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>问题转化后，我们需要解决的问题是设计一个贝叶斯可行的后验概率分布的分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(\tau\)</span></span>，使得发送者的效用最大化。</p>
+<p>首先将问题形式化：记后验概率为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mu\)</span><span class="heti-spacing"> </span></span>时，接收者的最优行动为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{a}(\mu) = \arg \max_{a \in A} E_{\mu}[u(a, \omega)]\)</span></span>。则发送者在给定后验信念<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mu\)</span><span class="heti-spacing"> </span></span>下的期望效用为：</p>
+<div class="arithmatex">\[
+\hat{v}(\mu) = E_{\mu}[v(\hat{a}(\mu), \omega)]
+\]</div>
+<p>这里的期望是针对真实状态<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\omega\)</span><span class="heti-spacing"> </span></span>在给定后验信念<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mu\)</span><span class="heti-spacing"> </span></span>下的期望。
+在导师写推荐信的例子中，因为导师的效用 <span class="arithmatex">\(v\)</span> 与 <span class="arithmatex">\(\omega\)</span> 无关（只要雇用就是1），所以 <span class="arithmatex">\(E_{\mu}[v(\hat{a}(\mu), \omega)] = v(\hat{a}(\mu), \omega)\)</span>。</p>
+<p>基于此，最优信号机制问题可以表述为一个优化问题：</p>
+<div class="arithmatex">\[
+\begin{align}
+&amp;\max_{\tau} E_{\tau}[\hat{v}(\mu)] \\
+\text{s.t.}\quad &amp;\sum_{\mu \in \text{Supp}(\tau)} \mu \tau(\mu) = \mu_0 \\
+&amp;\tau \in \Delta(\Delta(\Omega))
+\end{align}
+\]</div>
+<p>其中，第一个约束是贝叶斯可行性条件，第二个约束是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\tau\)</span><span class="heti-spacing"> </span></span>必须是一个概率分布。</p>
+<h2 id="III-最优信号机制-page-49-68"><span>III<span class="heti-spacing"> </span></span>最优信号机制<span><span class="heti-spacing"> </span>(page 49-68)</span><a class="headerlink" href="#III-最优信号机制-page-49-68" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="III1-显示原理-Revelation-Principle-page-52-55"><span>III.1<span class="heti-spacing"> </span></span>显示原理<span><span class="heti-spacing"> </span>(Revelation Principle) (page 52-55)</span><a class="headerlink" href="#III1-显示原理-Revelation-Principle-page-52-55" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>最优信号机制的优化问题转化为在贝叶斯可行性约束下最大化发送者的期望效用。然而，问题在于后验概率分布的分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\tau\)</span><span class="heti-spacing"> </span></span>的支撑集大小（也就是信号实现空间<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(S\)</span><span class="heti-spacing"> </span></span>的大小）可能是多少？我们甚至不知道需要多少种不同的信号。例如，导师或许可以写三类甚至更多类推荐信，设计更复杂的信号机制，从而获得更高的期望效用。</p>
+<details class="theorem" open="open">
+<summary>贝叶斯劝说的显示原理</summary>
+<p>存在一个信号机制使得发送者的效用达到<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(v^*\)</span><span class="heti-spacing"> </span></span>当且仅当存在一个<strong>直接（straightforward）信号机制</strong>使得发送者的效用达到<span><span class="heti-spacing"> </span><span class="arithmatex">\(v^*\)</span></span>。其中直接信号机制是指满足<span><span class="heti-spacing"> </span><span class="arithmatex">\(S \subseteq A\)</span></span>（信号空间是行动空间的子集）并且接收者的最优行动等于信号实现的信号（<u>即接收者收到信号<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(s\)</span><span class="heti-spacing"> </span></span>后，其最优行动就是<span><span class="heti-spacing"> </span><span class="arithmatex">\(s\)</span></span></u> <heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+</details>
+<p><strong>直观解释</strong>：</p>
+<ul>
+<li><strong>缩小设计空间</strong>：一个后验概率分布会对应于一个接收者的最优行动。接收者的最优行动决定发送者的效用。因此，直观来看，如果有<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(|A|\)</span><span class="heti-spacing"> </span></span>种后验概率（故<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(|A|\)</span><span class="heti-spacing"> </span></span>种信号实现）诱导出<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(|A|\)</span><span class="heti-spacing"> </span></span>种行动就足够了。</li>
+<li><strong>与机制设计的关联</strong>：<ul>
+<li>贝叶斯劝说也称为<strong>信息设计（Information Design）</strong>。信息设计和机制设计都是使他人行动按照自己设想进行的方式。<ul>
+<li><strong>信息设计</strong>通过改变他人的<strong>信念</strong>来实现预设行动。</li>
+<li><strong>机制设计</strong>通过设计<strong>激励</strong>来实现预设行动。</li>
+</ul>
+</li>
+<li>这两个显示原理都是缩小信息<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>机制设计的空间。</li>
+</ul>
+</li>
+<li><strong>导师推荐信的例子</strong>：直接信号机制指信号实现空间<span><span class="heti-spacing"> </span><span class="arithmatex">\(S \subseteq \{\text{hiring, not hiring}\}\)</span></span>。当接收者看到“雇用”信号时雇用，看到“不雇用”信号时不雇用。<ul>
+<li>此前给出的最优信号机制（部分诚实推荐）的确满足直接信号机制的定义，因为企业收到 <code>e</code> 信号后会选择雇用，收到 <code>a</code> 信号后会选择不雇用。</li>
+</ul>
+</li>
+<li><strong>总结</strong>：显示原理表明，最优信号机制设计所需的信号实现数目（后验概率数目）是不超过接收者行动数目的。</li>
+<li><strong>证明</strong>：定理的证明是简单的：如果有两个信号实现会导致相同的接收者最优行动，将这两个信号实现合并成一个即可，因为它们在影响接收者行为和发送者效用方面是等价的。</li>
+</ul>
+<h3 id="III2-凹包络-Concave-Closure-page-56-57"><span>III.2<span class="heti-spacing"> </span></span>凹包络<span><span class="heti-spacing"> </span>(Concave Closure) (page 56-57)</span><a class="headerlink" href="#III2-凹包络-Concave-Closure-page-56-57" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在完成了准备工作后，最后的问题是如何求解最优信号机制。我们将介绍一个重要的概念：凹包络。</p>
+<details class="definition" open="open">
+<summary>函数的凹包络<span><span class="heti-spacing"> </span>(Concave Closure)</span></summary>
+<p>函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{v}\)</span><span class="heti-spacing"> </span></span>的<strong>凹包络</strong> <span><span class="arithmatex">\(V(\mu)\)</span><span class="heti-spacing"> </span></span>定义为：</p>
+<div class="arithmatex">\[
+V(\mu) = \sup\{z \mid (\mu, z) \in \text{co}(\hat{v})\}
+\]</div>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\text{co}(\hat{v})\)</span><span class="heti-spacing"> </span></span>表示函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{v}\)</span><span class="heti-spacing"> </span></span>的图像（Graph）的凸包（Convex Hull<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<p><strong>直观而言</strong>：一个函数的凹包络是大于等于这个函数的最小凹函数。它是函数上方能找到的最大凹函数，或者说是将函数所有的“凹陷”部分用直线“拉平”后的结果。</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Lec10-2.png"><img alt="函数的凹包络示意图|525" src="../attachments/Lec10-2.png"/></a></p>
+</details>
+<h3 id="III3-最优信号机制的解-page-58-59"><span>III.3<span class="heti-spacing"> </span></span>最优信号机制的解<span><span class="heti-spacing"> </span>(page 58-59)</span><a class="headerlink" href="#III3-最优信号机制的解-page-58-59" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>函数的凹包络是求解最优信号机制问题的关键：</p>
+<ul>
+<li>我们可以将发送者的问题视为在所有贝叶斯可行的后验概率分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\tau\)</span><span class="heti-spacing"> </span></span>中选择一个，使得<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(E_{\tau}[\hat{v}(\mu)]\)</span><span class="heti-spacing"> </span></span>最大化。</li>
+<li>注意到，如果<span><span class="heti-spacing"> </span><span class="arithmatex">\((\mu_0, z) \in \text{co}(\hat{v})\)</span></span>，则必然存在后验概率分布的分布<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\tau\)</span><span class="heti-spacing"> </span></span>使得<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(E_{\tau}[\mu] = \mu_0\)</span><span class="heti-spacing"> </span></span>且<span><span class="heti-spacing"> </span><span class="arithmatex">\(E_{\tau}[\hat{v}(\mu)] = z\)</span></span>（因为期望也是凸组合<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</li>
+<li>因此， <span><span class="arithmatex">\(V(\mu_0)\)</span><span class="heti-spacing"> </span></span>则是所有这样的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(z\)</span><span class="heti-spacing"> </span></span>中的最大值。</li>
+</ul>
+<details class="theorem" open="open">
+<summary>最优信号机制的解</summary>
+<p>最优信号机制问题的解存在，最大值为<span><span class="heti-spacing"> </span><span class="arithmatex">\(V(\mu_0)\)</span></span>。</p>
+<p><strong>推论</strong>：发送者设计信号<strong>能提升自己的效用当且仅当<span><span class="heti-spacing"> </span><span class="arithmatex">\(V(\mu_0) &gt; \hat{v}(\mu_0)\)</span></span></strong>。</p>
+<p>这意味着，只有当先验信念<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mu_0\)</span><span class="heti-spacing"> </span></span>所对应的发送者当前效用<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{v}(\mu_0)\)</span><span class="heti-spacing"> </span></span>处于“凹陷”区域（即可以通过信息披露来“拉平”提高）时，发送者才有动机进行劝说。如果<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{v}(\mu_0)\)</span><span class="heti-spacing"> </span></span>已经在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(V(\mu_0)\)</span><span class="heti-spacing"> </span></span>上，则发送者无法通过信息披露进一步提升效用。</p>
+</details>
+<h3 id="III4-导师写推荐信问题的解-page-60-61"><span>III.4<span class="heti-spacing"> </span></span>导师写推荐信问题的解<span><span class="heti-spacing"> </span>(page 60-61)</span><a class="headerlink" href="#III4-导师写推荐信问题的解-page-60-61" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>回到导师写推荐信的例子，我们可以利用上述结论证明之前给出的部分诚实推荐的解是最优的。</p>
+<p>首先，我们需要计算<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{v}(\mu) = E_{\mu}[v(\hat{a}(\mu), \omega)] = v(\hat{a}(\mu), \omega)\)</span></span>。
+接收者（企业）会选择雇用（hiring）当且仅当雇用带来的期望效用不低于不雇用带来的期望效用（为 0）：
+$$
+E_{\mu}[u(\text{hiring}, \omega)] = \mu(\text{excellent}) \times 1 + \mu(\text{average}) \times (-0.5) \ge 0
+$$
+由于 <span class="arithmatex">\(\mu(\text{average}) = 1 - \mu(\text{excellent})\)</span>，此不等式变为：
+$$
+\mu(\text{excellent}) \times 1 + (1 - \mu(\text{excellent})) \times (-0.5) \ge 0 \
+\mu(\text{excellent}) - 0.5 + 0.5\mu(\text{excellent}) \ge 0 \
+1.5\mu(\text{excellent}) \ge 0.5 \
+\mu(\text{excellent}) \ge 1/3
+$$
+因此，当 <span class="arithmatex">\(\mu(\text{excellent}) \ge 1/3\)</span> 时，接收者的最优行动是雇用 (<span class="arithmatex">\(\hat{a}(\mu) = \text{hiring}\)</span>)，导师的效用为1。反之，当 <span class="arithmatex">\(\mu(\text{excellent}) &lt; 1/3\)</span> 时，接收者的最优行动是不雇用 (<span class="arithmatex">\(\hat{a}(\mu) = \text{not hiring}\)</span>)，导师的效用为 0。
+所以，<span class="arithmatex">\(\hat{v}(\mu)\)</span> 的表达式为：
+$$
+\hat{v}(\mu) = \begin{cases}
+1 &amp; \text{if } \mu(\text{excellent}) \ge 1/3 \
+0 &amp; \text{if } \mu(\text{excellent}) &lt; 1/3
+\end{cases}
+$$
+这可以绘制成下图中的 Panel A（横坐标表示 <span class="arithmatex">\(\mu(\text{excellent})\)</span>）：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Lec10-3.png"><img alt="导师写推荐信问题的解图示" src="../attachments/Lec10-3.png"/></a></p>
+<p>现在我们找到其凹包络<span><span class="heti-spacing"> </span><span class="arithmatex">\(V(\mu)\)</span></span>。由于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{v}(\mu)\)</span><span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mu(\text{excellent}) &lt; 1/3\)</span><span class="heti-spacing"> </span></span>时为<span><span class="heti-spacing"> </span>0</span>，在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mu(\text{excellent}) \ge 1/3\)</span><span class="heti-spacing"> </span></span>时为<span><span class="heti-spacing"> </span>1</span>，其凹包络将是连接<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((0, 0)\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((1, 1)\)</span><span class="heti-spacing"> </span></span>上方并包络<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{v}(\mu)\)</span><span class="heti-spacing"> </span></span>的函数<sup id="fnref:3"><a class="footnote-ref" href="#fn:3"><span><span class="heti-spacing"> </span>1</span></a></sup>。具体的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(V(\mu)\)</span><span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>Panel C<span class="heti-spacing"> </span></span>中显示。</p>
+<p>先验概率为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mu_0(\text{excellent}) = 0.25\)</span></span>。此时，<span class="arithmatex">\(\hat{v}(\mu_0) = 0\)</span>。我们可以看出<span><span class="heti-spacing"> </span><span class="arithmatex">\(V(\mu_0) = 0.75\)</span></span>，这与之前计算出的导师最优效用<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(0.75\)</span><span class="heti-spacing"> </span></span>相符。</p>
+<p>此时，后验概率分布的支撑集为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\{\mu_e, \mu_a\}\)</span></span>，其中：</p>
+<p><span><span class="arithmatex">\(\mu_e(\text{excellent}) = 1/3, \mu_e(\text{average}) = 2/3\)</span> (<span class="heti-spacing"> </span></span>企业无差异点<span><span class="heti-spacing"> </span>)</span>
+<span class="arithmatex">\(\mu_a(\text{excellent}) = 0, \mu_a(\text{average}) = 1\)</span> (企业选择不雇用)</p>
+<p>这恰好符合我们之前通过直觉推导出的最优策略和结果。因此，凹包络方法为我们提供了一种通用的数学工具来求解最优信号机制问题。</p>
+<h3 id="III5-贝叶斯劝说与线性规划-Bayesian-Persuasion-and-Linear-Programming-page-62-65"><span>III.5<span class="heti-spacing"> </span></span>贝叶斯劝说与线性规划<span><span class="heti-spacing"> </span>(Bayesian Persuasion and Linear Programming) (page 62-65)</span><a class="headerlink" href="#III5-贝叶斯劝说与线性规划-Bayesian-Persuasion-and-Linear-Programming-page-62-65" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>贝叶斯劝说问题也可以从计算的视角重新审视，并转化为一个线性规划问题。</p>
+<details class="tip" open="open">
+<summary>最优信号机制的线性规划表述</summary>
+<p>已知先验分布<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mu_0\)</span></span>，发送者的效用函数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(v(a, \omega)\)</span><span class="heti-spacing"> </span></span>和接收者的效用函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(u(a, \omega)\)</span></span>。设接收者行动有<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>种，记为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\{1, 2, \dots, n\}\)</span></span>。显示原理表明，只需对每个<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\omega\)</span><span class="heti-spacing"> </span></span>设计<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>种信号<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\pi(s_i|\omega)\)</span><span class="heti-spacing"> </span></span>即可，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(s_i\)</span><span class="heti-spacing"> </span></span>是导致接收者采取行动<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>的信号。</p>
+<p>目标函数：最大化发送者的期望效用</p>
+<div class="arithmatex">\[
+\max_{\{\pi(s_i|\omega)\}} \sum_{i=1}^n \sum_{\omega \in \Omega} \pi(s_i|\omega)\mu_0(\omega)v(i, \omega)
+\]</div>
+<p>约束条件：</p>
+<ol>
+<li>
+<p><strong>接收者激励相容性约束</strong>：对于每个信号<span><span class="heti-spacing"> </span><span class="arithmatex">\(s_i\)</span></span>（导致行动<span><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span></span>）和任意其他行动<span><span class="heti-spacing"> </span><span class="arithmatex">\(j\)</span></span>，接收者选择<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>的期望效用必须不低于选择<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(j\)</span><span class="heti-spacing"> </span></span>的期望效用。这确保了接收者在收到<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(s_i\)</span><span class="heti-spacing"> </span></span>后，最优选择是行动<span><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span></span>。</p>
+<p>$$
+\sum_{\omega \in \Omega} \pi(s_i|\omega)\mu_0(\omega)u(i, \omega) \ge \sum_{\omega \in \Omega} \pi(s_i|\omega)\mu_0(\omega)u(j, \omega), \quad \forall i, j \in [n]
+$$
+这个约束的推导是基于接收者选择 <span class="arithmatex">\(i\)</span> 的后验期望效用大于选择 <span class="arithmatex">\(j\)</span> 的后验期望效用，即 <span class="arithmatex">\(E_{\mu_{s_i}}[u(i, \omega)] \ge E_{\mu_{s_i}}[u(j, \omega)]\)</span>。将后验概率代入并乘以 <span class="arithmatex">\(P(s_i)\)</span>，即可得到上述形式。</p>
+</li>
+<li>
+<p><strong>概率归一化约束</strong>：对于每个真实状态<span><span class="heti-spacing"> </span><span class="arithmatex">\(\omega\)</span></span>，所有可能信号的发送概率之和必须为<span><span class="heti-spacing"> </span>1</span>。</p>
+<div class="arithmatex">\[
+\sum_{i=1}^n \pi(s_i|\omega) = 1, \quad \forall \omega \in \Omega
+\]</div>
+</li>
+<li>
+<p><strong>非负性约束</strong>：所有发送信号的概率必须是非负的。</p>
+<div class="arithmatex">\[
+\pi(s_i|\omega) \ge 0, \quad \forall s_i \in S, \omega \in \Omega
+\]</div>
+</li>
+</ol>
+<p>上述线性规划给予我们的启示是，贝叶斯劝说与迈尔森最优拍卖机制设计等问题类似，本质上都可以写成数学规划问题。这些问题通常都可以找到特殊的结构，从而可以将问题转化为可以给出比较直接的解的问题。并且两个问题的解都非常简洁美观，值得反复品味。</p>
+</details>
+<h3 id="III6-贝叶斯劝说对接收者的影响-page-66-68"><span>III.6<span class="heti-spacing"> </span></span>贝叶斯劝说对接收者的影响<span><span class="heti-spacing"> </span>(page 66-68)</span><a class="headerlink" href="#III6-贝叶斯劝说对接收者的影响-page-66-68" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>最后，我们解决前面提出的第三个问题：信号接收者是否愿意接受发送者的信号机制？</p>
+<details class="theorem" open="open">
+<summary>接收者的效用提升</summary>
+<p>在任意信号机制<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((S, \pi(s|\omega))\)</span><span class="heti-spacing"> </span></span>下，接收者的效用都不会低于其在没有信号（即仅根据先验分布采取行动）的情况下的效用。</p>
+<p><strong>证明</strong>：</p>
+<p>设在没有信号的情况下，接收者的最优行动是<span><span class="heti-spacing"> </span><span class="arithmatex">\(a_0 = \arg \max_{a \in A} E_{\mu_0}[u(a, \omega)]\)</span></span>，此时其期望效用为<span><span class="heti-spacing"> </span><span class="arithmatex">\(E_{\mu_0}[u(a_0, \omega)]\)</span></span>。</p>
+<p>在有信号机制的情况下，接收者收到信号<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(s\)</span><span class="heti-spacing"> </span></span>后，会选择行动<span><span class="heti-spacing"> </span><span class="arithmatex">\(a_s = \arg \max_{a \in A} E_{\mu_s}[u(a, \omega)]\)</span></span>，此时其效用为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\max_{a \in A} E_{\mu_s}[u(a, \omega)]\)</span></span>。</p>
+<p>信号机制下接收者的总期望效用为：</p>
+<div class="arithmatex">\[
+\begin{align}
+\sum_{s \in S} P(s) \max_{a \in A} E_{\mu_s}[u(a, \omega)] &amp;= \sum_{s \in S} \max_{a \in A} \sum_{\omega \in \Omega} \mu_s(\omega) P(s) u(a, \omega) \\
+&amp;= \sum_{s \in S} \max_{a \in A} \sum_{\omega \in \Omega} \pi(s|\omega)\mu_0(\omega) u(a, \omega)
+\end{align}
+\]</div>
+<p>这是因为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mu_s(\omega) P(s) = \pi(s|\omega)\mu_0(\omega)\)</span></span>。</p>
+<p>上式<strong>大于等于</strong> <span>(<span class="heti-spacing"> </span></span>由于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\max\)</span><span class="heti-spacing"> </span></span>算子在求和外面，它选择最优的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(a\)</span><span class="heti-spacing"> </span></span>对于每个<span><span class="heti-spacing"> </span><span class="arithmatex">\(s\)</span></span>，这比预先固定一个<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(a\)</span><span class="heti-spacing"> </span></span>再求期望要好<span><span class="heti-spacing"> </span>)</span>：</p>
+<div class="arithmatex">\[
+\begin{align}
+&amp;\ge \max_{a \in A} \sum_{s \in S} \sum_{\omega \in \Omega} \pi(s|\omega)\mu_0(\omega) u(a, \omega) \\
+&amp;= \max_{a \in A} \sum_{\omega \in \Omega} \mu_0(\omega) u(a, \omega) \sum_{s \in S} \pi(s|\omega) \\
+&amp;= \max_{a \in A} \sum_{\omega \in \Omega} \mu_0(\omega) u(a, \omega) \quad (\text{因为 } \sum_{s \in S} \pi(s|\omega) = 1) \\
+&amp;= E_{\mu_0}[u(a_0, \omega)]
+\end{align}
+\]</div>
+<p>由此可知命题成立。</p>
+</details>
+<p><strong>此命题的核心含义：</strong>
+理性接收者永远不会因为接收更多信息而受损，因为他们总可以选择忽略信息，回到基于先验信念的决策。如果信息披露能够帮助他们做出更好的决策（即增加期望效用），他们就会利用这些信息。因此，贝叶斯劝说机制总是对接收者有利或至少无害。</p>
+<p>事实上，这里的讨论与数据要素市场中的<strong>出售信号机制</strong>的讨论有关：基于上述讨论，可以计算向数据买家出售信号机制给买家带来的效用，并且上述命题表明这一效用一定是非负的，这为数据交易的价值提供了理论基础。</p>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn:3">
+<p>由“凹函数”的性质决定，想想为什么不连接<span class="heti-skip"><span class="heti-spacing"> </span>(1/3, 0)<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>(1/3, 1)</span> ？ <a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn:2">
+<p><span><span class="arithmatex">\(\mu_{s}(\cdot{})\)</span><span class="heti-spacing"> </span></span>表示企业收到信号<span class="heti-skip"><span class="heti-spacing"> </span>s<span class="heti-spacing"> </span></span>后的后验分布。 <a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">↩</a></p>
+</li>
+<li id="fn:1">
+<p>完美贝叶斯均衡（Perfect Bayesian Equilibrium, PBE）是博弈论中一种常用的均衡概念，用于分析不完全信息动态博弈。它要求：
+1. 参与者的策略对给定信念是最佳反应；
+2. 参与者的信念与策略在信息集上是贝叶斯一致的；
+3. 信念在通过决策路径时使用贝叶斯法则进行更新，而在未通过的决策路径上则可以自由定义（通常需要满足一些合理性条件，如“前向归纳”等）。</p>
+<p>在贝叶斯劝说中，发送者承诺其机制，接收者据此更新信念并行动，这正是<span class="heti-skip"><span class="heti-spacing"> </span>PBE<span class="heti-spacing"> </span></span>的体现。 <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 3 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年4月2日 11:20:22 CST">2026年4月2日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月28日 21:39:51 CST">2025年7月28日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: 第九讲：数据交易定价" class="md-footer__link md-footer__link--prev" href="../Lec09/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                第九讲：数据交易定价
+              </div>
+</div>
+</a>
+<a aria-label="下一页: Data modeling and analysis" class="md-footer__link md-footer__link--next" href="../../DMA/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                Data modeling and analysis
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

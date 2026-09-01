@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/AI/RecSys/GenRec/VQ/" rel="canonical"/>
+<link href="../" rel="prev"/>
+<link href="../../../GRL/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>VQ - Darstib's KG!</title>
+<link href="../../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#Overview">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              VQ
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../note/">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../../">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../../note/">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_7" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../../">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_7_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    AI
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_7_2" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    RecSys
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_7_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_7_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    RecSys
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_7_2_2" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    GenRec
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_7_2_2" id="__nav_7_2_2_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_7_2_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_7_2_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    GenRec
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    VQ
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    VQ
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Overview">
+<span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#SQ-Scalar-Quantization">
+<span class="md-ellipsis">
+      
+        [SQ] Scalar Quantization
+      
+    </span>
+</a>
+<nav aria-label="[SQ] Scalar Quantization" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#编码">
+<span class="md-ellipsis">
+      
+        编码
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#解码">
+<span class="md-ellipsis">
+      
+        解码
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VQ-Vector-Quantization">
+<span class="md-ellipsis">
+      
+        [VQ] Vector Quantization
+      
+    </span>
+</a>
+<nav aria-label="[VQ] Vector Quantization" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#非均匀标量量化">
+<span class="md-ellipsis">
+      
+        非均匀标量量化
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#形式化建模">
+<span class="md-ellipsis">
+      
+        形式化建模
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#编码和解码">
+<span class="md-ellipsis">
+      
+        编码和解码
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#PQ-Product-Quantization">
+<span class="md-ellipsis">
+      
+        [PQ] Product Quantization
+      
+    </span>
+</a>
+<nav aria-label="[PQ] Product Quantization" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Standard-PQ">
+<span class="md-ellipsis">
+      
+        Standard PQ
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Optimized-PQ">
+<span class="md-ellipsis">
+      
+        Optimized PQ
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#RQ-Residual-Quantization">
+<span class="md-ellipsis">
+      
+        [RQ] Residual Quantization
+      
+    </span>
+</a>
+<nav aria-label="[RQ] Residual Quantization" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Standard-RQ">
+<span class="md-ellipsis">
+      
+        Standard RQ
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Additive-Quantization">
+<span class="md-ellipsis">
+      
+        Additive Quantization
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../GRL/">
+<span class="md-ellipsis">
+    
+  
+    GRL
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../KG/">
+<span class="md-ellipsis">
+    
+  
+    KG
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../JustDo/MCP/">
+<span class="md-ellipsis">
+    
+  
+    JustDo
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Overview">
+<span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#SQ-Scalar-Quantization">
+<span class="md-ellipsis">
+      
+        [SQ] Scalar Quantization
+      
+    </span>
+</a>
+<nav aria-label="[SQ] Scalar Quantization" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#编码">
+<span class="md-ellipsis">
+      
+        编码
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#解码">
+<span class="md-ellipsis">
+      
+        解码
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#VQ-Vector-Quantization">
+<span class="md-ellipsis">
+      
+        [VQ] Vector Quantization
+      
+    </span>
+</a>
+<nav aria-label="[VQ] Vector Quantization" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#非均匀标量量化">
+<span class="md-ellipsis">
+      
+        非均匀标量量化
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#形式化建模">
+<span class="md-ellipsis">
+      
+        形式化建模
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#编码和解码">
+<span class="md-ellipsis">
+      
+        编码和解码
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#PQ-Product-Quantization">
+<span class="md-ellipsis">
+      
+        [PQ] Product Quantization
+      
+    </span>
+</a>
+<nav aria-label="[PQ] Product Quantization" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Standard-PQ">
+<span class="md-ellipsis">
+      
+        Standard PQ
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Optimized-PQ">
+<span class="md-ellipsis">
+      
+        Optimized PQ
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#RQ-Residual-Quantization">
+<span class="md-ellipsis">
+      
+        [RQ] Residual Quantization
+      
+    </span>
+</a>
+<nav aria-label="[RQ] Residual Quantization" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Standard-RQ">
+<span class="md-ellipsis">
+      
+        Standard RQ
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Additive-Quantization">
+<span class="md-ellipsis">
+      
+        Additive Quantization
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../../">
+<span class="md-ellipsis">
+    AI
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    RecSys
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    GenRec
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<h1>VQ</h1>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://mpskex.github.io/vector-search/2023/11/20/on-quantization.html">向量搜索中的量化</a></li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://www.cnblogs.com/zackstang/p/18553945">大规模向量检索与量化方法<span class="heti-skip"><span class="heti-spacing"> </span>- ZacksTang -<span class="heti-spacing"> </span></span>博客园</a></li>
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://arxiv.org/abs/2405.03110">Vector Quantization for Recommender Systems: A Review and Outlook</a></li>
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://medium.com/data-science/optimizing-vector-quantization-methods-by-machine-learning-algorithms-77c436d0749d">Optimizing Vector Quantization Methods by Machine Learning Algorithms</a></li>
+</ul>
+</div>
+<h2 id="Overview">Overview<a class="headerlink" href="#Overview" title="Permanent link">¶</a></h2>
+<div class="admonition quote">
+<p><a href="https://inria.hal.science/inria-00514462v2/document">https://inria.hal.science/inria-00514462v2/document</a></p>
+<p>(Quantization) Its purpose is to reduce the cardinality of the representation space, in particular when the input data is real-valued.</p>
+<p><a href="https://www.pinecone.io/learn/series/faiss/product-quantization/">https://www.pinecone.io/learn/series/faiss/product-quantization/</a></p>
+<p>Quantization is a generic method that refers to the compression of data into a smaller space.</p>
+</div>
+<p>简单来说，量化是为了通过减小数据的值域来达到压缩的目的的一种技术。需要注意的是，量化和降维具有较为明显的差异：对于一个<span class="heti-skip"><span class="heti-spacing"> </span>D<span class="heti-spacing"> </span></span>维的向量，若其每个分量的可取范围为<span><span class="heti-spacing"> </span>S</span>，那么</p>
+<ul>
+<li><strong>降维</strong>操作可以视为在缩小<span><span class="heti-spacing"> </span>D</span></li>
+<li>而<strong>量化</strong>操作则视为在缩小<span><span class="heti-spacing"> </span>S</span></li>
+</ul>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/29_260129-161737.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/29_260129-161737.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/29_260129-161737.png" width="575"/></a>
+<br/>
+<figcaption>降维可以降低维度<span><span class="heti-spacing"> </span>D</span>，但不能缩小范围<span><span class="heti-spacing"> </span>S</span>。</figcaption>
+</figure>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/29_1769674681570.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/29_1769674681570.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/29_1769674681570.png" width="575"/></a>
+<br/>
+<figcaption>量化可以缩小范围<span><span class="heti-spacing"> </span>S</span>，但不能降低维度<span><span class="heti-spacing"> </span>D</span>。</figcaption>
+</figure>
+<h2 id="SQ-Scalar-Quantization">[SQ] Scalar Quantization<a class="headerlink" href="#SQ-Scalar-Quantization" title="Permanent link">¶</a></h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://yongyuan.name/blog/scalar-quantization.html">量化索引：<span>Scalar Quantization<span class="heti-spacing"> </span></span>标量量化</a></li>
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="http://www.yindaheng98.top/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/quant.html">一些常见的模型量化方法<span class="heti-skip"><span class="heti-spacing"> </span>| Yin<span class="heti-spacing"> </span></span>的笔记本</a></li>
+</ul>
+</div>
+<p>如果说有一个<span class="heti-skip"><span class="heti-spacing"> </span>128<span class="heti-spacing"> </span></span>维<span class="heti-skip"><span class="heti-spacing"> </span>32<span class="heti-spacing"> </span></span>位浮点向量，工程架构对存储和读取性能是有要求的，即不能直接将这<span class="heti-skip"><span class="heti-spacing"> </span>128<span class="heti-spacing"> </span></span>维浮点向量直接写数据库里面。</p>
+<p>有没有一种量化方法，将一个<span class="heti-skip"><span class="heti-spacing"> </span>d<span class="heti-spacing"> </span></span>维<span class="heti-skip"><span class="heti-spacing"> </span>float<span class="heti-spacing"> </span></span>型向量，<span>encode<span class="heti-spacing"> </span></span>为一个<span class="heti-skip"><span class="heti-spacing"> </span>d<span class="heti-spacing"> </span></span>维<span class="heti-skip"><span class="heti-spacing"> </span>int8<span class="heti-spacing"> </span></span>型的向量，这个<span class="heti-skip"><span class="heti-spacing"> </span>d<span class="heti-spacing"> </span></span>维<span class="heti-skip"><span class="heti-spacing"> </span>int8<span class="heti-spacing"> </span></span>型的向量经过<span class="heti-skip"><span class="heti-spacing"> </span>decode<span class="heti-spacing"> </span></span>后，与原始向量的误差尽可能小？</p>
+<p>首先这种编码减少了内存开销，另外计算无符号整数肯定比计算一个<span class="heti-skip"><span class="heti-spacing"> </span>IEEE 754<span class="heti-spacing"> </span></span>单精度浮点数要快的。一个朴素的方案如下：</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/29_260129-152022.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/29_260129-152022.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/29_260129-152022.png" width="650"/></a>
+<br/>
+<figcaption>https://yongyuan.name/blog/scalar-quantization.html</figcaption>
+</figure>
+<h3 id="编码">编码<a class="headerlink" href="#编码" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>对于浮点向量<span><span class="heti-spacing"> </span>v</span>，希望将其编码为<span class="heti-skip"><span class="heti-spacing"> </span>n bits<span class="heti-spacing"> </span></span>无符号整数向量（一般<span><span class="heti-spacing"> </span>n=8</span>，即使用<span class="heti-skip"><span class="heti-spacing"> </span>C<span class="heti-spacing"> </span></span>语言中的<span class="heti-skip"><span class="heti-spacing"> </span>uint8<span class="heti-spacing"> </span></span>类型<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，编码方法是：</p>
+<div class="arithmatex">\[
+v^{\prime}=\sigma(\frac{v-\min(v)}{\max(v)-\min(v)},n)
+\]</div>
+<p>具体而言，在编码时，先将向量中的每个元素线性压缩到<span class="heti-skip"><span class="heti-spacing"> </span>[0, 1]<span class="heti-spacing"> </span></span>内；对于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\sigma(\cdot, n)\)</span><span class="heti-spacing"> </span></span>操作而言，一般为乘以<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(2^n - 1\)</span><span class="heti-spacing"> </span></span>并丢弃结果中的小数部分（<span>C++<span class="heti-spacing"> </span></span>中<span class="heti-skip"><span class="heti-spacing"> </span>float<span class="heti-spacing"> </span></span>转为<span class="heti-skip"><span class="heti-spacing"> </span>int<span class="heti-spacing"> </span></span>的逻辑为向<span class="heti-skip"><span class="heti-spacing"> </span>0<span class="heti-spacing"> </span></span>取整<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，确保量化后的向量的每个元素为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\([0, 2^n - 1]\)</span><span class="heti-spacing"> </span></span>中的整数；</p>
+<h3 id="解码">解码<a class="headerlink" href="#解码" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>而在解码时，总体来看就是编码方法的逆过程：</p>
+<div class="arithmatex">\[
+\hat{v} = \min(v) + \frac{v' + 0.5}{255} \times (\max(v) - \min(v))
+\]</div>
+<p>但是注意到其中有一步<span><span class="heti-spacing"> </span><span class="arithmatex">\(v'+0.5\)</span></span>，这是因为在编码时的最后一步<span class="heti-skip"><span class="heti-spacing"> </span>float<span class="heti-spacing"> </span></span>转为<span class="heti-skip"><span class="heti-spacing"> </span>int<span class="heti-spacing"> </span></span>的一定是向下取整，平均而言会损失<span><span class="heti-spacing"> </span>0.5</span>，故而在对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(v'\)</span><span class="heti-spacing"> </span></span>的第一步处理时先加上<span><span class="heti-spacing"> </span>0.5</span>，减少重构后的量化损失。</p>
+<p><code>n=8</code> 时对应的代码片段如下：</p>
+<div class="highlight"><span class="filename">C++</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="c1">// https://github.com/facebookresearch/faiss/blob/8cc9a31a2f3f6eba2060f947c7791740ea42aec0/faiss/impl/ScalarQuantizer.cpp</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">Codec</span><span class="o">&gt;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><a href="#__codelineno-0-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="k">struct</span><span class="w"> </span><span class="nc">QuantizerTemplate</span><span class="o">&lt;</span><span class="n">Codec</span><span class="p">,</span><span class="w"> </span><span class="n">QuantizerTemplateScaling</span><span class="o">::</span><span class="n">NON_UNIFORM</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="o">&gt;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><a href="#__codelineno-0-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">ScalarQuantizer</span><span class="o">::</span><span class="n">SQuantizer</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><a href="#__codelineno-0-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">encode_vector</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">code</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">final</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><a href="#__codelineno-0-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">d</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><a href="#__codelineno-0-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">            </span><span class="kt">float</span><span class="w"> </span><span class="n">xi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><a href="#__codelineno-0-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">vdiff</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a><a href="#__codelineno-0-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">                </span><span class="c1">// 归一化到 [0, 1]</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><a href="#__codelineno-0-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">                </span><span class="n">xi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">vmin</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">vdiff</span><span class="p">;</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a><a href="#__codelineno-0-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">                </span><span class="c1">// 裁剪到 [0, 1] 处理异常</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a><a href="#__codelineno-0-12"><span class="linenos" data-linenos="12 "></span></a><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">xi</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a><a href="#__codelineno-0-13"><span class="linenos" data-linenos="13 "></span></a><span class="w">                    </span><span class="n">xi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a><a href="#__codelineno-0-14"><span class="linenos" data-linenos="14 "></span></a><span class="w">                </span><span class="p">}</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a><a href="#__codelineno-0-15"><span class="linenos" data-linenos="15 "></span></a><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">xi</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">1.0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a><a href="#__codelineno-0-16"><span class="linenos" data-linenos="16 "></span></a><span class="w">                    </span><span class="n">xi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17"></a><a href="#__codelineno-0-17"><span class="linenos" data-linenos="17 "></span></a><span class="w">                </span><span class="p">}</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18"></a><a href="#__codelineno-0-18"><span class="linenos" data-linenos="18 "></span></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19"></a><a href="#__codelineno-0-19"><span class="linenos" data-linenos="19 "></span></a><span class="w">            </span><span class="n">Codec</span><span class="o">::</span><span class="n">encode_component</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span><span class="w"> </span><span class="n">code</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20"></a><a href="#__codelineno-0-20"><span class="linenos" data-linenos="20 "></span></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21"></a><a href="#__codelineno-0-21"><span class="linenos" data-linenos="21 "></span></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22"></a><a href="#__codelineno-0-22"><span class="linenos" data-linenos="22 "></span></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">decode_vector</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">code</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">final</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23"></a><a href="#__codelineno-0-23"><span class="linenos" data-linenos="23 "></span></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">d</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24"></a><a href="#__codelineno-0-24"><span class="linenos" data-linenos="24 "></span></a><span class="w">            </span><span class="kt">float</span><span class="w"> </span><span class="n">xi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Codec</span><span class="o">::</span><span class="n">decode_component</span><span class="p">(</span><span class="n">code</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25"></a><a href="#__codelineno-0-25"><span class="linenos" data-linenos="25 "></span></a><span class="w">            </span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vmin</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">xi</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">vdiff</span><span class="p">;</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26"></a><a href="#__codelineno-0-26"><span class="linenos" data-linenos="26 "></span></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27"></a><a href="#__codelineno-0-27"><span class="linenos" data-linenos="27 "></span></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28"></a><a href="#__codelineno-0-28"><span class="linenos" data-linenos="28 "></span></a><span class="w">    </span><span class="p">...</span>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29"></a><a href="#__codelineno-0-29"><span class="linenos" data-linenos="29 "></span></a><span class="p">}</span>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30"></a><a href="#__codelineno-0-30"><span class="linenos" data-linenos="30 "></span></a><span class="k">struct</span><span class="w"> </span><span class="nc">Codec8bit</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31"></a><a href="#__codelineno-0-31"><span class="linenos" data-linenos="31 "></span></a><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">FAISS_ALWAYS_INLINE</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">encode_component</span><span class="p">(</span>
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32"></a><a href="#__codelineno-0-32"><span class="linenos" data-linenos="32 "></span></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">x</span><span class="p">,</span>
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33"></a><a href="#__codelineno-0-33"><span class="linenos" data-linenos="33 "></span></a><span class="w">    </span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">code</span><span class="p">,</span>
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34"></a><a href="#__codelineno-0-34"><span class="linenos" data-linenos="34 "></span></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35"></a><a href="#__codelineno-0-35"><span class="linenos" data-linenos="35 "></span></a><span class="w">        </span><span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="mi">255</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">);</span>
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36"></a><a href="#__codelineno-0-36"><span class="linenos" data-linenos="36 "></span></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37"></a><a href="#__codelineno-0-37"><span class="linenos" data-linenos="37 "></span></a><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">FAISS_ALWAYS_INLINE</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">decode_component</span><span class="p">(</span>
+</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38"></a><a href="#__codelineno-0-38"><span class="linenos" data-linenos="38 "></span></a><span class="w">            </span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">code</span><span class="p">,</span>
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39"></a><a href="#__codelineno-0-39"><span class="linenos" data-linenos="39 "></span></a><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40"></a><a href="#__codelineno-0-40"><span class="linenos" data-linenos="40 "></span></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.5f</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">255.0f</span><span class="p">;</span>
+</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41"></a><a href="#__codelineno-0-41"><span class="linenos" data-linenos="41 "></span></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42"></a><a href="#__codelineno-0-42"><span class="linenos" data-linenos="42 "></span></a><span class="w">    </span><span class="p">...</span>
+</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43"></a><a href="#__codelineno-0-43"><span class="linenos" data-linenos="43 "></span></a><span class="p">}</span>
+</span></code></pre></div>
+<p>对于这里的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\min\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(\max\)</span></span>，<span>faiss<span class="heti-spacing"> </span></span>有两类思路（考虑<span class="heti-skip"><span class="heti-spacing"> </span>n<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>d<span class="heti-spacing"> </span></span>维向量构成的矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(V\in\mathbb{R}^{n\times d}\)</span></span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<ul>
+<li>QT_xbits_uniform：<span><span class="arithmatex">\(\max(V)\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(\min(V)\)</span></span></li>
+<li>使用<span class="heti-skip"><span class="heti-spacing"> </span>V<span class="heti-spacing"> </span></span>中所有元素中的最大值<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>最小值，但是可能会影响量化精度</li>
+<li>QT_xbits：<span><span class="arithmatex">\(\{\max(k)|k\in V^T)\}\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(\{\min(k)|k\in V^T)\}\)</span></span></li>
+<li>考虑对于每个向量<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>维度分别取最大值<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>最小值，提高量化精度</li>
+</ul>
+<h2 id="VQ-Vector-Quantization">[VQ] Vector Quantization<a class="headerlink" href="#VQ-Vector-Quantization" title="Permanent link">¶</a></h2>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/30_260130-101342.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/30_260130-101342.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/30_260130-101342.png" width="600"/></a>
+<br/>
+<figcaption>https://arxiv.org/abs/2405.03110</figcaption>
+</figure>
+<blockquote>
+<p>基于<span class="heti-skip"><span class="heti-spacing"> </span>SQ<span class="heti-spacing"> </span></span>的方法普遍存在一个问题：由于量化时都是线性变换，如果初始向量分量的分布就是不均匀的（例如，高斯分布<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，由于量化时舍去小数产生的损失，可能会导致大部分分量被量化为同一个值。换言之，在上面一节中，<span>Scalar Quantizer<span class="heti-spacing"> </span></span>并不能完全利用好整个的编码空间。</p>
+</blockquote>
+<div class="admonition tips">
+<p class="admonition-title">Tips</p>
+<p>“<span>SQ<span class="heti-spacing"> </span></span>编码空间利用不充分的问题”可能源于<span class="heti-skip"><span class="heti-spacing"> </span>SQ<span class="heti-spacing"> </span></span>利用的是天然的“有限代表”（即<span><span class="heti-spacing"> </span><span class="arithmatex">\(\{0, 1, \dots, 255\}\)</span></span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，将分量线性压缩到<span class="heti-skip"><span class="heti-spacing"> </span>[0, 255]<span class="heti-spacing"> </span></span>之后<strong>就近</strong>寻找锚点作为量化编码；能不能创建<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>寻找更加合适的“有限代表”？</p>
+<p>例如，压缩到区间<span class="heti-skip"><span class="heti-spacing"> </span>D<span class="heti-spacing"> </span></span>后，考虑在<span class="heti-skip"><span class="heti-spacing"> </span>D<span class="heti-spacing"> </span></span>上概率分布和累计概率分布，将<span class="heti-skip"><span class="heti-spacing"> </span>D<span class="heti-spacing"> </span></span>按照累计概率分布达到一定比例（例如<span><span class="heti-spacing"> </span>1/256</span>）划分为一个区间，再在每个区间设法寻找出一个“代表”作为量化编码。</p>
+<p>但是这个“寻找”方法在复杂分布的数据集上难以有较好的选择。</p>
+</div>
+<h3 id="非均匀标量量化">非均匀标量量化<a class="headerlink" href="#非均匀标量量化" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>后来发现一些非均匀标量量化（如<a href="https://blog.csdn.net/Adore11/article/details/125754454"><span class="heti-skip"><span class="heti-spacing"> </span>Lloyd-Max<span class="heti-spacing"> </span></span>量化</a>）大抵就是这个思路，在密的地方细量化，在疏的地方粗量化；同时也发现均匀量化似乎不利于熵编码（如哈夫曼编码<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<p>这个“代表”的数据类型其实没有限制，因为只需要为每个“代表”分配唯一的<span><span class="heti-spacing"> </span>index</span>；在数据传输前，双方先统一一个码本<span><span class="heti-spacing"> </span>(codebook, <span class="arithmatex">\(\mathcal{C}\)</span>)</span>，码本内按照<span class="heti-skip"><span class="heti-spacing"> </span>index<span class="heti-spacing"> </span></span>映射了所有可能的“代表”（称为<span><span class="heti-spacing"> </span>codewords</span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；数据传输时，将向量使用<span class="heti-skip"><span class="heti-spacing"> </span>index<span class="heti-spacing"> </span></span>编码后传输即可。</p>
+<div class="admonition tips">
+<p class="admonition-title">Tips</p>
+<p><span>VQ<span class="heti-spacing"> </span></span>的思路同样是寻找“有限锚点”；不同的是，既然锚点可以是任意数据类型，能不能就是向量？找“代表”的方法似乎都已经有现成的了，比如聚类算法。典型地，如果我们期望代表可以有<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>种选择，我们可以使用<span class="heti-skip"><span class="heti-spacing"> </span>k-means<span class="heti-spacing"> </span></span>聚类。</p>
+</div>
+<h3 id="形式化建模">形式化建模<a class="headerlink" href="#形式化建模" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>形式化地，考虑一个用于训练的向量池<span class="heti-skip"><span class="heti-spacing"> </span>E<span class="heti-spacing"> </span></span>中包含了<span class="heti-skip"><span class="heti-spacing"> </span>N<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span>D<span class="heti-spacing"> </span></span>维度向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(x \in \mathrm{R}^{D}\)</span></span>，<span>VQ<span class="heti-spacing"> </span></span>的目标是找到一个映射（如<span class="heti-skip"><span class="heti-spacing"> </span>k-means<span class="heti-spacing"> </span></span>聚类）使得：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+f:&amp;E \in \mathrm{R}^{N\times D} \rightarrow \mathcal{C} \in \mathbb{R}^{K\times D}\\
+\text{where}~~~~&amp;\mathcal{C}=\underset{\mathbf{C}\in\mathbb{R}^{K\times D}}{\operatorname*{argmin}}\sum_{i=1}^{N}d(\mathbf{e}_{i},\mathbf{c}_{x})\\
+\text{and}~~~~&amp;x=\underset{j=1,...,K}{\operatorname*{argmin}}~d\left(\mathbf{e}_{i},\mathbf{c}_{j}\right)
+\end{aligned}
+\]</div>
+<p>显然这里的<span class="heti-skip"><span class="heti-spacing"> </span>x<span class="heti-spacing"> </span></span>代表了<span><span class="heti-spacing"> </span>index</span>，<span><span class="arithmatex">\(c_x\)</span><span class="heti-spacing"> </span></span>代表了<span><span class="heti-spacing"> </span>codeword/code-vector</span>，<span><span class="arithmatex">\(\mathcal{C}\)</span><span class="heti-spacing"> </span></span>代表了<span><span class="heti-spacing"> </span>codebook</span>；在二维空间中如下图表示：</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/30_1769742455200.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/30_1769742455200.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/30_1769742455200.png" width="600"/></a>
+<br/>
+<figcaption>https://medium.com/data-science/optimizing-vector-quantization-methods-by-machine-learning-algorithms-77c436d0749d</figcaption>
+</figure>
+<h3 id="编码和解码">编码和解码<a class="headerlink" href="#编码和解码" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>聚类算法将数据空间划分为<span class="heti-skip"><span class="heti-spacing"> </span>k<span class="heti-spacing"> </span></span>个沃罗诺伊单元<span><span class="heti-spacing"> </span>(Voronoi Cell)</span>；传输时，每个单元内的数据向量<span class="heti-skip"><span class="heti-spacing"> </span>(Data Point)<span class="heti-spacing"> </span></span>将使用该单元的码字<span class="heti-skip"><span class="heti-spacing"> </span>(codeword)<span class="heti-spacing"> </span></span>对应的<strong>索引</strong>表示，只需要传输码本和码字编码的向量即可，具体的编码和解码过程如下图所示：</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/30_260130-111535.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/30_260130-111535.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/30_260130-111535.png"/></a>
+<br/>
+<figcaption>http://www.mqasem.net/vectorquantization/vq.html</figcaption>
+</figure>
+<p>上述过程被称为<span><span class="heti-spacing"> </span>Standard VQ</span>，只使用一个码本；后续针对<span class="heti-skip"><span class="heti-spacing"> </span>VQ<span class="heti-spacing"> </span></span>的研究提出了不同的变体，大致可以分为两类：<span>parallel VQ<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>sequential VQ</span>，它们都使用了多个码本，不同点在于码本之间的关系。</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/31_1769825953035.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/31_1769825953035.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/31_1769825953035.png" width="600"/></a>
+</figure>
+<h2 id="PQ-Product-Quantization">[PQ] Product Quantization<a class="headerlink" href="#PQ-Product-Quantization" title="Permanent link">¶</a></h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input checked="" disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://www.pinecone.io/learn/series/faiss/product-quantization/">Product Quantization: Compressing high-dimensional vectors by 97% | Pinecone</a></li>
+<li class="task-list-item"><label class="task-list-control"><input disabled="" type="checkbox"/><span class="task-list-indicator"></span></label> <a href="https://inria.hal.science/inria-00514462v2/document">Product Quantization for Nearest Neighbor Search</a></li>
+</ul>
+</div>
+<blockquote>
+<p><span>Product Quantization<span class="heti-spacing"> </span></span>的名字顾名不思义，与我们常见的内积什么的没有什么关系，Cartesian Product（笛卡尔积）的<span class="heti-skip"><span class="heti-spacing"> </span>Product<span class="heti-spacing"> </span></span>也是<span><span class="heti-spacing"> </span>Product</span>。</p>
+</blockquote>
+<h3 id="Standard-PQ">Standard PQ<a class="headerlink" href="#Standard-PQ" title="Permanent link">¶</a></h3>
+<p><span>PQ<span class="heti-spacing"> </span></span>属于 <strong>parallel VQ</strong>，基本思路是：如果将一个维度为<span class="heti-skip"><span class="heti-spacing"> </span>D<span class="heti-spacing"> </span></span>的向量<span class="heti-skip"><span class="heti-spacing"> </span>e<span class="heti-spacing"> </span></span>划分为<span class="heti-skip"><span class="heti-spacing"> </span>m<span class="heti-spacing"> </span></span>段（等长的）子向量<span><span class="heti-spacing"> </span>(sub-vector) <span class="arithmatex">\(u_j(e), j \in \mathrm{range}(m)\)</span></span>，那么<span class="heti-skip"><span class="heti-spacing"> </span>e<span class="heti-spacing"> </span></span>的欧式空间可以看作是每一段<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(u_j(e)\)</span><span class="heti-spacing"> </span></span>的欧式空间的笛卡尔积。</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><a href="https://en.wikipedia.org/wiki/Cartesian_product"><strong>笛卡尔积</strong></a></p>
+<p>简单而言，针对集合<span><span class="heti-spacing"> </span>A</span>、<span>B<span class="heti-spacing"> </span></span>的笛卡尔积操作定义为：</p>
+<div class="arithmatex">\[
+A\times B=\{(a,b)\mid a\in A\mathrm{~and~}\mathrm{~}b\in B\}
+\]</div>
+<p>也即是说集合<span class="heti-skip"><span class="heti-spacing"> </span>A<span class="heti-spacing"> </span></span>与<span class="heti-skip"><span class="heti-spacing"> </span>B<span class="heti-spacing"> </span></span>的笛卡尔积是<span><span class="heti-spacing"> </span>A</span>、<span>B<span class="heti-spacing"> </span></span>中元素能构成的所有组合的集合。</p>
+</div>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/29_260129-163919.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/29_260129-163919.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/29_260129-163919.png" width="600"/></a>
+<br/>
+<figcaption>在这里，将高维向量<span class="heti-skip"><span class="heti-spacing"> </span>X<span class="heti-spacing"> </span></span>分割成多个子向量<span><span class="heti-spacing"> </span>u_j</span>。</figcaption>
+</figure>
+<p>如此将向量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(e \in \mathbb{R}^{D}\)</span><span class="heti-spacing"> </span></span>的量化问题变为对每段<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(u_j(e) \in \mathbb{R}^{\frac{D}{m}}\)</span><span class="heti-spacing"> </span></span>的量化问题，我们将<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(u_j(e)\)</span><span class="heti-spacing"> </span></span>作为子量化器<span class="heti-skip"><span class="heti-spacing"> </span>(subquantizer) <span class="arithmatex">\(q_j(\cdot)\)</span><span class="heti-spacing"> </span></span>的输入。框架整体如下图所示：</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/29_1769673583040.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/29_1769673583040.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/29_1769673583040.png"/></a>
+<br/>
+<figcaption>https://www.cnblogs.com/zackstang/p/18553945</figcaption>
+</figure>
+<p>在<strong>训练<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>聚类</strong>时：</p>
+<ol>
+<li>从一个具有<span class="heti-skip"><span class="heti-spacing"> </span>N<span class="heti-spacing"> </span></span>个<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(e \in \mathrm{R}^{D}\)</span><span class="heti-spacing"> </span></span>向量的向量池<span><span class="heti-spacing"> </span><span class="arithmatex">\(E \in \mathrm{R}^{N \times D}\)</span></span>，能够获得<span class="heti-skip"><span class="heti-spacing"> </span>m<span class="heti-spacing"> </span></span>个具有<span class="heti-skip"><span class="heti-spacing"> </span>N<span class="heti-spacing"> </span></span>个子向量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(u_j(e)\)</span><span class="heti-spacing"> </span></span>的子向量池<span><span class="heti-spacing"> </span><span class="arithmatex">\(E_j \in \mathrm{R}^{N\times\frac{D}{m}}\)</span></span>
+   - 一般而言将会以子向量池为单位对这些子向量进行聚类（例如 k-means）</li>
+<li>对于向量池中的每一个簇，我们为其分配一个中心向量<span><span class="heti-spacing"> </span>(reproduction values) <span class="arithmatex">\(c_j\in \mathbb{R}^{\frac{D}{m}}\)</span></span>
+   - 显然，对于一个 <span class="arithmatex">\(q_j(\cdot)\)</span>，共有 k 个 <span class="arithmatex">\(c_j\)</span></li>
+<li>在<span class="heti-skip"><span class="heti-spacing"> </span>[0, k-1]<span class="heti-spacing"> </span></span>内对这些<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(c_j\)</span><span class="heti-spacing"> </span></span>进行编号并按序组合成矩阵<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{C}_j \in \mathbb{R}^{k\times \frac{D}{m}}\)</span></span>
+   - 如果我们认为每个子向量都可以用其所在簇的中心向量表征
+   - 如果我们认为每个向量可以用子向量对应中心向量拼接表征
+   - 那么对于每个 <span class="arithmatex">\(q_j(\cdot)\)</span>，我们只需要存储子码本 <span class="arithmatex">\(\mathcal{C}_j\)</span> 即可</li>
+</ol>
+<p>在<strong>编码<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>分配</strong>时：</p>
+<ol>
+<li>将向量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(e \in \mathbb{R}^{D}\)</span><span class="heti-spacing"> </span></span>划分为<span class="heti-skip"><span class="heti-spacing"> </span>m<span class="heti-spacing"> </span></span>段<span><span class="heti-spacing"> </span><span class="arithmatex">\(u_j(e) \in \mathbb{R}^{\frac{D}{m}}\)</span></span></li>
+<li>对于每一段<span><span class="heti-spacing"> </span><span class="arithmatex">\(u_j(x)\)</span></span>，在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{C}_j\)</span><span class="heti-spacing"> </span></span>中找到最近的中心向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(c_j\)</span></span>，找到其在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{C}_j\)</span><span class="heti-spacing"> </span></span>中的索引<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_j \in \mathcal{I}_j\)</span></span></li>
+<li>记<span class="heti-skip"><span class="heti-spacing"> </span>e<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(q_j(\cdot)\)</span><span class="heti-spacing"> </span></span>处的量化结果为<span><span class="heti-spacing"> </span><span class="arithmatex">\(q_j(u_j(e)) := x_j\)</span></span>，那么整个<span class="heti-skip"><span class="heti-spacing"> </span>e<span class="heti-spacing"> </span></span>的量化编码结果为</li>
+</ol>
+<div class="arithmatex">\[
+q(e) = \{x_j := q_j(u_j(x))\}_{j=0}^{m-1} \in \mathcal{I} := \prod_{j=0}^{m-1}\mathcal{I}_j
+\]</div>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\prod\)</span><span class="heti-spacing"> </span></span>的乘法为笛卡尔积；因此<span class="heti-skip"><span class="heti-spacing"> </span>PQ<span class="heti-spacing"> </span></span>的核心实现如下图所示：</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/29_1769678176505.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/29_1769678176505.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/29_1769678176505.png" width="600"/></a>
+<br/>
+<figcaption>子向量会被一个中心向量替换；该中心点向量可以被一个该中心向量的唯一<span class="heti-skip"><span class="heti-spacing"> </span>ID<span class="heti-spacing"> </span></span>替换。</figcaption>
+</figure>
+<p>对于所有的向量<span><span class="heti-spacing"> </span>e</span>，我们只需要存储、传输其量化编码<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(q(e)\)</span><span class="heti-spacing"> </span></span>和码本<span><span class="heti-spacing"> </span><span class="arithmatex">\(\mathcal{C} := \prod_{j=0}^{m-1}\mathcal{C}_j\)</span></span>。</p>
+<p>在<strong>解码<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>查询</strong>时：</p>
+<ul>
+<li>只需要按照<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(q(x)\)</span><span class="heti-spacing"> </span></span>的分量从对应的子码本中取出对应的中心向量，拼接后作为重构向量，这部分与<span class="heti-skip"><span class="heti-spacing"> </span>Standard VQ<span class="heti-spacing"> </span></span>部分是一致的。</li>
+</ul>
+<h3 id="Optimized-PQ">Optimized PQ<a class="headerlink" href="#Optimized-PQ" title="Permanent link">¶</a></h3>
+<div class="admonition tips">
+<p class="admonition-title">Tips</p>
+<p>考虑一个<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m = D\)</span><span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>PQ<span class="heti-spacing"> </span></span>操作，也就是说对向量<span class="heti-skip"><span class="heti-spacing"> </span>e<span class="heti-spacing"> </span></span>按照分量进行划分，每一个维度都单独考虑；这是否可以认为是让<span class="heti-skip"><span class="heti-spacing"> </span>e<span class="heti-spacing"> </span></span>的每一个分量分别代表物品的一个“特征”？如果缩小<span><span class="heti-spacing"> </span>m</span>，让一段分量（即<span><span class="heti-spacing"> </span><span class="arithmatex">\(u_j(e)\)</span></span>，而不是一个标量）代表物品的一个“特征”应当是一样的。类似于主成分分析<span><span class="heti-spacing"> </span>(PCA)</span>，我们能否让“特征”之间尽可能不相关（正交）来提高整体的表征性能？</p>
+<figure markdown="span">
+</figure></div>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/06_250606-115724.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/06_250606-115724.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2506/06_250606-115724.png" width="600"/></a>
+<br/>
+<figcaption>主成分分析 图解示例</figcaption></p>
+<p><span>Optimized PQ (OPQ)<span class="heti-spacing"> </span></span>对<span class="heti-skip"><span class="heti-spacing"> </span>PQ<span class="heti-spacing"> </span></span>的主要改进在于对输入进行了一次线性变换：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+E' = RE\\
+\text{s.t.}~~~R^T R = I
+\end{aligned}
+\]</div>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span>R<span class="heti-spacing"> </span></span>是一个正交矩阵<span><span class="heti-spacing"> </span>(orthonormal matrix)</span>，我们知道这相当于在物品嵌入空间中对坐标轴进行了旋转；所以有些论文中也称其为旋转矩阵<span><span class="heti-spacing"> </span>(rotation matrix)</span>。<span>OPQ<span class="heti-spacing"> </span></span>将<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(E'\)</span><span class="heti-spacing"> </span></span>作为原本<span class="heti-skip"><span class="heti-spacing"> </span>PQ<span class="heti-spacing"> </span></span>的输入，期望通过<span class="heti-skip"><span class="heti-spacing"> </span>R<span class="heti-spacing"> </span></span>来调整嵌入空间的坐标，也就是在解耦切分后子空间，"relax the constraints on the codewords"。因此<span class="heti-skip"><span class="heti-spacing"> </span>OPQ<span class="heti-spacing"> </span></span>将<span class="heti-skip"><span class="heti-spacing"> </span>R<span class="heti-spacing"> </span></span>也加入了需要学习的参数，目标可以表示为如下优化问题：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+&amp;~~~~~~~~~~~~~~~~~~~\min_{R,\mathcal{C}_1,...,\mathcal{C}_m}\sum_{\mathbf{e} \in E}\|\mathbf{e}-\mathbf{c}\|^2\\
+\text{s.t.}&amp;\quad\mathbf{c}\in\mathcal{C}=\{\mathbf{c}\mid R\mathbf{c}\in\mathcal{C}_1\times...\times\mathcal{C}_m,\:R^\mathrm{T}R=I\}
+\end{aligned}
+\]</div>
+<p>其中需要注意的是让<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(e\approx c\)</span><span class="heti-spacing"> </span></span>等同于<span><span class="heti-spacing"> </span><span class="arithmatex">\(Re \approx Rc\)</span></span>；也就是意味着码本中的码字能够表示变换后的<span><span class="heti-spacing"> </span><span class="arithmatex">\(e':= Re\)</span></span>；对于解码后重构的向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{e'}\)</span></span>，需要施加逆变换（对于正交矩阵等同于转置矩阵）即可得到重构向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(\hat{e}:=R^T \hat{e'} \approx e\)</span></span>。</p>
+<h2 id="RQ-Residual-Quantization">[RQ] Residual Quantization<a class="headerlink" href="#RQ-Residual-Quantization" title="Permanent link">¶</a></h2>
+<h3 id="Standard-RQ">Standard RQ<a class="headerlink" href="#Standard-RQ" title="Permanent link">¶</a></h3>
+<p><span>RQ<span class="heti-spacing"> </span></span>属于 <strong>sequencial VQ</strong>，同样使用了多个码本；<span>RQ<span class="heti-spacing"> </span></span>的作者认为前面的量化方法针对每个维度至多只进行了一次量化，重构损失为<span><span class="heti-spacing"> </span><span class="arithmatex">\(r = e - \hat{e}\)</span></span>；<span>RQ<span class="heti-spacing"> </span></span>将这部分的损失记作“残差”；如果将这部分的残差再进行量化并一同传输，一定能够让重构损失减小，依次类推多层，得到了<span><span class="heti-spacing"> </span>RQ</span>。</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/31_260131-103041.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/31_260131-103041.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/31_260131-103041.png" width="600"/></a>
+<br/>
+<figcaption>https://www.assemblyai.com/blog/what-is-residual-vector-quantization</figcaption>
+</figure>
+<p>符号表示和流程与<span class="heti-skip"><span class="heti-spacing"> </span>VQ<span class="heti-spacing"> </span></span>基本一致，不再赘述；<span>RQ<span class="heti-spacing"> </span></span>的过程可以表示为</p>
+<ol>
+<li><span class="arithmatex">\(r_0 = e\)</span></li>
+<li><span class="arithmatex">\(c_j = \mathrm{VQ}(r_{j-1}), r_j = r_{j-1} - c_j, \text{ where } j \in \{1, 2, \dots, m\}\)</span></li>
+<li><span class="arithmatex">\(\hat{e} = \sum_{j=1}^{m}c_j\)</span></li>
+</ol>
+<h3 id="Additive-Quantization">Additive Quantization<a class="headerlink" href="#Additive-Quantization" title="Permanent link">¶</a></h3>
+<p><span>AQ<span class="heti-spacing"> </span></span>基于<span class="heti-skip"><span class="heti-spacing"> </span>RQ<span class="heti-spacing"> </span></span>进行了改进，其认为既然是序列量化，而当前<span class="heti-skip"><span class="heti-spacing"> </span>RQ<span class="heti-spacing"> </span></span>在每次量化时使用<span class="heti-skip"><span class="heti-spacing"> </span>ANN<span class="heti-spacing"> </span></span>选择最近的向量，正好类比于“贪婪搜索<span><span class="heti-spacing"> </span>(Greedy Search)</span>”；对应的，还有一个“束搜索<span><span class="heti-spacing"> </span>(Beam Search)</span>”，更加有利于避免局部最优导致的全局非最优。</p>
+<p><span>AQ<span class="heti-spacing"> </span></span>的核心思想是<strong>用<span class="heti-skip"><span class="heti-spacing"> </span>m<span class="heti-spacing"> </span></span>个全维向量的和</strong>来近似原始向量，且这<span class="heti-skip"><span class="heti-spacing"> </span>m<span class="heti-spacing"> </span></span>个向量是<strong>联合优化</strong>的，而非像<span class="heti-skip"><span class="heti-spacing"> </span>RQ<span class="heti-spacing"> </span></span>那样顺序贪婪优化，也不像<span class="heti-skip"><span class="heti-spacing"> </span>PQ<span class="heti-spacing"> </span></span>那样受限于子空间。</p>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/31_260131-110350.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/31_260131-110350.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2601/31_260131-110350.png" width="589"/></a>
+<br/>
+<figcaption>https://ieeexplore.ieee.org/document/6909519</figcaption>
+</figure>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年4月23日 11:57:34 CST">2026年4月23日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年4月23日 11:57:34 CST">2026年4月23日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: 生成式推荐" class="md-footer__link md-footer__link--prev" href="../">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                生成式推荐
+              </div>
+</div>
+</a>
+<a aria-label="下一页: Graph Representation Learning" class="md-footer__link md-footer__link--next" href="../../../GRL/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                Graph Representation Learning
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../../js/katex.js"></script>
+<script src="../../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

@@ -1,0 +1,2190 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/note/DEM/Lec07/" rel="canonical"/>
+<link href="../Lec06/" rel="prev"/>
+<link href="../Lec08/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>第七讲：拍卖与机制设计基础 - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#第七讲拍卖与机制设计基础">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              第七讲：拍卖与机制设计基础
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tutorial/">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Note
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs188/">
+<span class="md-ellipsis">
+    
+  
+    cs188
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../physics/">
+<span class="md-ellipsis">
+    
+  
+    physics
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-II/">
+<span class="md-ellipsis">
+    
+  
+    CSys-II
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../CSys-III/">
+<span class="md-ellipsis">
+    
+  
+    CSys-III
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3_6" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    DEM
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_3_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    DEM
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec01/">
+<span class="md-ellipsis">
+    
+  
+    第一讲 数据要素市场简介
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec02/">
+<span class="md-ellipsis">
+    
+  
+    第二讲：数据合规与安全
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec03/">
+<span class="md-ellipsis">
+    
+  
+    第三讲：非合作博弈论基础（一）
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec04/">
+<span class="md-ellipsis">
+    
+  
+    第四讲：非合作博弈论基础 (二)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec05/">
+<span class="md-ellipsis">
+    
+  
+    第五讲：合作博弈与数据估值
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec06/">
+<span class="md-ellipsis">
+    
+  
+    第六讲：多臂老虎机算法基础与应用
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    第七讲：拍卖与机制设计基础
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    第七讲：拍卖与机制设计基础
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I-拍卖理论基础">
+<span class="md-ellipsis">
+      
+        I 拍卖理论基础
+      
+    </span>
+</a>
+<nav aria-label="I 拍卖理论基础" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I1-出售物品的方式-page-3-4">
+<span class="md-ellipsis">
+      
+        I.1 出售物品的方式 (page 3-4)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I2-常见的拍卖形式-page-5-13">
+<span class="md-ellipsis">
+      
+        I.2 常见的拍卖形式 (page 5-13)
+      
+    </span>
+</a>
+<nav aria-label="I.2 常见的拍卖形式 (page 5-13)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I21-公开拍卖">
+<span class="md-ellipsis">
+      
+        I.2.1 公开拍卖
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I22-密封拍卖-sealed-bid-auction">
+<span class="md-ellipsis">
+      
+        I.2.2 密封拍卖 (sealed-bid auction)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I23-其他拍卖形式">
+<span class="md-ellipsis">
+      
+        I.2.3 其他拍卖形式
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I3-拍卖分类的三个角度-page-14">
+<span class="md-ellipsis">
+      
+        I.3 拍卖分类的三个角度 (page 14)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I4-单物品密封拍卖的一般框架-page-16-18">
+<span class="md-ellipsis">
+      
+        I.4 单物品密封拍卖的一般框架 (page 16-18)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I5-单物品第二价格拍卖-page-19-20">
+<span class="md-ellipsis">
+      
+        I.5 单物品第二价格拍卖 (page 19-20)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I6-二价拍卖的性质-page-21-26">
+<span class="md-ellipsis">
+      
+        I.6 二价拍卖的性质 (page 21-26)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I7-二价拍卖的缺陷-page-27">
+<span class="md-ellipsis">
+      
+        I.7 二价拍卖的缺陷 (page 27)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I8-第一价格拍卖的性质与均衡-page-28-34">
+<span class="md-ellipsis">
+      
+        I.8 第一价格拍卖的性质与均衡 (page 28-34)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I9-收入等价定理-page-35-39">
+<span class="md-ellipsis">
+      
+        I.9 收入等价定理 (page 35-39)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I10-其他拍卖理论问题-page-40-45">
+<span class="md-ellipsis">
+      
+        I.10 其他拍卖理论问题 (page 40-45)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II-机制设计基础">
+<span class="md-ellipsis">
+      
+        II 机制设计基础
+      
+    </span>
+</a>
+<nav aria-label="II 机制设计基础" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II1-机制设计引入-page-47-48">
+<span class="md-ellipsis">
+      
+        II.1 机制设计引入 (page 47-48)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II2-机制设计的定义-page-49-50">
+<span class="md-ellipsis">
+      
+        II.2 机制设计的定义 (page 49-50)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II3-直接显示机制与显示原理-page-51-54">
+<span class="md-ellipsis">
+      
+        II.3 直接显示机制与显示原理 (page 51-54)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II4-激励相容的直接显示机制-page-55">
+<span class="md-ellipsis">
+      
+        II.4 激励相容的直接显示机制 (page 55)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II5-显示原理的内涵-page-56-59">
+<span class="md-ellipsis">
+      
+        II.5 显示原理的内涵 (page 56-59)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II6-迈尔森引理-Myersons-Lemma-page-60-72">
+<span class="md-ellipsis">
+      
+        II.6 迈尔森引理 (Myerson's Lemma) (page 60-72)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III-福利最大化机制设计">
+<span class="md-ellipsis">
+      
+        III 福利最大化机制设计
+      
+    </span>
+</a>
+<nav aria-label="III 福利最大化机制设计" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III1-一般物品分配问题-page-74-77">
+<span class="md-ellipsis">
+      
+        III.1 一般物品分配问题 (page 74-77)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III2-VCG-机制-page-78-80">
+<span class="md-ellipsis">
+      
+        III.2 VCG 机制 (page 78-80)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III3-二价拍卖是-VCG-机制的特例-page-81-83">
+<span class="md-ellipsis">
+      
+        III.3 二价拍卖是 VCG 机制的特例 (page 81-83)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III4-VCG-机制的性质-page-84-88">
+<span class="md-ellipsis">
+      
+        III.4 VCG 机制的性质 (page 84-88)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III5-VCG-机制的缺陷-page-89-91">
+<span class="md-ellipsis">
+      
+        III.5 VCG 机制的缺陷 (page 89-91)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec08/">
+<span class="md-ellipsis">
+    
+  
+    第八讲：最优机制
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec09/">
+<span class="md-ellipsis">
+    
+  
+    第九讲：数据交易定价
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Lec10/">
+<span class="md-ellipsis">
+    
+  
+    第十讲：贝叶斯劝说
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../DMA/">
+<span class="md-ellipsis">
+    
+  
+    DMA
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../cs70/">
+<span class="md-ellipsis">
+    
+  
+    cs70
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../other/">
+<span class="md-ellipsis">
+    
+  
+    other
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../tutorial/">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I-拍卖理论基础">
+<span class="md-ellipsis">
+      
+        I 拍卖理论基础
+      
+    </span>
+</a>
+<nav aria-label="I 拍卖理论基础" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I1-出售物品的方式-page-3-4">
+<span class="md-ellipsis">
+      
+        I.1 出售物品的方式 (page 3-4)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I2-常见的拍卖形式-page-5-13">
+<span class="md-ellipsis">
+      
+        I.2 常见的拍卖形式 (page 5-13)
+      
+    </span>
+</a>
+<nav aria-label="I.2 常见的拍卖形式 (page 5-13)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I21-公开拍卖">
+<span class="md-ellipsis">
+      
+        I.2.1 公开拍卖
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I22-密封拍卖-sealed-bid-auction">
+<span class="md-ellipsis">
+      
+        I.2.2 密封拍卖 (sealed-bid auction)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I23-其他拍卖形式">
+<span class="md-ellipsis">
+      
+        I.2.3 其他拍卖形式
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I3-拍卖分类的三个角度-page-14">
+<span class="md-ellipsis">
+      
+        I.3 拍卖分类的三个角度 (page 14)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I4-单物品密封拍卖的一般框架-page-16-18">
+<span class="md-ellipsis">
+      
+        I.4 单物品密封拍卖的一般框架 (page 16-18)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I5-单物品第二价格拍卖-page-19-20">
+<span class="md-ellipsis">
+      
+        I.5 单物品第二价格拍卖 (page 19-20)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I6-二价拍卖的性质-page-21-26">
+<span class="md-ellipsis">
+      
+        I.6 二价拍卖的性质 (page 21-26)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I7-二价拍卖的缺陷-page-27">
+<span class="md-ellipsis">
+      
+        I.7 二价拍卖的缺陷 (page 27)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I8-第一价格拍卖的性质与均衡-page-28-34">
+<span class="md-ellipsis">
+      
+        I.8 第一价格拍卖的性质与均衡 (page 28-34)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I9-收入等价定理-page-35-39">
+<span class="md-ellipsis">
+      
+        I.9 收入等价定理 (page 35-39)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#I10-其他拍卖理论问题-page-40-45">
+<span class="md-ellipsis">
+      
+        I.10 其他拍卖理论问题 (page 40-45)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II-机制设计基础">
+<span class="md-ellipsis">
+      
+        II 机制设计基础
+      
+    </span>
+</a>
+<nav aria-label="II 机制设计基础" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II1-机制设计引入-page-47-48">
+<span class="md-ellipsis">
+      
+        II.1 机制设计引入 (page 47-48)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II2-机制设计的定义-page-49-50">
+<span class="md-ellipsis">
+      
+        II.2 机制设计的定义 (page 49-50)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II3-直接显示机制与显示原理-page-51-54">
+<span class="md-ellipsis">
+      
+        II.3 直接显示机制与显示原理 (page 51-54)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II4-激励相容的直接显示机制-page-55">
+<span class="md-ellipsis">
+      
+        II.4 激励相容的直接显示机制 (page 55)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II5-显示原理的内涵-page-56-59">
+<span class="md-ellipsis">
+      
+        II.5 显示原理的内涵 (page 56-59)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#II6-迈尔森引理-Myersons-Lemma-page-60-72">
+<span class="md-ellipsis">
+      
+        II.6 迈尔森引理 (Myerson's Lemma) (page 60-72)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III-福利最大化机制设计">
+<span class="md-ellipsis">
+      
+        III 福利最大化机制设计
+      
+    </span>
+</a>
+<nav aria-label="III 福利最大化机制设计" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III1-一般物品分配问题-page-74-77">
+<span class="md-ellipsis">
+      
+        III.1 一般物品分配问题 (page 74-77)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III2-VCG-机制-page-78-80">
+<span class="md-ellipsis">
+      
+        III.2 VCG 机制 (page 78-80)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III3-二价拍卖是-VCG-机制的特例-page-81-83">
+<span class="md-ellipsis">
+      
+        III.3 二价拍卖是 VCG 机制的特例 (page 81-83)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III4-VCG-机制的性质-page-84-88">
+<span class="md-ellipsis">
+      
+        III.4 VCG 机制的性质 (page 84-88)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#III5-VCG-机制的缺陷-page-89-91">
+<span class="md-ellipsis">
+      
+        III.5 VCG 机制的缺陷 (page 89-91)
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Note
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    DEM
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:notes">notes</a>
+</nav>
+<h1 id="第七讲拍卖与机制设计基础">第七讲：拍卖与机制设计基础<a class="headerlink" href="#第七讲拍卖与机制设计基础" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h1>
+<p>本文将根据提供的附件内容，详细讲解拍卖理论与机制设计的基础知识，并对相关概念进行适当补充。</p>
+<h2 id="I-拍卖理论基础"><span>I<span class="heti-spacing"> </span></span>拍卖理论基础<a class="headerlink" href="#I-拍卖理论基础" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="I1-出售物品的方式-page-3-4"><span>I.1<span class="heti-spacing"> </span></span>出售物品的方式<span><span class="heti-spacing"> </span>(page 3-4)</span><a class="headerlink" href="#I1-出售物品的方式-page-3-4" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在日常生活中，我们有多种方式出售物品，除了常见的固定价格出售，如超市货架上的标价商品，还有需要买卖双方协商或竞价的场景。通常，出售物品的方式可以分为两大类：</p>
+<ul>
+<li>
+<p><strong>公布价格<span><span class="heti-spacing"> </span>(posted pricing)</span></strong>：
+    指物品以在菜单、货架或网站等上标明的固定价格出售。这种方式在餐厅、超市和互联网购物中非常普遍。</p>
+</li>
+<li>
+<p><strong>拍卖<span><span class="heti-spacing"> </span>(auction)</span></strong>：
+    指通过买方出价、卖方出价或买卖双方互相出价来决定最终物品的出售对象及出售价格的方式。在拍卖中，买方或卖方的出价通常被称为<strong>投标<span><span class="heti-spacing"> </span>(bid)</span></strong> 或报价。值得注意的是，<strong>讨价还价<span><span class="heti-spacing"> </span>(bargaining)</span></strong> 过程也可以被建模为买卖双方互相投标的过程，因此它也可以被视为一种特殊的拍卖形式。</p>
+</li>
+</ul>
+<h3 id="I2-常见的拍卖形式-page-5-13"><span>I.2<span class="heti-spacing"> </span></span>常见的拍卖形式<span><span class="heti-spacing"> </span>(page 5-13)</span><a class="headerlink" href="#I2-常见的拍卖形式-page-5-13" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>拍卖有多种形式，根据其规则和参与者之间信息流动的不同，可以分为公开拍卖和密封拍卖。</p>
+<h4 id="I21-公开拍卖"><span>I.2.1<span class="heti-spacing"> </span></span>公开拍卖<a class="headerlink" href="#I21-公开拍卖" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>这类拍卖中，所有竞拍者都能看到其他竞拍者的出价。</p>
+<ul>
+<li><strong>英式拍卖<span><span class="heti-spacing"> </span>(English auction / open ascending price auction)</span></strong>：
+    这是最广为人知的拍卖形式。拍卖师（auctioneer）从一个较低的价格开始，只要还有至少两个感兴趣的竞拍者，就以一个较小的增量逐渐提高价格，直到只剩下唯一一个竞拍者为止。此时，唯一的竞拍者赢得拍卖品，并向拍卖师支付倒数第二个竞拍者退出时竞拍的价格。</li>
+<li><strong>荷式拍卖<span><span class="heti-spacing"> </span>(Dutch auction / open descending price auction)</span></strong>：
+    与英式拍卖相反，拍卖师从一个足够高的价格开始（确保最初没有竞拍者感兴趣），然后逐渐降低价格，直到有竞拍者愿意接受该价格为止。此时，该竞拍者赢得拍卖品并支付这个价格。</li>
+</ul>
+<details class="note" open="open">
+<summary>应用场景</summary>
+<p>英式拍卖常见于古董拍卖和政府土地拍卖。荷式拍卖则因其效率高，常用于对时间效率有较高要求的场景，例如荷兰郁金香拍卖，因为花卉保质期短，需要尽快完成交易。</p>
+</details>
+<h4 id="I22-密封拍卖-sealed-bid-auction"><span>I.2.2<span class="heti-spacing"> </span></span>密封拍卖<span><span class="heti-spacing"> </span>(sealed-bid auction)</span><a class="headerlink" href="#I22-密封拍卖-sealed-bid-auction" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>这类拍卖中，所有竞拍者以密封形式提交竞价，互不公开。传统的信封竞价和现代的网页在线报价（如<span class="heti-skip"><span class="heti-spacing"> </span>eBay<span class="heti-spacing"> </span></span>早期模式）都属于此类。</p>
+<p>密封价格拍卖中最常见的两种形式是：</p>
+<ul>
+<li><strong>第一价格拍卖<span><span class="heti-spacing"> </span>(first-price auction)</span></strong>：
+    报价最高的竞拍者赢得物品，并支付自己的报价（即所有报价中最高的报价）。</li>
+<li><strong>第二价格拍卖<span><span class="heti-spacing"> </span>(second-price auction)</span></strong>：
+    报价最高的竞拍者赢得物品，但只需要支付所有报价中第二高的报价。</li>
+</ul>
+<h4 id="I23-其他拍卖形式"><span>I.2.3<span class="heti-spacing"> </span></span>其他拍卖形式<a class="headerlink" href="#I23-其他拍卖形式" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<ul>
+<li><strong>保留价格<span><span class="heti-spacing"> </span>(reserve price)</span></strong>：
+    卖家在拍卖开始前设定的最低出售价格。如果所有报价都低于保留价格，卖家可以选择不卖出物品。</li>
+<li><strong>入场费<span><span class="heti-spacing"> </span>(entry fee)</span></strong>：
+    所有参与者在拍卖开始前需要支付的费用，无论是否赢得拍卖。</li>
+<li><strong>多物品拍卖<span><span class="heti-spacing"> </span>(multi-item auction)</span></strong>：
+    指不只一个物品待出售的拍卖。只出售一个物品的拍卖称为<strong>单物品拍卖<span><span class="heti-spacing"> </span>(single-item auction)</span></strong>。<ul>
+<li><strong>拍卖多个相同物品</strong>：例如数据产品拍卖，因为数据复制成本为零，可以在一场拍卖中出售完全一致的多份数据。</li>
+<li><strong>拍卖多个不同物品</strong>：例如著名的频谱拍卖，政府可以同时拍卖多个不同频段的无线电频谱。</li>
+</ul>
+</li>
+<li><strong>双向拍卖<span><span class="heti-spacing"> </span>(double auction)</span></strong>：
+    指卖家也提供投标的拍卖场景，例如<strong>讨价还价<span><span class="heti-spacing"> </span>(bargaining)</span></strong>。一种基本的双向拍卖方式是取买卖双方报价的均值作为最终售价。</li>
+<li><strong>反向拍卖<span><span class="heti-spacing"> </span>(reverse auction)</span></strong>：
+    与传统拍卖相反，卖家是竞拍者。在这种拍卖中，买家作为拍卖师，具有采购需求，而竞拍者是待采购商品的卖家。买家通过卖家的投标，结合其提供的商品质量，决定选择哪些卖家的商品。常见的招标就可以使用反向拍卖的方式进行。</li>
+</ul>
+<h3 id="I3-拍卖分类的三个角度-page-14"><span>I.3<span class="heti-spacing"> </span></span>拍卖分类的三个角度<span><span class="heti-spacing"> </span>(page 14)</span><a class="headerlink" href="#I3-拍卖分类的三个角度-page-14" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>总结而言，上面提到的拍卖都可以从以下三个角度进行分类：</p>
+<ol>
+<li><strong>投标规则</strong>：<ul>
+<li>谁可以投标？只有买家投标、只有卖家投标，还是买卖双方都可投标？</li>
+<li>投标是针对单个物品，还是可以同时投标多个物品？</li>
+<li>投标是否低于某个价格无效（即是否存在保留价格<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>？</li>
+</ul>
+</li>
+<li><strong>交易规则</strong>：<ul>
+<li>拍卖结果是哪些竞拍者可以获得物品？</li>
+<li>获得物品的竞拍者需要支付多少？</li>
+<li>没有获得物品的竞拍者是否需要支付（即是否存在入场费<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>？</li>
+</ul>
+</li>
+<li><strong>信息规则</strong>：<ul>
+<li>投标时是否公开其他投标者的报价？</li>
+</ul>
+</li>
+</ol>
+<h3 id="I4-单物品密封拍卖的一般框架-page-16-18"><span>I.4<span class="heti-spacing"> </span></span>单物品密封拍卖的一般框架<span><span class="heti-spacing"> </span>(page 16-18)</span><a class="headerlink" href="#I4-单物品密封拍卖的一般框架-page-16-18" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>为了深入分析拍卖机制，我们从最容易分析的单物品密封拍卖入手，建立其基本框架：</p>
+<ul>
+<li>
+<p><strong>物品与参与者</strong>：</p>
+<ul>
+<li>一个卖家持有一个不可分割的物品待出售。</li>
+<li>有<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>个潜在的买家（竞拍者）集合<span><span class="heti-spacing"> </span><span class="arithmatex">\(N = \{1, 2, \dots, n\}\)</span></span>。</li>
+</ul>
+</li>
+<li>
+<p><strong>买家估值<span><span class="heti-spacing"> </span>(valuation)</span></strong>：</p>
+<ul>
+<li>每个买家<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>对物品都有一个心理价位或<strong>估值<span><span class="heti-spacing"> </span>(valuation)</span></strong> <span class="arithmatex">\(t_i\)</span>。</li>
+<li><span><span class="arithmatex">\(t_i\)</span><span class="heti-spacing"> </span></span>对于卖家以及其他买家而言是<strong>不完全信息<span><span class="heti-spacing"> </span>(incomplete information)</span></strong>，即买家类型是私有的。</li>
+<li>买家估值的<strong>先验概率密度<span><span class="heti-spacing"> </span>(prior probability density function)</span></strong> <span><span class="arithmatex">\(f_i: [a_i, b_i] \to \mathbb{R}^+\)</span><span class="heti-spacing"> </span></span>是共同知识，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(a_i\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(b_i\)</span><span class="heti-spacing"> </span></span>是买家<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>估值的下界和上界。</li>
+<li>假设<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f_i\)</span><span class="heti-spacing"> </span></span>连续且<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(f_i(t_i) &gt; 0\)</span><span class="heti-spacing"> </span></span>对所有<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t_i \in [a_i, b_i]\)</span><span class="heti-spacing"> </span></span>成立，则<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t_i\)</span><span class="heti-spacing"> </span></span>的<strong>分布函数<span><span class="heti-spacing"> </span>(cumulative distribution function)</span></strong> <span><span class="arithmatex">\(F_i(t_i) = \int_{a_i}^{t_i} f_i(s_i) ds_i\)</span><span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t_i\)</span><span class="heti-spacing"> </span></span>处的值表示参与人<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>心理价位小于等于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t_i\)</span><span class="heti-spacing"> </span></span>的概率。</li>
+</ul>
+</li>
+<li>
+<p><strong>卖家估值<span><span class="heti-spacing"> </span>(seller's reserve valuation)</span></strong>：</p>
+<ul>
+<li>卖家对物品也有一个估值<span><span class="heti-spacing"> </span><span class="arithmatex">\(t_0\)</span></span>，代表物品未被卖出时卖家持有的效用。此信息是共同知识。为讨论方便，通常假定<span><span class="heti-spacing"> </span><span class="arithmatex">\(t_0 = 0\)</span></span>。</li>
+</ul>
+</li>
+<li>
+<p><strong>博弈描述</strong>：</p>
+<ul>
+<li>这是一个<strong>不完全信息静态博弈<span><span class="heti-spacing"> </span>(static game of incomplete information)</span></strong>。</li>
+<li>每个买家的策略是选择一个报价<span><span class="heti-spacing"> </span><span class="arithmatex">\(b_i\)</span></span>。</li>
+<li>卖家没有策略，只需按照给定规则（一价<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>二价）基于买家报价向量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(b = (b_1, \dots, b_n)\)</span><span class="heti-spacing"> </span></span>决定博弈结果<span><span class="heti-spacing"> </span><span class="arithmatex">\((x, p)\)</span></span>。<ul>
+<li><span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>是<strong>物品的分配规则<span><span class="heti-spacing"> </span>(allocation rule)</span></strong>：<span><span class="arithmatex">\(x_i(b)\)</span><span class="heti-spacing"> </span></span>表示买家<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>在所有竞拍者投标为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(b\)</span><span class="heti-spacing"> </span></span>下获得物品的概率。在单物品拍卖中，需要满足<span><span class="heti-spacing"> </span><span class="arithmatex">\(\sum_{i=1}^n x_i(b) \le 1\)</span></span>。如果总和等于<span><span class="heti-spacing"> </span><span class="arithmatex">\(1\)</span></span>，代表物品总会卖出；如果小于<span><span class="heti-spacing"> </span><span class="arithmatex">\(1\)</span></span>，代表卖家有可能选择不卖出。注意<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_i(b)\)</span><span class="heti-spacing"> </span></span>不一定只取<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(0\)</span><span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span><span class="arithmatex">\(1\)</span></span>，也可以是一个概率。</li>
+<li><span><span class="arithmatex">\(p\)</span><span class="heti-spacing"> </span></span>是<strong>支付规则<span><span class="heti-spacing"> </span>(payment rule)</span></strong>：<span><span class="arithmatex">\(p_i(b)\)</span><span class="heti-spacing"> </span></span>表示买家<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>在所有竞拍者投标为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(b\)</span><span class="heti-spacing"> </span></span>下需要支付的价格。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>买家效用</strong>：</p>
+<ul>
+<li>给定一个分配结果<span><span class="heti-spacing"> </span><span class="arithmatex">\((x, p)\)</span></span>，每个买家<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>的<strong>效用<span><span class="heti-spacing"> </span>(utility)</span></strong> 以<strong>拟线性效用函数<span><span class="heti-spacing"> </span>(quasi-linear utility function)</span></strong> 的形式表达为：
+    $$
+    u_i = x_i(b)t_i - p_i(b)
+    $$
+    其中，<span class="arithmatex">\(x_i(b)t_i\)</span> 表示买家 <span class="arithmatex">\(i\)</span> 获得物品的期望收益（获得物品的概率乘以物品的效用），<span class="arithmatex">\(p_i(b)\)</span> 表示买家 <span class="arithmatex">\(i\)</span> 需要支付的价格。</li>
+<li>无论何种类型的拍卖，最终结果都由分配规则和支付规则决定。</li>
+</ul>
+</li>
+</ul>
+<h3 id="I5-单物品第二价格拍卖-page-19-20"><span>I.5<span class="heti-spacing"> </span></span>单物品第二价格拍卖<span><span class="heti-spacing"> </span>(page 19-20)</span><a class="headerlink" href="#I5-单物品第二价格拍卖-page-19-20" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>我们将上述一般框架应用于第二价格拍卖。假设买家投标为<span><span class="heti-spacing"> </span><span class="arithmatex">\(b = (b_1, \dots, b_n)\)</span></span>，那么最终的分配规则<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((x, p)\)</span><span class="heti-spacing"> </span></span>为：</p>
+<ul>
+<li>
+<p><strong>分配规则</strong> <span class="arithmatex">\(x_i(b)\)</span>:
+    $$
+    x_i(b) = \begin{cases}
+    1 &amp; \text{如果 } b_i = \max_{j \in N} b_j \
+    0 &amp; \text{其他情况}
+    \end{cases}
+    $$</p>
+</li>
+<li>
+<p><strong>支付规则</strong> <span class="arithmatex">\(p_i(b)\)</span>:
+    $$
+    p_i(b) = \begin{cases}
+    \max_{j \ne i} b_j &amp; \text{如果 } b_i = \max_{j \in N} b_j \
+    0 &amp; \text{其他情况}
+    \end{cases}
+    $$
+    即报价最高的买家赢得物品，但只需要支付第二高的报价。</p>
+</li>
+</ul>
+<details class="extra" open="open">
+<summary>平局处理</summary>
+<p>当有多个买家报出相同的最高报价时：
+- 一方面，由于每个买家的估值服从连续分布，这种情况发生的概率为 0。
+- 另一方面，即使出现这种情况，卖家也可以随机选择一个报价最高的买家赢得物品来打破平局。
+- 如果没有特别说明，通常会忽略多个买家报出相同最高报价的情况。</p>
+</details>
+<h3 id="I6-二价拍卖的性质-page-21-26"><span>I.6<span class="heti-spacing"> </span></span>二价拍卖的性质<span><span class="heti-spacing"> </span>(page 21-26)</span><a class="headerlink" href="#I6-二价拍卖的性质-page-21-26" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>我们首先介绍第二价格拍卖，因为它具有非常简单且良好的博弈均衡性质。</p>
+<details class="theorem" open="open">
+<summary>二价拍卖诚实占优</summary>
+<p>在单物品第二价格拍卖中，即每个竞拍者将自身估值<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t_i\)</span><span class="heti-spacing"> </span></span>作为报价<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(b_i\)</span><span class="heti-spacing"> </span></span>得到的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(b = (t_1, \dots, t_n)\)</span><span class="heti-spacing"> </span></span>是<strong>（弱）占优策略均衡<span><span class="heti-spacing"> </span>(dominant strategy equilibrium)</span></strong>。简而言之，所有竞拍者诚实报价是（弱）占优策略均衡。</p>
+</details>
+<details class="note" open="open">
+<summary>诚实占优的意义</summary>
+<p>诚实报价是占优策略是二价拍卖的一个非常重要的性质：
+- <strong>策略简单</strong>：竞拍者参与二价拍卖时的策略非常简单，只需要将自己的估值作为报价即可，不需要考虑与其他竞拍者的复杂关系。
+- <strong>打破信息不对称，实现社会福利最大化</strong>：诚实报价可以显示竞拍者的真实估值，从而打破信息不对称。卖家只需直接选出报价最高的竞拍者（即估值最高者<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，即可实现社会福利最大化。因为社会福利等于拥有物品的人对物品的估值，最大化社会福利就是要将物品转移到对其估值最高的人手中。</p>
+</details>
+<details class="proof" open="open">
+<summary>证明：二价拍卖诚实占优<span><span class="heti-spacing"> </span>(page 24-26)</span></summary>
+<p>考虑任意的竞拍者<span><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span></span>，设<span><span class="heti-spacing"> </span><span class="arithmatex">\(p_i = \max_{j \ne i} t_j\)</span></span>，即<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p_i\)</span><span class="heti-spacing"> </span></span>是除了<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>之外的所有竞拍者的最高报价。</p>
+<p>诚实报价意味着竞拍者<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>提交的报价<span><span class="heti-spacing"> </span><span class="arithmatex">\(b_i = t_i\)</span></span>。我们分三种情况讨论：</p>
+<ol>
+<li>
+<p><strong>如果<span><span class="heti-spacing"> </span><span class="arithmatex">\(t_i &gt; p_i\)</span></span></strong>：
+    如果竞拍者 <span class="arithmatex">\(i\)</span> 诚实报价 <span class="arithmatex">\(b_i = t_i\)</span>，他将赢得拍卖并支付 <span class="arithmatex">\(p_i\)</span>，效用为 <span class="arithmatex">\(t_i - p_i &gt; 0\)</span>。</p>
+<ul>
+<li>考虑策略的偏离：<ul>
+<li>如果选择报价提高至<span><span class="heti-spacing"> </span><span class="arithmatex">\(b_i' &gt; t_i\)</span></span>：由于<span><span class="heti-spacing"> </span><span class="arithmatex">\(t_i &gt; p_i\)</span></span>，此时<span><span class="heti-spacing"> </span><span class="arithmatex">\(b_i' &gt; p_i\)</span></span>，竞拍者<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>仍将赢得拍卖，支付<span><span class="heti-spacing"> </span><span class="arithmatex">\(p_i\)</span></span>，效用仍为<span><span class="heti-spacing"> </span><span class="arithmatex">\(t_i - p_i\)</span></span>。结果没有改变。</li>
+<li>如果选择报价降低至<span><span class="heti-spacing"> </span><span class="arithmatex">\(t_i &gt; b_i' \ge p_i\)</span></span>：此时<span><span class="heti-spacing"> </span><span class="arithmatex">\(b_i' \ge p_i\)</span></span>，竞拍者<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>仍将赢得拍卖，支付<span><span class="heti-spacing"> </span><span class="arithmatex">\(p_i\)</span></span>，效用仍为<span><span class="heti-spacing"> </span><span class="arithmatex">\(t_i - p_i\)</span></span>。结果仍然一致。</li>
+<li>如果选择报价降低至<span><span class="heti-spacing"> </span><span class="arithmatex">\(b_i' &lt; p_i\)</span></span>：此时<span><span class="heti-spacing"> </span><span class="arithmatex">\(b_i' &lt; p_i &lt; t_i\)</span></span>，竞拍者<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>将不再赢得拍卖，因此效用将变为<span><span class="heti-spacing"> </span><span class="arithmatex">\(0\)</span></span>。
+综上所述，当 <span class="arithmatex">\(t_i &gt; p_i\)</span> 时，<span class="arithmatex">\(i\)</span> 诚实报价 <span class="arithmatex">\(b_i = t_i\)</span> 是（弱）占优策略，因为任何偏离都不会提高效用，反而可能降低效用。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>如果<span><span class="heti-spacing"> </span><span class="arithmatex">\(t_i &lt; p_i\)</span></span></strong>：
+    如果竞拍者 <span class="arithmatex">\(i\)</span> 诚实报价 <span class="arithmatex">\(b_i = t_i\)</span>，他不会赢得拍卖，效用为 <span class="arithmatex">\(0\)</span>。</p>
+<ul>
+<li>考虑策略的偏离：<ul>
+<li>如果选择报价降低至<span><span class="heti-spacing"> </span><span class="arithmatex">\(b_i' &lt; t_i\)</span></span>：由于<span><span class="heti-spacing"> </span><span class="arithmatex">\(b_i' &lt; t_i &lt; p_i\)</span></span>，竞拍者<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>仍不会赢得拍卖，效用为<span><span class="heti-spacing"> </span><span class="arithmatex">\(0\)</span></span>。结果没有任何改变。</li>
+<li>如果选择报价提高至<span><span class="heti-spacing"> </span><span class="arithmatex">\(t_i &lt; b_i' &lt; p_i\)</span></span>：此时<span><span class="heti-spacing"> </span><span class="arithmatex">\(b_i' &lt; p_i\)</span></span>，竞拍者<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>仍不会赢得拍卖，效用为<span><span class="heti-spacing"> </span><span class="arithmatex">\(0\)</span></span>。结果仍然一致。</li>
+<li>如果选择报价提高至<span><span class="heti-spacing"> </span><span class="arithmatex">\(b_i' \ge p_i\)</span></span>：此时<span><span class="heti-spacing"> </span><span class="arithmatex">\(b_i' \ge p_i &gt; t_i\)</span></span>，竞拍者<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>将赢得拍卖并支付<span><span class="heti-spacing"> </span><span class="arithmatex">\(p_i\)</span></span>，因此<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>的效用将变为<span><span class="heti-spacing"> </span><span class="arithmatex">\(t_i - p_i &lt; 0\)</span></span>。这会使效用变为负值。
+综上所述，当 <span class="arithmatex">\(t_i &lt; p_i\)</span> 时，<span class="arithmatex">\(i\)</span> 诚实报价 <span class="arithmatex">\(b_i = t_i\)</span> 是（弱）占优策略，因为任何偏离都不会提高效用，反而可能降低效用。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>如果<span><span class="heti-spacing"> </span><span class="arithmatex">\(t_i = p_i\)</span></span></strong>：
+    在这种情况下，无论竞拍者 <span class="arithmatex">\(i\)</span> 报价多少，其赢得或失去拍卖带来的效用都是 <span class="arithmatex">\(0\)</span>（如果赢得，效用 <span class="arithmatex">\(t_i - p_i = 0\)</span>；如果失去，效用 <span class="arithmatex">\(0\)</span>）。因此，报价多少都不会影响效用。诚实报价仍是（弱）占优策略。</p>
+</li>
+</ol>
+<p>综上，对于任意的竞拍者<span><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span></span>，诚实报价都是（弱）占优策略均衡。<span class="arithmatex">\(\square\)</span></p>
+</details>
+<h3 id="I7-二价拍卖的缺陷-page-27"><span>I.7<span class="heti-spacing"> </span></span>二价拍卖的缺陷<span><span class="heti-spacing"> </span>(page 27)</span><a class="headerlink" href="#I7-二价拍卖的缺陷-page-27" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>尽管第二价格拍卖具有诚实占优的优良性质，但在实际中，它似乎不如第一价格拍卖常见。一个重要的原因是，卖家可以通过操纵信息来提高自己的收益：</p>
+<ul>
+<li>例如，在第二价格密封拍卖中，如果你是最高价格的报价者，你的报价是<span class="heti-skip"><span class="heti-spacing"> </span>100<span class="heti-spacing"> </span></span>元，第二高报价是<span class="heti-skip"><span class="heti-spacing"> </span>80<span class="heti-spacing"> </span></span>元，因此你赢得拍卖并支付<span class="heti-skip"><span class="heti-spacing"> </span>80<span class="heti-spacing"> </span></span>元。</li>
+<li>但由于是密封拍卖，你无法得知第二高报价的准确数值。如果卖家告诉你第二高报价是<span class="heti-skip"><span class="heti-spacing"> </span>90<span class="heti-spacing"> </span></span>元，你无从得知<span class="heti-skip"><span class="heti-spacing"> </span>90<span class="heti-spacing"> </span></span>元是不是真的第二高报价。但卖家掌握这一信息，从而可以从信息操纵中获得更高的收益。</li>
+</ul>
+<h3 id="I8-第一价格拍卖的性质与均衡-page-28-34"><span>I.8<span class="heti-spacing"> </span></span>第一价格拍卖的性质与均衡<span><span class="heti-spacing"> </span>(page 28-34)</span><a class="headerlink" href="#I8-第一价格拍卖的性质与均衡-page-28-34" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>我们自然希望一价拍卖也能有二价拍卖那样简单的结果，但事实并非如此。</p>
+<details class="tip" open="open">
+<summary><strong>非诚实占优</strong>：</summary>
+<p>如果在一价拍卖中竞拍者报出自己的估值<span><span class="heti-spacing"> </span><span class="arithmatex">\(t_i\)</span></span>，那么赢下拍卖后的支付就是自己的估值<span><span class="heti-spacing"> </span><span class="arithmatex">\(t_i\)</span></span>，因此效用为<span><span class="heti-spacing"> </span><span class="arithmatex">\(t_i - t_i = 0\)</span></span>，这与没有赢下拍卖的效用（0）一致。直观上看，一价拍卖的参与人有动机报出低于自己估值的报价，以期望在赢得拍卖时获得正效用。</p>
+<p>严格来说，代入二价拍卖诚实报价占优的证明可知，一价拍卖在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t_i &gt; p_i\)</span><span class="heti-spacing"> </span></span>时（报价高于第二高价格时<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，如果将报价从<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t_i\)</span><span class="heti-spacing"> </span></span>下调到<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p_i\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t_i\)</span><span class="heti-spacing"> </span></span>之间，竞拍者<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>仍然可以赢下拍卖，但效用可以提高到大于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(0\)</span><span class="heti-spacing"> </span></span>的值。因此，一价拍卖并非诚实报价是占优策略，而是有动机报出低于自己估值的报价。</p>
+</details>
+<p>由此可以看出，二价拍卖诚实占优的关键在于：报价与自己的估值<strong>无直接关联</strong>（支付的是别人的报价<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<details class="question" open="open">
+<summary>三价拍卖是否诚实？</summary>
+<p>不是。</p>
+</details>
+<p>下面计算一个简单情况下的第一价格拍卖的贝叶斯纳什均衡。</p>
+<details class="example" open="open">
+<summary>第一价格拍卖的贝叶斯纳什均衡<span><span class="heti-spacing"> </span>(page 31-33)</span></summary>
+<p><strong>例</strong>：假设只有两个竞拍者，并且他们的估值<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t_1, t_2\)</span><span class="heti-spacing"> </span></span>是独立的，且都服从<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\([0,1]\)</span><span class="heti-spacing"> </span></span>上的均匀分布。试求解博弈的纯策略贝叶斯纳什均衡。</p>
+<p>这是一个类型空间和策略空间都连续的博弈。我们可以考虑具有如下性质的特殊均衡：
+- 纯策略均衡。
+- 由于两个竞拍者是对称的，考虑对称均衡，即二者的出价策略都是当自己的估值为 <span class="arithmatex">\(t_i\)</span> 时出价 <span class="arithmatex">\(\beta(t_i)\)</span>。
+    - 假设 <span class="arithmatex">\(\beta\)</span> 是增函数，即估值越大报价越高。
+    - <span class="arithmatex">\(\beta(0) = 0\)</span>，即估值为 <span class="arithmatex">\(0\)</span> 的竞拍者出价也为 <span class="arithmatex">\(0\)</span>。</p>
+<p>回忆纯策略均衡的求解是寻找对方策略的最优反应。首先写出当竞拍者<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(1\)</span><span class="heti-spacing"> </span></span>报价<span><span class="heti-spacing"> </span><span class="arithmatex">\(b_1\)</span></span>，竞拍者<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(2\)</span><span class="heti-spacing"> </span></span>报价<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\beta(t_2)\)</span><span class="heti-spacing"> </span></span>时竞拍者<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(1\)</span><span class="heti-spacing"> </span></span>的效用为：
+$$
+u_1(b_1 | t_1) = (t_1 - b_1)P(b_1 &gt; \beta(t_2))
+$$
+由于 <span class="arithmatex">\(t_2\)</span> 服从 <span class="arithmatex">\([0,1]\)</span> 上的均匀分布，且 <span class="arithmatex">\(\beta(t_2)\)</span> 是 <span class="arithmatex">\(t_2\)</span> 的增函数，那么 <span class="arithmatex">\(P(b_1 &gt; \beta(t_2)) = P(\beta^{-1}(b_1) &gt; t_2) = \beta^{-1}(b_1)\)</span> (因为 <span class="arithmatex">\(t_2\)</span> 均匀分布在 <span class="arithmatex">\([0,1]\)</span>)。
+因此，竞拍者 <span class="arithmatex">\(1\)</span> 的效用函数为：
+$$
+u_1(b_1 | t_1) = (t_1 - b_1)\beta^{-1}(b_1)
+$$
+对 <span class="arithmatex">\(b_1\)</span> 求导并令其为 <span class="arithmatex">\(0\)</span>（取极大值的必要条件）：
+$$
+\frac{\partial u_1}{\partial b_1} = -\beta^{-1}(b_1) + (t_1 - b_1) \frac{1}{\beta'(\beta^{-1}(b_1))} = 0
+$$
+即：
+$$
+-\beta^{-1}(b_1) + \frac{t_1 - b_1}{\beta'(\beta^{-1}(b_1))} = 0
+$$
+已知考虑对称均衡，故均衡时 <span class="arithmatex">\(b_1 = \beta(t_1)\)</span>。代入上式，并令 <span class="arithmatex">\(t = t_1\)</span>，则 <span class="arithmatex">\(\beta^{-1}(b_1) = t\)</span>，得到：
+$$
+-t + \frac{t - \beta(t)}{\beta'(t)} = 0
+$$
+整理得：
+$$
+t \beta'(t) - \beta(t) = 0
+$$
+或：
+$$
+\frac{t \beta'(t) - \beta(t)}{t^2} = 0 \Rightarrow \left(\frac{\beta(t)}{t}\right)' = 0
+$$
+这表明 <span class="arithmatex">\(\frac{\beta(t)}{t}\)</span> 是一个常数。由于 <span class="arithmatex">\(\beta(0)=0\)</span>，所以这个常数不能是任意值。结合初始条件 <span class="arithmatex">\(\beta(0)=0\)</span>，并考虑到 <span class="arithmatex">\(\beta(t)\)</span> 必须是递增函数，解为 <span class="arithmatex">\(\beta(t) = kt\)</span>。代回原方程， <span class="arithmatex">\(kt - kt = 0\)</span>。</p>
+<p>另一种解法：
+上式也可以改写为：
+$$
+t = t \beta'(t) + \beta(t)
+$$
+等式右侧是 <span class="arithmatex">\((t\beta(t))'\)</span>。因此：
+$$
+t = (t\beta(t))'
+$$
+对上式积分：
+$$
+\int_0^{t_1} s ds = t_1 \beta(t_1)
+$$
+$$
+\frac{1}{2}t_1^2 = t_1 \beta(t_1)
+$$
+不难解得 <span class="arithmatex">\(\beta(t_1) = t_1/2\)</span>。这就解出了一价拍卖的对称递增均衡。当然上述一阶条件只是极值的必要条件，还需要检验充分性，此处省略。</p>
+<p>需要强调的是，这一均衡仅仅只是在竞拍者估值独立同分布（而且是最简单的均匀分布）下的递增对称均衡。即使如此求解过程也并不简单，可想而知非独立同分布情况下的均衡更难以求解。因此第一价格拍卖下竞拍者的策略决定就会更加复杂，远不及二价拍卖那样简单。</p>
+</details>
+<h3 id="I9-收入等价定理-page-35-39"><span>I.9<span class="heti-spacing"> </span></span>收入等价定理<span><span class="heti-spacing"> </span>(page 35-39)</span><a class="headerlink" href="#I9-收入等价定理-page-35-39" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>在第二价格拍卖中，竞拍者诚实报价是占优策略，但赢得拍卖的竞拍者只需支付第二高报价。而在第一价格拍卖中，竞拍者会降低自己的报价，但赢得拍卖的竞拍者需要支付的价格是自己的报价（即最高的报价<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。自然的问题是：在这两种拍卖中，卖家的期望收入哪种拍卖会更高呢？</p>
+<details class="example" open="open">
+<summary>期望收入计算<span><span class="heti-spacing"> </span>(page 36-38)</span></summary>
+<p>在只有两个竞拍者，且两个竞拍者的估值独立同分布于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\([0,1]\)</span><span class="heti-spacing"> </span></span>上的均匀分布的情况下：</p>
+<ul>
+<li>
+<p><strong>第一价格拍卖的卖家期望收入</strong>：
+    竞拍者 <span class="arithmatex">\(1\)</span> 报价为 <span class="arithmatex">\(t_1/2\)</span>，其赢下拍卖的概率为 <span class="arithmatex">\(P(t_1/2 &gt; t_2/2) = P(t_1 &gt; t_2) = t_1\)</span> (因为 <span class="arithmatex">\(t_2\)</span> 在 <span class="arithmatex">\([0,1]\)</span> 上均匀分布)。
+    因此，竞拍者 <span class="arithmatex">\(1\)</span> 在估值 <span class="arithmatex">\(t_1\)</span> 下的期望支付为 <span class="arithmatex">\((t_1/2) \cdot t_1 = t_1^2/2\)</span>。
+    站在卖家的角度，<span class="arithmatex">\(t_1\)</span> 是不确定的，因此卖家认为竞拍者 <span class="arithmatex">\(1\)</span> 的期望支付为：
+    $$
+    \int_0^1 \frac{t_1^2}{2} dt_1 = \frac{1}{6}
+    $$
+    竞拍者 <span class="arithmatex">\(2\)</span> 的分析完全一致，期望支付也为 <span class="arithmatex">\(1/6\)</span>，故卖家认为一价拍卖能带来的期望收入为 <span class="arithmatex">\(1/6 + 1/6 = 1/3\)</span>。</p>
+<p>另一种计算方式：可以直接写出一价拍卖选择对称递增均衡下的期望收益（卖家的期望收入）等于竞拍者出价最大值的期望：
+$$
+\mathbb{E}[\max(\beta(t_1), \beta(t_2))] = \mathbb{E}\left[\max\left(\frac{t_1}{2}, \frac{t_2}{2}\right)\right] = \frac{1}{2} \mathbb{E}[\max(t_1, t_2)]
+$$
+<span class="arithmatex">\(\max(t_1, t_2)\)</span> 是次序统计量<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">2</a></sup>，对应的分布函数为 <span class="arithmatex">\(F(t) = P(\max(t_1, t_2) &lt; t) = P(t_1 &lt; t) \cdot P(t_2 &lt; t) = t^2\)</span>。
+故对应的密度函数为 <span class="arithmatex">\(f(t) = 2t\)</span>。因此期望值等于：
+$$
+\frac{1}{2} \int_0^1 t \cdot 2t \, dt = \int_0^1 t^2 \, dt = \frac{1}{3}
+$$</p>
+</li>
+<li>
+<p><strong>第二价格拍卖的卖家期望收入</strong>：
+    在二价拍卖的情况下，根据诚实报价占优以及支付第二高报价可知，卖家的期望收益为所有竞拍者估值中第二高估值的期望。在估值独立同分布于 <span class="arithmatex">\([0,1]\)</span> 上的均匀分布的情况下，其期望收入为（具体计算步骤省略）：
+    $$
+    \mathbb{E}[\min(t_1, t_2)] = \frac{1}{3}
+    $$
+因此对于卖家而言，在上述情况下选择第一和第二价格拍卖，最终得到的期望收益无差别。</p>
+</li>
+</ul>
+</details>
+<p>事实上这并不是巧合，而是下面这一定理的一个特例：</p>
+<details class="theorem" open="open">
+<summary>收入等价定理<span><span class="heti-spacing"> </span>(Revenue Equivalence Theorem) (page 39)</span></summary>
+<p>假设竞拍者估价独立同分布，那么只要估价为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(0\)</span><span class="heti-spacing"> </span></span>的竞拍者的期望支付为<span><span class="heti-spacing"> </span><span class="arithmatex">\(0\)</span></span>，且拍卖规则为报价最高者得到物品，则拍卖的递增对称均衡都会使得卖家获得相等的期望收入。</p>
+</details>
+<h3 id="I10-其他拍卖理论问题-page-40-45"><span>I.10<span class="heti-spacing"> </span></span>其他拍卖理论问题<span><span class="heti-spacing"> </span>(page 40-45)</span><a class="headerlink" href="#I10-其他拍卖理论问题-page-40-45" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<ul>
+<li>
+<p><strong>信息问题</strong>：
+    本课程讨论只涉及竞拍者估值相互独立的情况（不一定同分布），但实际上竞拍者的估值可能是相关的。</p>
+<ul>
+<li><strong>估值不完全信息的原因</strong>：<ul>
+<li><strong>偏好不确定性<span><span class="heti-spacing"> </span>(preference uncertainty)</span></strong>：买家个人对物品的喜好各不相同。</li>
+<li><strong>质量不确定性<span><span class="heti-spacing"> </span>(quality uncertainty)</span></strong>：物品的质量对买家而言是不完全信息。</li>
+</ul>
+</li>
+<li>如果只存在偏好不确定性，那么不同买家的估值可以认为是独立的。但如果存在质量不确定性，其他买家的估值可能会影响其他买家的估值。</li>
+<li>例如，对一处石油矿藏的估值，因为有的买家可能具有更多的关于矿藏质量的信息，因此部分买家的估值就会受到其他买家的估值的影响，这种情况称为<strong>相互依赖价值<span><span class="heti-spacing"> </span>(interdependent value)</span></strong>。</li>
+</ul>
+</li>
+<li>
+<p><strong>拍卖形式之间的关系</strong>：
+    回忆英式拍卖、荷式拍卖以及第一价格和第二价格拍卖，现在可以讨论它们之间的关系：</p>
+<ul>
+<li><strong>英式拍卖与第二价格拍卖的等价性</strong>：当拍卖师叫价小于等于估值时，理性的竞拍者会继续竞拍，否则退出。因此最终的胜者具有最高估值，并且支付的价格是倒数第二个竞拍者退出时竞拍的价格。因此，英式拍卖和第二价格拍卖在理性行为下是等价的。</li>
+<li><strong>荷式拍卖与第一价格拍卖的等价性</strong>：理性的竞拍者会在拍卖师叫价小于等于自己估值时投标，因此最终的胜者具有最高估值，且支付价格是自己的估值（即第一价格<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。因此，荷式拍卖和第一价格拍卖具有等价性。</li>
+<li><strong>相互依赖价值下的差异</strong>：
+    然而，如果考虑相互依赖价值，英式拍卖无法与第二价格拍卖等价：<ul>
+<li>因为在拍卖师不断提高价格的过程中，竞拍者的行为会互相影响。</li>
+<li>例如，某轮报价后很多竞拍者的退出会使得留在拍卖中的竞拍者对自己的高估值产生怀疑，并有可能改变其接下来的行为。</li>
+<li>而二价拍卖作为密封价格拍卖，各竞拍者之间完全无法相互影响。</li>
+<li>荷式拍卖中能带给其他参与人有用信息的行为只有某个竞拍者愿意以当前价格购买，然而此后拍卖就结束了，因此不存在信息问题，故而仍然可以与一价拍卖视为等价的。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>拍卖中的合谋<span><span class="heti-spacing"> </span>(bidding ring)</span></strong>：
+    <strong>合谋竞标<span><span class="heti-spacing"> </span>(bidding ring)</span></strong> 是非法行为，但仍然盛行。通常，合谋竞拍者会在内部进行预拍卖，选出其中估值最高的竞拍者作为代表参与拍卖，其他成员提交接近于零的报价，从而降低竞争。最终如果赢得拍卖并且降低了支付，则在合谋组织内部分配利益。</p>
+</li>
+<li>
+<p><strong>多物品拍卖中的组合拍卖<span><span class="heti-spacing"> </span>(combinatorial auction)</span></strong>：
+    多物品拍卖中，不同拍卖物品之间可能存在互补性或替代性。例如频谱拍卖，政府可以同时拍卖多个不同频段的无线电频谱。研究这一情况下的拍卖理论称为<strong>组合拍卖<span><span class="heti-spacing"> </span>(combinatorial auction)</span></strong>。
+    2020 年诺贝尔经济学奖得主保罗·米尔格罗姆 (Paul R. Milgrom) 和罗伯特·威尔逊 (Robert B. Wilson) 就致力于组合拍卖的研究，他们的理论也被应用于设计美国无线电频谱销售许可证的拍卖方案。</p>
+</li>
+</ul>
+<h2 id="II-机制设计基础"><span>II<span class="heti-spacing"> </span></span>机制设计基础<a class="headerlink" href="#II-机制设计基础" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="II1-机制设计引入-page-47-48"><span>II.1<span class="heti-spacing"> </span></span>机制设计引入<span><span class="heti-spacing"> </span>(page 47-48)</span><a class="headerlink" href="#II1-机制设计引入-page-47-48" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>此前的讨论都是给定一个拍卖规则，然后分析在这一拍卖规则下的均衡策略，从而可以进一步分析拍卖的社会福利影响和拍卖中卖家的收入。</p>
+<p>然而，假如你是一个卖家，在拍卖前你可能心里会有一个目标，即希望通过设计一种拍卖机制使得自己的收入最大化。又或者你是政府官员，你希望你组织的这场拍卖能最大化社会福利。</p>
+<p>为了达成目标，你需要从拍卖的理想结果出发，设计一个拍卖机制，使得理性的竞拍者在这一机制下的行为能够达到你的目标，这就是<strong>机制设计<span><span class="heti-spacing"> </span>(mechanism design)</span></strong> 的基本思想。</p>
+<details class="note" open="open">
+<summary>机制设计的一般性</summary>
+<p>更一般的机制设计不局限于拍卖，还包括物品分配、匹配以及政府政策制定等，但关键的思想都是“上有政策，下有对策”，因此设计机制时都是在确保在这一机制下理性的参与人的均衡行动是满足机制设计者的要求的。当然本讲主要讨论基于拍卖的机制设计。</p>
+</details>
+<h3 id="II2-机制设计的定义-page-49-50"><span>II.2<span class="heti-spacing"> </span></span>机制设计的定义<span><span class="heti-spacing"> </span>(page 49-50)</span><a class="headerlink" href="#II2-机制设计的定义-page-49-50" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>可以从拍卖设计中抽象出较为一般的机制设计问题：</p>
+<details class="definition" open="open">
+<summary>机制的定义</summary>
+<p>对一个不完全信息博弈，一个机制是一个二元组<span><span class="heti-spacing"> </span><span class="arithmatex">\((S, M)\)</span></span>，其中：
+- <span class="arithmatex">\(S = S_1 \times \dots \times S_n\)</span> 是所有参与人可选的纯策略集合。
+- <span class="arithmatex">\(M\)</span> 是一个将所有参与人的纯策略向量 <span class="arithmatex">\((s_1, \dots, s_n) \in S\)</span> 映射到结果集合 <span class="arithmatex">\(O\)</span> 上的一个概率分布。</p>
+<p>如果一个机制是<strong>确定性的<span><span class="heti-spacing"> </span>(deterministic)</span></strong>，那么对于每个行动向量，机制<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(M\)</span><span class="heti-spacing"> </span></span>将其行动映射到一个确定的结果<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(o_i \in O\)</span><span class="heti-spacing"> </span></span>上。</p>
+</details>
+<details class="example" open="open">
+<summary>拍卖机制作为机制的例子<span><span class="heti-spacing"> </span>(page 50)</span></summary>
+<p>例如，一个单物品密封拍卖机制是将买家的投标向量映射到一个结果<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((x, p)\)</span><span class="heti-spacing"> </span></span>上的机制，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>是分配规则，<span><span class="arithmatex">\(p\)</span><span class="heti-spacing"> </span></span>是支付规则。
+当然上述定义不仅适用于拍卖机制设计，只要针对不完全信息博弈，并且将参与人策略映射到结果，就是符合上述机制定义的。</p>
+</details>
+<h3 id="II3-直接显示机制与显示原理-page-51-54"><span>II.3<span class="heti-spacing"> </span></span>直接显示机制与显示原理<span><span class="heti-spacing"> </span>(page 51-54)</span><a class="headerlink" href="#II3-直接显示机制与显示原理-page-51-54" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>上述定义能覆盖更多的机制设计问题，展现了这一定义的一般性，然而一般性的定义也可能引入一些不寻常的例子：</p>
+<details class="example" open="open">
+<summary>奇怪的机制<span><span class="heti-spacing"> </span>(page 51)</span></summary>
+<p>考虑如下单物品出售机制，假设有两个买家，各有对物品的价值作为私人信息。然而现在买家的纯策略集合<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(S_1\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(S_2\)</span><span class="heti-spacing"> </span></span>不再是报价，而是一个奇怪的集合：
+$$
+S_1 = S_2 = {\text{去上课, 去操场跑步, 去食堂吃饭}}
+$$
+而机制的分配规则是不管二者行动如何，最终都随机决定物品的分配。支付规则为无论有没有得到物品，只要选择去上课就不用支付，选择去操场跑步和去食堂吃饭就必须支付 100 元。</p>
+</details>
+<details class="attention" open="open">
+<summary>机制类型过于广泛的问题<span><span class="heti-spacing"> </span>(page 52-53)</span></summary>
+<p>这一机制令人非常困惑，但根据定义无法否认这是一个合理的机制。
+之后的讨论将重点关注福利最大化以及卖家利润最大化的拍卖机制设计，这是拍卖机制设计的两大目标。</p>
+<p>这一例子表明，需要考虑的机制类型可能太过广泛了，这会给接下来的讨论带来很大的困难。</p>
+<p>因此，希望找到一类简单的机制，只要考虑这一类机制就足以得到任何可能机制可以得到的结果，从而使得研究福利最大化和卖家利润最大化问题时只需要研究这一类简单的机制就足够了。</p>
+</details>
+<h3 id="II4-激励相容的直接显示机制-page-55"><span>II.4<span class="heti-spacing"> </span></span>激励相容的直接显示机制<span><span class="heti-spacing"> </span>(page 55)</span><a class="headerlink" href="#II4-激励相容的直接显示机制-page-55" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>为了介绍显示原理，首先需要定义如下两个基本概念：</p>
+<details class="definition" open="open">
+<summary>直接显示机制与激励相容</summary>
+<p>对于一个机制<span><span class="heti-spacing"> </span><span class="arithmatex">\((S, M)\)</span></span>，如果：
+1. 对每个参与人 <span class="arithmatex">\(i\)</span> 都有 <span class="arithmatex">\(S_i = T_i\)</span>，即每个参与人的行动就是显示自己的类型<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">1</a></sup>，则这一机制被称为<strong>直接显示机制<span><span class="heti-spacing"> </span>(direct revelation mechanism)</span></strong> 或<strong>直接机制<span><span class="heti-spacing"> </span>(direct mechanism)</span></strong>。
+2. 如果每个参与人如实报告自己的类型构成的行动向量 <span class="arithmatex">\(s = (t_1, \dots, t_n)\)</span> 是博弈的均衡，则称这一机制是<strong>激励相容<span><span class="heti-spacing"> </span>(incentive compatible)</span></strong> 的，或者说是<strong>诚实的<span><span class="heti-spacing"> </span>(truthful)</span></strong>。更详细地：
+    - 如果 <span class="arithmatex">\(s\)</span> 是<strong>占优策略均衡<span><span class="heti-spacing"> </span>(dominant strategy equilibrium)</span></strong>，则称这一机制是<strong>占优策略激励相容<span><span class="heti-spacing"> </span>(dominant-strategy incentive compatible, DSIC)</span></strong> 的。
+    - 如果 <span class="arithmatex">\(s\)</span> 是<strong>贝叶斯纳什均衡<span><span class="heti-spacing"> </span>(Bayesian Nash equilibrium)</span></strong>，则称这一机制是<strong>贝叶斯激励相容<span><span class="heti-spacing"> </span>(Bayesian incentive compatible, BIC)</span></strong> 的。</p>
+</details>
+<p>不难发现，单物品密封价格拍卖中各参与人的类型（即估值）集合为<span><span class="heti-spacing"> </span><span class="arithmatex">\([0, +\infty)\)</span></span>，则每个参与人的行动集合（报价）也是<span><span class="heti-spacing"> </span><span class="arithmatex">\([0, +\infty)\)</span></span>，故属于直接机制。此外，由于二价拍卖下诚实报价是占优策略均衡，故二价拍卖是占优策略激励相容的。</p>
+<h3 id="II5-显示原理的内涵-page-56-59"><span>II.5<span class="heti-spacing"> </span></span>显示原理的内涵<span><span class="heti-spacing"> </span>(page 56-59)</span><a class="headerlink" href="#II5-显示原理的内涵-page-56-59" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="theorem" open="open">
+<summary>显示原理<span><span class="heti-spacing"> </span>(Revelation Principle)</span></summary>
+<p>给定任意一个机制及其占优策略均衡（或贝叶斯纳什均衡<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，都可以找到一个激励相容的直接机制，使得该机制均衡下的结果和原机制均衡下对应的结果一致。</p>
+</details>
+<details class="example" open="open">
+<summary>一价拍卖示例<span><span class="heti-spacing"> </span>(page 57)</span></summary>
+<p>可以先用一价拍卖的例子体会上述定理的含义。回忆只有两个竞拍者，且两个竞拍者的估值独立同分布于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\([0,1]\)</span><span class="heti-spacing"> </span></span>上的均匀分布的情况下，一价拍卖选择对称递增均衡为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\beta(t) = t/2\)</span></span>。
+如果此时机制变为：报价最高者获得物品，但只需要支付最高报价的一半，那么此时竞拍者诚实报价就可以体验到和一价拍卖选择策略 <span class="arithmatex">\(\beta\)</span> 时完全一致的结果。</p>
+</details>
+<p>显示原理的证明图示：</p>
+<div class="arithmatex">\[
+\text{type } \theta_1 \xrightarrow{\text{strategy } s_1(\theta_1)} \text{Original Mechanism} \xrightarrow{} \text{outcome}
+\]</div>
+<div class="arithmatex">\[
+\vdots
+\]</div>
+<div class="arithmatex">\[
+\text{type } \theta_n \xrightarrow{\text{strategy } s_n(\theta_n)} \text{Original Mechanism} \xrightarrow{} \text{outcome}
+\]</div>
+<p>图<span><span class="heti-spacing"> </span>(a) Revelation principle: original mechanism</span></p>
+<div class="arithmatex">\[
+\begin{array}{ccc}
+\text{type } \theta_1 &amp; \xrightarrow{} &amp; s_1(\theta_1) \\
+&amp; \vdots &amp; \\
+\text{type } \theta_n &amp; \xrightarrow{} &amp; s_n(\theta_n)
+\end{array}
+\begin{array}{|c|}
+\hline
+\text{Original} \\
+\text{Mechanism} \\
+\hline
+\end{array}
+\xrightarrow{} \text{outcome}
+\]</div>
+<p>图<span><span class="heti-spacing"> </span>(b) Revelation principle: new mechanism</span></p>
+<p>通俗而言，显示原理就是机制设计者替代参与人做了求解均衡的工作，因此参与人只需要输入自己的真实类型就可以得到和原机制均衡下相同的均衡，该激励相容的直接机制也就得到了与原机制相同的结果。</p>
+<details class="important" open="open">
+<summary>显示原理的作用<span><span class="heti-spacing"> </span>(page 59)</span></summary>
+<p>由此可见，显示原理是一个十分精妙的定理，其能发挥的作用是非常大的：
+- 在后续讨论的机制设计问题中，都可以只考虑所有参与者在均衡下如实报告自己类型的机制。
+- 因为任何机制都能转化为直接显示机制，而这一转化并不会改变机制的结果。
+- 因此仅通过这一类机制我们就可以得到所有可能机制的结果，从而大大缩小了机制设计需要考虑的机制集合。
+- 此外，直接显示机制中参与人需要诚实给出自己的类型，从而解决了信息不对称问题。
+值得一提的是，显示机制是由 2007 年诺贝尔经济学奖得主迈尔森提出并证明的，他获得诺奖基于的最重要的贡献之一就是显示原理。</p>
+</details>
+<h3 id="II6-迈尔森引理-Myersons-Lemma-page-60-72"><span>II.6<span class="heti-spacing"> </span></span>迈尔森引理<span><span class="heti-spacing"> </span>(Myerson's Lemma) (page 60-72)</span><a class="headerlink" href="#II6-迈尔森引理-Myersons-Lemma-page-60-72" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>二价拍卖是激励相容的直接显示机制，然而一价拍卖并不是。自然的问题是：什么样的机制是激励相容的直接显示机制？</p>
+<p>迈尔森引理<span class="heti-skip"><span class="heti-spacing"> </span>(Myerson's lemma)<span class="heti-spacing"> </span></span>给出了拍卖机制（从报价到分配和支付的机制）激励相容的充要条件。这里首先给出迈尔森引理在占优策略均衡下的版本，之后讨论最优机制时会讨论贝叶斯纳什均衡下的版本。</p>
+<details class="theorem" open="open">
+<summary>迈尔森引理<span><span class="heti-spacing"> </span>(page 61)</span></summary>
+<p>一个拍卖机制是<span><span class="heti-spacing"> </span>DSIC</span>（占优策略激励相容）的，当且仅当其分配规则<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>和支付规则<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p\)</span><span class="heti-spacing"> </span></span>满足：
+1. <span class="arithmatex">\(x\)</span> 是单调的，即 <span class="arithmatex">\(x_i(b_i)\)</span> 是 <span class="arithmatex">\(b_i\)</span> 的单调不减函数。
+2. 给定 <span class="arithmatex">\(x\)</span> 的情况下，只要给定 <span class="arithmatex">\(p_i(0)\)</span> 的值，对任意的 <span class="arithmatex">\(i \in N\)</span> 和 <span class="arithmatex">\(b_i \in [0, +\infty)\)</span>，<span class="arithmatex">\(p\)</span> 的表达式是唯一确定的：
+    $$
+    p_i(b_i) = p_i(0) + b_i x_i(b_i) - \int_0^{b_i} x_i(s) ds
+    $$</p>
+</details>
+<details class="note" open="open">
+<summary>迈尔森引理的条件解释<span><span class="heti-spacing"> </span>(page 62-63)</span></summary>
+<ul>
+<li>
+<p><strong>第一个条件：单调性</strong>。报价越高，获得物品的概率越高。
+    直观而言，如果报价降低能有更高的概率获得物品，那么竞拍者就会有动机选择降低自己的报价，不符合激励相容性质。</p>
+</li>
+<li>
+<p><strong>第二个条件：迈尔森支付公式</strong>。要满足<span class="heti-skip"><span class="heti-spacing"> </span>DSIC<span class="heti-spacing"> </span></span>性质，在给定的分配规则下，只要报价为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(0\)</span><span class="heti-spacing"> </span></span>时的支付<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p_i(0)\)</span><span class="heti-spacing"> </span></span>确定（通常都为<span><span class="heti-spacing"> </span><span class="arithmatex">\(0\)</span></span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，则只有一种特定的支付规则能使得竞拍者如实报告自己的估值。</p>
+<p>这一支付规则被称为<strong>迈尔森支付公式<span><span class="heti-spacing"> </span>(Myerson's payment formula)</span></strong>。下图是一个直观解释：横坐标是竞拍者<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>报价的取值，纵坐标是竞拍者<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>的分配结果。图中递增的曲线是分配规则<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_i(b_i)\)</span></span>，阴影部分面积等于长方形面积减去曲线下方面积，正好对应竞拍者<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>报价为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(b_i\)</span><span class="heti-spacing"> </span></span>时的支付（设<span><span class="heti-spacing"> </span><span class="arithmatex">\(p_i(0) = 0\)</span></span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Lec07-1.png"><img alt="|600" src="../attachments/Lec07-1.png"/></a></p>
+<p>显示信息的权衡：不能提取全部的剩余<sup id="fnref:3"><a class="footnote-ref" href="#fn:3"><span><span class="heti-spacing"> </span>3</span></a></sup>，否则无法做到诚实。</p>
+</li>
+</ul>
+</details>
+<details class="attention" open="open">
+<summary>二价拍卖与迈尔森引理的关系<span><span class="heti-spacing"> </span>(page 64-68)</span></summary>
+<p>单物品二价拍卖的<span class="heti-skip"><span class="heti-spacing"> </span>DSIC<span class="heti-spacing"> </span></span>性质直接包含在迈尔森引理中。
+根据二价拍卖的分配规则可知：</p>
+<ul>
+<li>当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(b_i &lt; \max_{j \ne i} b_j\)</span><span class="heti-spacing"> </span></span>时，<span><span class="arithmatex">\(x_i\)</span><span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\([0, b_i]\)</span><span class="heti-spacing"> </span></span>内均为<span><span class="heti-spacing"> </span><span class="arithmatex">\(0\)</span></span>，因此根据迈尔森支付公式计算出此时支付<span><span class="heti-spacing"> </span><span class="arithmatex">\(p_i(b_i) = 0\)</span></span>，符合二价拍卖结果。</li>
+<li>
+<p>当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(b_i &gt; \max_{j \ne i} b_j\)</span><span class="heti-spacing"> </span></span>时，<span><span class="arithmatex">\(x_i\)</span><span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\([\max_{j \ne i} b_j, b_i]\)</span><span class="heti-spacing"> </span></span>内为<span><span class="heti-spacing"> </span><span class="arithmatex">\(1\)</span></span>，其余部分为<span><span class="heti-spacing"> </span><span class="arithmatex">\(0\)</span></span>，如下<span class="heti-skip"><span class="heti-spacing"> </span>x(z)<span class="heti-spacing"> </span></span>图像所示：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="../attachments/Lec07-2.png"><img alt="|600" src="../attachments/Lec07-2.png"/></a></p>
+<p>因此根据迈尔森支付公式计算出此时支付（假设<span><span class="heti-spacing"> </span><span class="arithmatex">\(p_i(0) = 0\)</span></span><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<div class="arithmatex">\[
+p_i(b_i) = b_i x_i(b_i) - \int_0^{b_i} x_i(s) ds = b_i \cdot 1 - \left( \int_0^{\max_{j \ne i} b_j} 0 \cdot ds + \int_{\max_{j \ne i} b_j}^{b_i} 1 \cdot ds \right)
+$$
+$$
+p_i(b_i) = b_i - (b_i - \max_{j \ne i} b_j) = \max_{j \ne i} b_j
+\]</div>
+<p>这也符合二价拍卖结果。</p>
+</li>
+</ul>
+<p>根据上图的直观，对于竞拍者<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>而言，二价拍卖的分配规则是一个阶梯函数，其中间断点位于<span><span class="heti-spacing"> </span><span class="arithmatex">\(\max_{j \ne i} b_j\)</span></span>，报价高于此值时获得物品，低于此值时不会获得物品。一般地，称阶梯形分配规则的间断点为<strong>关键值<span><span class="heti-spacing"> </span>(critical value)</span></strong>。</p>
+<p>需要注意的是，迈尔森引理并没有限制单物品拍卖，如果是多个完全相同物品的拍卖，且每个竞拍者具有单位需求（只需要一份物品，例如数据<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，不难发现上面的陈述并没有需要修改之处：
+- 此时买家的估值仍然是一维的。
+- 问题：假设有 <span class="arithmatex">\(m\)</span> 个完全相同的物品，每个竞拍者具有单位需求，请设计 DSIC 拍卖机制。</p>
+</details>
+<p>综合显示原理和迈尔森引理，在之后的拍卖设计讨论中都只需要考虑竞拍者如实报告自己估值的机制，但在使用此类机制研究时要注意，在一个给定的分配规则下只有一种特定的支付规则才能达到。因此拍卖机制设计问题进一步转化为<strong>只需要设计分配规则</strong>，因为激励相容情况下的支付规则是对应唯一确定的（只要固定<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(p_i(0)\)</span><span class="heti-spacing"> </span></span>的取值，依照迈尔森公式<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<p>在直观理解了迈尔森引理后，接下来给出迈尔森引理的证明：</p>
+<details class="proof" open="open">
+<summary>迈尔森引理的证明<span><span class="heti-spacing"> </span>(page 69-72)</span></summary>
+<p>首先验证定理“当”的部分，相对而言比较简单直接。设竞拍者<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>的估值为<span><span class="heti-spacing"> </span><span class="arithmatex">\(t_i\)</span></span>，当其报价为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t_i'\)</span><span class="heti-spacing"> </span></span>时，其收益表达为：
+$$
+u_i(t_i, t_i') = x_i(t_i')t_i - p_i(t_i')
+$$
+根据迈尔森支付公式，当 <span class="arithmatex">\(p_i(0) = 0\)</span> 时，有：
+$$
+p_i(t_i') = t_i' x_i(t_i') - \int_0^{t_i'} x_i(s) ds
+$$
+将 <span class="arithmatex">\(p_i(t_i')\)</span> 代入 <span class="arithmatex">\(u_i(t_i, t_i')\)</span>：
+$$
+u_i(t_i, t_i') = x_i(t_i')t_i - \left( t_i' x_i(t_i') - \int_0^{t_i'} x_i(s) ds \right)
+$$
+$$
+u_i(t_i, t_i') = (t_i - t_i')x_i(t_i') + \int_0^{t_i'} x_i(s) ds
+$$
+特别地，当报价 <span class="arithmatex">\(t_i' = t_i\)</span>，即竞拍者诚实报价时，其收益为：
+$$
+u_i(t_i, t_i) = u_i(t_i) = \int_0^{t_i} x_i(s) ds
+$$
+故有：
+$$
+u_i(t_i) - u_i(t_i, t_i') = \int_0^{t_i} x_i(s) ds - \left( (t_i - t_i')x_i(t_i') + \int_0^{t_i'} x_i(s) ds \right)
+$$
+$$
+u_i(t_i) - u_i(t_i, t_i') = \int_{t_i'}^{t_i} x_i(s) ds - (t_i - t_i')x_i(t_i')
+$$
+如果 <span class="arithmatex">\(t_i' \ge t_i\)</span> 时，由于 <span class="arithmatex">\(x_i\)</span> 是增函数（非减函数），对于 <span class="arithmatex">\(s \in [t_i, t_i']\)</span>，有 <span class="arithmatex">\(x_i(s) \le x_i(t_i')\)</span>。
+因此：
+$$
+\int_{t_i}^{t_i'} x_i(s) ds \le \int_{t_i}^{t_i'} x_i(t_i') ds = (t_i' - t_i)x_i(t_i')
+$$
+那么：
+$$
+u_i(t_i) - u_i(t_i, t_i') = -\left( \int_{t_i}^{t_i'} x_i(s) ds - (t_i' - t_i)x_i(t_i') \right) \ge 0
+$$
+所以 <span class="arithmatex">\(u_i(t_i) - u_i(t_i, t_i') \ge 0\)</span>。</p>
+<p>当<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t_i' \le t_i\)</span><span class="heti-spacing"> </span></span>时，由于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_i\)</span><span class="heti-spacing"> </span></span>是增函数，对于<span><span class="heti-spacing"> </span><span class="arithmatex">\(s \in [t_i', t_i]\)</span></span>，有<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_i(s) \ge x_i(t_i')\)</span></span>。
+因此：
+$$
+\int_{t_i'}^{t_i} x_i(s) ds \ge \int_{t_i'}^{t_i} x_i(t_i') ds = (t_i - t_i')x_i(t_i')
+$$
+所以 <span class="arithmatex">\(u_i(t_i) - u_i(t_i, t_i') = \int_{t_i'}^{t_i} x_i(s) ds - (t_i - t_i')x_i(t_i') \ge 0\)</span>。</p>
+<p>故无论其他竞拍者的报价如何，竞拍者<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>选择如实报出自己的估值都是占优策略，因此该机制是<span class="heti-skip"><span class="heti-spacing"> </span>DSIC<span class="heti-spacing"> </span></span>的。</p>
+<p>接下来证明“仅当”的部分，即要从激励相容推出这一机制。这里需要用到一个精妙的交换技巧。假设机制<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((x, p)\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span>DSIC<span class="heti-spacing"> </span></span>的。任取两个估值<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(y, z\)</span><span class="heti-spacing"> </span></span>且<span><span class="heti-spacing"> </span><span class="arithmatex">\(0 \le y &lt; z\)</span></span>。</p>
+<ol>
+<li>
+<p><strong>当智能体的估值是<span><span class="heti-spacing"> </span><span class="arithmatex">\(z\)</span></span>，提交报价是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(y\)</span><span class="heti-spacing"> </span></span>时</strong>：
+    根据 DSIC 的定义，诚实报价是最优策略，因此估值为 <span class="arithmatex">\(z\)</span> 的智能体报 <span class="arithmatex">\(z\)</span> 比报 <span class="arithmatex">\(y\)</span> 带来的效用更高或相等：
+    $$
+    u_i(z, z) \ge u_i(z, y)
+    $$
+    展开为：
+    $$
+    z \cdot x_i(z) - p_i(z) \ge z \cdot x_i(y) - p_i(y) \quad (2.1)
+    $$</p>
+</li>
+<li>
+<p><strong>当智能体的估值是<span><span class="heti-spacing"> </span><span class="arithmatex">\(y\)</span></span>，提交报价是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(z\)</span><span class="heti-spacing"> </span></span>时</strong>：
+    同理，估值为 <span class="arithmatex">\(y\)</span> 的智能体报 <span class="arithmatex">\(y\)</span> 比报 <span class="arithmatex">\(z\)</span> 带来的效用更高或相等：
+    $$
+    u_i(y, y) \ge u_i(y, z)
+    $$
+    展开为：
+    $$
+    y \cdot x_i(y) - p_i(y) \ge y \cdot x_i(z) - p_i(z) \quad (2.2)
+    $$</p>
+</li>
+</ol>
+<p>将<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((2.1)\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\((2.2)\)</span><span class="heti-spacing"> </span></span>两式移项、组合：
+从 <span class="arithmatex">\((2.1)\)</span> 得到：
+$$
+p_i(y) - p_i(z) \ge z \cdot (x_i(y) - x_i(z)) \quad (2.3)
+$$
+从 <span class="arithmatex">\((2.2)\)</span> 得到：
+$$
+p_i(z) - p_i(y) \ge y \cdot (x_i(z) - x_i(y)) \quad (2.4)
+$$
+将 <span class="arithmatex">\((2.4)\)</span> 式两边乘以 <span class="arithmatex">\(-1\)</span>：
+$$
+p_i(y) - p_i(z) \le y \cdot (x_i(y) - x_i(z)) \quad (2.5)
+$$
+结合 <span class="arithmatex">\((2.3)\)</span> 和 <span class="arithmatex">\((2.5)\)</span>，可以得到：
+$$
+z \cdot (x_i(y) - x_i(z)) \le p_i(y) - p_i(z) \le y \cdot (x_i(y) - x_i(z))
+$$</p>
+<p>实际上由上式左右两端已经可以看出，由于<span><span class="heti-spacing"> </span><span class="arithmatex">\(y &lt; z\)</span></span>，那么<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_i(y) - x_i(z)\)</span><span class="heti-spacing"> </span></span>必然是非正数，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_i(y) \le x_i(z)\)</span></span>。这说明<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_i\)</span><span class="heti-spacing"> </span></span>是单调不减的。
+$$
+(z-y)(x_i(y) - x_i(z)) \le 0
+$$
+因为 <span class="arithmatex">\(z &gt; y\)</span>，所以 <span class="arithmatex">\(z-y &gt; 0\)</span>。为了使不等式成立，必须有 <span class="arithmatex">\(x_i(y) - x_i(z) \le 0\)</span>，即 <span class="arithmatex">\(x_i(y) \le x_i(z)\)</span>。这证明了 <span class="arithmatex">\(x_i\)</span> 是单调不减函数。
+又因为这一结果对任意的 <span class="arithmatex">\(0 \le y &lt; z\)</span> 成立，故 <span class="arithmatex">\(x_i\)</span> 是单调递增的，故也是可积且几乎处处可导的。</p>
+<p>进一步地，对不等式<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(z \cdot (x_i(y) - x_i(z)) \le p_i(y) - p_i(z) \le y \cdot (x_i(y) - x_i(z))\)</span><span class="heti-spacing"> </span></span>中三项分别除以<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(y-z\)</span> (<span class="heti-spacing"> </span></span>注意<span><span class="heti-spacing"> </span><span class="arithmatex">\(y-z &lt; 0\)</span>)</span>，不等号方向改变，然后令<span><span class="heti-spacing"> </span><span class="arithmatex">\(y \to z\)</span></span>，可得下式几乎处处成立：
+$$
+p_i'(y) = y \cdot x_i'(y)
+$$
+两边对 <span class="arithmatex">\(y\)</span> 积分可得：
+$$
+\int_0^{b_i} p_i'(s) ds = \int_0^{b_i} s \cdot x_i'(s) ds
+$$
+$$
+p_i(b_i) - p_i(0) = \int_0^{b_i} s \cdot x_i'(s) ds
+$$
+使用分部积分即可得到迈尔森支付公式：
+$$
+\int_0^{b_i} s \cdot x_i'(s) ds = [s x_i(s)]_0^{b_i} - \int_0^{b_i} x_i(s) ds = b_i x_i(b_i) - 0 \cdot x_i(0) - \int_0^{b_i} x_i(s) ds
+$$
+假设 <span class="arithmatex">\(x_i(0)=0\)</span> (即零报价不获得物品)，则：
+$$
+p_i(b_i) = p_i(0) + b_i x_i(b_i) - \int_0^{b_i} x_i(s) ds \quad \square
+$$</p>
+</details>
+<h2 id="III-福利最大化机制设计"><span>III<span class="heti-spacing"> </span></span>福利最大化机制设计<a class="headerlink" href="#III-福利最大化机制设计" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="III1-一般物品分配问题-page-74-77"><span>III.1<span class="heti-spacing"> </span></span>一般物品分配问题<span><span class="heti-spacing"> </span>(page 74-77)</span><a class="headerlink" href="#III1-一般物品分配问题-page-74-77" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>接下来开始讨论福利最大化和卖家利润最大化拍卖机制设计，首先考虑福利最大化目标。卖家利润最大化将在下一讲介绍。</p>
+<p>此前已经知道，单物品第二价格拍卖可以实现福利最大化：</p>
+<ul>
+<li>因为每个理性竞拍者都会如实报告自己的估值，物品将分配给报价最高（也就是估值最高）的竞拍者，从而实现福利最大化。</li>
+<li>当然我们的目标不止于此，本节希望将福利最大化机制推广到更一般的拍卖或物品分配等场景。</li>
+</ul>
+<details class="example" open="open">
+<summary>一般物品分配场景<span><span class="heti-spacing"> </span>(page 76)</span></summary>
+<p>考虑一般的物品分配场景：
+- 例如有两个竞拍者和四个不同的物品（例如四个不同地区/不同频段的频谱），记为 <span class="arithmatex">\(S = \{A, B, C, D\}\)</span>。
+- 买家对 <span class="arithmatex">\(S\)</span> 的任意子集都有不同的估值。
+- 可能的分配结果 <span class="arithmatex">\(\Omega\)</span> 包含将所有物品分配出去的所有可能结果，其中 <span class="arithmatex">\(\omega \in \Omega\)</span> 表示一个合理的分配结果。
+- 例如将 <span class="arithmatex">\(B\)</span> 分配给竞拍者 <span class="arithmatex">\(1\)</span>，<span class="arithmatex">\(A, C, D\)</span> 分配给竞拍者 <span class="arithmatex">\(2\)</span> 就是一个合理的分配结果。</p>
+<p>如何为这种情况设计福利最大化的拍卖机制？</p>
+</details>
+<details class="attention" open="open">
+<summary>迈尔森引理的局限性<span><span class="heti-spacing"> </span>(page 77)</span></summary>
+<p>自然地，读者可能会想到迈尔森引理。然而最大的困难是，迈尔森引理中买家对物品的估值是一维变量可以描述的，此处无法做到（因为买家对不同物品组合的估值是多维的<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。事实上迈尔森引理至今也无法推广到多维的一般情况。</p>
+</details>
+<h3 id="III2-VCG-机制-page-78-80"><span>III.2 VCG<span class="heti-spacing"> </span></span>机制<span><span class="heti-spacing"> </span>(page 78-80)</span><a class="headerlink" href="#III2-VCG-机制-page-78-80" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>因此我们需要求助于其他的机制。记可能的分配结果集合记为<span><span class="heti-spacing"> </span><span class="arithmatex">\(\Omega\)</span></span>，其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\omega \in \Omega\)</span><span class="heti-spacing"> </span></span>表示一个合理的分配结果。下面首先假设所有竞拍者是诚实报价的，即对分配结果<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\omega\)</span><span class="heti-spacing"> </span></span>的报价<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(b_i(\omega)\)</span><span class="heti-spacing"> </span></span>就等于他对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\omega\)</span><span class="heti-spacing"> </span></span>中给他分配的物品的效用值，则下面的分配规则给出了福利最大化的分配规则：</p>
+<ul>
+<li>
+<p><strong><span>VCG<span class="heti-spacing"> </span></span>分配规则</strong>：</p>
+<p>选择使得所有竞拍者估值总和最大的分配结果<span><span class="heti-spacing"> </span><span class="arithmatex">\(\omega^*\)</span></span>：
+$$
+\omega^* = \arg \max_{\omega \in \Omega} \sum_{i=1}^n b_i(\omega)
+$$
+其中 <span class="arithmatex">\(b_i(\omega)\)</span> 表示竞拍者 <span class="arithmatex">\(i\)</span> 获得分配 <span class="arithmatex">\(\omega\)</span> 时的估值。</p>
+</li>
+<li>
+<p><strong><span>VCG<span class="heti-spacing"> </span></span>支付规则</strong>：</p>
+<p>为了讨论方便，记<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\omega^*_{-i}\)</span><span class="heti-spacing"> </span></span>为去掉参与人<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>后的福利最大化分配结果，即<span><span class="heti-spacing"> </span><span class="arithmatex">\(\omega^*_{-i} = \arg \max_{\omega \in \Omega} \sum_{j \ne i} b_j(\omega)\)</span></span>。记所有参与人的投标向量为<span><span class="heti-spacing"> </span><span class="arithmatex">\(b = (b_1, \dots, b_n)\)</span></span>，下面的支付公式给出了福利最大化<span class="heti-skip"><span class="heti-spacing"> </span>DSIC<span class="heti-spacing"> </span></span>机制的支付规则：
+$$
+p_i(b) = \sum_{j \ne i} b_j(\omega^<em><em _ne="\ne" i="i" j="j">{-i}) - \sum</em> b_j(\omega^</em>)
+$$
+上述公式的含义是，参与者 <span class="arithmatex">\(i\)</span> 需要支付的价格是，在他不参与分配时其他人的最大福利，减去他参与分配时最大福利情况下其他人的福利。事实上也可以视为参与人 <span class="arithmatex">\(i\)</span> 给其他参与人带来的<strong>外部性<span><span class="heti-spacing"> </span>(externality)</span></strong>。</p>
+</li>
+</ul>
+<p>结合以上的分配规则和支付规则，就得到了一般物品分配场景下的福利最大化<span class="heti-skip"><span class="heti-spacing"> </span>DSIC<span class="heti-spacing"> </span></span>机制，称之为<strong>维克里<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>克拉克<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>格罗夫斯<span class="heti-skip"><span class="heti-spacing"> </span>(Vickrey-Clarke-Groves, VCG)<span class="heti-spacing"> </span></span>机制</strong>，或简称<span class="heti-skip"><span class="heti-spacing"> </span>VCG<span class="heti-spacing"> </span></span>机制。</p>
+<details class="extra">
+<summary><span>VCG<span class="heti-spacing"> </span></span>机制的命名<span><span class="heti-spacing"> </span>(page 80)</span></summary>
+<p>值得一提的是，<span>VCG<span class="heti-spacing"> </span></span>机制是由三位依次对这一机制的提出做出贡献的经济学家的名字命名的：
+- <strong>威廉<span class="heti-skip"><span class="heti-spacing"> </span>·<span class="heti-spacing"> </span></span>维克里<span><span class="heti-spacing"> </span>(William Vickrey)</span></strong>：<span>1996<span class="heti-spacing"> </span></span>年诺贝尔经济学奖得主，他首次提出并证明了第二价格拍卖的诚实性，因此第二价格拍卖也被称为维克里拍卖。
+- <strong>克拉克<span><span class="heti-spacing"> </span>(Clarke)</span></strong>：于<span class="heti-skip"><span class="heti-spacing"> </span>1971<span class="heti-spacing"> </span></span>年提出了上述支付公式，因此实际上这一机制应当被称作<strong>克拉克机制<span><span class="heti-spacing"> </span>(Clarke mechanism)</span></strong>，或称<strong>主角机制<span><span class="heti-spacing"> </span>(pivot mechanism)</span></strong>。
+- <strong>格罗夫斯<span><span class="heti-spacing"> </span>(Groves)</span></strong>：于<span class="heti-skip"><span class="heti-spacing"> </span>1973<span class="heti-spacing"> </span></span>年给出了<span class="heti-skip"><span class="heti-spacing"> </span>VCG<span class="heti-spacing"> </span></span>机制更一般的形式。</p>
+</details>
+<h3 id="III3-二价拍卖是-VCG-机制的特例-page-81-83"><span>III.3<span class="heti-spacing"> </span></span>二价拍卖是<span class="heti-skip"><span class="heti-spacing"> </span>VCG<span class="heti-spacing"> </span></span>机制的特例<span><span class="heti-spacing"> </span>(page 81-83)</span><a class="headerlink" href="#III3-二价拍卖是-VCG-机制的特例-page-81-83" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>事实上，二价拍卖是<span class="heti-skip"><span class="heti-spacing"> </span>VCG<span class="heti-spacing"> </span></span>机制在单物品拍卖下的特例：</p>
+<ul>
+<li><strong>分配机制满足福利最大化</strong>：
+    在单物品拍卖中，福利最大化就是将物品分配至对物品估值最高的竞拍者，这与二价拍卖的分配规则一致。</li>
+<li>
+<p><strong>支付规则</strong>：</p>
+<ul>
+<li><strong>如果你不是估值最高的</strong>：
+    那么你不参与时的最大福利等于估值最高的竞拍者的估值 <span class="arithmatex">\(v_i'\)</span>，你参与时的最大福利也等于估值最高的竞拍者的估值 <span class="arithmatex">\(v_i'\)</span>（因为物品不会分给你），并且此时你的福利等于 <span class="arithmatex">\(0\)</span>。因此支付等于 <span class="arithmatex">\(v_i' - (v_i' - 0) = 0\)</span>。</li>
+<li><strong>如果你是估值最高的</strong>：
+    那么你不参与时的最大福利等于估值第二高的竞拍者的估值 <span class="arithmatex">\(v_j'\)</span>，你参与的情况下的最大福利等于你的估值 <span class="arithmatex">\(v_i\)</span>，并且此时你的福利等于 <span class="arithmatex">\(v_i\)</span>。因此支付等于 <span class="arithmatex">\(v_j' - (v_i - v_i) = v_j'\)</span>。</li>
+</ul>
+<p>由此可以看出<span class="heti-skip"><span class="heti-spacing"> </span>VCG<span class="heti-spacing"> </span></span>的支付规则也与二价拍卖一致。</p>
+</li>
+</ul>
+<h3 id="III4-VCG-机制的性质-page-84-88"><span>III.4 VCG<span class="heti-spacing"> </span></span>机制的性质<span><span class="heti-spacing"> </span>(page 84-88)</span><a class="headerlink" href="#III4-VCG-机制的性质-page-84-88" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>VCG<span class="heti-spacing"> </span></span>机制具有以下重要性质：</p>
+<ol>
+<li><strong>DSIC（占优策略激励相容）</strong>：<span>VCG<span class="heti-spacing"> </span></span>机制是<span class="heti-skip"><span class="heti-spacing"> </span>DSIC<span class="heti-spacing"> </span></span>的。
+    定理的证明略为复杂，只需知道这一结论即可。</li>
+<li><strong>事后有效率<span><span class="heti-spacing"> </span>(ex-post efficient)</span></strong>：<ul>
+<li>在<span class="heti-skip"><span class="heti-spacing"> </span>DSIC<span class="heti-spacing"> </span></span>的基础上，<span>VCG<span class="heti-spacing"> </span></span>满足的第二个性质是使得社会福利最大化。因为<span class="heti-skip"><span class="heti-spacing"> </span>VCG<span class="heti-spacing"> </span></span>机制在保证诚实报价的情况下，基于报价实现了福利最大化的分配。这一性质也被称为<strong>事后有效率<span><span class="heti-spacing"> </span>(ex-post efficient)</span></strong>，即事后阶段也能满足福利最大化。</li>
+<li>类似地也可以定义事前、事中角度的期望福利最大化。<span>VCG<span class="heti-spacing"> </span></span>机制不依赖于任何先验分布假设，因此无法定义事前、事中效用。</li>
+</ul>
+</li>
+<li>
+<p><strong>支付非负性</strong>：</p>
+<ul>
+<li>在<span class="heti-skip"><span class="heti-spacing"> </span>VCG<span class="heti-spacing"> </span></span>机制下，每个参与人的支付必定是大于等于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(0\)</span><span class="heti-spacing"> </span></span>的，这也就避免了出现拍卖中支付小于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(0\)</span><span class="heti-spacing"> </span></span>的不正常情况。</li>
+<li>回忆支付公式：<span class="arithmatex">\(p_i(b) = \sum_{j \ne i} b_j(\omega^*_{-i}) - \sum_{j \ne i} b_j(\omega^*)\)</span>。减号前对应除<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>之外的参与人的最大福利，减号后对应的只是除<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>之外的参与人的某种可能的福利。因此减号后的值必定小于等于减号前的值，从而保证了支付的非负性。</li>
+</ul>
+</li>
+<li>
+<p><strong>个人理性<span><span class="heti-spacing"> </span>(individual rationality, IR)</span></strong>：</p>
+<ul>
+<li>个人理性指的是所有参与人参与机制产生的效用都不会低于其不参与机制时的效用。通常不参与机制的效用为<span><span class="heti-spacing"> </span><span class="arithmatex">\(0\)</span></span>，因此个人理性的定义可以简化为所有参与人的效用都不会低于<span><span class="heti-spacing"> </span><span class="arithmatex">\(0\)</span></span>。</li>
+<li>相应的，个人理性也有事前、事中和事后的版本，分别对应事前、事中期望效用大于等于<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(0\)</span><span class="heti-spacing"> </span></span>以及事后的实际效用大于等于<span><span class="heti-spacing"> </span><span class="arithmatex">\(0\)</span></span>。</li>
+<li>这一性质称为个人理性也是不难理解的，因为如果一个参与人的效用低于<span><span class="heti-spacing"> </span><span class="arithmatex">\(0\)</span></span>，那么他就没有参与机制的动机，因此机制设计者应当保证所有参与人的效用都不会低于<span><span class="heti-spacing"> </span><span class="arithmatex">\(0\)</span></span>，这样理性的参与人才会选择参与机制。</li>
+</ul>
+</li>
+</ol>
+<details class="proof">
+<summary><span>VCG<span class="heti-spacing"> </span></span>机制的事后个人理性证明<span><span class="heti-spacing"> </span>(page 88)</span></summary>
+<p><span>VCG<span class="heti-spacing"> </span></span>机制满足事后个人理性。参与<span class="heti-skip"><span class="heti-spacing"> </span>VCG<span class="heti-spacing"> </span></span>机制的事后效用<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(u_i\)</span><span class="heti-spacing"> </span></span>满足：
+$$
+u_i = b_i(\omega^<em>) - p_i(b)
+$$
+将 <span class="arithmatex">\(p_i(b)\)</span> 的定义代入：
+$$
+u_i = b_i(\omega^</em>) - \left( \sum_{j \ne i} b_j(\omega^<em><em _ne="\ne" i="i" j="j">{-i}) - \sum</em> b_j(\omega^</em>) \right)
+$$
+重新整理：
+$$
+u_i = b_i(\omega^<em>) + \sum_{j \ne i} b_j(\omega^</em>) - \sum_{j \ne i} b_j(\omega^<em><em j="1">{-i})
+$$
+$$
+u_i = \sum</em>^n b_j(\omega^</em>) - \sum_{j \ne i} b_j(\omega^*_{-i})
+$$
+不等号 <span class="arithmatex">\(u_i \ge 0\)</span> 成立是显然的：前者是包含所有 <span class="arithmatex">\(n\)</span> 个人的最大社会福利，而后者是排除了参与者 <span class="arithmatex">\(i\)</span> 后的最大社会福利。由于 <span class="arithmatex">\(\omega^*\)</span> 是所有可能的分配中使得总估值最大的，而 <span class="arithmatex">\(\omega^*_{-i}\)</span> 是在移除 <span class="arithmatex">\(i\)</span> 的情况下其他人的总估值最大的。因此，总的社会福利肯定不会小于排除某个个体后的福利总和。</p>
+</details>
+<h3 id="III5-VCG-机制的缺陷-page-89-91"><span>III.5 VCG<span class="heti-spacing"> </span></span>机制的缺陷<span><span class="heti-spacing"> </span>(page 89-91)</span><a class="headerlink" href="#III5-VCG-机制的缺陷-page-89-91" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>接下来则要开始讨论<span class="heti-skip"><span class="heti-spacing"> </span>VCG<span class="heti-spacing"> </span></span>机制的缺陷，从两个例子入手讨论：</p>
+<details class="example" open="open">
+<summary><span>VCG<span class="heti-spacing"> </span></span>机制的计算困难性<span><span class="heti-spacing"> </span>(page 89-90)</span></summary>
+<p>第一个例子考虑一般的多物品拍卖：假设有<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>个竞拍者，<span><span class="arithmatex">\(m\)</span><span class="heti-spacing"> </span></span>个物品，则有效的分配结果集合<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\Omega\)</span><span class="heti-spacing"> </span></span>为所有<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>个竞拍者对<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\)</span><span class="heti-spacing"> </span></span>个物品的分配方式，有<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n^m\)</span><span class="heti-spacing"> </span></span>种可能的分配结果。对于每个竞拍者<span><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span></span>，只要他们报告对每个<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\omega \in \Omega\)</span><span class="heti-spacing"> </span></span>的估值，就可以根据<span class="heti-skip"><span class="heti-spacing"> </span>VCG<span class="heti-spacing"> </span></span>机制的分配和支付规则计算出分配结果和支付结果。</p>
+<p>由此可以看出<span class="heti-skip"><span class="heti-spacing"> </span>VCG<span class="heti-spacing"> </span></span>机制非常强大，只要设计好可行的分配机制集合<span><span class="heti-spacing"> </span><span class="arithmatex">\(\Omega\)</span></span>，并且有参与人对任意的<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\omega \in \Omega\)</span><span class="heti-spacing"> </span></span>的估值，就可以得到福利最大化的<span class="heti-skip"><span class="heti-spacing"> </span>DSIC<span class="heti-spacing"> </span></span>机制。但转念一想，如果<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(m\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(n\)</span><span class="heti-spacing"> </span></span>的数量很大时，每个参与人需要报告相当巨大数量的估值，并且求解福利最大化问题也是指数级别的复杂度，因此<span class="heti-skip"><span class="heti-spacing"> </span>VCG<span class="heti-spacing"> </span></span>机制在很多实际场景中并不适用，还需要研究其它组合拍卖机制。</p>
+</details>
+<p>通过这个例子，我们理解了<span class="heti-skip"><span class="heti-spacing"> </span>VCG<span class="heti-spacing"> </span></span>虽然能解决非常一般化的问题，但具有计算困难性，因此在现实中并不常用。</p>
+<details class="example" open="open">
+<summary><span>VCG<span class="heti-spacing"> </span></span>机制的收入问题<span><span class="heti-spacing"> </span>(page 91)</span></summary>
+<p>第二个例子请同学们尝试从计算结果中得到启发：</p>
+<p>考虑有三个竞拍者两个物品<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(A\)</span><span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(B\)</span><span class="heti-spacing"> </span></span>的多物品拍卖：
+- 第一个竞拍者对同时获得两个物品有估值 <span class="arithmatex">\(1\)</span>（即 <span class="arithmatex">\(v_1(\{A,B\}) = 1\)</span>），其余情况均为 <span class="arithmatex">\(0\)</span>。
+- 第二个竞拍者只对赢得物品 <span class="arithmatex">\(A\)</span> 有估值 <span class="arithmatex">\(1\)</span>（即 <span class="arithmatex">\(v_2(\{A\}) = 1\)</span>），其余情况均为 <span class="arithmatex">\(0\)</span>。
+- 第三个竞拍者只对赢得物品 <span class="arithmatex">\(B\)</span> 有估值 <span class="arithmatex">\(1\)</span>（即 <span class="arithmatex">\(v_3(\{B\}) = 1\)</span>），其余情况均为 <span class="arithmatex">\(0\)</span>。</p>
+<p>回答下面两个问题：
+1. 计算只有前两个竞拍者时和三个竞拍者全在时的 VCG 机制的结果。
+2. 你能从中总结出什么？增加竞拍者会减少单物品二价拍卖的收益吗？</p>
+</details>
+<ul>
+<li>这个例子提示我们，虽然<span class="heti-skip"><span class="heti-spacing"> </span>VCG<span class="heti-spacing"> </span></span>机制能够实现社会福利最大化，但其对卖家收入的影响可能并非总是直观的，尤其是在更复杂的场景下。</li>
+<li>在某些情况下，<u>增加竞拍者不一定会增加卖家收入</u> ，这与单物品二价拍卖中的直观认知（通常增加竞拍者会提升卖家收入）可能存在差异。这一问题引出了机制设计中福利最大化与收入最大化目标之间的权衡。</li>
+</ul>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn:2">
+<p><strong>类型<span><span class="heti-spacing"> </span>(Type)</span></strong>：在不完全信息博弈中，每个参与者都有其私人信息，这些私人信息决定了其偏好、能力等特征。这些私人信息构成了参与者的“类型”。例如，在拍卖中，竞拍者对物品的估值就是其类型。 <a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn:1">
+<p><strong>次序统计量<span><span class="heti-spacing"> </span>(Order Statistics)</span></strong>：将一组随机变量按大小顺序排列后，得到的第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>个变量就称为<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(k\)</span><span class="heti-spacing"> </span></span>阶次序统计量。例如，在两个随机变量<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t_1, t_2\)</span><span class="heti-spacing"> </span></span>中，<span><span class="arithmatex">\(\max(t_1, t_2)\)</span><span class="heti-spacing"> </span></span>是二者中的最大值，<span><span class="arithmatex">\(\min(t_1, t_2)\)</span><span class="heti-spacing"> </span></span>是二者中的最小值，它们都是次序统计量。 <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 2 in the text">↩</a></p>
+</li>
+<li id="fn:3">
+<p><strong>剩余<span><span class="heti-spacing"> </span>(Surplus)</span></strong>：在经济学中，剩余通常指消费者剩余和生产者剩余的总和，代表了交易为社会带来的净收益。在这里<heti-adjacent class="heti-adjacent-quarter">，</heti-adjacent>“提取全部剩余”指的是机制设计者试图将交易中产生的所有价值都归自己所有，这可能导致参与者因无法获得足够效用而失去参与激励。 <a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年4月2日 11:20:22 CST">2026年4月2日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年7月28日 21:39:51 CST">2025年7月28日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: 第六讲：多臂老虎机算法基础与应用" class="md-footer__link md-footer__link--prev" href="../Lec06/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                第六讲：多臂老虎机算法基础与应用
+              </div>
+</div>
+</a>
+<a aria-label="下一页: 第八讲：最优机制" class="md-footer__link md-footer__link--next" href="../Lec08/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                第八讲：最优机制
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

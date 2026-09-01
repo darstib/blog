@@ -1,0 +1,2577 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Darstib's Knowledge Graph!" name="description"/>
+<link href="https://darstib.github.io/knowledge-graph/tutorial/skill_learn/1-terminal/" rel="canonical"/>
+<link href="../" rel="prev"/>
+<link href="../2-git/" rel="next"/>
+<link href="//" hreflang="en" rel="alternate"/>
+<link href="../../../assets/DB.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.7" name="generator"/>
+<title>1 terminal - Darstib's KG!</title>
+<link href="../../../assets/stylesheets/main.ec1eaa64.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link href="../../../css/timeline.css" rel="stylesheet"/>
+<link href="../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../css/toc_extra.css" rel="stylesheet"/>
+<link href="../../../css/flink.css" rel="stylesheet"/>
+<link href="../../../css/apperance.css" rel="stylesheet"/>
+<link href="../../../css/jetbrainsmono.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" rel="stylesheet"/>
+<link href="https://gcore.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-XXXXXXXXXX"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-XXXXXXXXXX",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="grey" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#Linux">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Darstib's KG!" class="md-header__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Darstib's KG!
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              1 terminal
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="grey" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="cyan" data-md-color-media="" data-md-color-primary="grey" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<div class="md-header__option">
+<div class="md-select">
+<button aria-label="选择当前语言" class="md-header__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+</button>
+<div class="md-select__inner">
+<ul class="md-select__list">
+<li class="md-select__item">
+<a class="md-select__link" href="//" hreflang="en">
+              Google refuses to translate
+            </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collection/">
+          
+  
+  
+    
+  
+  Collection
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../note/">
+          
+  
+  
+    
+  
+  Note
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../CTF/">
+          
+  
+  
+    
+  
+  CTF
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+    
+  
+  Tutorial
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../summary/">
+          
+  
+  
+    
+  
+  Summary
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../AI/">
+          
+  
+  
+    
+  
+  AI
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="https://darstib.github.io/myworld/">
+        
+  
+  
+    
+  
+  Links
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Darstib's KG!" class="md-nav__button md-logo" data-md-component="logo" href="https://darstib.github.io/knowledge-graph/" title="Darstib's KG!">
+<img alt="logo" src="../../../assets/DB.png"/>
+</a>
+    Darstib's KG!
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/darstib/knowledge-graph/" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    knowledge-graph
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../collection/">
+<span class="md-ellipsis">
+    
+  
+    Collection
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../note/">
+<span class="md-ellipsis">
+    
+  
+    Note
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../CTF/">
+<span class="md-ellipsis">
+    
+  
+    CTF
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Tutorial
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../python_learn/crypto/">
+<span class="md-ellipsis">
+    
+  
+    python_learn
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../begin/">
+<span class="md-ellipsis">
+    
+  
+    Begin
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_5_4" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    
+  
+    Skill_learn
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_5_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Skill_learn
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    1 terminal
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    1 terminal
+  
+
+    
+  </span>
+</a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Linux">
+<span class="md-ellipsis">
+      
+        Linux
+      
+    </span>
+</a>
+<nav aria-label="Linux" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#基本介绍">
+<span class="md-ellipsis">
+      
+        基本介绍
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#bash-初印象">
+<span class="md-ellipsis">
+      
+        bash 初印象
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#路径操作">
+<span class="md-ellipsis">
+      
+        路径操作
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#文件目录管理">
+<span class="md-ellipsis">
+      
+        文件/目录管理
+      
+    </span>
+</a>
+<nav aria-label="文件/目录管理" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#基本工具">
+<span class="md-ellipsis">
+      
+        基本工具
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#batcat">
+<span class="md-ellipsis">
+      
+        bat(cat)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#编辑器">
+<span class="md-ellipsis">
+      
+        编辑器
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#查找工具">
+<span class="md-ellipsis">
+      
+        查找工具
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#文件管理">
+<span class="md-ellipsis">
+      
+        文件管理
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#符号">
+<span class="md-ellipsis">
+      
+        符号
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#网络相关">
+<span class="md-ellipsis">
+      
+        网络相关
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#APT-命令">
+<span class="md-ellipsis">
+      
+        APT 命令
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#系统权限介绍">
+<span class="md-ellipsis">
+      
+        系统权限介绍
+      
+    </span>
+</a>
+<nav aria-label="系统权限介绍" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#超级用户-sudo">
+<span class="md-ellipsis">
+      
+        超级用户 (sudo)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#权限-chmod">
+<span class="md-ellipsis">
+      
+        权限 (chmod)
+      
+    </span>
+</a>
+<nav aria-label="权限 (chmod)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#字符串语法">
+<span class="md-ellipsis">
+      
+        字符串语法
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#八进制语法">
+<span class="md-ellipsis">
+      
+        八进制语法
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#POSIX">
+<span class="md-ellipsis">
+      
+        POSIX
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#系统文件结构">
+<span class="md-ellipsis">
+      
+        系统文件结构
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Windows-Terminal">
+<span class="md-ellipsis">
+      
+        Windows Terminal
+      
+    </span>
+</a>
+<nav aria-label="Windows Terminal" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#安装">
+<span class="md-ellipsis">
+      
+        安装
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#环境变量">
+<span class="md-ellipsis">
+      
+        环境变量
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#讲解">
+<span class="md-ellipsis">
+      
+        讲解
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#美化参考">
+<span class="md-ellipsis">
+      
+        美化参考
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#参考资料">
+<span class="md-ellipsis">
+      
+        参考资料
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../2-git/">
+<span class="md-ellipsis">
+    
+  
+    2 git
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../3-typesetools/">
+<span class="md-ellipsis">
+    
+  
+    3 typesetools
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../4-remote/">
+<span class="md-ellipsis">
+    
+  
+    4 remote
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../5-misc/">
+<span class="md-ellipsis">
+    
+  
+    5 misc
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../summary/">
+<span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+<a class="md-nav__link" href="../../../AI/">
+<span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="https://darstib.github.io/myworld/">
+<span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Linux">
+<span class="md-ellipsis">
+      
+        Linux
+      
+    </span>
+</a>
+<nav aria-label="Linux" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#基本介绍">
+<span class="md-ellipsis">
+      
+        基本介绍
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#bash-初印象">
+<span class="md-ellipsis">
+      
+        bash 初印象
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#路径操作">
+<span class="md-ellipsis">
+      
+        路径操作
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#文件目录管理">
+<span class="md-ellipsis">
+      
+        文件/目录管理
+      
+    </span>
+</a>
+<nav aria-label="文件/目录管理" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#基本工具">
+<span class="md-ellipsis">
+      
+        基本工具
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#batcat">
+<span class="md-ellipsis">
+      
+        bat(cat)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#编辑器">
+<span class="md-ellipsis">
+      
+        编辑器
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#查找工具">
+<span class="md-ellipsis">
+      
+        查找工具
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#文件管理">
+<span class="md-ellipsis">
+      
+        文件管理
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#符号">
+<span class="md-ellipsis">
+      
+        符号
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#网络相关">
+<span class="md-ellipsis">
+      
+        网络相关
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#APT-命令">
+<span class="md-ellipsis">
+      
+        APT 命令
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#系统权限介绍">
+<span class="md-ellipsis">
+      
+        系统权限介绍
+      
+    </span>
+</a>
+<nav aria-label="系统权限介绍" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#超级用户-sudo">
+<span class="md-ellipsis">
+      
+        超级用户 (sudo)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#权限-chmod">
+<span class="md-ellipsis">
+      
+        权限 (chmod)
+      
+    </span>
+</a>
+<nav aria-label="权限 (chmod)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#字符串语法">
+<span class="md-ellipsis">
+      
+        字符串语法
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#八进制语法">
+<span class="md-ellipsis">
+      
+        八进制语法
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#POSIX">
+<span class="md-ellipsis">
+      
+        POSIX
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#系统文件结构">
+<span class="md-ellipsis">
+      
+        系统文件结构
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#Windows-Terminal">
+<span class="md-ellipsis">
+      
+        Windows Terminal
+      
+    </span>
+</a>
+<nav aria-label="Windows Terminal" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#安装">
+<span class="md-ellipsis">
+      
+        安装
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#环境变量">
+<span class="md-ellipsis">
+      
+        环境变量
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#讲解">
+<span class="md-ellipsis">
+      
+        讲解
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#美化参考">
+<span class="md-ellipsis">
+      
+        美化参考
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#参考资料">
+<span class="md-ellipsis">
+      
+        参考资料
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<nav aria-label="导航栏" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../">
+<span class="md-ellipsis">
+    Tutorial
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../">
+<span class="md-ellipsis">
+    Skill_learn
+  </span>
+</a>
+</li>
+</ol>
+</nav>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag md-tag-icon" href="../../../tags/#tag:notes">notes</a>
+</nav>
+<h1>1 terminal</h1>
+<details class="prerequisite" open="open">
+<summary>你需要使用一个类<span class="heti-skip"><span class="heti-spacing"> </span>Unix shell<span class="heti-spacing"> </span></span>来完成文中所提到的操作，你可以</summary>
+<ul>
+<li>使用安装了<span class="heti-skip"><span class="heti-spacing"> </span>Linux<span class="heti-spacing"> </span></span>系统的电脑，或者是<span class="heti-skip"><span class="heti-spacing"> </span>macOS<span class="heti-spacing"> </span></span>等类<span class="heti-skip"><span class="heti-spacing"> </span>Unix<span class="heti-spacing"> </span></span>系统；</li>
+<li>对于<span class="heti-skip"><span class="heti-spacing"> </span>Windows<span class="heti-spacing"> </span></span>用户，你可以：<ul>
+<li>使用<a href="https://docs.microsoft.com/zh-cn/windows/wsl/"><span><span class="heti-spacing"> </span>WSL(Windows Subsystem for Linux)</span></a>；</li>
+<li>使用<a href="https://support.broadcom.com/group/ecx/productdownloads?subfamily=VMware+Workstation+Pro&amp;freeDownloads=true&amp;tab=Products"><span class="heti-skip"><span class="heti-spacing"> </span>VMware<span class="heti-spacing"> </span></span></a>等软件运行<span class="heti-skip"><span class="heti-spacing"> </span>Linux<span class="heti-spacing"> </span></span>虚拟机。</li>
+</ul>
+</li>
+</ul>
+<details class="extra">
+<summary>Extra</summary>
+<p>对于命令行、终端、壳等概念我们不做明确区分，有兴趣的同学可以看<a href="https://zhuanlan.zhihu.com/p/516408816">命令行界面<span><span class="heti-spacing"> </span>(CLI)</span>、终端<span><span class="heti-spacing"> </span>(Terminal)</span>、Shell、TTY，傻傻分不清楚？</a>、<a href="https://unix.stackexchange.com/questions/4126/what-is-the-exact-difference-between-a-terminal-a-shell-a-tty-and-a-con"><span>What is the exact difference between a 'terminal', a 'shell', a 'tty' and a 'console'?<span class="heti-spacing"> </span></span></a>中的讲解。</p>
+</details>
+</details>
+<h2 id="Linux">Linux<a class="headerlink" href="#Linux" title="Permanent link">¶</a></h2>
+<h3 id="基本介绍">基本介绍<a class="headerlink" href="#基本介绍" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="note">
+<summary>shell</summary>
+<p><span>shell<span class="heti-spacing"> </span></span>是操作系统为用户提供交互界面的<strong>命令行解释器</strong>的统称，例如<span class="heti-skip"><span class="heti-spacing"> </span>Windows<span class="heti-spacing"> </span></span>中的<span class="heti-skip"><span class="heti-spacing"> </span>cmd<span class="heti-spacing"> </span></span>就是一种<span><span class="heti-spacing"> </span>shell</span>；<span>bash<span class="heti-spacing"> </span></span>是其中最流行的一种，也是多数<span class="heti-skip"><span class="heti-spacing"> </span>linux<span class="heti-spacing"> </span></span>自带的<span><span class="heti-spacing"> </span>shell</span> 。</p>
+<p><span>Linux<span class="heti-spacing"> </span></span>包含多种<span><span class="heti-spacing"> </span>Shell</span> ，常见的有：</p>
+<ul>
+<li>Bourne Shell（<span>ATT<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>Bourne<span class="heti-spacing"> </span></span>开发，名为<span><span class="heti-spacing"> </span>sh</span>）</li>
+<li><strong>Bourne Again Shell（/bin/bash）</strong></li>
+<li>C Shell（<span>Bill Joy<span class="heti-spacing"> </span></span>开发，名为<span><span class="heti-spacing"> </span>csh</span>）</li>
+<li>K Shell（<span>ATT<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>David G.koun<span class="heti-spacing"> </span></span>开发，名为<span><span class="heti-spacing"> </span>ksh</span>）</li>
+<li>Z Shell（<span>Paul Falstad<span class="heti-spacing"> </span></span>开发，名为<span><span class="heti-spacing"> </span>zsh</span>）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">特性</th>
+<th style="text-align: center;">Bash</th>
+<th style="text-align: center;">Zsh</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">性能</td>
+<td style="text-align: center;">整体性能良好，在大多数任务中表现稳定</td>
+<td style="text-align: center;">通常在处理复杂补全和交互式功能时表现更好</td>
+</tr>
+<tr>
+<td style="text-align: center;">配置文件</td>
+<td style="text-align: center;"><code>.bashrc</code>, <code>.bash_profile</code>, <code>.profile</code></td>
+<td style="text-align: center;"><code>.zshrc</code>, <code>.zprofile</code></td>
+</tr>
+<tr>
+<td style="text-align: center;">自动补全</td>
+<td style="text-align: center;">基本的命令和文件名补全</td>
+<td style="text-align: center;">高级补全，支持更复杂的命令</td>
+</tr>
+<tr>
+<td style="text-align: center;">历史记录</td>
+<td style="text-align: center;"><code>history</code><span>(<span class="heti-spacing"> </span></span>在<code>~/.bash_history</code><span><span class="heti-spacing"> </span>)</span></td>
+<td style="text-align: center;"><code>history</code> （在 <code>~/.zsh_history</code>）</td>
+</tr>
+<tr>
+<td style="text-align: center;">可定制化程度</td>
+<td style="text-align: center;">支持基础的自定义，通过<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>.bashrc</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>修改</td>
+<td style="text-align: center;">高度可定制，提供丰富的主题和插件支持</td>
+</tr>
+<tr>
+<td style="text-align: center;">稳定性</td>
+<td style="text-align: center;">更广泛用于脚本和系统管理</td>
+<td style="text-align: center;">有一些用户偏好和社区支持</td>
+</tr>
+</tbody>
+</table>
+</details>
+<blockquote>
+<p>关于<a href="https://101.lug.ustc.edu.cn/Appendix/distribution/"><span class="heti-skip"><span class="heti-spacing"> </span>linux<span class="heti-spacing"> </span></span>发行版</a> 。</p>
+</blockquote>
+<details class="tip">
+<summary>“清除”输出小技巧</summary>
+<p>有时为了某些原因需要截图连续执行的多条命令，中间有一步输错了就要重来；此时可以及时止损：</p>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos="1 "></span></a>$<span class="w"> </span>tput<span class="w"> </span>cuu<span class="w"> </span>N<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>tput<span class="w"> </span>ed
+</span></code></pre></div>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span>N<span class="heti-spacing"> </span></span>为希望清除的行数</p>
+</details>
+<h3 id="bash-初印象"><span>bash<span class="heti-spacing"> </span></span>初印象<a class="headerlink" href="#bash-初印象" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<div class="highlight"><span class="filename">cli</span><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos" data-linenos="1 "></span></a>yourUserName@yourComputerName:~$<span class="w"> </span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">组成</th>
+<th style="text-align: center;">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>yourUserName</code></td>
+<td style="text-align: center;">当前<strong>登录用户</strong>的用户名，用于标识命令执行的用户。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>@</code></td>
+<td style="text-align: center;">分隔符，用于区分用户名和计算机名。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>yourComputerName</code></td>
+<td style="text-align: center;">当前计算机的名称或主机名，用于标识命令执行的设备。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>:</code></td>
+<td style="text-align: center;">分隔符，用于分隔主机名和当前工作目录。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>~</code></td>
+<td style="text-align: center;">当前用户的主目录的简写，一般代表 <code>/home/yourUserName</code>。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>$</code></td>
+<td style="text-align: center;">命令提示符，普通用户通常是<span><span class="heti-spacing"> </span></span><code>$</code>，超级用户（root）则为<span><span class="heti-spacing"> </span></span><code>#</code>，借助工具也可以自定义设计。</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><span>UserName<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>ComputerName<span class="heti-spacing"> </span></span>不建议包含中文字符，在使用<span class="heti-skip"><span class="heti-spacing"> </span>vivado<span class="heti-spacing"> </span></span>等工具时容易出现难以察觉的错误。例如上次有个人仿真通过了，但是生成比特流没有明显错误但是最后没有结果；原因在于用户名为中文，<span>vivado<span class="heti-spacing"> </span></span>将其忽视导致文件未能找到。</p>
+</blockquote>
+<p>大部分情况下，命令行由 “命令<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>参数<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>选项”组成；命令本身往往是一个可执行程序；当我们想要运行一个<strong>环境变量</strong><span>(<span class="heti-spacing"> </span></span><code>echo $PATH | tr ':' '\n'</code><span>)<span class="heti-spacing"> </span></span>中有的程序的时候，直接输入名称即可；例如，<span>Linux<span class="heti-spacing"> </span></span>中有一个程序叫做 <code>date</code>，直接输入就可以，这个程序将输出当前的时间：</p>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><a href="#__codelineno-2-1"><span class="linenos" data-linenos="1 "></span></a>:$<span class="w"> </span>date
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><a href="#__codelineno-2-2"><span class="linenos" data-linenos="2 "></span></a>Wed<span class="w"> </span>Mar<span class="w"> </span><span class="m">19</span><span class="w"> </span><span class="m">09</span>:09:08<span class="w"> </span>PM<span class="w"> </span>CST<span class="w"> </span><span class="m">2025</span>
+</span></code></pre></div>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<ul>
+<li>
+<p><strong>命令<span><span class="heti-spacing"> </span>(Command)</span></strong>：就像我们要做什么事情，比如“做饭”<heti-adjacent class="heti-adjacent-quarter">、</heti-adjacent>“写作业”<heti-adjacent class="heti-adjacent-quarter">、</heti-adjacent>“打扫卫生”。在<span class="heti-skip"><span class="heti-spacing"> </span>Linux<span class="heti-spacing"> </span></span>里，命令就是告诉计算机要做什么，比如<span class="heti-skip"><span class="heti-spacing"> </span>ls (<span class="heti-spacing"> </span></span>列出文件<span><span class="heti-spacing"> </span>)</span>、<span>cp (<span class="heti-spacing"> </span></span>复制文件<span><span class="heti-spacing"> </span>)</span>、<span>mv (<span class="heti-spacing"> </span></span>移动文件<span><span class="heti-spacing"> </span>)</span>。</p>
+</li>
+<li>
+<p><strong>参数<span><span class="heti-spacing"> </span>(Argument)</span></strong>： 告诉命令操作的对象或目标。就像“做<strong>东坡肉</strong>”<heti-adjacent class="heti-adjacent-quarter">，</heti-adjacent>“写<strong>数学</strong>作业”<heti-adjacent class="heti-adjacent-quarter">，</heti-adjacent>“打扫<strong>卧室</strong>”。参数就是具体针对什么东西来做这件事。</p>
+</li>
+<li>
+<p><strong>选项<span><span class="heti-spacing"> </span>(Option)</span></strong>： 就像我们做事情的方式或风格，比如“做饭<strong>用小火</strong>”<heti-adjacent class="heti-adjacent-quarter">、</heti-adjacent>“写作业一定要用<strong>用笔</strong>”<heti-adjacent class="heti-adjacent-quarter">、</heti-adjacent>“打扫卫生<strong>用吸尘器</strong>”。选项通常用来修改命令的默认行为。</p>
+</li>
+</ul>
+<p>让我们用一个具体的例子来解释一下：</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><a href="#__codelineno-3-1"><span class="linenos" data-linenos="1 "></span></a>ls -l /home/user/documents
+</span></code></pre></div>
+<ul>
+<li>
+<p><strong>ls</strong>：这是命令，意思是“列出文件和目录”<heti-adjacent class="heti-adjacent-half">。</heti-adjacent>（做什么）</p>
+</li>
+<li>
+<p><strong>-l</strong>：这是选项，通常以<span class="heti-skip"><span class="heti-spacing"> </span>-<span class="heti-spacing"> </span></span>或<span class="heti-skip"><span class="heti-spacing"> </span>--<span class="heti-spacing"> </span></span>开头。<span>-l<span class="heti-spacing"> </span></span>选项表示“以长格式（long format）列出”，会显示文件的详细信息，如权限、所有者、大小、修改时间等<heti-adjacent class="heti-adjacent-half">。</heti-adjacent>（怎么做）</p>
+</li>
+<li>
+<p><strong>/home/user/documents</strong>：这是参数，表示命令<span class="heti-skip"><span class="heti-spacing"> </span>ls<span class="heti-spacing"> </span></span>要操作的目标，这里是<span class="heti-skip"><span class="heti-spacing"> </span>/home/user/documents<span class="heti-spacing"> </span></span>这个目录<heti-adjacent class="heti-adjacent-half">。</heti-adjacent>（对谁做）</p>
+</li>
+</ul>
+<p>所以这条命令的意思就是：以长格式列出<span class="heti-skip"><span class="heti-spacing"> </span>/home/user/documents<span class="heti-spacing"> </span></span>目录下的文件和子目录的详细信息。</p>
+</div>
+<p>参数和程序名、参数与参数之间都要使用空格隔开。如果参数里包含空格，可以用 <code>'</code> 或 <code>"</code> 将参数包裹起来，或者在空格前面加上一个反斜杠转义（如 <code>My\ repo</code> 会被转义成 <code>My repo</code>，但是还是更加推荐前者，对于程序员来说具有更好地可读性<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<details class="info" open="open">
+<summary>变量</summary>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">变量</th>
+<th style="text-align: center;">WSL</th>
+<th style="text-align: center;">Windows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">定义</td>
+<td style="text-align: center;">命名的存储位置，存储字符串或数值 <code>export VAR_NAME=value</code></td>
+<td style="text-align: center;">存储在系统中的路径、配置信息等 <code>set VAR_NAME=value</code></td>
+</tr>
+<tr>
+<td style="text-align: center;">访问</td>
+<td style="text-align: center;"><code>$VAR_NAME</code></td>
+<td style="text-align: center;"><code>%VAR_NAME%</code></td>
+</tr>
+<tr>
+<td style="text-align: center;">环境变量</td>
+<td style="text-align: center;">通过<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>env</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>或<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>set</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>查看</td>
+<td style="text-align: center;">通过<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>env</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>查看</td>
+</tr>
+<tr>
+<td style="text-align: center;">命名规则</td>
+<td style="text-align: center;">大小写敏感，通常使用大写字母和下划线</td>
+<td style="text-align: center;">同前</td>
+</tr>
+<tr>
+<td style="text-align: center;">PATH</td>
+<td style="text-align: center;"><span>WSL<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>PATH<span class="heti-spacing"> </span></span>包括<u><span class="heti-skip"><span class="heti-spacing"> </span>Windows<span class="heti-spacing"> </span></span>文件系统路径</u> ，一定程度上允许直接调用<span class="heti-skip"><span class="heti-spacing"> </span>Windows<span class="heti-spacing"> </span></span>应用程序</td>
+<td style="text-align: center;"><span>Windows<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>PATH<span class="heti-spacing"> </span></span>是系统的可执行文件路径，用于查找可执行文件</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>通俗地说，<code>PATH</code><span><span class="heti-spacing"> </span></span>环境变量代表的是<strong>可执行文件的搜索路径</strong> ；出于习惯，大家把可执行程序放在 <code>bin</code> 文件夹中，所以 <code>PAHT</code> 中很多以<span class="heti-skip"><span class="heti-spacing"> </span>bin<span class="heti-spacing"> </span></span>结尾。</p>
+</blockquote>
+</details>
+<details class="wiki" open="open">
+<summary><a href="https://en.wikipedia.org/wiki/Path_(computing)">Path</a></summary>
+<p>路径（或文件路径、路径名等）是一串字符，用于<strong>唯一标识目录结构中的位置</strong>。它通过遵循目录树层次结构中的组件组成，这些组件由分隔符分隔，代表每个目录。分隔符最常见的是斜杠（“/”<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>、反斜杠字符（“\”）或冒号（“:”<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，尽管某些操作系统可能使用不同的分隔符。</p>
+</details>
+<p>在介绍一些非常常见的命令之前，我们先了解 <code>-h/--help</code> <code>man</code> 以及一个扩展工具 <code>tldr</code> ：</p>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><a href="#__codelineno-4-1"><span class="linenos" data-linenos="1 "></span></a>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>tldr
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><a href="#__codelineno-4-2"><span class="linenos" data-linenos="2 "></span></a>...
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><a href="#__codelineno-4-3"><span class="linenos" data-linenos="3 "></span></a>$<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.local/share/tldr<span class="w"> </span><span class="c1"># 这是在 ubuntu 上的操作，不同系统可能不一致</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a><a href="#__codelineno-4-4"><span class="linenos" data-linenos="4 "></span></a>$<span class="w"> </span>tldr<span class="w"> </span>--update<span class="w"> </span><span class="c1"># 更新</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a><a href="#__codelineno-4-5"><span class="linenos" data-linenos="5 "></span></a>$<span class="w"> </span>tldr<span class="w"> </span>&lt;cmd&gt;
+</span></code></pre></div>
+<details class="help">
+<summary>"Error: Package 'tldr' has no installation candidate" ?</summary>
+<p>有些人安装的发行版的包源可能没有直接为<span class="heti-skip"><span class="heti-spacing"> </span>tldr<span class="heti-spacing"> </span></span>的工具，但是可能有替代类型。</p>
+<p>例如，在<span class="heti-skip"><span class="heti-spacing"> </span>WSL<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>kali-linux<span class="heti-spacing"> </span></span>的默认<span class="heti-skip"><span class="heti-spacing"> </span>apt<span class="heti-spacing"> </span></span>就无法安装；此时可以使用 <code>apt-cache search</code> 查询：</p>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><a href="#__codelineno-5-1"><span class="linenos" data-linenos="1 "></span></a>$<span class="w"> </span>apt-cache<span class="w"> </span>search<span class="w"> </span>tldr
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a><a href="#__codelineno-5-2"><span class="linenos" data-linenos="2 "></span></a>tealdeer<span class="w"> </span>-<span class="w"> </span>simplified,<span class="w"> </span>example<span class="w"> </span>based<span class="w"> </span>and<span class="w"> </span>community-driven<span class="w"> </span>man<span class="w"> </span>pages
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a><a href="#__codelineno-5-3"><span class="linenos" data-linenos="3 "></span></a>tldr-py<span class="w"> </span>-<span class="w"> </span>Python<span class="w"> </span>client<span class="w"> </span><span class="k">for</span><span class="w"> </span>tldr:<span class="w"> </span>simplified<span class="w"> </span>and<span class="w"> </span>community-driven<span class="w"> </span>man<span class="w"> </span>pages
+</span></code></pre></div>
+<p>此时安装其一，就可以使用<span class="heti-skip"><span class="heti-spacing"> </span>tldr<span class="heti-spacing"> </span></span>了。</p>
+</details>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">工具</th>
+<th style="text-align: center;">优点</th>
+<th style="text-align: center;">适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a href="https://tldr.sh/">tldr</a></td>
+<td style="text-align: center;">简洁明了，易于理解，社区维护</td>
+<td style="text-align: center;">需要快速了解命令的基本用法，是初学者</td>
+</tr>
+<tr>
+<td style="text-align: center;">-h / --help</td>
+<td style="text-align: center;">简单直接，快速查看，一般程序自带</td>
+<td style="text-align: center;">需要快速查看命令的全部用法和选项</td>
+</tr>
+<tr>
+<td style="text-align: center;">man</td>
+<td style="text-align: center;">内容详尽，官方文档，系统自带</td>
+<td style="text-align: center;">需要深入了解命令的所有细节和选项，需要查看权威的文档</td>
+</tr>
+</tbody>
+</table>
+<h3 id="路径操作">路径操作<a class="headerlink" href="#路径操作" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">命令</th>
+<th>作用</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>pwd</code></td>
+<td>显示当前绝对路径</td>
+<td><code>/home/user</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>cd</code></td>
+<td>改变当前路径</td>
+<td><code>cd /</code>, <code>cd -</code></td>
+</tr>
+<tr>
+<td style="text-align: center;">"z"</td>
+<td>根据历史推断跳转</td>
+<td><code>z fds-project</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="文件目录管理">文件<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>目录管理<a class="headerlink" href="#文件目录管理" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<h4 id="基本工具">基本工具<a class="headerlink" href="#基本工具" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ls</code></td>
+<td>列出目录内容</td>
+</tr>
+<tr>
+<td><code>ls -l</code></td>
+<td>列出详细信息</td>
+</tr>
+<tr>
+<td><code>ls -lh</code><sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></td>
+<td>以人类易读格式显示文件大小</td>
+</tr>
+<tr>
+<td><code>cat/more/less/head/tail</code></td>
+<td>输出文件内容<span><span class="heti-spacing"> </span>(con</span><strong>cat</strong>enate)</td>
+</tr>
+<tr>
+<td><code>touch</code></td>
+<td>创建文件<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>更新时间戳</td>
+</tr>
+<tr>
+<td><code>mkdir</code></td>
+<td>创建目录</td>
+</tr>
+<tr>
+<td><code>mv</code></td>
+<td>移动<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>重命名文件<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>目录</td>
+</tr>
+<tr>
+<td><code>cp</code></td>
+<td>复制文件</td>
+</tr>
+<tr>
+<td><code>cp -r</code></td>
+<td>递归复制目录</td>
+</tr>
+<tr>
+<td><code>rm</code></td>
+<td>删除文件</td>
+</tr>
+<tr>
+<td><code>rm -r</code></td>
+<td>递归删除目录</td>
+</tr>
+<tr>
+<td><code>rm -rf</code></td>
+<td>强制递归删除<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>慎用<span><span class="heti-spacing"> </span>!)</span></td>
+</tr>
+</tbody>
+</table>
+<h4 id="batcat">bat(cat)<a class="headerlink" href="#batcat" title="Permanent link">¶</a></h4>
+<p><code>cat</code> 工具的升级版吧，为输入增加更多高亮内容；在<span class="heti-skip"><span class="heti-spacing"> </span>Ubuntu<span class="heti-spacing"> </span></span>上使用<span class="heti-skip"><span class="heti-spacing"> </span>apt<span class="heti-spacing"> </span></span>安装可能有个<a href="https://github.com/sharkdp/bat?tab=readme-ov-file#on-ubuntu-using-apt">小<span><span class="heti-spacing"> </span>bug</span></a>，具体就是实际上使用的是 <code>batcat</code> ，如果为了习惯可以使用软链接：</p>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><a href="#__codelineno-6-1"><span class="linenos" data-linenos="1 "></span></a>$<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.local/bin
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a><a href="#__codelineno-6-2"><span class="linenos" data-linenos="2 "></span></a>$<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/usr/bin/batcat<span class="w"> </span>~/.local/bin/bat
+</span></code></pre></div>
+<h4 id="编辑器">编辑器<a class="headerlink" href="#编辑器" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>在一部分情况下：对文件进行很小的修改<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>文件修改需要高权限<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>希望减少鼠标依赖并极大提高自己编辑效率<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>装逼，我们可能会使用到终端上的文本编辑器，下面是常见的三种编辑器：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">编辑器</th>
+<th style="text-align: center;">优点</th>
+<th style="text-align: center;">缺点</th>
+<th style="text-align: center;">适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a href="https://www.nano-editor.org/">nano</a></td>
+<td style="text-align: center;"><a href="https://help.aliyun.com/zh/cloud-shell/nano-editor-tutorial-1">简单易学</a>，资源占用少，预装</td>
+<td style="text-align: center;">功能有限，可定制性差</td>
+<td style="text-align: center;">需要快速编辑文本文件，是初学者，在资源有限的机器上进行文本编辑</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://www.vim.org/">vim</a> / <a href="https://neovim.io/">neovim</a></td>
+<td style="text-align: center;">高效编辑，功能强大，可定制性强，<a href="https://help.aliyun.com/zh/cloud-shell/use-the-vim-editor">广泛支持</a></td>
+<td style="text-align: center;">学习曲线相对陡峭，配置比较复杂</td>
+<td style="text-align: center;">需要高效地进行文本编辑，需要使用高级编辑功能，需要对编辑器进行深度定制</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://www.gnu.org/software/emacs/">emacs</a></td>
+<td style="text-align: center;"><a href="https://www.wenhui.space/docs/02-emacs/emacs_useguide/">高度可定制，功能丰富</a>，社区强大</td>
+<td style="text-align: center;">学习曲线非常陡峭，资源占用高，配置复杂</td>
+<td style="text-align: center;">需要对编辑器进行高度定制，愿意 <u>花费大量时间学习和配置编辑器</u> ，需要使用<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>emacs</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>的各种扩展功能</td>
+</tr>
+</tbody>
+</table>
+<p>由于我本身不是忠实的终端编辑器用户（<del>我<span class="heti-skip"><span class="heti-spacing"> </span>60%<span class="heti-spacing"> </span></span>的时间应该都在浏览器上</del><heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，仅在对文件进行很小的修改<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>文件修改需要高权限情况下使用，所以这里不会讲解太多，也不做具体推荐大家使用哪个，萝卜青菜各有所爱，大家可以点击表格中的链接看看一些基本思想，这里仅演示最为常见的<span class="heti-skip"><span class="heti-spacing"> </span>nano<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>vim<span class="heti-spacing"> </span></span>的 “少量基本操作”。</p>
+<ol>
+<li>nano</li>
+</ol>
+<details class="help">
+<summary>nano hot key</summary>
+<table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>含义</th>
+<th>使用介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>^G</code></td>
+<td>Help</td>
+<td>显示帮助菜单，包含所有可用命令和快捷键列表。</td>
+</tr>
+<tr>
+<td><code>^O</code></td>
+<td>Write Out</td>
+<td>保存当前文件，相当于“另存为”功能，输入文件名。</td>
+</tr>
+<tr>
+<td><code>^W</code></td>
+<td>Where Is</td>
+<td>在当前文档中搜索特定文本，输入要搜索的内容。</td>
+</tr>
+<tr>
+<td><code>^K</code></td>
+<td>Cut</td>
+<td>剪切当前行，剪切的内容存储在剪贴板中。</td>
+</tr>
+<tr>
+<td><code>^T</code></td>
+<td>Execute</td>
+<td>执行命令或脚本，通常用于执行拼写检查。</td>
+</tr>
+<tr>
+<td><code>^C</code></td>
+<td>Location</td>
+<td>显示光标在文件中的位置，包括行号和字符位置。</td>
+</tr>
+<tr>
+<td><code>M-U</code></td>
+<td>Undo</td>
+<td>撤销最近的操作，允许恢复改动。</td>
+</tr>
+<tr>
+<td><code>M-A</code></td>
+<td>Set Mark</td>
+<td>设置文本选择的开始位置，此后可以使用<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>Ctrl+K</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>剪切所选文本。</td>
+</tr>
+<tr>
+<td><code>^X</code></td>
+<td>Exit</td>
+<td>退出<span class="heti-skip"><span class="heti-spacing"> </span>Nano<span class="heti-spacing"> </span></span>编辑器，若有未保存的更改，会询问是否保存。</td>
+</tr>
+<tr>
+<td><code>^R</code></td>
+<td>Read File</td>
+<td>插入另一个文件的内容到当前文件中。</td>
+</tr>
+<tr>
+<td><code>^\</code></td>
+<td>Replace</td>
+<td>查找并替换文本，输入要查找的内容和替换后字符。</td>
+</tr>
+<tr>
+<td><code>^U</code></td>
+<td>Paste</td>
+<td>粘贴剪切板中的内容。</td>
+</tr>
+<tr>
+<td><code>^J</code></td>
+<td>Justify</td>
+<td>调整文本格式，使其对齐。</td>
+</tr>
+<tr>
+<td><code>^/</code></td>
+<td>Go To Line</td>
+<td>跳转到指定行，需输入行号。</td>
+</tr>
+<tr>
+<td><code>M-E</code></td>
+<td>Redo</td>
+<td>重做上次撤销的操作。</td>
+</tr>
+<tr>
+<td><code>M-6</code></td>
+<td>Copy</td>
+<td>复制当前行到剪贴板，通常在选择文本后使用。</td>
+</tr>
+</tbody>
+</table>
+<p>至于<span class="heti-skip"><span class="heti-spacing"> </span>M<span class="heti-spacing"> </span></span>代表了 <code>Meta</code> 这一<a href="https://en.wikipedia.org/wiki/Modifier_key">修饰键</a>，出于一些历史原因，可以查看这篇<a href="https://unix.stackexchange.com/questions/28993/what-is-bashs-meta-key">问答</a>；在<span class="heti-skip"><span class="heti-spacing"> </span>windows<span class="heti-spacing"> </span></span>上映射为 <code>Alt</code> 。</p>
+</details>
+<ol start="2">
+<li>vim</li>
+</ol>
+<div style="display: flex;">
+<div style="width: 70%; padding-left: 20px;">
+<p><span>vim<span class="heti-spacing"> </span></span>相比于<span class="heti-skip"><span class="heti-spacing"> </span>nano<span class="heti-spacing"> </span></span>的特点在于模式切换以使用有限的按键完成需求。</p>
+<p>一般情况下，我们打开<span class="heti-skip"><span class="heti-spacing"> </span>vim<span class="heti-spacing"> </span></span>出于<span class="heti-skip"><span class="heti-spacing"> </span>normal<span class="heti-spacing"> </span></span>模式，这一模式下我们只能够移动光标（为了减少手的移动，熟练者习惯于使用<span class="heti-skip"><span class="heti-spacing"> </span>hjkl<span class="heti-spacing"> </span></span>进行移动，数字可以使后续操作翻倍）和简单操作；从右边的图我们可以看到，使用<span class="heti-skip"><span class="heti-spacing"> </span>`:/?`<span class="heti-spacing"> </span></span>等进入<span class="heti-skip"><span class="heti-spacing"> </span>cmd-line<span class="heti-spacing"> </span></span>模式，使用<span class="heti-skip"><span class="heti-spacing"> </span>`v/V`<span class="heti-spacing"> </span></span>进入<span class="heti-skip"><span class="heti-spacing"> </span>visual<span class="heti-spacing"> </span></span>模式，<span>`iao`<span class="heti-spacing"> </span></span>等进入<span><span class="heti-spacing"> </span>insert mode</span>。</p>
+</div>
+<div style="width: 5%;"></div>
+<div style="width: 20%;">
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/17425275420641742527541177.png"><img alt="vim mode" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/tuchuang/17425275420641742527541177.png" style="width: 100%; height: auto;"/></a>
+<p>(from wikipedia)</p>
+</div>
+<div style="width: 5%;"></div>
+</div>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">模式</th>
+<th style="text-align: center;">操作说明</th>
+<th>常用操作示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">正常模式<span><span class="heti-spacing"> </span>(Normal)</span></td>
+<td style="text-align: center;">用于浏览和操作文本，可以进行简单修改。</td>
+<td><code>h</code>, <code>j</code>, <code>k</code>, <code>l</code>（移动）<br/><code>u</code> （撤销某一操作）</td>
+</tr>
+<tr>
+<td style="text-align: center;">插入模式<span><span class="heti-spacing"> </span>(Insert)</span></td>
+<td style="text-align: center;">输入文本，像使用普通文本编辑器一样。</td>
+<td><code>i</code>（在光标前插入）<br/><code>a</code>（在光标后插入）<br/><code>o</code>（在下方新建一行并插入）</td>
+</tr>
+<tr>
+<td style="text-align: center;">可视模式<span><span class="heti-spacing"> </span>(Visual)</span></td>
+<td style="text-align: center;">用于选中文本区域，可以对选中文本进行操作，例如复制、删除等。</td>
+<td><code>v</code>（字符选择）<br/><code>V</code>（行选择）<br/><code>Ctrl</code> + <code>v</code>（块选择）</td>
+</tr>
+<tr>
+<td style="text-align: center;">命令行模式<span><span class="heti-spacing"> </span>(Command-line)</span></td>
+<td style="text-align: center;">输入命令进行文件操作、搜索替换等</td>
+<td><code>:w</code>（保存文件）<br/><code>:q</code>（退出<span><span class="heti-spacing"> </span>Vim</span>）<br/><code>:%s/foo/bar/g</code>（'foo' -&gt;'bar'）</td>
+</tr>
+</tbody>
+</table>
+<details class="extra">
+<summary><span>neovim<span class="heti-spacing"> </span></span>入门指南</summary>
+<ul>
+<li><a href="https://martinlwx.github.io/zh-cn/config-neovim-from-scratch/">从零开始配置<span><span class="heti-spacing"> </span>Neovim(Nvim)</span></a></li>
+<li><a href="https://blog.yusong.me/terminal/vim/vscode-neovim">VSCode Neovim</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/679729768">给编辑器之神配上<span><span class="heti-spacing"> </span>GUI</span>（VSCode+Neovim）</a></li>
+<li><a href="https://neovim.io/doc/user/">neovim/doc/usr</a></li>
+</ul>
+</details>
+<ol start="3">
+<li>emacs</li>
+</ol>
+<p>我本人并没有使用过<span><span class="heti-spacing"> </span>emacs</span>，所以不作演示；下面是使用者<a href="https://github.com/Akane-6730"><span class="heti-skip"><span class="heti-spacing"> </span>Akane<span class="heti-spacing"> </span></span></a>推荐入门资料，仅供参考。</p>
+<details class="extra">
+<summary><span>emacs<span class="heti-spacing"> </span></span>入门指南</summary>
+<ul>
+<li>https://pavinberg.github.io/emacs-book/zh</li>
+<li>https://mint.westdri.ca/emacs/top_intro</li>
+<li>https://book.emacs-china.org</li>
+<li>https://remacs.fun</li>
+</ul>
+</details>
+<p>如果真心希望学习使用融入其中之一，足够的耐心、时间、实践都是不可少的，积极寻找相关社区是解决问题的主要方式；在初期，为了较少配置难度，推荐先直接使用其他人的配置，例如：</p>
+<ul>
+<li>neovim: https://github.com/MartinLwx/dotfiles/tree/main/nvim</li>
+<li>emacs: https://github.com/seagle0128/.emacs.d</li>
+</ul>
+<p>又或者，在不配置的情况下大家可以在自己喜欢的<span><span class="heti-spacing"> </span>IDE</span> （之后我们会以<span class="heti-skip"><span class="heti-spacing"> </span>vsc<span class="heti-spacing"> </span></span>为例进行介绍，大家可以自己先搜索安装使用，或者使用其他“热门” IDE）中安装对应的插件以简单体验，当然相当于是阉割版的。</p>
+<h4 id="查找工具">查找工具<a class="headerlink" href="#查找工具" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">工具</th>
+<th style="text-align: center;">优点</th>
+<th style="text-align: center;">缺点</th>
+<th style="text-align: center;">使用示例</th>
+<th style="text-align: center;">适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">find / <a href="https://github.com/sharkdp/fd">fd</a></td>
+<td style="text-align: center;">功能强大，灵活，可执行操作，精确搜索</td>
+<td style="text-align: center;">速度慢，语法复杂</td>
+<td style="text-align: center;"><code>find "." -n ".DS_Store" -exec rm -i {} \;</code></td>
+<td style="text-align: center;">需要根据多种属性条件查找文件，需要在找到文件后<strong>立即执行某些操作</strong>，需要进行精确的文件名匹配</td>
+</tr>
+<tr>
+<td style="text-align: center;">grep / <a href="https://github.com/BurntSushi/ripgrep">rg</a></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://github.com/ggreer/the_silver_searcher">the silver searcher</a></td>
+<td style="text-align: center;">速度快，智能忽略，易于使用</td>
+<td style="text-align: center;">主要用于代码<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>文件内容搜索，不如<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>find</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>灵活</td>
+<td style="text-align: center;"><code>ag rust_learn</code></td>
+<td style="text-align: center;">需要在大型代码库中快速查找字符串或正则表达式，需要忽略“版本控制系统”忽略的文件和目录</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://github.com/junegunn/fzf/">fzf</a></td>
+<td style="text-align: center;">实时展示结果（交互式查找<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，模糊搜索，可结合其他命令</td>
+<td style="text-align: center;">初始化需要时间，可能大型仓库可能较慢</td>
+<td style="text-align: center;"><code>find path/to/directory -type f \| fzf</code></td>
+<td style="text-align: center;">文件名模糊，实时查找、过滤、选择</td>
+</tr>
+<tr>
+<td style="text-align: center;">locate</td>
+<td style="text-align: center;">速度快</td>
+<td style="text-align: center;">实时性差，不够精确</td>
+<td style="text-align: center;"><code>ag rust_learn</code></td>
+<td style="text-align: center;">需要快速查找文件，对实时性要求不高，只需要按文件名进行简单查找</td>
+</tr>
+<tr>
+<td style="text-align: center;">which</td>
+<td style="text-align: center;">简单易用，速度快</td>
+<td style="text-align: center;">功能有限，搜索范围有限</td>
+<td style="text-align: center;"><code>which python3</code></td>
+<td style="text-align: center;">需要查找命令或可执行文件的完整路径</td>
+</tr>
+<tr>
+<td style="text-align: center;">whereis</td>
+<td style="text-align: center;">查找范围较广，简单易用</td>
+<td style="text-align: center;">依赖数据库，结果可能不准确</td>
+<td style="text-align: center;"><code>whereis python3</code></td>
+<td style="text-align: center;">需要查找命令的二进制文件、源代码和<span class="heti-skip"><span class="heti-spacing"> </span>man<span class="heti-spacing"> </span></span>手册页</td>
+</tr>
+</tbody>
+</table>
+<p><code>find</code> 查找</p>
+<p>一个配合 <code>fzf</code> 的好用组合：</p>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a><a href="#__codelineno-7-1"><span class="linenos" data-linenos="1 "></span></a>$<span class="w"> </span>fzf<span class="w"> </span>--preview<span class="w"> </span><span class="s1">'batcat --color=always --style=numbers --line-range=:50 {}'</span>
+</span></code></pre></div>
+<h4 id="文件管理">文件管理<a class="headerlink" href="#文件管理" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">工具</th>
+<th style="text-align: center;">优点</th>
+<th style="text-align: center;">缺点</th>
+<th style="text-align: center;">适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a href="https://github.com/ranger/ranger">ranger</a></td>
+<td style="text-align: center;"><span>Vim-like<span class="heti-spacing"> </span></span>界面，多列显示，可定制性强，预览功能</td>
+<td style="text-align: center;">学习成本，依赖<span><span class="heti-spacing"> </span>Python</span></td>
+<td style="text-align: center;">是<span class="heti-skip"><span class="heti-spacing"> </span>Vim<span class="heti-spacing"> </span></span>用户，需要多列显示目录结构，需要预览文件内容，需要对文件管理器进行定制</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://github.com/Canop/broot">broot</a></td>
+<td style="text-align: center;">交互式浏览，模糊搜索，可执行操作，速度快</td>
+<td style="text-align: center;">需要安装，学习成本</td>
+<td style="text-align: center;">需要交互式地浏览目录结构，需要在大型目录中快速定位文件和目录，需要在浏览目录的同时执行文件操作</td>
+</tr>
+<tr>
+<td style="text-align: center;">tree</td>
+<td style="text-align: center;">简单易用，输出清晰，广泛可用</td>
+<td style="text-align: center;">功能有限，不适合大型目录，交互性差</td>
+<td style="text-align: center;">需要快速查看目录结构，目录结构不太复杂，不需要进行文件操作</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><code>nnn</code> 也是一个类似的工具，但是使用个人感觉体验较差，就没放在这里了；<a href="https://yazi-rs.github.io/"><span>yazi<span class="heti-spacing"> </span></span></a>也是，但是<span class="heti-skip"><span class="heti-spacing"> </span>ubuntu<span class="heti-spacing"> </span></span>上配置比较麻烦，自行了解。</p>
+</blockquote>
+<h3 id="符号">符号<a class="headerlink" href="#符号" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<blockquote>
+<p>作用描述从简，不够严谨。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">符号</th>
+<th>作用</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>&lt;</code></td>
+<td>输入重定向</td>
+<td><code>cat &lt; input.txt</code>：将<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>input.txt</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>的内容作为<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>cat</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>命令的输入。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>&gt;</code></td>
+<td>输出重定向<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>覆盖<span><span class="heti-spacing"> </span>)</span></td>
+<td><code>echo 'demo string' &gt; demo.txt</code>：将<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>'demo string'</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>覆盖<span><span class="heti-spacing"> </span></span><code>demo.txt</code><span><span class="heti-spacing"> </span></span>。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>&gt;&gt;</code></td>
+<td>输出重定向<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>追加<span><span class="heti-spacing"> </span>)</span></td>
+<td><code>echo 'new line' &gt;&gt; demo.txt</code>：将<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>'new line'</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>追加到<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>demo.txt</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>文件末。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>&amp;&amp;</code></td>
+<td>逻辑与<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>短路<span><span class="heti-spacing"> </span>)</span></td>
+<td><code>mkdir mydir &amp;&amp; cd mydir</code>：如果成功创建<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>mydir</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>目录，则进入该目录。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>;</code></td>
+<td>顺序执行命令</td>
+<td><code>date; ls -l</code>：先执行<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>date</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>命令，再执行<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>ls -l</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>命令。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>#</code></td>
+<td>注释</td>
+<td><code># This is a comment</code>：这一行是注释，不会被执行。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>\</code></td>
+<td>转义特殊字符</td>
+<td><code>echo "This is a \$PATH"</code>：输出<span><span class="heti-spacing"> </span></span><code>This is a $PATH</code>，<code>$</code><span><span class="heti-spacing"> </span></span>符号被转义，不会被当作变量引用。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>'</code></td>
+<td>单引号内字符串原样输出</td>
+<td><code>echo 'This is a $PATH'</code>：输出<span><span class="heti-spacing"> </span></span><code>This is a $PATH</code>，<code>$PATH</code><span><span class="heti-spacing"> </span></span>不会被当作变量引用。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>"</code></td>
+<td>双引号内选择转义</td>
+<td><code>echo "The value of PATH is $PATH</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>丨</code></td>
+<td>接收前一命令的输出</td>
+<td><code>echo $PATH 丨 tr ':' '\n'</code> （包含中文字符，仅作观看）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="网络相关">网络相关<a class="headerlink" href="#网络相关" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">命令</th>
+<th style="text-align: left;">简介</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">wget</td>
+<td style="text-align: left;">一个用于从网络下载文件的命令行工具，支持<span><span class="heti-spacing"> </span>HTTP</span>、<span>HTTPS<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>FTP<span class="heti-spacing"> </span></span>下载及镜像网站等。</td>
+</tr>
+<tr>
+<td style="text-align: center;">curl</td>
+<td style="text-align: left;">一个用于发送请求与获取响应的命令行工具，支持多种协议，包括<span><span class="heti-spacing"> </span>HTTP</span>、HTTPS、FTP、<span>SCP<span class="heti-spacing"> </span></span>等。</td>
+</tr>
+<tr>
+<td style="text-align: center;">dig</td>
+<td style="text-align: left;">一种<span class="heti-skip"><span class="heti-spacing"> </span>DNS<span class="heti-spacing"> </span></span>查询工具，用于查询<span class="heti-skip"><span class="heti-spacing"> </span>DNS<span class="heti-spacing"> </span></span>记录和进行域名解析，可以用于调试和分析<span class="heti-skip"><span class="heti-spacing"> </span>DNS<span class="heti-spacing"> </span></span>问题。</td>
+</tr>
+<tr>
+<td style="text-align: center;">ping</td>
+<td style="text-align: left;">一个测试网络连通性的工具，通过发送<span class="heti-skip"><span class="heti-spacing"> </span>ICMP<span class="heti-spacing"> </span></span>数据包到目标主机，测量延迟与丢包率。</td>
+</tr>
+<tr>
+<td style="text-align: center;">traceroute</td>
+<td style="text-align: left;">一个显示数据包从源主机到目标主机经过的路由路径的工具，帮助分析网络连接及延迟。</td>
+</tr>
+<tr>
+<td style="text-align: center;">nslookup</td>
+<td style="text-align: left;">一个用于查询<span class="heti-skip"><span class="heti-spacing"> </span>DNS<span class="heti-spacing"> </span></span>记录的命令行工具，可以帮助检查域名解析和<span class="heti-skip"><span class="heti-spacing"> </span>DNS<span class="heti-spacing"> </span></span>配置。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="APT-命令"><span>APT<span class="heti-spacing"> </span></span>命令<a class="headerlink" href="#APT-命令" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>对于拥有图形化界面的虚拟机<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>类<span class="heti-skip"><span class="heti-spacing"> </span>unix<span class="heti-spacing"> </span></span>系统用户，在应用商店或者从浏览器下载后安装应用和<span class="heti-skip"><span class="heti-spacing"> </span>windows<span class="heti-spacing"> </span></span>没有太大的差别；对于只有一个简单终端的<span class="heti-skip"><span class="heti-spacing"> </span>WSL<span class="heti-spacing"> </span></span>用户（当然也可以安装对应图形化界面，尝试过感觉效果一般，没有其必要性<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，使用包管理器或者获取安装脚本是常见的方式。</p>
+<details class="wiki" open="open">
+<summary><a href="https://en.wikipedia.org/wiki/Package_manager">package manager</a></summary>
+<p>包管理器<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>包管理系统是一系列软件工具，自动化了安装、升级、配置和移除计算机程序的过程，使其在计算机上以一致的方式进行。</p>
+</details>
+<p>出于普遍性，我们仅讲解演示<span class="heti-skip"><span class="heti-spacing"> </span>ubuntu<span class="heti-spacing"> </span></span>上的包管理，其他发行版可以参考<a href="https://101.lug.ustc.edu.cn/Ch03/#use-package-management-system">使用包管理系统安装</a>。</p>
+<details class="extra">
+<summary>dpkg</summary>
+<p><strong>dpkg</strong><span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span>Debian<span class="heti-spacing"> </span></span>包管理系统的基础工具，用于安装、卸载和管理<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>.deb</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>软件包；基于<span class="heti-skip"><span class="heti-spacing"> </span>dpkg<span class="heti-spacing"> </span></span>构建了<span><span class="heti-spacing"> </span>apt</span>，简化了软件的安装、升级以及卸载过程。</p>
+<p><span>dpkg<span class="heti-spacing"> </span></span>是一个底层的工具，用于处理<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>.deb</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>软件包，而<span class="heti-skip"><span class="heti-spacing"> </span>apt<span class="heti-spacing"> </span></span>是一个高级的工具，构建在<span class="heti-skip"><span class="heti-spacing"> </span>dpkg<span class="heti-spacing"> </span></span>之上，提供了更强大的功能和更友好的使用方式。</p>
+</details>
+<p><strong>APT</strong>（Advanced Package Tool）是<span class="heti-skip"><span class="heti-spacing"> </span>Debian<span class="heti-spacing"> </span></span>及其衍生发行版（如<span><span class="heti-spacing"> </span>Ubuntu</span>）中常使用的包管理系统，常见命令如下，加粗部分为常使用（大多<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><span>apt<span class="heti-spacing"> </span></span>命令</th>
+<th style="text-align: center;">命令的功能</th>
+<th style="text-align: center;">命令取代的命令<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>旧版<span><span class="heti-spacing"> </span>)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>apt update</strong></td>
+<td style="text-align: center;">刷新存储库索引<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>更新可安装的软件列表<span><span class="heti-spacing"> </span>)</span></td>
+<td style="text-align: center;">apt-get update</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>apt install</strong></td>
+<td style="text-align: center;">安装软件包</td>
+<td style="text-align: center;">apt-get install</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>apt remove</strong></td>
+<td style="text-align: center;">移除软件包</td>
+<td style="text-align: center;">apt-get remove</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>apt purge</strong></td>
+<td style="text-align: center;">移除软件包及配置文件</td>
+<td style="text-align: center;">apt-get purge</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>apt autoremove</strong></td>
+<td style="text-align: center;">自动删除不需要的依赖和库文件</td>
+<td style="text-align: center;">apt-get autoremove</td>
+</tr>
+<tr>
+<td style="text-align: center;">apt upgrade</td>
+<td style="text-align: center;">升级所有可升级的软件包</td>
+<td style="text-align: center;">apt-get upgrade</td>
+</tr>
+<tr>
+<td style="text-align: center;">apt full-upgrade</td>
+<td style="text-align: center;">升级软件包，自动处理依赖关系<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>可能删除旧包<span><span class="heti-spacing"> </span>)</span></td>
+<td style="text-align: center;">apt-get dist-upgrade</td>
+</tr>
+<tr>
+<td style="text-align: center;">apt search \&lt;package&gt;</td>
+<td style="text-align: center;">搜索软件包</td>
+<td style="text-align: center;">apt-cache search</td>
+</tr>
+<tr>
+<td style="text-align: center;">apt show \&lt;package&gt;</td>
+<td style="text-align: center;">显示软件包详细信息<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>版本、依赖等<span><span class="heti-spacing"> </span>)</span></td>
+<td style="text-align: center;">apt-cache show</td>
+</tr>
+<tr>
+<td style="text-align: center;">apt list --upgradeable</td>
+<td style="text-align: center;">列出可更新的软件包及版本信息</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;">apt list --installed</td>
+<td style="text-align: center;">列出所有已安装的软件包</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;">apt list --all-versions</td>
+<td style="text-align: center;">列出所有已安装的软件包的版本信息</td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<p>即然是软件管理，那么软件从哪来是一个比较重要的事情；官方软件来源通常在 <code>/etc/apt/sources.list</code> 以及 <code>/etc/apt/sources.list.d/</code> 下的文件中为我们写好，我们可以先用 <code>cat</code> 进行查看</p>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a><a href="#__codelineno-8-1"><span class="linenos" data-linenos="1 "></span></a>$<span class="w"> </span>cat<span class="w"> </span>/etc/apt/sources.list
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a><a href="#__codelineno-8-2"><span class="linenos" data-linenos="2 "></span></a>$<span class="w"> </span>cat<span class="w"> </span>/etc/apt/sources.list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s1">'#'</span>
+</span></code></pre></div>
+<details class="extra">
+<summary>source.list format</summary>
+<p>对于其中<span class="heti-skip"><span class="heti-spacing"> </span>source<span class="heti-spacing"> </span></span>的格式不进行介绍，有兴趣的同学可以在<a href="https://wiki.debian.org/SourcesList#sources.list_format"><span class="heti-skip"><span class="heti-spacing"> </span>source.list format<span class="heti-spacing"> </span></span></a>中查看。</p>
+</details>
+<p>如果想要安装一些不在上述来源的软件，或者由于种种问题想要切换为国内镜像源，可以按照一定的格式自行添加；也许大家听过<span class="heti-skip"><span class="heti-spacing"> </span>docker<span class="heti-spacing"> </span></span>的镜像源比较多，原理是类似的。</p>
+<p>对于部分命令，直接运行可能会出现权限不足（Permission denied）的情况，这也是我们后面要讲解的权限相关内容。</p>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a><a href="#__codelineno-9-1"><span class="linenos" data-linenos=" 1 "></span></a>$<span class="w"> </span>apt<span class="w"> </span>update
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a><a href="#__codelineno-9-2"><span class="linenos" data-linenos=" 2 "></span></a>Reading<span class="w"> </span>package<span class="w"> </span>lists...<span class="w"> </span>Done
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3"></a><a href="#__codelineno-9-3"><span class="linenos" data-linenos=" 3 "></span></a>E:<span class="w"> </span>Could<span class="w"> </span>not<span class="w"> </span>open<span class="w"> </span>lock<span class="w"> </span>file<span class="w"> </span>/var/lib/apt/lists/lock<span class="w"> </span>-<span class="w"> </span>open<span class="w"> </span><span class="o">(</span><span class="m">13</span>:<span class="w"> </span>Permission<span class="w"> </span>denied<span class="o">)</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4"></a><a href="#__codelineno-9-4"><span class="linenos" data-linenos=" 4 "></span></a>E:<span class="w"> </span>Unable<span class="w"> </span>to<span class="w"> </span>lock<span class="w"> </span>directory<span class="w"> </span>/var/lib/apt/lists/
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5"></a><a href="#__codelineno-9-5"><span class="linenos" data-linenos=" 5 "></span></a>W:<span class="w"> </span>Problem<span class="w"> </span>unlinking<span class="w"> </span>the<span class="w"> </span>file<span class="w"> </span>/var/cache/apt/pkgcache.bin<span class="w"> </span>-<span class="w"> </span>RemoveCaches<span class="w"> </span><span class="o">(</span><span class="m">13</span>:<span class="w"> </span>Permission<span class="w"> </span>denied<span class="o">)</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6"></a><a href="#__codelineno-9-6"><span class="linenos" data-linenos=" 6 "></span></a>W:<span class="w"> </span>Problem<span class="w"> </span>unlinking<span class="w"> </span>the<span class="w"> </span>file<span class="w"> </span>/var/cache/apt/srcpkgcache.bin<span class="w"> </span>-<span class="w"> </span>RemoveCaches<span class="w"> </span><span class="o">(</span><span class="m">13</span>:<span class="w"> </span>Permission<span class="w"> </span>denied<span class="o">)</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7"></a><a href="#__codelineno-9-7"><span class="linenos" data-linenos=" 7 "></span></a>$<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>tldr
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8"></a><a href="#__codelineno-9-8"><span class="linenos" data-linenos=" 8 "></span></a>Error:<span class="w"> </span>Could<span class="w"> </span>not<span class="w"> </span>open<span class="w"> </span>lock<span class="w"> </span>file<span class="w"> </span>/var/lib/dpkg/lock-frontend<span class="w"> </span>-<span class="w"> </span>open<span class="w"> </span><span class="o">(</span><span class="m">13</span>:<span class="w"> </span>Permission<span class="w"> </span>denied<span class="o">)</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9"></a><a href="#__codelineno-9-9"><span class="linenos" data-linenos=" 9 "></span></a>Error:<span class="w"> </span>Unable<span class="w"> </span>to<span class="w"> </span>acquire<span class="w"> </span>the<span class="w"> </span>dpkg<span class="w"> </span>frontend<span class="w"> </span>lock<span class="w"> </span><span class="o">(</span>/var/lib/dpkg/lock-frontend<span class="o">)</span>,<span class="w"> </span>are<span class="w"> </span>you<span class="w"> </span>root?
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10"></a><a href="#__codelineno-9-10"><span class="linenos" data-linenos="10 "></span></a>$<span class="w"> </span>sudo<span class="w"> </span>!!
+</span></code></pre></div>
+<h3 id="系统权限介绍">系统权限介绍<a class="headerlink" href="#系统权限介绍" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<details class="extra">
+<summary>用户与用户组、文件系统结构详细介绍</summary>
+<p>在这里<a href="https://101.lug.ustc.edu.cn/Ch05/">用户与用户组、文件系统结构</a>介绍地非常详细。</p>
+</details>
+<p><code>ls -l</code> 输出示例及解释<span><span class="heti-spacing"> </span>:</span></p>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a><a href="#__codelineno-10-1"><span class="linenos" data-linenos="1 "></span></a><span class="c1"># drwxr-xr-x 5 user group 4096 Mar 19 19 16:18 dirname</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2"></a><a href="#__codelineno-10-2"><span class="linenos" data-linenos="2 "></span></a>drwxr-xr-x<span class="w">  </span><span class="m">3</span><span class="w"> </span>darstib<span class="w"> </span>darstib<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Mar<span class="w"> </span><span class="m">19</span><span class="w"> </span><span class="m">16</span>:18<span class="w"> </span>demo
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>d</code></td>
+<td>文件类型<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>目录<span><span class="heti-spacing"> </span>)</span></td>
+</tr>
+<tr>
+<td><code>rwxr-xr-x</code></td>
+<td>权限<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>所有者<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>组<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>其他<span><span class="heti-spacing"> </span>)</span></td>
+</tr>
+<tr>
+<td><code>3</code></td>
+<td>硬链接数</td>
+</tr>
+<tr>
+<td><code>user</code></td>
+<td>文件所有者</td>
+</tr>
+<tr>
+<td><code>group</code></td>
+<td>文件所属组</td>
+</tr>
+<tr>
+<td><code>4096</code></td>
+<td>文件大小<span class="heti-skip"><span class="heti-spacing"> </span>(<span class="heti-spacing"> </span></span>字节<span><span class="heti-spacing"> </span>)</span>，<code>-h</code></td>
+</tr>
+<tr>
+<td><code>Mar 19 19 16:18</code></td>
+<td>修改时间</td>
+</tr>
+<tr>
+<td><code>dirname</code></td>
+<td>文件<span class="heti-skip"><span class="heti-spacing"> </span>/<span class="heti-spacing"> </span></span>目录名</td>
+</tr>
+</tbody>
+</table>
+<h4 id="超级用户-sudo">超级用户<span><span class="heti-spacing"> </span>(sudo)</span><a class="headerlink" href="#超级用户-sudo" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<ul>
+<li><code>sudo</code><span>:<span class="heti-spacing"> </span></span>暂时授权用户以超级用户<span class="heti-skip"><span class="heti-spacing"> </span>(root)<span class="heti-spacing"> </span></span>权限执行命令；</li>
+<li>使用场景<span class="heti-skip"><span class="heti-spacing"> </span>:<span class="heti-spacing"> </span></span>权限不足时<span><span class="heti-spacing"> </span>(</span><code>Permission denied</code><span><span class="heti-spacing"> </span>)</span>；</li>
+<li><code>sudo su</code> <span>/<span class="heti-spacing"> </span></span><code>sudo bash</code><span>/<span class="heti-spacing"> </span></span><code>sudo -s</code>切换到超级用户身份；</li>
+<li><code>passwd</code> 更改密码。</li>
+</ul>
+<p>如果我们想以其他用户身份执行，使用 <code>sudo -u user</code> 即可</p>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a><a href="#__codelineno-11-1"><span class="linenos" data-linenos="1 "></span></a>┌──<span class="o">(</span>root㉿Darstib<span class="o">)</span>-<span class="o">[</span>/<span class="o">]</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2"></a><a href="#__codelineno-11-2"><span class="linenos" data-linenos="2 "></span></a>└─#<span class="w"> </span>sudo<span class="w"> </span>-u<span class="w"> </span>darstib<span class="w"> </span>id
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3"></a><a href="#__codelineno-11-3"><span class="linenos" data-linenos="3 "></span></a><span class="nv">uid</span><span class="o">=</span><span class="m">1000</span><span class="o">(</span>darstib<span class="o">)</span><span class="w"> </span><span class="nv">gid</span><span class="o">=</span><span class="m">1000</span><span class="o">(</span>darstib<span class="o">)</span><span class="w"> </span><span class="nv">groups</span><span class="o">=</span><span class="m">1000</span><span class="o">(</span>darstib<span class="o">)</span>,<span class="w"> </span>...
+</span></code></pre></div>
+<h4 id="权限-chmod">权限<span><span class="heti-spacing"> </span>(chmod)</span><a class="headerlink" href="#权限-chmod" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<h5 id="字符串语法">字符串语法<a class="headerlink" href="#字符串语法" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h5>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>u</td>
+<td><span>user (<span class="heti-spacing"> </span></span>所有者<span><span class="heti-spacing"> </span>)</span></td>
+</tr>
+<tr>
+<td>g</td>
+<td><span>group (<span class="heti-spacing"> </span></span>组<span><span class="heti-spacing"> </span>)</span></td>
+</tr>
+<tr>
+<td>o</td>
+<td><span>others (<span class="heti-spacing"> </span></span>其他<span><span class="heti-spacing"> </span>)</span></td>
+</tr>
+<tr>
+<td>a</td>
+<td><span>all (<span class="heti-spacing"> </span></span>所有人<span><span class="heti-spacing"> </span>)</span></td>
+</tr>
+<tr>
+<td>+</td>
+<td>添加权限</td>
+</tr>
+<tr>
+<td>-</td>
+<td>移除权限</td>
+</tr>
+<tr>
+<td>=</td>
+<td>设置权限</td>
+</tr>
+<tr>
+<td>r</td>
+<td><span>read (<span class="heti-spacing"> </span></span>读<span><span class="heti-spacing"> </span>)</span></td>
+</tr>
+<tr>
+<td>w</td>
+<td><span>write (<span class="heti-spacing"> </span></span>写<span><span class="heti-spacing"> </span>)</span></td>
+</tr>
+<tr>
+<td>x</td>
+<td><span>execute (<span class="heti-spacing"> </span></span>执行<span><span class="heti-spacing"> </span>)</span></td>
+</tr>
+</tbody>
+</table>
+<h5 id="八进制语法">八进制语法<a class="headerlink" href="#八进制语法" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h5>
+<table>
+<thead>
+<tr>
+<th>八进制</th>
+<th>二进制</th>
+<th>权限</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>000</td>
+<td>---</td>
+</tr>
+<tr>
+<td>1</td>
+<td>001</td>
+<td>--x</td>
+</tr>
+<tr>
+<td>2</td>
+<td>010</td>
+<td>-w-</td>
+</tr>
+<tr>
+<td>3</td>
+<td>011</td>
+<td>-wx</td>
+</tr>
+<tr>
+<td>4</td>
+<td>100</td>
+<td>r--</td>
+</tr>
+<tr>
+<td>5</td>
+<td>101</td>
+<td>r-x</td>
+</tr>
+<tr>
+<td>6</td>
+<td>110</td>
+<td>rw-</td>
+</tr>
+<tr>
+<td>7</td>
+<td>111</td>
+<td>rwx</td>
+</tr>
+</tbody>
+</table>
+<details class="example">
+<summary>Example</summary>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+<th>权限表示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>chmod -x file</code></td>
+<td>给自己添加执行权限</td>
+<td>rwxr-xr-x</td>
+</tr>
+<tr>
+<td><code>chmod 644 file</code></td>
+<td>设置所有者<span><span class="heti-spacing"> </span>rw</span>，组和其他<span><span class="heti-spacing"> </span>r</span></td>
+<td>rw-r--r--</td>
+</tr>
+<tr>
+<td><code>chmod u+x file</code></td>
+<td>给所有者添加执行权限</td>
+<td>rwxr--r--</td>
+</tr>
+<tr>
+<td><code>chmod g-w file</code></td>
+<td>移除组的写权限</td>
+<td>rwxr-xr--</td>
+</tr>
+<tr>
+<td><code>chmod a=r file</code></td>
+<td>设置所有人只有读权限</td>
+<td>r--r--r--</td>
+</tr>
+</tbody>
+</table>
+</details>
+<details class="info">
+<summary>umask</summary>
+<p><span>umask<span class="heti-spacing"> </span></span>是一个<span class="heti-skip"><span class="heti-spacing"> </span>"<span class="heti-spacing"> </span></span>掩码<span class="heti-skip"><span class="heti-spacing"> </span>"<span class="heti-spacing"> </span></span>值，它决定了新创建的文件和目录会被<span class="heti-skip"><span class="heti-spacing"> </span>"<span class="heti-spacing"> </span></span>屏蔽<span class="heti-skip"><span class="heti-spacing"> </span>"<span class="heti-spacing"> </span></span>掉哪些权限。它采用八进制数表示，工作原理是从默认权限中减去<span class="heti-skip"><span class="heti-spacing"> </span>umask<span class="heti-spacing"> </span></span>值。直接使用 <code>umask</code> 可以获得当前的掩码值；<code>tldr umask</code> 查看用法。</p>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a><a href="#__codelineno-12-1"><span class="linenos" data-linenos="1 "></span></a>$<span class="w"> </span><span class="nb">umask</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a><a href="#__codelineno-12-2"><span class="linenos" data-linenos="2 "></span></a><span class="m">0002</span>
+</span></code></pre></div>
+</details>
+<ul>
+<li>文件的默认权限：666（rw-rw-rw-）</li>
+<li>目录的默认权限：777（rwxrwxrwx）</li>
+</ul>
+<p>最终权限<span class="heti-skip"><span class="heti-spacing"> </span>=<span class="heti-spacing"> </span></span>默认权限<span><span class="heti-spacing"> </span>- umask</span></p>
+<details class="extra">
+<summary>Access Control List (ACL)</summary>
+<p>如果我们想要设置五种不同的权限集，并将它们分配给五个不同的用户呢？在传统模型中，我们最多只能有三种权限集，因此这是不可能实现的。这就是为什么大多数操作系统都实现了一种更通用的模型—访问控制列表（ACLs<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+</details>
+<h4 id="POSIX">POSIX<a class="headerlink" href="#POSIX" title="Permanent link">¶</a></h4>
+<details class="extra">
+<summary>Set-UID</summary>
+<p><span>Set-UID<span class="heti-spacing"> </span></span>机制通过在命令的权限位中设置<strong>特殊标志位</strong>来实现权限控制。当该标志位被激活时，任何执行该命令的用户都将以命令所有者的权限运行程序。若命令所有者是<span class="heti-skip"><span class="heti-spacing"> </span>root<span class="heti-spacing"> </span></span>用户，则该命令将 <u>获得<span class="heti-skip"><span class="heti-spacing"> </span>root<span class="heti-spacing"> </span></span>权限执行</u> 。</p>
+<p>例如，在<span class="heti-skip"><span class="heti-spacing"> </span>Unix<span class="heti-spacing"> </span></span>系统中，一个进程有三个用户<span><span class="heti-spacing"> </span>ID</span>：真实用户<span><span class="heti-spacing"> </span>ID</span>，有效用户<span class="heti-skip"><span class="heti-spacing"> </span>ID<span class="heti-spacing"> </span></span>和保留用户<span><span class="heti-spacing"> </span>ID</span>。</p>
+<ul>
+<li>真实用户<span class="heti-skip"><span class="heti-spacing"> </span>ID<span class="heti-spacing"> </span></span>标明了进程的真正拥有者，即运行该进程的用户。</li>
+<li>有效用户<span class="heti-skip"><span class="heti-spacing"> </span>ID<span class="heti-spacing"> </span></span>是在访问控制中使用的<span><span class="heti-spacing"> </span>ID</span>，这个<span class="heti-skip"><span class="heti-spacing"> </span>ID<span class="heti-spacing"> </span></span>代表了进程拥有什么样的特权。</li>
+</ul>
+<p>对于非<span class="heti-skip"><span class="heti-spacing"> </span>Set-UID<span class="heti-spacing"> </span></span>程序来说，当它被一个用户<span class="heti-skip"><span class="heti-spacing"> </span>ID<span class="heti-spacing"> </span></span>为<span class="heti-skip"><span class="heti-spacing"> </span>5000<span class="heti-spacing"> </span></span>的用户执行时，进程的真实用户<span class="heti-skip"><span class="heti-spacing"> </span>ID<span class="heti-spacing"> </span></span>和有效用户<span class="heti-skip"><span class="heti-spacing"> </span>ID<span class="heti-spacing"> </span></span>都是<span><span class="heti-spacing"> </span>5000</span>。如果该用户执行一个<span class="heti-skip"><span class="heti-spacing"> </span>Set-UID<span class="heti-spacing"> </span></span>程序，真实用户<span class="heti-skip"><span class="heti-spacing"> </span>ID<span class="heti-spacing"> </span></span>仍是<span><span class="heti-spacing"> </span>5000</span>，而有效用户<span class="heti-skip"><span class="heti-spacing"> </span>ID<span class="heti-spacing"> </span></span>则取决于该程序的所有者。如果该程序的所有者是<span><span class="heti-spacing"> </span>root</span>，那么其有效用户<span class="heti-skip"><span class="heti-spacing"> </span>ID<span class="heti-spacing"> </span></span>将为<span><span class="heti-spacing"> </span>0</span>。因为访问控制中使用的是有效用户<span><span class="heti-spacing"> </span>ID</span>。也就是说即便该进程是普通用户执行的，它也拥有<span class="heti-skip"><span class="heti-spacing"> </span>root<span class="heti-spacing"> </span></span>用户的权限。</p>
+<p>这是<span class="heti-skip"><span class="heti-spacing"> </span>Unix<span class="heti-spacing"> </span></span>操作系统中独具特色的权限机制，这种过度授权存在安全风险；若攻击者攻破<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>Set-UID</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>程序即可获取<span class="heti-skip"><span class="heti-spacing"> </span>root<span class="heti-spacing"> </span></span>的所有权限。</p>
+<p>为解决该问题，<span>Linux<span class="heti-spacing"> </span></span>引入了<span class="heti-skip"><span class="heti-spacing"> </span>POSIX<span class="heti-spacing"> </span></span>能力机制。</p>
+</details>
+<p><span>POSIX<span class="heti-spacing"> </span></span>能力机制该机制将<span class="heti-skip"><span class="heti-spacing"> </span>root<span class="heti-spacing"> </span></span>特权拆分为多个独立的<span class="heti-skip"><span class="heti-spacing"> </span>_<span class="heti-spacing"> </span></span>能力单元<span><span class="heti-spacing"> </span>_</span>（capabilities<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，每个单元可单独启用或禁用。例如，具有<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>CAP_DAC_OVERRIDE</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>能力的进程可绕过文件权限检查—即即使文件权限限制用户访问，持有该能力的用户仍可访问文件。</p>
+<p>可通过<span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span><code>"man capabilities"</code><span class="heti-skip"><span class="heti-spacing"> </span><span class="heti-spacing"> </span></span>查看完整的<span class="heti-skip"><span class="heti-spacing"> </span>POSIX<span class="heti-spacing"> </span></span>能力列表。例如：</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1"></a><a href="#__codelineno-13-1"><span class="linenos" data-linenos="1 "></span></a>CAP_DAC_OVERRIDE:    绕过文件读/写/执行权限检查
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2"></a><a href="#__codelineno-13-2"><span class="linenos" data-linenos="2 "></span></a>CAP_DAC_READ_SEARCH: 绕过文件读权限检查...
+</span></code></pre></div>
+<p>使用 <code>getpcaps</code> 可以获得进程的能力</p>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1"></a><a href="#__codelineno-14-1"><span class="linenos" data-linenos=" 1 "></span></a>$<span class="w"> </span>getpcaps
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2"></a><a href="#__codelineno-14-2"><span class="linenos" data-linenos=" 2 "></span></a>usage:<span class="w"> </span>getcaps<span class="w"> </span><span class="o">[</span>opts<span class="o">]</span><span class="w"> </span>&lt;pid&gt;<span class="w"> </span><span class="o">[</span>&lt;pid&gt;<span class="w"> </span>...<span class="o">]</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3"></a><a href="#__codelineno-14-3"><span class="linenos" data-linenos=" 3 "></span></a>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4"></a><a href="#__codelineno-14-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">  </span>This<span class="w"> </span>program<span class="w"> </span>displays<span class="w"> </span>the<span class="w"> </span>capabilities<span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>queried<span class="w"> </span>process<span class="o">(</span>es<span class="o">)</span>.
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5"></a><a href="#__codelineno-14-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">  </span>The<span class="w"> </span>capabilities<span class="w"> </span>are<span class="w"> </span>displayed<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>cap_from_text<span class="o">(</span><span class="m">3</span><span class="o">)</span><span class="w"> </span>format.
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6"></a><a href="#__codelineno-14-6"><span class="linenos" data-linenos=" 6 "></span></a>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7"></a><a href="#__codelineno-14-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">  </span>Optional<span class="w"> </span>arguments:
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8"></a><a href="#__codelineno-14-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">     </span>--help,<span class="w"> </span>-h<span class="w"> </span>or<span class="w"> </span>--usage<span class="w"> </span>display<span class="w"> </span>this<span class="w"> </span>message.
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9"></a><a href="#__codelineno-14-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">     </span>--verbose<span class="w">             </span>use<span class="w"> </span>a<span class="w"> </span>more<span class="w"> </span>verbose<span class="w"> </span>output<span class="w"> </span>format.
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10"></a><a href="#__codelineno-14-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">     </span>--ugly<span class="w"> </span>or<span class="w"> </span>--legacy<span class="w">    </span>use<span class="w"> </span>the<span class="w"> </span>archaic<span class="w"> </span>legacy<span class="w"> </span>output<span class="w"> </span>format.
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11"></a><a href="#__codelineno-14-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">     </span>--iab<span class="w">                 </span>show<span class="w"> </span>IAB<span class="w"> </span>of<span class="w"> </span>process<span class="w"> </span>too.
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12"></a><a href="#__codelineno-14-12"><span class="linenos" data-linenos="12 "></span></a><span class="w">     </span>--license<span class="w">             </span>display<span class="w"> </span>license<span class="w"> </span>info
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13"></a><a href="#__codelineno-14-13"><span class="linenos" data-linenos="13 "></span></a>
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14"></a><a href="#__codelineno-14-14"><span class="linenos" data-linenos="14 "></span></a>Deb<span class="w"> </span>~
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15"></a><a href="#__codelineno-14-15"><span class="linenos" data-linenos="15 "></span></a>$<span class="w"> </span>getpcaps<span class="w"> </span><span class="nv">$$</span>
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16"></a><a href="#__codelineno-14-16"><span class="linenos" data-linenos="16 "></span></a><span class="m">177</span>:<span class="w"> </span><span class="o">=</span>
+</span></code></pre></div>
+<p>使用<span class="heti-skip"><span class="heti-spacing"> </span>setcap<span class="heti-spacing"> </span></span>能够为程序授权：</p>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1"></a><a href="#__codelineno-15-1"><span class="linenos" data-linenos=" 1 "></span></a>seed@VM101:~/sandbox$<span class="w"> </span>cp<span class="w"> </span>/bin/bash<span class="w"> </span>./test_bash
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2"></a><a href="#__codelineno-15-2"><span class="linenos" data-linenos=" 2 "></span></a>seed@VM101:~/sandbox$<span class="w"> </span>./test_bash
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3"></a><a href="#__codelineno-15-3"><span class="linenos" data-linenos=" 3 "></span></a>seed@VM101:~/sandbox$<span class="w"> </span>cat<span class="w"> </span>/etc/shadow
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4"></a><a href="#__codelineno-15-4"><span class="linenos" data-linenos=" 4 "></span></a>cat:<span class="w"> </span>/etc/shadow:<span class="w"> </span>Permission<span class="w"> </span>denied
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5"></a><a href="#__codelineno-15-5"><span class="linenos" data-linenos=" 5 "></span></a>seed@VM101:~/sandbox$<span class="w"> </span><span class="nb">exit</span><span class="w"> </span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6"></a><a href="#__codelineno-15-6"><span class="linenos" data-linenos=" 6 "></span></a>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7"></a><a href="#__codelineno-15-7"><span class="linenos" data-linenos=" 7 "></span></a>seed@VM101:~/sandbox$<span class="w"> </span>sudo<span class="w"> </span>setcap<span class="w"> </span><span class="nv">CAP_DAC_READ_SEARCH</span><span class="o">=</span>ep<span class="w"> </span>./test_bash<span class="w"> </span><span class="c1"># 设置有效位和允许位</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8"></a><a href="#__codelineno-15-8"><span class="linenos" data-linenos=" 8 "></span></a>seed@VM101:~/sandbox$<span class="w"> </span>./test_bash<span class="w"> </span>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9"></a><a href="#__codelineno-15-9"><span class="linenos" data-linenos=" 9 "></span></a>seed@VM101:~/sandbox$<span class="w"> </span>cat<span class="w"> </span>/etc/shadow<span class="w"> </span><span class="c1"># fork 子进程执行 cat，无权限</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10"></a><a href="#__codelineno-15-10"><span class="linenos" data-linenos="10 "></span></a>cat:<span class="w"> </span>/etc/shadow:<span class="w"> </span>Permission<span class="w"> </span>denied
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11"></a><a href="#__codelineno-15-11"><span class="linenos" data-linenos="11 "></span></a>seed@VM101:~/sandbox$<span class="w"> </span>getpcaps<span class="w"> </span><span class="nv">$$</span>
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12"></a><a href="#__codelineno-15-12"><span class="linenos" data-linenos="12 "></span></a><span class="m">13088</span>:<span class="w"> </span><span class="o">=</span><span class="w"> </span>cap_dac_read_search+ep
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13"></a><a href="#__codelineno-15-13"><span class="linenos" data-linenos="13 "></span></a>seed@VM101:~/sandbox$<span class="w"> </span>cat<span class="w"> </span>&lt;<span class="w"> </span>/etc/shadow
+</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14"></a><a href="#__codelineno-15-14"><span class="linenos" data-linenos="14 "></span></a>root<span class="w"> </span>...
+</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15"></a><a href="#__codelineno-15-15"><span class="linenos" data-linenos="15 "></span></a>...
+</span></code></pre></div>
+<h3 id="系统文件结构">系统文件结构<a class="headerlink" href="#系统文件结构" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/14_250314-204022.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/14_250314-204022.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/14_250314-204022.png"/></a>
+</figure>
+<p>在一个<a href="https://www.yuque.com/dogge2333/study/talqwu#525eb713">学长的笔记</a>中将根目录结构讲得比较详细了，其要点整理成表格如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">目录</th>
+<th style="text-align: center;">描述</th>
+<th style="text-align: center;">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>/bin</strong></td>
+<td style="text-align: center;">核心二进制文件，包含基本命令。</td>
+<td style="text-align: center;">链接到 <code>/usr/bin</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>/sbin</code></td>
+<td style="text-align: center;">系统管理员使用的系统管理程序。</td>
+<td style="text-align: center;">Superuser Binaries，链接到 <code>/usr/bin</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>/boot</code></td>
+<td style="text-align: center;">操作系统启动所需文件，包括内核和引导加载程序。</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>/dev</code></td>
+<td style="text-align: center;">设备文件，提供访问硬件设备的端口。</td>
+<td style="text-align: center;">不是驱动程序，而是访问接口</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>/etc</strong></td>
+<td style="text-align: center;">系统配置文件和子目录。</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>/etc/rc.d</code></td>
+<td style="text-align: center;">系统启动和关闭时使用的脚本。</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>/home</strong></td>
+<td style="text-align: center;">用户主目录，每个用户有自己的目录。</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>/lib</code>, <code>/lib64</code></td>
+<td style="text-align: center;">系统及软件所需的动态链接共享库。</td>
+<td style="text-align: center;">类似于<span class="heti-skip"><span class="heti-spacing"> </span>Windows<span class="heti-spacing"> </span></span>的<span><span class="heti-spacing"> </span>DLL</span>，链接到 <code>/usr/lib</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>/mnt</strong></td>
+<td style="text-align: center;">临时挂载其他文件系统的挂载点。</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>/proc</strong></td>
+<td style="text-align: center;">虚拟文件系统，映射系统内存，提供系统信息。</td>
+<td style="text-align: center;">进程信息，可直接访问和修改</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>/root</strong></td>
+<td style="text-align: center;">系统管理员（<span>root<span class="heti-spacing"> </span></span>用户）的主目录。</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>/srv</code></td>
+<td style="text-align: center;">存放服务启动后需要提取的数据。</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>/sys</code></td>
+<td style="text-align: center;">内核设备树的反映<span class="heti-skip"><span class="heti-spacing"> </span>,sysfs<span class="heti-spacing"> </span></span>文件系统。</td>
+<td style="text-align: center;">内核对象创建时，对应文件和目录也会创建</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>/tmp</code></td>
+<td style="text-align: center;">临时文件存放目录。</td>
+<td style="text-align: center;">公共的，所有用户可用</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>/usr</strong></td>
+<td style="text-align: center;">用户应用程序和文件，类似于<span class="heti-skip"><span class="heti-spacing"> </span>Windows<span class="heti-spacing"> </span></span>的 <code>Program Files</code>。</td>
+<td style="text-align: center;">包含<code>/usr/src</code><span class="heti-skip"><span class="heti-spacing"> </span>,<span class="heti-spacing"> </span></span><code>/usr/sbin</code>等</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>/usr/src</code></td>
+<td style="text-align: center;">内核源代码。</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>/usr/sbin</code></td>
+<td style="text-align: center;">超级用户使用的比较高级的管理程序和系统守护程序。</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>/var</code></td>
+<td style="text-align: center;">存放经常变化的文件，如日志文件。</td>
+<td style="text-align: center;">variable</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>/lost+found</code></td>
+<td style="text-align: center;">系统非法关机后，存放的文件。</td>
+<td style="text-align: center;">通常为空</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>/opt</code></td>
+<td style="text-align: center;">可选的附加软件包的安装目录。</td>
+<td style="text-align: center;">默认为空</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>/media</code></td>
+<td style="text-align: center;">自动挂载的可移动介质（如<span class="heti-skip"><span class="heti-spacing"> </span>U<span class="heti-spacing"> </span></span>盘、光驱）的挂载点。</td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<details class="wiki">
+<summary><a href="https://zh.wikipedia.org/wiki/%E7%AC%A6%E5%8F%B7%E9%93%BE%E6%8E%A5">软链接</a></summary>
+<p><strong>符号链接</strong>（英语：Symbolic link<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，又称<strong>软链接</strong>，是一类特殊的<a href="https://zh.wikipedia.org/wiki/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%96%87%E4%BB%B6" title="计算机文件">文件</a>， 其包含有一条以绝对<a href="https://zh.wikipedia.org/wiki/%E8%B7%AF%E5%BE%84_\(%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6\)" title="路径 (计算机科学)">路径</a>或者相对路径的形式指向其它文件或者目录的引用。</p>
+<p>对于软链接可以通过 <code>ls -l /</code> 命令查看。</p>
+</details>
+<h2 id="Windows-Terminal">Windows Terminal<a class="headerlink" href="#Windows-Terminal" title="Permanent link">¶</a></h2>
+<h3 id="安装">安装<a class="headerlink" href="#安装" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>参考<a href="https://learn.microsoft.com/zh-cn/windows/terminal/install">安装并开始设置<span class="heti-skip"><span class="heti-spacing"> </span>Windows<span class="heti-spacing"> </span></span>终端</a>；建议下载<a href="https://www.voidtools.com/zh-cn/"><span><span class="heti-spacing"> </span>everything</span></a>。</p>
+<h3 id="环境变量">环境变量<a class="headerlink" href="#环境变量" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>将 <code>git/usr/bin</code> 加入环境变量以实现命令可执行。</p>
+<h3 id="讲解">讲解<a class="headerlink" href="#讲解" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<figure>
+<a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="80%" href="https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/21_250321-153058.png"><img alt="https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/21_250321-153058.png" src="https://raw.githubusercontent.com/darstib/public_imgs/utool/2503/21_250321-153058.png"/></a>
+<br/>
+<figcaption><span>windows terminal<span class="heti-spacing"> </span></span>设置</figcaption>
+</figure>
+<h2 id="美化参考">美化参考<a class="headerlink" href="#美化参考" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<ul>
+<li><a href="https://www.haoyep.com/posts/zsh-config-oh-my-zsh/"><span>zsh + oh-my-zsh<span class="heti-spacing"> </span></span>配置</a></li>
+<li>windows<ul>
+<li><a href="https://www.codestar.top/2024/09/11/Windows/Windows-Terminal%E5%86%85%E6%A0%B8%E3%80%81%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96%E5%85%A8%E6%B5%81%E7%A8%8B/"><span>Windows Terminal<span class="heti-spacing"> </span></span>内核优化，主题配置</a></li>
+<li><a href="https://www.iyouhun.com/post-266.html"><span>windows<span class="heti-spacing"> </span></span>中使用<span class="heti-skip"><span class="heti-spacing"> </span>Oh My Posh<span class="heti-spacing"> </span></span>美化你的终端<span class="heti-skip"><span class="heti-spacing"> </span>PowerShell<span class="heti-spacing"> </span></span>或<span><span class="heti-spacing"> </span>CMD</span></a></li>
+<li><a href="https://ohmyposh.dev/docs/installation/windows">oh my posh setup on windows</a><ul>
+<li><a href="https://ohmyposh.dev/docs/installation/prompt">change your prompt</a></li>
+</ul>
+</li>
+<li><a href="https://zhuanlan.zhihu.com/p/56808199">告别<span class="heti-skip"><span class="heti-spacing"> </span>Windows<span class="heti-spacing"> </span></span>终端的难看难用，从改造<span class="heti-skip"><span class="heti-spacing"> </span>PowerShell<span class="heti-spacing"> </span></span>的外观开始</a></li>
+</ul>
+</li>
+<li>mac<ul>
+<li><a href="https://guoxudong.io/post/iterm2/#iterm2"><span>iTerm2<span class="heti-spacing"> </span></span>安装配置</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="参考资料">参考资料<a class="headerlink" href="#参考资料" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<ul>
+<li><a href="https://blog.codecyrus.com/posts/linux-shell-basic-usage/">Cyrus' Blog</a></li>
+<li><a href="https://101.lug.ustc.edu.cn/">《linux 101》</a></li>
+<li><a href="https://missing.csail.mit.edu/">MIT The Missing Semester of Your CS Education</a></li>
+<li><a href="https://slides.tonycrane.cc/PracticalSkillsTutorial/2023-spring-cs/lec1/#/5/1">一些推荐的命令行工具</a></li>
+<li><a href="https://www.peterjxl.com/Terminal/Recommend/"><span>20<span class="heti-spacing"> </span></span>款优秀的终端工具推荐</a></li>
+</ul>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn:1">
+<p>一般情况下，对于单字符且不带参数的选项可以简写，顺序 <u>通常</u> 不影响结果。 <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年9月29日 20:52:50 CST">2025年9月29日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月22日 21:26:44 CST">2025年3月22日</span>
+</span>
+</aside>
+<form class="md-feedback" hidden="" name="feedback">
+<fieldset>
+<legend class="md-feedback__title">
+        如果这对你有用的话，请给我点个star吧 ===&gt; <a href="https://github.com/darstib/knowledge-graph"><img alt="GitHub stars" src="https://img.shields.io/github/stars/darstib/knowledge-graph.svg?style=plastic&amp;label=Stars"/></a>
+</legend>
+<div class="md-feedback__inner">
+<div class="md-feedback__list">
+<button class="md-feedback__icon md-icon" data-md-value="1" title="This page was helpful" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"></path></svg>
+</button>
+<button class="md-feedback__icon md-icon" data-md-value="0" title="This page could be improved" type="submit">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c.67 0 1.32.12 1.94.33L13 9.35l-4 5zM16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35l-1-7 4.5-5-2.65-5.08C13.87 3.47 15.17 3 16.5 3"></path></svg>
+</button>
+</div>
+<div class="md-feedback__note">
+<div data-md-value="1" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢支持！如果能点个Star就更好啦！
+            </div>
+<div data-md-value="0" hidden="">
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              感谢反馈！可以在下方评论区留言或者直接<a href="https://darstib.github.io/knowledge-graph/connect_me/">联系我噢</a>哦！
+            </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div id="__comments">
+<!-- <h3>颜色主题调整</h3>
+
+    <div class="tx-switch">
+        <button class="button1" data-md-color-primary="red" style="background-color:red">red</button>
+        <button class="button1" data-md-color-primary="pink" style="background-color:pink;color:black">pink</button>
+        <button class="button1" data-md-color-primary="purple" style="background-color:purple">purple</button>
+        <button class="button1" data-md-color-primary="indigo" style="background-color:indigo">indigo</button>
+        <button class="button1" data-md-color-primary="blue" style="background-color:blue">blue</button>
+        <button class="button1" data-md-color-primary="cyan" style="background-color:cyan;color:black">cyan</button>
+        <button class="button1" data-md-color-primary="teal" style="background-color:teal">teal</button>
+        <button class="button1" data-md-color-primary="green" style="background-color:green">green</button>
+        <button class="button1" data-md-color-primary="lime" style="background-color:lime;color:black">lime</button>
+        <button class="button1" data-md-color-primary="orange"
+            style="background-color:orange;color:black">orange</button>
+        <button class="button1" data-md-color-primary="brown" style="background-color:brown;color:white">brown</button>
+        <button class="button1" data-md-color-primary="grey" style="background-color:grey;color: white">grey</button>
+        <button class="button1" data-md-color-primary="black" style="background-color:black">black</button>
+        <button class="button1" data-md-color-primary="white" style="background-color:white;color:black">white</button>
+
+    </div> -->
+<!-- <script>
+        var buttons = document.querySelectorAll("button[data-md-color-primary]")
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var attr = this.getAttribute("data-md-color-primary")
+                document.body.setAttribute("data-md-color-primary", attr)
+                localStorage.setItem("data-md-color-primary", attr);
+            })
+        })
+    </script> -->
+<h2 id="__comments">评论</h2>
+<!-- 仓库已由 Darstib/blog 改名为 knowledge-graph：data-repo 必须用新名字；
+         data-repo-id / data-category-id 是节点 id，随仓库实体保留，无需变更 -->
+<script async="" crossorigin="anonymous" data-category-id="DIC_kwDOLgD7mM4Cd_nY" data-emit-metadata="0" data-input-position="top" data-lang="zh-CN" data-loading="lazy" data-mapping="pathname" data-reactions-enabled="1" data-repo="darstib/knowledge-graph" data-repo-id="R_kgDOLgD7mA" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+        var giscus = document.querySelector("script[src*=giscus]")
+
+        // Set palette on initial load
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+            var theme = palette.color.scheme === "slate"
+                ? "transparent_dark"
+                : "light"
+
+            // Instruct Giscus to set theme
+            giscus.setAttribute("data-theme", theme)
+        }
+
+        // Register event handlers after documented loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            var ref = document.querySelector("[data-md-component=palette]")
+            ref.addEventListener("change", function () {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object") {
+                    var theme = palette.color.scheme === "slate"
+                        ? "transparent_dark"
+                        : "light"
+
+                    // Instruct Giscus to change theme
+                    var frame = document.querySelector(".giscus-frame")
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme } } },
+                        "https://giscus.app"
+                    )
+                }
+            })
+        })
+    </script>
+</div>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: Skill_learn" class="md-footer__link md-footer__link--prev" href="../">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l137.3-137.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                Skill_learn
+              </div>
+</div>
+</a>
+<a aria-label="下一页: 2 git" class="md-footer__link md-footer__link--next" href="../2-git/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                2 git
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M247.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L179.2 256 41.9 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2024 - 2025 Darstib – <a href="#__consent">Change cookie settings</a>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/darstib" rel="noopener" target="_blank" title="github/darstib">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+<a class="md-social__link" href="mailto:darstibreed@gmail.com" rel="noopener" target="_blank" title="Gmail">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"CSS": "css", "HTML5": "html", "JavaScript": "js"}, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+<script src="../../../js/tablesort.js"></script>
+<script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="../../../js/katex.min.js"></script>
+<script src="https://gcore.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+<script src="https://jsd.cdn.zzko.cn/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>
